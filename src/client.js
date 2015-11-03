@@ -72,7 +72,7 @@ function updateItems(query){
 }
 
 function fetchHtml(id, cb){
-  $.getJSON('/data/sec/' + id + '.json', (res) => {
+  $.getJSON('data/sec/' + id + '.json', (res) => {
     cb(null, res.html);
   });
 }
