@@ -24,7 +24,8 @@ els.SearchInput.focus();
 
 $(document).on('click', (e) => {
   if (e.target.href) {
-    alert(e.target.href);
+    e.preventDefault();
+    location.href = '/es6-spec/' + e.target.pathname;
   }
 });
 
