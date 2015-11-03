@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.1.15"><a href="/sec/sec-getprototypefromconstructor.html" title="link to this section">9.1.15</a></span> GetPrototypeFromConstructor ( constructor, intrinsicDefaultProto )</h1>
+
+      <p class="normalbefore">The abstract operation GetPrototypeFromConstructor determines the [[Prototype]] value that should be
+      used to create an object corresponding to a specific constructor. The value is retrieved from the constructor&#x2019;s
+      <code>prototype</code> property, if it exists. Otherwise the intrinsic named by <var>intrinsicDefaultProto</var> is used for
+      [[Prototype]]. This abstract operation performs the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>intrinsicDefaultProto</i> is a String value that is this
+            specification&#x2019;s name of an intrinsic object. The corresponding object must be an intrinsic that is intended to
+            be used as the [[Prototype]] value of an object.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-isconstructor.html">IsConstructor</a> (<i>constructor</i>)
+            is <b>true</b>.</li>
+        <li>Let <i>proto</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>constructor</i>, <code>&quot;prototype&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>proto</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>proto</i>) is not Object, then
+          <ol class="block">
+            <li>Let <i>realm</i> be <a href="/sec/sec-getfunctionrealm.html">GetFunctionRealm</a>(<i>constructor</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>realm</i>).</li>
+            <li>Let <i>proto</i> be <i>realm&#x2019;s</i> intrinsic object named <i>intrinsicDefaultProto</i>.</li>
+          </ol>
+        </li>
+        <li>Return <i>proto</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> If <i>constructor</i> does not supply a [[Prototype]] value, the default value that is
+        used is obtained from the <a href="/sec/sec-code-realms.html">Code Realm</a> of the <i>constructor</i> function rather than from <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

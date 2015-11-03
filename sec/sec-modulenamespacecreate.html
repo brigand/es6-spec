@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-9.4.6.13"><a href="/sec/sec-modulenamespacecreate.html" title="link to this section">9.4.6.13</a></span> ModuleNamespaceCreate (module, exports)</h1>
+
+        <p class="normalbefore">The abstract operation ModuleNamespaceCreate with arguments <var>module</var>, and
+        <var>exports</var> is used to specify the creation of new module namespace exotic objects. It performs the following
+        steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>module</i> is a <a href="/sec/sec-abstract-module-records.html">Module
+              Record</a> (<a href="/sec/sec-abstract-module-records.html">see 15.2.1.15</a>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>module</i>.[[Namespace]] is <b>undefined</b>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>exports</i> is a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of String values.</li>
+          <li>Let <i>M</i> be a newly created object.</li>
+          <li>Set <i>M</i>&#x2019;s essential internal methods to the definitions specified in <a href="/sec/sec-module-namespace-exotic-objects.html">9.4.6</a>.</li>
+          <li>Set <i>M</i>&#x2019;s [[Module]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <i>module</i>.</li>
+          <li>Set <i>M</i>&#x2019;s [[Exports]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <i>exports</i>.</li>
+          <li>Create own properties of <i>M</i> corresponding to the definitions in <a href="/sec/sec-module-namespace-objects.html">26.3</a>.</li>
+          <li>Set <i>module</i>.[[Namespace]] to <i>M</i>.</li>
+          <li>Return <i>M</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

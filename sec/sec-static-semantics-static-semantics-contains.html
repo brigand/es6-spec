@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-12.3.1.1"><a href="/sec/sec-static-semantics-static-semantics-contains.html" title="link to this section">12.3.1.1</a></span> Static Semantics:  Contains</h1>
+
+        <p>With parameter <var>symbol</var>.</p>
+
+        <p>See also: <a href="/sec/sec-static-semantic-rules.html">5.3</a>, <a href="/sec/sec-object-initializer-static-semantics-contains.html">12.2.6.3</a>, <a href="/sec/sec-function-definitions-static-semantics-contains.html">14.1.4</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-contains.html">14.2.3</a>, <a href="/sec/sec-generator-function-definitions-static-semantics-contains.html">14.4.4</a>, <a href="/sec/sec-class-definitions-static-semantics-contains.html">14.5.4</a></p>
+
+        <div class="gp prod"><span class="nt">MemberExpression</span> <span class="geq">:</span> <span class="nt">MemberExpression</span> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+        <ol class="proc">
+          <li>If  <i>MemberExpression</i> Contains <i>symbol</i> is <b>true</b>, return <b>true</b>.</li>
+          <li>If <i>symbol</i> is a <i>ReservedWord</i>, return <b>false</b>.</li>
+          <li>If <i>symbol</i> is an <i>Identifier</i> and StringValue of <i>symbol</i> is the same value as the StringValue of
+              <i>IdentifierName</i>, return <b>true</b>;</li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">SuperProperty</span> <span class="geq">:</span> <code class="t">super</code> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+        <ol class="proc">
+          <li>If  <i>symbol</i> is the <i>ReservedWord</i> <code>super</code>, return <b>true</b>.</li>
+          <li>If <i>symbol</i> is a <i>ReservedWord</i>, return <b>false</b>.</li>
+          <li>If <i>symbol</i> is an <i>Identifier</i> and StringValue of <i>symbol</i> is the same value as the StringValue of
+              <i>IdentifierName</i>, return <b>true</b>;</li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">CallExpression</span> <span class="geq">:</span> <span class="nt">CallExpression</span> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+        <ol class="proc">
+          <li>If  <i>CallExpression</i> Contains <i>symbol</i> is <b>true</b>, return <b>true</b>.</li>
+          <li>If <i>symbol</i> is a <i>ReservedWord</i>, return <b>false</b>.</li>
+          <li>If <i>symbol</i> is an <i>Identifier</i> and StringValue of <i>symbol</i> is the same value as the StringValue of
+              <i>IdentifierName</i>, return <b>true</b>;</li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

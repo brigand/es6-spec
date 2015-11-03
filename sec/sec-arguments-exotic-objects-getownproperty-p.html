@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-9.4.4.1"><a href="/sec/sec-arguments-exotic-objects-getownproperty-p.html" title="link to this section">9.4.4.1</a></span> [[GetOwnProperty]] (P)</h1>
+
+        <p>The [[GetOwnProperty]] internal method of an arguments exotic object when called with a <a href="/sec/sec-object-type.html">property key</a> <var>P</var> performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>args</i> be the arguments object.</li>
+          <li>Let <i>desc</i> be <a href="/sec/sec-ordinarygetownproperty.html">OrdinaryGetOwnProperty</a>(<i>args</i>, <i>P</i>).</li>
+          <li>If <i>desc</i> is <b>undefined</b>, return <i>desc</i>.</li>
+          <li>Let <i>map</i> be the value of the [[ParameterMap]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the arguments object.</li>
+          <li>Let <i>isMapped</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>map</i>, <i>P</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>isMapped</i> is never an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+          <li>If the value of <i>isMapped</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Set <i>desc</i>.[[Value]] to <a href="/sec/sec-get-o-p.html">Get</a>(<i>map</i>, <i>P</i>).</li>
+            </ol>
+          </li>
+          <li>If <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>desc</i>) is <b>true</b> and <i>P</i> is
+              <code>&quot;caller&quot;</code> and <i>desc</i>.[[Value]] is a strict mode Function object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Return <i>desc</i>.</li>
+        </ol>
+
+        <p>If an implementation does not provide a built-in <code>caller</code> property for argument exotic objects then step 8
+        of this algorithm is must be skipped.</p>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

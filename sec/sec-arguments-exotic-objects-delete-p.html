@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-9.4.4.5"><a href="/sec/sec-arguments-exotic-objects-delete-p.html" title="link to this section">9.4.4.5</a></span> [[Delete]] (P)</h1>
+
+        <p>The [[Delete]] internal method of an arguments exotic object when called with a <a href="/sec/sec-object-type.html">property
+        key</a> <var>P</var> performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>map</i> be the value of the [[ParameterMap]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the arguments object.</li>
+          <li>Let <i>isMapped</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>map</i>, <i>P</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>isMapped</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+          <li>Let <i>result</i> be the result of calling the default [[Delete]] internal method for ordinary objects (<a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-delete-p.html">9.1.10</a>) on the arguments object passing
+              <i>P</i> as the argument.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>result</i>).</li>
+          <li>If <i>result</i> is <b>true</b> and the value of <i>isMapped</i> is <b>true</b>, then
+            <ol class="block">
+              <li><a href="/sec/sec-call.html">Call</a> <i>map</i>.[[Delete]](<i>P</i>).</li>
+            </ol>
+          </li>
+          <li>Return <i>result</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

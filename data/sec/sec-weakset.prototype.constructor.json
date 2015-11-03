@@ -1,0 +1,1 @@
+{"id":"sec-weakset.prototype.constructor","html":"\n        <h1><span class=\"secnum\" id=\"sec-23.4.3.2\"><a href=\"/sec/sec-weakset.prototype.constructor.html\" title=\"link to this section\">23.4.3.2</a></span> WeakSet.prototype.constructor</h1>\n\n        <p>The initial value of <code>WeakSet.prototype.constructor</code> is the %WeakSet% intrinsic object.</p>\n      "}

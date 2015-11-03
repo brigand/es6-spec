@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-19.1.2.8.1"><a href="/sec/sec-getownpropertykeys.html" title="link to this section">19.1.2.8.1</a></span> Runtime Semantics:  GetOwnPropertyKeys ( O, Type )</h1>
+
+          <p class="normalbefore">The abstract operation GetOwnPropertyKeys is called with arguments <var>O</var> and <span class="nt">Type</span> where <var>O</var> is an Object and <span class="nt">Type</span> is one of the ECMAScript
+          specification types String or Symbol. The following steps are taken:</p>
+
+          <ol class="proc">
+            <li>Let <i>obj</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<i>O</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>obj</i>).</li>
+            <li>Let <i>keys</i> be <i>obj.</i>[[OwnPropertyKeys]]().</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>keys</i>).</li>
+            <li>Let <i>nameList</i> be a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+            <li>Repeat for each element <i>nextKey</i> of <i>keys</i> in <a href="/sec/sec-list-and-record-specification-type.html">List</a> order,
+              <ol class="block">
+                <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>nextKey</i>) is <i>Type</i>, then
+                  <ol class="block">
+                    <li>Append <i>nextKey</i> as the last element of <i>nameList</i>.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+            <li>Return <a href="/sec/sec-createarrayfromlist.html">CreateArrayFromList</a>(<i>nameList</i>).</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

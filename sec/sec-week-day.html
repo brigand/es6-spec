@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.3.1.6"><a href="/sec/sec-week-day.html" title="link to this section">20.3.1.6</a></span> Week
+            Day</h1>
+
+        <p class="normalbefore">The weekday for a particular <a href="/sec/sec-time-values-and-time-range.html">time value</a> <var>t</var>
+        is defined as</p>
+
+        <p class="normalBullet">WeekDay(<i>t</i>) = (<a href="/sec/sec-day-number-and-time-within-day.html">Day</a>(<i>t</i>) + 4) <a href="/sec/sec-algorithm-conventions.html">modulo</a> 7</p>
+
+        <p>A weekday value of <span style="font-family: Times New Roman">0</span> specifies Sunday; <span style="font-family:
+        Times New Roman">1</span> specifies Monday; <span style="font-family: Times New Roman">2</span> specifies Tuesday; <span style="font-family: Times New Roman">3</span> specifies Wednesday; <span style="font-family: Times New
+        Roman">4</span>&#xA0;specifies Thursday; <span style="font-family: Times New Roman">5</span> specifies Friday; and <span style="font-family: Times New Roman">6</span> specifies Saturday. Note that <span style="font-family: Times New
+        Roman">WeekDay(0) = 4</span>, corresponding to Thursday, 01 January, 1970.</p>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

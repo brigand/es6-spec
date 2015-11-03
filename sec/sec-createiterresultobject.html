@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.4.7"><a href="/sec/sec-createiterresultobject.html" title="link to this section">7.4.7</a></span>
+          CreateIterResultObject ( value, done )</h1>
+
+      <p class="normalbefore">The abstract operation CreateIterResultObject with arguments <var>value</var> and <var>done</var>
+      creates an object that supports the IteratorResult interface by performing the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>done</i>)
+            is Boolean.</li>
+        <li>Let <i>obj</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<span style="font-family:
+            sans-serif">%ObjectPrototype%</span>).</li>
+        <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i>, <code>&quot;value&quot;</code>, <i>value</i>).</li>
+        <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i>, <code>&quot;done&quot;</code>, <i>done</i>).</li>
+        <li>Return <i>obj</i>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

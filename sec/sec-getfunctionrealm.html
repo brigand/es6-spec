@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.3.22"><a href="/sec/sec-getfunctionrealm.html" title="link to this section">7.3.22</a></span>
+          GetFunctionRealm ( obj )</h1>
+
+      <p class="normalbefore">The abstract operation GetFunctionRealm with argument <var>obj</var> performs the following
+      steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>obj</i> is a callable object.</li>
+        <li>If <i>obj</i> has a [[Realm]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, then
+          <ol class="block">
+            <li>Return <i>obj</i>&#x2019;s [[Realm]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                slot</a>.</li>
+          </ol>
+        </li>
+        <li>If <i>obj</i> is a <a href="/sec/sec-bound-function-exotic-objects.html">Bound Function</a> exotic object, then
+          <ol class="block">
+            <li>Let <i>target</i> be <i>obj</i>&#x2019;s <a href="/sec/sec-bound-function-exotic-objects.html">[[BoundTargetFunction]]</a>
+                <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Return GetFunctionRealm(<i>target</i>).</li>
+          </ol>
+        </li>
+        <li>If <i>obj</i> is a Proxy exotic object, then
+          <ol class="block">
+            <li>If the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>
+                of <i>obj</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+            <li>Let <i>proxyTarget</i> be the value of <i>obj</i>&#x2019;s [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Return GetFunctionRealm(<i>proxyTarget</i>).</li>
+          </ol>
+        </li>
+        <li>Return <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-code-realms.html">Realm</a>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> Step 5 will only be reached if <var>target</var> is a non-standard exotic function object
+        that does not have a [[Realm]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

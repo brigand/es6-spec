@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.3.1.7"><a href="/sec/sec-local-time-zone-adjustment.html" title="link to this section">20.3.1.7</a></span> Local Time Zone Adjustment</h1>
+
+        <p>An implementation of ECMAScript is expected to determine the local time zone adjustment. The local time zone adjustment
+        is a value LocalTZA measured in milliseconds which when added to UTC represents the local <i>standard</i> time. Daylight
+        saving time is <i>not</i> reflected by LocalTZA.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> It is recommended that implementations use the time zone information of the IANA Time
+          Zone Database  <a href="http://www.iana.org/time-zones/">http://www.iana.org/time-zones/</a>.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

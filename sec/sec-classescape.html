@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.2.2.19"><a href="/sec/sec-classescape.html" title="link to this section">21.2.2.19</a></span>
+            ClassEscape</h1>
+
+        <p class="normalbefore">The production <span class="prod"><span class="nt">ClassEscape</span> <span class="geq">::</span>
+        <span class="nt">DecimalEscape</span></span> evaluates as follows:</p>
+
+        <ol class="proc">
+          <li>Evaluate <i>DecimalEscape</i> to obtain an EscapeValue <i>E</i>.</li>
+          <li>If <i>E</i> is not a character, throw a <b>SyntaxError</b> exception.</li>
+          <li>Let <i>ch</i> be <i>E</i>&apos;s character.</li>
+          <li>Return the one-element CharSet containing the character <i>ch</i>.</li>
+        </ol>
+
+        <p class="normalbefore">The production <span class="prod"><span class="nt">ClassEscape</span> <span class="geq">::</span>
+        <code class="t">b</code></span> evaluates as follows:</p>
+
+        <ol class="proc">
+          <li>Return the CharSet containing the single character &lt;BS&gt; U+0008 (BACKSPACE).</li>
+        </ol>
+
+        <p class="normalbefore">The production <span class="prod"><span class="nt">ClassEscape</span> <span class="geq">::</span>
+        <code class="t">-</code></span> evaluates as follows:</p>
+
+        <ol class="proc">
+          <li>Return the CharSet containing the single character - U+002D (HYPEN-MINUS).</li>
+        </ol>
+
+        <p class="normalbefore">The production <span class="prod"><span class="nt">ClassEscape</span> <span class="geq">::</span>
+        <span class="nt">CharacterEscape</span></span> evaluates as follows:</p>
+
+        <ol class="proc">
+          <li>Return the CharSet containing the single character that is the result of evaluating <i>CharacterEscape</i>.</li>
+        </ol>
+
+        <p class="normalbefore">The production <span class="prod"><span class="nt">ClassEscape</span> <span class="geq">::</span>
+        <span class="nt">CharacterClassEscape</span></span> evaluates as follows:</p>
+
+        <ol class="proc">
+          <li>Return the CharSet that is the result of evaluating <i>CharacterClassEscape</i>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> A <span class="nt">ClassAtom</span> can use any of the escape sequences that are allowed
+          in the rest of the regular expression except for <code>\b</code>, <code>\B</code>, and backreferences. Inside a <span class="nt">CharacterClass</span>, <code>\b</code> means the backspace character, while <code>\B</code> and
+          backreferences raise errors. Using a backreference inside a <span class="nt">ClassAtom</span> causes an error.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

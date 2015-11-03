@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.4.5"><a href="/sec/sec-iteratorstep.html" title="link to this section">7.4.5</a></span>
+          IteratorStep ( iterator )</h1>
+
+      <p class="normalbefore">The abstract operation IteratorStep with argument <var>iterator</var> requests the next value from
+      <var>iterator</var> and returns either <span class="value">false</span> indicating that the iterator has reached its end or
+      the IteratorResult object if a next value is available. IteratorStep performs the following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>result</i> be <a href="/sec/sec-iteratornext.html">IteratorNext</a>(<i>iterator</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>result</i>).</li>
+        <li>Let <i>done</i> be <a href="/sec/sec-iteratorcomplete.html">IteratorComplete</a>(<i>result</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>done</i>).</li>
+        <li>If <i>done</i> is <b>true</b>, return <b>false</b>.</li>
+        <li>Return <i>result</i>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

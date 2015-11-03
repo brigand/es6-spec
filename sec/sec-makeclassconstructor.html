@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.2.9"><a href="/sec/sec-makeclassconstructor.html" title="link to this section">9.2.9</a></span>
+          MakeClassConstructor ( F)</h1>
+
+      <p>The abstract operation MakeClassConstructor with argument <var>F</var> performs the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>F</i> is an <a href="/sec/sec-ecmascript-function-objects.html">ECMAScript
+            function object</a>.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>F</i>&#x2019;s [[FunctionKind]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is <code>&quot;normal&quot;</code>.</li>
+        <li>Set <i>F</i>&#x2019;s [[FunctionKind]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+            <code>&quot;classConstructor&quot;</code>.</li>
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

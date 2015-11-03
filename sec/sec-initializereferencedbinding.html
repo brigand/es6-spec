@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-6.2.3.4"><a href="/sec/sec-initializereferencedbinding.html" title="link to this section">6.2.3.4</a></span> InitializeReferencedBinding (V, W)</h1>
+        <ol class="proc">
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>V</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>W</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>V</i>)
+              is <a href="/sec/sec-reference-specification-type.html">Reference</a>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-reference-specification-type.html">IsUnresolvableReference</a>(<i>V</i>) is <b>false</b>.</li>
+          <li>Let <i>base</i> be <a href="/sec/sec-reference-specification-type.html">GetBase</a>(<i>V</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>base</i> is an <a href="/sec/sec-environment-records.html">Environment
+              Record</a>.</li>
+          <li>Return <i>base.</i>InitializeBinding(<a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>V</i>),
+              <i>W</i>).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

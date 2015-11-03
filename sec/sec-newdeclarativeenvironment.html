@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-8.1.2.2"><a href="/sec/sec-newdeclarativeenvironment.html" title="link to this section">8.1.2.2</a></span> NewDeclarativeEnvironment (E)</h1>
+
+        <p class="normalbefore">When the abstract operation NewDeclarativeEnvironment is called with a <a href="/sec/sec-lexical-environments.html">Lexical Environment</a> as argument <var>E</var> the following steps are performed:</p>
+
+        <ol class="proc">
+          <li>Let <i>env</i> be a new <a href="/sec/sec-lexical-environments.html">Lexical Environment</a>.</li>
+          <li>Let <i>envRec</i> be a new declarative <a href="/sec/sec-environment-records.html">Environment Record</a> containing no
+              bindings.</li>
+          <li>Set <i>env&#x2019;s</i> <a href="/sec/sec-lexical-environments.html">EnvironmentRecord</a> to be <i>envRec</i>.</li>
+          <li>Set the <a href="/sec/sec-lexical-environments.html">outer lexical environment reference</a> of <i>env</i> to <i>E</i>.</li>
+          <li>Return <i>env</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

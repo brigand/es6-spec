@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.3.16"><a href="/sec/sec-createarrayfromlist.html" title="link to this section">7.3.16</a></span>
+          CreateArrayFromList (elements)</h1>
+
+      <p class="normalbefore">The abstract operation <span style="font-family: Times New Roman">CreateArrayFromList</span> is used
+      to create an Array object whose elements are provided by a <a href="/sec/sec-list-and-record-specification-type.html">List</a>. This
+      abstract operation performs the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>elements</i> is a <a href="/sec/sec-list-and-record-specification-type.html">List</a> whose elements are all <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language values</a>.</li>
+        <li>Let <i>array</i> be <a href="/sec/sec-arraycreate.html">ArrayCreate</a>(0) (<a href="/sec/sec-arraycreate.html">see 9.4.2.2</a>).</li>
+        <li>Let <i>n</i> be 0.</li>
+        <li>For each element <i>e</i> of <i>elements</i>
+          <ol class="block">
+            <li>Let <i>status</i> be <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>array</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>n</i>), <i>e</i>).</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <i>status</i> is <b>true</b>.</li>
+            <li>Increment <i>n</i> by 1.</li>
+          </ol>
+        </li>
+        <li>Return <i>array</i>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

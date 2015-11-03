@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.5.12"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-ownpropertykeys.html" title="link to this section">9.5.12</a></span> [[OwnPropertyKeys]] ( )</h1>
+
+      <p class="normalbefore">When the [[OwnPropertyKeys]] internal method of a Proxy exotic object <var>O</var> is called the
+      following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <i>handler</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is Object.</li>
+        <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>trap</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>handler</i>, <code>&quot;ownKeys&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trap</i>).</li>
+        <li>If <i>trap</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Return <i>target</i>.[[OwnPropertyKeys]]().</li>
+          </ol>
+        </li>
+        <li>Let <i>trapResultArray</i> be <a href="/sec/sec-call.html">Call</a>(<i>trap</i>, <i>handler</i>,
+            &#xAB;<i>target</i>&#xBB;).</li>
+        <li>Let <i>trapResult</i> be <a href="/sec/sec-createlistfromarraylike.html">CreateListFromArrayLike</a>(<i>trapResultArray</i>,
+            &#xAB;&#x200D;String, Symbol&#xBB;).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trapResult</i>).</li>
+        <li>Let <i>extensibleTarget</i> be <a href="/sec/sec-isextensible-o.html">IsExtensible</a>(<i>target</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>extensibleTarget</i>).</li>
+        <li>Let <i>targetKeys</i> be <i>target</i>.[[OwnPropertyKeys]]().</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetKeys</i>).</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>targetKeys</i> is a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing only String and Symbol values.</li>
+        <li>Let <i>targetConfigurableKeys</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>Let <i>targetNonconfigurableKeys</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>Repeat, for each element <i>key</i> of <i>targetKeys</i>,
+          <ol class="block">
+            <li>Let <i>desc</i> be <i>target</i>.[[GetOwnProperty]](<i>key</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>desc</i>).</li>
+            <li>If <i>desc</i> is not <b>undefined</b> and <i>desc.</i>[[Configurable]] is <b>false</b>, then
+              <ol class="block">
+                <li>Append <i>key</i> as an element of <i>targetNonconfigurableKeys</i>.</li>
+              </ol>
+            </li>
+            <li>Else,
+              <ol class="block">
+                <li>Append <i>key</i> as an element of <i>targetConfigurableKeys</i>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>If <i>extensibleTarget</i> is <b>true</b> and <i>targetNonconfigurableKeys</i> is empty, then
+          <ol class="block">
+            <li>Return <i>trapResult</i>.</li>
+          </ol>
+        </li>
+        <li>Let <i>uncheckedResultKeys</i> be a new <a href="/sec/sec-list-and-record-specification-type.html">List</a> which is a copy of
+            <i>trapResult</i>.</li>
+        <li>Repeat, for each <i>key</i> that is an element of <i>targetNonconfigurableKeys</i>,
+          <ol class="block">
+            <li>If <i>key</i> is not an element of <i>uncheckedResultKeys</i>, throw a <b>TypeError</b> exception.</li>
+            <li>Remove <i>key</i> from <i>uncheckedResultKeys</i></li>
+          </ol>
+        </li>
+        <li>If <i>extensibleTarget</i> is <b>true</b>, return <i>trapResult</i>.</li>
+        <li>Repeat, for each <i>key</i> that is an element of <i>targetConfigurableKeys</i>,
+          <ol class="block">
+            <li>If <i>key</i> is not an element of <i>uncheckedResultKeys</i>, throw a <b>TypeError</b> exception.</li>
+            <li>Remove <i>key</i> from <i>uncheckedResultKeys</i></li>
+          </ol>
+        </li>
+        <li>If <i>uncheckedResultKeys</i> is not empty, throw a <b>TypeError</b> exception.</li>
+        <li>Return <i>trapResult</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> [[OwnPropertyKeys]] for proxy objects enforces the following invariants:</p>
+
+        <ul>
+          <li>
+            <p>The result of [[OwnPropertyKeys]] is a <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</p>
+          </li>
+
+          <li>
+            <p>The Type of each result <a href="/sec/sec-list-and-record-specification-type.html">List</a> element is either String or
+            Symbol.</p>
+          </li>
+
+          <li>
+            <p>The result <a href="/sec/sec-list-and-record-specification-type.html">List</a> must contain the keys of all non-configurable
+            own properties of the target object.</p>
+          </li>
+
+          <li>
+            <p>If the target object is not extensible, then the result <a href="/sec/sec-list-and-record-specification-type.html">List</a>
+            must contain all the keys of the own properties of the target object and no other values.</p>
+          </li>
+        </ul>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

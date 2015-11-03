@@ -1,0 +1,1 @@
+{"id":"sec-date.prototype.constructor","html":"\n        <h1><span class=\"secnum\" id=\"sec-20.3.4.1\"><a href=\"/sec/sec-date.prototype.constructor.html\" title=\"link to this section\">20.3.4.1</a></span> Date.prototype.constructor</h1>\n\n        <p>The initial value of <code>Date.prototype.constructor</code> is the intrinsic object %Date%.</p>\n      "}

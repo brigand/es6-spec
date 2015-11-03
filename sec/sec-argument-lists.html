@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-12.3.6"><a href="/sec/sec-argument-lists.html" title="link to this section">12.3.6</a></span>
+            Argument Lists</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The evaluation of an argument list produces a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of values (<a href="/sec/sec-list-and-record-specification-type.html">see
+          6.2.1</a>).</p>
+        </div>
+      </div>
+
+      <section id="sec-argument-lists-runtime-semantics-argumentlistevaluation">
+        <h1><span class="secnum" id="sec-12.3.6.1"><a href="/sec/sec-argument-lists-runtime-semantics-argumentlistevaluation.html" title="link to this section">12.3.6.1</a></span> Runtime Semantics: ArgumentListEvaluation</h1>
+
+        <p>See also: <a href="/sec/sec-template-literals-runtime-semantics-argumentlistevaluation.html">12.2.9.2</a></p>
+
+        <div class="gp prod"><span class="nt">Arguments</span> <span class="geq">:</span> <code class="t">(</code> <code class="t">)</code></div>
+        <ol class="proc">
+          <li>Return an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArgumentList</span> <span class="geq">:</span> <span class="nt">AssignmentExpression</span></div>
+        <ol class="proc">
+          <li>Let <i>ref</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+          <li>Let <i>arg</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>ref</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>arg</i>).</li>
+          <li>Return a <a href="/sec/sec-list-and-record-specification-type.html">List</a> whose sole item is <i>arg</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArgumentList</span> <span class="geq">:</span> <code class="t">...</code> <span class="nt">AssignmentExpression</span></div>
+        <ol class="proc">
+          <li>Let <i>list</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>Let <i>spreadRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+          <li>Let <i>spreadObj</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>spreadRef</i>).</li>
+          <li>Let <i>iterator</i> be <a href="/sec/sec-getiterator.html">GetIterator</a>(<i>spreadObj</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>iterator</i>).</li>
+          <li>Repeat
+            <ol class="block">
+              <li>Let <i>next</i> be <a href="/sec/sec-iteratorstep.html">IteratorStep</a>(<i>iterator</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+              <li>If <i>next</i> is <b>false</b>, return <i>list</i>.</li>
+              <li>Let <i>nextArg</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>next</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextArg</i>).</li>
+              <li>Append <i>nextArg</i> as the last element of <i>list</i>.</li>
+            </ol>
+          </li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArgumentList</span> <span class="geq">:</span> <span class="nt">ArgumentList</span> <code class="t">,</code> <span class="nt">AssignmentExpression</span></div>
+        <ol class="proc">
+          <li>Let <i>precedingArgs</i> be the result of evaluating <i>ArgumentList</i>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>precedingArgs</i>).</li>
+          <li>Let <i>ref</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+          <li>Let <i>arg</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>ref</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>arg</i>).</li>
+          <li>Append <i>arg</i> to the end of <i>precedingArgs</i>.</li>
+          <li>Return <i>precedingArgs</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArgumentList</span> <span class="geq">:</span> <span class="nt">ArgumentList</span> <code class="t">,</code> <code class="t">...</code> <span class="nt">AssignmentExpression</span></div>
+        <ol class="proc">
+          <li>Let <i>precedingArgs</i> be the result of evaluating <i>ArgumentList</i>.</li>
+          <li>Let <i>spreadRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+          <li>Let <i>iterator</i> be <a href="/sec/sec-getiterator.html">GetIterator</a>(<a href="/sec/sec-getvalue.html">GetValue</a>(<i>spreadRef</i>) ).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>iterator</i>).</li>
+          <li>Repeat
+            <ol class="block">
+              <li>Let <i>next</i> be <a href="/sec/sec-iteratorstep.html">IteratorStep</a>(<i>iterator</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+              <li>If <i>next</i> is <b>false</b>, return <i>precedingArgs</i>.</li>
+              <li>Let <i>nextArg</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>next</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextArg</i>).</li>
+              <li>Append <i>nextArg</i> as the last element of <i>precedingArgs</i>.</li>
+            </ol>
+          </li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-8.1.1.2.2"><a href="/sec/sec-object-environment-records-createmutablebinding-n-d.html" title="link to this section">8.1.1.2.2</a></span> CreateMutableBinding (N, D)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method
+          CreateMutableBinding for object Environment Records creates in an Environment Record&#x2019;s associated binding object a
+          property whose name is the String value and initializes it to the value <b>undefined</b>. If Boolean argument
+          <var>D</var> is provided and has the value <b>true</b> the new property&#x2019;s [[Configurable]] attribute is set to
+          <b>true</b>, otherwise it is set to <b>false</b>.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the object <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li>Let <i>bindings</i> be the binding object for <i>envRec</i>.</li>
+            <li>If <i>D</i> is <b>true</b> then let <i>configValue</i> be <b>true</b> otherwise let <i>configValue</i> be
+                <b>false</b>.</li>
+            <li>Return <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>bindings</i>, <i>N</i>,
+                PropertyDescriptor{[[Value]]:<b>undefined</b>, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b> ,
+                [[Configurable]]: <i>configValue</i>}).</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> Normally <i>envRec</i> will not have a binding for <i>N</i> but if it does, the
+            semantics of <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a> may result in an existing binding being
+            replaced or shadowed or cause an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a> to be
+            returned.</p>
+          </div>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

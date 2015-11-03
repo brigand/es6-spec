@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-9.3"><a href="/sec/sec-built-in-function-objects.html" title="link to this section">9.3</a></span>
+          Built-in Function Objects</h1>
+
+      <p>The built-in function objects defined in this specification may be implemented as either ECMAScript function objects (<a href="/sec/sec-ecmascript-function-objects.html">9.2</a>) whose behaviour is provided using ECMAScript code or as implementation
+      provided exotic function objects whose behaviour is provided in some other manner. In either case, the effect of calling
+      such functions must conform to their specifications. An implementation may also provide additional built-in function objects
+      that are not defined in this specification.</p>
+
+      <p>If a built-in function object is implemented as an exotic object it must have the ordinary object behaviour specified in
+      <a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots.html">9.1</a>. All such exotic function objects also have
+      [[Prototype]], [[Extensible]], and [[Realm]] internal slots.</p>
+
+      <p>Unless otherwise specified every built-in function object has the %FunctionPrototype% object (<a href="/sec/sec-properties-of-the-function-prototype-object.html">19.2.3</a>) as the initial value of its [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+      <p>The behaviour specified for each built-in function via algorithm steps or other means is the specification of the
+      function body behaviour for both [[Call]] and [[Construct]] invocations of the function. However, [[Construct]] invocation
+      is not supported by all built-in functions. For each built-in function, when invoked with [[Call]], the [[Call]]
+      <var>thisArgument</var> provides the <span class="value">this</span> value, the [[Call]] <var>argumentsList</var> provides
+      the named parameters, and the NewTarget value is <span class="value">undefined</span>. When invoked with [[Construct]], the
+      <span class="value">this</span> value is uninitialized, the [[Construct]] <var>argumentsList</var> provides the named
+      parameters, and the [[Construct]] <var>newTarget</var> parameter provides the NewTarget value. If the built-in function is
+      implemented as an <a href="/sec/sec-ecmascript-function-objects.html">ECMAScript function object</a> then this specified behaviour
+      must be implemented by the ECMAScript code that is the body of the function. Built-in functions that are ECMAScript function
+      objects must be strict mode functions. If a built-in constructor has any [[Call]] behaviour other than throwing a <span class="value">TypeError</span> exception, an ECMAScript implementation of the function must be done in a manner that does
+      not cause the function&#x2019;s [[FunctionKind]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>
+      to have the value <code>&quot;classConstructor&quot;</code>.</p>
+
+      <p>Built-in function objects that are not identified as constructors do not implement the [[Construct]] internal method
+      unless otherwise specified in the description of a particular function. When a built-in constructor is called as part of a
+      <code>new</code> expression the <var>argumentsList</var> parameter of the invoked [[Construct]] internal method provides the
+      values for the built-in constructor&#x2019;s named parameters.</p>
+
+      <p>Built-in functions that are not constructors do not have a <code>prototype</code> property unless otherwise specified in
+      the description of a particular function.</p>
+
+      <p>If a built-in function object is not implemented as an ECMAScript function it must provide [[Call]] and [[Construct]]
+      internal methods that conform to the following definitions:</p>
+    </div>
+
+    <section id="sec-built-in-function-objects-call-thisargument-argumentslist">
+      <h1><span class="secnum" id="sec-9.3.1"><a href="/sec/sec-built-in-function-objects-call-thisargument-argumentslist.html" title="link to this section">9.3.1</a></span> [[Call]] ( thisArgument, argumentsList)</h1>
+
+      <p class="normalbefore">The [[Call]] internal method for a built-in function object <var>F</var> is called with parameters
+      <var>thisArgument</var> and <var>argumentsList</var>, a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language values</a>. The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>callerContext</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>If <i>callerContext</i> is not already <a href="/sec/sec-execution-contexts.html">suspended</a>, <a href="/sec/sec-execution-contexts.html">Suspend</a> <i>callerContext</i>.</li>
+        <li>Let <i>calleeContext</i> be a new <a href="/sec/sec-execution-contexts.html">ECMAScript code execution context</a>.</li>
+        <li>Set the Function of <i>calleeContext</i> to <i>F</i>.</li>
+        <li>Let <i>calleeRealm</i> be the value of <i>F&#x2019;s</i> [[Realm]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+        <li>Set the <a href="/sec/sec-code-realms.html">Realm</a> of <i>calleeContext</i> to <i>calleeRealm</i>.</li>
+        <li>Perform any necessary implementation defined initialization of <i>calleeContext</i>.</li>
+        <li>Push <i>calleeContext</i> onto <a href="/sec/sec-execution-contexts.html">the execution context stack</a>; <i>calleeContext</i>
+            is now <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>Let <i>result</i> be the <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> that is the result
+            of evaluating <i>F</i> in an implementation defined manner that conforms to the specification of <i>F</i>.
+            <i>thisArgument</i> is the <b>this</b> value, <i>argumentsList</i> provides the named parameters, and the NewTarget
+            value is <b>undefined</b>.</li>
+        <li>Remove <i>calleeContext</i> from <a href="/sec/sec-execution-contexts.html">the execution context stack</a> and restore
+            <i>callerContext</i> as <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>Return <i>result</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> When <var>calleeContext</var> is removed from <a href="/sec/sec-execution-contexts.html">the
+        execution context stack</a> it must not be destroyed if it has been <a href="/sec/sec-execution-contexts.html">suspended</a> and
+        retained by an accessible generator object for later resumption<i>.</i></p>
+      </div>
+    </section>
+
+    <section id="sec-built-in-function-objects-construct-argumentslist-newtarget">
+      <h1><span class="secnum" id="sec-9.3.2"><a href="/sec/sec-built-in-function-objects-construct-argumentslist-newtarget.html" title="link to this section">9.3.2</a></span> [[Construct]] (argumentsList, newTarget)</h1>
+
+      <p class="normalbefore">The [[Construct]] internal method for built-in function object <var>F</var> is called with
+      parameters <var>argumentsList</var> and <var>newTarget</var>. The steps performed are the same as [[Call]] (<a href="/sec/sec-built-in-function-objects-call-thisargument-argumentslist.html">see 9.3.1</a>) except that step 9 is replaced by:</p>
+
+      <p class="special1" style="-ooxml-indentation: 18.0pt">9.	Let <i>result</i> be the <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> that is the result of evaluating <i>F</i> in an
+      implementation defined manner that conforms to the specification of <i>F</i>. The <b>this</b> value is uninitialized,
+      <i>argumentsList</i> provides the named parameters, and <i>newTarget</i> provides the NewTarget value.</p>
+    </section>
+
+    <section id="sec-createbuiltinfunction">
+      <h1><span class="secnum" id="sec-9.3.3"><a href="/sec/sec-createbuiltinfunction.html" title="link to this section">9.3.3</a></span>
+          CreateBuiltinFunction(realm, steps, prototype, internalSlotsList)</h1>
+
+      <p class="normalbefore">The abstract operation CreateBuiltinFunction takes arguments <span style="font-family: Times New
+      Roman"><i>realm</i>, <i>prototype</i>,</span> and <var>steps</var>. The optional argument <var>internalSlotsList</var> is a
+      <a href="/sec/sec-list-and-record-specification-type.html">List</a> of the names of additional internal slots that must be defined as
+      part of the object. If the list is not provided, an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a> is
+      used. CreateBuiltinFunction returns a built-in function object created by the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>realm</i> is a <a href="/sec/sec-code-realms.html">Realm</a> Record.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>steps</i> is either a set of algorithm steps or other definition
+            of a functions behaviour provided in this specification.</li>
+        <li>Let <i>func</i> be a new built-in function object that when called performs the action described by <i>steps</i>. The
+            new function object has internal slots whose names are the elements of <i>internalSlotsList</i>. The initial value of
+            each of those internal slots is <b>undefined<i>.</i></b></li>
+        <li>Set the [[Realm]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>func</i> to
+            <i>realm</i>.</li>
+        <li>Set the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>func</i> to
+            <i>prototype</i>.</li>
+        <li>Return <i>func</i>.</li>
+      </ol>
+
+      <p>Each built-in function defined in this specification is created as if by calling the CreateBuiltinFunction abstract
+      operation, unless otherwise specified.</p>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

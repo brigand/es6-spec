@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.2.2.8"><a href="/sec/sec-math.atan2.html" title="link to this section">20.2.2.8</a></span>
+            Math.atan2 ( y, x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the arc tangent of the quotient <span style="font-family: Times New Roman"><i>y</i><b>/</b><i>x</i></span> of the arguments <var>y</var> and <var>x</var>, where
+        the signs of <var>y</var> and <var>x</var> are used to determine the quadrant of the result. Note that it is intentional
+        and traditional for the two-argument arc tangent function that the argument named <var>y</var> be first and the argument
+        named <var>x</var> be second. The result is expressed in radians and ranges from <span style="font-family: Times New
+        Roman">&#x2212;&#x3C0;</span> to <span style="font-family: Times New Roman">+&#x3C0;</span>.</p>
+
+        <ul>
+          <li>If either <i>x</i> or <i>y</i> is NaN, the result is NaN.</li>
+          <li>If <i>y</i>&gt;0 and <i>x</i> is +0, the result is an implementation-dependent approximation to  +&#x3C0;/2.</li>
+          <li>If <i>y</i>&gt;0 and <i>x</i> is &#x2212;0, the result is an implementation-dependent approximation to  +&#x3C0;/2.</li>
+          <li>If <i>y</i> is +0 and <i>x</i>&gt;0, the result is +0.</li>
+          <li>If <i>y</i> is +0 and <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>y</i> is +0 and <i>x</i> is &#x2212;0, the result is an implementation-dependent approximation to  +&#x3C0;.</li>
+          <li>If <i>y</i> is +0 and <i>x</i>&lt;0, the result is an implementation-dependent approximation to  +&#x3C0;.</li>
+          <li>If <i>y</i> is &#x2212;0 and <i>x</i>&gt;0, the result is &#x2212;0.</li>
+          <li>If <i>y</i> is &#x2212;0 and <i>x</i> is +0, the result is &#x2212;0.</li>
+          <li>If <i>y</i> is &#x2212;0 and <i>x</i> is &#x2212;0, the result is an implementation-dependent approximation to
+              &#x2212;&#x3C0;.</li>
+          <li>If <i>y</i> is &#x2212;0 and <i>x</i>&lt;0, the result is an implementation-dependent approximation to
+              &#x2212;&#x3C0;.</li>
+          <li>If <i>y</i>&lt;0 and <i>x</i> is +0, the result is an implementation-dependent approximation to  &#x2212;&#x3C0;/2.</li>
+          <li>If <i>y</i>&lt;0 and <i>x</i> is &#x2212;0, the result is an implementation-dependent approximation to
+              &#x2212;&#x3C0;/2.</li>
+          <li>If <i>y</i>&gt;0 and <i>y</i> is finite and <i>x</i> is +&#x221E;, the result is +0.</li>
+          <li>If <i>y</i>&gt;0 and <i>y</i> is finite and <i>x</i> is &#x2212;&#x221E;, the result if an implementation-dependent
+              approximation to  +&#x3C0;.</li>
+          <li>If <i>y</i>&lt;0 and <i>y</i> is finite and <i>x</i> is +&#x221E;, the result is &#x2212;0.</li>
+          <li>If <i>y</i>&lt;0 and <i>y</i> is finite and <i>x</i> is &#x2212;&#x221E;, the result is an implementation-dependent
+              approximation to &#x2212;&#x3C0;.</li>
+          <li>If <i>y</i> is +&#x221E; and <i>x</i> is finite, the result is an implementation-dependent approximation to
+              +&#x3C0;/2.</li>
+          <li>If <i>y</i> is &#x2212;&#x221E; and <i>x</i> is finite, the result is an implementation-dependent approximation to
+              &#x2212;&#x3C0;/2.</li>
+          <li>If <i>y</i> is +&#x221E; and <i>x</i> is +&#x221E;, the result is an implementation-dependent approximation to
+              +&#x3C0;/4.</li>
+          <li>If <i>y</i> is +&#x221E; and <i>x</i> is &#x2212;&#x221E;, the result is an implementation-dependent approximation to
+              +3&#x3C0;/4.</li>
+          <li>If <i>y</i> is &#x2212;&#x221E; and <i>x</i> is +&#x221E;, the result is an implementation-dependent approximation to
+              &#x2212;&#x3C0;/4.</li>
+          <li>If <i>y</i> is &#x2212;&#x221E; and <i>x</i> is &#x2212;&#x221E;, the result is an implementation-dependent
+              approximation to  &#x2212;3&#x3C0;/4.</li>
+        </ul>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

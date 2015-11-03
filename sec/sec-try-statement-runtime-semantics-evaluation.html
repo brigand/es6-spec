@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-13.15.8"><a href="/sec/sec-try-statement-runtime-semantics-evaluation.html" title="link to this section">13.15.8</a></span> Runtime Semantics: Evaluation</h1>
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Catch</span></div>
+      <ol class="proc">
+        <li>Let <i>B</i> be the result of evaluating <i>Block</i>.</li>
+        <li>If <i>B</i>.[[type]] is <span style="font-family: sans-serif">throw</span>, then
+          <ol class="block">
+            <li>Let <i>C</i> be CatchClauseEvaluation of <i>Catch</i> with parameter <i>B</i>.[[value]].</li>
+          </ol>
+        </li>
+        <li>Else <i>B</i>.[[type]] is not <span style="font-family: sans-serif">throw</span><b>,</b>
+          <ol class="block">
+            <li>Let <i>C</i> be <i>B</i>.</li>
+          </ol>
+        </li>
+        <li>If <i>C</i>.[[type]] is <span style="font-family: sans-serif">return</span>, or <i>C</i>.[[type]] is <span style="font-family: sans-serif">throw</span>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>C</i>).</li>
+        <li>If <i>C</i>.[[value]] is not <span style="font-family: sans-serif">empty</span>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>C</i>).</li>
+        <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <i>C</i>.[[type]], [[value]]:
+            <b>undefined</b>, [[target]]: <i>C</i>.[[target]]}.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Finally</span></div>
+      <ol class="proc">
+        <li>Let <i>B</i> be the result of evaluating <i>Block</i>.</li>
+        <li>Let <i>F</i> be the result of evaluating <i>Finally</i>.</li>
+        <li>If <i>F</i>.[[type]] is <span style="font-family: sans-serif">normal</span>, let <i>F</i> be <i>B.</i></li>
+        <li>If <i>F</i>.[[type]] is <span style="font-family: sans-serif">return</span>, or <i>F</i>.[[type]] is <span style="font-family: sans-serif">throw</span>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>F</i>).</li>
+        <li>If <i>F</i>.[[value]] is not <span style="font-family: sans-serif">empty</span>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>F</i>).</li>
+        <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <i>F</i>.[[type]], [[value]]:
+            <b>undefined</b>, [[target]]: <i>F</i>.[[target]]}.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Catch</span> <span class="nt">Finally</span></div>
+      <ol class="proc">
+        <li>Let <i>B</i> be the result of evaluating <i>Block</i>.</li>
+        <li>If <i>B</i>.[[type]] is <span style="font-family: sans-serif">throw</span>, then
+          <ol class="block">
+            <li>Let <i>C</i> be CatchClauseEvaluation of <i>Catch</i> with parameter <i>B</i>.[[value]].</li>
+          </ol>
+        </li>
+        <li>Else <i>B</i>.[[type]] is not <span style="font-family: sans-serif">throw</span><b>,</b> let <i>C</i> be
+            <i>B</i>.</li>
+        <li>Let <i>F</i> be the result of evaluating <i>Finally</i>.</li>
+        <li>If <i>F</i>.[[type]] is <span style="font-family: sans-serif">normal</span>, let <i>F</i> be <i>C</i>.</li>
+        <li>If <i>F</i>.[[type]] is <span style="font-family: sans-serif">return</span>, or <i>F</i>.[[type]] is <span style="font-family: sans-serif">throw</span>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>F</i>).</li>
+        <li>If <i>F</i>.[[value]] is not <span style="font-family: sans-serif">empty</span>, return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<i>F</i>.[[value]]).</li>
+        <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <i>F</i>.[[type]], [[value]]:
+            <b>undefined</b>, [[target]]: <i>F</i>.[[target]]}.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

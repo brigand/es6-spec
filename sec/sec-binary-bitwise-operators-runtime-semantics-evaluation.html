@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-12.11.3"><a href="/sec/sec-binary-bitwise-operators-runtime-semantics-evaluation.html" title="link to this section">12.11.3</a></span> Runtime Semantics: Evaluation</h1>
+
+      <p class="normalbefore">The production <var>A</var> <b>:</b> <i><span style="font-family: Times New Roman">A</span> @ <span style="font-family: Times New Roman">B</span></i>, where @ is one of the bitwise operators in the productions above, is
+      evaluated as follows:</p>
+
+      <ol class="proc">
+        <li>Let <i>lref</i> be the result of evaluating <i>A</i>.</li>
+        <li>Let <i>lval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>lref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lval</i>).</li>
+        <li>Let <i>rref</i> be the result of evaluating <i>B</i>.</li>
+        <li>Let <i>rval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rval</i>).</li>
+        <li>Let <i>lnum</i> be <a href="/sec/sec-toint32.html">ToInt32</a>(<i>lval</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lnum</i>).</li>
+        <li>Let <i>rnum</i> be <a href="/sec/sec-toint32.html">ToInt32</a>(<i>rval</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rnum</i>).</li>
+        <li>Return the result of applying the bitwise operator @ to <i>lnum</i> and <i>rnum</i>. The result is a signed 32 bit
+            integer.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

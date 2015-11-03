@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <div class="front">
+          <h1><span class="secnum" id="sec-8.1.1.5"><a href="/sec/sec-module-environment-records.html" title="link to this section">8.1.1.5</a></span> Module Environment Records</h1>
+
+          <p>A module <a href="/sec/sec-environment-records.html">Environment Record</a> is a declarative <a href="/sec/sec-environment-records.html">Environment Record</a> that is used to represent the outer scope of an ECMAScript <span class="nt">Module</span>. In additional to normal mutable and immutable bindings, module Environment Records also
+          provide immutable import bindings which are bindings that provide indirect access to a target binding that exists in
+          another Environment Record.</p>
+
+          <p>Module Environment Records support all of the declarative Environment Record methods listed in <a href="/sec/table-15.html">Table 15</a> and share the same specifications for all of those methods except for GetBindingValue,
+          DeleteBinding, HasThisBinding and GetThisBinding. In addition, module Environment Records support the methods listed in
+          <a href="/sec/table-20.html">Table 20</a>:</p>
+
+          <figure>
+            <figcaption><span id="table-20">Table 20</span> &#x2014; Additional Methods of Module Environment Records</figcaption>
+            <table class="real-table">
+              <tr>
+                <th>Method</th>
+                <th>Purpose</th>
+              </tr>
+              <tr>
+                <td><a href="/sec/sec-createimportbinding.html">CreateImportBinding</a>(N, M, N2 )</td>
+                <td>Create an immutable indirect binding in a module <a href="/sec/sec-environment-records.html">Environment Record</a>. The String value <var>N</var> is the text of the bound name. <var>M</var> is a <a href="/sec/sec-abstract-module-records.html">Module Record</a> (<a href="/sec/sec-abstract-module-records.html">see 15.2.1.15</a>), and <var>N2</var> is a binding that exists in M&#x2019;s module <a href="/sec/sec-environment-records.html">Environment Record</a>.</td>
+              </tr>
+              <tr>
+                <td>GetThisBinding()</td>
+                <td>Return the value of this <a href="/sec/sec-environment-records.html">Environment Record</a>&#x2019;s <code>this</code> binding.</td>
+              </tr>
+            </table>
+          </figure>
+
+          <p>The behaviour of the additional concrete specification methods for module Environment Records are defined by the
+          following algorithms:</p>
+        </div>
+
+        <section id="sec-module-environment-records-getbindingvalue-n-s">
+          <h1><span class="secnum" id="sec-8.1.1.5.1"><a href="/sec/sec-module-environment-records-getbindingvalue-n-s.html" title="link to this section">8.1.1.5.1</a></span> GetBindingValue(N,S)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method GetBindingValue
+          for module Environment Records returns the value of its bound identifier whose name is the value of the argument
+          <var>N</var>. However, if the binding is an indirect binding the value of the target binding is returned. If the binding
+          exists but is uninitialized a <span class="value">ReferenceError</span> is thrown, regardless of the value of <i><span style="font-family: Times New Roman">S</span>.</i></p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the module <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>envRec</i> has a binding for <i>N</i>.</li>
+            <li>If the binding for <i>N</i> is an indirect binding, then
+              <ol class="block">
+                <li>Let <i>M</i> and <i>N2</i> be the indirection values provided when this binding for <i>N</i> was created.</li>
+                <li>Let <i>targetEnv</i> be <i>M</i>.[[Environment]].</li>
+                <li>If <i>targetEnv</i> is <b>undefined</b>, throw a <b>ReferenceError</b> exception.</li>
+                <li>Let <i>targetER</i> be <i>targetEnv</i>&#x2019;s <a href="/sec/sec-lexical-environments.html">EnvironmentRecord</a>.</li>
+                <li>Return <i>targetER</i>.GetBindingValue(<i>N2</i>, <i>S</i>).</li>
+              </ol>
+            </li>
+            <li>If the binding for <i>N</i> in <i>envRec</i> is an uninitialized binding, throw a <b>ReferenceError</b>
+                exception.</li>
+            <li>Return the value currently bound to <i>N</i> in <i>envRec</i>.</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> Because a <span class="nt">Module</span> is always <a href="/sec/sec-strict-mode-code.html">strict mode code</a>, calls to GetBindingValue should always pass <span class="value">true</span> as the value of&#xA0;<var>S</var>.</p>
+          </div>
+        </section>
+
+        <section id="sec-module-environment-records-deletebinding-n">
+          <h1><span class="secnum" id="sec-8.1.1.5.2"><a href="/sec/sec-module-environment-records-deletebinding-n.html" title="link to this section">8.1.1.5.2</a></span> DeleteBinding (N)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method DeleteBinding for
+          module Environment Records refuses to delete bindings.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the module <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li>If <i>envRec</i> does not have a binding for the name that is the value of <i>N</i>, return <b>true</b>.</li>
+            <li>Return <b>false</b>.</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> The bindings of a module <a href="/sec/sec-environment-records.html">Environment
+            Record</a> are not deletable.</p>
+          </div>
+        </section>
+
+        <section id="sec-module-environment-records-hasthisbinding">
+          <h1><span class="secnum" id="sec-8.1.1.5.3"><a href="/sec/sec-module-environment-records-hasthisbinding.html" title="link to this section">8.1.1.5.3</a></span> HasThisBinding ()</h1>
+
+          <p class="normalbefore">Module Environment Records provide a <code>this</code> binding.</p>
+
+          <ol class="proc">
+            <li>Return <b>true</b>.</li>
+          </ol>
+        </section>
+
+        <section id="sec-module-environment-records-getthisbinding">
+          <h1><span class="secnum" id="sec-8.1.1.5.4"><a href="/sec/sec-module-environment-records-getthisbinding.html" title="link to this section">8.1.1.5.4</a></span> GetThisBinding ()</h1>
+          <ol class="proc">
+            <li>Return <b>undefined</b>.</li>
+          </ol>
+        </section>
+
+        <section id="sec-createimportbinding">
+          <h1><span class="secnum" id="sec-8.1.1.5.5"><a href="/sec/sec-createimportbinding.html" title="link to this section">8.1.1.5.5</a></span> CreateImportBinding (N, M, N2)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method
+          CreateImportBinding for module Environment Records creates a new initialized immutable indirect binding for the name
+          <var>N</var>. A binding must not already exist in this <a href="/sec/sec-environment-records.html">Environment Record</a> for
+          <var>N</var>. <var>M</var> is a <a href="/sec/sec-abstract-module-records.html">Module Record</a> (<a href="/sec/sec-abstract-module-records.html">see 15.2.1.15</a>), and <var>N2</var> is the name of a binding that exists in
+          M&#x2019;s module <a href="/sec/sec-environment-records.html">Environment Record</a>. Accesses to the value of the new binding
+          will indirectly access the bound value of value of the target binding.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the module <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>envRec</i> does not already have a binding for <i>N</i>.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>M</i> is a <a href="/sec/sec-abstract-module-records.html">Module
+                Record</a>.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: When <i>M</i>.[[Environment]] is instantiated it will have a
+                direct binding for <i>N2</i>.</li>
+            <li>Create an immutable indirect binding in <i>envRec</i> for <i>N</i> that references <i>M</i> and <i>N2</i> as its
+                target binding and record that the binding is initialized.</li>
+            <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+                sans-serif">empty</span>).</li>
+          </ol>
+        </section>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

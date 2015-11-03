@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-15.2.1.15"><a href="/sec/sec-abstract-module-records.html" title="link to this section">15.2.1.15</a></span> Abstract Module Records</h1>
+
+        <p>A Module Record encapsulates structural information about the imports and exports of a single module. This information
+        is used to link the imports and exports of sets of connected modules. A Module Record includes four fields that are only
+        used when evaluating a module.</p>
+
+        <p>For specification purposes Module Record values are values of the Record specification type and can be thought of as
+        existing in a simple object-oriented hierarchy where Module Record is an abstract class with concrete subclasses. This
+        specification only defines a single Module Record concrete subclass named <a href="/sec/sec-source-text-module-records.html">Source
+        Text Module Record</a>. Other specifications and implementations may define additional Module Record subclasses
+        corresponding to alternative module definition facilities that they defined.</p>
+
+        <p class="normalbefore">Module Record defines the fields listed in <a href="/sec/table-36.html">Table 36</a>. All Module Definition
+        subclasses include at least those fields. Module Record also defines the abstract method list in <a href="/sec/table-37.html">Table
+        37</a>. All Module definition subclasses must provide concrete implementations of these abstract methods.</p>
+
+        <figure>
+          <figcaption><span id="table-36">Table 36</span> &#x2014; Module Record Fields</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Field Name</th>
+              <th>Value Type</th>
+              <th>Meaning</th>
+            </tr>
+            <tr>
+              <td>[[Realm]]</td>
+              <td><a href="/sec/sec-code-realms.html">Realm</a> Record | <span class="value">undefined</span></td>
+              <td>The <a href="/sec/sec-code-realms.html">Realm</a> within which this module was created. <span class="value">undefined</span> if not yet assigned.</td>
+            </tr>
+            <tr>
+              <td>[[Environment]]</td>
+              <td><a href="/sec/sec-lexical-environments.html">Lexical Environment</a> | <span class="value">undefined</span></td>
+              <td>The <a href="/sec/sec-lexical-environments.html">Lexical Environment</a> containing the top level bindings for this module. This field is set when the module is instantiated.</td>
+            </tr>
+            <tr>
+              <td>[[Namespace]]</td>
+              <td>Object | <span class="value">undefined</span></td>
+              <td>The Module Namespace Object (<a href="/sec/sec-module-namespace-objects.html">26.3</a>) if one has been created  for this module. Otherwise <span class="value">undefined</span>.</td>
+            </tr>
+            <tr>
+              <td>[[Evaluated]]</td>
+              <td>Boolean</td>
+              <td>Initially <span class="value">false</span>, <span class="value">true</span> if evaluation of this module has started. Remains <span class="value">true</span> when evaluation completes, even if it is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</td>
+            </tr>
+          </table>
+        </figure>
+
+        <figure>
+          <figcaption><span id="table-37">Table 37</span> &#x2014; Abstract Methods of Module Records</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Method</th>
+              <th>Purpose</th>
+            </tr>
+            <tr>
+              <td><a href="/sec/sec-getexportednames.html">GetExportedNames</a>(exportStarSet)</td>
+              <td>Return a list of all names that are either directly or indirectly exported from this module.</td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid black"><a href="/sec/sec-resolveexport.html">ResolveExport</a>(exportName, resolveSet, exportStarSet)</td>
+              <td style="border-bottom: 1px solid black">Return the binding of a name exported by this modules. Bindings are represented by a Record of the form {[[module]]: Module Record, [[bindingName]]: String}</td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black"><a href="/sec/sec-moduledeclarationinstantiation.html">ModuleDeclarationInstantiation</a>()</td>
+              <td style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; border-top: 1px solid black">Transitively resolve all module dependencies and create a module <a href="/sec/sec-environment-records.html">Environment Record</a> for the module.</td>
+            </tr>
+            <tr>
+              <td style="border-top: 1px solid black"><a href="/sec/sec-moduleevaluation.html">ModuleEvaluation</a>()</td>
+
+              <td style="border-top: 1px solid black">
+                <p>Do nothing if this module has already been evaluated. Otherwise, transitively evaluate all module dependences
+                of this module and then evaluate this module.</p>
+
+                <p><a href="/sec/sec-moduledeclarationinstantiation.html">ModuleDeclarationInstantiation</a> must be completed prior to
+                invoking this method.</p>
+              </td>
+            </tr>
+          </table>
+        </figure>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

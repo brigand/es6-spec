@@ -1,0 +1,1 @@
+{"id":"sec-error.prototype.name","html":"\n        <h1><span class=\"secnum\" id=\"sec-19.5.3.3\"><a href=\"/sec/sec-error.prototype.name.html\" title=\"link to this section\">19.5.3.3</a></span> Error.prototype.name</h1>\n\n        <p>The initial value of <code>Error.prototype.name</code> is <code>&quot;<b>Error</b>&quot;</code>.</p>\n      "}

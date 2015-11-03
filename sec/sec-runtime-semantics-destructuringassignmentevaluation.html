@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-12.14.5.2"><a href="/sec/sec-runtime-semantics-destructuringassignmentevaluation.html" title="link to this section">12.14.5.2</a></span> Runtime Semantics: DestructuringAssignmentEvaluation</h1>
+
+        <p>with parameter <var>value</var></p>
+
+        <div class="gp prod"><span class="nt">ObjectAssignmentPattern</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+        <ol class="proc">
+          <li>Let <i>valid</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<i>value</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>valid</i>).</li>
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+              sans-serif">empty</span>).</li>
+        </ol>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">ObjectAssignmentPattern</span> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">{</code> <span class="nt">AssignmentPropertyList</span> <code class="t">}</code></div>
+          <div class="rhs"><code class="t">{</code> <span class="nt">AssignmentPropertyList</span> <code class="t">,</code> <code class="t">}</code></div>
+        </div>
+
+        <ol class="proc">
+          <li>Let <i>valid</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<i>value</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>valid</i>).</li>
+          <li>Return the result of performing DestructuringAssignmentEvaluation for <i>AssignmentPropertyList</i> using
+              <i>value</i> as the argument.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayAssignmentPattern</span> <span class="geq">:</span> <code class="t">[</code> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Let <i>iterator</i> be <a href="/sec/sec-getiterator.html">GetIterator</a>(<i>value</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>iterator</i>).</li>
+          <li>Return <a href="/sec/sec-iteratorclose.html">IteratorClose</a>(<i>iterator</i>, <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family: sans-serif">empty</span>)).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayAssignmentPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">Elision</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Let <i>iterator</i> be <a href="/sec/sec-getiterator.html">GetIterator</a>(<i>value</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>iterator</i>).</li>
+          <li>Let <i>iteratorRecord</i> be Record {[[iterator]]: <i>iterator</i>, [[done]]: <b>false</b>}.</li>
+          <li>Let <i>result</i> be the result of performing IteratorDestructuringAssignmentEvaluation of <i>Elision</i> with
+              <i>iteratorRecord</i> as the argument.</li>
+          <li>If <i>iteratorRecord</i>.[[done]] is <b>false</b>, return <a href="/sec/sec-iteratorclose.html">IteratorClose</a>(<i>iterator</i>, <i>result</i>).</li>
+          <li>Return <i>result</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayAssignmentPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <span class="nt">AssignmentRestElement</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Let <i>iterator</i> be <a href="/sec/sec-getiterator.html">GetIterator</a>(<i>value</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>iterator</i>).</li>
+          <li>Let <i>iteratorRecord</i> be Record {[[iterator]]: <i>iterator</i>, [[done]]: <b>false</b>}.</li>
+          <li>If <i>Elision</i> is present, then
+            <ol class="block">
+              <li>Let <i>status</i> be the result of performing IteratorDestructuringAssignmentEvaluation of <i>Elision</i> with
+                  <i>iteratorRecord</i> as the argument.</li>
+              <li>If <i>status</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, then
+                <ol class="block">
+                  <li>If <i>iteratorRecord</i>.[[done]] is <b>false</b>, return <a href="/sec/sec-iteratorclose.html">IteratorClose</a>(<i>iterator</i>, <i>status</i>).</li>
+                  <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>status</i>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Let <i>result</i> be the result of performing IteratorDestructuringAssignmentEvaluation of
+              <i>AssignmentRestElement</i> with <i>iteratorRecord</i> as the argument.</li>
+          <li>If <i>iteratorRecord</i>.[[done]] is <b>false</b>, return <a href="/sec/sec-iteratorclose.html">IteratorClose</a>(<i>iterator</i>, <i>result</i>).</li>
+          <li>Return <i>result</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayAssignmentPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">AssignmentElementList</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Let <i>iterator</i> be <a href="/sec/sec-getiterator.html">GetIterator</a>(<i>value</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>iterator</i>).</li>
+          <li>Let <i>iteratorRecord</i> be Record {[[iterator]]: <i>iterator</i>, [[done]]: <b>false</b>}.</li>
+          <li>Let <i>result</i> be the result of performing IteratorDestructuringAssignmentEvaluation of
+              <i>AssignmentElementList</i> using <i>iteratorRecord</i> as the argument.</li>
+          <li>If <i>iteratorRecord</i>.[[done]] is <b>false</b>, return <a href="/sec/sec-iteratorclose.html">IteratorClose</a>(<i>iterator</i>, <i>result</i>).</li>
+          <li>Return <i>result</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayAssignmentPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">AssignmentElementList</span> <code class="t">,</code> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <span class="nt">AssignmentRestElement</span><sub class="g-opt">opt</sub> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Let <i>iterator</i> be <a href="/sec/sec-getiterator.html">GetIterator</a>(<i>value</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>iterator</i>).</li>
+          <li>Let <i>iteratorRecord</i> be Record {[[iterator]]: <i>iterator</i>, [[done]]: <b>false</b>}.</li>
+          <li>Let <i>status</i> be the result of performing IteratorDestructuringAssignmentEvaluation of
+              <i>AssignmentElementList</i> using <i>iteratorRecord</i> as the argument.</li>
+          <li>If <i>status</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, then
+            <ol class="block">
+              <li>If <i>iteratorRecord</i>.[[done]] is <b>false</b>, return <a href="/sec/sec-iteratorclose.html">IteratorClose</a>(<i>iterator</i>, <i>status</i>).</li>
+              <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>status</i>).</li>
+            </ol>
+          </li>
+          <li>If <i>Elision</i> is present, then
+            <ol class="block">
+              <li>Let <i>status</i> be the result of performing IteratorDestructuringAssignmentEvaluation of <i>Elision</i> with
+                  <i>iteratorRecord</i> as the argument.</li>
+              <li>If <i>status</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, then
+                <ol class="block">
+                  <li>If <i>iteratorRecord</i>.[[done]] is <b>false</b>, return <a href="/sec/sec-iteratorclose.html">IteratorClose</a>(<i>iterator</i>, <i>status</i>).</li>
+                  <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>status</i>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>AssignmentRestElement</i> is present, then
+            <ol class="block">
+              <li>Let <i>status</i> be the result of performing IteratorDestructuringAssignmentEvaluation of
+                  <i>AssignmentRestElement</i> with <i>iteratorRecord</i> as the argument.</li>
+            </ol>
+          </li>
+          <li>If <i>iteratorRecord</i>.[[done]] is <b>false</b>, return <a href="/sec/sec-iteratorclose.html">IteratorClose</a>(<i>iterator</i>, <i>status</i>).</li>
+          <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>status</i>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">AssignmentPropertyList</span> <span class="geq">:</span> <span class="nt">AssignmentPropertyList</span> <code class="t">,</code> <span class="nt">AssignmentProperty</span></div>
+        <ol class="proc">
+          <li>Let <i>status</i> be the result of performing DestructuringAssignmentEvaluation for <i>AssignmentPropertyList</i>
+              using <i>value</i> as the argument.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          <li>Return the result of performing DestructuringAssignmentEvaluation for <i>AssignmentProperty</i> using <i>value</i>
+              as the argument.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">AssignmentProperty</span> <span class="geq">:</span> <span class="nt">IdentifierReference</span> <span class="nt">Initializer</span><sub class="g-opt">opt</sub></div>
+        <ol class="proc">
+          <li>Let <i>P</i> be StringValue of <i>IdentifierReference</i>.</li>
+          <li>Let <i>lref</i> be <a href="/sec/sec-resolvebinding.html">ResolveBinding</a>(<i>P)</i>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>P</i>).</li>
+          <li>Let <i>v</i> be <a href="/sec/sec-getv.html">GetV</a>(<i>value</i>, <i>P</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+          <li>If <i>Initializer</i><sub>opt</sub> is present and <i>v</i> is <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>defaultValue</i> be the result of evaluating <i>Initializer</i>.</li>
+              <li>Let <i>v</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>defaultValue</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+              <li>If <a href="/sec/sec-isanonymousfunctiondefinition.html">IsAnonymousFunctionDefinition</a>(<i>Initializer</i>) is
+                  <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>hasNameProperty</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>v</i>,
+                      <code>&quot;name&quot;</code>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasNameProperty</i>).</li>
+                  <li>If <i>hasNameProperty</i> is <b>false</b>, perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>v</i>, <i>P</i>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-putvalue.html">PutValue</a>(<i>lref</i>,<i>v</i>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">AssignmentProperty</span> <span class="geq">:</span> <span class="nt">PropertyName</span> <code class="t">:</code> <span class="nt">AssignmentElement</span></div>
+        <ol class="proc">
+          <li>Let <i>name</i> be  the result of evaluating <i>PropertyName</i>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>name</i>).</li>
+          <li>Return the result of performing KeyedDestructuringAssignmentEvaluation of <i>AssignmentElement</i> with <i>value</i>
+              and <i>name</i> as the arguments.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

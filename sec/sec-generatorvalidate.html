@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-25.3.3.2"><a href="/sec/sec-generatorvalidate.html" title="link to this section">25.3.3.2</a></span> GeneratorValidate ( generator )</h1>
+
+        <p class="normalbefore">The abstract operation GeneratorValidate with argument <var>generator</var> performs the following
+        steps:</p>
+
+        <ol class="proc">
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>generator</i>) is not Object, throw a
+              <b>TypeError</b> exception.</li>
+          <li>If <i>generator</i> does not have a [[GeneratorState]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>generator</i> also has a [[GeneratorContext]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>state</i> be the value of <i>generator&#x2019;s</i> [[GeneratorState]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>state</i> is <code>&quot;executing&quot;</code>, throw a <b>TypeError</b> exception.</li>
+          <li>Return <i>state</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

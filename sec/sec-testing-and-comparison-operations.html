@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-7.2"><a href="/sec/sec-testing-and-comparison-operations.html" title="link to this section">7.2</a></span> Testing and Comparison Operations</h1>
+    </div>
+
+    <section id="sec-requireobjectcoercible">
+      <h1><span class="secnum" id="sec-7.2.1"><a href="/sec/sec-requireobjectcoercible.html" title="link to this section">7.2.1</a></span>
+          RequireObjectCoercible ( argument )</h1>
+
+      <p>The abstract operation RequireObjectCoercible throws an error if <var>argument</var> is a value that cannot be converted
+      to an Object using <a href="/sec/sec-toobject.html">ToObject</a>. It is defined by <a href="/sec/table-14.html">Table 14</a>:</p>
+
+      <figure>
+        <figcaption><span id="table-14">Table 14</span>&#xA0;&#x2014; RequireObjectCoercible Results</figcaption>
+        <table class="real-table">
+          <tr>
+            <th>Argument Type</th>
+            <th>Result</th>
+          </tr>
+          <tr>
+            <td><a href="/sec/sec-completion-record-specification-type.html">Completion Record</a></td>
+            <td>If <var>argument</var> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, return <var>argument</var>. Otherwise return RequireObjectCoercible(<var>argument</var>.[[value]]).</td>
+          </tr>
+          <tr>
+            <td>Undefined</td>
+            <td>Throw a <b>TypeError</b> exception.</td>
+          </tr>
+          <tr>
+            <td>Null</td>
+            <td>Throw a <b>TypeError</b> exception.</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>Return <var>argument</var>.</td>
+          </tr>
+          <tr>
+            <td>Number</td>
+            <td>Return <var>argument</var>.</td>
+          </tr>
+          <tr>
+            <td>String</td>
+            <td>Return <var>argument</var>.</td>
+          </tr>
+          <tr>
+            <td>Symbol</td>
+            <td>Return <var>argument</var>.</td>
+          </tr>
+          <tr>
+            <td>Object</td>
+            <td>Return <var>argument</var>.</td>
+          </tr>
+        </table>
+      </figure>
+    </section>
+
+    <section id="sec-isarray">
+      <h1><span class="secnum" id="sec-7.2.2"><a href="/sec/sec-isarray.html" title="link to this section">7.2.2</a></span> IsArray (
+          argument )</h1>
+
+      <p class="normalbefore">The abstract operation IsArray takes one argument <var>argument</var>, and performs the following
+      steps:</p>
+
+      <ol class="proc">
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>argument</i>) is not Object, return <b>false</b>.</li>
+        <li>If <i>argument</i> is an <a href="/sec/sec-array-exotic-objects.html">Array exotic object</a>, return <b>true</b>.</li>
+        <li>If <i>argument</i> is a Proxy exotic object, then
+          <ol class="block">
+            <li>If the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>
+                of <i>argument</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+            <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>argument</i>.</li>
+            <li>Return IsArray(<i>target</i>).</li>
+          </ol>
+        </li>
+        <li>Return <b>false</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-iscallable">
+      <h1><span class="secnum" id="sec-7.2.3"><a href="/sec/sec-iscallable.html" title="link to this section">7.2.3</a></span> IsCallable (
+          argument )</h1>
+
+      <p>The abstract operation IsCallable determines if <var>argument</var>, which must be an <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language value</a> or a <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a>, is a callable function with a [[Call]] internal
+      method.</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>argument</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>argument</i>) is not Object, return <b>false</b>.</li>
+        <li>If <i>argument</i> has a [[Call]] internal method, return <b>true</b>.</li>
+        <li>Return <b>false</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-isconstructor">
+      <h1><span class="secnum" id="sec-7.2.4"><a href="/sec/sec-isconstructor.html" title="link to this section">7.2.4</a></span>
+          IsConstructor ( argument )</h1>
+
+      <p class="normalbefore">The abstract operation IsConstructor determines if <var>argument</var>, which must be an <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language value</a> or a <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a>, is a function object with a [[Construct]] internal
+      method.</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>argument</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>argument</i>) is not Object, return <b>false</b>.</li>
+        <li>If <i>argument</i> has a [[Construct]] internal method, return <b>true</b>.</li>
+        <li>Return <b>false</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-isextensible-o">
+      <h1><span class="secnum" id="sec-7.2.5"><a href="/sec/sec-isextensible-o.html" title="link to this section">7.2.5</a></span>
+          IsExtensible (O)</h1>
+
+      <p class="normalbefore">The abstract operation <span style="font-family: Times New Roman">IsExtensible</span> is used to
+      determine whether additional properties can be added to the object that is <var>O</var>. A Boolean value is returned. This
+      abstract operation performs the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is
+            Object.</li>
+        <li>Return <i>O</i>.[[IsExtensible]]().</li>
+      </ol>
+    </section>
+
+    <section id="sec-isinteger">
+      <h1><span class="secnum" id="sec-7.2.6"><a href="/sec/sec-isinteger.html" title="link to this section">7.2.6</a></span> IsInteger (
+          argument )</h1>
+
+      <p class="normalbefore">The abstract operation IsInteger determines if <var>argument</var> is a finite integer numeric
+      value.</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>argument</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>argument</i>) is not Number, return <b>false</b>.</li>
+        <li>If <i>argument</i> is <b>NaN</b>, <b>+&#x221E;</b>, or <b>&#x2212;&#x221E;</b>, return <b>false</b>.</li>
+        <li>If <a href="/sec/sec-algorithm-conventions.html">floor</a>(<a href="/sec/sec-algorithm-conventions.html">abs</a>(<i>argument</i>)) &#x2260;
+            <a href="/sec/sec-algorithm-conventions.html">abs</a>(<i>argument</i>), return <b>false</b>.</li>
+        <li>Return <b>true</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-ispropertykey">
+      <h1><span class="secnum" id="sec-7.2.7"><a href="/sec/sec-ispropertykey.html" title="link to this section">7.2.7</a></span>
+          IsPropertyKey ( argument )</h1>
+
+      <p class="normalbefore">The abstract operation IsPropertyKey determines if <var>argument</var>, which must be an <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language value</a> or a <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a>, is a value that may be used as a <a href="/sec/sec-object-type.html">property key</a>.</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>argument</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>argument</i>) is String, return <b>true</b>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>argument</i>) is Symbol, return <b>true</b>.</li>
+        <li>Return <b>false</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-isregexp">
+      <h1><span class="secnum" id="sec-7.2.8"><a href="/sec/sec-isregexp.html" title="link to this section">7.2.8</a></span> IsRegExp (
+          argument )</h1>
+
+      <p class="normalbefore">The abstract operation IsRegExp with argument <var>argument</var> performs the following steps:</p>
+
+      <ol class="proc">
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>argument</i>) is not Object, return <b>false</b>.</li>
+        <li>Let <i>isRegExp</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>argument</i>, @@match).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>isRegExp</i>).</li>
+        <li>If <i>isRegExp</i> is not <b>undefined</b>, return <a href="/sec/sec-toboolean.html">ToBoolean</a>(<i>isRegExp</i>).</li>
+        <li>If <i>argument</i> has a [[RegExpMatcher]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+            slot</a>, return <b>true</b>.</li>
+        <li>Return <b>false</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-samevalue">
+      <h1><span class="secnum" id="sec-7.2.9"><a href="/sec/sec-samevalue.html" title="link to this section">7.2.9</a></span> SameValue(x,
+          y)</h1>
+
+      <p class="normalbefore">The internal comparison abstract operation SameValue(<var>x</var>, <var>y</var>), where <var>x</var>
+      and <var>y</var> are <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language values</a>, produces <b>true</b> or
+      <b>false</b>. Such a comparison is performed as follows:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>x</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>y</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is different from <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>y</i>), return <b>false</b>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Undefined, return <b>true</b>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Null, return <b>true</b>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Number, then
+          <ol class="block">
+            <li>If <i>x</i> is <b>NaN</b> and <i>y</i> is <b>NaN</b>, return <b>true</b>.</li>
+            <li>If <i>x</i> is <b>+0</b> and <i>y</i> is <b>&#x2212;0</b>, return <b>false</b>.</li>
+            <li>If <i>x</i> is <b>&#x2212;0</b> and <i>y</i> is <b>+0</b>, return <b>false</b>.</li>
+            <li>If <i>x</i> is the same Number value as <i>y</i>, return <b>true</b>.</li>
+            <li>Return <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is String, then
+          <ol class="block">
+            <li>If <i>x</i> and <i>y</i> are exactly the same sequence of code units (same length and same code units at
+                corresponding indices) return <b>true</b>; otherwise, return <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Boolean, then
+          <ol class="block">
+            <li>If <i>x</i> and <i>y</i> are both <b>true</b> or both <b>false</b>, return <b>true</b>; otherwise, return
+                <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Symbol, then
+          <ol class="block">
+            <li>If <i>x</i> and <i>y</i> are both the same Symbol value, return <b>true</b>; otherwise, return <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>Return <b>true</b> if <i>x</i> and <i>y</i> are the same Object value. Otherwise, return <b>false</b>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> This algorithm differs from the Strict Equality Comparison Algorithm (<a href="/sec/sec-strict-equality-comparison.html">7.2.13</a>) in its treatment of signed zeroes and NaNs.</p>
+      </div>
+    </section>
+
+    <section id="sec-samevaluezero">
+      <h1><span class="secnum" id="sec-7.2.10"><a href="/sec/sec-samevaluezero.html" title="link to this section">7.2.10</a></span>
+          SameValueZero(x, y)</h1>
+
+      <p class="normalbefore">The internal comparison abstract operation SameValueZero(<var>x</var>, <var>y</var>), where
+      <var>x</var> and <var>y</var> are <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language values</a>, produces
+      <b>true</b> or <b>false</b>. Such a comparison is performed as follows:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>x</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>y</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is different from <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>y</i>), return <b>false</b>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Undefined, return <b>true</b>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Null, return <b>true</b>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Number, then
+          <ol class="block">
+            <li>If <i>x</i> is <b>NaN</b> and <i>y</i> is <b>NaN</b>, return <b>true</b>.</li>
+            <li>If <i>x</i> is <b>+0</b> and <i>y</i> is <b>&#x2212;0</b>, return <b>true</b>.</li>
+            <li>If <i>x</i> is <b>&#x2212;0</b> and <i>y</i> is <b>+0</b>, return <b>true</b>.</li>
+            <li>If <i>x</i> is the same Number value as <i>y</i>, return <b>true</b>.</li>
+            <li>Return <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is String, then
+          <ol class="block">
+            <li>If <i>x</i> and <i>y</i> are exactly the same sequence of code units (same length and same code units at
+                corresponding indices) return <b>true</b>; otherwise, return <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Boolean, then
+          <ol class="block">
+            <li>If <i>x</i> and <i>y</i> are both <b>true</b> or both <b>false</b>, return <b>true</b>; otherwise, return
+                <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Symbol, then
+          <ol class="block">
+            <li>If <i>x</i> and <i>y</i> are both the same Symbol value, return <b>true</b>; otherwise, return <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>Return <b>true</b> if <i>x</i> and <i>y</i> are the same Object value. Otherwise, return <b>false</b>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> SameValueZero differs from SameValue only in its treatment of <span class="value">+0</span> and <span class="value">&#x2212;0</span>.</p>
+      </div>
+    </section>
+
+    <section id="sec-abstract-relational-comparison">
+      <h1><span class="secnum" id="sec-7.2.11"><a href="/sec/sec-abstract-relational-comparison.html" title="link to this section">7.2.11</a></span> Abstract Relational Comparison</h1>
+
+      <p class="normalbefore">The comparison <var>x</var> &lt; <var>y</var>, where <var>x</var> and <var>y</var> are values,
+      produces <b>true</b>, <b>false</b>, or <b>undefined</b> (which indicates that at least one operand is <b>NaN</b>). In
+      addition to <var>x</var> and <var>y</var> the algorithm takes a Boolean flag named <span class="nt">LeftFirst</span> as a
+      parameter. The flag is used to control the order in which operations with potentially visible side-effects are performed
+      upon <var>x</var> and <var>y</var>. It is necessary because ECMAScript specifies left to right evaluation of expressions.
+      The default value of <span class="nt">LeftFirst</span> is <b>true</b> and indicates that the <var>x</var> parameter
+      corresponds to an expression that occurs to the left of the <var>y</var> parameter&#x2019;s corresponding expression. If
+      <span class="nt">LeftFirst</span> is <b>false</b>, the reverse is the case and operations must be performed upon
+      <var>y</var> before <var>x</var>. Such a comparison is performed as follows:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>x</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>y</i>).</li>
+        <li>If the <i>LeftFirst</i> flag is <b>true</b>, then
+          <ol class="block">
+            <li>Let <i>px</i> be <a href="/sec/sec-toprimitive.html">ToPrimitive</a>(<i>x</i>, hint Number).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>px</i>).</li>
+            <li>Let <i>py</i> be <a href="/sec/sec-toprimitive.html">ToPrimitive</a>(<i>y</i>, hint Number).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>py</i>).</li>
+          </ol>
+        </li>
+        <li>Else the order of evaluation needs to be reversed to preserve left to right evaluation
+          <ol class="block">
+            <li>Let <i>py</i> be <a href="/sec/sec-toprimitive.html">ToPrimitive</a>(<i>y</i>, hint Number).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>py</i>).</li>
+            <li>Let <i>px</i> be <a href="/sec/sec-toprimitive.html">ToPrimitive</a>(<i>x</i>, hint Number).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>px</i>).</li>
+          </ol>
+        </li>
+        <li>If both <i>px</i> and <i>py</i> are Strings, then
+          <ol class="block">
+            <li>If <i>py</i> is a prefix of <i>px</i>, return <b>false</b>. (A String value <i>p</i> is a prefix of String value
+                <i>q</i> if <i>q</i> can be the result of concatenating <i>p</i> and some other String <i>r</i>. Note that any
+                String is a prefix of itself, because <i>r</i> may be the empty String.)</li>
+            <li>If <i>px</i> is a prefix of <i>py</i>, return <b>true</b>.</li>
+            <li>Let <i>k</i> be the smallest nonnegative integer such that the code unit at index <i>k</i> within <i>px</i> is
+                different from the code unit at index <i>k</i> within <i>py</i>. (There must be such a <i>k</i>, for neither
+                String is a prefix of the other.)</li>
+            <li>Let <i>m</i> be the integer that is the code unit value at index <i>k</i> within <i>px</i>.</li>
+            <li>Let <i>n</i> be the integer that is the code unit value at index <i>k</i> within <i>py</i>.</li>
+            <li>If <i>m</i> &lt; <i>n</i>, return <b>true</b>. Otherwise, return <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>Else,
+          <ol class="block">
+            <li>Let <i>nx</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>px</i>). Because <i>px</i> and <i>py</i> are primitive
+                values evaluation order is not important.</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nx</i>).</li>
+            <li>Let <i>ny</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>py</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>ny</i>).</li>
+            <li>If <i>nx</i> is <b>NaN</b>, return <b>undefined</b>.</li>
+            <li>If <i>ny</i> is <b>NaN</b>, return <b>undefined</b>.</li>
+            <li>If <i>nx</i> and <i>ny</i> are the same Number value, return <b>false</b>.</li>
+            <li>If <i>nx</i> is <b>+0</b> and <i>ny</i> is <b>&#x2212;0</b>, return <b>false</b>.</li>
+            <li>If <i>nx</i> is <b>&#x2212;0</b> and <i>ny</i> is <b>+0</b>, return <b>false</b>.</li>
+            <li>If <i>nx</i> is <b>+&#x221E;</b>, return <b>false</b>.</li>
+            <li>If <i>ny</i> is <b>+&#x221E;</b>, return <b>true</b>.</li>
+            <li>If <i>ny</i> is <b>&#x2212;&#x221E;</b>, return <b>false</b>.</li>
+            <li>If <i>nx</i> is <b>&#x2212;&#x221E;</b>, return <b>true</b>.</li>
+            <li>If the mathematical value of <i>nx</i> is less than the mathematical value of <i>ny</i> &#x2014;note that these
+                mathematical values are both finite and not both zero&#x2014;return <b>true</b>. Otherwise, return
+                <b>false</b>.</li>
+          </ol>
+        </li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE 1</span> Step 5 differs from step 11 in the algorithm for the addition operator <code>+</code>
+        (<a href="/sec/sec-addition-operator-plus.html">12.7.3</a>) in using &#x201C;and&#x201D; instead of &#x201C;or&#x201D;.</p>
+      </div>
+
+      <div class="note">
+        <p><span class="nh">NOTE 2</span> The comparison of Strings uses a simple lexicographic ordering on sequences of code unit
+        values. There is no attempt to use the more complex, semantically oriented definitions of character or string equality and
+        collating order defined in the Unicode specification. Therefore String values that are canonically equal according to the
+        Unicode standard could test as unequal. In effect this algorithm assumes that both Strings are already in normalized form.
+        Also, note that for strings containing supplementary characters, lexicographic ordering on sequences of UTF-16 code unit
+        values differs from that on sequences of code point values.</p>
+      </div>
+    </section>
+
+    <section id="sec-abstract-equality-comparison">
+      <h1><span class="secnum" id="sec-7.2.12"><a href="/sec/sec-abstract-equality-comparison.html" title="link to this section">7.2.12</a></span> Abstract Equality Comparison</h1>
+
+      <p class="normalbefore">The comparison <var>x</var> == <var>y</var>, where <var>x</var> and <var>y</var> are values,
+      produces <b>true</b> or <b>false</b>. Such a comparison is performed as follows:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>x</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>y</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is the same as <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>y</i>), then
+          <ol class="block">
+            <li>Return the result of performing Strict Equality Comparison <i>x</i> === <i>y</i>.</li>
+          </ol>
+        </li>
+        <li>If <i>x</i> is <b>null</b> and <i>y</i> is <b>undefined</b>, return <b>true</b>.</li>
+        <li>If <i>x</i> is <b>undefined</b> and <i>y</i> is <b>null</b>, return <b>true</b>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Number and <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>y</i>) is String,<br>return the result of the comparison
+            <i>x</i> == <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>y</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is String and <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>y</i>) is Number,<br>return the result of the comparison <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>x</i>) == <i>y</i>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Boolean, return the result of the comparison
+            <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>x</i>) == <i>y</i>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>y</i>) is Boolean, return the result of the comparison
+            <i>x</i> == <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>y</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is either String, Number, or Symbol and <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>y</i>) is Object, then<br>return the result of the comparison
+            <i>x</i> == <a href="/sec/sec-toprimitive.html">ToPrimitive</a>(<i>y</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Object and <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>y</i>) is either String, Number, or Symbol, then<br>return
+            the result of the comparison <a href="/sec/sec-toprimitive.html">ToPrimitive</a>(<i>x</i>) == <i>y</i>.</li>
+        <li>Return <b>false</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-strict-equality-comparison">
+      <h1><span class="secnum" id="sec-7.2.13"><a href="/sec/sec-strict-equality-comparison.html" title="link to this section">7.2.13</a></span> Strict Equality Comparison</h1>
+
+      <p class="normalbefore">The comparison <var>x</var> === <var>y</var>, where <var>x</var> and <var>y</var> are values,
+      produces <b>true</b> or <b>false</b>. Such a comparison is performed as follows:</p>
+
+      <ol class="proc">
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is different from <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>y</i>), return <b>false</b>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Undefined, return <b>true</b>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Null, return <b>true</b>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Number, then
+          <ol class="block">
+            <li>If <i>x</i> is <b>NaN</b>, return <b>false</b>.</li>
+            <li>If <i>y</i> is <b>NaN</b>, return <b>false</b>.</li>
+            <li>If <i>x</i> is the same Number value as <i>y</i>, return <b>true</b>.</li>
+            <li>If <i>x</i> is <b>+0</b> and <i>y</i> is <b>&#x2212;0</b>, return <b>true</b>.</li>
+            <li>If <i>x</i> is <b>&#x2212;0</b> and <i>y</i> is <b>+0</b>, return <b>true</b>.</li>
+            <li>Return <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is String, then
+          <ol class="block">
+            <li>If <i>x</i> and <i>y</i> are exactly the same sequence of code units (same length and same code units at
+                corresponding indices), return <b>true</b>.</li>
+            <li>Else, return <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Boolean, then
+          <ol class="block">
+            <li>If <i>x</i> and <i>y</i> are both <b>true</b> or both <b>false</b>, return <b>true</b>.</li>
+            <li>Else, return <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>If <i>x</i> and <i>y</i> are the same Symbol value, return <b>true</b>.</li>
+        <li>If <i>x</i> and <i>y</i> are the same Object value, return <b>true</b>.</li>
+        <li>Return <b>false</b>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> This algorithm differs from <a href="/sec/sec-samevalue.html">the SameValue Algorithm</a> (<a href="/sec/sec-samevalue.html">7.2.9</a>) in its treatment of signed zeroes and NaNs.</p>
+      </div>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

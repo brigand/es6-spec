@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.1.13"><a href="/sec/sec-toobject.html" title="link to this section">7.1.13</a></span> ToObject (
+          argument )</h1>
+
+      <p>The abstract operation ToObject converts <var>argument</var> to a value of type Object according to <a href="/sec/table-13.html">Table 13</a>:</p>
+
+      <figure>
+        <figcaption><span id="table-13">Table 13</span> &#x2014; ToObject Conversions</figcaption>
+        <table class="real-table">
+          <tr>
+            <th>Argument Type</th>
+            <th>Result</th>
+          </tr>
+          <tr>
+            <td><a href="/sec/sec-completion-record-specification-type.html">Completion Record</a></td>
+            <td>If <i>argument</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, return <i>argument</i>. Otherwise return ToObject(<i>argument</i>.[[value]]).</td>
+          </tr>
+          <tr>
+            <td>Undefined</td>
+            <td>Throw a <b>TypeError</b> exception.</td>
+          </tr>
+          <tr>
+            <td>Null</td>
+            <td>Throw a <b>TypeError</b> exception.</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>Return a new Boolean object whose [[BooleanData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is set to the value of <i>argument</i>. See <a href="/sec/sec-boolean-objects.html">19.3</a> for a description of Boolean objects.</td>
+          </tr>
+          <tr>
+            <td>Number</td>
+            <td>Return a new Number object whose [[NumberData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is set to the value of <i>argument</i>. See <a href="/sec/sec-number-objects.html">20.1</a> for a description of Number objects.</td>
+          </tr>
+          <tr>
+            <td>String</td>
+            <td>Return a new String object whose [[StringData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is set to the value of <i>argument</i>. See <a href="/sec/sec-string-objects.html">21.1</a> for a description of String objects.</td>
+          </tr>
+          <tr>
+            <td>Symbol</td>
+            <td>Return a new Symbol object whose [[SymbolData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is set to the value of <i>argument</i>. See <a href="/sec/sec-symbol-objects.html">19.4</a> for a description of Symbol objects.</td>
+          </tr>
+          <tr>
+            <td>Object</td>
+            <td>Return <i>argument</i>.</td>
+          </tr>
+        </table>
+      </figure>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

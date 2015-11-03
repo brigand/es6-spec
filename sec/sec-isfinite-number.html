@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-18.2.2"><a href="/sec/sec-isfinite-number.html" title="link to this section">18.2.2</a></span>
+          isFinite (number)</h1>
+
+      <p class="normalbefore">The <code>isFinite</code> function is the %isFinite% intrinsic object. When the
+      <code>isFinite</code> function is called with one argument <var>x</var>, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>num</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>number</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>num</i>).</li>
+        <li>If <i>num</i> is <b>NaN</b>, <b>+&#x221E;</b>, or <b>&#x2212;&#x221E;</b>, return <b>false</b>.</li>
+        <li>Otherwise, return <b>true</b>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

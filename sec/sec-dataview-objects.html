@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-24.2"><a href="/sec/sec-dataview-objects.html" title="link to this section">24.2</a></span> DataView
+          Objects</h1>
+    </div>
+
+    <section id="sec-abstract-operations-for-dataview-objects">
+      <div class="front">
+        <h1><span class="secnum" id="sec-24.2.1"><a href="/sec/sec-abstract-operations-for-dataview-objects.html" title="link to this section">24.2.1</a></span> Abstract Operations For DataView Objects</h1>
+      </div>
+
+      <section id="sec-getviewvalue">
+        <h1><span class="secnum" id="sec-24.2.1.1"><a href="/sec/sec-getviewvalue.html" title="link to this section">24.2.1.1</a></span>
+            GetViewValue ( view, requestIndex, isLittleEndian, type )</h1>
+
+        <p class="normalbefore">The abstract operation GetViewValue with arguments <var>view</var>, <var>requestIndex</var>,
+        <var>isLittleEndian</var>, and <var>type</var> is used by functions on DataView instances is to retrieve values from the
+        view&#x2019;s buffer. It performs the following steps:</p>
+
+        <ol class="proc">
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>view</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>view</i> does not have a [[DataView]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>numberIndex</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>requestIndex</i>).</li>
+          <li>Let <i>getIndex</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>numberIndex</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>getIndex</i>).</li>
+          <li>If <i>numberIndex</i> &#x2260; <i>getIndex</i> or <i>getIndex</i> &lt; 0, throw a <b>RangeError</b> exception.</li>
+          <li>Let <i>isLittleEndian</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<i>isLittleEndian</i>).</li>
+          <li>Let <i>buffer</i> be the value of <i>view&#x2019;s</i> [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>buffer</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>viewOffset</i> be the value of <i>view&#x2019;s</i> [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>viewSize</i> be the value of <i>view&#x2019;s</i> [[ByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>elementSize</i> be the Number value of the Element Size value specified in <a href="/sec/table-49.html">Table 49</a>
+              for Element Type <i>type</i>.</li>
+          <li>If <i>getIndex</i> +<i>elementSize</i> &gt; <i>viewSize</i>, throw a <b>RangeError</b> exception.</li>
+          <li>Let <i>bufferIndex</i> be <i>getIndex</i> + <i>viewOffset</i>.</li>
+          <li>Return <a href="/sec/sec-getvaluefrombuffer.html">GetValueFromBuffer</a>(<i>buffer</i>, <i>bufferIndex</i>, <i>type</i>,
+              <i>isLittleEndian</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-setviewvalue">
+        <h1><span class="secnum" id="sec-24.2.1.2"><a href="/sec/sec-setviewvalue.html" title="link to this section">24.2.1.2</a></span>
+            SetViewValue ( view, requestIndex, isLittleEndian, type, value )</h1>
+
+        <p class="normalbefore">The abstract operation SetViewValue with arguments <var>view</var>, <var>requestIndex</var>,
+        <var>isLittleEndian</var>, <var>type</var>, and <var>value</var> is used by functions on DataView instances to store
+        values into the view&#x2019;s buffer. It performs the following steps:</p>
+
+        <ol class="proc">
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>view</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>view</i> does not have a [[DataView]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>numberIndex</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>requestIndex</i>).</li>
+          <li>Let <i>getIndex</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>numberIndex</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>getIndex</i>).</li>
+          <li>If <i>numberIndex</i> &#x2260; <i>getIndex</i> or <i>getIndex</i> &lt; 0, throw a <b>RangeError</b> exception.</li>
+          <li>Let <i>isLittleEndian</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<i>isLittleEndian</i>).</li>
+          <li>Let <i>buffer</i> be the value of <i>view&#x2019;s</i> [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>buffer</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>viewOffset</i> be the value of <i>view&#x2019;s</i> [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>viewSize</i> be the value of <i>view&#x2019;s</i> [[ByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>elementSize</i> be the Number value of the Element Size value specified in <a href="/sec/table-49.html">Table 49</a>
+              for Element Type <i>type</i>.</li>
+          <li>If <i>getIndex</i> +<i>elementSize</i> &gt; <i>viewSize</i>, throw a <b>RangeError</b> exception.</li>
+          <li>Let <i>bufferIndex</i> be <i>getIndex</i> + <i>viewOffset</i>.</li>
+          <li>Return <a href="/sec/sec-setvalueinbuffer.html">SetValueInBuffer</a>(<i>buffer</i>, <i>bufferIndex</i>, <i>type</i>,
+              <i>value</i>, <i>isLittleEndian</i>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The algorithms for <a href="/sec/sec-getviewvalue.html">GetViewValue</a> and SetViewValue are
+          identical except for their final steps.</p>
+        </div>
+      </section>
+    </section>
+
+    <section id="sec-dataview-constructor">
+      <div class="front">
+        <h1><span class="secnum" id="sec-24.2.2"><a href="/sec/sec-dataview-constructor.html" title="link to this section">24.2.2</a></span> The DataView Constructor</h1>
+
+        <p>The DataView constructor is the %DataView% intrinsic object and the initial value of the <code>DataView</code> property
+        of the global object. When called as a constructor it creates and initializes a new DataView object. <code>DataView</code>
+        is not intended to be called as a function and will throw an exception when called in that manner.</p>
+
+        <p>The <code>DataView</code> constructor is designed to be subclassable. It may be used as the value of an
+        <code>extends</code> clause of a class definition. Subclass constructors that intend to inherit the specified
+        <code>DataView</code> behaviour must include a <code>super</code> call to the <code>DataView</code> constructor to create
+        and initialize subclass instances with the internal state necessary to support the <code><a href="/sec/sec-dataview.prototype.html">DataView.prototype</a></code> built-in methods.</p>
+      </div>
+
+      <section id="sec-dataview-buffer-byteoffset-bytelength">
+        <h1><span class="secnum" id="sec-24.2.2.1"><a href="/sec/sec-dataview-buffer-byteoffset-bytelength.html" title="link to this section">24.2.2.1</a></span> DataView (buffer [ , byteOffset [ , byteLength ] ] )</h1>
+
+        <p class="normalbefore"><code>DataView</code> called with arguments <span style="font-family: Times New
+        Roman"><i>buffer</i>, <i>byteOffset</i>, and <i>length</i></span> performs the following steps:</p>
+
+        <ol class="proc">
+          <li>If NewTarget is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>buffer</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>buffer</i> does not have an [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>numberOffset</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>byteOffset</i>).</li>
+          <li>Let <i>offset</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>numberOffset</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>offset</i>).</li>
+          <li>If <i>numberOffset</i> &#x2260; <i>offset</i> or <i>offset</i> &lt; 0, throw a <b>RangeError</b> exception.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>buffer</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>bufferByteLength</i> be the value of <i>buffer&#x2019;s</i> [[ArrayBufferByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>offset</i> &gt; <i>bufferByteLength</i>, throw a <b>RangeError</b> exception.</li>
+          <li>If <i>byteLength</i> is <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>viewByteLength</i> be <i>bufferByteLength</i> &#x2013; <i>offset</i>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>viewByteLength</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<i>byteLength</i>)<i>.</i></li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>viewByteLength</i>).</li>
+              <li>If <i>offset</i>+<i>viewByteLength</i> &gt; <i>bufferByteLength</i>, throw a <b>RangeError</b> exception.</li>
+            </ol>
+          </li>
+          <li>Let <i>O</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(NewTarget,
+              <code>&quot;%DataViewPrototype%&quot;</code>, &#xAB;&#x200D;[[DataView]], [[ViewedArrayBuffer]], [[ByteLength]],
+              [[ByteOffset]]&#xBB; ).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Set <i>O&#x2019;s</i> [[DataView]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <b>true</b>.</li>
+          <li>Set <i>O&#x2019;s</i> [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to <i>buffer</i>.</li>
+          <li>Set <i>O</i>&#x2019;s [[ByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <i>viewByteLength</i>.</li>
+          <li>Set <i>O</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <i>offset</i>.</li>
+          <li>Return <i>O</i>.</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-the-dataview-constructor">
+      <div class="front">
+        <h1><span class="secnum" id="sec-24.2.3"><a href="/sec/sec-properties-of-the-dataview-constructor.html" title="link to this section">24.2.3</a></span> Properties of the DataView Constructor</h1>
+
+        <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the
+        <code>DataView</code> constructor is the intrinsic object %FunctionPrototype% (<a href="/sec/sec-properties-of-the-function-prototype-object.html">19.2.3</a>).</p>
+
+        <p>Besides the <code>length</code> property (whose value is 3), the DataView constructor has the following properties:</p>
+      </div>
+
+      <section id="sec-dataview.prototype">
+        <h1><span class="secnum" id="sec-24.2.3.1"><a href="/sec/sec-dataview.prototype.html" title="link to this section">24.2.3.1</a></span> DataView.prototype</h1>
+
+        <p>The initial value of <code>DataView.prototype</code> is the intrinsic object %DataViewPrototype% (<a href="/sec/sec-properties-of-the-dataview-prototype-object.html">24.2.4</a>).</p>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <b>false</b> }.</p>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-the-dataview-prototype-object">
+      <div class="front">
+        <h1><span class="secnum" id="sec-24.2.4"><a href="/sec/sec-properties-of-the-dataview-prototype-object.html" title="link to this section">24.2.4</a></span> Properties of the DataView Prototype Object</h1>
+
+        <p>The DataView prototype object is the intrinsic object %DataViewPrototype%. The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the DataView prototype object is the intrinsic
+        object %ObjectPrototype% (<a href="/sec/sec-properties-of-the-object-prototype-object.html">19.1.3</a>). The DataView prototype
+        object is an ordinary object. It does not have a [[DataView]], [[ViewedArrayBuffer]], [[ByteLength]], or [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+      </div>
+
+      <section id="sec-get-dataview.prototype.buffer">
+        <h1><span class="secnum" id="sec-24.2.4.1"><a href="/sec/sec-get-dataview.prototype.buffer.html" title="link to this section">24.2.4.1</a></span> get DataView.prototype.buffer</h1>
+
+        <p class="normalbefore"><code>DataView.prototype.buffer</code> is an accessor property whose set accessor function is
+        <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>O</i> does not have a [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>buffer</i> be the value of <i>O</i>&#x2019;s [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Return <i>buffer</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-get-dataview.prototype.bytelength">
+        <h1><span class="secnum" id="sec-24.2.4.2"><a href="/sec/sec-get-dataview.prototype.bytelength.html" title="link to this section">24.2.4.2</a></span> get DataView.prototype.byteLength</h1>
+
+        <p class="normalbefore"><code>DataView</code>.<code>prototype.byteLength</code> is an accessor property whose set accessor
+        function is <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>O</i> does not have a [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>buffer</i> be the value of <i>O</i>&#x2019;s [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>buffer</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>size</i> be the value of <i>O</i>&#x2019;s [[ByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Return <i>size</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-get-dataview.prototype.byteoffset">
+        <h1><span class="secnum" id="sec-24.2.4.3"><a href="/sec/sec-get-dataview.prototype.byteoffset.html" title="link to this section">24.2.4.3</a></span> get DataView.prototype.byteOffset</h1>
+
+        <p class="normalbefore"><code>DataView</code>.<code>prototype.byteOffset</code> is an accessor property whose set accessor
+        function is <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>O</i> does not have a [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>buffer</i> be the value of <i>O</i>&#x2019;s [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>buffer</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>offset</i> be the value of <i>O</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Return <i>offset</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-dataview.prototype.constructor">
+        <h1><span class="secnum" id="sec-24.2.4.4"><a href="/sec/sec-dataview.prototype.constructor.html" title="link to this section">24.2.4.4</a></span> DataView.prototype.constructor</h1>
+
+        <p>The initial value of <code>DataView.prototype.constructor</code> is the intrinsic object %DataView%.</p>
+      </section>
+
+      <section id="sec-dataview.prototype.getfloat32">
+        <h1><span class="secnum" id="sec-24.2.4.5"><a href="/sec/sec-dataview.prototype.getfloat32.html" title="link to this section">24.2.4.5</a></span> DataView.prototype.getFloat32 ( byteOffset [ , littleEndian ] )</h1>
+
+        <p class="normalbefore">When the <code>getFloat32</code> method is called with argument <var>byteOffset</var> and optional
+        argument <i>littleEndian</i> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>v</i> be the <b>this</b> value.</li>
+          <li>If <i>littleEndian</i> is not present, let <i>littleEndian</i> be <b>false</b>.</li>
+          <li>Return <a href="/sec/sec-getviewvalue.html">GetViewValue</a>(<i>v</i>, <i>byteOffset</i>, <i>littleEndian</i>,
+              <code>&quot;Float32&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-dataview.prototype.getfloat64">
+        <h1><span class="secnum" id="sec-24.2.4.6"><a href="/sec/sec-dataview.prototype.getfloat64.html" title="link to this section">24.2.4.6</a></span> DataView.prototype.getFloat64 ( byteOffset [ , littleEndian ] )</h1>
+
+        <p class="normalbefore">When the <code>getFloat64</code> method is called with argument <var>byteOffset</var> and optional
+        argument <i>littleEndian</i> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>v</i> be the <b>this</b> value.</li>
+          <li>If <i>littleEndian</i> is not present, let <i>littleEndian</i> be <b>false</b>.</li>
+          <li>Return <a href="/sec/sec-getviewvalue.html">GetViewValue</a>(<i>v</i>, <i>byteOffset</i>, <i>littleEndian</i>,
+              <code>&quot;Float64&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-dataview.prototype.getint8">
+        <h1><span class="secnum" id="sec-24.2.4.7"><a href="/sec/sec-dataview.prototype.getint8.html" title="link to this section">24.2.4.7</a></span> DataView.prototype.getInt8 ( byteOffset )</h1>
+
+        <p class="normalbefore">When the <code>getInt8</code> method is called with argument <var>byteOffset</var> the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>v</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-getviewvalue.html">GetViewValue</a>(<i>v</i>, <i>byteOffset</i>, <b>true</b>,
+              <code>&quot;Int8&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-dataview.prototype.getint16">
+        <h1><span class="secnum" id="sec-24.2.4.8"><a href="/sec/sec-dataview.prototype.getint16.html" title="link to this section">24.2.4.8</a></span> DataView.prototype.getInt16 ( byteOffset [ , littleEndian ] )</h1>
+
+        <p class="normalbefore">When the <code>getInt16</code> method is called with argument <var>byteOffset</var> and optional
+        argument <i>littleEndian</i> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>v</i> be the <b>this</b> value.</li>
+          <li>If <i>littleEndian</i> is not present, let <i>littleEndian</i> be <b>false</b>.</li>
+          <li>Return <a href="/sec/sec-getviewvalue.html">GetViewValue</a>(<i>v</i>, <i>byteOffset</i>, <i>littleEndian</i>,
+              <code>&quot;Int16&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-dataview.prototype.getint32">
+        <h1><span class="secnum" id="sec-24.2.4.9"><a href="/sec/sec-dataview.prototype.getint32.html" title="link to this section">24.2.4.9</a></span> DataView.prototype.getInt32 ( byteOffset [ , littleEndian ] )</h1>
+
+        <p class="normalbefore">When the <code>getInt32</code> method is called with argument <var>byteOffset</var> and optional
+        argument <i>littleEndian</i> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>v</i> be the <b>this</b> value.</li>
+          <li>If <i>littleEndian</i> is not present, let <i>littleEndian</i> be <b>undefined</b>.</li>
+          <li>Return <a href="/sec/sec-getviewvalue.html">GetViewValue</a>(<i>v</i>, <i>byteOffset</i>, <i>littleEndian</i>,
+              <code>&quot;Int32&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-dataview.prototype.getuint8">
+        <h1><span class="secnum" id="sec-24.2.4.10"><a href="/sec/sec-dataview.prototype.getuint8.html" title="link to this section">24.2.4.10</a></span> DataView.prototype.getUint8 ( byteOffset )</h1>
+
+        <p class="normalbefore">When the <code>getUint8</code> method is called with argument <var>byteOffset</var> the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>v</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-getviewvalue.html">GetViewValue</a>(<i>v</i>, <i>byteOffset</i>, <b>true</b>,
+              <code>&quot;Uint8&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-dataview.prototype.getuint16">
+        <h1><span class="secnum" id="sec-24.2.4.11"><a href="/sec/sec-dataview.prototype.getuint16.html" title="link to this section">24.2.4.11</a></span> DataView.prototype.getUint16 ( byteOffset [ , littleEndian ] )</h1>
+
+        <p class="normalbefore">When the <code>getUint16</code> method is called with argument <var>byteOffset</var> and optional
+        argument <i>littleEndian</i> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>v</i> be the <b>this</b> value.</li>
+          <li>If <i>littleEndian</i> is not present, let <i>littleEndian</i> be <b>false</b>.</li>
+          <li>Return <a href="/sec/sec-getviewvalue.html">GetViewValue</a>(<i>v</i>, <i>byteOffset</i>, <i>littleEndian</i>,
+              <code>&quot;Uint16&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-dataview.prototype.getuint32">
+        <h1><span class="secnum" id="sec-24.2.4.12"><a href="/sec/sec-dataview.prototype.getuint32.html" title="link to this section">24.2.4.12</a></span> DataView.prototype.getUint32 ( byteOffset [ , littleEndian ] )</h1>
+
+        <p class="normalbefore">When the <code>getUint32</code> method is called with argument <var>byteOffset</var> and optional
+        argument <i>littleEndian</i> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>v</i> be the <b>this</b> value.</li>
+          <li>If <i>littleEndian</i> is not present, let <i>littleEndian</i> be <b>false</b>.</li>
+          <li>Return <a href="/sec/sec-getviewvalue.html">GetViewValue</a>(<i>v</i>, <i>byteOffset</i>, <i>littleEndian</i>,
+              <code>&quot;Uint32&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-dataview.prototype.setfloat32">
+        <h1><span class="secnum" id="sec-24.2.4.13"><a href="/sec/sec-dataview.prototype.setfloat32.html" title="link to this section">24.2.4.13</a></span> DataView.prototype.setFloat32 ( byteOffset, value [ , littleEndian ]
+            )</h1>
+
+        <p class="normalbefore">When the <code>setFloat32</code> method is called with arguments <var>byteOffset</var> and
+        <var>value</var> and optional argument <i>littleEndian</i> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>v</i> be the <b>this</b> value.</li>
+          <li>If <i>littleEndian</i> is not present, let <i>littleEndian</i> be <b>false</b>.</li>
+          <li>Return <a href="/sec/sec-setviewvalue.html">SetViewValue</a>(<i>v</i>, <i>byteOffset</i>, <i>littleEndian</i>,
+              <code>&quot;Float32&quot;</code>, <i>value</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-dataview.prototype.setfloat64">
+        <h1><span class="secnum" id="sec-24.2.4.14"><a href="/sec/sec-dataview.prototype.setfloat64.html" title="link to this section">24.2.4.14</a></span> DataView.prototype.setFloat64 ( byteOffset, value [ , littleEndian ]
+            )</h1>
+
+        <p class="normalbefore">When the <code>setFloat64</code> method is called with arguments <var>byteOffset</var> and
+        <var>value</var> and optional argument <i>littleEndian</i> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>v</i> be the <b>this</b> value.</li>
+          <li>If <i>littleEndian</i> is not present, let <i>littleEndian</i> be <b>false</b>.</li>
+          <li>Return <a href="/sec/sec-setviewvalue.html">SetViewValue</a>(<i>v</i>, <i>byteOffset</i>, <i>littleEndian</i>,
+              <code>&quot;Float64&quot;</code>, <i>value</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-dataview.prototype.setint8">
+        <h1><span class="secnum" id="sec-24.2.4.15"><a href="/sec/sec-dataview.prototype.setint8.html" title="link to this section">24.2.4.15</a></span> DataView.prototype.setInt8 ( byteOffset, value )</h1>
+
+        <p class="normalbefore">When the <code>setInt8</code> method is called with arguments <var>byteOffset</var> and
+        <var>value</var> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>v</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-setviewvalue.html">SetViewValue</a>(<i>v</i>, <i>byteOffset</i>, <b>true</b>, <code>&quot;Int8&quot;</code>,
+              <i>value</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-dataview.prototype.setint16">
+        <h1><span class="secnum" id="sec-24.2.4.16"><a href="/sec/sec-dataview.prototype.setint16.html" title="link to this section">24.2.4.16</a></span> DataView.prototype.setInt16 ( byteOffset, value [ , littleEndian ]
+            )</h1>
+
+        <p class="normalbefore">When the <code>setInt16</code> method is called with arguments <var>byteOffset</var> and
+        <var>value</var> and optional argument <i>littleEndian</i> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>v</i> be the <b>this</b> value.</li>
+          <li>If <i>littleEndian</i> is not present, let <i>littleEndian</i> be <b>false</b>.</li>
+          <li>Return <a href="/sec/sec-setviewvalue.html">SetViewValue</a>(<i>v</i>, <i>byteOffset</i>, <i>littleEndian</i>,
+              <code>&quot;Int16&quot;</code>, <i>value</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-dataview.prototype.setint32">
+        <h1><span class="secnum" id="sec-24.2.4.17"><a href="/sec/sec-dataview.prototype.setint32.html" title="link to this section">24.2.4.17</a></span> DataView.prototype.setInt32 ( byteOffset, value [ , littleEndian ]
+            )</h1>
+
+        <p class="normalbefore">When the <code>setInt32</code> method is called with arguments <var>byteOffset</var> and
+        <var>value</var> and optional argument <i>littleEndian</i> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>v</i> be the <b>this</b> value.</li>
+          <li>If <i>littleEndian</i> is not present, let <i>littleEndian</i> be <b>false</b>.</li>
+          <li>Return <a href="/sec/sec-setviewvalue.html">SetViewValue</a>(<i>v</i>, <i>byteOffset</i>, <i>littleEndian</i>,
+              <code>&quot;Int32&quot;</code>, <i>value</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-dataview.prototype.setuint8">
+        <h1><span class="secnum" id="sec-24.2.4.18"><a href="/sec/sec-dataview.prototype.setuint8.html" title="link to this section">24.2.4.18</a></span> DataView.prototype.setUint8 ( byteOffset, value )</h1>
+
+        <p class="normalbefore">When the <code>setUint8</code> method is called with arguments <var>byteOffset</var> and
+        <var>value</var> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>v</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-setviewvalue.html">SetViewValue</a>(<i>v</i>, <i>byteOffset</i>, <b>true</b>, <code>&quot;Uint8&quot;</code>,
+              <i>value</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-dataview.prototype.setuint16">
+        <h1><span class="secnum" id="sec-24.2.4.19"><a href="/sec/sec-dataview.prototype.setuint16.html" title="link to this section">24.2.4.19</a></span> DataView.prototype.setUint16 ( byteOffset, value [ , littleEndian ]
+            )</h1>
+
+        <p class="normalbefore">When the <code>setUint16</code> method is called with arguments <var>byteOffset</var> and
+        <var>value</var> and optional argument <i>littleEndian</i> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>v</i> be the <b>this</b> value.</li>
+          <li>If <i>littleEndian</i> is not present, let <i>littleEndian</i> be <b>false</b>.</li>
+          <li>Return <a href="/sec/sec-setviewvalue.html">SetViewValue</a>(<i>v</i>, <i>byteOffset</i>, <i>littleEndian</i>,
+              <code>&quot;Uint16&quot;</code>, <i>value</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-dataview.prototype.setuint32">
+        <h1><span class="secnum" id="sec-24.2.4.20"><a href="/sec/sec-dataview.prototype.setuint32.html" title="link to this section">24.2.4.20</a></span> DataView.prototype.setUint32 ( byteOffset, value [ , littleEndian ]
+            )</h1>
+
+        <p class="normalbefore">When the <code>setUint32</code> method is called with arguments <var>byteOffset</var> and
+        <var>value</var> and optional argument <i>littleEndian</i> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>v</i> be the <b>this</b> value.</li>
+          <li>If <i>littleEndian</i> is not present, let <i>littleEndian</i> be <b>false</b>.</li>
+          <li>Return <a href="/sec/sec-setviewvalue.html">SetViewValue</a>(<i>v</i>, <i>byteOffset</i>, <i>littleEndian</i>,
+              <code>&quot;Uint32&quot;</code>, <i>value</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-dataview.prototype-@@tostringtag">
+        <h1><span class="secnum" id="sec-24.2.4.21"><a href="/sec/sec-dataview.prototype-@@tostringtag.html" title="link to this section">24.2.4.21</a></span> DataView.prototype[ @@toStringTag ]</h1>
+
+        <p>The initial value of the @@toStringTag property is the String value <code>&quot;DataView&quot;</code>.</p>
+
+        <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-dataview-instances">
+      <h1><span class="secnum" id="sec-24.2.5"><a href="/sec/sec-properties-of-dataview-instances.html" title="link to this section">24.2.5</a></span> Properties of DataView Instances</h1>
+
+      <p>DataView instances are ordinary objects that inherit properties from the DataView prototype object. DataView instances
+      each have [[DataView]], [[ViewedArrayBuffer]], [[ByteLength]], and [[ByteOffset]] internal slots.</p>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The value of the [[DataView]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is not used within this specification. The simple
+        presence of that <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is used within the
+        specification to identify objects created using the <code>DataView</code> constructor.</p>
+      </div>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

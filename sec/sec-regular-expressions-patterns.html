@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-B.1.4"><a href="/sec/sec-regular-expressions-patterns.html" title="link to this section">B.1.4</a></span> Regular Expressions Patterns</h1>
+
+      <p>The syntax of <a href="/sec/sec-patterns.html">21.2.1</a> is modified and extended as follows. These changes introduce ambiguities
+      that are broken by the ordering of grammar productions and by contextual information. When parsing using the following
+      grammar, each alternative is considered only if previous production alternatives do not match.</p>
+
+      <p>This alternative pattern grammar and semantics only changes the syntax and semantics of BMP patterns. The following
+      grammar extensions include productions parameterized with the [U] parameter. However, none of these extensions change the
+      syntax of Unicode patterns recognized when parsing with the [U] parameter present on the goal symbol.</p>
+
+      <p><b>Syntax</b></p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">Term</span><sub class="g-params">[U]</sub> <span class="geq">::</span></div>
+        <div class="rhs"><span class="grhsannot">[~U]</span> <span class="nt">ExtendedTerm</span></div>
+        <div class="rhs"><span class="grhsannot">[+U]</span> <span class="nt">Assertion</span><sub class="g-params">[U]</sub></div>
+        <div class="rhs"><span class="grhsannot">[+U]</span> <span class="nt">Atom</span><sub class="g-params">[U]</sub></div>
+        <div class="rhs"><span class="grhsannot">[+U]</span> <span class="nt">Atom</span><sub class="g-params">[U]</sub> <span class="nt">Quantifier</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">ExtendedTerm</span> <span class="geq">::</span></div>
+        <div class="rhs"><span class="nt">Assertion</span></div>
+        <div class="rhs"><span class="nt">AtomNoBrace</span> <span class="nt">Quantifier</span></div>
+        <div class="rhs"><span class="nt">Atom</span></div>
+        <div class="rhs"><span class="nt">QuantifiableAssertion</span> <span class="nt">Quantifier</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">AtomNoBrace</span> <span class="geq">::</span></div>
+        <div class="rhs"><span class="nt">PatternCharacterNoBrace</span></div>
+        <div class="rhs"><code class="t">.</code></div>
+        <div class="rhs"><code class="t">\</code> <span class="nt">AtomEscape</span></div>
+        <div class="rhs"><span class="nt">CharacterClass</span></div>
+        <div class="rhs"><code class="t">(</code> <span class="nt">Disjunction</span> <code class="t">)</code></div>
+        <div class="rhs"><code class="t">(</code> <code class="t">?</code> <code class="t">:</code> <span class="nt">Disjunction</span> <code class="t">)</code></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">Atom</span><sub class="g-params">[U]</sub> <span class="geq">::</span></div>
+        <div class="rhs"><span class="nt">PatternCharacter</span></div>
+        <div class="rhs"><code class="t">.</code></div>
+        <div class="rhs"><code class="t">\</code> <span class="nt">AtomEscape</span><sub class="g-params">[?U]</sub></div>
+        <div class="rhs"><span class="nt">CharacterClass</span><sub class="g-params">[?U]</sub></div>
+        <div class="rhs"><code class="t">(</code> <span class="nt">Disjunction</span><sub class="g-params">[?U]</sub> <code class="t">)</code></div>
+        <div class="rhs"><code class="t">(</code> <code class="t">?</code> <code class="t">:</code> <span class="nt">Disjunction</span><sub class="g-params">[?U]</sub> <code class="t">)</code></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">PatternCharacterNoBrace</span> <span class="geq">::</span></div>
+        <div class="rhs"><span class="nt">SourceCharacter</span> <span class="grhsmod">but not one of</span></div>
+        <div class="rhs"><code class="t">^</code> <code class="t">$</code> <code class="t">\</code> <code class="t">.</code> <code class="t">*</code> <code class="t">+</code> <code class="t">?</code> <code class="t">(</code> <code class="t">)</code> <code class="t">[</code> <code class="t">]</code> <code class="t">{</code> <code class="t">}</code> <code class="t">|</code></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">PatternCharacter</span> <span class="geq">::</span></div>
+        <div class="rhs"><span class="nt">SourceCharacter</span> <span class="grhsmod">but not one of</span></div>
+        <div class="rhs"><code class="t">^</code> <code class="t">$</code> <code class="t">\</code> <code class="t">.</code> <code class="t">*</code> <code class="t">+</code> <code class="t">?</code> <code class="t">(</code> <code class="t">)</code> <code class="t">[</code> <code class="t">]</code> <code class="t">|</code></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">QuantifiableAssertion</span> <span class="geq">::</span></div>
+        <div class="rhs"><code class="t">(</code> <code class="t">?</code> <code class="t">=</code> <span class="nt">Disjunction</span> <code class="t">)</code></div>
+        <div class="rhs"><code class="t">(</code> <code class="t">?</code> <code class="t">!</code> <span class="nt">Disjunction</span> <code class="t">)</code></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">Assertion</span><sub class="g-params">[U]</sub> <span class="geq">::</span></div>
+        <div class="rhs"><code class="t">^</code></div>
+        <div class="rhs"><code class="t">$</code></div>
+        <div class="rhs"><code class="t">\</code> <code class="t">b</code></div>
+        <div class="rhs"><code class="t">\</code> <code class="t">B</code></div>
+        <div class="rhs"><span class="grhsannot">[+U]</span> <code class="t">(</code> <code class="t">?</code> <code class="t">=</code> <span class="nt">Disjunction</span><sub class="g-params">[U]</sub> <code class="t">)</code></div>
+        <div class="rhs"><span class="grhsannot">[+U]</span> <code class="t">(</code> <code class="t">?</code> <code class="t">!</code> <span class="nt">Disjunction</span><sub class="g-params">[U]</sub> <code class="t">)</code></div>
+        <div class="rhs"><span class="grhsannot">[~U]</span> <span class="nt">QuantifiableAssertion</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">AtomEscape</span><sub class="g-params">[U]</sub> <span class="geq">::</span></div>
+        <div class="rhs"><span class="grhsannot">[+U]</span> <span class="nt">DecimalEscape</span></div>
+        <div class="rhs"><span class="grhsannot">[+U]</span> <span class="nt">CharacterEscape</span><sub class="g-params">[U]</sub></div>
+        <div class="rhs"><span class="grhsannot">[+U]</span> <span class="nt">CharacterClassEscape</span></div>
+        <div class="rhs"><span class="grhsannot">[~U]</span> <span class="nt">DecimalEscape</span> <code class="t">but</code> <code class="t">only</code> <code class="t">if</code> <code class="t">the</code> <code class="t">integer</code> <code class="t">value</code> <code class="t">of</code> <span class="nt">DecimalEscape</span> <code class="t">is</code> <code class="t">&lt;=</code> <span class="nt">NCapturingParens</span></div>
+        <div class="rhs"><span class="grhsannot">[~U]</span> <span class="nt">CharacterClassEscape</span></div>
+        <div class="rhs"><span class="grhsannot">[~U]</span> <span class="nt">CharacterEscape</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">CharacterEscape</span><sub class="g-params">[U]</sub> <span class="geq">::</span></div>
+        <div class="rhs"><span class="nt">ControlEscape</span></div>
+        <div class="rhs"><code class="t">c</code> <span class="nt">ControlLetter</span></div>
+        <div class="rhs"><span class="nt">HexEscapeSequence</span></div>
+        <div class="rhs"><span class="nt">RegExpUnicodeEscapeSequence</span><sub class="g-params">[?U]</sub></div>
+        <div class="rhs"><span class="grhsannot">[~U]</span> <span class="nt">LegacyOctalEscapeSequence</span></div>
+        <div class="rhs"><span class="nt">IdentityEscape</span><sub class="g-params">[?U]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">IdentityEscape</span><sub class="g-params">[U]</sub> <span class="geq">::</span></div>
+        <div class="rhs"><span class="grhsannot">[+U]</span> <span class="nt">SyntaxCharacter</span></div>
+        <div class="rhs"><span class="grhsannot">[+U]</span> <code class="t">/</code></div>
+        <div class="rhs"><span class="grhsannot">[~U]</span> <span class="nt">SourceCharacter</span> <span class="grhsmod">but not</span> <code class="t">c</code></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">NonemptyClassRanges</span><sub class="g-params">[U]</sub> <span class="geq">::</span></div>
+        <div class="rhs"><span class="nt">ClassAtom</span><sub class="g-params">[?U]</sub></div>
+        <div class="rhs"><span class="nt">ClassAtom</span><sub class="g-params">[?U]</sub> <span class="nt">NonemptyClassRangesNoDash</span><sub class="g-params">[?U]</sub></div>
+        <div class="rhs"><span class="grhsannot">[+U]</span> <span class="nt">ClassAtom</span><sub class="g-params">[U]</sub> <code class="t">-</code> <span class="nt">ClassAtom</span><sub class="g-params">[U]</sub> <span class="nt">ClassRanges</span><sub class="g-params">[U]</sub></div>
+        <div class="rhs"><span class="grhsannot">[~U]</span> <span class="nt">ClassAtomInRange</span> <code class="t">-</code> <span class="nt">ClassAtomInRange</span> <span class="nt">ClassRanges</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">NonemptyClassRangesNoDash</span><sub class="g-params">[U]</sub> <span class="geq">::</span></div>
+        <div class="rhs"><span class="nt">ClassAtom</span><sub class="g-params">[?U]</sub></div>
+        <div class="rhs"><span class="nt">ClassAtomNoDash</span><sub class="g-params">[?U]</sub> <span class="nt">NonemptyClassRangesNoDash</span><sub class="g-params">[?U]</sub></div>
+        <div class="rhs"><span class="grhsannot">[+U]</span> <span class="nt">ClassAtomNoDash</span><sub class="g-params">[U]</sub> <code class="t">-</code> <span class="nt">ClassAtom</span><sub class="g-params">[U]</sub> <span class="nt">ClassRanges</span><sub class="g-params">[U]</sub></div>
+        <div class="rhs"><span class="grhsannot">[~U]</span> <span class="nt">ClassAtomNoDashInRange</span> <code class="t">-</code> <span class="nt">ClassAtomInRange</span> <span class="nt">ClassRanges</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">ClassAtom</span><sub class="g-params">[U]</sub> <span class="geq">::</span></div>
+        <div class="rhs"><code class="t">-</code></div>
+        <div class="rhs"><span class="nt">ClassAtomNoDash</span><sub class="g-params">[?U]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">ClassAtomNoDash</span><sub class="g-params">[U]</sub> <span class="geq">::</span></div>
+        <div class="rhs"><span class="nt">SourceCharacter</span> <span class="grhsmod">but not one of</span> <code class="t">\</code> <span class="grhsmod">or</span> <code class="t">]</code> <span class="grhsmod">or</span> <code class="t">-</code></div>
+        <div class="rhs"><code class="t">\</code> <span class="nt">ClassEscape</span><sub class="g-params">[?U]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">ClassAtomInRange</span> <span class="geq">::</span></div>
+        <div class="rhs"><code class="t">-</code></div>
+        <div class="rhs"><span class="nt">ClassAtomNoDashInRange</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">ClassAtomNoDashInRange</span> <span class="geq">::</span></div>
+        <div class="rhs"><span class="nt">SourceCharacter</span> <span class="grhsmod">but not one of</span> <code class="t">\</code> <span class="grhsmod">or</span> <code class="t">]</code> <span class="grhsmod">or</span> <code class="t">-</code></div>
+        <div class="rhs"><code class="t">\</code> <span class="nt">ClassEscape</span> <code class="t">but</code> <code class="t">only</code> <code class="t">if</code> <span class="nt">ClassEscape</span> <code class="t">evaluates</code> <code class="t">to</code> <code class="t">a</code> <span class="nt">CharSet</span> <code class="t">with</code> <code class="t">exactly</code> <code class="t">one</code> <code class="t">character</code></div>
+        <div class="rhs"><code class="t">\</code> <span class="nt">IdentityEscape</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">ClassEscape</span><sub class="g-params">[U]</sub> <span class="geq">::</span></div>
+        <div class="rhs"><span class="grhsannot">[+U]</span> <span class="nt">DecimalEscape</span></div>
+        <div class="rhs"><span class="grhsannot">[+U]</span> <span class="nt">CharacterEscape</span><sub class="g-params">[U]</sub></div>
+        <div class="rhs"><span class="grhsannot">[+U]</span> <span class="nt">CharacterClassEscape</span></div>
+        <div class="rhs"><span class="grhsannot">[~U]</span> <span class="nt">DecimalEscape</span></div>
+        <div class="rhs"><code class="t">b</code></div>
+        <div class="rhs"><span class="grhsannot">[~U]</span> <span class="nt">CharacterClassEscape</span></div>
+        <div class="rhs"><span class="grhsannot">[~U]</span> <span class="nt">CharacterEscape</span></div>
+      </div>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> When the same left hand sides occurs with both [+U] and [~U] guards it is to control the
+        disambiguation priority.</p>
+      </div>
+
+      <p><b>B.1.4.1</b>	<b>Pattern Semantics</b></p>
+
+      <p>The semantics of <a href="/sec/sec-pattern-semantics.html">21.2.2</a> is extended as follows:</p>
+
+      <p>Within <a href="/sec/sec-term.html">21.2.2.5</a> reference to &#x201C;<span class="prod"><span class="nt">Atom</span> <span class="geq">::</span> <code class="t">(</code> <span class="nt">Disjunction</span> <code class="t">)</code></span> &#x201D;
+      are to be interpreted as meaning &#x201C;<span class="prod"><span class="nt">Atom</span> <span class="geq">::</span> <code class="t">(</code> <span class="nt">Disjunction</span> <code class="t">)</code></span> &#x201D; or &#x201C;<span class="prod"><span class="nt">AtomNoBrace</span> <span class="geq">::</span> <code class="t">(</code> <span class="nt">Disjunction</span> <code class="t">)</code></span> &#x201D;.</p>
+
+      <p>Term (<a href="/sec/sec-term.html">21.2.2.5</a>) includes the following additional evaluation rule:</p>
+
+      <p>The production <span class="prod"><span class="nt">Term</span> <span class="geq">::</span> <span class="nt">QuantifiableAssertion</span> <span class="nt">Quantifier</span></span> evaluates the same as the production <span class="prod"><span class="nt">Term</span> <span class="geq">::</span> <span class="nt">Atom</span> <span class="nt">Quantifier</span></span> but with <span class="nt">QuantifiableAssertion</span> substituted for <span style="font-family: Times New Roman"><i>Atom</i>.</span></p>
+
+      <p>Atom (<a href="/sec/sec-atom.html">21.2.2.8</a>) evaluation rules for the <span class="nt">Atom</span> productions except for
+      <span class="prod"><span class="nt">Atom</span> <span class="geq">::</span> <span class="nt">PatternCharacter</span></span>
+      are also used for the <span class="nt">AtomNoBrace</span> productions, but with <span class="nt">AtomNoBrace</span>
+      substituted for <span style="font-family: Times New Roman"><i>Atom</i>.</span> The following evaluation rule is also
+      added:</p>
+
+      <p class="normalbefore">The production <span class="prod"><span class="nt">AtomNoBrace</span> <span class="geq">::</span>
+      <span class="nt">PatternCharacterNoBrace</span></span> evaluates as follows:</p>
+
+      <ol class="proc">
+        <li>Let <i>ch</i> be the character represented by <i>PatternCharacterNoBrace</i>.</li>
+        <li>Let <i>A</i> be a one-element CharSet containing the character <i>ch</i>.</li>
+        <li><a href="/sec/sec-call.html">Call</a> CharacterSetMatcher(<i>A</i>, <b>false</b>) and return its Matcher result.</li>
+      </ol>
+
+      <p>CharacterEscape (<a href="/sec/sec-characterescape.html">21.2.2.10</a>) includes the following additional evaluation rule:</p>
+
+      <p>The production <span class="prod"><span class="nt">CharacterEscape</span> <span class="geq">::</span> <span class="nt">LegacyOctalEscapeSequence</span></span> evaluates by evaluating the SV of the <span class="nt">LegacyOctalEscapeSequence</span> (<a href="/sec/sec-additional-syntax-string-literals.html">see B.1.2</a>) and returning
+      its character result.</p>
+
+      <p>ClassAtom (<a href="/sec/sec-classatom.html">21.2.2.17</a>) includes the following additional evaluation rules:</p>
+
+      <p>The production <span class="prod"><span class="nt">ClassAtomInRange</span> <span class="geq">::</span> <code class="t">-</code></span> evaluates by returning the CharSet containing the one character <code>-</code>.</p>
+
+      <p>The production <span class="prod"><span class="nt">ClassAtomInRange</span> <span class="geq">::</span> <span class="nt">ClassAtomNoDashInRange</span></span> evaluates by evaluating <span class="nt">ClassAtomNoDashInRange</span> to
+      obtain a CharSet and returning that CharSet.</p>
+
+      <p>ClassAtomNoDash (<a href="/sec/sec-classatomnodash.html">21.2.2.18</a>) includes the following additional evaluation rules:</p>
+
+      <p>The production <span class="prod"><span class="nt">ClassAtomNoDashInRange</span> <span class="geq">::</span> <span class="nt">SourceCharacter</span> <span class="grhsmod">but not one of</span> <code class="t">\</code> <span class="grhsmod">or</span> <code class="t">]</code> <span class="grhsmod">or</span> <code class="t">-</code></span> evaluates
+      by returning a one-element CharSet containing the character represented by <span class="nt">SourceCharacter</span>.</p>
+
+      <p>The production <span class="prod"><span class="nt">ClassAtomNoDashInRange</span> <span class="geq">::</span> <code class="t">\</code> <span class="nt">ClassEscape</span></span> but only if&#x2026;, evaluates by evaluating <span class="nt">ClassEscape</span> to obtain a CharSet and returning that CharSet.</p>
+
+      <p>The production <span class="prod"><span class="nt">ClassAtomNoDashInRange</span> <span class="geq">::</span> <code class="t">\</code> <span class="nt">IdentityEscape</span></span> evaluates by returning the character represented by <span class="nt">IdentityEscape</span>.</p>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

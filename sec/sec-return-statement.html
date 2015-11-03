@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-13.10"><a href="/sec/sec-return-statement.html" title="link to this section">13.10</a></span> The
+          <code>return</code> Statement</h1>
+      <h2>Syntax</h2>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">ReturnStatement</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">return</code> <code class="t">;</code></div>
+        <div class="rhs"><code class="t">return</code> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <span class="nt">Expression</span><sub class="g-params">[In, ?Yield]</sub> <code class="t">;</code></div>
+      </div>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> A <code>return</code> statement causes a function to cease execution and return a value to
+        the caller. If <span class="nt">Expression</span> is omitted, the return value is <b>undefined</b>. Otherwise, the return
+        value is the value of <span class="nt">Expression</span>.</p>
+      </div>
+    </div>
+
+    <section id="sec-return-statement-runtime-semantics-evaluation">
+      <h1><span class="secnum" id="sec-13.10.1"><a href="/sec/sec-return-statement-runtime-semantics-evaluation.html" title="link to this section">13.10.1</a></span> Runtime Semantics: Evaluation</h1>
+      <div class="gp prod"><span class="nt">ReturnStatement</span> <span class="geq">:</span> <code class="t">return</code> <code class="t">;</code></div>
+      <ol class="proc">
+        <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <span style="font-family:
+            sans-serif">return</span>, [[value]]:  <b>undefined</b>, [[target]]:  <span style="font-family:
+            sans-serif">empty</span>}.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">ReturnStatement</span> <span class="geq">:</span> <code class="t">return</code> <span class="nt">Expression</span> <code class="t">;</code></div>
+      <ol class="proc">
+        <li>Let <i>exprRef</i> be the result of evaluating <i>Expression</i>.</li>
+        <li>Let <i>exprValue</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>exprRef</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>exprValue</i>).</li>
+        <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <span style="font-family:
+            sans-serif">return</span>, [[value]]: <i>exprValue</i>, [[target]]: <span style="font-family:
+            sans-serif">empty</span>}.</li>
+      </ol>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-24.1.1.5"><a href="/sec/sec-getvaluefrombuffer.html" title="link to this section">24.1.1.5</a></span> GetValueFromBuffer ( arrayBuffer, byteIndex, type, isLittleEndian
+            )</h1>
+
+        <p class="normalbefore">The abstract operation GetValueFromBuffer takes four parameters, an ArrayBuffer
+        <var>arrayBuffer</var>, an integer <var>byteIndex</var>, a String <var>type</var>, and optionally a Boolean
+        <var>isLittleEndian</var>. This operation performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>arrayBuffer</i>) is <b>false</b>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: There are sufficient bytes in <i>arrayBuffer</i> starting at
+              <i>byteIndex</i> to represent a value of <i>type</i>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>byteIndex</i> is a positive integer.</li>
+          <li>Let <i>block</i> be <i>arrayBuffer&#x2019;s</i> [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>elementSize</i> be the Number value of the Element Size value specified in <a href="/sec/table-49.html">Table 49</a>
+              for Element Type <i>type</i>.</li>
+          <li>Let <i>rawValue</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of <i>elementSize</i>
+              containing, in order<i>,</i> the <i>elementSize</i> sequence of bytes starting with
+              <i>block</i>[<i>byteIndex</i>].</li>
+          <li>If <i>isLittleEndian</i> is not present, set <i>isLittleEndian</i> to either <b>true</b> or <b>false</b>. The choice
+              is implementation dependent and should be the alternative that is most efficient for the implementation. An
+              implementation must use the same value each time this step is executed and the same value must be used for the
+              corresponding step in the <a href="/sec/sec-setvalueinbuffer.html">SetValueInBuffer</a> abstract operation.</li>
+          <li>If <i>isLittleEndian</i> is <b>false</b>, reverse the order of the elements of <i>rawValue</i>.</li>
+          <li>If <i>type</i> is <code>&quot;Float32&quot;</code>, then
+            <ol class="block">
+              <li>Let <i>value</i> be the byte elements of <i>rawValue</i> concatenated and interpreted as a little-endian bit
+                  string encoding of an IEEE 754-2008 binary32 value.</li>
+              <li>If <i>value</i> is an IEEE 754-2008 binary32 NaN value, return the <b>NaN</b> Number value.</li>
+              <li>Return the Number value that corresponds to <i>value</i>.</li>
+            </ol>
+          </li>
+          <li>If <i>type</i> is <code>&quot;Float64&quot;</code>, then
+            <ol class="block">
+              <li>Let <i>value</i> be the byte elements of <i>rawValue</i> concatenated and interpreted as a little-endian bit
+                  string encoding of an IEEE 754-2008 binary64 value.</li>
+              <li>If <i>value</i> is an IEEE 754-2008 binary64 NaN value, return the <b>NaN</b> Number value.</li>
+              <li>Return the Number value that corresponds to <i>value</i>.</li>
+            </ol>
+          </li>
+          <li>If the first code unit of <i>type</i> is <code>&quot;U&quot;</code>, then
+            <ol class="block">
+              <li>Let <i>intValue</i> be the byte elements of <i>rawValue</i> concatenated and interpreted as a bit string
+                  encoding of an unsigned little-endian binary number.</li>
+            </ol>
+          </li>
+          <li>Else
+            <ol class="block">
+              <li>Let <i>intValue</i> be the byte elements of <i>rawValue</i> concatenated and interpreted as a bit string
+                  encoding of a binary little-endian 2&#x2019;s complement number of bit length <i>elementSize</i> &#xD7; 8.</li>
+            </ol>
+          </li>
+          <li>Return the Number value that corresponds to <i>intValue</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

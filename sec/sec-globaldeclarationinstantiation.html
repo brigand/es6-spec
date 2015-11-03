@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-15.1.8"><a href="/sec/sec-globaldeclarationinstantiation.html" title="link to this section">15.1.8</a></span> Runtime Semantics: GlobalDeclarationInstantiation (script, env)</h1>
+
+      <div class="note">
+        <p><span class="nh">NOTE 1</span> When an <a href="/sec/sec-execution-contexts.html">execution context</a> is established for
+        evaluating scripts, declarations are instantiated in the current global environment. Each global binding declared in the
+        code is instantiated.</p>
+      </div>
+
+      <p class="normalbefore">GlobalDeclarationInstantiation is performed as follows using arguments <var>script</var> and
+      <var>env</var>. <var>script</var> is the <span class="nt">ScriptBody</span> for which the <a href="/sec/sec-execution-contexts.html">execution context</a> is being established. <var>env</var> is the global <a href="/sec/sec-lexical-environments.html">lexical environment</a> in which bindings are to be created.</p>
+
+      <ol class="proc">
+        <li>Let <i>envRec</i> be <i>env</i>&#x2019;s <a href="/sec/sec-lexical-environments.html">EnvironmentRecord</a>.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>envRec</i> is a global <a href="/sec/sec-environment-records.html">Environment Record</a>.</li>
+        <li>Let <i>lexNames</i> be the LexicallyDeclaredNames of <i>script</i>.</li>
+        <li>Let <i>varNames</i> be the VarDeclaredNames of <i>script</i>.</li>
+        <li>For each <i>name</i> in <i>lexNames</i>, do
+          <ol class="block">
+            <li>If <i>envRec.</i><a href="/sec/sec-hasvardeclaration.html">HasVarDeclaration</a>(<i>name</i>) is <b>true</b>, throw a
+                <b>SyntaxError</b> exception.</li>
+            <li>If <i>envRec.</i><a href="/sec/sec-haslexicaldeclaration.html">HasLexicalDeclaration</a>(<i>name</i>) is <b>true</b>, throw
+                a <b>SyntaxError</b> exception.</li>
+            <li>Let <i>hasRestrictedGlobal</i> be <i>envRec.</i><a href="/sec/sec-hasrestrictedglobalproperty.html">HasRestrictedGlobalProperty</a>(<i>name</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasRestrictedGlobal</i>).</li>
+            <li>If <i>hasRestrictedGlobal</i> is <b>true</b>, throw a <b>SyntaxError</b> exception.</li>
+          </ol>
+        </li>
+        <li>For each <i>name</i> in <i>varNames</i>, do
+          <ol class="block">
+            <li>If <i>envRec.</i><a href="/sec/sec-haslexicaldeclaration.html">HasLexicalDeclaration</a>(<i>name</i>) is <b>true</b>, throw
+                a <b>SyntaxError</b> exception.</li>
+          </ol>
+        </li>
+        <li>Let <i>varDeclarations</i> be the VarScopedDeclarations of <i>script</i>.</li>
+        <li>Let <i>functionsToInitialize</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>Let <i>declaredFunctionNames</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>For each <i>d</i> in <i>varDeclarations</i>, in reverse list order do
+          <ol class="block">
+            <li>If <i>d</i> is neither a <i>VariableDeclaration</i> or a <i>ForBinding</i>, then
+              <ol class="block">
+                <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>d</i> is either a <i>FunctionDeclaration</i> or a
+                    <i>GeneratorDeclaration</i>.</li>
+                <li>NOTE	If there are multiple <span style="font-family: Times New Roman"><i>FunctionDeclarations</i></span>
+                    for the same name, the last declaration is used.</li>
+                <li>Let <i>fn</i> be the sole element of the BoundNames of <i>d.</i></li>
+                <li>If <i>fn</i> is not an element of <i>declaredFunctionNames</i>, then
+                  <ol class="block">
+                    <li>Let <i>fnDefinable</i> be <i>envRec.</i><a href="/sec/sec-candeclareglobalfunction.html">CanDeclareGlobalFunction</a>(<i>fn</i>).</li>
+                    <li>If <i>fnDefinable</i> is <b>false</b>, throw <b>TypeError</b> exception.</li>
+                    <li>Append <i>fn</i> to <i>declaredFunctionNames</i>.</li>
+                    <li>Insert <i>d</i> as the first element of <i>functionsToInitialize</i>.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>Let <i>declaredVarNames</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>For each <i>d</i> in <i>varDeclarations</i>, do
+          <ol class="block">
+            <li>If <i>d</i> is a <i>VariableDeclaration</i> or a <i>ForBinding</i>, then
+              <ol class="block">
+                <li>For each String <i>vn</i> in the BoundNames of <i>d</i>, do
+                  <ol class="block">
+                    <li>If <i>vn</i> is not an element of <i>declaredFunctionNames</i>, then
+                      <ol class="block">
+                        <li>Let <i>vnDefinable</i> be <i>envRec.</i><a href="/sec/sec-candeclareglobalvar.html">CanDeclareGlobalVar</a>(<i>vn</i>).</li>
+                        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>vnDefinable</i>).</li>
+                        <li>If <i>vnDefinable</i> is <b>false</b>, throw <b>TypeError</b> exception.</li>
+                        <li>If <i>vn</i> is not an element of <i>declaredVarNames</i>, then
+                          <ol class="block">
+                            <li>Append <i>vn</i> to <i>declaredVarNames</i>.</li>
+                          </ol>
+                        </li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>NOTE: No abnormal terminations occur after this algorithm step if the global object is an ordinary object. However, if
+            the global object is a Proxy exotic object it may exhibit behaviours that cause abnormal terminations in some of the
+            following steps.</li>
+        <li>Let <i>lexDeclarations</i> be the LexicallyScopedDeclarations of <i>script</i>.</li>
+        <li>For each element <i>d</i> in <i>lexDeclarations</i> do
+          <ol class="block">
+            <li>NOTE  Lexically declared names are only instantiated here but not initialized.</li>
+            <li>For each element <i>dn</i> of the BoundNames of <i>d</i> do
+              <ol class="block">
+                <li>If  IsConstantDeclaration of <i>d</i> is <b>true</b>, then
+                  <ol class="block">
+                    <li>Let <i>status</i> be <i>envRec</i>.CreateImmutableBinding(<i>dn</i>, <b>true</b>).</li>
+                  </ol>
+                </li>
+                <li>Else,
+                  <ol class="block">
+                    <li>Let <i>status</i> be <i>envRec</i>.CreateMutableBinding(<i>dn</i>, <b>false</b>).</li>
+                  </ol>
+                </li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>For each production <i>f</i> in <i>functionsToInitialize</i>, do
+          <ol class="block">
+            <li>Let <i>fn</i> be the sole element of the BoundNames of <i>f.</i></li>
+            <li>Let <i>fo</i> be the result of performing InstantiateFunctionObject  for <i>f</i> with argument <i>env</i>.</li>
+            <li>Let <i>status</i> be <i>envRec</i>.<a href="/sec/sec-createglobalfunctionbinding.html">CreateGlobalFunctionBinding</a>(<i>fn</i>, <i>fo</i>, <b>false</b>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          </ol>
+        </li>
+        <li>For each String <i>vn</i> in <i>declaredVarNames</i>, in list order do
+          <ol class="block">
+            <li>Let <i>status</i> be <i>envRec.</i><a href="/sec/sec-createglobalvarbinding.html">CreateGlobalVarBinding</a>(<i>vn</i>,
+                <b>false</b>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          </ol>
+        </li>
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family: sans-serif">empty</span>)</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE 2</span> Early errors specified in <a href="/sec/sec-scripts-static-semantics-early-errors.html">15.1.1</a>
+        prevent name conflicts between function/var declarations and let/const/class declarations as well as redeclaration of
+        let/const/class bindings for declaration contained within a single <span class="nt">Script</span>. However, such conflicts
+        and redeclarations that span more than one <span class="nt">Script</span> are detected as runtime errors during
+        GlobalDeclarationInstantiation. If any such errors are detected, no bindings are instantiated for the script. However, if
+        the global object is defined using Proxy exotic objects then the runtime tests for conflicting declarations may be
+        unreliable resulting in an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a> and some global
+        declarations not being instantiated. If this occurs, the code for the <span class="nt">Script</span> is not evaluated.</p>
+
+        <p>Unlike explicit var or function declarations, properties that are directly created on the global object result in
+        global bindings that may be shadowed by let/const/class declarations.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

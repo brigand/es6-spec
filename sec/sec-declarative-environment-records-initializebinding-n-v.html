@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-8.1.1.1.4"><a href="/sec/sec-declarative-environment-records-initializebinding-n-v.html" title="link to this section">8.1.1.1.4</a></span> InitializeBinding (N,V)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method InitializeBinding
+          for declarative Environment Records is used to set the bound value of the current binding of the identifier whose name
+          is the value of the argument <var>N</var> to the value of argument <var>V</var>. An uninitialized binding for
+          <var>N</var> must already exist.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the declarative <a href="/sec/sec-environment-records.html">Environment Record</a> for which the
+                method was invoked.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>envRec</i> must have an uninitialized binding for
+                <i>N</i>.</li>
+            <li>Set the bound value for <i>N</i> in <i>envRec</i> to <i>V</i>.</li>
+            <li>Record that the binding for <i>N</i> in <i>envRec</i> has been initialized.</li>
+            <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+                sans-serif">empty</span>).</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,1 @@
+{"id":"sec-boolean.prototype.constructor","html":"\n        <h1><span class=\"secnum\" id=\"sec-19.3.3.1\"><a href=\"/sec/sec-boolean.prototype.constructor.html\" title=\"link to this section\">19.3.3.1</a></span> Boolean.prototype.constructor</h1>\n\n        <p>The initial value of <code>Boolean.prototype.constructor</code> is the intrinsic object %Boolean%.</p>\n      "}

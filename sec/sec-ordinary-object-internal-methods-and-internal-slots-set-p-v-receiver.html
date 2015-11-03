@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.1.9"><a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-set-p-v-receiver.html" title="link to this section">9.1.9</a></span> [[Set]] ( P, V, Receiver)</h1>
+
+      <p class="normalbefore">When the [[Set]] internal method of <var>O</var> is called with <a href="/sec/sec-object-type.html">property
+      key</a> <var>P</var>, value <var>V</var>, and <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language value</a> <span class="nt">Receiver</span>, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+            <b>true</b>.</li>
+        <li>Let <i>ownDesc</i> be <i>O</i>.[[GetOwnProperty]](<i>P</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>ownDesc</i>).</li>
+        <li>If <i>ownDesc</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Let <i>parent</i> be <i>O</i>.[[GetPrototypeOf]]().</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>parent</i>).</li>
+            <li>If <i>parent</i> is not <b>null</b>, then
+              <ol class="block">
+                <li>Return <i>parent</i>.[[Set]](<i>P</i>, <i>V</i>, <i>Receiver</i>).</li>
+              </ol>
+            </li>
+            <li>Else,
+              <ol class="block">
+                <li>Let <i>ownDesc</i> be the PropertyDescriptor{[[Value]]: <b>undefined</b>, [[Writable]]: <b>true</b>,
+                    [[Enumerable]]: <b>true</b>, [[Configurable]]: <b>true</b>}.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>If <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>ownDesc</i>) is <b>true</b>, then
+          <ol class="block">
+            <li>If <i>ownDesc</i>.[[Writable]] is <b>false</b>, return <b>false</b>.</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>Receiver</i>) is not Object, return
+                <b>false</b>.</li>
+            <li>Let <i>existingDescriptor</i> be <i>Receiver</i>.[[GetOwnProperty]](<i>P</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>existingDescriptor</i>).</li>
+            <li>If <i>existingDescriptor</i> is not <b>undefined</b>, then
+              <ol class="block">
+                <li>If <a href="/sec/sec-isaccessordescriptor.html">IsAccessorDescriptor</a>(<i>existingDescriptor</i>) is <b>true</b>,
+                    return <b>false</b>.</li>
+                <li>If <i>existingDescriptor</i>.[[Writable]] is <b>false</b>, return <b>false</b>.</li>
+                <li>Let <i>valueDesc</i> be the PropertyDescriptor{[[Value]]: <i>V</i>}.</li>
+                <li>Return <i>Receiver</i>.[[DefineOwnProperty]](<i>P</i>, <i>valueDesc</i>).</li>
+              </ol>
+            </li>
+            <li>Else <i>Receiver</i> does not currently have a property <i>P</i>,
+              <ol class="block">
+                <li>Return <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>Receiver</i>, <i>P</i>, <i>V</i>).</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-isaccessordescriptor.html">IsAccessorDescriptor</a>(<i>ownDesc</i>) is <b>true</b>.</li>
+        <li>Let <i>setter</i> be <i>ownDesc</i>.[[Set]].</li>
+        <li>If <i>setter</i> is <b>undefined</b>, return <b>false</b>.</li>
+        <li>Let <i>setterResult</i> be <a href="/sec/sec-call.html">Call</a>(<i>setter</i>, <i>Receiver</i>, &#xAB;<i>V</i>&#xBB;).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setterResult</i>).</li>
+        <li>Return <b>true</b>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

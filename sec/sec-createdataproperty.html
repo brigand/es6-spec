@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.3.4"><a href="/sec/sec-createdataproperty.html" title="link to this section">7.3.4</a></span>
+          CreateDataProperty (O, P, V)</h1>
+
+      <p class="normalbefore">The abstract operation <span style="font-family: Times New Roman">CreateDataProperty</span> is used
+      to create a new own property of an object. The operation is called with arguments  <var>O</var>, <var>P</var>, and
+      <var>V</var> where <var>O</var> is the object, <var>P</var> is the <a href="/sec/sec-object-type.html">property key</a>, and
+      <var>V</var> is the value for the property. This abstract operation performs the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is
+            Object.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+            <b>true</b>.</li>
+        <li>Let <i>newDesc</i> be the PropertyDescriptor{[[Value]]: <i>V</i>, [[Writable]]: <b>true</b>, [[Enumerable]]:
+            <b>true</b>, [[Configurable]]: <b>true</b>}.</li>
+        <li>Return <i>O</i>.[[DefineOwnProperty]](<i>P</i>, <i>newDesc</i>).</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> This abstract operation creates a property whose attributes are set to the same defaults
+        used for properties created by the ECMAScript language assignment operator. Normally, the property will not already exist.
+        If it does exist and is not configurable or if <var>O</var> is not extensible, [[DefineOwnProperty]] will return <span class="value">false</span>.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

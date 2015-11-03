@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-13.6.7"><a href="/sec/sec-if-statement-runtime-semantics-evaluation.html" title="link to this section">13.6.7</a></span> Runtime Semantics:  Evaluation</h1>
+      <div class="gp prod"><span class="nt">IfStatement</span> <span class="geq">:</span> <code class="t">if</code> <code class="t">(</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">Statement</span> <code class="t">else</code> <span class="nt">Statement</span></div>
+      <ol class="proc">
+        <li>Let <i>exprRef</i> be the result of evaluating <i>Expression</i>.</li>
+        <li>Let <i>exprValue</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-getvalue.html">GetValue</a>(<i>exprRef</i>)).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>exprValue</i>).</li>
+        <li>If <i>exprValue</i> is <b>true</b>, then
+          <ol class="block">
+            <li>Let <i>stmtCompletion</i> be the result of evaluating the first <i>Statement</i>.</li>
+          </ol>
+        </li>
+        <li>Else,
+          <ol class="block">
+            <li>Let <i>stmtCompletion</i> be the result of evaluating the second <i>Statement</i>.</li>
+          </ol>
+        </li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>stmtCompletion</i>).</li>
+        <li>If <i>stmtCompletion</i>.[[value]] is not <span style="font-family: sans-serif">empty</span>, return
+            <i>stmtCompletion</i>.</li>
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+      </ol>
+      <div class="gp prod"><span class="nt">IfStatement</span> <span class="geq">:</span> <code class="t">if</code> <code class="t">(</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+      <ol class="proc">
+        <li>Let <i>exprRef</i> be the result of evaluating <i>Expression</i>.</li>
+        <li>Let <i>exprValue</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-getvalue.html">GetValue</a>(<i>exprRef</i>)).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>exprValue</i>).</li>
+        <li>If <i>exprValue</i> is <b>false</b>, then
+          <ol class="block">
+            <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+          </ol>
+        </li>
+        <li>Else,
+          <ol class="block">
+            <li>Let <i>stmtCompletion</i> be the result of evaluating <i>Statement</i>.</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>stmtCompletion</i>).</li>
+            <li>If <i>stmtCompletion</i>.[[value]] is not <span style="font-family: sans-serif">empty</span>, return
+                <i>stmtCompletion</i>.</li>
+            <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+          </ol>
+        </li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

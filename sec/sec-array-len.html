@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-22.1.1.2"><a href="/sec/sec-array-len.html" title="link to this section">22.1.1.2</a></span> Array
+            (len)</h1>
+
+        <p class="normalbefore">This description applies if and only if the Array constructor is called with exactly one
+        argument.</p>
+
+        <ol class="proc">
+          <li>Let <i>numberOfArgs</i> be the number of arguments passed to this function call.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>numberOfArgs</i> = 1.</li>
+          <li>If NewTarget is <b>undefined</b><i>,</i> let <i>newTarget</i> be the active function object, else let
+              <i>newTarget</i> be NewTarget.</li>
+          <li>Let <i>proto</i> be <a href="/sec/sec-getprototypefromconstructor.html">GetPrototypeFromConstructor</a>(<i>newTarget</i>,
+              <code>&quot;%ArrayPrototype%&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>proto</i>).</li>
+          <li>Let <i>array</i> be <a href="/sec/sec-arraycreate.html">ArrayCreate</a>(0, <i>proto</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>len</i>) is not Number, then
+            <ol class="block">
+              <li>Let <i>defineStatus</i> be <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>array</i>,
+                  <code>&quot;<b>0</b>&quot;</code>, <i>len</i>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>defineStatus</i> is <b>true</b>.</li>
+              <li>Let <i>intLen</i> be 1.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>intLen</i> be <a href="/sec/sec-touint32.html">ToUint32</a>(<i>len</i>).</li>
+              <li>If <i>intLen</i> &#x2260; <i>len</i>, throw a <b>RangeError</b> exception.</li>
+            </ol>
+          </li>
+          <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>array</i>, <code>&quot;length&quot;</code>, <i>intLen</i>,
+              <b>true</b>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>setStatus</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+          <li>Return <i>array</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

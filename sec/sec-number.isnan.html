@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.1.2.4"><a href="/sec/sec-number.isnan.html" title="link to this section">20.1.2.4</a></span>
+            Number.isNaN ( number )</h1>
+
+        <p class="normalbefore">When the <code>Number.isNaN</code> is called with one argument <var>number</var>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>number</i>) is not Number, return <b>false</b>.</li>
+          <li>If <i>number</i> is <b>NaN</b>, return <b>true</b>.</li>
+          <li>Otherwise, return <b>false</b>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> This function differs from the global isNaN function (<a href="/sec/sec-isnan-number.html">18.2.3</a>) is that it does not convert its argument to a Number before determining whether it
+          is NaN.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-25.4.4.5"><a href="/sec/sec-promise.resolve.html" title="link to this section">25.4.4.5</a></span>
+            Promise.resolve ( x )</h1>
+
+        <p class="normalbefore">The <code>resolve</code> function returns either a new promise resolved with the passed argument,
+        or the argument itself if the argument is a promise produced by this constructor.</p>
+
+        <ol class="proc">
+          <li>Let <i>C</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>C</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <a href="/sec/sec-ispromise.html">IsPromise</a>(<i>x</i>) is <b>true</b>,
+            <ol class="block">
+              <li>Let <i>xConstructor</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>x</i>, <code>&quot;constructor&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>xConstructor</i>).</li>
+              <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>xConstructor</i>, <i>C</i>) is <b>true</b>, return <i>x</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>promiseCapability</i> be <a href="/sec/sec-newpromisecapability.html">NewPromiseCapability</a>(<i>C</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>promiseCapability</i>).</li>
+          <li>Let <i>resolveResult</i> be <a href="/sec/sec-call.html">Call</a>(<i>promiseCapability</i>.[[Resolve]], <b>undefined</b>,
+              &#xAB;<i>x</i>&#xBB;).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>resolveResult</i>).</li>
+          <li>Return <i>promiseCapability</i>.[[Promise]].</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span>  The <code>resolve</code> function expects its <b>this</b> value to be a constructor
+          function that supports the parameter conventions of the <code>Promise</code> constructor.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

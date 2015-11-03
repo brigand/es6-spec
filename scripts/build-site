@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+
+rm -r data sec
+mkdir -p data/sec sec
+
+node lib/toc.js
+node lib/extract-sections.js
+node lib/make-pages.js
+

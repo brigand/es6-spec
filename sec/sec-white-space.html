@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <h1><span class="secnum" id="sec-11.2"><a href="/sec/sec-white-space.html" title="link to this section">11.2</a></span> White
+        Space</h1>
+
+    <p>White space code points are used to improve source text readability and to separate tokens (indivisible lexical units) from
+    each other, but are otherwise insignificant. White space code points may occur between any two tokens and at the start or end
+    of input. White space code points may occur within a <span class="nt">StringLiteral</span>, a <span class="nt">RegularExpressionLiteral</span>, a <span class="nt">Template</span>, or a <span class="nt">TemplateSubstitutionTail</span> where they are considered significant code points forming part of a literal value.
+    They may also occur within a <span class="nt">Comment</span>, but cannot appear within any other kind of token.</p>
+
+    <p>The ECMAScript white space code points are listed in <a href="/sec/table-32.html">Table 32</a>.</p>
+
+    <figure>
+      <figcaption><span id="table-32">Table 32</span> &#x2014; White Space Code Points</figcaption>
+      <table class="real-table">
+        <tr>
+          <th>Code Point</th>
+          <th>Name</th>
+          <th>Abbreviation</th>
+        </tr>
+        <tr>
+          <td><code>U+0009</code></td>
+          <td>CHARACTER TABULATION</td>
+          <td>&lt;TAB&gt;</td>
+        </tr>
+        <tr>
+          <td><code>U+000B</code></td>
+          <td>LINE TABULATION</td>
+          <td>&lt;VT&gt;</td>
+        </tr>
+        <tr>
+          <td><code>U+000C</code></td>
+          <td>FORM FEED (FF)</td>
+          <td>&lt;FF&gt;</td>
+        </tr>
+        <tr>
+          <td><code>U+0020</code></td>
+          <td>SPACE</td>
+          <td>&lt;SP&gt;</td>
+        </tr>
+        <tr>
+          <td><code>U+00A0</code></td>
+          <td>NO-BREAK SPACE</td>
+          <td>&lt;NBSP&gt;</td>
+        </tr>
+        <tr>
+          <td><code>U+FEFF</code></td>
+          <td>ZERO WIDTH NO-BREAK SPACE</td>
+          <td>&lt;ZWNBSP&gt;</td>
+        </tr>
+        <tr>
+          <td>Other category &#x201C;Zs&#x201D;</td>
+          <td>Any other Unicode &#x201C;Separator, space&#x201D; code point</td>
+          <td>&lt;USP&gt;</td>
+        </tr>
+      </table>
+    </figure>
+
+    <p>ECMAScript implementations must recognize as <span class="nt">WhiteSpace</span> code points listed in the &#x201C;Separator,
+    space&#x201D; (Zs) category by Unicode 5.1. ECMAScript implementations may also recognize as <span class="nt">WhiteSpace</span>
+    additional category Zs code points from subsequent editions of the Unicode Standard.</p>
+
+    <div class="note">
+      <p><span class="nh">NOTE</span> Other than for the code points listed in <a href="/sec/table-32.html">Table 32</a>, ECMAScript <span class="nt">WhiteSpace</span> intentionally excludes all code points that have the Unicode &#x201C;White_Space&#x201D; property
+      but which are not classified in category &#x201C;Zs&#x201D;.</p>
+    </div>
+
+    <h2>Syntax</h2>
+
+    <div class="gp">
+      <div class="lhs"><span class="nt">WhiteSpace</span> <span class="geq">::</span></div>
+      <div class="rhs">&lt;TAB&gt;</div>
+      <div class="rhs">&lt;VT&gt;</div>
+      <div class="rhs">&lt;FF&gt;</div>
+      <div class="rhs">&lt;SP&gt;</div>
+      <div class="rhs">&lt;NBSP&gt;</div>
+      <div class="rhs">&lt;ZWNBSP&gt;</div>
+      <div class="rhs">&lt;USP&gt;</div>
+    </div>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

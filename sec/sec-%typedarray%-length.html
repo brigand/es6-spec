@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <div class="front">
+          <h1><span class="secnum" id="sec-22.2.1.2"><a href="/sec/sec-%typedarray%-length.html" title="link to this section">22.2.1.2</a></span> %TypedArray% ( length )</h1>
+
+          <p>This description applies only if the %TypedArray% function is called with at least one argument and the Type of the
+          first argument is not Object.</p>
+
+          <p class="normalbefore">%TypedArray% called with argument <var>length</var> performs the following steps:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>length</i>) is not Object.</li>
+            <li>If NewTarget is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+            <li>If <i>length</i> is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+            <li>Let <i>numberLength</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>length</i>).</li>
+            <li>Let <i>elementLength</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<i>numberLength</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>elementLength</i>).</li>
+            <li>If <a href="/sec/sec-samevaluezero.html">SameValueZero</a>(<i>numberLength</i>, <i>elementLength</i>) is <b>false</b>,
+                throw a <b>RangeError</b> exception.</li>
+            <li>Return <a href="/sec/sec-allocatetypedarray.html">AllocateTypedArray</a>(NewTarget, <i>elementLength</i>).</li>
+          </ol>
+        </div>
+
+        <section id="sec-allocatetypedarray">
+          <h1><span class="secnum" id="sec-22.2.1.2.1"><a href="/sec/sec-allocatetypedarray.html" title="link to this section">22.2.1.2.1</a></span> Runtime Semantics: AllocateTypedArray (newTarget, length )</h1>
+
+          <p class="normalbefore">The abstract operation AllocateTypedArray with argument <var>newTarget</var> and optional
+          argument <var>length</var> is used to validate and create an instance of a TypedArray constructor. If the
+          <var>length</var> argument is passed an ArrayBuffer of that length is also allocated and associated with the new
+          TypedArray instance. AllocateTypedArray provides common semantics that is used by all of the %TypeArray% overloads and
+          other methods. AllocateTypedArray performs the following steps:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <a href="/sec/sec-isconstructor.html">IsConstructor</a>(<i>newTarget</i>)
+                is <b>true</b>.</li>
+            <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(%TypedArray%, <i>newTarget</i>) is <b>true</b>, throw a <b>TypeError</b>
+                exception.</li>
+            <li>NOTE <span style="font-family: Times New Roman">%TypedArray%</span> throws an exception when invoked via either a
+                function call or the <code>new</code> operator. It can only be successfully invoked by a <span class="nt">SuperCall</span>.</li>
+            <li>Let <i>constructorName</i> be <b>undefined</b>.</li>
+            <li>Let <i>subclass</i> be <i>newTarget</i>.</li>
+            <li>Repeat while <i>constructorName</i> is <b>undefined</b>
+              <ol class="block">
+                <li>If <i>subclass</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+                <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(%TypedArray%, <i>subclass</i>) is <b>true</b>, throw a
+                    <b>TypeError</b> exception.</li>
+                <li>If <i>subclass</i> has a [[TypedArrayConstructorName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, let <i>constructorName</i> be the
+                    value of <i>subclass</i>&#x2019;s [[TypedArrayConstructorName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+                <li>Let <i>subclass</i> be <i>subclass</i>.[[GetPrototypeOf]]().</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>subclass</i>).</li>
+              </ol>
+            </li>
+            <li>Let <i>proto</i> be <a href="/sec/sec-getprototypefromconstructor.html">GetPrototypeFromConstructor</a>(<i>newTarget</i>,
+                <code>&quot;%TypedArrayPrototype%&quot;</code>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>proto</i>).</li>
+            <li>Let <i>obj</i> be <a href="/sec/sec-integerindexedobjectcreate.html">IntegerIndexedObjectCreate</a> (<i>proto</i>,
+                &#xAB;&#x200D;[[ViewedArrayBuffer]], [[TypedArrayName]], [[ByteLength]], [[ByteOffset]], [[ArrayLength]]&#xBB;
+                ).</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  The [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>obj</i> is <b>undefined</b>.</li>
+            <li>Set <i>obj</i>&#x2019;s [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                slot</a> to <i>constructorName</i>.</li>
+            <li>If <i>length</i> was not passed, then
+              <ol class="block">
+                <li>Set <i>obj</i>&#x2019;s [[ByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                    slot</a>  to 0.</li>
+                <li>Set <i>obj</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                    slot</a> to 0.</li>
+                <li>Set <i>obj</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                    slot</a> to 0.</li>
+              </ol>
+            </li>
+            <li>Else,
+              <ol class="block">
+                <li>Let <i>elementSize</i> be the Element Size value in <a href="/sec/table-49.html">Table 49</a> for
+                    <i>constructorName</i>.</li>
+                <li>Let <i>byteLength</i> be <i>elementSize</i> &#xD7; <i>length</i>.</li>
+                <li>Let <i>data</i> be <a href="/sec/sec-allocatearraybuffer.html">AllocateArrayBuffer</a>(<span style="font-family:
+                    sans-serif">%ArrayBuffer%</span>, <i>byteLength</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>data</i>).</li>
+                <li>Set <i>obj&#x2019;s</i> [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to <i>data</i>.</li>
+                <li>Set <i>obj</i>&#x2019;s [[ByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                    slot</a> to <i>byteLength</i>.</li>
+                <li>Set <i>obj</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                    slot</a> to 0.</li>
+                <li>Set <i>obj</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                    slot</a> to <i>length</i>.</li>
+              </ol>
+            </li>
+            <li>Return <i>obj</i>.</li>
+          </ol>
+        </section>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

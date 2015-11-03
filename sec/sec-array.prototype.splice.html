@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-22.1.3.25"><a href="/sec/sec-array.prototype.splice.html" title="link to this section">22.1.3.25</a></span> Array.prototype.splice (start, deleteCount , ...items  )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> When the <code>splice</code> method is called with two or more arguments
+          <var>start</var>, <var>deleteCount</var> and zero or more <var>items</var>, the <var>deleteCount</var> elements of the
+          array starting at integer index <var>start</var> are replaced by the arguments <var>items</var>. An Array object
+          containing the deleted elements (if any) is returned.</p>
+        </div>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>Let <i>relativeStart</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>start</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeStart</i>).</li>
+          <li>If <i>relativeStart</i> &lt; 0, let <i>actualStart</i> be max((<i>len</i> + <i>relativeStart</i>),0); else let
+              <i>actualStart</i> be min(<i>relativeStart</i>, <i>len</i>).</li>
+          <li>If  the number of actual arguments is 0, then
+            <ol class="block">
+              <li>Let <i>insertCount</i> be 0.</li>
+              <li>Let <i>actualDeleteCount</i> be 0.</li>
+            </ol>
+          </li>
+          <li>Else if the number of actual arguments is 1, then
+            <ol class="block">
+              <li>Let <i>insertCount</i> be 0.</li>
+              <li>Let <i>actualDeleteCount</i> be <i>len</i> &#x2013; <i>actualStart</i>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>insertCount</i> be the number of actual arguments minus 2.</li>
+              <li>Let <i>dc</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>deleteCount</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>dc</i>).</li>
+              <li>Let <i>actualDeleteCount</i> be min(max(<i>dc</i>,0), <i>len</i> &#x2013; <i>actualStart</i>).</li>
+            </ol>
+          </li>
+          <li>If <i>len+insertCount</i>&#x2212;<i>actualDeleteCount</i> &gt; 2<sup>53</sup>-1, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>A</i> be <a href="/sec/sec-arrayspeciescreate.html">ArraySpeciesCreate</a>(<i>O</i>, <i>actualDeleteCount</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>A</i>).</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>Repeat, while <i>k</i> &lt; <i>actualDeleteCount</i>
+            <ol class="block">
+              <li>Let <i>from</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>actualStart</i>+<i>k</i>).</li>
+              <li>Let <i>fromPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>from</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromPresent</i>).</li>
+              <li>If <i>fromPresent</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>fromValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O,</i> <i>from</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromValue</i>).</li>
+                  <li>Let <i>status</i> be <a href="/sec/sec-createdatapropertyorthrow.html">CreateDataPropertyOrThrow</a>(<i>A</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>), <i>fromValue</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+                </ol>
+              </li>
+              <li>Increment <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>A</i>, <code>&quot;length&quot;</code>,
+              <i>actualDeleteCount</i>, <b>true</b>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+          <li>Let <i>items</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> whose elements are, in left to
+              right order, the portion of the actual argument list starting with the third argument. The list is empty if fewer
+              than three arguments were passed.</li>
+          <li>Let <i>itemCount</i> be the number of elements in <i>items</i>.</li>
+          <li>If <i>itemCount</i> &lt; <i>actualDeleteCount</i>, then
+            <ol class="block">
+              <li>Let <i>k</i> be <i>actualStart</i>.</li>
+              <li>Repeat, while <i>k</i> &lt; (<i>len</i> &#x2013; <i>actualDeleteCount</i>)
+                <ol class="block">
+                  <li>Let <i>from</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>+<i>actualDeleteCount</i>).</li>
+                  <li>Let <i>to</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>+<i>itemCount</i>).</li>
+                  <li>Let <i>fromPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>from</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromPresent</i>).</li>
+                  <li>If <i>fromPresent</i> is <b>true</b>, then
+                    <ol class="block">
+                      <li>Let <i>fromValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>from</i>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromValue</i>).</li>
+                      <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <i>to</i>, <i>fromValue</i>,
+                          <b>true</b>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                    </ol>
+                  </li>
+                  <li>Else <i>fromPresent</i> is <b>false</b>,
+                    <ol class="block">
+                      <li>Let <i>deleteStatus</i> be <a href="/sec/sec-deletepropertyorthrow.html">DeletePropertyOrThrow</a>(<i>O</i>,
+                          <i>to</i>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>deleteStatus</i>).</li>
+                    </ol>
+                  </li>
+                  <li>Increase <i>k</i> by 1.</li>
+                </ol>
+              </li>
+              <li>Let <i>k</i> be <i>len</i>.</li>
+              <li>Repeat, while <i>k</i> &gt; (<i>len</i> &#x2013; <i>actualDeleteCount</i> + <i>itemCount</i>)
+                <ol class="block">
+                  <li>Let <i>deleteStatus</i> be <a href="/sec/sec-deletepropertyorthrow.html">DeletePropertyOrThrow</a>(<i>O</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>&#x2013;1)).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>deleteStatus</i>).</li>
+                  <li>Decrease <i>k</i> by 1.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Else if <i>itemCount</i> &gt; <i>actualDeleteCount</i>, then
+            <ol class="block">
+              <li>Let <i>k</i> be (<i>len</i> &#x2013; <i>actualDeleteCount</i>).</li>
+              <li>Repeat, while <i>k</i> &gt; <i>actualStart</i>
+                <ol class="block">
+                  <li>Let <i>from</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i> + <i>actualDeleteCount</i> &#x2013; 1).</li>
+                  <li>Let <i>to</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i> + <i>itemCount</i> &#x2013; 1)</li>
+                  <li>Let <i>fromPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>from</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromPresent</i>).</li>
+                  <li>If <i>fromPresent</i> is <b>true</b>, then
+                    <ol class="block">
+                      <li>Let <i>fromValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>from</i>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromValue</i>).</li>
+                      <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <i>to</i>, <i>fromValue</i>,
+                          <b>true</b>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                    </ol>
+                  </li>
+                  <li>Else <i>fromPresent</i> is <b>false</b>,
+                    <ol class="block">
+                      <li>Let <i>deleteStatus</i> be <a href="/sec/sec-deletepropertyorthrow.html">DeletePropertyOrThrow</a>(<i>O</i>,
+                          <i>to</i>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>deleteStatus</i>).</li>
+                    </ol>
+                  </li>
+                  <li>Decrease <i>k</i> by 1.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Let <i>k</i> be <i>actualStart</i>.</li>
+          <li>Repeat, while <i>items</i> is not empty
+            <ol class="block">
+              <li>Remove the first element from <i>items</i> and let <i>E</i> be the value of that element.</li>
+              <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>), <i>E</i>, <b>true</b>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <code>&quot;length&quot;</code>, <i>len</i> &#x2013;
+              <i>actualDeleteCount</i> + <i>itemCount</i>, <b>true</b>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+          <li>Return <i>A</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>splice</code> method is <b>2</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The explicit setting of the <code>length</code> property of the result Array in step
+          24 is necessary to ensure that its value is correct in situations where its trailing elements are not present.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 3</span> The <code>splice</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

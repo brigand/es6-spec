@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-19.5.3"><a href="/sec/sec-properties-of-the-error-prototype-object.html" title="link to this section">19.5.3</a></span> Properties of the Error Prototype Object</h1>
+
+        <p>The Error prototype object is the intrinsic object %ErrorPrototype%. The Error prototype object is an ordinary object.
+        It is not an Error instance and does not have an [[ErrorData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+        <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the Error
+        prototype object is the intrinsic object %ObjectPrototype% (<a href="/sec/sec-properties-of-the-object-prototype-object.html">19.1.3</a>).</p>
+      </div>
+
+      <section id="sec-error.prototype.constructor">
+        <h1><span class="secnum" id="sec-19.5.3.1"><a href="/sec/sec-error.prototype.constructor.html" title="link to this section">19.5.3.1</a></span> Error.prototype.constructor</h1>
+
+        <p>The initial value of <code>Error.prototype.constructor</code> is the intrinsic object %Error%.</p>
+      </section>
+
+      <section id="sec-error.prototype.message">
+        <h1><span class="secnum" id="sec-19.5.3.2"><a href="/sec/sec-error.prototype.message.html" title="link to this section">19.5.3.2</a></span> Error.prototype.message</h1>
+
+        <p>The initial value of <code>Error.prototype.message</code> is the empty String.</p>
+      </section>
+
+      <section id="sec-error.prototype.name">
+        <h1><span class="secnum" id="sec-19.5.3.3"><a href="/sec/sec-error.prototype.name.html" title="link to this section">19.5.3.3</a></span> Error.prototype.name</h1>
+
+        <p>The initial value of <code>Error.prototype.name</code> is <code>&quot;<b>Error</b>&quot;</code>.</p>
+      </section>
+
+      <section id="sec-error.prototype.tostring">
+        <h1><span class="secnum" id="sec-19.5.3.4"><a href="/sec/sec-error.prototype.tostring.html" title="link to this section">19.5.3.4</a></span> Error.prototype.toString ( )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>name</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <code>&quot;name&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>name</i>).</li>
+          <li>If <i>name</i> is <b>undefined</b>, let <i>name</i> be <code>&quot;<b>Error</b>&quot;</code>; otherwise let <i>name</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>name</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>name</i>).</li>
+          <li>Let <i>msg</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <code>&quot;message&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>msg</i>).</li>
+          <li>If <i>msg</i> is <b>undefined</b>, let <i>msg</i> be the empty String; otherwise let <i>msg</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>msg</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>msg</i>).</li>
+          <li>If <i>name</i> is the empty String, return <i>msg</i>.</li>
+          <li>If <i>msg</i> is the empty String, return <i>name</i>.</li>
+          <li>Return the result of concatenating <i>name</i>, the code unit 0x003A (COLON), the code unit 0x0020 (SPACE), and
+              <i>msg</i>.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

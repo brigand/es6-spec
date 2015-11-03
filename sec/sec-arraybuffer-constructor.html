@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-24.1.2"><a href="/sec/sec-arraybuffer-constructor.html" title="link to this section">24.1.2</a></span> The ArrayBuffer Constructor</h1>
+
+        <p>The ArrayBuffer constructor is the %ArrayBuffer% intrinsic object and the initial value of the <code>ArrayBuffer</code>
+        property of the global object. When called as a constructor it creates and initializes a new ArrayBuffer object.
+        <code>ArrayBuffer</code> is not intended to be called as a function and will throw an exception when called in that
+        manner.</p>
+
+        <p>The <code>ArrayBuffer</code> constructor is designed to be subclassable. It may be used as the value of an
+        <code>extends</code> clause of a class definition. Subclass constructors that intend to inherit the specified
+        <code>ArrayBuffer</code> behaviour must include a <code>super</code> call to the <code>ArrayBuffer</code> constructor to
+        create and initialize subclass instances with the internal state necessary to support the <code><a href="/sec/sec-arraybuffer.prototype.html">ArrayBuffer.prototype</a></code> built-in methods.</p>
+      </div>
+
+      <section id="sec-arraybuffer-length">
+        <h1><span class="secnum" id="sec-24.1.2.1"><a href="/sec/sec-arraybuffer-length.html" title="link to this section">24.1.2.1</a></span> ArrayBuffer( length )</h1>
+
+        <p class="normalbefore">ArrayBuffer called with argument <var>length</var> performs the following steps:</p>
+
+        <ol class="proc">
+          <li>If NewTarget is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>numberLength</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>length</i>).</li>
+          <li>Let <i>byteLength</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<i>numberLength</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>byteLength</i>).</li>
+          <li>If <a href="/sec/sec-samevaluezero.html">SameValueZero</a>(<i>numberLength</i>, <i>byteLength</i>) is <b>false</b>, throw a
+              <b>RangeError</b> exception.</li>
+          <li>Return <a href="/sec/sec-allocatearraybuffer.html">AllocateArrayBuffer</a>(NewTarget, <i>byteLength</i>).</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

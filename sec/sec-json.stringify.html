@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-24.3.2"><a href="/sec/sec-json.stringify.html" title="link to this section">24.3.2</a></span>
+            JSON.stringify ( value [ , replacer [ , space ] ] )</h1>
+
+        <p>The <code>stringify</code> function returns a String in UTF-16 encoded JSON format representing an ECMAScript value. It
+        can take three parameters. The <var>value</var> parameter is an ECMAScript value, which is usually an object or array,
+        although it can also be a String, Boolean, Number or <b>null</b>. The optional <var>replacer</var> parameter is either a
+        function that alters the way objects and arrays are stringified, or an array of Strings and Numbers that acts as a white
+        list for selecting the object properties that will be stringified. The optional <var>space</var> parameter is a String or
+        Number that allows the result to have white space injected into it to improve human readability.</p>
+
+        <p class="normalbefore">These are the steps in stringifying an object:</p>
+
+        <ol class="proc">
+          <li>Let <i>stack</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>Let <i>indent</i> be the empty String.</li>
+          <li>Let <i>PropertyList</i> and <i>ReplacerFunction</i> be <b>undefined</b>.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>replacer</i>) is Object, then
+            <ol class="block">
+              <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>replacer</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>ReplacerFunction</i> be <i>replacer</i>.</li>
+                </ol>
+              </li>
+              <li>Else,
+                <ol class="block">
+                  <li>Let <i>isArray</i> be <a href="/sec/sec-isarray.html">IsArray</a>(<i>replacer</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>isArray</i>).</li>
+                  <li>If <i>isArray</i> is <b>true</b>, then
+                    <ol class="block">
+                      <li>Let <i>PropertyList</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a></li>
+                      <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>replacer</i>,
+                          <code>&quot;length&quot;</code>)).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+                      <li>Let <i>k</i> be 0.</li>
+                      <li>Repeat while <i>k</i>&lt;<i>len</i>.
+                        <ol class="block">
+                          <li>Let <i>v</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>replacer</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>)).</li>
+                          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+                          <li>Let <i>item</i> be <b>undefined</b>.</li>
+                          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>v</i>) is String, let <i>item</i> be
+                              <i>v.</i></li>
+                          <li>Else if <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>v</i>) is Number, let
+                              <i>item</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>v</i>).</li>
+                          <li>Else if <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>v</i>) is Object, then
+                            <ol class="block">
+                              <li>If <i>v</i> has a [[StringData]] or [[NumberData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, let <i>item</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>v</i>).</li>
+                              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>item</i>).</li>
+                            </ol>
+                          </li>
+                          <li>If <i>item</i> is not <b>undefined</b> and <i>item</i> is not currently an element of
+                              <i>PropertyList</i>, then
+                            <ol class="block">
+                              <li>Append <i>item</i> to the end of <i>PropertyList</i>.</li>
+                            </ol>
+                          </li>
+                          <li>Let <i>k</i> be <i>k</i>+1.</li>
+                        </ol>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>space</i>) is Object, then
+            <ol class="block">
+              <li>If <i>space</i> has a [[NumberData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                  slot</a>, then
+                <ol class="block">
+                  <li>Let <i>space</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>space</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>space</i>).</li>
+                </ol>
+              </li>
+              <li>Else if <i>space</i> has a [[StringData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                  slot</a>, then
+                <ol class="block">
+                  <li>Let <i>space</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>space</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>space</i>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>space</i>) is Number, then
+            <ol class="block">
+              <li>Let <i>space</i> be min(10, <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>space</i>)).</li>
+              <li>Set <i>gap</i> to a String containing <i>space</i> occurrences of code unit 0x0020 (SPACE). This will be the
+                  empty String if <i>space</i> is less than 1.</li>
+            </ol>
+          </li>
+          <li>Else if <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>space</i>) is String, then
+            <ol class="block">
+              <li>If the number of elements in <i>space</i> is 10 or less, set <i>gap</i> to <i>space</i> otherwise set <i>gap</i>
+                  to a String consisting of the first 10 elements of <i>space</i>.</li>
+            </ol>
+          </li>
+          <li>Else
+            <ol class="block">
+              <li>Set <i>gap</i> to the empty String.</li>
+            </ol>
+          </li>
+          <li>Let <i>wrapper</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(%ObjectPrototype%).</li>
+          <li>Let <i>status</i> be <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>wrapper</i>, the empty String,
+              <i>value</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is <b>true</b>.</li>
+          <li>Return <a href="/sec/sec-serializejsonproperty.html">SerializeJSONProperty</a>(the empty String, <i>wrapper</i>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> JSON structures are allowed to be nested to any depth, but they must be acyclic. If
+          <var>value</var> is or contains a cyclic structure, then the stringify function must throw a <b>TypeError</b> exception.
+          This is an example of a value that cannot be stringified:</p>
+
+          <pre class="NoteCode">a = [];</pre>
+          <pre class="NoteCode">a[0] = a;</pre>
+          <pre class="NoteCode">my_text = JSON.stringify(a); // This must throw a TypeError.</pre>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> Symbolic primitive values are rendered as follows:</p>
+
+          <ul>
+            <li>The <span class="value">null</span> value is rendered in JSON text as the String <code>null</code>.</li>
+            <li>The <span class="value">undefined</span> value is not rendered.</li>
+            <li>The <span class="value">true</span> value is rendered in JSON text as the String <code>true</code>.</li>
+            <li>The <span class="value">false</span> value is rendered in JSON text as the String <code>false</code>.</li>
+          </ul>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 3</span> String values are wrapped in QUOTATION MARK (<code>&quot;</code>) code units. The code
+          units <code>&quot;</code> and <code>\</code> are escaped with <code>\</code> prefixes. Control characters code units are
+          replaced with escape sequences <code>\u</code>HHHH, or with the shorter forms, <code>\b</code> (BACKSPACE),
+          <code>\f</code> (FORM FEED), <code>\n</code> (LINE FEED), <code>\r</code> (CARRIAGE RETURN), <code>\t</code> (CHARACTER
+          TABULATION).</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 4</span> Finite numbers are stringified as if by calling <span style="font-family: Times New
+          Roman"><a href="/sec/sec-tostring.html">ToString</a>(<i>number</i>)</span>. <b>NaN</b> and Infinity regardless of sign are
+          represented as the String <code>null</code>.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 5</span> Values that do not have a JSON representation (such as <b>undefined</b> and functions)
+          do not produce a String. Instead they produce the <span class="value">undefined</span> value. In arrays these values are
+          represented as the String <code>null</code>. In objects an unrepresentable value causes the property to be excluded from
+          stringification.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 6</span> An object is rendered as U+007B (LEFT CURLY BRACKET) followed by zero or more
+          properties, separated with a U+002C (COMMA), closed with a U+007D (RIGHT CURLY BRACKET). A property is a quoted String
+          representing the key or property name, a U+003A (COLON), and then the stringified property value. An array is rendered
+          as an opening U+005B (LEFT SQUARE BRACKET followed by zero or more values, separated with a U+002C (COMMA), closed with
+          a U+005D (RIGHT SQUARE BRACKET).</p>
+        </div>
+      </div>
+
+      <section id="sec-serializejsonproperty">
+        <h1><span class="secnum" id="sec-24.3.2.1"><a href="/sec/sec-serializejsonproperty.html" title="link to this section">24.3.2.1</a></span> Runtime Semantics: SerializeJSONProperty ( key, holder )</h1>
+
+        <p class="normalbefore">The abstract operation SerializeJSONProperty with arguments <var>key</var>, <span style="font-family: Times New Roman">and</span> <var>holder</var> has access to <span class="nt">ReplacerFunction</span>
+        from the invocation of the <code>stringify</code> method. Its algorithm is as follows:</p>
+
+        <ol class="proc">
+          <li>Let <i>value</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>holder</i>, <i>key</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is Object, then
+            <ol class="block">
+              <li>Let <i>toJSON</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>value</i>, <code>&quot;toJSON&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>toJSON</i>).</li>
+              <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>toJSON</i>) is <b>true</b>
+                <ol class="block">
+                  <li>Let <i>value</i> be <a href="/sec/sec-call.html">Call</a>(<i>toJSON</i>, <i>value</i>,
+                      &#xAB;<i>key</i>&#xBB;).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>ReplacerFunction</i> is not <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>value</i> be <a href="/sec/sec-call.html">Call</a>(<i>ReplacerFunction</i>, <i>holder</i>, &#xAB;<i>key</i>,
+                  <i>value</i>&#xBB;).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+            </ol>
+          </li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is Object, then
+            <ol class="block">
+              <li>If <i>value</i> has a [[NumberData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                  slot</a>, then
+                <ol class="block">
+                  <li>Let <i>value</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>value</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+                </ol>
+              </li>
+              <li>Else if <i>value</i> has a [[StringData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                  slot</a>, then
+                <ol class="block">
+                  <li>Let <i>value</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>value</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+                </ol>
+              </li>
+              <li>Else if <i>value</i> has a [[BooleanData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                  slot</a>, then
+                <ol class="block">
+                  <li>Let <i>value</i> be the value of the [[BooleanData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>value</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>value</i> is <b>null</b>, return <code>&quot;null&quot;</code>.</li>
+          <li>If <i>value</i> is <b>true</b>, return <code>&quot;true&quot;</code>.</li>
+          <li>If <i>value</i> is <b>false</b>, return <code>&quot;false&quot;</code>.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is String, return <a href="/sec/sec-quotejsonstring.html">QuoteJSONString</a>(<i>value</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is Number, then
+            <ol class="block">
+              <li>If <i>value</i> is finite, return <a href="/sec/sec-tostring.html">ToString</a>(<i>value</i>).</li>
+              <li>Else, return <code>&quot;null&quot;</code>.</li>
+            </ol>
+          </li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is Object, and <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>value</i>) is <b>false</b>, then
+            <ol class="block">
+              <li>Let <i>isArray</i> be <a href="/sec/sec-isarray.html">IsArray</a>(<i>value</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>isArray</i>).</li>
+              <li>If <i>isArray</i> is <b>true</b>, return <a href="/sec/sec-serializejsonarray.html">SerializeJSONArray</a>(<i>value</i>).</li>
+              <li>Else, return <a href="/sec/sec-serializejsonobject.html">SerializeJSONObject</a>(<i>value</i>).</li>
+            </ol>
+          </li>
+          <li>Return <b>undefined</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-quotejsonstring">
+        <h1><span class="secnum" id="sec-24.3.2.2"><a href="/sec/sec-quotejsonstring.html" title="link to this section">24.3.2.2</a></span>
+            Runtime Semantics: QuoteJSONString ( value )</h1>
+
+        <p class="normalbefore">The abstract operation QuoteJSONString with argument <var>value</var> wraps a String value in
+        QUOTATION MARK code units and escapes certain other code units within it.</p>
+
+        <ol class="proc">
+          <li>Let <i>product</i> be code unit 0x0022 (QUOTATION MARK).</li>
+          <li>For each code unit <i>C</i> in <i>value</i>
+            <ol class="block">
+              <li>If <i>C</i> is 0x0022 (QUOTATION MARK) or 0x005C (REVERSE SOLIDUS), then
+                <ol class="block">
+                  <li>Let <i>product</i> be the concatenation of <i>product</i> and code unit 0x005C (REVERSE SOLIDUS).</li>
+                  <li>Let <i>product</i> be the concatenation of <i>product</i> and <i>C</i>.</li>
+                </ol>
+              </li>
+              <li>Else if <i>C</i> is 0x0008 (BACKSPACE), 0x000C (FORM FEED), 0x000A (LINE FEED), 0x000D (CARRIAGE RETURN), or
+                  0x000B (LINE TABULATION), then
+                <ol class="block">
+                  <li>Let <i>product</i> be the concatenation of <i>product</i> and code unit 0x005C (REVERSE SOLIDUS).</li>
+                  <li>Let <i>abbrev</i> be the String value corresponding to the value of <i>C</i> as follows:
+                    <table class="lightweight">
+                      <tr>
+                        <td>BACKSPACE</td>
+                        <td><span class="string value">&quot;b&quot;</span></td>
+                      </tr>
+                      <tr>
+                        <td>FORM FEED (FF)</td>
+                        <td><span class="string value">&quot;f&quot;</span></td>
+                      </tr>
+                      <tr>
+                        <td>LINE FEED (LF)</td>
+                        <td><span class="string value">&quot;n&quot;</span></td>
+                      </tr>
+                      <tr>
+                        <td>CARRIAGE RETURN (CR)</td>
+                        <td><span class="string value">&quot;r&quot;</span></td>
+                      </tr>
+                      <tr>
+                        <td>LINE TABULATION</td>
+                        <td><span class="string value">&quot;t&quot;</span></td>
+                      </tr>
+                    </table>
+                  </li>
+                  <li>Let <i>product</i> be the concatenation of <i>product</i> and <i>abbrev</i>.</li>
+                </ol>
+              </li>
+              <li>Else if <i>C</i> has a code unit value less than 0x0020 (SPACE), then
+                <ol class="block">
+                  <li>Let <i>product</i> be the concatenation of <i>product</i> and code unit 0x005C (REVERSE SOLIDUS).</li>
+                  <li>Let <i>product</i> be the concatenation of <i>product</i> and <code>&quot;u&quot;</code>.</li>
+                  <li>Let <i>hex</i> be the string result of converting the numeric code unit value of <i>C</i> to a String of
+                      four hexadecimal digits. Alphabetic hexadecimal digits are presented as lowercase Latin letters.</li>
+                  <li>Let <i>product</i> be the concatenation of <i>product</i> and <i>hex</i>.</li>
+                </ol>
+              </li>
+              <li>Else,
+                <ol class="block">
+                  <li>Let <i>product</i> be the concatenation of <i>product</i> and <i>C</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Let <i>product</i> be the concatenation of <i>product</i> and code unit 0x0022 (QUOTATION MARK).</li>
+          <li>Return <i>product</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-serializejsonobject">
+        <h1><span class="secnum" id="sec-24.3.2.3"><a href="/sec/sec-serializejsonobject.html" title="link to this section">24.3.2.3</a></span> Runtime Semantics: SerializeJSONObject ( value )</h1>
+
+        <p class="normalbefore">The abstract operation SerializeJSONObject with argument <var>value</var> serializes an object. It
+        has access to the <var>stack</var>, <var>indent</var>, <var>gap</var>, and <span class="nt">PropertyList</span> values of
+        the current invocation of the <code>stringify</code> method.</p>
+
+        <ol class="proc">
+          <li>If <i>stack</i> contains <i>value</i>, throw a <b>TypeError</b> exception because the structure is cyclical.</li>
+          <li>Append <i>value</i> to <i>stack</i>.</li>
+          <li>Let <i>stepback</i> be <i>indent</i>.</li>
+          <li>Let <i>indent</i> be the concatenation of <i>indent</i> and <i>gap</i>.</li>
+          <li>If <i>PropertyList</i> is not <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>K</i> be <i>PropertyList</i>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>K</i> be <a href="/sec/sec-enumerableownnames.html">EnumerableOwnNames</a>(<i>value</i>).</li>
+            </ol>
+          </li>
+          <li>Let <i>partial</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>For each element <i>P</i> of <i>K</i>,
+            <ol class="block">
+              <li>Let <i>strP</i> be <a href="/sec/sec-serializejsonproperty.html">SerializeJSONProperty</a>(<i>P</i>, <i>value</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>strP</i>).</li>
+              <li>If <i>strP</i> is not <b>undefined</b>, then
+                <ol class="block">
+                  <li>Let <i>member</i> be <a href="/sec/sec-quotejsonstring.html">QuoteJSONString</a>(<i>P</i>).</li>
+                  <li>Let <i>member</i> be the concatenation of <i>member</i> and the string <code>&quot;:&quot;</code>.</li>
+                  <li>If <i>gap</i> is not the empty String, then
+                    <ol class="block">
+                      <li>Let <i>member</i> be the concatenation of <i>member</i> and code unit 0x0020 (SPACE).</li>
+                    </ol>
+                  </li>
+                  <li>Let <i>member</i> be the concatenation of <i>member</i> and <i>strP</i>.</li>
+                  <li>Append <i>member</i> to <i>partial</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>partial</i> is empty, then
+            <ol class="block">
+              <li>Let <i>final</i> be <code>&quot;{}&quot;</code>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>If <i>gap</i> is the empty String, then
+                <ol class="block">
+                  <li>Let <i>properties</i> be a String formed by concatenating all the element Strings of <i>partial</i> with
+                      each adjacent pair of Strings separated with code unit 0x002C (COMMA). A comma is not inserted either before
+                      the first String or after the last String.</li>
+                  <li>Let <i>final</i> be the result of concatenating <b><code>&quot;{&quot;</code>,</b> <i>properties</i>, and
+                      <code>&quot;}&quot;</code>.</li>
+                </ol>
+              </li>
+              <li>Else <i>gap</i> is not the empty String
+                <ol class="block">
+                  <li>Let <i>separator</i> be the result of concatenating code unit 0x002C (COMMA), code unit 0x000A (LINE FEED),
+                      and <i>indent</i>.</li>
+                  <li>Let <i>properties</i> be a String formed by concatenating all the element Strings of <i>partial</i> with
+                      each adjacent pair of Strings separated with <i>separator</i>. The <i>separator</i> String is not inserted
+                      either before the first String or after the last String.</li>
+                  <li>Let <i>final</i> be the result of concatenating <code>&quot;{&quot;</code>, code unit 0x000A (LINE FEED),
+                      <i>indent</i>, <i>properties</i>, code unit 0x000A, <i>stepback</i>, and <code>&quot;}&quot;</code>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Remove the last element of <i>stack</i>.</li>
+          <li>Let <i>indent</i> be <i>stepback</i>.</li>
+          <li>Return <i>final</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-serializejsonarray">
+        <h1><span class="secnum" id="sec-24.3.2.4"><a href="/sec/sec-serializejsonarray.html" title="link to this section">24.3.2.4</a></span> Runtime Semantics: SerializeJSONArray ( value )</h1>
+
+        <p class="normalbefore">The abstract operation SerializeJSONArray with argument <var>value</var> serializes an array. It
+        has access to the <var>stack</var>, <var>indent</var>, and <var>gap</var> values of the current invocation of the
+        <code>stringify</code> method.</p>
+
+        <ol class="proc">
+          <li>If <i>stack</i> contains <i>value</i>, throw a <b>TypeError</b> exception because the structure is cyclical.</li>
+          <li>Append <i>value</i> to <i>stack</i>.</li>
+          <li>Let <i>stepback</i> be <i>indent</i>.</li>
+          <li>Let <i>indent</i> be the concatenation of <i>indent</i> and <i>gap</i>.</li>
+          <li>Let <i>partial</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>value</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>Let <i>index</i> be 0.</li>
+          <li>Repeat while <i>index</i> &lt; <i>len</i>
+            <ol class="block">
+              <li>Let <i>strP</i> be <a href="/sec/sec-serializejsonproperty.html">SerializeJSONProperty</a>(<a href="/sec/sec-tostring.html">ToString</a>(<i>index</i>), <i>value</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>strP</i>).</li>
+              <li>If <i>strP</i> is <b>undefined</b>, then
+                <ol class="block">
+                  <li>Append <code>&quot;null&quot;</code> to <i>partial</i>.</li>
+                </ol>
+              </li>
+              <li>Else,
+                <ol class="block">
+                  <li>Append <i>strP</i> to <i>partial</i>.</li>
+                </ol>
+              </li>
+              <li>Increment <i>index</i> by 1.</li>
+            </ol>
+          </li>
+          <li>If <i>partial</i> is empty, then
+            <ol class="block">
+              <li>Let <i>final</i> be <code>&quot;[]&quot;</code>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>If <i>gap</i> is the empty String, then
+                <ol class="block">
+                  <li>Let <i>properties</i> be a String formed by concatenating all the element Strings of <i>partial</i> with
+                      each adjacent pair of Strings separated with code unit 0x002C (COMMA). A comma is not inserted either before
+                      the first String or after the last String.</li>
+                  <li>Let <i>final</i> be the result of concatenating <b><code>&quot;[&quot;</code>,</b> <i>properties</i>, and
+                      <code>&quot;]&quot;</code>.</li>
+                </ol>
+              </li>
+              <li>Else,
+                <ol class="block">
+                  <li>Let <i>separator</i> be the result of concatenating code unit 0x002C (COMMA), code unit 0x000A (LINE FEED),
+                      and <i>indent</i>.</li>
+                  <li>Let <i>properties</i> be a String formed by concatenating all the element Strings of <i>partial</i> with
+                      each adjacent pair of Strings separated with <i>separator</i>. The <i>separator</i> String is not inserted
+                      either before the first String or after the last String.</li>
+                  <li>Let <i>final</i> be the result of concatenating <code>&quot;[&quot;</code>, code unit 0x000A (LINE FEED),
+                      <i>indent</i>, <i>properties</i>, code unit 0x000A, <i>stepback</i>, and <code>&quot;]&quot;</code>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Remove the last element of <i>stack</i>.</li>
+          <li>Let <i>indent</i> be <i>stepback</i>.</li>
+          <li>Return <i>final</i>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The representation of arrays includes only the elements between zero and
+          <code>array.length</code> <span style="font-family: Times New Roman">&#x2013; 1</span> inclusive. Properties whose keys
+          are not array indexes are excluded from the stringification. An array is stringified as an opening LEFT SQUARE BRACKET,
+          elements separated by COMMA, and a closing RIGHT SQUARE BRACKET.</p>
+        </div>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

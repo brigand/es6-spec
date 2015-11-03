@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-19.4.3"><a href="/sec/sec-properties-of-the-symbol-prototype-object.html" title="link to this section">19.4.3</a></span> Properties of the Symbol Prototype Object</h1>
+
+        <p>The Symbol prototype object is the intrinsic object %SymbolPrototype%. The Symbol prototype object is an ordinary
+        object. It is not a Symbol instance and does not have a [[SymbolData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+        <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the
+        Symbol prototype object is the intrinsic object %ObjectPrototype% (<a href="/sec/sec-properties-of-the-object-prototype-object.html">19.1.3</a>).</p>
+      </div>
+
+      <section id="sec-symbol.prototype.constructor">
+        <h1><span class="secnum" id="sec-19.4.3.1"><a href="/sec/sec-symbol.prototype.constructor.html" title="link to this section">19.4.3.1</a></span> Symbol.prototype.constructor</h1>
+
+        <p>The initial value of <code>Symbol.prototype.constructor</code> is the intrinsic object %Symbol%.</p>
+      </section>
+
+      <section id="sec-symbol.prototype.tostring">
+        <div class="front">
+          <h1><span class="secnum" id="sec-19.4.3.2"><a href="/sec/sec-symbol.prototype.tostring.html" title="link to this section">19.4.3.2</a></span> Symbol.prototype.toString ( )</h1>
+
+          <p class="normalbefore">The following steps are taken:</p>
+
+          <ol class="proc">
+            <li>Let <i>s</i> be the <b>this</b> value.</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>s</i>) is Symbol, let <i>sym</i> be <i>s</i>.</li>
+            <li>Else,
+              <ol class="block">
+                <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>s</i>) is not Object, throw a <b>TypeError</b>
+                    exception.</li>
+                <li>If <i>s</i> does not have a [[SymbolData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                    slot</a>, throw a <b>TypeError</b> exception.</li>
+                <li>Let <i>sym</i> be the value of <i>s&#x2019;s</i> [[SymbolData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+              </ol>
+            </li>
+            <li>Return <a href="/sec/sec-symboldescriptivestring.html">SymbolDescriptiveString</a>(<i>sym</i>).</li>
+          </ol>
+        </div>
+
+        <section id="sec-symboldescriptivestring">
+          <h1><span class="secnum" id="sec-19.4.3.2.1"><a href="/sec/sec-symboldescriptivestring.html" title="link to this section">19.4.3.2.1</a></span> Runtime Semantics:  SymbolDescriptiveString ( sym )</h1>
+
+          <p class="normalbefore">When the abstract operation SymbolDescriptiveString is called with argument <var>sym</var>, the
+          following steps are taken:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>sym</i>) is Symbol.</li>
+            <li>Let <i>desc</i> be <i>sym&#x2019;s</i> [[Description]] value.</li>
+            <li>If <i>desc</i> is <b>undefined</b>, let <i>desc</i> be the empty string.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>desc</i>) is String.</li>
+            <li>Return the result of concatenating the strings <code>&quot;Symbol(&quot;</code>, <i>desc</i>, and <code>&quot;)&quot;</code>.</li>
+          </ol>
+        </section>
+      </section>
+
+      <section id="sec-symbol.prototype.valueof">
+        <h1><span class="secnum" id="sec-19.4.3.3"><a href="/sec/sec-symbol.prototype.valueof.html" title="link to this section">19.4.3.3</a></span> Symbol.prototype.valueOf ( )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>s</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>s</i>) is Symbol, return <i>s</i>.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>s</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>s</i> does not have a [[SymbolData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Return the value of <i>s&#x2019;s</i> [[SymbolData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-symbol.prototype-@@toprimitive">
+        <h1><span class="secnum" id="sec-19.4.3.4"><a href="/sec/sec-symbol.prototype-@@toprimitive.html" title="link to this section">19.4.3.4</a></span> Symbol.prototype [ @@toPrimitive ] ( hint )</h1>
+
+        <p>This function is called by ECMAScript language operators to convert a Symbol object to a primitive value. The allowed
+        values for <var>hint</var> are <code>&quot;default&quot;</code>,  <code>&quot;number&quot;</code>, and <code>&quot;string&quot;</code>.</p>
+
+        <p class="normalbefore">When the <code>@@toPrimitive</code> method is called with argument <var>hint</var>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>s</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>s</i>) is Symbol, return <i>s</i>.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>s</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>s</i> does not have a [[SymbolData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Return the value of <i>s&#x2019;s</i> [[SymbolData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+        </ol>
+
+        <p>The value of the <code>name</code> property of this function is <code>&quot;[Symbol.toPrimitive]&quot;</code>.</p>
+
+        <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+      </section>
+
+      <section id="sec-symbol.prototype-@@tostringtag">
+        <h1><span class="secnum" id="sec-19.4.3.5"><a href="/sec/sec-symbol.prototype-@@tostringtag.html" title="link to this section">19.4.3.5</a></span> Symbol.prototype [ @@toStringTag ]</h1>
+
+        <p>The initial value of the @@toStringTag property is the String value <code>&quot;Symbol&quot;</code>.</p>
+
+        <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.2.2.18"><a href="/sec/sec-classatomnodash.html" title="link to this section">21.2.2.18</a></span> ClassAtomNoDash</h1>
+
+        <p class="normalbefore">The production <span class="prod"><span class="nt">ClassAtomNoDash</span> <span class="geq">::</span> <span class="nt">SourceCharacter</span> <span class="grhsmod">but not one of</span> <code class="t">\</code> <span class="grhsmod">or</span> <code class="t">]</code> <span class="grhsmod">or</span> <code class="t">-</code></span> evaluates as follows:</p>
+
+        <ol class="proc">
+          <li>Return the CharSet containing the character matched by <i>SourceCharacter</i>.</li>
+        </ol>
+
+        <p class="normalbefore">The production <span class="prod"><span class="nt">ClassAtomNoDash</span> <span class="geq">::</span> <code class="t">\</code> <span class="nt">ClassEscape</span></span> evaluates as follows:</p>
+
+        <ol class="proc">
+          <li>Return the CharSet that is the result of evaluating <i>ClassEscape</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

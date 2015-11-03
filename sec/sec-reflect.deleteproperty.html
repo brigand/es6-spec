@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-26.1.4"><a href="/sec/sec-reflect.deleteproperty.html" title="link to this section">26.1.4</a></span> Reflect.deleteProperty ( target, propertyKey )</h1>
+
+      <p class="normalbefore">When the <code>deleteProperty</code> function is called with arguments <span style="font-family:
+      Times New Roman"><i>target</i> and <i>propertyKey</i></span>, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>target</i>) is not Object, throw a <b>TypeError</b>
+            exception.</li>
+        <li>Let <i>key</i> be <a href="/sec/sec-topropertykey.html">ToPropertyKey</a>(<i>propertyKey</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>key</i>).</li>
+        <li>Return <i>target.</i>[[Delete]](<i>key</i>).</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

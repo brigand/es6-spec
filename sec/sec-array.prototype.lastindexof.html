@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-22.1.3.14"><a href="/sec/sec-array.prototype.lastindexof.html" title="link to this section">22.1.3.14</a></span> Array.prototype.lastIndexOf ( searchElement [ , fromIndex ] )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> <code>lastIndexOf</code> compares <var>searchElement</var> to the elements of the
+          array in descending order using the Strict Equality Comparison algorithm (<a href="/sec/sec-strict-equality-comparison.html">7.2.13</a>), and if found at one or more indices, returns the largest such index;
+          otherwise, &#x2212;1 is returned.</p>
+
+          <p>The optional second argument <var>fromIndex</var> defaults to the array&apos;s length minus one (i.e. the whole array is
+          searched). If it is greater than or equal to the length of the array, the whole array will be searched. If it is
+          negative, it is used as the offset from the end of the array to compute <var>fromIndex</var>. If the computed index is
+          less than 0, &#x2212;1 is returned.</p>
+        </div>
+
+        <p class="normalbefore">When the <code>lastIndexOf</code> method is called with one or two arguments, the following steps
+        are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>If <i>len</i> is 0, return -1.</li>
+          <li>If argument <i>fromIndex</i> was passed let <i>n</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>fromIndex</i>);
+              else let <i>n</i> be <i>len</i>-1.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>n</i>).</li>
+          <li>If <i>n</i> &#x2265; 0, let <i>k</i> be min(<i>n</i>, <i>len</i> &#x2013; 1).</li>
+          <li>Else  <i>n</i> &lt; 0,
+            <ol class="block">
+              <li>Let <i>k</i> be <i>len</i> - <a href="/sec/sec-algorithm-conventions.html">abs</a>(<i>n</i>).</li>
+            </ol>
+          </li>
+          <li>Repeat, while <i>k</i>&#x2265; 0
+            <ol class="block">
+              <li>Let <i>kPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kPresent</i>).</li>
+              <li>If <i>kPresent</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>elementK</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>)).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>elementK</i>).</li>
+                  <li>Let <i>same</i> be the result of performing Strict Equality Comparison <br><i>searchElement</i> ===
+                      <i>elementK</i>.</li>
+                  <li>If <i>same</i> is <b>true,</b>  return <i>k</i>.</li>
+                </ol>
+              </li>
+              <li>Decrease <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return -1.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>lastIndexOf</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>lastIndexOf</code> function is intentionally generic; it does not require
+          that its <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

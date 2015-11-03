@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-19.2.1"><a href="/sec/sec-function-constructor.html" title="link to this section">19.2.1</a></span> The Function Constructor</h1>
+
+        <p>The Function constructor is the %Function% intrinsic object and the initial value of the <code>Function</code> property
+        of the global object. When <code>Function</code> is called as a function rather than as a constructor, it creates and
+        initializes a new Function object. Thus the function call <code><b>Function(</b>&#x2026;<b>)</b></code> is equivalent to
+        the object creation expression <code><b>new Function(</b>&#x2026;<b>)</b></code> with the same arguments.</p>
+
+        <p>The <code>Function</code> constructor is designed to be subclassable. It may be used as the value of an
+        <code>extends</code> clause of a class definition. Subclass constructors that intend to inherit the specified
+        <code>Function</code> behaviour must include a <code>super</code> call to the <code>Function</code> constructor to create
+        and initialize a subclass instances with the internal slots necessary for built-in function behaviour. All ECMAScript
+        syntactic forms for defining function objects create instances of <code>Function</code>. There is no syntactic means to
+        create instances of <code>Function</code> subclasses except for the built-in Generator Function subclass.</p>
+      </div>
+
+      <section id="sec-function-p1-p2-pn-body">
+        <div class="front">
+          <h1><span class="secnum" id="sec-19.2.1.1"><a href="/sec/sec-function-p1-p2-pn-body.html" title="link to this section">19.2.1.1</a></span> Function ( p1, p2, &#x2026; , pn, body )</h1>
+
+          <p>The last argument specifies the body (executable code) of a function; any preceding arguments specify formal
+          parameters.</p>
+
+          <p class="normalbefore">When the <code>Function</code> function is called with some arguments <var>p1</var>,
+          <var>p2</var>, &#x2026; , <var>pn</var>, <var>body</var> (where <var>n</var> might be <span style="font-family: Times
+          New Roman">0</span>, that is, there are no &#x201C;<var>p</var>&#x201D; arguments, and where <var>body</var> might also
+          not be provided), the following steps are taken:</p>
+
+          <ol class="proc">
+            <li>Let <i>C</i> be the active function object.</li>
+            <li>Let <i>args</i> be the <i>argumentsList</i> that was passed to this function by [[Call]] or [[Construct]].</li>
+            <li>Return <a href="/sec/sec-createdynamicfunction.html">CreateDynamicFunction</a>(<i>C</i>, NewTarget, <code>&quot;normal&quot;</code>,
+                <i>args</i>).</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> It is permissible but not necessary to have one argument for each formal parameter to
+            be specified. For example, all three of the following expressions produce the same result:</p>
+
+            <pre class="NoteCode">new Function(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;return a+b+c&quot;)</pre>
+            <pre class="NoteCode">new Function(&quot;a, b, c&quot;, &quot;return a+b+c&quot;)</pre>
+            <pre class="NoteCode">new Function(&quot;a,b&quot;, &quot;c&quot;, &quot;return a+b+c&quot;)</pre>
+          </div>
+        </div>
+
+        <section id="sec-createdynamicfunction">
+          <h1><span class="secnum" id="sec-19.2.1.1.1"><a href="/sec/sec-createdynamicfunction.html" title="link to this section">19.2.1.1.1</a></span> RuntimeSemantics: CreateDynamicFunction(constructor, newTarget,
+              kind, args)</h1>
+
+          <p>The abstract operation CreateDynamicFunction is called with arguments <var>constructor</var>, <var>newTarget</var>,
+          <var>kind</var>, and <var>args</var>. <var>constructor</var> is the constructor function that is performing this action,
+          <var>newTarget</var> is the constructor that <code>new</code> was initially applied to, <var>kind</var> is either
+          <code>&quot;normal&quot;</code> or <code>&quot;generator&quot;</code>, and <var>args</var> is a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the actual argument values that were passed to
+          <var>constructor</var>. The following steps are taken:</p>
+
+          <ol class="proc">
+            <li>If <i>newTarget</i> is <b>undefined</b><i>,</i> let <i>newTarget</i> be <i>constructor</i>.</li>
+            <li>If <i>kind</i> is <code>&quot;normal&quot;</code>, then
+              <ol class="block">
+                <li>Let <i>goal</i> be the grammar symbol <i>FunctionBody.</i></li>
+                <li>Let <i>parameterGoal</i> be the grammar symbol <i>FormalParameters</i>.</li>
+                <li>Let <i>fallbackProto</i> be <code>&quot;%FunctionPrototype%&quot;</code>.</li>
+              </ol>
+            </li>
+            <li>Else,
+              <ol class="block">
+                <li>Let <i>goal</i> be the grammar symbol <i>GeneratorBody</i>.</li>
+                <li>Let <i>parameterGoal</i> be the grammar symbol <i>FormalParameters</i><sub>[Yield]</sub>.</li>
+                <li>Let <i>fallbackProto</i> be <code>&quot;%Generator%&quot;</code>.</li>
+              </ol>
+            </li>
+            <li>Let <i>argCount</i> be the number of elements in <i>args</i>.</li>
+            <li>Let <i>P</i> be the empty String.</li>
+            <li>If <i>argCount</i> = 0, let <i>bodyText</i> be the empty String.</li>
+            <li>Else if <i>argCount</i> = 1, let <i>bodyText</i> be <i>args</i>[0].</li>
+            <li>Else <i>argCount</i> &gt; 1,
+              <ol class="block">
+                <li>Let <i>firstArg</i> be <i>args</i>[0].</li>
+                <li>Let <i>P</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>firstArg</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>P</i>).</li>
+                <li>Let <i>k</i> be 1.</li>
+                <li>Repeat, while <i>k</i> &lt; <i>argCount</i>-1
+                  <ol class="block">
+                    <li>Let <i>nextArg</i> be <i>args</i>[<i>k</i>].</li>
+                    <li>Let <i>nextArgString</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>nextArg</i>).</li>
+                    <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextArgString</i>).</li>
+                    <li>Let <i>P</i> be the result of concatenating the previous value of <i>P</i>, the String <code>&quot;,&quot;</code> (a
+                        comma), and <i>nextArgString</i>.</li>
+                    <li>Increase <i>k</i> by 1.</li>
+                  </ol>
+                </li>
+                <li>Let <i>bodyText</i> be <i>args</i>[<i>k</i>].</li>
+              </ol>
+            </li>
+            <li>Let <i>bodyText</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>bodyText</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>bodyText</i>).</li>
+            <li>Let <i>body</i> be the result of parsing <i>bodyText</i>, interpreted as UTF-16 encoded Unicode text as described
+                in <a href="/sec/sec-ecmascript-language-types-string-type.html">6.1.4</a><i>,</i> using <i>goal</i> as the goal symbol.
+                Throw a <b>SyntaxError</b> exception if the parse fails or if any static semantics errors are detected.</li>
+            <li>If <i>bodyText</i> is <a href="/sec/sec-strict-mode-code.html">strict mode code</a> (<a href="/sec/sec-strict-mode-code.html">see
+                10.2.1</a>) then let <i>strict</i> be <b>true</b>, else let <i>strict</i> be <b>false</b>.</li>
+            <li>Let <i>parameters</i> be the result of parsing <i>P</i>, interpreted as UTF-16 encoded Unicode text as described
+                in <a href="/sec/sec-ecmascript-language-types-string-type.html">6.1.4</a><i>,</i> using <i>parameterGoal</i> as the goal
+                symbol. Throw a <b>SyntaxError</b> exception if the parse fails or if any static semantics errors are detected. If
+                <i>strict</i> is <b>true</b>, the Early Error rules for <span class="prod"><span class="nt">StrictFormalParameters</span> <span class="geq">:</span> <span class="nt">FormalParameters</span></span> are applied.</li>
+            <li>If any element of the BoundNames of <i>parameters</i> also occurs in the LexicallyDeclaredNames of <i>body</i>,
+                throw a <b>SyntaxError</b> exception.</li>
+            <li>If <i>body</i> Contains <i>SuperCall</i> is <i><b>true</b>,</i> throw a <b>SyntaxError</b> exception.</li>
+            <li>If <i>parameters</i> Contains <i>SuperCall</i> is <i><b>true</b>,</i> throw a <b>SyntaxError</b> exception.</li>
+            <li>If <i>body</i> Contains <i>SuperProperty</i> is <i><b>true</b>,</i> throw a <b>SyntaxError</b> exception.</li>
+            <li>If <i>parameters</i> Contains <i>SuperProperty</i> is <i><b>true</b>,</i> throw a <b>SyntaxError</b>
+                exception.</li>
+            <li>If <i>kind</i> is <code>&quot;generator&quot;</code>, then
+              <ol class="block">
+                <li>If <i>parameters</i> Contains <i>YieldExpression</i> is <i><b>true</b>,</i> throw a <b>SyntaxError</b>
+                    exception.</li>
+              </ol>
+            </li>
+            <li>If <i>strict</i> is <b>true</b>, then
+              <ol class="block">
+                <li>If BoundNames of <i>parameters</i> contains any duplicate elements<i>,</i> throw a <b>SyntaxError</b>
+                    exception.</li>
+              </ol>
+            </li>
+            <li>Let <i>proto</i> be <a href="/sec/sec-getprototypefromconstructor.html">GetPrototypeFromConstructor</a>(<i>newTarget</i>,
+                <i>fallbackProto</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>proto</i>).</li>
+            <li>Let <i>F</i> be <a href="/sec/sec-functionallocate.html">FunctionAllocate</a>(<i>proto</i>, <i>strict</i>,
+                <i>kind</i>).</li>
+            <li>Let <i>realmF</i> be the value of <i>F&#x2019;s</i> [[Realm]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>scope</i> be <i>realmF</i>.[[globalEnv]].</li>
+            <li>Perform <a href="/sec/sec-functioninitialize.html">FunctionInitialize</a>(<i>F</i>, <span style="font-family:
+                sans-serif">Normal</span>, <i>parameters</i>, <i>body, scope</i>).</li>
+            <li>If <i>kind</i> is <code>&quot;generator&quot;</code>, then
+              <ol class="block">
+                <li>Let <i>prototype</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<span style="font-family:
+                    sans-serif">%GeneratorPrototype%</span>).</li>
+                <li>Perform <a href="/sec/sec-makeconstructor.html">MakeConstructor</a>(<i>F</i>, <b>true</b>, <i>prototype</i>).</li>
+              </ol>
+            </li>
+            <li>Else, perform <a href="/sec/sec-makeconstructor.html">MakeConstructor</a>(<i>F</i>).</li>
+            <li>Perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>F</i>, <code>&quot;<b>anonymous</b>&quot;</code>).</li>
+            <li>Return <i>F</i>.</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> A <code>prototype</code> property is automatically created for every function created
+            using CreateDynamicFunction , to provide for the possibility that the function will be used as a constructor.</p>
+          </div>
+        </section>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

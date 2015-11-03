@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.5.3"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-isextensible.html" title="link to this section">9.5.3</a></span> [[IsExtensible]] ( )</h1>
+
+      <p class="normalbefore">When the [[IsExtensible]] internal method of a Proxy exotic object <var>O</var> is called the
+      following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <i>handler</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is Object.</li>
+        <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>trap</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>handler</i>, <code>&quot;isExtensible&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trap</i>).</li>
+        <li>If <i>trap</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Return <i>target</i>.[[IsExtensible]]().</li>
+          </ol>
+        </li>
+        <li>Let <i>booleanTrapResult</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-call.html">Call</a>(<i>trap</i>,
+            <i>handler</i>, &#xAB;<i>target</i>&#xBB;)).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>booleanTrapResult</i>).</li>
+        <li>Let <i>targetResult</i> be <i>target</i>.[[IsExtensible]]().</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetResult</i>).</li>
+        <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>booleanTrapResult</i>, <i>targetResult</i>) is <b>false</b>, throw a
+            <b>TypeError</b> exception.</li>
+        <li>Return <i>booleanTrapResult</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> [[IsExtensible]] for proxy objects enforces the following invariant:</p>
+
+        <ul>
+          <li>
+            <p>The result of [[IsExtensible]] is a Boolean value.</p>
+          </li>
+
+          <li>
+            <p>[[IsExtensible]] applied to the proxy object must return the same value as [[IsExtensible]] applied to the proxy
+            object&#x2019;s target object with the same argument.</p>
+          </li>
+        </ul>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-9.2.7"><a href="/sec/sec-addrestrictedfunctionproperties.html" title="link to this section">9.2.7</a></span> AddRestrictedFunctionProperties ( F, realm )</h1>
+
+        <p class="normalbefore">The abstract operation AddRestrictedFunctionProperties is called with a function object
+        <var>F</var> and <a href="/sec/sec-code-realms.html">Realm</a> Record <var>realm</var> as its argument. It performs the following
+        steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>realm</i>.[[intrinsics]].[[<span style="font-family:
+              sans-serif">%ThrowTypeError%]] exists and has been initialized.</span></li>
+          <li>Let <i>thrower</i> be <i>realm</i>.[[intrinsics]].[[<span style="font-family:
+              sans-serif">%ThrowTypeError%]].</span></li>
+          <li>Let <i>status</i> be <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>F</i>, <code>&quot;caller&quot;</code>,
+              PropertyDescriptor {[[Get]]: <i>thrower</i>, [[Set]]: <i>thrower</i>, [[Enumerable]]: <b>false</b>,
+              [[Configurable]]: <b>true</b>}).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+          <li>Return <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>F</i> , <code>&quot;arguments&quot;</code>,
+              PropertyDescriptor {[[Get]]: <i>thrower</i>, [[Set]]: <i>thrower</i>, [[Enumerable]]: <b>false</b>,
+              [[Configurable]]: <b>true</b>}).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: The above returned value is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+        </ol>
+      </div>
+
+      <section id="sec-%throwtypeerror%">
+        <h1><span class="secnum" id="sec-9.2.7.1"><a href="/sec/sec-%throwtypeerror%.html" title="link to this section">9.2.7.1</a></span>
+            %ThrowTypeError% ( )</h1>
+
+        <p>The %ThrowTypeError% intrinsic is an anonymous built-in function object that is defined once for each <a href="/sec/sec-code-realms.html">Realm</a>. When %ThrowTypeError% is called it performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Throw a <b>TypeError</b> exception.</li>
+        </ol>
+
+        <p>The value of the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of a
+        %ThrowTypeError% function is <span class="value">false</span>.</p>
+
+        <p>The <code>length</code> property of a %ThrowTypeError% function has the attributes {&#xA0;[[Writable]]: <b>false</b>,
+        [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

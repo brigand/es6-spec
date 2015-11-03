@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-B.2"><a href="/sec/sec-additional-built-in-properties.html" title="link to this section">B.2</a></span> Additional Built-in Properties</h1>
+
+      <p>When the ECMAScript host is a web browser the following additional properties of the standard built-in objects are
+      defined.</p>
+    </div>
+
+    <section id="sec-additional-properties-of-the-global-object">
+      <div class="front">
+        <h1><span class="secnum" id="sec-B.2.1"><a href="/sec/sec-additional-properties-of-the-global-object.html" title="link to this section">B.2.1</a></span> Additional Properties of the Global Object</h1>
+
+        <p>The entries in <a href="/sec/table-60.html">Table 60</a> are added to <a href="/sec/table-7.html">Table 7</a>.</p>
+
+        <figure>
+          <figcaption><span id="table-60">Table 60</span> &#x2014; Additional Well-known Intrinsic Objects</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Intrinsic Name</th>
+              <th>Global Name</th>
+              <th>ECMAScript Language Association</th>
+            </tr>
+            <tr>
+              <td>%escape%</td>
+              <td><code>escape</code></td>
+              <td>The <code>escape</code> function (<a href="/sec/sec-escape-string.html">B.2.1.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%unescape%</td>
+              <td><code>unescape</code></td>
+              <td>The <code>unescape</code> function (<a href="/sec/sec-unescape-string.html">B.2.1.2</a>)</td>
+            </tr>
+          </table>
+        </figure>
+      </div>
+
+      <section id="sec-escape-string">
+        <h1><span class="secnum" id="sec-B.2.1.1"><a href="/sec/sec-escape-string.html" title="link to this section">B.2.1.1</a></span>
+            escape (string)</h1>
+
+        <p>The <code>escape</code> function is a property of the global object. It computes a new version of a String value in
+        which certain code units have been replaced by a hexadecimal escape sequence.</p>
+
+        <p>For those code units being replaced whose value is <code>0x00FF</code> or less, a two-digit escape sequence of the form
+        <code>%</code><i>xx</i> is used. For those characters being replaced whose code unit value is greater than
+        <code>0x00FF</code>, a four-digit escape sequence of the form <code>%u</code><i>xxxx</i> is used.</p>
+
+        <p class="normalbefore">The <code>escape</code> function is the %escape% intrinsic object. When the <code>escape</code>
+        function is called with one argument <var>string</var>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>string</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>string</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>string</i>).</li>
+          <li>Let <i>length</i> be the number of code units in <i>string</i>.</li>
+          <li>Let <i>R</i> be the empty string.</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>Repeat, while <i>k</i> &lt; <i>length</i>,
+            <ol class="block">
+              <li>Let <i>char</i> be the code unit (represented as a 16-bit unsigned integer) at index <i>k</i> within
+                  <i>string</i>.</li>
+              <li>If <i>char</i> is one of the code units in
+                  <b>&quot;<code>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@*_+-./</code>&quot;</b>, then
+                <ol class="block">
+                  <li>Let <i>S</i> be a String containing the single code unit <i>char</i>.</li>
+                </ol>
+              </li>
+              <li>Else if <i>char</i> &#x2265; 256, then
+                <ol class="block">
+                  <li>Let <i>S</i> be a String containing six code units <b>&quot;<code>%u</code></b><i>wxyz</i><b>&quot;</b> where
+                      <i>wxyz</i> are the code units of the four hexadecimal digits encoding the value of <i>char</i>.</li>
+                </ol>
+              </li>
+              <li>Else, <i>char</i> &lt; 256
+                <ol class="block">
+                  <li>Let <i>S</i> be a String containing three code units <b>&quot;<code>%</code></b><i>xy</i><b>&quot;</b> where <i>xy</i>
+                      are the code units of two hexadecimal digits encoding the value of <i>char</i>.</li>
+                </ol>
+              </li>
+              <li>Let <i>R</i> be a new String value computed by concatenating the previous value of <i>R</i> and <i>S</i>.</li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>R</i>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The encoding is partly based on the encoding described in RFC 1738, but the entire
+          encoding specified in this standard is described above without regard to the contents of RFC 1738. This encoding does
+          not reflect changes to RFC 1738 made by RFC 3986.</p>
+        </div>
+      </section>
+
+      <section id="sec-unescape-string">
+        <h1><span class="secnum" id="sec-B.2.1.2"><a href="/sec/sec-unescape-string.html" title="link to this section">B.2.1.2</a></span>
+            unescape (string)</h1>
+
+        <p>The <code>unescape</code> function is a property of the global object. It computes a new version of a String value in
+        which each escape sequence of the sort that might be introduced by the <code>escape</code> function is replaced with the
+        code unit that it represents.</p>
+
+        <p class="normalbefore">The <code>unescape</code> function is the %unescape% intrinsic object. When the
+        <code>unescape</code> function is called with one argument <var>string</var>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>string</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>string</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>string</i>).</li>
+          <li>Let <i>length</i> be the number of code units in <i>string</i>.</li>
+          <li>Let <i>R</i> be the empty String.</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>Repeat, while <i>k</i> &#x2260; <i>length</i>
+            <ol class="block">
+              <li>Let <i>c</i> be the code unit at index <i>k</i> within <i>string</i>.</li>
+              <li>If <i>c</i> is <code>%</code>,
+                <ol class="block">
+                  <li>If <i>k</i> &#x2264; <i>length</i>&#x2212;6 and the code unit at index <i>k</i>+1 within <i>string</i> is
+                      <code>u</code> and the four code units at indices <i>k</i>+2, <i>k</i>+3, <i>k</i>+4, and <i>k</i>+5 within
+                      <i>string</i> are all hexadecimal digits, then
+                    <ol class="block">
+                      <li>Let <i>c</i> be the code unit whose value is the integer represented by the four hexadecimal digits at
+                          indices <i>k</i>+2, <i>k</i>+3, <i>k</i>+4, and <i>k</i>+5 within <i>string</i>.</li>
+                      <li>Increase <i>k</i> by 5.</li>
+                    </ol>
+                  </li>
+                  <li>Else if <i>k</i> &#x2264; <i>length</i>&#x2212;3 and the two code units at indices <i>k</i>+1 and <i>k</i>+2
+                      within <i>string</i> are both hexadecimal digits, then
+                    <ol class="block">
+                      <li>Let <i>c</i> be the code unit whose value is the integer represented by two zeroes plus the two
+                          hexadecimal digits at indices <i>k</i>+1 and <i>k</i>+2 within <i>string</i>.</li>
+                      <li>Increase <i>k</i> by 2.</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>Let <i>R</i> be a new String value computed by concatenating the previous value of <i>R</i> and <i>c</i>.</li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>R</i>.</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-additional-properties-of-the-object.prototype-object">
+      <div class="front">
+        <h1><span class="secnum" id="sec-B.2.2"><a href="/sec/sec-additional-properties-of-the-object.prototype-object.html" title="link to this section">B.2.2</a></span> Additional Properties of the Object.prototype Object</h1>
+      </div>
+
+      <section id="sec-object.prototype.__proto__">
+        <div class="front">
+          <h1><span class="secnum" id="sec-B.2.2.1"><a href="/sec/sec-object.prototype.__proto__.html" title="link to this section">B.2.2.1</a></span> Object.prototype.__proto__</h1>
+
+          <p>Object.prototype.__proto__ is an accessor property with attributes { [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }. The [[Get]] and [[Set]] attributes are
+          defined as follows</p>
+        </div>
+
+        <section id="sec-get-object.prototype.__proto__">
+          <h1><span class="secnum" id="sec-B.2.2.1.1"><a href="/sec/sec-get-object.prototype.__proto__.html" title="link to this section">B.2.2.1.1</a></span> get Object.prototype.__proto__</h1>
+
+          <p class="normalbefore">The value of the [[Get]] attribute is a built-in function that requires no arguments. It
+          performs the following steps:</p>
+
+          <ol class="proc">
+            <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+            <li>Return <i>O</i>.[[GetPrototypeOf]]().</li>
+          </ol>
+        </section>
+
+        <section id="sec-set-object.prototype.__proto__">
+          <h1><span class="secnum" id="sec-B.2.2.1.2"><a href="/sec/sec-set-object.prototype.__proto__.html" title="link to this section">B.2.2.1.2</a></span> set Object.prototype.__proto__</h1>
+
+          <p class="normalbefore">The value of the [[Set]] attribute is a built-in function that takes an argument
+          <var>proto</var>. It performs the following steps:</p>
+
+          <ol class="proc">
+            <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value)<i>.</i></li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>proto</i>) is neither Object nor Null, return
+                <b>undefined</b>.</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, return <b>undefined</b>.</li>
+            <li>Let <i>status</i> be <i>O</i>.[[SetPrototypeOf]](<i>proto</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+            <li>If <i>status</i> is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+            <li>Return <b>undefined</b>.</li>
+          </ol>
+        </section>
+      </section>
+    </section>
+
+    <section id="sec-additional-properties-of-the-string.prototype-object">
+      <div class="front">
+        <h1><span class="secnum" id="sec-B.2.3"><a href="/sec/sec-additional-properties-of-the-string.prototype-object.html" title="link to this section">B.2.3</a></span> Additional Properties of the String.prototype Object</h1>
+      </div>
+
+      <section id="sec-string.prototype.substr">
+        <h1><span class="secnum" id="sec-B.2.3.1"><a href="/sec/sec-string.prototype.substr.html" title="link to this section">B.2.3.1</a></span> String.prototype.substr (start, length)</h1>
+
+        <p class="normalbefore">The <code>substr</code> method takes two arguments, <var>start</var> and <var>length</var>, and
+        returns a substring of the result of converting the <b>this</b> object to a String, starting from index <var>start</var>
+        and running for <var>length</var> code units (or through the end of the String if <var>length</var> is <b>undefined</b>).
+        If <var>start</var> is negative, it is treated as <span style="font-family: Times New
+        Roman">(<i>sourceLength</i>+<i>start</i>)</span> where <var>sourceLength</var> is the length of the String. The result is
+        a String value, not a String object. The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>intStart</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>start</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>intStart</i>).</li>
+          <li>If <i>length</i> is <b>undefined</b>, let <i>end</i> be <b>+&#x221E;</b>; otherwise let <i>end</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>length</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>end</i>).</li>
+          <li>Let <i>size</i> be the number of code units in <i>S</i>.</li>
+          <li>If <i>intStart</i> &lt; 0, let <i>intStart</i> be max(<i>size</i> + <i>intStart</i>,0).</li>
+          <li>Let <i>resultLength</i> be min(max(<i>end</i>,0), <i>size</i> &#x2013; <i>intStart</i>).</li>
+          <li>If <i>resultLength</i> &#x2264; 0, return the empty String <code>&quot;&quot;</code>.</li>
+          <li>Return a String containing <i>resultLength</i> consecutive code units from <i>S</i> beginning with the code unit at
+              index <i>intStart</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>substr</code> method is <b>2</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <code>substr</code> function is intentionally generic; it does not require that its
+          <b>this</b> value be a String object. Therefore it can be transferred to other kinds of objects for use as a method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.anchor">
+        <div class="front">
+          <h1><span class="secnum" id="sec-B.2.3.2"><a href="/sec/sec-string.prototype.anchor.html" title="link to this section">B.2.3.2</a></span> String.prototype.anchor ( name )</h1>
+
+          <p class="normalbefore">When the <b>anchor</b> method is called with argument <var>name</var>, the following steps are
+          taken:</p>
+
+          <ol class="proc">
+            <li>Let <i>S</i> be the <b>this</b> value.</li>
+            <li>Return <a href="/sec/sec-createhtml.html">CreateHTML</a>(<i>S</i>, <code>&quot;a&quot;</code>, <code>&quot;name&quot;</code>,
+                <i>name</i>).</li>
+          </ol>
+        </div>
+
+        <section id="sec-createhtml">
+          <h1><span class="secnum" id="sec-B.2.3.2.1"><a href="/sec/sec-createhtml.html" title="link to this section">B.2.3.2.1</a></span>
+              Runtime Semantics: CreateHTML ( string, tag, attribute, value )</h1>
+
+          <p class="normalbefore">The abstract operation <span style="font-family: Times New Roman">CreateHTML</span> is called
+          with arguments <var>string, tag</var>, <var>attribute</var>, and <span style="font-family: Times New
+          Roman"><i>value</i>.</span> The arguments <var>tag</var> and <var>attribute</var> must be String values. The following
+          steps are taken:</p>
+
+          <ol class="proc">
+            <li>Let <i>str</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<i>string</i>).</li>
+            <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>str</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+            <li>Let <i>p1</i> be the String value that is the concatenation of <code>&quot;&lt;&quot;</code> and <i>tag</i>.</li>
+            <li>If <i>attribute</i> is not the empty String, then
+              <ol class="block">
+                <li>Let <i>V</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>value</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>V</i>).</li>
+                <li>Let <i>escapedV</i> be the String value that is the same as <i>V</i> except that each occurrence of the code
+                    unit 0x0022 (QUOTATION MARK) in <i>V</i> has been replaced with the six code unit sequence
+                    <code>&quot;&amp;quot;&quot;</code>.</li>
+                <li>Let <i>p1</i> be the String value that is the concatenation of the following String values:
+                  <ul>
+                    <li>The String value of <i>p1</i></li>
+                    <li>Code unit 0x0020 (SPACE)</li>
+                    <li>The String value of <i>attribute</i></li>
+                    <li>Code unit 0x003D (EQUALS SIGN)</li>
+                    <li>Code unit 0x0022 (QUOTATION MARK)</li>
+                    <li>The String value of <i>escapedV</i></li>
+                    <li>Code unit 0x0022 (QUOTATION MARK)</li>
+                  </ul>
+                </li>
+              </ol>
+            </li>
+            <li>Let <i>p2</i> be the String value that is the concatenation of <i>p1</i> and <code>&quot;&gt;&quot;</code>.</li>
+            <li>Let <i>p3</i> be the String value that is the concatenation of <i>p2</i> and <i>S</i>.</li>
+            <li>Let <i>p4</i> be the String value that is the concatenation of <i>p3</i>, <code>&quot;&lt;/&quot;</code>, <i>tag</i>, and
+                <code>&quot;&gt;&quot;</code>.</li>
+            <li>Return <i>p4</i>.</li>
+          </ol>
+        </section>
+      </section>
+
+      <section id="sec-string.prototype.big">
+        <h1><span class="secnum" id="sec-B.2.3.3"><a href="/sec/sec-string.prototype.big.html" title="link to this section">B.2.3.3</a></span> String.prototype.big ()</h1>
+
+        <p class="normalbefore">When the <b>big</b> method is called with no arguments, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-createhtml.html">CreateHTML</a>(<i>S</i>, <code>&quot;big&quot;</code>, <code>&quot;&quot;</code>,
+              <code>&quot;&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-string.prototype.blink">
+        <h1><span class="secnum" id="sec-B.2.3.4"><a href="/sec/sec-string.prototype.blink.html" title="link to this section">B.2.3.4</a></span> String.prototype.blink ()</h1>
+
+        <p class="normalbefore">When the <b>blink</b> method is called with no arguments, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-createhtml.html">CreateHTML</a>(<i>S</i>, <code>&quot;blink&quot;</code>, <code>&quot;&quot;</code>,
+              <code>&quot;&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-string.prototype.bold">
+        <h1><span class="secnum" id="sec-B.2.3.5"><a href="/sec/sec-string.prototype.bold.html" title="link to this section">B.2.3.5</a></span> String.prototype.bold ()</h1>
+
+        <p class="normalbefore">When the <b>bold</b> method is called with no arguments, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-createhtml.html">CreateHTML</a>(<i>S</i>, <code>&quot;b&quot;</code>, <code>&quot;&quot;</code>, <code>&quot;&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-string.prototype.fixed">
+        <h1><span class="secnum" id="sec-B.2.3.6"><a href="/sec/sec-string.prototype.fixed.html" title="link to this section">B.2.3.6</a></span> String.prototype.fixed ()</h1>
+
+        <p class="normalbefore">When the <b>fixed</b> method is called with no arguments, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-createhtml.html">CreateHTML</a>(<i>S</i>, <code>&quot;tt&quot;</code>, <code>&quot;&quot;</code>, <code>&quot;&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-string.prototype.fontcolor">
+        <h1><span class="secnum" id="sec-B.2.3.7"><a href="/sec/sec-string.prototype.fontcolor.html" title="link to this section">B.2.3.7</a></span> String.prototype.fontcolor ( color )</h1>
+
+        <p class="normalbefore">When the <b>fontcolor</b> method is called with argument <var>color</var>, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-createhtml.html">CreateHTML</a>(<i>S</i>, <code>&quot;font&quot;</code>, <code>&quot;color&quot;</code>,
+              <i>color</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-string.prototype.fontsize">
+        <h1><span class="secnum" id="sec-B.2.3.8"><a href="/sec/sec-string.prototype.fontsize.html" title="link to this section">B.2.3.8</a></span> String.prototype.fontsize ( size )</h1>
+
+        <p class="normalbefore">When the <b>fontsize</b> method is called with argument <var>size</var>, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-createhtml.html">CreateHTML</a>(<i>S</i>, <code>&quot;font&quot;</code>, <code>&quot;size&quot;</code>,
+              <i>size</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-string.prototype.italics">
+        <h1><span class="secnum" id="sec-B.2.3.9"><a href="/sec/sec-string.prototype.italics.html" title="link to this section">B.2.3.9</a></span> String.prototype.italics ()</h1>
+
+        <p class="normalbefore">When the <b>italics</b> method is called with no arguments, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-createhtml.html">CreateHTML</a>(<i>S</i>, <code>&quot;i&quot;</code>, <code>&quot;&quot;</code>, <code>&quot;&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-string.prototype.link">
+        <h1><span class="secnum" id="sec-B.2.3.10"><a href="/sec/sec-string.prototype.link.html" title="link to this section">B.2.3.10</a></span> String.prototype.link ( url )</h1>
+
+        <p class="normalbefore">When the <b>link</b> method is called with argument <var>url</var>, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-createhtml.html">CreateHTML</a>(<i>S</i>, <code>&quot;a&quot;</code>, <code>&quot;href&quot;</code>, <i>url</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-string.prototype.small">
+        <h1><span class="secnum" id="sec-B.2.3.11"><a href="/sec/sec-string.prototype.small.html" title="link to this section">B.2.3.11</a></span> String.prototype.small ()</h1>
+
+        <p class="normalbefore">When the <b>small</b> method is called with no arguments, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-createhtml.html">CreateHTML</a>(<i>S</i>, <code>&quot;small&quot;</code>, <code>&quot;&quot;</code>,
+              <code>&quot;&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-string.prototype.strike">
+        <h1><span class="secnum" id="sec-B.2.3.12"><a href="/sec/sec-string.prototype.strike.html" title="link to this section">B.2.3.12</a></span> String.prototype.strike ()</h1>
+
+        <p class="normalbefore">When the <b>strike</b> method is called with no arguments, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-createhtml.html">CreateHTML</a>(<i>S</i>, <code>&quot;strike&quot;</code>, <code>&quot;&quot;</code>,
+              <code>&quot;&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-string.prototype.sub">
+        <h1><span class="secnum" id="sec-B.2.3.13"><a href="/sec/sec-string.prototype.sub.html" title="link to this section">B.2.3.13</a></span> String.prototype.sub ()</h1>
+
+        <p class="normalbefore">When the <b>sub</b> method is called with no arguments, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-createhtml.html">CreateHTML</a>(<i>S</i>, <code>&quot;sub&quot;</code>, <code>&quot;&quot;</code>,
+              <code>&quot;&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-string.prototype.sup">
+        <h1><span class="secnum" id="sec-B.2.3.14"><a href="/sec/sec-string.prototype.sup.html" title="link to this section">B.2.3.14</a></span> String.prototype.sup ()</h1>
+
+        <p class="normalbefore">When the <b>sup</b> method is called with no arguments, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-createhtml.html">CreateHTML</a>(<i>S</i>, <code>&quot;sup&quot;</code>, <code>&quot;&quot;</code>,
+              <code>&quot;&quot;</code>).</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-additional-properties-of-the-date.prototype-object">
+      <div class="front">
+        <h1><span class="secnum" id="sec-B.2.4"><a href="/sec/sec-additional-properties-of-the-date.prototype-object.html" title="link to this section">B.2.4</a></span> Additional Properties of the Date.prototype Object</h1>
+      </div>
+
+      <section id="sec-date.prototype.getyear">
+        <h1><span class="secnum" id="sec-B.2.4.1"><a href="/sec/sec-date.prototype.getyear.html" title="link to this section">B.2.4.1</a></span> Date.prototype.getYear ( )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <code>getFullYear</code> method is preferred for nearly all purposes, because it
+          avoids the &#x201C;year 2000 problem.&#x201D;</p>
+        </div>
+
+        <p class="normalbefore">When the <b>getYear</b> method is called with no arguments, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>t</i> be <a href="/sec/sec-properties-of-the-date-prototype-object.html">this time value</a>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>t</i>).</li>
+          <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+          <li>Return <a href="/sec/sec-year-number.html">YearFromTime</a>(<a href="/sec/sec-localtime.html">LocalTime</a>(<i>t</i>)) &#x2212;
+              1900.</li>
+        </ol>
+      </section>
+
+      <section id="sec-date.prototype.setyear">
+        <h1><span class="secnum" id="sec-B.2.4.2"><a href="/sec/sec-date.prototype.setyear.html" title="link to this section">B.2.4.2</a></span> Date.prototype.setYear (year)</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <code>setFullYear</code> method is preferred for nearly all purposes, because it
+          avoids the &#x201C;year 2000 problem.&#x201D;</p>
+        </div>
+
+        <p class="normalbefore">When the <b>setYear</b> method is called with one argument <var>year</var>, the following steps
+        are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>t</i> be <a href="/sec/sec-properties-of-the-date-prototype-object.html">this time value</a>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>t</i>).</li>
+          <li>If <i>t</i> is <b>NaN</b>, let <i>t</i> be <b>+0</b>; otherwise, let <i>t</i> be <a href="/sec/sec-localtime.html">LocalTime</a>(<i>t</i>).</li>
+          <li>Let <i>y</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>year</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>y</i>).</li>
+          <li>If <i>y</i> is <b>NaN</b>, set the [[DateValue]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> of this Date object to <b>NaN</b> and return <b>NaN</b>.</li>
+          <li>If <i>y</i> is not <b>NaN</b> and 0 &#x2264; <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>y</i>) &#x2264; 99, let <i>yyyy</i>
+              be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>y</i>) +&#xA0;1900.</li>
+          <li>Else, let <i>yyyy</i> be <i>y</i>.</li>
+          <li>Let <i>d</i> be <a href="/sec/sec-makeday.html">MakeDay</a>(<i>yyyy</i>, <a href="/sec/sec-month-number.html">MonthFromTime</a>(<i>t</i>), <a href="/sec/sec-date-number.html">DateFromTime</a>(<i>t</i>)).</li>
+          <li>Let <i>date</i> be <a href="/sec/sec-utc-t.html">UTC</a>(<a href="/sec/sec-makedate.html">MakeDate</a>(<i>d</i>, <a href="/sec/sec-day-number-and-time-within-day.html">TimeWithinDay</a>(<i>t</i>))).</li>
+          <li>Set the [[DateValue]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of this Date
+              object to <a href="/sec/sec-timeclip.html">TimeClip</a>(<i>date</i>).</li>
+          <li>Return the value of the [[DateValue]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of
+              this Date object.</li>
+        </ol>
+      </section>
+
+      <section id="sec-date.prototype.togmtstring">
+        <h1><span class="secnum" id="sec-B.2.4.3"><a href="/sec/sec-date.prototype.togmtstring.html" title="link to this section">B.2.4.3</a></span> Date.prototype.toGMTString ( )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The property <code>toUTCString</code> is preferred. The <code>toGMTString</code>
+          property is provided principally for compatibility with old code. It is recommended that the <code>toUTCString</code>
+          property be used in new ECMAScript code.</p>
+        </div>
+
+        <p>The function object that is the initial value of <code>Date.prototype.toGMTString</code> is the same function object
+        that is the initial value of <code><a href="/sec/sec-date.prototype.toutcstring.html">Date.prototype.toUTCString</a></code>.</p>
+      </section>
+    </section>
+
+    <section id="sec-additional-properties-of-the-regexp.prototype-object">
+      <div class="front">
+        <h1><span class="secnum" id="sec-B.2.5"><a href="/sec/sec-additional-properties-of-the-regexp.prototype-object.html" title="link to this section">B.2.5</a></span> Additional Properties of the RegExp.prototype Object</h1>
+      </div>
+
+      <section id="sec-regexp.prototype.compile">
+        <h1><span class="secnum" id="sec-B.2.5.1"><a href="/sec/sec-regexp.prototype.compile.html" title="link to this section">B.2.5.1</a></span> RegExp.prototype.compile (pattern, flags )</h1>
+
+        <p class="normalbefore">When the <b>compile</b> method is called with arguments <i>pattern</i> and <i>flags</i>, the
+        following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object or <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is Object and <i>O</i> does not have a
+              [[RegExpMatcher]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, then
+            <ol class="block">
+              <li>Throw a <b>TypeError</b> exception.</li>
+            </ol>
+          </li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>pattern</i>) is Object and <i>pattern</i> has a
+              [[RegExpMatcher]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, then
+            <ol class="block">
+              <li>If <i>flags</i> is not <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+              <li>Let <i>P</i> be the value of <i>pattern&#x2019;s</i> [[OriginalSource]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+              <li>Let <i>F</i> be the value of <i>pattern&#x2019;s</i> [[OriginalFlags]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>P</i> be <i>pattern</i>.</li>
+              <li>Let <i>F</i> be <i>flags</i>.</li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-regexpinitialize.html">RegExpInitialize</a>(<i>O,</i> <i>P</i>, <i>F</i>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <code>compile</code> method completely reinitializes the <b>this</b> object RegExp
+          with a new pattern and flags. An implementation may interpret use of this method as an assertion that the resulting
+          RegExp object will be used multiple times and hence is a candidate for extra optimization.</p>
+        </div>
+      </section>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

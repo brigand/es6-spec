@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.2.8"><a href="/sec/sec-makeconstructor.html" title="link to this section">9.2.8</a></span>
+          MakeConstructor (F, writablePrototype, prototype)</h1>
+
+      <p class="normalbefore">The abstract operation MakeConstructor requires a Function argument <var>F</var> and optionally, a
+      Boolean <var>writablePrototype</var> and an object <var>prototype</var>. If <var>prototype</var> is provided it is assumed
+      to already contain, if needed, a <code>&quot;constructor&quot;</code> property whose value is <var>F</var>. This operation converts
+      <var>F</var> into a constructor by performing the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>F</i> is an <a href="/sec/sec-ecmascript-function-objects.html">ECMAScript
+            function object</a>.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>F</i> has a [[Construct]] internal method.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>F</i> is an extensible object that does not have a
+            <code>prototype</code> own property.</li>
+        <li>If the <i>writablePrototype</i> argument was not provided, let <i>writablePrototype</i> be <b>true</b>.</li>
+        <li>If the <i>prototype</i> argument was not provided, then
+          <ol class="block">
+            <li>Let <i>prototype</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<span style="font-family:
+                sans-serif">%ObjectPrototype%</span>).</li>
+            <li>Let <i>status</i> be <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>prototype</i>,
+                <code>&quot;constructor&quot;</code>, PropertyDescriptor{[[Value]]: <i>F</i>, [[Writable]]: <i>writablePrototype</i>,
+                [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>true</b> }).</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+          </ol>
+        </li>
+        <li>Let <i>status</i> be <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>F</i>,
+            <code>&quot;prototype&quot;</code>, PropertyDescriptor{[[Value]]: <i>prototype</i>, [[Writable]]: <i>writablePrototype</i>,
+            [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>false</b>}).</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

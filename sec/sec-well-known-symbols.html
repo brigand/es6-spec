@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-6.1.5.1"><a href="/sec/sec-well-known-symbols.html" title="link to this section">6.1.5.1</a></span> Well-Known Symbols</h1>
+
+        <p>Well-known symbols are built-in Symbol values that are explicitly referenced by algorithms of this specification. They
+        are typically used as the keys of properties whose values serve as extension points of a specification algorithm. Unless
+        otherwise specified, well-known symbols values are shared by all Code Realms (<a href="/sec/sec-code-realms.html">8.2</a>).</p>
+
+        <p>Within this specification a well-known symbol is referred to by using a notation of the form @@name, where
+        &#x201C;name&#x201D; is one of the values listed in <a href="/sec/table-1.html">Table 1</a>.</p>
+
+        <figure>
+          <figcaption><span id="table-1">Table 1</span> &#x2014; Well-known Symbols</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Specification Name</th>
+              <th>[[Description]]</th>
+              <th>Value and Purpose</th>
+            </tr>
+            <tr>
+              <td>@@hasInstance</td>
+              <td><code>&quot;Symbol.hasInstance&quot;</code></td>
+              <td>A method that determines if a constructor object recognizes an object as one of the constructor&#x2019;s instances. Called by the semantics of the <code>instanceof</code> operator.</td>
+            </tr>
+            <tr>
+              <td>@@isConcatSpreadable</td>
+              <td><code>&quot;Symbol.isConcatSpreadable&quot;</code></td>
+              <td>A Boolean valued property that if true indicates that an object should be flattened to its array elements by <code><a href="/sec/sec-array.prototype.concat.html">Array.prototype.concat</a></code>.</td>
+            </tr>
+            <tr>
+              <td>@@iterator</td>
+              <td><code>&quot;Symbol.iterator&quot;</code></td>
+              <td>A method that returns the default Iterator for an object. Called by the semantics of the for-of statement.</td>
+            </tr>
+            <tr>
+              <td>@@match</td>
+              <td><code>&quot;Symbol.match&quot;</code></td>
+              <td>A regular expression method that matches the regular expression against a string. Called by the <code><a href="/sec/sec-string.prototype.match.html">String.prototype.match</a></code> method.</td>
+            </tr>
+            <tr>
+              <td>@@replace</td>
+              <td><code>&quot;Symbol.replace&quot;</code></td>
+              <td>A regular expression method that replaces matched substrings of a string. Called by the <code><a href="/sec/sec-string.prototype.replace.html">String.prototype.replace</a></code> method.</td>
+            </tr>
+            <tr>
+              <td>@@search</td>
+              <td><code>&quot;Symbol.search&quot;</code></td>
+              <td>A regular expression method that returns the index within a string that matches the regular expression. Called by the <code><a href="/sec/sec-string.prototype.search.html">String.prototype.search</a></code> method.</td>
+            </tr>
+            <tr>
+              <td>@@species</td>
+              <td><code>&quot;Symbol.species&quot;</code></td>
+              <td>A function valued property that is the constructor function that is used to create derived objects.</td>
+            </tr>
+            <tr>
+              <td>@@split</td>
+              <td><code>&quot;Symbol.split&quot;</code></td>
+              <td>A regular expression method that splits a string at the indices that match the regular expression. Called by the <code><a href="/sec/sec-string.prototype.split.html">String.prototype.split</a></code> method.</td>
+            </tr>
+            <tr>
+              <td>@@toPrimitive</td>
+              <td><code>&quot;Symbol.toPrimitive&quot;</code></td>
+              <td>A method that converts an object to a corresponding primitive value. Called by the <a href="/sec/sec-toprimitive.html">ToPrimitive</a> abstract operation.</td>
+            </tr>
+            <tr>
+              <td>@@toStringTag</td>
+              <td><code>&quot;Symbol.toStringTag&quot;</code></td>
+              <td>A String valued property that is used in the creation of the default string description of an object. Accessed by the built-in method <code><a href="/sec/sec-object.prototype.tostring.html">Object.prototype.toString</a></code>.</td>
+            </tr>
+            <tr>
+              <td>@@unscopables</td>
+              <td><code>&quot;Symbol.unscopables&quot;</code></td>
+              <td>An object valued property whose own property names are property names that are excluded from the <code>with</code> environment bindings of the associated object.</td>
+            </tr>
+          </table>
+        </figure>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

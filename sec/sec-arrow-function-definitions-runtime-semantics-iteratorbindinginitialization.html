@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-14.2.14"><a href="/sec/sec-arrow-function-definitions-runtime-semantics-iteratorbindinginitialization.html" title="link to this section">14.2.14</a></span> Runtime Semantics: IteratorBindingInitialization</h1>
+
+      <p>With parameters <var>iteratorRecord</var> and <var>environment</var>.</p>
+
+      <p>See also: <a href="/sec/sec-destructuring-binding-patterns-runtime-semantics-iteratorbindinginitialization.html">13.3.3.6</a>, <a href="/sec/sec-function-definitions-runtime-semantics-iteratorbindinginitialization.html">14.1.18</a>.</p>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> When <b>undefined</b> is passed for <var>environment</var> it indicates that a <a href="/sec/sec-putvalue.html">PutValue</a> operation should be used to assign the initialization value. This is the case for formal
+        parameter lists of non-strict functions. In that case the formal parameter bindings are preinitialized in order to deal
+        with the possibility of multiple parameters with the same name.</p>
+      </div>
+
+      <div class="gp prod"><span class="nt">ArrowParameters</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span></div>
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <i>iteratorRecord</i>.[[done]] is <b>false.</b></li>
+        <li>Let <i>next</i> be <a href="/sec/sec-iteratorstep.html">IteratorStep</a>(<i>iteratorRecord</i>.[[iterator]]).</li>
+        <li>If <i>next</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+            <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+        <li>If <i>next</i> is <b>false</b>, set <i>iteratorRecord</i>.[[done]] to <b>true</b></li>
+        <li>Else
+          <ol class="block">
+            <li>Let <i>v</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>next</i>).</li>
+            <li>If <i>v</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+                <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+          </ol>
+        </li>
+        <li>If <i>iteratorRecord</i>.[[done]] is <b>true</b>, let <i>v</i> be <b>undefined</b>.</li>
+        <li>Return the result of performing BindingInitialization for <i>BindingIdentifier</i> using <i>v</i> and
+            <i>environment</i> as the arguments.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">ArrowParameters</span> <span class="geq">:</span> <span class="nt">CoverParenthesizedExpressionAndArrowParameterList</span></div>
+      <ol class="proc">
+        <li>Let <i>formals</i> be CoveredFormalsList of <i>CoverParenthesizedExpressionAndArrowParameterList</i>.</li>
+        <li>Return the result of performing IteratorBindingInitialization of <i>formals</i> with arguments <i>iteratorRecord</i>
+            and <i>environment</i>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

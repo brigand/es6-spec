@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-12.5.4.1"><a href="/sec/sec-delete-operator-static-semantics-early-errors.html" title="link to this section">12.5.4.1</a></span> Static Semantics:  Early Errors</h1>
+        <div class="gp prod"><span class="nt">UnaryExpression</span> <span class="geq">:</span> <code class="t">delete</code> <span class="nt">UnaryExpression</span></div>
+        <ul>
+          <li>
+            <p>It is a Syntax Error if the <span class="nt">UnaryExpression</span> is contained in <a href="/sec/sec-strict-mode-code.html">strict mode code</a> and the derived <span class="nt">UnaryExpression</span> is <span class="prod"><span class="nt">PrimaryExpression</span> <span class="geq">:</span></span>
+            <var>IdentifierReference.</var></p>
+          </li>
+
+          <li>
+            <p>It is a Syntax Error if the derived <span class="nt">UnaryExpression</span> is<br>      <span style="font-family:
+            Times New Roman"><i>PrimaryExpression : CoverParenthesizedExpressionAndArrowParameterList<br></i></span>and <span class="nt">CoverParenthesizedExpressionAndArrowParameterList</span> ultimately derives a phrase that, if used in place
+            of <var>UnaryExpression,</var> would produce a Syntax Error according to these rules. This rule is recursively
+            applied.</p>
+          </li>
+        </ul>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The last rule means that expressions such as<br>		<code>delete
+          (((foo)))</code><br>produce early errors because of recursive application of the first rule.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

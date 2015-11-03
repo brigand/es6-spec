@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <div class="front">
+          <h1><span class="secnum" id="sec-22.2.2.1"><a href="/sec/sec-%typedarray%.from.html" title="link to this section">22.2.2.1</a></span> %TypedArray%.from ( source [ , mapfn [ , thisArg ] ] )</h1>
+
+          <p class="normalbefore">When the <code>from</code> method is called with  argument <var>source</var>, and optional
+          arguments <i>mapfn</i> and <i>thisArg</i>, the following steps are taken:</p>
+
+          <ol class="proc">
+            <li>Let <i>C</i> be the <b>this</b> value.</li>
+            <li>If <a href="/sec/sec-isconstructor.html">IsConstructor</a>(<i>C</i>) is <b>false</b>, throw a <b>TypeError</b>
+                exception.</li>
+            <li>If <i>mapfn</i> was supplied, let <i>f</i> be <i>mapfn</i>; otherwise let <i>f</i> be <b>undefined</b>.</li>
+            <li>If <i>f</i> is not <b>undefined</b>, then
+              <ol class="block">
+                <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>f</i>) is <b>false</b>, throw a <b>TypeError</b>
+                    exception.</li>
+              </ol>
+            </li>
+            <li>If <i>thisArg</i> was supplied, let <i>t</i> be <i>thisArg</i>; else let <i>t</i> be <b>undefined</b>.</li>
+            <li>Return <a href="/sec/sec-typedarrayfrom.html">TypedArrayFrom</a>(<i>C</i>, <i>source</i>, <i>f</i>, <i>t</i>).</li>
+          </ol>
+
+          <p>The <code>length</code> property of the <code>from</code> method is <b>1</b>.</p>
+        </div>
+
+        <section id="sec-typedarrayfrom">
+          <h1><span class="secnum" id="sec-22.2.2.1.1"><a href="/sec/sec-typedarrayfrom.html" title="link to this section">22.2.2.1.1</a></span> Runtime Semantics: TypedArrayFrom( constructor, items, mapfn,
+              thisArg )</h1>
+
+          <p class="normalbefore">When the TypedArrayFrom abstract operation is called with arguments <span style="font-family:
+          Times New Roman"><i>constructor</i>, <i>items</i></span>, <var>mapfn</var>, and <var>thisArg</var>, the following steps
+          are taken:</p>
+
+          <ol class="proc">
+            <li>Let <i>C</i> be <i>constructor</i>.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-isconstructor.html">IsConstructor</a>(<i>C</i>) is
+                <b>true</b>.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>mapfn</i> is either a callable Object or
+                <b>undefined</b>.</li>
+            <li>If <i>mapfn</i> is <b>undefined</b>, let <i>mapping</i> be <b>false.</b></li>
+            <li>Else
+              <ol class="block">
+                <li>Let <i>T</i> be <i>thisArg</i>.</li>
+                <li>Let <i>mapping</i> be <b>true</b></li>
+              </ol>
+            </li>
+            <li>Let <i>usingIterator</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>items</i>, @@iterator).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>usingIterator</i>).</li>
+            <li>If <i>usingIterator</i> is not <b>undefined</b>, then
+              <ol class="block">
+                <li>Let <i>iterator</i> be <a href="/sec/sec-getiterator.html">GetIterator</a>(<i>items</i>, <i>usingIterator</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>iterator</i>).</li>
+                <li>Let <i>values</i> be a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+                <li>Let <i>next</i> be <b>true</b>.</li>
+                <li>Repeat, while <i>next</i> is not <b>false</b>
+                  <ol class="block">
+                    <li>Let <i>next</i> be <a href="/sec/sec-iteratorstep.html">IteratorStep</a>(<i>iterator</i>).</li>
+                    <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+                    <li>If <i>next</i> is not <b>false</b>, then
+                      <ol class="block">
+                        <li>Let <i>nextValue</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>next</i>).</li>
+                        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextValue</i>).</li>
+                        <li>Append <i>nextValue</i> to the end of the <a href="/sec/sec-list-and-record-specification-type.html">List</a>
+                            <i>values</i>.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+                <li>Let <i>len</i> be the number of elements in <i>values</i>.</li>
+                <li>Let <i>targetObj</i> be <a href="/sec/sec-allocatetypedarray.html">AllocateTypedArray</a>(<i>C</i>, <i>len</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetObj</i>).</li>
+                <li>Let <i>k</i> be 0.</li>
+                <li>Repeat, while <i>k</i> &lt; <i>len</i>
+                  <ol class="block">
+                    <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+                    <li>Let <i>kValue</i> be the first element of <i>values</i> and remove that element from <i>values</i>.</li>
+                    <li>If <i>mapping</i> is <b>true</b>, then
+                      <ol class="block">
+                        <li>Let <i>mappedValue</i> be <a href="/sec/sec-call.html">Call</a>(<i>mapfn</i>, <i>T</i>, &#xAB;<i>kValue</i>,
+                            <i>k</i>&#xBB;).</li>
+                        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>mappedValue</i>).</li>
+                      </ol>
+                    </li>
+                    <li>Else, let <i>mappedValue</i> be <i>kValue</i>.</li>
+                    <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>targetObj</i>, <i>Pk</i>,
+                        <i>mappedValue</i>, <b>true</b>).</li>
+                    <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                    <li>Increase <i>k</i> by 1.</li>
+                  </ol>
+                </li>
+                <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>values</i> is now an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+                <li>Return <i>targetObj</i>.</li>
+              </ol>
+            </li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>items</i> is not an Iterable so assume it is an array-like
+                object.</li>
+            <li>Let <i>arrayLike</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<i>items</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>arrayLike</i>).</li>
+            <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>arrayLike</i>,
+                <code>&quot;length&quot;</code>)).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+            <li>Let <i>targetObj</i> be <a href="/sec/sec-allocatetypedarray.html">AllocateTypedArray</a>(<i>C</i>, <i>len</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetObj</i>).</li>
+            <li>Let <i>k</i> be 0.</li>
+            <li>Repeat, while <i>k</i> &lt; <i>len</i>
+              <ol class="block">
+                <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+                <li>Let <i>kValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>arrayLike</i>, <i>Pk</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kValue</i>).</li>
+                <li>If <i>mapping</i> is <b>true</b>, then
+                  <ol class="block">
+                    <li>Let <i>mappedValue</i> be <a href="/sec/sec-call.html">Call</a>(<i>mapfn</i>, <i>T</i>, &#xAB;<i>kValue</i>,
+                        <i>k</i>&#xBB;).</li>
+                    <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>mappedValue</i>).</li>
+                  </ol>
+                </li>
+                <li>Else, let <i>mappedValue</i> be <i>kValue</i>.</li>
+                <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>targetObj</i>, <i>Pk</i>,
+                    <i>mappedValue</i>, <b>true</b>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                <li>Increase <i>k</i> by 1.</li>
+              </ol>
+            </li>
+            <li>Return <i>targetObj</i>.</li>
+          </ol>
+        </section>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

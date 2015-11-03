@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-6.2.3.1"><a href="/sec/sec-getvalue.html" title="link to this section">6.2.3.1</a></span> GetValue
+            (V)</h1>
+        <ol class="proc">
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>V</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>V</i>) is not <a href="/sec/sec-reference-specification-type.html">Reference</a>, return <i>V</i>.</li>
+          <li>Let <i>base</i> be <a href="/sec/sec-reference-specification-type.html">GetBase</a>(<i>V</i>).</li>
+          <li>If <a href="/sec/sec-reference-specification-type.html">IsUnresolvableReference</a>(<i>V</i>), throw a <b>ReferenceError</b>
+              exception.</li>
+          <li>If <a href="/sec/sec-reference-specification-type.html">IsPropertyReference</a>(<i>V</i>), then
+            <ol class="block">
+              <li>If <a href="/sec/sec-reference-specification-type.html">HasPrimitiveBase</a>(<i>V</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: In this case, <i>base</i> will never be <b>null</b> or
+                      <b>undefined</b>.</li>
+                  <li>Let <i>base</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<i>base</i>).</li>
+                </ol>
+              </li>
+              <li>Return <i>base.</i>[[Get]](<a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>V</i>), <a href="/sec/sec-getthisvalue.html">GetThisValue</a>(<i>V</i>)).</li>
+            </ol>
+          </li>
+          <li>Else <i>base</i> must be an <a href="/sec/sec-environment-records.html">Environment Record</a>,
+            <ol class="block">
+              <li>Return <i>base.</i>GetBindingValue(<a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>V</i>),
+                  <a href="/sec/sec-reference-specification-type.html">IsStrictReference</a>(<i>V</i>)) (<a href="/sec/sec-environment-records.html">see 8.1.1</a>).</li>
+            </ol>
+          </li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The object that may be created in step 5.a.ii is not accessible outside of the above
+          abstract operation and the ordinary object [[Get]] internal method. An implementation might choose to avoid the actual
+          creation of the object.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

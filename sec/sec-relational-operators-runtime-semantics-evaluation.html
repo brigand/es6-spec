@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-12.9.3"><a href="/sec/sec-relational-operators-runtime-semantics-evaluation.html" title="link to this section">12.9.3</a></span> Runtime Semantics: Evaluation</h1>
+      <div class="gp prod"><span class="nt">RelationalExpression</span> <span class="geq">:</span> <span class="nt">RelationalExpression</span> <code class="t">&lt;</code> <span class="nt">ShiftExpression</span></div>
+      <ol class="proc">
+        <li>Let <i>lref</i> be the result of evaluating <i>RelationalExpression</i>.</li>
+        <li>Let <i>lval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>lref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lval</i>).</li>
+        <li>Let <i>rref</i> be the result of evaluating <i>ShiftExpression</i>.</li>
+        <li>Let <i>rval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rref</i>).</li>
+        <li>Let <i>r</i> be the result of performing Abstract Relational Comparison <i>lval</i> &lt; <i>rval</i>. (<a href="/sec/sec-abstract-relational-comparison.html">see 7.2.11</a>)</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>r</i>).</li>
+        <li>If <i>r</i> is <b>undefined</b>, return <b>false</b>. Otherwise, return <i>r</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">RelationalExpression</span> <span class="geq">:</span> <span class="nt">RelationalExpression</span> <code class="t">&gt;</code> <span class="nt">ShiftExpression</span></div>
+      <ol class="proc">
+        <li>Let <i>lref</i> be the result of evaluating <i>RelationalExpression</i>.</li>
+        <li>Let <i>lval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>lref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lval</i>).</li>
+        <li>Let <i>rref</i> be the result of evaluating <i>ShiftExpression</i>.</li>
+        <li>Let <i>rval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rref</i>).</li>
+        <li>Let <i>r</i> be the result of performing Abstract Relational Comparison <i>rval</i> &lt; <i>lval</i> with
+            <i>LeftFirst</i> equal to <b>false</b>.</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>r</i>).</li>
+        <li>If <i>r</i> is <b>undefined</b>, return <b>false</b>. Otherwise, return <i>r</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">RelationalExpression</span> <span class="geq">:</span> <span class="nt">RelationalExpression</span> <code class="t">&lt;=</code> <span class="nt">ShiftExpression</span></div>
+      <ol class="proc">
+        <li>Let <i>lref</i> be the result of evaluating <i>RelationalExpression</i>.</li>
+        <li>Let <i>lval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>lref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lval</i>).</li>
+        <li>Let <i>rref</i> be the result of evaluating <i>ShiftExpression</i>.</li>
+        <li>Let <i>rval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rref</i>).</li>
+        <li>Let <i>r</i> be the result of performing Abstract Relational Comparison <i>rval</i> &lt; <i>lval</i>  with
+            <i>LeftFirst</i> equal to <b>false</b>.</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>r</i>).</li>
+        <li>If <i>r</i> is <b>true</b> or <b>undefined</b>, return <b>false</b>. Otherwise, return <b>true</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">RelationalExpression</span> <span class="geq">:</span> <span class="nt">RelationalExpression</span> <code class="t">&gt;=</code> <span class="nt">ShiftExpression</span></div>
+      <ol class="proc">
+        <li>Let <i>lref</i> be the result of evaluating <i>RelationalExpression</i>.</li>
+        <li>Let <i>lval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>lref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lval</i>).</li>
+        <li>Let <i>rref</i> be the result of evaluating <i>ShiftExpression</i>.</li>
+        <li>Let <i>rval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rref</i>).</li>
+        <li>Let <i>r</i> be the result of performing Abstract Relational Comparison <i>lval</i> &lt; <i>rval</i>.</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>r</i>).</li>
+        <li>If <i>r</i> is <b>true</b> or <b>undefined</b>, return <b>false</b>. Otherwise, return <b>true</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">RelationalExpression</span> <span class="geq">:</span> <span class="nt">RelationalExpression</span> <code class="t">instanceof</code> <span class="nt">ShiftExpression</span></div>
+      <ol class="proc">
+        <li>Let <i>lref</i> be the result of evaluating <i>RelationalExpression</i>.</li>
+        <li>Let <i>lval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>lref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lval</i>).</li>
+        <li>Let <i>rref</i> be the result of evaluating <i>ShiftExpression</i>.</li>
+        <li>Let <i>rval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rval</i>).</li>
+        <li>Return <a href="/sec/sec-instanceofoperator.html">InstanceofOperator</a>(<i>lval</i>, <i>rval</i>).</li>
+      </ol>
+      <div class="gp prod"><span class="nt">RelationalExpression</span> <span class="geq">:</span> <span class="nt">RelationalExpression</span> <code class="t">in</code> <span class="nt">ShiftExpression</span></div>
+      <ol class="proc">
+        <li>Let <i>lref</i> be the result of evaluating <i>RelationalExpression</i>.</li>
+        <li>Let <i>lval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>lref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lval</i>).</li>
+        <li>Let <i>rref</i> be the result of evaluating <i>ShiftExpression</i>.</li>
+        <li>Let <i>rval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rval</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>rval</i>) is not Object, throw a <b>TypeError</b>
+            exception.</li>
+        <li>Return <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>rval</i>, <a href="/sec/sec-topropertykey.html">ToPropertyKey</a>(<i>lval</i>)).</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

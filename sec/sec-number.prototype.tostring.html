@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.1.3.6"><a href="/sec/sec-number.prototype.tostring.html" title="link to this section">20.1.3.6</a></span> Number.prototype.toString ( [ radix ] )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The optional <var>radix</var> should be an integer value in the inclusive range <span style="font-family: Times New Roman">2</span> to <span style="font-family: Times New Roman">36</span>. If
+          <var>radix</var> not present or is <b>undefined</b> the Number <span style="font-family: Times New Roman">10</span> is
+          used as the value of <var>radix</var>.</p>
+        </div>
+
+        <p class="normalbefore">The following steps are performed:</p>
+
+        <ol class="proc">
+          <li>Let <i>x</i> be thisNumberValue(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>x</i>).</li>
+          <li>If <i>radix</i> is not present, let <i>radixNumber</i> be 10.</li>
+          <li>Else if <i>radix</i> is <b>undefined</b>, let <i>radixNumber</i> be 10.</li>
+          <li>Else let <i>radixNumber</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>radix</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>radixNumber</i>).</li>
+          <li>If <i>radixNumber</i> &lt; 2 or <i>radixNumber</i> &gt; 36, throw a <b>RangeError</b> exception.</li>
+          <li>If <i>radixNumber</i> = 10, return <a href="/sec/sec-tostring.html">ToString</a>(<i>x</i>).</li>
+          <li>Return the String representation of this Number value using the radix specified by <i>radixNumber</i>. Letters
+              <code>a</code>-<code>z</code> are used for digits with values 10 through 35. The precise algorithm is
+              implementation-dependent, however the algorithm should be a generalization of that specified in <a href="/sec/sec-tostring-applied-to-the-number-type.html">7.1.12.1</a>.</li>
+        </ol>
+
+        <p>The <code>toString</code> function is not generic; it throws a <b>TypeError</b> exception if its <b>this</b> value is
+        not a Number or a Number object. Therefore, it cannot be transferred to other kinds of objects for use as a method.</p>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-8.1.1.4.4"><a href="/sec/sec-global-environment-records-initializebinding-n-v.html" title="link to this section">8.1.1.4.4</a></span> InitializeBinding (N,V)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method InitializeBinding
+          for global Environment Records is used to set the bound value of the current binding of the identifier whose name is the
+          value of the argument <var>N</var> to the value of argument <var>V</var>. An uninitialized binding for <var>N</var> must
+          already exist.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the global <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li>Let <i>DclRec</i> be <i>envRec</i>.[[DeclarativeRecord]].</li>
+            <li>If <i>DclRec.</i>HasBinding(<i>N</i>) is <b>true</b>, then
+              <ol class="block">
+                <li>Return <i>DclRec</i>.InitializeBinding(<i>N</i>, <i>V</i>).</li>
+              </ol>
+            </li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: If the binding exists it must be in the object <a href="/sec/sec-environment-records.html">Environment Record</a>.</li>
+            <li>Let <i>ObjRec</i> be <i>envRec</i>.[[ObjectRecord]].</li>
+            <li>Return <i>ObjRec.</i>InitializeBinding(<i>N</i>, <i>V</i>).</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

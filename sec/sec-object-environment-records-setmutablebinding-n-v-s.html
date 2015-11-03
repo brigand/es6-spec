@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-8.1.1.2.5"><a href="/sec/sec-object-environment-records-setmutablebinding-n-v-s.html" title="link to this section">8.1.1.2.5</a></span> SetMutableBinding (N,V,S)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method SetMutableBinding
+          for object Environment Records attempts to set the value of the Environment Record&#x2019;s associated binding
+          object&#x2019;s property whose name is the value of the argument <var>N</var> to the value of argument <var>V</var>. A
+          property named <var>N</var> normally already exists but if it does not or is not currently writable, error handling is
+          determined by the value of the Boolean argument <var>S</var>.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the object <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li>Let <i>bindings</i> be the binding object for <i>envRec</i>.</li>
+            <li>Return <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>bindings</i>, <i>N</i>, <i>V</i>, <i>S</i>).</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

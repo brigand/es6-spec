@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.2.12"><a href="/sec/sec-functiondeclarationinstantiation.html" title="link to this section">9.2.12</a></span> FunctionDeclarationInstantiation(func, argumentsList)</h1>
+
+      <div class="note">
+        <p><span class="nh">NOTE 1</span> When an <a href="/sec/sec-execution-contexts.html">execution context</a> is established for
+        evaluating an ECMAScript function a new function <a href="/sec/sec-environment-records.html">Environment Record</a>  is created and
+        bindings for each formal parameter are instantiated in that <a href="/sec/sec-environment-records.html">Environment Record</a>.
+        Each declaration in the function body is also instantiated. If the function&#x2019;s formal parameters do not include any
+        default value initializers then the body declarations are instantiated in the same <a href="/sec/sec-environment-records.html">Environment Record</a> as the parameters. If default value parameter initializers exist, a
+        second <a href="/sec/sec-environment-records.html">Environment Record</a> is created for the body declarations. Formal parameters
+        and functions are initialized as part of FunctionDeclarationInstantiation. All other bindings are initialized during
+        evaluation of the function body.</p>
+      </div>
+
+      <p class="normalbefore">FunctionDeclarationInstantiation is performed as follows using arguments <var>func</var> and
+      <var>argumentsList</var>. <var>func</var> is the function object for which the <a href="/sec/sec-execution-contexts.html">execution
+      context</a> is being established.</p>
+
+      <ol class="proc">
+        <li>Let <i>calleeContext</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>Let <i>env</i> be the <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> of <i>calleeContext</i>.</li>
+        <li>Let <i>envRec</i> be <i>env</i>&#x2019;s <a href="/sec/sec-lexical-environments.html">EnvironmentRecord</a>.</li>
+        <li>Let <i>code</i> be the value of the [[ECMAScriptCode]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>func</i>.</li>
+        <li>Let <i>strict</i> be the value of the [[Strict]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+            slot</a> of <i>func</i>.</li>
+        <li>Let <i>formals</i> be the value of the [[FormalParameters]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>func</i>.</li>
+        <li>Let <i>parameterNames</i> be the BoundNames of <i>formals</i>.</li>
+        <li>If <i>parameterNames</i> has any duplicate entries, let <i>hasDuplicates</i> be <b>true</b>. Otherwise, let
+            <i>hasDuplicates</i> be <b>false</b>.</li>
+        <li>Let <i>simpleParameterList</i> be IsSimpleParameterList of <i>formals</i>.</li>
+        <li>Let <i>hasParameterExpressions</i> be ContainsExpression of <i>formals.</i></li>
+        <li>Let <i>varNames</i> be the VarDeclaredNames of <i>code</i>.</li>
+        <li>Let <i>varDeclarations</i> be the VarScopedDeclarations of <i>code</i>.</li>
+        <li>Let <i>lexicalNames</i> be the LexicallyDeclaredNames of <i>code</i>.</li>
+        <li>Let <i>functionNames</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>Let <i>functionsToInitialize</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>For each <i>d</i> in <i>varDeclarations</i>, in reverse list order do
+          <ol class="block">
+            <li>If <i>d</i> is neither a <i>VariableDeclaration</i> or a <i>ForBinding</i>, then
+              <ol class="block">
+                <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>d</i> is either a <i>FunctionDeclaration</i> or a
+                    <i>GeneratorDeclaration</i>.</li>
+                <li>Let <i>fn</i> be the sole element of the BoundNames of <i>d.</i></li>
+                <li>If <i>fn</i> is not an element of <i>functionNames</i>, then
+                  <ol class="block">
+                    <li>Insert <i>fn</i> as the first element of <i>functionNames</i>.</li>
+                    <li>NOTE If there are multiple <span style="font-family: Times New Roman"><i>FunctionDeclarations</i> or
+                        <i>GeneratorDeclarations</i></span> for the same name, the last declaration is used.</li>
+                    <li>Insert <i>d</i> as the first element of <i>functionsToInitialize</i>.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>Let <i>argumentsObjectNeeded</i> be <b>true</b>.</li>
+        <li>If the value of the [[ThisMode]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of
+            <i>func</i> is <span style="font-family: sans-serif">lexical</span>, then
+          <ol class="block">
+            <li>NOTE  Arrow functions never have an arguments objects.</li>
+            <li>Let <i>argumentsObjectNeeded</i> be <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>Else if <code>&quot;arguments&quot;</code> is an element of <i>parameterNames</i>, then
+          <ol class="block">
+            <li>Let <i>argumentsObjectNeeded</i> be <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>Else if <i>hasParameterExpressions</i> is <b>false</b>, then
+          <ol class="block">
+            <li>If <code>&quot;arguments&quot;</code> is an element of <i>functionNames</i> or if <code>&quot;arguments&quot;</code> is an element of
+                <i>lexicalNames</i>, then
+              <ol class="block">
+                <li>Let <i>argumentsObjectNeeded</i> be <b>false</b>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>For each String <i>paramName</i> in <i>parameterNames</i>, do
+          <ol class="block">
+            <li>Let <i>alreadyDeclared</i> be <i>envRec</i>.HasBinding(<i>paramName</i>).</li>
+            <li>NOTE  Early errors ensure that duplicate parameter names can only occur in non-strict functions that do not have
+                parameter default values or rest parameters.</li>
+            <li>If <i>alreadyDeclared</i> is <b>false</b>, then
+              <ol class="block">
+                <li>Let <i>status</i> be <i>envRec</i>.CreateMutableBinding(<i>paramName</i>).</li>
+                <li>If <i>hasDuplicates</i> is <b>true</b>, then
+                  <ol class="block">
+                    <li>Let <i>status</i> be <i>envRec</i>.InitializeBinding(<i>paramName</i>, <b>undefined</b>).</li>
+                  </ol>
+                </li>
+                <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is never an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a> for either of the above
+                    operations.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>If <i>argumentsObjectNeeded</i> is <b>true</b>, then
+          <ol class="block">
+            <li>If <i>strict</i> is <b>true</b> or if <i>simpleParameterList</i> is <b>false</b>, then
+              <ol class="block">
+                <li>Let <i>ao</i> be <a href="/sec/sec-createunmappedargumentsobject.html">CreateUnmappedArgumentsObject</a>(<i>argumentsList</i>)<i>.</i></li>
+              </ol>
+            </li>
+            <li>Else,
+              <ol class="block">
+                <li>NOTE  mapped argument object is only provided for non-strict functions that don&#x2019;t have a rest parameter,
+                    any parameter default value initializers, or any destructured parameters .</li>
+                <li>Let <i>ao</i> be <a href="/sec/sec-createmappedargumentsobject.html">CreateMappedArgumentsObject</a>(<i>func</i>,
+                    <i>formals</i>, <i>argumentsList</i>, <i>env</i>).</li>
+              </ol>
+            </li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>ao</i>).</li>
+            <li>If <i>strict</i> is <b>true</b>, then
+              <ol class="block">
+                <li>Let <i>status</i> be <i>envRec</i>.CreateImmutableBinding(<code>&quot;arguments&quot;</code>).</li>
+              </ol>
+            </li>
+            <li>Else,
+              <ol class="block">
+                <li>Let <i>status</i> be <i>envRec</i>.CreateMutableBinding(<code>&quot;arguments&quot;</code>).</li>
+              </ol>
+            </li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is never an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+            <li><a href="/sec/sec-call.html">Call</a> <i>envRec</i>.InitializeBinding(<code>&quot;arguments&quot;</code>, <i>ao</i>).</li>
+            <li>Append <code>&quot;arguments&quot;</code> to <i>parameterNames</i>.</li>
+          </ol>
+        </li>
+        <li>Let <i>iteratorRecord</i> be Record {[[iterator]]: <a href="/sec/sec-createlistiterator.html">CreateListIterator</a>(<i>argumentsList</i>), [[done]]: <b>false</b>}.</li>
+        <li>If <i>hasDuplicates</i> is <b>true</b>, then
+          <ol class="block">
+            <li>Let <i>formalStatus</i> be IteratorBindingInitialization for <i>formals</i> with <i>iteratorRecord</i> and
+                <b>undefined</b> as arguments.</li>
+          </ol>
+        </li>
+        <li>Else,
+          <ol class="block">
+            <li>Let <i>formalStatus</i> be IteratorBindingInitialization for <i>formals</i> with <i>iteratorRecord</i>  and
+                <i>env</i> as arguments.</li>
+          </ol>
+        </li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>formalStatus</i>).</li>
+        <li>If <i>hasParameterExpressions</i> is <b>false</b>, then
+          <ol class="block">
+            <li>NOTE  Only a single <a href="/sec/sec-lexical-environments.html">lexical environment</a> is needed for the parameters and
+                top-level vars.</li>
+            <li>Let <i>instantiatedVarNames</i> be a copy of the <a href="/sec/sec-list-and-record-specification-type.html">List</a>
+                <i>parameterNames</i>.</li>
+            <li>For each <i>n</i> in <i>varNames</i>, do
+              <ol class="block">
+                <li>If <i>n</i> is not an element of <i>instantiatedVarNames</i>, then
+                  <ol class="block">
+                    <li>Append <i>n</i> to <i>instantiatedVarNames</i>.</li>
+                    <li>Let <i>status</i> be <i>envRec</i>.CreateMutableBinding(<i>n</i>).</li>
+                    <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is never an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+                    <li><a href="/sec/sec-call.html">Call</a> <i>envRec</i>.InitializeBinding(<i>n</i>, <b>undefined</b>).</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+            <li>Let <i>varEnv</i> be <i>env</i>.</li>
+            <li>Let <i>varEnvRec</i> be <i>envRec</i>.</li>
+          </ol>
+        </li>
+        <li>Else,
+          <ol class="block">
+            <li>NOTE  A separate <a href="/sec/sec-environment-records.html">Environment Record</a> is needed to ensure that closures
+                created by expressions in the formal parameter list do not have visibility of declarations in the function
+                body.</li>
+            <li>Let <i>varEnv</i> be <a href="/sec/sec-newdeclarativeenvironment.html">NewDeclarativeEnvironment</a>(<i>env</i>).</li>
+            <li>Let <i>varEnvRec</i> be <i>varEnv</i>&#x2019;s <a href="/sec/sec-lexical-environments.html">EnvironmentRecord</a>.</li>
+            <li>Set the <a href="/sec/sec-execution-contexts.html">VariableEnvironment</a> of <i>calleeContext</i> to <i>varEnv</i>.</li>
+            <li>Let <i>instantiatedVarNames</i> be a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+            <li>For each <i>n</i> in <i>varNames</i>, do
+              <ol class="block">
+                <li>If <i>n</i> is not an element of <i>instantiatedVarNames</i>, then
+                  <ol class="block">
+                    <li>Append <i>n</i> to <i>instantiatedVarNames</i>.</li>
+                    <li>Let <i>status</i> be <i>varEnvRec</i>.CreateMutableBinding(<i>n</i>).</li>
+                    <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is never an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+                    <li>If <i>n</i> is not an element of <i>parameterNames</i> or if <i>n</i> is an element of
+                        <i>functionNames</i>, let <i>initialValue</i> be <b>undefined</b>.</li>
+                    <li>else,
+                      <ol class="block">
+                        <li>Let <i>initialValue</i> be <i>envRec.</i>GetBindingValue(<i>n</i>, <b>false</b>).</li>
+                        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>initialValue</i>).</li>
+                      </ol>
+                    </li>
+                    <li><a href="/sec/sec-call.html">Call</a> <i>varEnvRec</i>.InitializeBinding(<i>n</i>, <i>initialValue</i>).</li>
+                    <li>NOTE  vars whose names are the same as a formal parameter, initially have the same value as the
+                        corresponding initialized parameter.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>NOTE:  Annex <a href="/sec/sec-block-level-function-declarations-web-legacy-compatibility-semantics.html">B.3.3</a> adds
+            additional steps at this point.</li>
+        <li>If <i>strict</i> is <b>false</b>, then
+          <ol class="block">
+            <li>Let <i>lexEnv</i> be <a href="/sec/sec-newdeclarativeenvironment.html">NewDeclarativeEnvironment</a>(<i>varEnv</i>).</li>
+            <li>NOTE:  Non-strict functions use a separate lexical <a href="/sec/sec-environment-records.html">Environment Record</a> for
+                top-level lexical declarations so that a direct <code>eval</code> (<a href="/sec/sec-function-calls-runtime-semantics-evaluation.html">see 12.3.4.1</a>) can determine whether any var scoped
+                declarations introduced by the eval code conflict with pre-existing top-level lexically scoped declarations. This
+                is not needed for strict functions because a strict direct <code>eval</code> always places all declarations into a
+                new <a href="/sec/sec-environment-records.html">Environment Record</a>.</li>
+          </ol>
+        </li>
+        <li>Else, let <i>lexEnv</i> be <i>varEnv</i>.</li>
+        <li>Let <i>lexEnvRec</i> be <i>lexEnv</i>&#x2019;s <a href="/sec/sec-lexical-environments.html">EnvironmentRecord</a>.</li>
+        <li>Set the <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> of <i>calleeContext</i> to <i>lexEnv</i>.</li>
+        <li>Let <i>lexDeclarations</i> be the LexicallyScopedDeclarations of <i>code</i>.</li>
+        <li>For each element <i>d</i> in <i>lexDeclarations</i> do
+          <ol class="block">
+            <li>NOTE  A lexically declared name cannot be the same as a function/generator declaration, formal parameter, or a var
+                name. Lexically declared names are only instantiated here but not initialized.</li>
+            <li>For each element <i>dn</i> of the BoundNames of <i>d</i> do
+              <ol class="block">
+                <li>If IsConstantDeclaration of <i>d</i> is <b>true</b>, then
+                  <ol class="block">
+                    <li>Let <i>status</i> be <i>lexEnvRec</i>.CreateImmutableBinding(<i>dn</i>, <b>true</b>).</li>
+                  </ol>
+                </li>
+                <li>Else,
+                  <ol class="block">
+                    <li>Let <i>status</i> be <i>lexEnvRec</i>.CreateMutableBinding(<i>dn</i>, <b>false</b>).</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is never an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+          </ol>
+        </li>
+        <li>For each parsed grammar phrase <i>f</i> in <i>functionsToInitialize</i>, do
+          <ol class="block">
+            <li>Let <i>fn</i> be the sole element of the BoundNames of <i>f.</i></li>
+            <li>Let <i>fo</i> be the result of performing InstantiateFunctionObject for <i>f</i> with argument <i>lexEnv</i>.</li>
+            <li>Let <i>status</i> be <i>varEnvRec</i>.SetMutableBinding(<i>fn</i>, <i>fo</i>, <b>false</b>).</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is never an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+          </ol>
+        </li>
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family: sans-serif">empty</span>).</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE 2</span> <a href="/sec/sec-block-level-function-declarations-web-legacy-compatibility-semantics.html">B.3.3</a> provides an extension to the
+        above algorithm that is necessary for backwards compatibility with web browser implementations of ECMAScript that predate
+        ECMAScript 2015.</p>
+      </div>
+
+      <div class="note">
+        <p><span class="nh">NOTE 3</span> Parameter <span class="nt">Initializers</span> may contain direct eval expressions (<a href="/sec/sec-function-calls-runtime-semantics-evaluation.html">12.3.4.1</a>). Any top level declarations of such evals are only
+        visible to the eval code (<a href="/sec/sec-types-of-source-code.html">10.2</a>). The creation of the environment for such
+        declarations is described in <a href="/sec/sec-function-definitions-runtime-semantics-iteratorbindinginitialization.html">14.1.18</a>.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

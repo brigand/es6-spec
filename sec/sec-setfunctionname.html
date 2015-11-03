@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.2.11"><a href="/sec/sec-setfunctionname.html" title="link to this section">9.2.11</a></span>
+          SetFunctionName (F, name, prefix)</h1>
+
+      <p class="normalbefore">The abstract operation SetFunctionName requires a Function argument <var>F</var>, a String or Symbol
+      argument <var>name</var> and optionally a String argument <var>prefix</var>. This operation adds a <code>name</code>
+      property to <var>F</var> by performing the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>F</i> is an extensible object that does not have a
+            <code>name</code> own property.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>name</i>)
+            is either Symbol or String.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: If <i>prefix</i> was passed then <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>prefix</i>) is String.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>name</i>) is Symbol, then
+          <ol class="block">
+            <li>Let <i>description</i> be <i>name</i>&#x2019;s [[Description]] value.</li>
+            <li>If <i>description</i> is <b>undefined</b>, let <i>name</i> be the empty String.</li>
+            <li>Else, let <i>name</i> be the concatenation of <code>&quot;[&quot;</code>, <i>description</i>, and <code>&quot;]&quot;</code>.</li>
+          </ol>
+        </li>
+        <li>If <i>prefix</i> was passed, then
+          <ol class="block">
+            <li>Let <i>name</i> be the concatenation of <i>prefix</i>, code unit 0x0020 (SPACE), and <i>name</i>.</li>
+          </ol>
+        </li>
+        <li>Return <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>F</i>, <code>&quot;name&quot;</code>,
+            PropertyDescriptor{[[Value]]: <i>name</i>, [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+            <b>true</b>}).</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: the result is never an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

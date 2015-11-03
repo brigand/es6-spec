@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-11.8.5"><a href="/sec/sec-literals-regular-expression-literals.html" title="link to this section">11.8.5</a></span> Regular Expression Literals</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> A regular expression literal is an input element that is converted to a RegExp object
+          (<a href="/sec/sec-regexp-regular-expression-objects.html">see 21.2</a>) each time the literal is evaluated. Two regular
+          expression literals in a program evaluate to regular expression objects that never compare as <code>===</code> to each
+          other even if the two literals&apos; contents are identical. A RegExp object may also be created at runtime by <code>new
+          RegExp</code> or calling the <code>RegExp</code> constructor as a function (<a href="/sec/sec-regexp-constructor.html">see
+          21.2.3</a>).</p>
+        </div>
+
+        <p>The productions below describe the syntax for a regular expression literal and are used by the input element scanner to
+        find the end of the regular expression literal. The source text comprising the <span class="nt">RegularExpressionBody</span> and the <span class="nt">RegularExpressionFlags</span> are subsequently parsed
+        again using the more stringent ECMAScript Regular Expression grammar (<a href="/sec/sec-patterns.html">21.2.1</a>).</p>
+
+        <p>An implementation may extend the ECMAScript Regular Expression grammar defined in <a href="/sec/sec-patterns.html">21.2.1</a>,
+        but it must not extend the <span class="nt">RegularExpressionBody</span> and <span class="nt">RegularExpressionFlags</span> productions defined below or the productions used by these productions.</p>
+
+        <h2>Syntax</h2>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">RegularExpressionLiteral</span> <span class="geq">::</span></div>
+          <div class="rhs"><code class="t">/</code> <span class="nt">RegularExpressionBody</span> <code class="t">/</code> <span class="nt">RegularExpressionFlags</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">RegularExpressionBody</span> <span class="geq">::</span></div>
+          <div class="rhs"><span class="nt">RegularExpressionFirstChar</span> <span class="nt">RegularExpressionChars</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">RegularExpressionChars</span> <span class="geq">::</span></div>
+          <div class="rhs"><span class="grhsannot">[empty]</span></div>
+          <div class="rhs"><span class="nt">RegularExpressionChars</span> <span class="nt">RegularExpressionChar</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">RegularExpressionFirstChar</span> <span class="geq">::</span></div>
+          <div class="rhs"><span class="nt">RegularExpressionNonTerminator</span> <span class="grhsmod">but not one of</span> <code class="t">*</code> <span class="grhsmod">or</span> <code class="t">\</code> <span class="grhsmod">or</span> <code class="t">/</code> <span class="grhsmod">or</span> <code class="t">[</code></div>
+          <div class="rhs"><span class="nt">RegularExpressionBackslashSequence</span></div>
+          <div class="rhs"><span class="nt">RegularExpressionClass</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">RegularExpressionChar</span> <span class="geq">::</span></div>
+          <div class="rhs"><span class="nt">RegularExpressionNonTerminator</span> <span class="grhsmod">but not one of</span> <code class="t">\</code> <span class="grhsmod">or</span> <code class="t">/</code> <span class="grhsmod">or</span> <code class="t">[</code></div>
+          <div class="rhs"><span class="nt">RegularExpressionBackslashSequence</span></div>
+          <div class="rhs"><span class="nt">RegularExpressionClass</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">RegularExpressionBackslashSequence</span> <span class="geq">::</span></div>
+          <div class="rhs"><code class="t">\</code> <span class="nt">RegularExpressionNonTerminator</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">RegularExpressionNonTerminator</span> <span class="geq">::</span></div>
+          <div class="rhs"><span class="nt">SourceCharacter</span> <span class="grhsmod">but not</span> <span class="nt">LineTerminator</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">RegularExpressionClass</span> <span class="geq">::</span></div>
+          <div class="rhs"><code class="t">[</code> <span class="nt">RegularExpressionClassChars</span> <code class="t">]</code></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">RegularExpressionClassChars</span> <span class="geq">::</span></div>
+          <div class="rhs"><span class="grhsannot">[empty]</span></div>
+          <div class="rhs"><span class="nt">RegularExpressionClassChars</span> <span class="nt">RegularExpressionClassChar</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">RegularExpressionClassChar</span> <span class="geq">::</span></div>
+          <div class="rhs"><span class="nt">RegularExpressionNonTerminator</span> <span class="grhsmod">but not one of</span> <code class="t">]</code> <span class="grhsmod">or</span> <code class="t">\</code></div>
+          <div class="rhs"><span class="nt">RegularExpressionBackslashSequence</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">RegularExpressionFlags</span> <span class="geq">::</span></div>
+          <div class="rhs"><span class="grhsannot">[empty]</span></div>
+          <div class="rhs"><span class="nt">RegularExpressionFlags</span> <span class="nt">IdentifierPart</span></div>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> Regular expression literals may not be empty; instead of representing an empty regular
+          expression literal, the code unit sequence <code>//</code> starts a single-line comment. To specify an empty regular
+          expression, use:  <code>/(?:)/</code>.</p>
+        </div>
+      </div>
+
+      <section id="sec-literals-regular-expression-literals-static-semantics-early-errors">
+        <h1><span class="secnum" id="sec-11.8.5.1"><a href="/sec/sec-literals-regular-expression-literals-static-semantics-early-errors.html" title="link to this section">11.8.5.1</a></span> Static Semantics:  Early Errors</h1>
+        <div class="gp prod"><span class="nt">RegularExpressionFlags</span> <span class="geq">::</span> <span class="nt">RegularExpressionFlags</span> <span class="nt">IdentifierPart</span></div>
+        <ul>
+          <li>It is a Syntax Error if <span class="nt">IdentifierPart</span> contains a Unicode escape sequence<var>.</var></li>
+        </ul>
+      </section>
+
+      <section id="sec-static-semantics-bodytext">
+        <h1><span class="secnum" id="sec-11.8.5.2"><a href="/sec/sec-static-semantics-bodytext.html" title="link to this section">11.8.5.2</a></span> Static Semantics: <span class="nt">BodyText</span></h1>
+        <div class="gp prod"><span class="nt">RegularExpressionLiteral</span> <span class="geq">::</span> <code class="t">/</code> <span class="nt">RegularExpressionBody</span> <code class="t">/</code> <span class="nt">RegularExpressionFlags</span></div>
+        <ol class="proc">
+          <li>Return the source text that was recognized as <i>RegularExpressionBody</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-static-semantics-flagtext">
+        <h1><span class="secnum" id="sec-11.8.5.3"><a href="/sec/sec-static-semantics-flagtext.html" title="link to this section">11.8.5.3</a></span> Static Semantics: <span class="nt">FlagText</span></h1>
+        <div class="gp prod"><span class="nt">RegularExpressionLiteral</span> <span class="geq">::</span> <code class="t">/</code> <span class="nt">RegularExpressionBody</span> <code class="t">/</code> <span class="nt">RegularExpressionFlags</span></div>
+        <ol class="proc">
+          <li>Return the source text that was recognized as <i>RegularExpressionFlags</i>.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

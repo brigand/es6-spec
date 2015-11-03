@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-9.4.5"><a href="/sec/sec-integer-indexed-exotic-objects.html" title="link to this section">9.4.5</a></span> Integer Indexed Exotic Objects</h1>
+
+        <p>An <i>Integer Indexed object</i> is an exotic object that performs special handling of integer index property keys.</p>
+
+        <p>Integer Indexed exotic objects have the same internal slots as ordinary objects additionally [[ViewedArrayBuffer]],
+        [[ArrayLength]], [[ByteOffset]], and [[TypedArrayName]] internal slots.</p>
+
+        <p>Integer Indexed Exotic objects provide alternative definitions for the following internal methods. All of the other
+        Integer Indexed exotic object essential internal methods that are not defined below are as specified in <a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots.html">9.1</a>.</p>
+      </div>
+
+      <section id="sec-integer-indexed-exotic-objects-getownproperty-p">
+        <h1><span class="secnum" id="sec-9.4.5.1"><a href="/sec/sec-integer-indexed-exotic-objects-getownproperty-p.html" title="link to this section">9.4.5.1</a></span> [[GetOwnProperty]] ( P )</h1>
+
+        <p class="normalbefore">When the [[GetOwnProperty]] internal method of an Integer Indexed exotic object <var>O</var> is
+        called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+              <b>true</b>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>O</i> is an Object that has a [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>P</i>) is String, then
+            <ol class="block">
+              <li>Let <i>numericIndex</i> be <a href="/sec/sec-canonicalnumericindexstring.html">CanonicalNumericIndexString</a>(<i>P</i>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>numericIndex</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+              <li>If <i>numericIndex</i> is not <b>undefined</b>, then
+                <ol class="block">
+                  <li>Let <i>value</i> be <a href="/sec/sec-integerindexedelementget.html">IntegerIndexedElementGet</a> (<i>O</i>,
+                      <i>numericIndex</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+                  <li>If <i>value</i> is <b>undefined</b>, return <b>undefined</b>.</li>
+                  <li>Return a PropertyDescriptor{ [[Value]]: <i>value</i>, [[Enumerable]]: <b>true</b>, [[Writable]]:
+                      <b>true</b>, [[Configurable]]: <b>false</b> }.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-ordinarygetownproperty.html">OrdinaryGetOwnProperty</a>(<i>O</i>, <i>P</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-integer-indexed-exotic-objects-hasproperty-p">
+        <h1><span class="secnum" id="sec-9.4.5.2"><a href="/sec/sec-integer-indexed-exotic-objects-hasproperty-p.html" title="link to this section">9.4.5.2</a></span> [[HasProperty]](P)</h1>
+
+        <p class="normalbefore">When the [[HasProperty]] internal method of an Integer Indexed exotic object <var>O</var> is
+        called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+              <b>true</b>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>O</i> is an Object that has a [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>P</i>) is String, then
+            <ol class="block">
+              <li>Let <i>numericIndex</i> be <a href="/sec/sec-canonicalnumericindexstring.html">CanonicalNumericIndexString</a>(<i>P</i>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>numericIndex</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+              <li>If <i>numericIndex</i> is not <b>undefined</b>, then
+                <ol class="block">
+                  <li>Let <i>buffer</i> be the value of <i>O</i>&#x2019;s [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+                  <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>buffer</i>) is <b>true</b>, throw a
+                      <b>TypeError</b> exception.</li>
+                  <li>If <a href="/sec/sec-isinteger.html">IsInteger</a>(<i>numericIndex</i>) is <b>false</b>, return <b>false</b></li>
+                  <li>If <i>numericIndex</i> = &#x2212;0, return <b>false</b>.</li>
+                  <li>If <i>numericIndex</i> &lt; 0, return <b>false</b>.</li>
+                  <li>If <i>numericIndex</i> &#x2265; the value of <i>O</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, return <b>false</b>.</li>
+                  <li>Return <b>true</b>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-ordinaryhasproperty.html">OrdinaryHasProperty</a>(<i>O</i>, <i>P</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-integer-indexed-exotic-objects-defineownproperty-p-desc">
+        <h1><span class="secnum" id="sec-9.4.5.3"><a href="/sec/sec-integer-indexed-exotic-objects-defineownproperty-p-desc.html" title="link to this section">9.4.5.3</a></span> [[DefineOwnProperty]] ( P, Desc)</h1>
+
+        <p class="normalbefore">When the [[DefineOwnProperty]] internal method of an Integer Indexed exotic object <var>O</var> is
+        called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var>, and <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span> the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+              <b>true</b>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>O</i> is an Object that has a [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>P</i>) is String, then
+            <ol class="block">
+              <li>Let <i>numericIndex</i> be <a href="/sec/sec-canonicalnumericindexstring.html">CanonicalNumericIndexString</a>
+                  (<i>P</i>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>numericIndex</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+              <li>If <i>numericIndex</i> is not <b>undefined</b>, then
+                <ol class="block">
+                  <li>If <a href="/sec/sec-isinteger.html">IsInteger</a>(<i>numericIndex</i>) is <b>false</b>, return <b>false</b></li>
+                  <li>Let <i>intIndex</i> be <i>numericIndex</i>.</li>
+                  <li>If <i>intIndex</i> = &#x2212;0, return <b>false</b>.</li>
+                  <li>If <i>intIndex</i> &lt; 0, return <b>false</b>.</li>
+                  <li>Let <i>length</i> be the value of <i>O</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+                  <li>If <i>intIndex</i> &#x2265; <i>length</i>, return <b>false</b>.</li>
+                  <li>If <a href="/sec/sec-isaccessordescriptor.html">IsAccessorDescriptor</a>(<i>Desc</i>) is <b>true</b>, return
+                      <b>false.</b></li>
+                  <li>If <i>Desc</i> has a [[Configurable]] field and if <i>Desc</i>.[[Configurable]] is <b>true</b>, return
+                      <b>false<i>.</i></b></li>
+                  <li>If <i>Desc</i> has an [[Enumerable]] field and if <i>Desc</i>.[[Enumerable]] is <b>false</b>, return
+                      <b>false<i>.</i></b></li>
+                  <li>If <i>Desc</i> has a [[Writable]] field and if <i>Desc</i>.[[Writable]] is <b>false</b>, return
+                      <b>false</b>.</li>
+                  <li>If <i>Desc</i> has a [[Value]] field, then
+                    <ol class="block">
+                      <li>Let <i>value</i> be <i>Desc</i>.[[Value]].</li>
+                      <li>Return <a href="/sec/sec-integerindexedelementset.html">IntegerIndexedElementSet</a> (<i>O</i>, <i>intIndex</i>,
+                          <i>value</i>).</li>
+                    </ol>
+                  </li>
+                  <li>Return <b>true</b>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-ordinarydefineownproperty.html">OrdinaryDefineOwnProperty</a>(<i>O</i>, <i>P</i>, <i>Desc</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-integer-indexed-exotic-objects-get-p-receiver">
+        <h1><span class="secnum" id="sec-9.4.5.4"><a href="/sec/sec-integer-indexed-exotic-objects-get-p-receiver.html" title="link to this section">9.4.5.4</a></span> [[Get]] (P, Receiver)</h1>
+
+        <p class="normalbefore">When the [[Get]] internal method of an Integer Indexed exotic object <var>O</var> is called with
+        <a href="/sec/sec-object-type.html">property key</a> <var>P</var> and <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language
+        value</a> <span class="nt">Receiver</span> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+              <b>true</b>.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>P</i>) is String and if <a href="/sec/sec-samevalue.html">SameValue</a>(<i>O</i>, <i>Receiver</i>) is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>numericIndex</i> be <a href="/sec/sec-canonicalnumericindexstring.html">CanonicalNumericIndexString</a>
+                  (<i>P</i>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>numericIndex</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+              <li>If <i>numericIndex</i> is not <b>undefined</b>, then
+                <ol class="block">
+                  <li>Return <a href="/sec/sec-integerindexedelementget.html">IntegerIndexedElementGet</a> (<i>O</i>,
+                      <i>numericIndex</i>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Return the result of calling the default ordinary object [[Get]] internal method (<a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-get-p-receiver.html">9.1.8</a>) on <i>O</i> passing
+              <i>P</i> and <i>Receiver</i> as arguments.</li>
+        </ol>
+      </section>
+
+      <section id="sec-integer-indexed-exotic-objects-set-p-v-receiver">
+        <h1><span class="secnum" id="sec-9.4.5.5"><a href="/sec/sec-integer-indexed-exotic-objects-set-p-v-receiver.html" title="link to this section">9.4.5.5</a></span> [[Set]] ( P, V, Receiver)</h1>
+
+        <p class="normalbefore">When the [[Set]] internal method of an Integer Indexed exotic object <var>O</var> is called with
+        <a href="/sec/sec-object-type.html">property key</a> <var>P</var>, value <var>V</var>, and <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language value</a> <span class="nt">Receiver</span>, the following steps
+        are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+              <b>true</b>.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>P</i>) is String and if <a href="/sec/sec-samevalue.html">SameValue</a>(<i>O</i>, <i>Receiver</i>) is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>numericIndex</i> be <a href="/sec/sec-canonicalnumericindexstring.html">CanonicalNumericIndexString</a>
+                  (<i>P</i>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>numericIndex</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+              <li>If <i>numericIndex</i> is not <b>undefined</b>, then
+                <ol class="block">
+                  <li>Return <a href="/sec/sec-integerindexedelementset.html">IntegerIndexedElementSet</a> (<i>O</i>, <i>numericIndex</i>,
+                      <i>V</i>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Return the result of calling the default ordinary object [[Set]] internal method (<a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-get-p-receiver.html">9.1.8</a>) on <i>O</i> passing
+              <i>P</i>, <i>V</i>, and <i>Receiver</i> as arguments.</li>
+        </ol>
+      </section>
+
+      <section id="sec-integer-indexed-exotic-objects-ownpropertykeys">
+        <h1><span class="secnum" id="sec-9.4.5.6"><a href="/sec/sec-integer-indexed-exotic-objects-ownpropertykeys.html" title="link to this section">9.4.5.6</a></span> [[OwnPropertyKeys]] ()</h1>
+
+        <p>When the [[OwnPropertyKeys]] internal method of an Integer Indexed exotic object <var>O</var> is called the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>keys</i> be a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>O</i> is an Object that has [[ViewedArrayBuffer]],
+              [[ArrayLength]], [[ByteOffset]], and [[TypedArrayName]] internal slots.</li>
+          <li>Let <i>len</i> be the value of <i>O</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>For each integer <i>i</i> starting with 0 such that <i>i</i> &lt; <i>len</i>, in ascending order,
+            <ol class="block">
+              <li>Add <a href="/sec/sec-tostring.html">ToString</a>(<i>i</i>) as the last element of <i>keys</i>.</li>
+            </ol>
+          </li>
+          <li>For each own <a href="/sec/sec-object-type.html">property key</a> <i>P</i> of <i>O</i> such that <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>P</i>) is String and <i>P</i> is not an integer index, in
+              property creation order
+            <ol class="block">
+              <li>Add <i>P</i> as the last element of <i>keys</i>.</li>
+            </ol>
+          </li>
+          <li>For each own <a href="/sec/sec-object-type.html">property key</a> <i>P</i> of <i>O</i> such that <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>P</i>) is Symbol, in property creation order
+            <ol class="block">
+              <li>Add <i>P</i> as the last element of <i>keys</i>.</li>
+            </ol>
+          </li>
+          <li>Return <i>keys</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-integerindexedobjectcreate">
+        <h1><span class="secnum" id="sec-9.4.5.7"><a href="/sec/sec-integerindexedobjectcreate.html" title="link to this section">9.4.5.7</a></span> IntegerIndexedObjectCreate (prototype, internalSlotsList)</h1>
+
+        <p class="normalbefore">The abstract operation IntegerIndexedObjectCreate with arguments <var>prototype</var> and
+        <var>internalSlotsList</var> is used to specify the creation of new Integer Indexed exotic objects. The argument
+        <var>internalSlotsList</var> is a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of the names of additional
+        internal slots that must be defined as part of the object. IntegerIndexedObjectCreate performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>A</i> be a newly created object with an <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> for each name in <i>internalSlotsList</i>.</li>
+          <li>Set <i>A</i>&#x2019;s essential internal methods to the default ordinary object definitions specified in <a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots.html">9.1</a>.</li>
+          <li>Set the [[GetOwnProperty]] internal method of <i>A</i> as specified in <a href="/sec/sec-integer-indexed-exotic-objects-getownproperty-p.html">9.4.5.1</a>.</li>
+          <li>Set the [[HasProperty]] internal method of <i>A</i> as specified in <a href="/sec/sec-integer-indexed-exotic-objects-hasproperty-p.html">9.4.5.2</a>.</li>
+          <li>Set the [[DefineOwnProperty]] internal method of <i>A</i> as specified in <a href="/sec/sec-integer-indexed-exotic-objects-defineownproperty-p-desc.html">9.4.5.3</a>.</li>
+          <li>Set the [[Get]] internal method of <i>A</i> as specified in <a href="/sec/sec-integer-indexed-exotic-objects-get-p-receiver.html">9.4.5.4</a>.</li>
+          <li>Set the [[Set]] internal method of <i>A</i> as specified in <a href="/sec/sec-integer-indexed-exotic-objects-set-p-v-receiver.html">9.4.5.5</a>.</li>
+          <li>Set the [[OwnPropertyKeys]] internal method of <i>A</i> as specified in <a href="/sec/sec-integer-indexed-exotic-objects-ownpropertykeys.html">9.4.5.6</a>.</li>
+          <li>Set the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>A</i> to
+              <i>prototype</i>.</li>
+          <li>Set the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>A</i> to
+              <b>true</b>.</li>
+          <li>Return <i>A</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-integerindexedelementget">
+        <h1><span class="secnum" id="sec-9.4.5.8"><a href="/sec/sec-integerindexedelementget.html" title="link to this section">9.4.5.8</a></span> IntegerIndexedElementGet ( O, index )</h1>
+
+        <p class="normalbefore">The abstract operation IntegerIndexedElementGet with arguments <var>O</var> and <var>index</var>
+        performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>index</i>) is Number.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>O</i> is an Object that has [[ViewedArrayBuffer]],
+              [[ArrayLength]], [[ByteOffset]], and [[TypedArrayName]] internal slots.</li>
+          <li>Let <i>buffer</i> be the value of <i>O</i>&#x2019;s [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>buffer</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <a href="/sec/sec-isinteger.html">IsInteger</a>(<i>index</i>) is <b>false</b>, return <b>undefined</b></li>
+          <li>If <i>index</i> = &#x2212;0, return <b>undefined</b>.</li>
+          <li>Let <i>length</i> be the value of <i>O</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>index</i> &lt; 0 or <i>index</i> &#x2265; <i>length</i>, return <b>undefined</b>.</li>
+          <li>Let <i>offset</i> be the value of <i>O</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>arrayTypeName</i> be the String value of <i>O</i>&#x2019;s [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>elementSize</i> be the Number value of the Element Size value specified in <a href="/sec/table-49.html">Table 49</a>
+              for <i>arrayTypeName</i>.</li>
+          <li>Let <i>indexedPosition</i> = (<i>index</i> &#xD7; <i>elementSize</i>) + <i>offset</i>.</li>
+          <li>Let <i>elementType</i> be the String value of the Element Type value in <a href="/sec/table-49.html">Table 49</a> for
+              <i>arrayTypeName</i>.</li>
+          <li>Return <a href="/sec/sec-getvaluefrombuffer.html">GetValueFromBuffer</a>(<i>buffer</i>, <i>indexedPosition</i>,
+              <i>elementType</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-integerindexedelementset">
+        <h1><span class="secnum" id="sec-9.4.5.9"><a href="/sec/sec-integerindexedelementset.html" title="link to this section">9.4.5.9</a></span> IntegerIndexedElementSet ( O, index, value )</h1>
+
+        <p class="normalbefore">The abstract operation IntegerIndexedElementSet with arguments <var>O</var>, <var>index</var>, and
+        <var>value</var> performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>index</i>) is Number.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>O</i> is an Object that has [[ViewedArrayBuffer]],
+              [[ArrayLength]], [[ByteOffset]], and [[TypedArrayName]] internal slots.</li>
+          <li>Let <i>numValue</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>value</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>numValue</i>).</li>
+          <li>Let <i>buffer</i> be the value of <i>O</i>&#x2019;s [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>buffer</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <a href="/sec/sec-isinteger.html">IsInteger</a>(<i>index</i>) is <b>false</b>, return <b>false</b></li>
+          <li>If <i>index</i> = &#x2212;0, return <b>false</b>.</li>
+          <li>Let <i>length</i> be the value of <i>O</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>index</i> &lt; 0 or <i>index</i> &#x2265; <i>length</i>, return <b>false</b>.</li>
+          <li>Let <i>offset</i> be the value of <i>O</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>arrayTypeName</i> be the String value of <i>O</i>&#x2019;s [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>elementSize</i> be the Number value of the Element Size value specified in <a href="/sec/table-49.html">Table 49</a>
+              for <i>arrayTypeName</i>.</li>
+          <li>Let <i>indexedPosition</i> = (<i>index</i> &#xD7; <i>elementSize</i>) + <i>offset</i>.</li>
+          <li>Let <i>elementType</i> be the String value of the Element Type value in <a href="/sec/table-49.html">Table 49</a> for
+              <i>arrayTypeName</i>.</li>
+          <li>Perform <a href="/sec/sec-setvalueinbuffer.html">SetValueInBuffer</a>(<i>buffer</i>, <i>indexedPosition</i>,
+              <i>elementType</i>, <i>numValue</i>).</li>
+          <li>Return <b>true</b>.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

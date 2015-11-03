@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.2.2.2"><a href="/sec/sec-pattern.html" title="link to this section">21.2.2.2</a></span>
+            Pattern</h1>
+
+        <p class="normalbefore">The production <span class="prod"><span class="nt">Pattern</span> <span class="geq">::</span>
+        <span class="nt">Disjunction</span></span> evaluates as follows:</p>
+
+        <ol class="proc">
+          <li>Evaluate <i>Disjunction</i> to obtain a Matcher <i>m</i>.</li>
+          <li>Return an internal closure that takes two arguments, a String <i>str</i> and an integer <i>index</i>, and performs
+              the following steps:
+            <ol class="nested proc">
+              <li>If <i>Unicode</i> is <b>true</b>, let <i>Input</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> consisting of the sequence of code points of  <i>str</i>
+                  interpreted as a UTF-16 encoded (<a href="/sec/sec-ecmascript-language-types-string-type.html">6.1.4</a>) Unicode string.
+                  Otherwise, let <i>Input</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> consisting of the
+                  sequence of code units that are the elements of <i>str</i>. <i>Input</i> will be used throughout the algorithms
+                  in <a href="/sec/sec-pattern-semantics.html">21.2.2</a>. Each element of <i>Input</i> is considered to be a
+                  character.</li>
+              <li>Let <i>listIndex</i> be the index into <i>Input</i> of the character that was obtained from element <i>index</i>
+                  of <i>str</i>.</li>
+              <li>Let <i>InputLength</i> be the number of characters contained in <i>Input</i>. This variable will be used
+                  throughout the algorithms in <a href="/sec/sec-pattern-semantics.html">21.2.2</a>.</li>
+              <li>Let <i>c</i> be a Continuation that always returns its State argument as a successful MatchResult.</li>
+              <li>Let <i>cap</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of <i>NcapturingParens</i>
+                  <b>undefined</b> values, indexed 1 through <i>NcapturingParens</i>.</li>
+              <li>Let <i>x</i> be the State (<i>listIndex</i>, <i>cap</i>).</li>
+              <li><a href="/sec/sec-call.html">Call</a> <i>m</i>(<i>x</i>, <i>c</i>) and return its result.</li>
+            </ol>
+          </li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> A Pattern evaluates (&#x201C;compiles&#x201D;) to an internal procedure value. <code><a href="/sec/sec-regexp.prototype.exec.html">RegExp.prototype.exec</a></code> and other methods can then apply this procedure to a
+          String and an offset within the String to determine whether the pattern would match starting at exactly that offset
+          within the String, and, if it does match, what the values of the capturing parentheses would be. The algorithms in <a href="/sec/sec-pattern-semantics.html">21.2.2</a> are designed so that compiling a pattern may throw a <b>SyntaxError</b>
+          exception; on the other hand, once the pattern is successfully compiled, applying the resulting internal procedure to
+          find a match in a String cannot throw an exception (except for any host-defined exceptions that can occur anywhere such
+          as out-of-memory).</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

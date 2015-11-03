@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.2.2.25"><a href="/sec/sec-math.min.html" title="link to this section">20.2.2.25</a></span>
+            Math.min ( value1, value2  , &#x2026;values  )</h1>
+
+        <p class="normalbefore">Given zero or more arguments, calls <a href="/sec/sec-tonumber.html">ToNumber</a> on each of the arguments
+        and returns the smallest of the resulting values.</p>
+
+        <ul>
+          <li>
+            <p>If no arguments are given, the result is +&#x221E;.</p>
+          </li>
+
+          <li>
+            <p>If any value is NaN, the result is NaN.</p>
+          </li>
+
+          <li>
+            <p>The comparison of values to determine the smallest value is done using the Abstract Relational Comparison algorithm
+            (<span style="font-family: sans-serif"><a href="/sec/sec-abstract-relational-comparison.html">7.2.11</a></span>) except that +0
+            is considered to be larger than &#x2212;0.</p>
+          </li>
+        </ul>
+
+        <p>The <code>length</code> property of the <code>min</code> method is <b>2</b>.</p>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

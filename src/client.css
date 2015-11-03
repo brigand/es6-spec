@@ -1,0 +1,33 @@
+#Root{
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+}
+
+.SearchWrapper {
+  flex-basis: 60em;
+  margin-right: 5em;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+#content {
+  flex-grow: 1;
+  margin-left: 5em;
+}
+
+.SearchInput {
+  display: block;
+  padding: 1em;
+  outline: none;
+  width: 100%;
+  border-left: 5px solid transparent;
+  border-right: 2px solid #eaeaea;
+  border-top: 2px solid #eaeaea;
+  border-bottom: 2px solid #eaeaea;
+}
+
+.SearchInput:focus {
+  border-left-color: #3ed;
+}
+

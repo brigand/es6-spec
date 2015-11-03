@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-24.3.2.1"><a href="/sec/sec-serializejsonproperty.html" title="link to this section">24.3.2.1</a></span> Runtime Semantics: SerializeJSONProperty ( key, holder )</h1>
+
+        <p class="normalbefore">The abstract operation SerializeJSONProperty with arguments <var>key</var>, <span style="font-family: Times New Roman">and</span> <var>holder</var> has access to <span class="nt">ReplacerFunction</span>
+        from the invocation of the <code>stringify</code> method. Its algorithm is as follows:</p>
+
+        <ol class="proc">
+          <li>Let <i>value</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>holder</i>, <i>key</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is Object, then
+            <ol class="block">
+              <li>Let <i>toJSON</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>value</i>, <code>&quot;toJSON&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>toJSON</i>).</li>
+              <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>toJSON</i>) is <b>true</b>
+                <ol class="block">
+                  <li>Let <i>value</i> be <a href="/sec/sec-call.html">Call</a>(<i>toJSON</i>, <i>value</i>,
+                      &#xAB;<i>key</i>&#xBB;).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>ReplacerFunction</i> is not <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>value</i> be <a href="/sec/sec-call.html">Call</a>(<i>ReplacerFunction</i>, <i>holder</i>, &#xAB;<i>key</i>,
+                  <i>value</i>&#xBB;).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+            </ol>
+          </li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is Object, then
+            <ol class="block">
+              <li>If <i>value</i> has a [[NumberData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                  slot</a>, then
+                <ol class="block">
+                  <li>Let <i>value</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>value</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+                </ol>
+              </li>
+              <li>Else if <i>value</i> has a [[StringData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                  slot</a>, then
+                <ol class="block">
+                  <li>Let <i>value</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>value</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+                </ol>
+              </li>
+              <li>Else if <i>value</i> has a [[BooleanData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                  slot</a>, then
+                <ol class="block">
+                  <li>Let <i>value</i> be the value of the [[BooleanData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>value</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>value</i> is <b>null</b>, return <code>&quot;null&quot;</code>.</li>
+          <li>If <i>value</i> is <b>true</b>, return <code>&quot;true&quot;</code>.</li>
+          <li>If <i>value</i> is <b>false</b>, return <code>&quot;false&quot;</code>.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is String, return <a href="/sec/sec-quotejsonstring.html">QuoteJSONString</a>(<i>value</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is Number, then
+            <ol class="block">
+              <li>If <i>value</i> is finite, return <a href="/sec/sec-tostring.html">ToString</a>(<i>value</i>).</li>
+              <li>Else, return <code>&quot;null&quot;</code>.</li>
+            </ol>
+          </li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is Object, and <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>value</i>) is <b>false</b>, then
+            <ol class="block">
+              <li>Let <i>isArray</i> be <a href="/sec/sec-isarray.html">IsArray</a>(<i>value</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>isArray</i>).</li>
+              <li>If <i>isArray</i> is <b>true</b>, return <a href="/sec/sec-serializejsonarray.html">SerializeJSONArray</a>(<i>value</i>).</li>
+              <li>Else, return <a href="/sec/sec-serializejsonobject.html">SerializeJSONObject</a>(<i>value</i>).</li>
+            </ol>
+          </li>
+          <li>Return <b>undefined</b>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

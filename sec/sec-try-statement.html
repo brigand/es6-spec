@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-13.15"><a href="/sec/sec-try-statement.html" title="link to this section">13.15</a></span> The
+          <code>try</code> Statement</h1>
+      <h2>Syntax</h2>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">TryStatement</span><sub class="g-params">[Yield, Return]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">try</code> <span class="nt">Block</span><sub class="g-params">[?Yield, ?Return]</sub> <span class="nt">Catch</span><sub class="g-params">[?Yield, ?Return]</sub></div>
+        <div class="rhs"><code class="t">try</code> <span class="nt">Block</span><sub class="g-params">[?Yield, ?Return]</sub> <span class="nt">Finally</span><sub class="g-params">[?Yield, ?Return]</sub></div>
+        <div class="rhs"><code class="t">try</code> <span class="nt">Block</span><sub class="g-params">[?Yield, ?Return]</sub> <span class="nt">Catch</span><sub class="g-params">[?Yield, ?Return]</sub> <span class="nt">Finally</span><sub class="g-params">[?Yield, ?Return]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">Catch</span><sub class="g-params">[Yield, Return]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">catch</code> <code class="t">(</code> <span class="nt">CatchParameter</span><sub class="g-params">[?Yield]</sub> <code class="t">)</code> <span class="nt">Block</span><sub class="g-params">[?Yield, ?Return]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">Finally</span><sub class="g-params">[Yield, Return]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">finally</code> <span class="nt">Block</span><sub class="g-params">[?Yield, ?Return]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">CatchParameter</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">BindingIdentifier</span><sub class="g-params">[?Yield]</sub></div>
+        <div class="rhs"><span class="nt">BindingPattern</span><sub class="g-params">[?Yield]</sub></div>
+      </div>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The <code>try</code> statement encloses a block of code in which an exceptional condition
+        can occur, such as a runtime error or a <code>throw</code> statement. The <code>catch</code> clause provides the
+        exception-handling code. When a catch clause catches an exception, its <span class="nt">CatchParameter</span> is bound to
+        that exception.</p>
+      </div>
+    </div>
+
+    <section id="sec-try-statement-static-semantics-early-errors">
+      <h1><span class="secnum" id="sec-13.15.1"><a href="/sec/sec-try-statement-static-semantics-early-errors.html" title="link to this section">13.15.1</a></span> Static Semantics:  Early Errors</h1>
+      <div class="gp prod"><span class="nt">Catch</span> <span class="geq">:</span> <code class="t">catch</code> <code class="t">(</code> <span class="nt">CatchParameter</span> <code class="t">)</code> <span class="nt">Block</span></div>
+      <ul>
+        <li>
+          <p>It is a Syntax Error if BoundNames <span style="font-family: Times New Roman">of <i>CatchParameter</i></span>
+          contains any duplicate elements.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if any element of the BoundNames of <span class="nt">CatchParameter</span> also occurs in the
+          LexicallyDeclaredNames of <span class="nt">Block</span>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if any element of the BoundNames of <span class="nt">CatchParameter</span> also occurs in the
+          VarDeclaredNames of <span class="nt">Block</span>.</p>
+        </li>
+      </ul>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> An alternative static semantics for this production is given in <a href="/sec/sec-variablestatements-in-catch-blocks.html">B.3.5</a>.</p>
+      </div>
+    </section>
+
+    <section id="sec-try-statement-static-semantics-containsduplicatelabels">
+      <h1><span class="secnum" id="sec-13.15.2"><a href="/sec/sec-try-statement-static-semantics-containsduplicatelabels.html" title="link to this section">13.15.2</a></span> Static Semantics: ContainsDuplicateLabels</h1>
+
+      <p>With argument <var>labelSet</var>.</p>
+
+      <p>See also: <a href="/sec/sec-statement-semantics-static-semantics-containsduplicatelabels.html">13.1.1</a>, <a href="/sec/sec-block-static-semantics-containsduplicatelabels.html">13.2.2</a>, <a href="/sec/sec-if-statement-static-semantics-containsduplicatelabels.html">13.6.2</a>, <a href="/sec/sec-do-while-statement-static-semantics-containsduplicatelabels.html">13.7.2.1</a>, <a href="/sec/sec-while-statement-static-semantics-containsduplicatelabels.html">13.7.3.1</a>, <a href="/sec/sec-for-statement-static-semantics-containsduplicatelabels.html">13.7.4.2</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-containsduplicatelabels.html">13.7.5.3</a>, <a href="/sec/sec-with-statement-static-semantics-containsduplicatelabels.html">13.11.2</a>, <a href="/sec/sec-switch-statement-static-semantics-containsduplicatelabels.html">13.12.2</a>, <a href="/sec/sec-labelled-statements-static-semantics-containsduplicatelabels.html">13.13.2</a>, <a href="/sec/sec-module-semantics-static-semantics-containsduplicatelabels.html">15.2.1.2</a>.</p>
+
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Catch</span></div>
+      <ol class="proc">
+        <li>Let <i>hasDuplicates</i> be ContainsDuplicateLabels of <i>Block</i> with argument <i>labelSet</i>.</li>
+        <li>If <i>hasDuplicates</i> is <b>true</b>, return <b>true</b>.</li>
+        <li>Return ContainsDuplicateLabels of <i>Catch</i> with argument <i>labelSet.</i></li>
+      </ol>
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Finally</span></div>
+      <ol class="proc">
+        <li>Let <i>hasDuplicates</i> be ContainsDuplicateLabels of <i>Block</i> with argument <i>labelSet</i>.</li>
+        <li>If <i>hasDuplicates</i> is <b>true</b>, return <b>true</b>.</li>
+        <li>Return ContainsDuplicateLabels of <i>Finally</i> with argument <i>labelSet.</i></li>
+      </ol>
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Catch</span> <span class="nt">Finally</span></div>
+      <ol class="proc">
+        <li>Let <i>hasDuplicates</i> be ContainsDuplicateLabels of <i>Block</i> with argument <i>labelSet</i>.</li>
+        <li>If <i>hasDuplicates</i> is <b>true</b>, return <b>true</b>.</li>
+        <li>Let <i>hasDuplicates</i> be ContainsDuplicateLabels of <i>Catch</i> with argument <i>labelSet</i>.</li>
+        <li>If <i>hasDuplicates</i> is <b>true</b>, return <b>true</b>.</li>
+        <li>Return ContainsDuplicateLabels of <i>Finally</i> with argument <i>labelSet.</i></li>
+      </ol>
+      <div class="gp prod"><span class="nt">Catch</span> <span class="geq">:</span> <code class="t">catch</code> <code class="t">(</code> <span class="nt">CatchParameter</span> <code class="t">)</code> <span class="nt">Block</span></div>
+      <ol class="proc">
+        <li>Return ContainsDuplicateLabels of <i>Block</i> with argument <i>labelSet.</i></li>
+      </ol>
+    </section>
+
+    <section id="sec-try-statement-static-semantics-containsundefinedbreaktarget">
+      <h1><span class="secnum" id="sec-13.15.3"><a href="/sec/sec-try-statement-static-semantics-containsundefinedbreaktarget.html" title="link to this section">13.15.3</a></span> Static Semantics: ContainsUndefinedBreakTarget</h1>
+
+      <p>With argument <var>labelSet</var>.</p>
+
+      <p>See also: <a href="/sec/sec-statement-semantics-static-semantics-containsundefinedbreaktarget.html">13.1.2</a>, <a href="/sec/sec-block-static-semantics-containsundefinedbreaktarget.html">13.2.3</a>, <a href="/sec/sec-if-statement-static-semantics-containsundefinedbreaktarget.html">13.6.3</a>, <a href="/sec/sec-do-while-statement-static-semantics-containsundefinedbreaktarget.html">13.7.2.2</a>, <a href="/sec/sec-while-statement-static-semantics-containsundefinedbreaktarget.html">13.7.3.2</a>, <a href="/sec/sec-for-statement-static-semantics-containsundefinedbreaktarget.html">13.7.4.3</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-containsundefinedbreaktarget.html">13.7.5.4</a>, <a href="/sec/sec-break-statement-static-semantics-containsundefinedbreaktarget.html">13.9.2</a>, <a href="/sec/sec-with-statement-static-semantics-containsundefinedbreaktarget.html">13.11.3</a>, <a href="/sec/sec-switch-statement-static-semantics-containsundefinedbreaktarget.html">13.12.3</a>, <a href="/sec/sec-labelled-statements-static-semantics-containsundefinedbreaktarget.html">13.13.3</a>, <a href="/sec/sec-module-semantics-static-semantics-containsundefinedbreaktarget.html">15.2.1.3</a>.</p>
+
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Catch</span></div>
+      <ol class="proc">
+        <li>Let <i>hasUndefinedLabels</i> be ContainsUndefinedBreakTarget of <i>Block</i> with argument <i>labelSet</i>.</li>
+        <li>If <i>hasUndefinedLabels</i> is <b>true</b>, return <b>true</b>.</li>
+        <li>Return ContainsUndefinedBreakTarget of <i>Catch</i> with argument <i>labelSet.</i></li>
+      </ol>
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Finally</span></div>
+      <ol class="proc">
+        <li>Let <i>hasUndefinedLabels</i> be ContainsUndefinedBreakTarget of <i>Block</i> with argument <i>labelSet</i>.</li>
+        <li>If <i>hasUndefinedLabels</i> is <b>true</b>, return <b>true</b>.</li>
+        <li>Return ContainsUndefinedBreakTarget of <i>Finally</i> with argument <i>labelSet.</i></li>
+      </ol>
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Catch</span> <span class="nt">Finally</span></div>
+      <ol class="proc">
+        <li>Let <i>hasUndefinedLabels</i> be ContainsUndefinedBreakTarget of <i>Block</i> with argument <i>labelSet</i>.</li>
+        <li>If <i>hasUndefinedLabels</i> is <b>true</b>, return <b>true</b>.</li>
+        <li>Let <i>hasUndefinedLabels</i> be ContainsUndefinedBreakTarget of <i>Catch</i> with argument <i>labelSet</i>.</li>
+        <li>If <i>hasUndefinedLabels</i> is <b>true</b>, return <b>true</b>.</li>
+        <li>Return ContainsUndefinedBreakTarget of <i>Finally</i> with argument <i>labelSet.</i></li>
+      </ol>
+      <div class="gp prod"><span class="nt">Catch</span> <span class="geq">:</span> <code class="t">catch</code> <code class="t">(</code> <span class="nt">CatchParameter</span> <code class="t">)</code> <span class="nt">Block</span></div>
+      <ol class="proc">
+        <li>Return ContainsUndefinedBreakTarget of <i>Block</i> with argument <i>labelSet.</i></li>
+      </ol>
+    </section>
+
+    <section id="sec-try-statement-static-semantics-containsundefinedcontinuetarget">
+      <h1><span class="secnum" id="sec-13.15.4"><a href="/sec/sec-try-statement-static-semantics-containsundefinedcontinuetarget.html" title="link to this section">13.15.4</a></span> Static Semantics: ContainsUndefinedContinueTarget</h1>
+
+      <p>With arguments <var>iterationSet</var> and <var>labelSet</var>.</p>
+
+      <p>See also: <a href="/sec/sec-statement-semantics-static-semantics-containsundefinedcontinuetarget.html">13.1.3</a>, <a href="/sec/sec-block-static-semantics-containsundefinedcontinuetarget.html">13.2.4</a>, <a href="/sec/sec-if-statement-static-semantics-containsundefinedcontinuetarget.html">13.6.4</a>, <a href="/sec/sec-do-while-statement-static-semantics-containsundefinedcontinuetarget.html">13.7.2.3</a>, <a href="/sec/sec-while-statement-static-semantics-containsundefinedcontinuetarget.html">13.7.3.3</a>, <a href="/sec/sec-for-statement-static-semantics-containsundefinedcontinuetarget.html">13.7.4.4</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-containsundefinedcontinuetarget.html">13.7.5.5</a>, <a href="/sec/sec-continue-statement-static-semantics-containsundefinedcontinuetarget.html">13.8.2</a>, <a href="/sec/sec-with-statement-static-semantics-containsundefinedcontinuetarget.html">13.11.4</a>, <a href="/sec/sec-switch-statement-static-semantics-containsundefinedcontinuetarget.html">13.12.4</a>, <a href="/sec/sec-labelled-statements-static-semantics-containsundefinedcontinuetarget.html">13.13.4</a>, <a href="/sec/sec-module-semantics-static-semantics-containsundefinedcontinuetarget.html">15.2.1.4</a>.</p>
+
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Catch</span></div>
+      <ol class="proc">
+        <li>Let <i>hasUndefinedLabels</i> be ContainsUndefinedContinueTarget of <i>Block</i> with arguments <i>iterationSet</i>
+            and &#xAB;&#xA0;&#xBB;.</li>
+        <li>If <i>hasUndefinedLabels</i> is <b>true</b>, return <b>true</b>.</li>
+        <li>Return ContainsUndefinedContinueTarget of <i>Catch</i> with arguments <i>iterationSet</i> and
+            &#xAB;&#xA0;&#xBB;<i>.</i></li>
+      </ol>
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Finally</span></div>
+      <ol class="proc">
+        <li>Let <i>hasUndefinedLabels</i> be ContainsUndefinedContinueTarget of <i>Block</i> with arguments <i>iterationSet</i>
+            and &#xAB;&#xA0;&#xBB;.</li>
+        <li>If <i>hasUndefinedLabels</i> is <b>true</b>, return <b>true</b>.</li>
+        <li>Return ContainsUndefinedContinueTarget of <i>Finally</i> with arguments <i>iterationSet</i> and
+            &#xAB;&#xA0;&#xBB;<i>.</i></li>
+      </ol>
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Catch</span> <span class="nt">Finally</span></div>
+      <ol class="proc">
+        <li>Let <i>hasUndefinedLabels</i> be ContainsUndefinedContinueTarget of <i>Block</i> with arguments <i>iterationSet</i>
+            and &#xAB;&#xA0;&#xBB;.</li>
+        <li>If <i>hasUndefinedLabels</i> is <b>true</b>, return <b>true</b>.</li>
+        <li>Let <i>hasUndefinedLabels</i> be ContainsUndefinedContinueTarget of <i>Catch</i> with arguments <i>iterationSet</i>
+            and &#xAB;&#xA0;&#xBB;.</li>
+        <li>If <i>hasUndefinedLabels</i> is <b>true</b>, return <b>true</b>.</li>
+        <li>Return ContainsUndefinedContinueTarget of <i>Finally</i> with arguments <i>iterationSet</i> and
+            &#xAB;&#xA0;&#xBB;<i>.</i></li>
+      </ol>
+      <div class="gp prod"><span class="nt">Catch</span> <span class="geq">:</span> <code class="t">catch</code> <code class="t">(</code> <span class="nt">CatchParameter</span> <code class="t">)</code> <span class="nt">Block</span></div>
+      <ol class="proc">
+        <li>Return ContainsUndefinedContinueTarget of <i>Block</i> with arguments <i>iterationSet</i> and
+            &#xAB;&#xA0;&#xBB;<i>.</i></li>
+      </ol>
+    </section>
+
+    <section id="sec-try-statement-static-semantics-vardeclarednames">
+      <h1><span class="secnum" id="sec-13.15.5"><a href="/sec/sec-try-statement-static-semantics-vardeclarednames.html" title="link to this section">13.15.5</a></span> Static Semantics:  VarDeclaredNames</h1>
+
+      <p>See also: <a href="/sec/sec-statement-semantics-static-semantics-vardeclarednames.html">13.1.5</a>, <a href="/sec/sec-block-static-semantics-vardeclarednames.html">13.2.11</a>, <a href="/sec/sec-variable-statement-static-semantics-vardeclarednames.html">13.3.2.2</a>, <a href="/sec/sec-if-statement-static-semantics-vardeclarednames.html">13.6.5</a>, <a href="/sec/sec-do-while-statement-static-semantics-vardeclarednames.html">13.7.2.4</a>, <a href="/sec/sec-while-statement-static-semantics-vardeclarednames.html">13.7.3.4</a>, <a href="/sec/sec-for-statement-static-semantics-vardeclarednames.html">13.7.4.5</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-vardeclarednames.html">13.7.5.7</a>, <a href="/sec/sec-with-statement-static-semantics-vardeclarednames.html">13.11.5</a>, <a href="/sec/sec-switch-statement-static-semantics-vardeclarednames.html">13.12.7</a>, <a href="/sec/sec-labelled-statements-static-semantics-vardeclarednames.html">13.13.12</a>, <a href="/sec/sec-function-definitions-static-semantics-vardeclarednames.html">14.1.15</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-vardeclarednames.html">14.2.12</a>, <a href="/sec/sec-scripts-static-semantics-vardeclarednames.html">15.1.5</a>, <a href="/sec/sec-module-semantics-static-semantics-vardeclarednames.html">15.2.1.13</a>.</p>
+
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Catch</span></div>
+      <ol class="proc">
+        <li>Let <i>names</i> be VarDeclaredNames of <i>Block</i>.</li>
+        <li>Append to <i>names</i> the elements of the VarDeclaredNames of <i>Catch.</i></li>
+        <li>Return <i>names</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Finally</span></div>
+      <ol class="proc">
+        <li>Let <i>names</i> be VarDeclaredNames of <i>Block</i>.</li>
+        <li>Append to <i>names</i> the elements of the VarDeclaredNames of <i>Finally.</i></li>
+        <li>Return <i>names</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Catch</span> <span class="nt">Finally</span></div>
+      <ol class="proc">
+        <li>Let <i>names</i> be VarDeclaredNames of <i>Block</i>.</li>
+        <li>Append to <i>names</i> the elements of the VarDeclaredNames of <i>Catch.</i></li>
+        <li>Append to <i>names</i> the elements of the VarDeclaredNames of <i>Finally.</i></li>
+        <li>Return <i>names</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">Catch</span> <span class="geq">:</span> <code class="t">catch</code> <code class="t">(</code> <span class="nt">CatchParameter</span> <code class="t">)</code> <span class="nt">Block</span></div>
+      <ol class="proc">
+        <li>Return the VarDeclaredNames of <i>Block</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-try-statement-static-semantics-varscopeddeclarations">
+      <h1><span class="secnum" id="sec-13.15.6"><a href="/sec/sec-try-statement-static-semantics-varscopeddeclarations.html" title="link to this section">13.15.6</a></span> Static Semantics:  VarScopedDeclarations</h1>
+
+      <p>See also: <a href="/sec/sec-statement-semantics-static-semantics-varscopeddeclarations.html">13.1.6</a>, <a href="/sec/sec-block-static-semantics-varscopeddeclarations.html">13.2.12</a>, <a href="/sec/sec-variable-statement-static-semantics-varscopeddeclarations.html">13.3.2.3</a>, <a href="/sec/sec-if-statement-static-semantics-varscopeddeclarations.html">13.6.6</a>, <a href="/sec/sec-do-while-statement-static-semantics-varscopeddeclarations.html">13.7.2.5</a>, <a href="/sec/sec-while-statement-static-semantics-varscopeddeclarations.html">13.7.3.5</a>, <a href="/sec/sec-for-statement-static-semantics-varscopeddeclarations.html">13.7.4.6</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-varscopeddeclarations.html">13.7.5.8</a>, <a href="/sec/sec-with-statement-static-semantics-varscopeddeclarations.html">13.11.6</a>, <a href="/sec/sec-switch-statement-static-semantics-varscopeddeclarations.html">13.12.8</a>, <a href="/sec/sec-labelled-statements-static-semantics-varscopeddeclarations.html">13.13.13</a>, <a href="/sec/sec-function-definitions-static-semantics-varscopeddeclarations.html">14.1.16</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-varscopeddeclarations.html">14.2.13</a>, <a href="/sec/sec-scripts-static-semantics-varscopeddeclarations.html">15.1.6</a>, <a href="/sec/sec-module-semantics-static-semantics-varscopeddeclarations.html">15.2.1.14</a>.</p>
+
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Catch</span></div>
+      <ol class="proc">
+        <li>Let <i>declarations</i> be VarScopedDeclarations of <i>Block</i>.</li>
+        <li>Append to <i>declarations</i> the elements of the VarScopedDeclarations of <i>Catch.</i></li>
+        <li>Return <i>declarations</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Finally</span></div>
+      <ol class="proc">
+        <li>Let <i>declarations</i> be VarScopedDeclarations of <i>Block</i>.</li>
+        <li>Append to <i>declarations</i> the elements of the VarScopedDeclarations of <i>Finally.</i></li>
+        <li>Return <i>declarations</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Catch</span> <span class="nt">Finally</span></div>
+      <ol class="proc">
+        <li>Let <i>declarations</i> be VarScopedDeclarations of <i>Block</i>.</li>
+        <li>Append to <i>declarations</i> the elements of the VarScopedDeclarations of <i>Catch.</i></li>
+        <li>Append to <i>declarations</i> the elements of the VarScopedDeclarations of <i>Finally.</i></li>
+        <li>Return <i>declarations</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">Catch</span> <span class="geq">:</span> <code class="t">catch</code> <code class="t">(</code> <span class="nt">CatchParameter</span> <code class="t">)</code> <span class="nt">Block</span></div>
+      <ol class="proc">
+        <li>Return the VarScopedDeclarations of <i>Block</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-runtime-semantics-catchclauseevaluation">
+      <h1><span class="secnum" id="sec-13.15.7"><a href="/sec/sec-runtime-semantics-catchclauseevaluation.html" title="link to this section">13.15.7</a></span> Runtime Semantics: CatchClauseEvaluation</h1>
+
+      <p>with parameter <var>thrownValue</var></p>
+
+      <div class="gp prod"><span class="nt">Catch</span> <span class="geq">:</span> <code class="t">catch</code> <code class="t">(</code> <span class="nt">CatchParameter</span> <code class="t">)</code> <span class="nt">Block</span></div>
+      <ol class="proc">
+        <li>Let <i>oldEnv</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a>.</li>
+        <li>Let <i>catchEnv</i> be <a href="/sec/sec-newdeclarativeenvironment.html">NewDeclarativeEnvironment</a>(<i>oldEnv</i>).</li>
+        <li>For each element <i>argName</i> of the BoundNames of <i>CatchParameter</i>, do
+          <ol class="block">
+            <li>Perform <i>catchEnv</i>.CreateMutableBinding(<i>argName</i>).</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: The above call to CreateMutableBinding will never return an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+          </ol>
+        </li>
+        <li>Set <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> to <i>catchEnv</i>.</li>
+        <li>Let <i>status</i> be the result of performing BindingInitialization for <i>CatchParameter</i> passing
+            <i>thrownValue</i> and <i>catchEnv</i> as arguments.</li>
+        <li>If <i>status</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, then
+          <ol class="block">
+            <li>Set <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> to <i>oldEnv</i>.</li>
+            <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>status</i>).</li>
+          </ol>
+        </li>
+        <li>Let <i>B</i> be the result of evaluating <i>Block</i>.</li>
+        <li>Set <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> to <i>oldEnv</i>.</li>
+        <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>B</i>).</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> No matter how control leaves the <span class="nt">Block</span> the <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> is always restored to its former state.</p>
+      </div>
+    </section>
+
+    <section id="sec-try-statement-runtime-semantics-evaluation">
+      <h1><span class="secnum" id="sec-13.15.8"><a href="/sec/sec-try-statement-runtime-semantics-evaluation.html" title="link to this section">13.15.8</a></span> Runtime Semantics: Evaluation</h1>
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Catch</span></div>
+      <ol class="proc">
+        <li>Let <i>B</i> be the result of evaluating <i>Block</i>.</li>
+        <li>If <i>B</i>.[[type]] is <span style="font-family: sans-serif">throw</span>, then
+          <ol class="block">
+            <li>Let <i>C</i> be CatchClauseEvaluation of <i>Catch</i> with parameter <i>B</i>.[[value]].</li>
+          </ol>
+        </li>
+        <li>Else <i>B</i>.[[type]] is not <span style="font-family: sans-serif">throw</span><b>,</b>
+          <ol class="block">
+            <li>Let <i>C</i> be <i>B</i>.</li>
+          </ol>
+        </li>
+        <li>If <i>C</i>.[[type]] is <span style="font-family: sans-serif">return</span>, or <i>C</i>.[[type]] is <span style="font-family: sans-serif">throw</span>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>C</i>).</li>
+        <li>If <i>C</i>.[[value]] is not <span style="font-family: sans-serif">empty</span>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>C</i>).</li>
+        <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <i>C</i>.[[type]], [[value]]:
+            <b>undefined</b>, [[target]]: <i>C</i>.[[target]]}.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Finally</span></div>
+      <ol class="proc">
+        <li>Let <i>B</i> be the result of evaluating <i>Block</i>.</li>
+        <li>Let <i>F</i> be the result of evaluating <i>Finally</i>.</li>
+        <li>If <i>F</i>.[[type]] is <span style="font-family: sans-serif">normal</span>, let <i>F</i> be <i>B.</i></li>
+        <li>If <i>F</i>.[[type]] is <span style="font-family: sans-serif">return</span>, or <i>F</i>.[[type]] is <span style="font-family: sans-serif">throw</span>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>F</i>).</li>
+        <li>If <i>F</i>.[[value]] is not <span style="font-family: sans-serif">empty</span>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>F</i>).</li>
+        <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <i>F</i>.[[type]], [[value]]:
+            <b>undefined</b>, [[target]]: <i>F</i>.[[target]]}.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Catch</span> <span class="nt">Finally</span></div>
+      <ol class="proc">
+        <li>Let <i>B</i> be the result of evaluating <i>Block</i>.</li>
+        <li>If <i>B</i>.[[type]] is <span style="font-family: sans-serif">throw</span>, then
+          <ol class="block">
+            <li>Let <i>C</i> be CatchClauseEvaluation of <i>Catch</i> with parameter <i>B</i>.[[value]].</li>
+          </ol>
+        </li>
+        <li>Else <i>B</i>.[[type]] is not <span style="font-family: sans-serif">throw</span><b>,</b> let <i>C</i> be
+            <i>B</i>.</li>
+        <li>Let <i>F</i> be the result of evaluating <i>Finally</i>.</li>
+        <li>If <i>F</i>.[[type]] is <span style="font-family: sans-serif">normal</span>, let <i>F</i> be <i>C</i>.</li>
+        <li>If <i>F</i>.[[type]] is <span style="font-family: sans-serif">return</span>, or <i>F</i>.[[type]] is <span style="font-family: sans-serif">throw</span>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>F</i>).</li>
+        <li>If <i>F</i>.[[value]] is not <span style="font-family: sans-serif">empty</span>, return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<i>F</i>.[[value]]).</li>
+        <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <i>F</i>.[[type]], [[value]]:
+            <b>undefined</b>, [[target]]: <i>F</i>.[[target]]}.</li>
+      </ol>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

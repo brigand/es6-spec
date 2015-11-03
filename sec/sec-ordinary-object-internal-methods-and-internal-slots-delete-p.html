@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.1.10"><a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-delete-p.html" title="link to this section">9.1.10</a></span> [[Delete]] (P)</h1>
+
+      <p class="normalbefore">When the [[Delete]] internal method of <var>O</var> is called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var> the following steps are taken:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+            <b>true</b>.</li>
+        <li>Let <i>desc</i> be <i>O</i>.[[GetOwnProperty]](<i>P</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>desc</i>).</li>
+        <li>If <i>desc</i> is <b>undefined</b>, return <b>true</b>.</li>
+        <li>If <i>desc</i>.[[Configurable]] is <b>true</b>, then
+          <ol class="block">
+            <li>Remove the own property with name <i>P</i> from <i>O</i>.</li>
+            <li>Return <b>true</b>.</li>
+          </ol>
+        </li>
+        <li>Return <b>false</b>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

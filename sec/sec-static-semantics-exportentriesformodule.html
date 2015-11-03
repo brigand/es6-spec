@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-15.2.3.6"><a href="/sec/sec-static-semantics-exportentriesformodule.html" title="link to this section">15.2.3.6</a></span> Static Semantics: ExportEntriesForModule</h1>
+
+        <p>With parameter <var>module</var>.</p>
+
+        <div class="gp prod"><span class="nt">ExportClause</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+        <ol class="proc">
+          <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ExportsList</span> <span class="geq">:</span> <span class="nt">ExportsList</span> <code class="t">,</code> <span class="nt">ExportSpecifier</span></div>
+        <ol class="proc">
+          <li>Let <i>specs</i> be the ExportEntriesForModule of <i>ExportsList</i> with argument <i>module</i>.</li>
+          <li>Append to <i>specs</i> the elements of the ExportEntriesForModule of <i>ExportSpecifier</i> with argument
+              <i>module</i>.</li>
+          <li>Return <i>specs</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ExportSpecifier</span> <span class="geq">:</span> <span class="nt">IdentifierName</span></div>
+        <ol class="proc">
+          <li>Let <i>sourceName</i> be the StringValue of <i>IdentifierName</i>.</li>
+          <li>If <i>module</i> is <b>null</b>, then
+            <ol class="block">
+              <li>Let <i>localName</i> be <i>sourceName</i>.</li>
+              <li>Let <i>importName</i> be <b>null</b>.</li>
+            </ol>
+          </li>
+          <li>Else
+            <ol class="block">
+              <li>Let <i>localName</i> be <b>null</b>.</li>
+              <li>Let <i>importName</i> be <i>sourceName</i>.</li>
+            </ol>
+          </li>
+          <li>Return a new <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the Record {[[ModuleRequest]]:
+              <i>module</i>, [[ImportName]]: <i>importName</i>, [[LocalName]]: <i>localName</i>, [[ExportName]]: <i>sourceName</i>
+              }.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ExportSpecifier</span> <span class="geq">:</span> <span class="nt">IdentifierName</span> <code class="t">as</code> <span class="nt">IdentifierName</span></div>
+        <ol class="proc">
+          <li>Let <i>sourceName</i> be the StringValue of the first <i>IdentifierName</i>.</li>
+          <li>Let <i>exportName</i> be the StringValue of the second <i>IdentifierName</i>.</li>
+          <li>If <i>module</i> is <b>null</b>, then
+            <ol class="block">
+              <li>Let <i>localName</i> be <i>sourceName</i>.</li>
+              <li>Let <i>importName</i> be <b>null</b>.</li>
+            </ol>
+          </li>
+          <li>Else
+            <ol class="block">
+              <li>Let <i>localName</i> be <b>null</b>.</li>
+              <li>Let <i>importName</i> be <i>sourceName</i>.</li>
+            </ol>
+          </li>
+          <li>Return a new <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the Record {[[ModuleRequest]]:
+              <i>module</i>, [[ImportName]]: <i>importName</i>, [[LocalName]]: <i>localName</i>, [[ExportName]]: <i>exportName</i>
+              }.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

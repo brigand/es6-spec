@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-15.2.3.4"><a href="/sec/sec-exports-static-semantics-exportednames.html" title="link to this section">15.2.3.4</a></span> Static Semantics:  ExportedNames</h1>
+
+        <p>See also: <a href="/sec/sec-module-semantics-static-semantics-exportednames.html">15.2.1.6</a>.</p>
+
+        <div class="gp prod"><span class="nt">ExportDeclaration</span> <span class="geq">:</span> <code class="t">export</code> <code class="t">*</code> <span class="nt">FromClause</span> <code class="t">;</code></div>
+        <ol class="proc">
+          <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        </ol>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">ExportDeclaration</span> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">export</code> <span class="nt">ExportClause</span> <span class="nt">FromClause</span> <code class="t">;</code></div>
+          <div class="rhs"><code class="t">export</code> <span class="nt">ExportClause</span> <code class="t">;</code></div>
+        </div>
+
+        <ol class="proc">
+          <li>Return the ExportedNames of <i>ExportClause</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ExportDeclaration</span> <span class="geq">:</span> <code class="t">export</code> <span class="nt">VariableStatement</span></div>
+        <ol class="proc">
+          <li>Return the BoundNames of <i>VariableStatement</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ExportDeclaration</span> <span class="geq">:</span> <code class="t">export</code> <span class="nt">Declaration</span></div>
+        <ol class="proc">
+          <li>Return the BoundNames of <i>Declaration</i>.</li>
+        </ol>
+
+        <p><span class="prod"><span class="nt">ExportDeclaration</span> <span class="geq">:</span> <code class="t">export</code>
+        <code class="t">default</code> <span class="nt">HoistableDeclaration</span></span> <sub><br></sub><span class="prod"><span class="nt">ExportDeclaration</span> <span class="geq">:</span> <code class="t">export</code> <code class="t">default</code> <span class="nt">ClassDeclaration</span></span><br><span class="prod"><span class="nt">ExportDeclaration</span> <span class="geq">:</span> <code class="t">export</code> <code class="t">default</code> <span class="nt">AssignmentExpression</span> <code class="t">;</code></span></p>
+
+        <ol class="proc">
+          <li>Return &#xAB;<code>&quot;default&quot;</code>&#xBB;.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ExportClause</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+        <ol class="proc">
+          <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ExportsList</span> <span class="geq">:</span> <span class="nt">ExportsList</span> <code class="t">,</code> <span class="nt">ExportSpecifier</span></div>
+        <ol class="proc">
+          <li>Let <i>names</i> be the ExportedNames of <i>ExportsList</i>.</li>
+          <li>Append to <i>names</i> the elements of the ExportedNames of <i>ExportSpecifier</i>.</li>
+          <li>Return <i>names</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ExportSpecifier</span> <span class="geq">:</span> <span class="nt">IdentifierName</span></div>
+        <ol class="proc">
+          <li>Return a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the StringValue of
+              <i>IdentifierName</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ExportSpecifier</span> <span class="geq">:</span> <span class="nt">IdentifierName</span> <code class="t">as</code> <span class="nt">IdentifierName</span></div>
+        <ol class="proc">
+          <li>Return a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the StringValue of the second
+              <i>IdentifierName</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

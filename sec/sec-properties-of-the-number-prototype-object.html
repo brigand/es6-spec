@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-20.1.3"><a href="/sec/sec-properties-of-the-number-prototype-object.html" title="link to this section">20.1.3</a></span> Properties of the Number Prototype Object</h1>
+
+        <p>The Number prototype object is the intrinsic object %NumberPrototype%. The Number prototype object is an ordinary
+        object. It is not a Number instance and does not have a [[NumberData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+        <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the
+        Number prototype object is the intrinsic object %ObjectPrototype% (<a href="/sec/sec-properties-of-the-object-prototype-object.html">19.1.3</a>).</p>
+
+        <p>Unless explicitly stated otherwise, the methods of the Number prototype object defined below are not generic and the
+        <b>this</b> value passed to them must be either a Number value or an object that has a [[NumberData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> that has been initialized to a Number value.</p>
+
+        <p class="normalbefore">The abstract operation <span style="font-family: Times New
+        Roman">thisNumberValue(<i>value</i>)</span> performs the following steps:</p>
+
+        <ol class="proc">
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is Number, return <i>value</i>.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is Object and <i>value</i> has a
+              [[NumberData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, then
+            <ol class="block">
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>value</i>&#x2019;s [[NumberData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is a Number value.</li>
+              <li>Return the value of <i>value&#x2019;s</i> [[NumberData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            </ol>
+          </li>
+          <li>Throw a <b>TypeError</b> exception.</li>
+        </ol>
+
+        <p>The phrase &#x201C;this Number value&#x201D; within the specification of a method refers to the result returned  by
+        calling the abstract operation <span style="font-family: Times New Roman">thisNumberValue</span> with the <b>this</b>
+        value of the method invocation passed as the argument.</p>
+      </div>
+
+      <section id="sec-number.prototype.constructor">
+        <h1><span class="secnum" id="sec-20.1.3.1"><a href="/sec/sec-number.prototype.constructor.html" title="link to this section">20.1.3.1</a></span> Number.prototype.constructor</h1>
+
+        <p>The initial value of <code>Number.prototype.constructor</code> is the intrinsic object %Number%.</p>
+      </section>
+
+      <section id="sec-number.prototype.toexponential">
+        <h1><span class="secnum" id="sec-20.1.3.2"><a href="/sec/sec-number.prototype.toexponential.html" title="link to this section">20.1.3.2</a></span> Number.prototype.toExponential ( fractionDigits )</h1>
+
+        <p class="normalbefore">Return a String containing this Number value represented in decimal exponential notation with one
+        digit before the significand&apos;s decimal point and <var>fractionDigits</var> digits after the significand&apos;s decimal point.
+        If <var>fractionDigits</var> is <b>undefined</b>, include as many significand digits as necessary to uniquely specify the
+        Number (just like in <a href="/sec/sec-tostring.html">ToString</a> except that in this case the Number is always output in
+        exponential notation). Specifically, perform the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>x</i> be thisNumberValue(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>x</i>).</li>
+          <li>Let <i>f</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>fractionDigits</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>f</i> is 0, when <i>fractionDigits</i> is <b>undefined</b>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>f</i>).</li>
+          <li>If <i>x</i> is <b>NaN</b>, return the String <code>&quot;NaN&quot;</code>.</li>
+          <li>Let <i>s</i> be the empty String.</li>
+          <li>If <i>x</i> <i>&lt;</i> 0, then
+            <ol class="block">
+              <li>Let <i>s</i> be <code>&quot;-&quot;</code>.</li>
+              <li>Let <i>x</i> = &#x2013;<i>x</i>.</li>
+            </ol>
+          </li>
+          <li>If <i>x</i> = +&#x221E;, then
+            <ol class="block">
+              <li>Return the concatenation of the Strings <i>s</i> and <code>&quot;Infinity&quot;</code>.</li>
+            </ol>
+          </li>
+          <li>If <i>f</i> &lt; 0 or <i>f</i> &gt; 20, throw a <b>RangeError</b> exception. However, an implementation is permitted
+              to extend the behaviour of <code>toExponential</code> for values of <i>f</i> less than 0 or greater than 20. In this
+              case <code>toExponential</code> would not necessarily throw <b>RangeError</b> for such values.</li>
+          <li>If <i>x</i> = 0, then
+            <ol class="block">
+              <li>Let <i>m</i> be the String consisting of <i>f</i>+1 occurrences of the code unit 0x0030.</li>
+              <li>Let <i>e</i> = 0.</li>
+            </ol>
+          </li>
+          <li>Else <i>x</i> &#x2260; 0,
+            <ol class="block">
+              <li>If <i>fractionDigits</i> is not <b>undefined</b>, then
+                <ol class="block">
+                  <li>Let <i>e</i> and <i>n</i> be integers such that 10<sup><i>f</i></sup> &#x2264; <i>n</i> &lt;
+                      10<sup><i>f</i>+1</sup> and for which the exact mathematical value of <i>n</i> &#xD7;
+                      10<sup><i>e</i>&#x2013;<i>f</i></sup> &#x2013; <i>x</i> is as close to zero as possible. If there are two such
+                      sets of <i>e</i> and <i>n</i>, pick the <i>e</i> and <i>n</i> for which <i>n</i> &#xD7;
+                      10<sup><i>e</i>&#x2013;<i>f</i></sup> is larger.</li>
+                </ol>
+              </li>
+              <li>Else <i>fractionDigits</i> is <b>undefined</b>,
+                <ol class="block">
+                  <li>Let <i>e</i>, <i>n</i>, and <i>f</i> be integers such that <i>f</i> &#x2265; 0, 10<sup><i>f</i></sup> &#x2264;
+                      <i>n</i> &lt; 10<sup><i>f</i>+1</sup>, the Number value for n &#xD7; 10<sup><i>e</i>&#x2013;<i>f</i></sup>
+                      is <i>x</i>, and <i>f</i> is as small as possible. Note that the decimal representation of <i>n</i> has
+                      <i>f</i>+1 digits, <i>n</i> is not divisible by 10, and the least significant digit of <i>n</i> is not
+                      necessarily uniquely determined by these criteria.</li>
+                </ol>
+              </li>
+              <li>Let <i>m</i> be the String consisting of the digits of the decimal representation of <i>n</i> (in order, with no
+                  leading zeroes).</li>
+            </ol>
+          </li>
+          <li>If <i>f</i> &#x2260; 0, then
+            <ol class="block">
+              <li>Let <i>a</i> be the first element of <i>m</i>, and let <i>b</i> be the remaining <i>f</i> elements of
+                  <i>m</i>.</li>
+              <li>Let <i>m</i> be the concatenation of the three Strings <i>a</i>, <code>&quot;.&quot;</code>, and <i>b</i>.</li>
+            </ol>
+          </li>
+          <li>If <i>e</i> = 0, then
+            <ol class="block">
+              <li>Let <i>c</i> = <code>&quot;+&quot;.</code></li>
+              <li>Let <i>d</i> = <code>&quot;0&quot;.</code></li>
+            </ol>
+          </li>
+          <li>Else
+            <ol class="block">
+              <li>If <i>e</i> &gt; 0, let <i>c</i> = <code>&quot;+&quot;.</code></li>
+              <li>Else <i>e</i> &#x2264; 0,
+                <ol class="block">
+                  <li>Let <i>c</i> = <code>&quot;-&quot;</code>.</li>
+                  <li>Let <i>e</i> = &#x2013;<i>e</i>.</li>
+                </ol>
+              </li>
+              <li>Let <i>d</i> be the String consisting of the digits of the decimal representation of <i>e</i> (in order, with no
+                  leading zeroes).</li>
+            </ol>
+          </li>
+          <li>Let <i>m</i> be the concatenation of the four Strings <i>m</i>, <code>&quot;e&quot;</code>, <i>c</i>, and <i>d</i>.</li>
+          <li>Return the concatenation of the Strings <i>s</i> and <i>m</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>toExponential</code> method is <b>1</b>.</p>
+
+        <p>If the <code>toExponential</code> method is called with more than one argument, then the behaviour is undefined (see <a href="/sec/sec-ecmascript-standard-built-in-objects.html">clause 17</a>).</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> For implementations that provide more accurate conversions than required by the rules
+          above, it is recommended that the following alternative version of step 12.b.i be used as a guideline:</p>
+
+          <p class="special3">i.	Let <i>e</i>, <i>n</i>, and <i>f</i> be integers such that <i>f</i> &#x2265; 0,
+          10<sup><i>f</i></sup> &#x2264; n &lt; 10<sup><i>f</i>+1</sup>, the Number value for n &#xD7;
+          10<sup><i>e</i>&#x2013;<i>f</i></sup> is x, and <i>f</i> is as small as possible. If there are multiple possibilities for
+          <i>n</i>, choose the value of <i>n</i> for which <i>n</i> &#xD7; 10<sup><i>e</i>&#x2013;<i>f</i></sup> is closest in
+          value to <i>x</i>. If there are two such possible values of <i>n</i>, choose the one that is even.</p>
+        </div>
+      </section>
+
+      <section id="sec-number.prototype.tofixed">
+        <h1><span class="secnum" id="sec-20.1.3.3"><a href="/sec/sec-number.prototype.tofixed.html" title="link to this section">20.1.3.3</a></span> Number.prototype.toFixed ( fractionDigits )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> <code>toFixed</code> returns a String containing this Number value represented in
+          decimal fixed-point notation with <var>fractionDigits</var> digits after the decimal point. If <var>fractionDigits</var>
+          is <b>undefined</b>, 0 is assumed.</p>
+        </div>
+
+        <p class="normalbefore">The following steps are performed:</p>
+
+        <ol class="proc">
+          <li>Let <i>x</i> be thisNumberValue(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>x</i>).</li>
+          <li>Let <i>f</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>fractionDigits</i>). (If <i>fractionDigits</i> is
+              <b>undefined</b>, this step produces the value <code>0</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>f</i>).</li>
+          <li>If <i>f</i> &lt; 0 or <i>f</i> &gt; 20, throw a <b>RangeError</b> exception. However, an implementation is permitted
+              to extend the behaviour of <code>toFixed</code> for values of <i>f</i> less than 0 or greater than 20. In this case
+              <code>toFixed</code> would not necessarily throw <b>RangeError</b> for such values.</li>
+          <li>If <i>x</i> is <b>NaN</b>, return the String <code>&quot;NaN&quot;</code>.</li>
+          <li>Let <i>s</i> be the empty String.</li>
+          <li>If <i>x</i> &lt; 0, then
+            <ol class="block">
+              <li>Let <i>s</i> be &quot;<code>-</code>&quot;.</li>
+              <li>Let <i>x</i> = &#x2013;<i>x</i>.</li>
+            </ol>
+          </li>
+          <li>If <i>x</i> &#x2265; 10<sup>21</sup>, then
+            <ol class="block">
+              <li>Let <i>m</i> = <a href="/sec/sec-tostring.html">ToString</a>(<i>x</i>).</li>
+            </ol>
+          </li>
+          <li>Else <i>x</i> &lt; 10<sup>21</sup>,
+            <ol class="block">
+              <li>Let <i>n</i> be an integer for which the exact mathematical value of <i>n</i> &#xF7; 10<sup>f</sup> &#x2013;
+                  <i>x</i> is as close to zero as possible. If there are two such <i>n</i>, pick the larger <i>n</i>.</li>
+              <li>If <i>n</i> = 0, let <i>m</i> be the String <code>&quot;0&quot;</code>. Otherwise, let <i>m</i> be the String consisting
+                  of the digits of the decimal representation of <i>n</i> (in order, with no leading zeroes).</li>
+              <li>If <i>f</i> &#x2260; 0, then
+                <ol class="block">
+                  <li>Let <i>k</i> be the number of elements in <i>m</i>.</li>
+                  <li>If <i>k</i> &#x2264; <i>f</i>, then
+                    <ol class="block">
+                      <li>Let <i>z</i> be the String consisting of <i>f</i>+1&#x2013;<i>k</i> occurrences of the code unit
+                          0x0030.</li>
+                      <li>Let <i>m</i> be the concatenation of Strings <i>z</i> and <i>m</i>.</li>
+                      <li>Let <i>k</i> = <i>f</i> + 1.</li>
+                    </ol>
+                  </li>
+                  <li>Let <i>a</i> be the first <i>k</i>&#x2013;<i>f</i> elements of <i>m</i>, and let <i>b</i> be the remaining
+                      <i>f</i> elements of <i>m</i>.</li>
+                  <li>Let <i>m</i> be the concatenation of the three Strings <i>a</i>, <code>&quot;.&quot;</code>, and <i>b</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Return the concatenation of the Strings <i>s</i> and <i>m</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>toFixed</code> method is <b>1</b>.</p>
+
+        <p>If the <code>toFixed</code> method is called with more than one argument, then the behaviour is undefined (see <a href="/sec/sec-ecmascript-standard-built-in-objects.html">clause&#xA0;17</a>).</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The output of <code>toFixed</code> may be more precise than <code>toString</code> for
+          some values because toString only prints enough significant digits to distinguish the number from adjacent number
+          values. For example,</p>
+
+          <p><code>(1000000000000000128).toString()</code> returns <code>&quot;1000000000000000100&quot;</code>,
+          while<br><code>(1000000000000000128).toFixed(0)</code> returns <code>&quot;1000000000000000128&quot;</code>.</p>
+        </div>
+      </section>
+
+      <section id="sec-number.prototype.tolocalestring">
+        <h1><span class="secnum" id="sec-20.1.3.4"><a href="/sec/sec-number.prototype.tolocalestring.html" title="link to this section">20.1.3.4</a></span> Number.prototype.toLocaleString( [ reserved1 [ , reserved2 ] ])</h1>
+
+        <p>An ECMAScript implementation that includes the ECMA-402 Internationalization API must implement the
+        <code>Number.prototype.toLocaleString</code> method as specified in the ECMA-402 specification. If an ECMAScript
+        implementation does not include the ECMA-402 API the following specification of the <code>toLocaleString</code> method is
+        used.</p>
+
+        <p>Produces a String value that represents this Number value formatted according to the conventions of the host
+        environment&#x2019;s current locale. This function is implementation-dependent, and it is permissible, but not encouraged,
+        for it to return the same thing as <code>toString</code>.</p>
+
+        <p>The meanings of the optional parameters to this method are defined in the ECMA-402 specification; implementations that
+        do not include ECMA-402 support must not use those parameter positions for anything else.</p>
+
+        <p>The <code>length</code> property of the <code>toLocaleString</code> method is <b>0</b>.</p>
+      </section>
+
+      <section id="sec-number.prototype.toprecision">
+        <h1><span class="secnum" id="sec-20.1.3.5"><a href="/sec/sec-number.prototype.toprecision.html" title="link to this section">20.1.3.5</a></span> Number.prototype.toPrecision ( precision )</h1>
+
+        <p class="normalbefore">Return a String containing this Number value represented either in decimal exponential notation
+        with one digit before the significand&apos;s decimal point and <span style="font-family: Times New
+        Roman"><i>precision</i>&#x2013;1</span> digits after the significand&apos;s decimal point or in decimal fixed notation with
+        <var>precision</var> significant digits. If <var>precision</var> is <b>undefined</b>, call <a href="/sec/sec-tostring.html">ToString</a> (<a href="/sec/sec-tostring.html">7.1.12</a>) instead. Specifically, perform the following
+        steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>x</i> be thisNumberValue(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>x</i>).</li>
+          <li>If <i>precision</i> is <b>undefined</b>, return <a href="/sec/sec-tostring.html">ToString</a>(<i>x</i>).</li>
+          <li>Let <i>p</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>precision</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>p</i>).</li>
+          <li>If <i>x</i> is <b>NaN</b>, return the String <code>&quot;NaN&quot;</code>.</li>
+          <li>Let <i>s</i> be the empty String.</li>
+          <li>If <i>x</i> &lt; 0, then
+            <ol class="block">
+              <li>Let <i>s</i> be code unit 0x002D (HYPHEN-MINUS).</li>
+              <li>Let <i>x</i> = &#x2013;<i>x</i>.</li>
+            </ol>
+          </li>
+          <li>If <i>x</i> = +&#x221E;, then
+            <ol class="block">
+              <li>Return the String that is the concatenation of <i>s</i> and <code>&quot;Infinity&quot;</code>.</li>
+            </ol>
+          </li>
+          <li>If <i>p</i> &lt; 1 or <i>p</i> &gt; 21, throw a <b>RangeError</b> exception. However, an implementation is permitted
+              to extend the behaviour of <code>toPrecision</code> for values of <i>p</i> less than 1 or greater than 21. In this
+              case <code>toPrecision</code> would not necessarily throw <b>RangeError</b> for such values.</li>
+          <li>If <i>x</i> = 0, then
+            <ol class="block">
+              <li>Let <i>m</i> be the String consisting of <i>p</i> occurrences of the code unit 0x0030 (DIGIT ZERO).</li>
+              <li>Let <i>e</i> = 0.</li>
+            </ol>
+          </li>
+          <li>Else <i>x</i> &#x2260; 0,
+            <ol class="block">
+              <li>Let <i>e</i> and <i>n</i> be integers such that 10<sup><i>p</i>&#x2013;1</sup> &#x2264; <i>n</i> &lt;
+                  10<sup><i>p</i></sup> and for which the exact mathematical value of <i>n</i> &#xD7;
+                  10<sup><i>e</i>&#x2013;<i>p</i>+1</sup> &#x2013; <i>x</i> is as close to zero as possible. If there are two such
+                  sets of <i>e</i> and <i>n</i>, pick the <i>e</i> and <i>n</i> for which <i>n</i> &#xD7;
+                  10<sup><i>e</i>&#x2013;<i>p</i>+1</sup> is larger.</li>
+              <li>Let <i>m</i> be the String consisting of the digits of the decimal representation of <i>n</i> (in order, with no
+                  leading zeroes).</li>
+              <li>If <i>e</i> &lt; &#x2013;6 or <i>e</i> &#x2265; <i>p</i>, then
+                <ol class="block">
+                  <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>e</i> &#x2260; 0</li>
+                  <li>Let <i>a</i> be the first element of <i>m</i>, and let <i>b</i> be the remaining <i>p</i>&#x2013;1 elements
+                      of <i>m</i>.</li>
+                  <li>Let <i>m</i> be the concatenation of <i>a</i>, code unit 0x002E (FULL STOP), and <i>b</i>.</li>
+                  <li>If <i>e</i> &gt; 0,  then
+                    <ol class="block">
+                      <li>Let <i>c</i> be code unit 0x002B (PLUS SIGN).</li>
+                    </ol>
+                  </li>
+                  <li>Else <i>e</i> &lt; 0,
+                    <ol class="block">
+                      <li>Let <i>c</i> be code unit 0x002D (HYPHEN-MINUS).</li>
+                      <li>Let <i>e</i> = &#x2013;<i>e</i>.</li>
+                    </ol>
+                  </li>
+                  <li>Let <i>d</i> be the String consisting of the digits of the decimal representation of <i>e</i> (in order,
+                      with no leading zeroes).</li>
+                  <li>Return the concatenation of <i>s</i>, <i>m</i>, code unit 0x0065 (LATIN SMALL LETTER E), <i>c</i>, and
+                      <i>d</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>e</i> = <i>p</i>&#x2013;1, return the concatenation of the Strings <i>s</i> and <i>m</i>.</li>
+          <li>If <i>e</i> &#x2265; 0, then
+            <ol class="block">
+              <li>Let <i>m</i> be the concatenation of the first <i>e</i>+1 elements of <i>m</i>, the code unit 0x002E (FULL
+                  STOP), and the remaining <i>p</i>&#x2013; (<i>e</i>+1) elements of <i>m</i>.</li>
+            </ol>
+          </li>
+          <li>Else <i>e</i> &lt; 0,
+            <ol class="block">
+              <li>Let <i>m</i> be the String formed by the concatenation of code unit 0x0030 (DIGIT ZERO)<b>,</b> code unit 0x002E
+                  (FULL STOP), &#x2013;(<i>e</i>+1) occurrences of code unit 0x0030 (DIGIT ZERO), and the String <i>m</i>.</li>
+            </ol>
+          </li>
+          <li>Return the String that is the concatenation of <i>s</i> and <i>m</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>toPrecision</code> method is <b>1</b>.</p>
+
+        <p>If the <code>toPrecision</code> method is called with more than one argument, then the behaviour is undefined (see <a href="/sec/sec-ecmascript-standard-built-in-objects.html">clause&#xA0;17</a>).</p>
+      </section>
+
+      <section id="sec-number.prototype.tostring">
+        <h1><span class="secnum" id="sec-20.1.3.6"><a href="/sec/sec-number.prototype.tostring.html" title="link to this section">20.1.3.6</a></span> Number.prototype.toString ( [ radix ] )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The optional <var>radix</var> should be an integer value in the inclusive range <span style="font-family: Times New Roman">2</span> to <span style="font-family: Times New Roman">36</span>. If
+          <var>radix</var> not present or is <b>undefined</b> the Number <span style="font-family: Times New Roman">10</span> is
+          used as the value of <var>radix</var>.</p>
+        </div>
+
+        <p class="normalbefore">The following steps are performed:</p>
+
+        <ol class="proc">
+          <li>Let <i>x</i> be thisNumberValue(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>x</i>).</li>
+          <li>If <i>radix</i> is not present, let <i>radixNumber</i> be 10.</li>
+          <li>Else if <i>radix</i> is <b>undefined</b>, let <i>radixNumber</i> be 10.</li>
+          <li>Else let <i>radixNumber</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>radix</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>radixNumber</i>).</li>
+          <li>If <i>radixNumber</i> &lt; 2 or <i>radixNumber</i> &gt; 36, throw a <b>RangeError</b> exception.</li>
+          <li>If <i>radixNumber</i> = 10, return <a href="/sec/sec-tostring.html">ToString</a>(<i>x</i>).</li>
+          <li>Return the String representation of this Number value using the radix specified by <i>radixNumber</i>. Letters
+              <code>a</code>-<code>z</code> are used for digits with values 10 through 35. The precise algorithm is
+              implementation-dependent, however the algorithm should be a generalization of that specified in <a href="/sec/sec-tostring-applied-to-the-number-type.html">7.1.12.1</a>.</li>
+        </ol>
+
+        <p>The <code>toString</code> function is not generic; it throws a <b>TypeError</b> exception if its <b>this</b> value is
+        not a Number or a Number object. Therefore, it cannot be transferred to other kinds of objects for use as a method.</p>
+      </section>
+
+      <section id="sec-number.prototype.valueof">
+        <h1><span class="secnum" id="sec-20.1.3.7"><a href="/sec/sec-number.prototype.valueof.html" title="link to this section">20.1.3.7</a></span> Number.prototype.valueOf ( )</h1>
+        <ol class="proc">
+          <li>Let <i>x</i> be thisNumberValue(<b>this</b> value).</li>
+          <li>Return  <i>x</i>.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

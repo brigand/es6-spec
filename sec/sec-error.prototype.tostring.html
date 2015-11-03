@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-19.5.3.4"><a href="/sec/sec-error.prototype.tostring.html" title="link to this section">19.5.3.4</a></span> Error.prototype.toString ( )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>name</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <code>&quot;name&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>name</i>).</li>
+          <li>If <i>name</i> is <b>undefined</b>, let <i>name</i> be <code>&quot;<b>Error</b>&quot;</code>; otherwise let <i>name</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>name</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>name</i>).</li>
+          <li>Let <i>msg</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <code>&quot;message&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>msg</i>).</li>
+          <li>If <i>msg</i> is <b>undefined</b>, let <i>msg</i> be the empty String; otherwise let <i>msg</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>msg</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>msg</i>).</li>
+          <li>If <i>name</i> is the empty String, return <i>msg</i>.</li>
+          <li>If <i>msg</i> is the empty String, return <i>name</i>.</li>
+          <li>Return the result of concatenating <i>name</i>, the code unit 0x003A (COLON), the code unit 0x0020 (SPACE), and
+              <i>msg</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

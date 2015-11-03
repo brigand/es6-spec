@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-25.2"><a href="/sec/sec-generatorfunction-objects.html" title="link to this section">25.2</a></span>
+          GeneratorFunction Objects</h1>
+
+      <p>Generator Function objects are constructor functions that are usually created by evaluating <span class="nt">GeneratorDeclaration</span>, <span class="nt">GeneratorExpression</span>, and <span class="nt">GeneratorMethod</span> syntactic productions. They may also be created by calling the %GeneratorFunction%
+      intrinsic.</p>
+
+      <figure>
+        <img alt="A staggering variety of boxes and arrows." height="958" src="figure-2.png" width="968">
+        <figcaption>Figure 2 (informative) &#x2014; Generator Objects Relationships</figcaption>
+      </figure>
+    </div>
+
+    <section id="sec-generatorfunction-constructor">
+      <div class="front">
+        <h1><span class="secnum" id="sec-25.2.1"><a href="/sec/sec-generatorfunction-constructor.html" title="link to this section">25.2.1</a></span> The GeneratorFunction Constructor</h1>
+
+        <p>The <code>GeneratorFunction</code> constructor is the %GeneratorFunction% intrinsic. When
+        <code>GeneratorFunction</code> is called as a function rather than as a constructor, it creates and initializes a new
+        GeneratorFunction object. Thus the function call <code>GeneratorFunction</code> <code><b>(</b>&#x2026;<b>)</b></code> is
+        equivalent to the object creation expression <code>new GeneratorFunction</code> <code><b>(</b>&#x2026;<b>)</b></code> with
+        the same arguments.</p>
+
+        <p><code>GeneratorFunction</code> is designed to be subclassable. It may be used as the value of an <code>extends</code>
+        clause of a class definition. Subclass constructors that intend to inherit the specified <code>GeneratorFunction</code>
+        behaviour must include a <code>super</code> call to the <code>GeneratorFunction</code> constructor to create and
+        initialize subclass instances with the internal slots necessary for built-in GeneratorFunction behaviour. All ECMAScript
+        syntactic forms for defining generator function objects create direct instances of <code>GeneratorFunction</code>. There
+        is no syntactic means to create instances of <code>GeneratorFunction</code> subclasses.</p>
+      </div>
+
+      <section id="sec-generatorfunction">
+        <h1><span class="secnum" id="sec-25.2.1.1"><a href="/sec/sec-generatorfunction.html" title="link to this section">25.2.1.1</a></span> GeneratorFunction (p1, p2, &#x2026; , pn, body)</h1>
+
+        <p>The last argument specifies the body (executable code) of a generator function; any preceding arguments specify formal
+        parameters.</p>
+
+        <p class="normalbefore">When the <code>GeneratorFunction</code> function is called with some arguments <var>p1</var>,
+        <var>p2</var>, &#x2026; , <var>pn</var>, <var>body</var> (where <var>n</var> might be <span style="font-family: Times New
+        Roman">0</span>, that is, there are no &#x201C;<var>p</var>&#x201D; arguments, and where <var>body</var> might also not be
+        provided), the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>C</i> be the active function object.</li>
+          <li>Let <i>args</i> be the <i>argumentsList</i> that was passed to this function by [[Call]] or [[Construct]].</li>
+          <li>Return <a href="/sec/sec-createdynamicfunction.html">CreateDynamicFunction</a>(<i>C</i>, NewTarget, <code>&quot;generator&quot;</code>,
+              <i>args</i>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> See NOTE for <a href="/sec/sec-function-p1-p2-pn-body.html">19.2.1.1</a>.</p>
+        </div>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-the-generatorfunction-constructor">
+      <div class="front">
+        <h1><span class="secnum" id="sec-25.2.2"><a href="/sec/sec-properties-of-the-generatorfunction-constructor.html" title="link to this section">25.2.2</a></span> Properties of the GeneratorFunction Constructor</h1>
+
+        <p>The <code>GeneratorFunction</code> constructor is a standard built-in function object that inherits from the
+        <code>Function</code> constructor. The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the <code>GeneratorFunction</code> constructor
+        is the intrinsic object %Function%.</p>
+
+        <p>The value of the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the
+        GeneratorFunction constructor is <b>true</b>.</p>
+
+        <p>The value of the <code>name</code> property of the GeneratorFunction is <code>&quot;<b>GeneratorFunction</b>&quot;</code>.</p>
+
+        <p>The <code>GeneratorFunction</code> constructor has the following properties:</p>
+      </div>
+
+      <section id="sec-generatorfunction.length">
+        <h1><span class="secnum" id="sec-25.2.2.1"><a href="/sec/sec-generatorfunction.length.html" title="link to this section">25.2.2.1</a></span> GeneratorFunction.length</h1>
+
+        <p>This is a data property with a value of 1. This property has the attributes { [[Writable]]: <b>false</b>,
+        [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>true</b> }.</p>
+      </section>
+
+      <section id="sec-generatorfunction.prototype">
+        <h1><span class="secnum" id="sec-25.2.2.2"><a href="/sec/sec-generatorfunction.prototype.html" title="link to this section">25.2.2.2</a></span> GeneratorFunction.prototype</h1>
+
+        <p>The initial value of <code>GeneratorFunction.prototype</code> is the intrinsic object %Generator%.</p>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <b>false</b> }.</p>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-the-generatorfunction-prototype-object">
+      <div class="front">
+        <h1><span class="secnum" id="sec-25.2.3"><a href="/sec/sec-properties-of-the-generatorfunction-prototype-object.html" title="link to this section">25.2.3</a></span> Properties of the GeneratorFunction Prototype Object</h1>
+
+        <p>The GeneratorFunction prototype object is an ordinary object. It is not a function object and does not have an
+        [[ECMAScriptCode]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> or any other of the
+        internal slots listed in <a href="/sec/table-27.html">Table 27</a> or <a href="/sec/table-56.html">Table 56</a>. In addition to being the
+        value of the prototype property of the %GeneratorFunction% intrinsic, it is the %Generator% intrinsic (see Figure 2).</p>
+
+        <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the
+        GeneratorFunction prototype object is the %FunctionPrototype% intrinsic object. The initial value of the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the GeneratorFunction prototype object is
+        <b>true</b>.</p>
+      </div>
+
+      <section id="sec-generatorfunction.prototype.constructor">
+        <h1><span class="secnum" id="sec-25.2.3.1"><a href="/sec/sec-generatorfunction.prototype.constructor.html" title="link to this section">25.2.3.1</a></span> GeneratorFunction.prototype.constructor</h1>
+
+        <p>The initial value of <code>GeneratorFunction.prototype.constructor</code> is the intrinsic object
+        %GeneratorFunction%.</p>
+
+        <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+      </section>
+
+      <section id="sec-generatorfunction.prototype.prototype">
+        <h1><span class="secnum" id="sec-25.2.3.2"><a href="/sec/sec-generatorfunction.prototype.prototype.html" title="link to this section">25.2.3.2</a></span> GeneratorFunction.prototype.prototype</h1>
+
+        <p>The value of <code>GeneratorFunction.prototype.prototype</code> is the %GeneratorPrototype% intrinsic object.</p>
+
+        <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+      </section>
+
+      <section id="sec-generatorfunction.prototype-@@tostringtag">
+        <h1><span class="secnum" id="sec-25.2.3.3"><a href="/sec/sec-generatorfunction.prototype-@@tostringtag.html" title="link to this section">25.2.3.3</a></span> GeneratorFunction.prototype [ @@toStringTag ]</h1>
+
+        <p>The initial value of the @@toStringTag property is the String value <code>&quot;GeneratorFunction&quot;</code>.</p>
+
+        <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+      </section>
+    </section>
+
+    <section id="sec-generatorfunction-instances">
+      <div class="front">
+        <h1><span class="secnum" id="sec-25.2.4"><a href="/sec/sec-generatorfunction-instances.html" title="link to this section">25.2.4</a></span> GeneratorFunction Instances</h1>
+
+        <p>Every GeneratorFunction instance is an <a href="/sec/sec-ecmascript-function-objects.html">ECMAScript function object</a> and
+        has the internal slots listed in <a href="/sec/table-27.html">Table 27</a>. The value of the [[FunctionKind]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> for all such instances is
+        <code>&quot;generator&quot;</code>.</p>
+
+        <p>Each GeneratorFunction instance has the following own properties:</p>
+      </div>
+
+      <section id="sec-generatorfunction-instances-length">
+        <h1><span class="secnum" id="sec-25.2.4.1"><a href="/sec/sec-generatorfunction-instances-length.html" title="link to this section">25.2.4.1</a></span> length</h1>
+
+        <p>The value of the <code>length</code> property is an integer that indicates the typical number of arguments expected by
+        the GeneratorFunction. However, the language permits the function to be invoked with some other number of arguments. The
+        behaviour of a GeneratorFunction when invoked on a number of arguments other than the number specified by its
+        <code>length</code> property depends on the function.</p>
+
+        <p>This property has the attributes {&#xA0;[[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <b>true</b>&#xA0;}.</p>
+      </section>
+
+      <section id="sec-generatorfunction-instances-name">
+        <h1><span class="secnum" id="sec-25.2.4.2"><a href="/sec/sec-generatorfunction-instances-name.html" title="link to this section">25.2.4.2</a></span> name</h1>
+
+        <p>The specification for the <code>name</code> property of Function instances given in <a href="/sec/sec-function-instances-name.html">19.2.4.2</a> also applies to GeneratorFunction instances.</p>
+      </section>
+
+      <section id="sec-generatorfunction-instances-prototype">
+        <h1><span class="secnum" id="sec-25.2.4.3"><a href="/sec/sec-generatorfunction-instances-prototype.html" title="link to this section">25.2.4.3</a></span> prototype</h1>
+
+        <p>Whenever a GeneratorFunction instance is created another ordinary object is also created and is the initial value of
+        the generator function&#x2019;s <code>prototype</code> property. The value of the prototype property is used to initialize
+        the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of a newly created Generator
+        object when the generator function object is invoked using either [[Call]] or [[Construct]].</p>
+
+        <p>This property has the attributes {&#xA0;[[Writable]]: <span class="value">true</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">false</span>&#xA0;}.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> Unlike function instances, the object that is the value of the a
+          GeneratorFunction&#x2019;s <code>prototype</code> property does not have a <code>constructor</code> property whose value
+          is the GeneratorFunction instance.</p>
+        </div>
+      </section>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

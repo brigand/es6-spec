@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.3.2.2"><a href="/sec/sec-date-value.html" title="link to this section">20.3.2.2</a></span> Date
+            ( value )</h1>
+
+        <p>This description applies only if the Date constructor is called with exactly one argument.</p>
+
+        <p class="normalbefore">When the <code>Date</code> function is called the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>numberOfArgs</i> be the number of arguments passed to this function call.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>numberOfArgs</i> = 1.</li>
+          <li>If NewTarget is not <b>undefined</b>, then
+            <ol class="block">
+              <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is Object and  <i>value</i> has a
+                  [[DateValue]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, then
+                <ol class="block">
+                  <li>Let <i>tv</i> be thisTimeValue(<i>value</i>).</li>
+                </ol>
+              </li>
+              <li>Else,
+                <ol class="block">
+                  <li>Let <i>v</i> be <a href="/sec/sec-toprimitive.html">ToPrimitive</a>(<i>value</i>).</li>
+                  <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>v</i>) is String, then
+                    <ol class="block">
+                      <li>Let <i>tv</i> be the result of parsing <i>v</i> as a date, in exactly the same manner as for the
+                          <code>parse</code> method (<a href="/sec/sec-date.parse.html">20.3.3.2</a>). If the parse resulted in an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, <i>tv</i> is the <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a>.</li>
+                    </ol>
+                  </li>
+                  <li>Else,
+                    <ol class="block">
+                      <li>Let <i>tv</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>v</i>).</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>tv</i>).</li>
+              <li>Let <i>O</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(NewTarget,
+                  <code>&quot;%DatePrototype%&quot;</code>, &#xAB;&#x200D; [[DateValue]]&#xBB;).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+              <li>Set the [[DateValue]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i> to
+                  <a href="/sec/sec-timeclip.html">TimeClip</a>(<i>tv</i>).</li>
+              <li>Return <i>O</i>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>now</i> be the Number that is the <a href="/sec/sec-time-values-and-time-range.html">time value</a> (UTC)
+                  identifying the current time.</li>
+              <li>Return <a href="/sec/sec-todatestring.html">ToDateString</a> (<i>now</i>).</li>
+            </ol>
+          </li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-19.2.3.2"><a href="/sec/sec-function.prototype.bind.html" title="link to this section">19.2.3.2</a></span> Function.prototype.bind ( thisArg , ...args)</h1>
+
+        <p class="normalbefore">When the <code>bind</code> method is called with argument <var>thisArg</var> and zero or more
+        <var>args</var>, it performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>Target</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>Target</i>) is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>args</i> be a new (possibly empty) <a href="/sec/sec-list-and-record-specification-type.html">List</a> consisting of
+              all of the argument values provided after <i>thisArg</i>  in order.</li>
+          <li>Let <i>F</i> be <a href="/sec/sec-boundfunctioncreate.html">BoundFunctionCreate</a>(<i>Target</i>, <i>thisArg</i>,
+              <i>args</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>F</i>).</li>
+          <li>Let <i>targetHasLength</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>Target</i>,
+              <code>&quot;length&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetHasLength</i>).</li>
+          <li>If <i>targetHasLength</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>targetLen</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>Target</i>, <code>&quot;length&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetLen</i>).</li>
+              <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>targetLen</i>) is not Number, let <i>L</i> be
+                  0.</li>
+              <li>Else,
+                <ol class="block">
+                  <li>Let <i>targetLen</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>targetLen</i>).</li>
+                  <li>Let <i>L</i> be the larger of 0 and the result of <i>targetLen</i> minus the number of elements of
+                      <i>args</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Else let <i>L</i> be 0.</li>
+          <li>Let <i>status</i> be <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>F</i>, <code>&quot;length&quot;</code>,
+              PropertyDescriptor {[[Value]]: <i>L</i>, [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+              <b>true</b>}).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+          <li>Let <i>targetName</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>Target</i>, <code>&quot;name&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetName</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>targetName</i>) is not String, let <i>targetName</i>
+              be the empty string.</li>
+          <li>Perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>F</i>, <i>targetName</i>, <code>&quot;bound&quot;</code>).</li>
+          <li>Return <i>F</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>bind</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> Function objects created using <code>Function.prototype.bind</code> are exotic
+          objects. They also do not have a <code>prototype</code> property.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> If <span class="nt">Target</span> is an arrow function or a <a href="/sec/sec-bound-function-exotic-objects.html">bound function</a> then the <var>thisArg</var> passed to this method will not
+          be used by subsequent calls to <var>F</var>.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

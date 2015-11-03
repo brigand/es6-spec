@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.1.3.3"><a href="/sec/sec-string.prototype.codepointat.html" title="link to this section">21.1.3.3</a></span> String.prototype.codePointAt ( pos )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> Returns a nonnegative integer Number less than <span style="font-family: Times New
+          Roman">1114112 (0x110000</span>) that is the code point value of the UTF-16 encoded code point (<a href="/sec/sec-ecmascript-language-types-string-type.html">6.1.4</a>) starting at the string element at index <var>pos</var> in
+          the String resulting from converting this object to a String. If there is no element at that index, the result is <span class="value">undefined</span>. If a valid UTF-16 surrogate pair does not begin at <var>pos</var>, the result is the
+          code unit at <var>pos</var>.</p>
+        </div>
+
+        <p class="normalbefore">When the <code>codePointAt</code> method is called with one argument <var>pos</var>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>position</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>pos</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>position</i>).</li>
+          <li>Let <i>size</i> be the number of elements in <i>S</i>.</li>
+          <li>If <i>position</i> &lt; 0 or <i>position</i> &#x2265; <i>size</i>, return <b>undefined</b>.</li>
+          <li>Let <i>first</i> be the code unit value of the element at index <i>position</i> in the String <i>S</i>.</li>
+          <li>If <i>first</i> &lt; 0xD800 or <i>first</i> &gt; 0xDBFF or <i>position</i>+1 = <i>size</i>, return
+              <i>first</i>.</li>
+          <li>Let <i>second</i> be the code unit value of the element at index <i>position</i>+1 in the String <i>S</i>.</li>
+          <li>If <i>second</i> &lt; 0xDC00 or <i>second</i> &gt; 0xDFFF, return <i>first</i>.</li>
+          <li>Return <a href="/sec/sec-utf16decode.html">UTF16Decode</a>(<i>first</i>, <i>second</i>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>codePointAt</code> function is intentionally generic; it does not require
+          that its <b>this</b> value be a String object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

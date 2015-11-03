@@ -1,0 +1,1569 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-22.2"><a href="/sec/sec-typedarray-objects.html" title="link to this section">22.2</a></span>
+          TypedArray Objects</h1>
+
+      <p><i>TypedArray</i> objects present an array-like view of an underlying binary data buffer (<a href="/sec/sec-arraybuffer-objects.html">24.1</a>). Each element of a <i>TypedArray</i> instance has the same underlying binary
+      scalar data type. There is a distinct <i>TypedArray</i> constructor, listed in <a href="/sec/table-49.html">Table 49</a>, for each of
+      the nine supported element types. Each constructor in <a href="/sec/table-49.html">Table 49</a>  has a corresponding distinct
+      prototype object.</p>
+
+      <figure>
+        <figcaption><span id="table-49">Table 49</span> &#x2013; The <i>TypedArray</i> Constructors</figcaption>
+        <table class="real-table">
+          <tr>
+            <th style="background-color: #BFBFBF">Constructor Name and Intrinsic</th>
+            <th style="background-color: #BFBFBF">Element Type</th>
+            <th style="background-color: #BFBFBF">Element Size</th>
+            <th style="background-color: #BFBFBF">Conversion Operation</th>
+            <th style="background-color: #BFBFBF">Description</th>
+            <th style="background-color: #BFBFBF">Equivalent C Type</th>
+          </tr>
+          <tr>
+            <td><a href="/sec/sec-int8array.html">Int8Array</a><br>%Int8Array%</td>
+            <td>Int8</td>
+            <td>1</td>
+            <td><a href="/sec/sec-toint8.html">ToInt8</a></td>
+            <td>8-bit 2&#x2019;s complement signed integer</td>
+            <td>signed char</td>
+          </tr>
+          <tr>
+            <td><a href="/sec/sec-uint8array.html">Uint8Array</a> <br>%Uint8Array%</td>
+            <td>Uint8</td>
+            <td>1</td>
+            <td><a href="/sec/sec-touint8.html">ToUint8</a></td>
+            <td>8-bit unsigned integer</td>
+            <td>unsigned char</td>
+          </tr>
+          <tr>
+            <td><a href="/sec/sec-uint8clampedarray.html">Uint8ClampedArray</a><br>%Uint8ClampedArray%</td>
+            <td>Uint8C</td>
+            <td>1</td>
+            <td><a href="/sec/sec-touint8clamp.html">ToUint8Clamp</a></td>
+            <td>8-bit unsigned integer (clamped conversion)</td>
+            <td>unsigned char</td>
+          </tr>
+          <tr>
+            <td><a href="/sec/sec-int16array.html">Int16Array</a> <br>%Int16Array%</td>
+            <td>Int16</td>
+            <td>2</td>
+            <td><a href="/sec/sec-toint16.html">ToInt16</a></td>
+            <td>16-bit 2&#x2019;s complement signed integer</td>
+            <td>short</td>
+          </tr>
+          <tr>
+            <td><a href="/sec/sec-uint16array.html">Uint16Array</a> <br>%Uint16Array%</td>
+            <td>Uint16</td>
+            <td>2</td>
+            <td><a href="/sec/sec-touint16.html">ToUint16</a></td>
+            <td>16-bit unsigned integer</td>
+            <td>unsigned short</td>
+          </tr>
+          <tr>
+            <td><a href="/sec/sec-int32array.html">Int32Array</a> <br>%Int32Array%</td>
+            <td>Int32</td>
+            <td>4</td>
+            <td><a href="/sec/sec-toint32.html">ToInt32</a></td>
+            <td>32-bit 2&#x2019;s complement signed integer</td>
+            <td>int</td>
+          </tr>
+          <tr>
+            <td><a href="/sec/sec-uint32array.html">Uint32Array</a> <br>%Uint32Array%</td>
+            <td>Uint32</td>
+            <td>4</td>
+            <td><a href="/sec/sec-touint32.html">ToUint32</a></td>
+            <td>32-bit unsigned integer</td>
+            <td>unsigned int</td>
+          </tr>
+          <tr>
+            <td><a href="/sec/sec-float32array.html">Float32Array</a> <br>%Float32Array%</td>
+            <td>Float32</td>
+            <td>4</td>
+            <td></td>
+            <td>32-bit IEEE floating point</td>
+            <td>float</td>
+          </tr>
+          <tr>
+            <td><a href="/sec/sec-float64array.html">Float64Array</a> <br>%Float64Array%</td>
+            <td>Float64</td>
+            <td>8</td>
+            <td></td>
+            <td>64-bit IEEE floating point</td>
+            <td>double</td>
+          </tr>
+        </table>
+      </figure>
+
+      <p>In the definitions below, references to <i>TypedArray</i> should be replaced with the appropriate constructor name from
+      the above table. The phrase &#x201C;the element size in bytes&#x201D; refers to the value in the Element Size column of the
+      table in the row corresponding to the constructor. The phrase &#x201C;element Type&#x201D; refers to the value in the Element
+      Type column for that row.</p>
+    </div>
+
+    <section id="sec-%typedarray%-intrinsic-object">
+      <div class="front">
+        <h1><span class="secnum" id="sec-22.2.1"><a href="/sec/sec-%typedarray%-intrinsic-object.html" title="link to this section">22.2.1</a></span> The %TypedArray% Intrinsic Object</h1>
+
+        <p>The %TypedArray% intrinsic object is a constructor function object that all of the <i>TypedArray</i> constructor object
+        inherit from. %TypedArray% and its corresponding prototype object provide common properties that are inherited by all
+        <i>TypedArray</i> constructors and their instances. The %TypedArray% intrinsic does not have a global name or appear as a
+        property of the global object.</p>
+
+        <p>The %TypedArray% intrinsic function object is designed to act as the superclass of the various <i>TypedArray</i>
+        constructors. Those constructors use %TypedArray% to initialize their instances by invoking %TypedArray% as if by making a
+        <code>super</code> call. The %TypedArray% intrinsic function is not designed to be directly called in any other way. If
+        %TypedArray% is directly called or called as part of a <code>new</code> expression an exception is thrown.</p>
+
+        <p>The %TypedArray% intrinsic constructor function is a single function whose behaviour is overloaded based upon the
+        number and types of its arguments. The actual behaviour of a <code>super</code> call of %TypedArray% depends upon the
+        number and kind of arguments that are passed to it.</p>
+      </div>
+
+      <section id="sec-%typedarray%-intrinsic-object-%typedarray%">
+        <h1><span class="secnum" id="sec-22.2.1.1"><a href="/sec/sec-%typedarray%-intrinsic-object-%typedarray%.html" title="link to this section">22.2.1.1</a></span> %TypedArray% ( )</h1>
+
+        <p>This description applies only if the %TypedArray% function is called with no arguments.</p>
+
+        <ol class="proc">
+          <li>If NewTarget is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Return <a href="/sec/sec-allocatetypedarray.html">AllocateTypedArray</a>(NewTarget, 0).</li>
+        </ol>
+      </section>
+
+      <section id="sec-%typedarray%-length">
+        <div class="front">
+          <h1><span class="secnum" id="sec-22.2.1.2"><a href="/sec/sec-%typedarray%-length.html" title="link to this section">22.2.1.2</a></span> %TypedArray% ( length )</h1>
+
+          <p>This description applies only if the %TypedArray% function is called with at least one argument and the Type of the
+          first argument is not Object.</p>
+
+          <p class="normalbefore">%TypedArray% called with argument <var>length</var> performs the following steps:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>length</i>) is not Object.</li>
+            <li>If NewTarget is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+            <li>If <i>length</i> is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+            <li>Let <i>numberLength</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>length</i>).</li>
+            <li>Let <i>elementLength</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<i>numberLength</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>elementLength</i>).</li>
+            <li>If <a href="/sec/sec-samevaluezero.html">SameValueZero</a>(<i>numberLength</i>, <i>elementLength</i>) is <b>false</b>,
+                throw a <b>RangeError</b> exception.</li>
+            <li>Return <a href="/sec/sec-allocatetypedarray.html">AllocateTypedArray</a>(NewTarget, <i>elementLength</i>).</li>
+          </ol>
+        </div>
+
+        <section id="sec-allocatetypedarray">
+          <h1><span class="secnum" id="sec-22.2.1.2.1"><a href="/sec/sec-allocatetypedarray.html" title="link to this section">22.2.1.2.1</a></span> Runtime Semantics: AllocateTypedArray (newTarget, length )</h1>
+
+          <p class="normalbefore">The abstract operation AllocateTypedArray with argument <var>newTarget</var> and optional
+          argument <var>length</var> is used to validate and create an instance of a TypedArray constructor. If the
+          <var>length</var> argument is passed an ArrayBuffer of that length is also allocated and associated with the new
+          TypedArray instance. AllocateTypedArray provides common semantics that is used by all of the %TypeArray% overloads and
+          other methods. AllocateTypedArray performs the following steps:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <a href="/sec/sec-isconstructor.html">IsConstructor</a>(<i>newTarget</i>)
+                is <b>true</b>.</li>
+            <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(%TypedArray%, <i>newTarget</i>) is <b>true</b>, throw a <b>TypeError</b>
+                exception.</li>
+            <li>NOTE <span style="font-family: Times New Roman">%TypedArray%</span> throws an exception when invoked via either a
+                function call or the <code>new</code> operator. It can only be successfully invoked by a <span class="nt">SuperCall</span>.</li>
+            <li>Let <i>constructorName</i> be <b>undefined</b>.</li>
+            <li>Let <i>subclass</i> be <i>newTarget</i>.</li>
+            <li>Repeat while <i>constructorName</i> is <b>undefined</b>
+              <ol class="block">
+                <li>If <i>subclass</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+                <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(%TypedArray%, <i>subclass</i>) is <b>true</b>, throw a
+                    <b>TypeError</b> exception.</li>
+                <li>If <i>subclass</i> has a [[TypedArrayConstructorName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, let <i>constructorName</i> be the
+                    value of <i>subclass</i>&#x2019;s [[TypedArrayConstructorName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+                <li>Let <i>subclass</i> be <i>subclass</i>.[[GetPrototypeOf]]().</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>subclass</i>).</li>
+              </ol>
+            </li>
+            <li>Let <i>proto</i> be <a href="/sec/sec-getprototypefromconstructor.html">GetPrototypeFromConstructor</a>(<i>newTarget</i>,
+                <code>&quot;%TypedArrayPrototype%&quot;</code>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>proto</i>).</li>
+            <li>Let <i>obj</i> be <a href="/sec/sec-integerindexedobjectcreate.html">IntegerIndexedObjectCreate</a> (<i>proto</i>,
+                &#xAB;&#x200D;[[ViewedArrayBuffer]], [[TypedArrayName]], [[ByteLength]], [[ByteOffset]], [[ArrayLength]]&#xBB;
+                ).</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  The [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>obj</i> is <b>undefined</b>.</li>
+            <li>Set <i>obj</i>&#x2019;s [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                slot</a> to <i>constructorName</i>.</li>
+            <li>If <i>length</i> was not passed, then
+              <ol class="block">
+                <li>Set <i>obj</i>&#x2019;s [[ByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                    slot</a>  to 0.</li>
+                <li>Set <i>obj</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                    slot</a> to 0.</li>
+                <li>Set <i>obj</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                    slot</a> to 0.</li>
+              </ol>
+            </li>
+            <li>Else,
+              <ol class="block">
+                <li>Let <i>elementSize</i> be the Element Size value in <a href="/sec/table-49.html">Table 49</a> for
+                    <i>constructorName</i>.</li>
+                <li>Let <i>byteLength</i> be <i>elementSize</i> &#xD7; <i>length</i>.</li>
+                <li>Let <i>data</i> be <a href="/sec/sec-allocatearraybuffer.html">AllocateArrayBuffer</a>(<span style="font-family:
+                    sans-serif">%ArrayBuffer%</span>, <i>byteLength</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>data</i>).</li>
+                <li>Set <i>obj&#x2019;s</i> [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to <i>data</i>.</li>
+                <li>Set <i>obj</i>&#x2019;s [[ByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                    slot</a> to <i>byteLength</i>.</li>
+                <li>Set <i>obj</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                    slot</a> to 0.</li>
+                <li>Set <i>obj</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                    slot</a> to <i>length</i>.</li>
+              </ol>
+            </li>
+            <li>Return <i>obj</i>.</li>
+          </ol>
+        </section>
+      </section>
+
+      <section id="sec-%typedarray%-typedarray">
+        <h1><span class="secnum" id="sec-22.2.1.3"><a href="/sec/sec-%typedarray%-typedarray.html" title="link to this section">22.2.1.3</a></span> %TypedArray% ( typedArray )</h1>
+
+        <p>This description applies only if the %TypedArray% function is called with at least one argument and the Type of the
+        first argument is Object and that object has a [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+        <p class="normalbefore">%TypedArray% called with argument <var>typedArray</var> performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>typedArray</i>) is Object and <i>typedArray</i> has a
+              [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If NewTarget is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>O</i> be <a href="/sec/sec-allocatetypedarray.html">AllocateTypedArray</a>(NewTarget).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>srcArray</i> be <i>typedArray</i>.</li>
+          <li>Let <i>srcData</i> be the value of <i>srcArray&#x2019;s</i> [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>srcData</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>constructorName</i> be the String value of <i>O</i>&#x2019;s [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>elementType</i> be the String value of the Element Type value in <a href="/sec/table-49.html">Table 49</a> for
+              <i>constructorName</i>.</li>
+          <li>Let <i>elementLength</i> be the value of <i>srcArray&#x2019;s</i> [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>srcName</i> be the String value of <i>srcArray&#x2019;s</i> [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>srcType</i> be the String value of the Element Type value in <a href="/sec/table-49.html">Table 49</a> for
+              <i>srcName</i>.</li>
+          <li>Let <i>srcElementSize</i> be the Element Size value in <a href="/sec/table-49.html">Table 49</a> for <i>srcName</i>.</li>
+          <li>Let <i>srcByteOffset</i> be the value of <i>srcArray</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>elementSize</i> be the Element Size value in <a href="/sec/table-49.html">Table 49</a> for
+              <i>constructorName</i>.</li>
+          <li>Let <i>byteLength</i> be <i>elementSize</i> &#xD7; <i>elementLength</i>.</li>
+          <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>elementType</i>,<i>srcType</i>) is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>data</i> be <a href="/sec/sec-clonearraybuffer.html">CloneArrayBuffer</a>(<i>srcData</i>,
+                  <i>srcByteOffset</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>data</i>).</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>bufferConstructor</i> be <a href="/sec/sec-speciesconstructor.html">SpeciesConstructor</a>(<i>srcData</i>,
+                  %ArrayBuffer%).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>bufferConstructor</i>).</li>
+              <li>Let <i>data</i> be <a href="/sec/sec-allocatearraybuffer.html">AllocateArrayBuffer</a>(<i>bufferConstructor</i>,
+                  <i>byteLength</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>data</i>).</li>
+              <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>srcData</i>) is <b>true</b>, throw a <b>TypeError</b>
+                  exception.</li>
+              <li>Let <i>srcByteIndex</i> be <i>srcByteOffset</i>.</li>
+              <li>Let <i>targetByteIndex</i> be 0.</li>
+              <li>Let <i>count</i> be <i>elementLength</i>.</li>
+              <li>Repeat, while <i>count</i> &gt;0
+                <ol class="block">
+                  <li>Let <i>value</i> be <a href="/sec/sec-getvaluefrombuffer.html">GetValueFromBuffer</a>(<i>srcData</i>,
+                      <i>srcByteIndex</i>, <i>srcType</i>).</li>
+                  <li>Perform <a href="/sec/sec-setvalueinbuffer.html">SetValueInBuffer</a>(<i>data</i>, <i>targetByteIndex</i>,
+                      <i>elementType</i>, <i>value</i>).</li>
+                  <li>Set <i>srcByteIndex</i> to <i>srcByteIndex</i> + <i>srcElementSize</i>.</li>
+                  <li>Set <i>targetByteIndex</i> to <i>targetByteIndex</i> + <i>elementSize</i>.</li>
+                  <li>Decrement <i>count</i> by 1.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Set <i>O&#x2019;s</i> [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to <i>data</i>.</li>
+          <li>Set <i>O</i>&#x2019;s [[ByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <i>byteLength</i>.</li>
+          <li>Set <i>O</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              0.</li>
+          <li>Set <i>O</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <i>elementLength</i>.</li>
+          <li>Return <i>O</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-%typedarray%-object">
+        <h1><span class="secnum" id="sec-22.2.1.4"><a href="/sec/sec-%typedarray%-object.html" title="link to this section">22.2.1.4</a></span> %TypedArray% ( object )</h1>
+
+        <p>This description applies only if the %TypedArray% function is called with at least one argument and the Type of the
+        first argument is Object and that object does not have either a [[TypedArrayName]] or an [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+        <p class="normalbefore">%TypedArray% called with argument <var>object</var> performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>object</i>) is Object and <i>object</i> does not have
+              either a [[TypedArrayName]] or an [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If NewTarget is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Return <a href="/sec/sec-typedarrayfrom.html">TypedArrayFrom</a>(NewTarget, <i>object</i>, <b>undefined</b>,
+              <b>undefined</b>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-%typedarray%-buffer-byteoffset-length">
+        <h1><span class="secnum" id="sec-22.2.1.5"><a href="/sec/sec-%typedarray%-buffer-byteoffset-length.html" title="link to this section">22.2.1.5</a></span> %TypedArray% ( buffer [ , byteOffset [ , length ] ] )</h1>
+
+        <p>This description applies only if the %TypedArray% function is called with at least one argument and the Type of the
+        first argument is Object and that object has an [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+        <p class="normalbefore">%TypedArray% called with arguments <span style="font-family: Times New Roman"><i>buffer</i>,
+        <i>byteOffset</i>, and <i>length</i></span> performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>buffer</i>) is Object and <i>buffer</i> has an
+              [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If NewTarget is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>O</i> be <a href="/sec/sec-allocatetypedarray.html">AllocateTypedArray</a>(NewTarget).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>constructorName</i> be the String value of <i>O</i>&#x2019;s [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>elementSize</i> be the Number value of the Element Size value in <a href="/sec/table-49.html">Table 49</a> for
+              <i>constructorName</i>.</li>
+          <li>Let <i>offset</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>byteOffset</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>offset</i>).</li>
+          <li>If <i>offset</i> &lt; 0, throw a <b>RangeError</b> exception.</li>
+          <li>If <i>offset</i> <a href="/sec/sec-algorithm-conventions.html">modulo</a> <i>elementSize</i> &#x2260; 0, throw a
+              <b>RangeError</b> exception.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>buffer</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>bufferByteLength</i> be the value of <i>buffer&#x2019;s</i> [[ArrayBufferByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>length</i> is <b>undefined</b>, then
+            <ol class="block">
+              <li>If <i>bufferByteLength</i> <a href="/sec/sec-algorithm-conventions.html">modulo</a> <i>elementSize</i> &#x2260; 0, throw a
+                  <b>RangeError</b> exception.</li>
+              <li>Let <i>newByteLength</i> be <i>bufferByteLength</i> &#x2013; <i>offset</i>.</li>
+              <li>If <i>newByteLength</i> &lt; 0, throw a <b>RangeError</b> exception.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>newLength</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<i>length</i>)<i>.</i></li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>newLength</i>).</li>
+              <li>Let <i>newByteLength</i> be <i>newLength</i> &#xD7; <i>elementSize</i>.</li>
+              <li>If <i>offset</i>+<i>newByteLength</i> &gt; <i>bufferByteLength</i>, throw a <b>RangeError</b> exception.</li>
+            </ol>
+          </li>
+          <li>Set <i>O&#x2019;s</i> [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to <i>buffer</i>.</li>
+          <li>Set <i>O</i>&#x2019;s [[ByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <i>newByteLength</i>.</li>
+          <li>Set <i>O</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <i>offset</i>.</li>
+          <li>Set <i>O</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <i>newByteLength /</i> <i>elementSize</i> .</li>
+          <li>Return <i>O</i>.</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-the-%typedarray%-intrinsic-object">
+      <div class="front">
+        <h1><span class="secnum" id="sec-22.2.2"><a href="/sec/sec-properties-of-the-%typedarray%-intrinsic-object.html" title="link to this section">22.2.2</a></span> Properties of the %TypedArray% Intrinsic Object</h1>
+
+        <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of
+        %TypedArray% is the intrinsic object %FunctionPrototype% (<a href="/sec/sec-properties-of-the-function-prototype-object.html">19.2.3</a>).</p>
+
+        <p>Besides a <code>length</code> property whose value is 3 and a <code>name</code> property whose value is
+        <code>&quot;TypedArray&quot;</code>, %TypedArray% has the following properties:</p>
+      </div>
+
+      <section id="sec-%typedarray%.from">
+        <div class="front">
+          <h1><span class="secnum" id="sec-22.2.2.1"><a href="/sec/sec-%typedarray%.from.html" title="link to this section">22.2.2.1</a></span> %TypedArray%.from ( source [ , mapfn [ , thisArg ] ] )</h1>
+
+          <p class="normalbefore">When the <code>from</code> method is called with  argument <var>source</var>, and optional
+          arguments <i>mapfn</i> and <i>thisArg</i>, the following steps are taken:</p>
+
+          <ol class="proc">
+            <li>Let <i>C</i> be the <b>this</b> value.</li>
+            <li>If <a href="/sec/sec-isconstructor.html">IsConstructor</a>(<i>C</i>) is <b>false</b>, throw a <b>TypeError</b>
+                exception.</li>
+            <li>If <i>mapfn</i> was supplied, let <i>f</i> be <i>mapfn</i>; otherwise let <i>f</i> be <b>undefined</b>.</li>
+            <li>If <i>f</i> is not <b>undefined</b>, then
+              <ol class="block">
+                <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>f</i>) is <b>false</b>, throw a <b>TypeError</b>
+                    exception.</li>
+              </ol>
+            </li>
+            <li>If <i>thisArg</i> was supplied, let <i>t</i> be <i>thisArg</i>; else let <i>t</i> be <b>undefined</b>.</li>
+            <li>Return <a href="/sec/sec-typedarrayfrom.html">TypedArrayFrom</a>(<i>C</i>, <i>source</i>, <i>f</i>, <i>t</i>).</li>
+          </ol>
+
+          <p>The <code>length</code> property of the <code>from</code> method is <b>1</b>.</p>
+        </div>
+
+        <section id="sec-typedarrayfrom">
+          <h1><span class="secnum" id="sec-22.2.2.1.1"><a href="/sec/sec-typedarrayfrom.html" title="link to this section">22.2.2.1.1</a></span> Runtime Semantics: TypedArrayFrom( constructor, items, mapfn,
+              thisArg )</h1>
+
+          <p class="normalbefore">When the TypedArrayFrom abstract operation is called with arguments <span style="font-family:
+          Times New Roman"><i>constructor</i>, <i>items</i></span>, <var>mapfn</var>, and <var>thisArg</var>, the following steps
+          are taken:</p>
+
+          <ol class="proc">
+            <li>Let <i>C</i> be <i>constructor</i>.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-isconstructor.html">IsConstructor</a>(<i>C</i>) is
+                <b>true</b>.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>mapfn</i> is either a callable Object or
+                <b>undefined</b>.</li>
+            <li>If <i>mapfn</i> is <b>undefined</b>, let <i>mapping</i> be <b>false.</b></li>
+            <li>Else
+              <ol class="block">
+                <li>Let <i>T</i> be <i>thisArg</i>.</li>
+                <li>Let <i>mapping</i> be <b>true</b></li>
+              </ol>
+            </li>
+            <li>Let <i>usingIterator</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>items</i>, @@iterator).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>usingIterator</i>).</li>
+            <li>If <i>usingIterator</i> is not <b>undefined</b>, then
+              <ol class="block">
+                <li>Let <i>iterator</i> be <a href="/sec/sec-getiterator.html">GetIterator</a>(<i>items</i>, <i>usingIterator</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>iterator</i>).</li>
+                <li>Let <i>values</i> be a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+                <li>Let <i>next</i> be <b>true</b>.</li>
+                <li>Repeat, while <i>next</i> is not <b>false</b>
+                  <ol class="block">
+                    <li>Let <i>next</i> be <a href="/sec/sec-iteratorstep.html">IteratorStep</a>(<i>iterator</i>).</li>
+                    <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+                    <li>If <i>next</i> is not <b>false</b>, then
+                      <ol class="block">
+                        <li>Let <i>nextValue</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>next</i>).</li>
+                        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextValue</i>).</li>
+                        <li>Append <i>nextValue</i> to the end of the <a href="/sec/sec-list-and-record-specification-type.html">List</a>
+                            <i>values</i>.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+                <li>Let <i>len</i> be the number of elements in <i>values</i>.</li>
+                <li>Let <i>targetObj</i> be <a href="/sec/sec-allocatetypedarray.html">AllocateTypedArray</a>(<i>C</i>, <i>len</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetObj</i>).</li>
+                <li>Let <i>k</i> be 0.</li>
+                <li>Repeat, while <i>k</i> &lt; <i>len</i>
+                  <ol class="block">
+                    <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+                    <li>Let <i>kValue</i> be the first element of <i>values</i> and remove that element from <i>values</i>.</li>
+                    <li>If <i>mapping</i> is <b>true</b>, then
+                      <ol class="block">
+                        <li>Let <i>mappedValue</i> be <a href="/sec/sec-call.html">Call</a>(<i>mapfn</i>, <i>T</i>, &#xAB;<i>kValue</i>,
+                            <i>k</i>&#xBB;).</li>
+                        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>mappedValue</i>).</li>
+                      </ol>
+                    </li>
+                    <li>Else, let <i>mappedValue</i> be <i>kValue</i>.</li>
+                    <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>targetObj</i>, <i>Pk</i>,
+                        <i>mappedValue</i>, <b>true</b>).</li>
+                    <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                    <li>Increase <i>k</i> by 1.</li>
+                  </ol>
+                </li>
+                <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>values</i> is now an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+                <li>Return <i>targetObj</i>.</li>
+              </ol>
+            </li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>items</i> is not an Iterable so assume it is an array-like
+                object.</li>
+            <li>Let <i>arrayLike</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<i>items</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>arrayLike</i>).</li>
+            <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>arrayLike</i>,
+                <code>&quot;length&quot;</code>)).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+            <li>Let <i>targetObj</i> be <a href="/sec/sec-allocatetypedarray.html">AllocateTypedArray</a>(<i>C</i>, <i>len</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetObj</i>).</li>
+            <li>Let <i>k</i> be 0.</li>
+            <li>Repeat, while <i>k</i> &lt; <i>len</i>
+              <ol class="block">
+                <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+                <li>Let <i>kValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>arrayLike</i>, <i>Pk</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kValue</i>).</li>
+                <li>If <i>mapping</i> is <b>true</b>, then
+                  <ol class="block">
+                    <li>Let <i>mappedValue</i> be <a href="/sec/sec-call.html">Call</a>(<i>mapfn</i>, <i>T</i>, &#xAB;<i>kValue</i>,
+                        <i>k</i>&#xBB;).</li>
+                    <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>mappedValue</i>).</li>
+                  </ol>
+                </li>
+                <li>Else, let <i>mappedValue</i> be <i>kValue</i>.</li>
+                <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>targetObj</i>, <i>Pk</i>,
+                    <i>mappedValue</i>, <b>true</b>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                <li>Increase <i>k</i> by 1.</li>
+              </ol>
+            </li>
+            <li>Return <i>targetObj</i>.</li>
+          </ol>
+        </section>
+      </section>
+
+      <section id="sec-%typedarray%.of">
+        <h1><span class="secnum" id="sec-22.2.2.2"><a href="/sec/sec-%typedarray%.of.html" title="link to this section">22.2.2.2</a></span>
+            %TypedArray%.of ( ...items )</h1>
+
+        <p class="normalbefore">When the <code>of</code> method is called with any number of arguments, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>len</i> be the actual number of arguments passed to this function.</li>
+          <li>Let <i>items</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> of arguments passed to this
+              function.</li>
+          <li>Let <i>C</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-isconstructor.html">IsConstructor</a>(<i>C</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>newObj</i> be <a href="/sec/sec-allocatetypedarray.html">AllocateTypedArray</a>(<i>C</i>, <i>len</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>newObj</i>).</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>Repeat, while <i>k</i> &lt; <i>len</i>
+            <ol class="block">
+              <li>Let <i>kValue</i> be <i>items</i>[<i>k</i>].</li>
+              <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+              <li>Let <i>status</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>newObj</i>, <i>Pk</i>, <i>kValue</i>,
+                  <b>true</b>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>newObj</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>of</code> method is <b>0</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <var>items</var> argument is assumed to be a well-formed rest argument value.</p>
+        </div>
+      </section>
+
+      <section id="sec-%typedarray%.prototype">
+        <h1><span class="secnum" id="sec-22.2.2.3"><a href="/sec/sec-%typedarray%.prototype.html" title="link to this section">22.2.2.3</a></span> %TypedArray%.prototype</h1>
+
+        <p>The initial value of %TypedArray%.prototype is the %TypedArrayPrototype% intrinsic object (<a href="/sec/sec-properties-of-the-%typedarrayprototype%-object.html">22.2.3</a>).</p>
+
+        <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">false</span> }.</p>
+      </section>
+
+      <section id="sec-get-%typedarray%-@@species">
+        <h1><span class="secnum" id="sec-22.2.2.4"><a href="/sec/sec-get-%typedarray%-@@species.html" title="link to this section">22.2.2.4</a></span> get %TypedArray% [ @@species ]</h1>
+
+        <p class="normalbefore">%TypedArray%[@@species] is an accessor property whose set accessor function is <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Return the <b>this</b> value.</li>
+        </ol>
+
+        <p>The value of the <code>name</code> property of this function is <code>&quot;get [Symbol.species]&quot;</code>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> %TypedArrayPrototype% methods normally use their <code>this</code> object&#x2019;s
+          constructor to create a derived object. However, a subclass constructor may over-ride that default behaviour by
+          redefining its @@species property.</p>
+        </div>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-the-%typedarrayprototype%-object">
+      <div class="front">
+        <h1><span class="secnum" id="sec-22.2.3"><a href="/sec/sec-properties-of-the-%typedarrayprototype%-object.html" title="link to this section">22.2.3</a></span> Properties of the %TypedArrayPrototype% Object</h1>
+
+        <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the
+        %TypedArrayPrototype% object is the intrinsic object %ObjectPrototype% (<a href="/sec/sec-properties-of-the-object-prototype-object.html">19.1.3</a>). The %TypedArrayPrototype% object is an ordinary object.
+        It does not have a [[ViewedArrayBuffer]] or any other of the internal slots that are specific to <i>TypedArray</i>
+        instance objects.</p>
+      </div>
+
+      <section id="sec-get-%typedarray%.prototype.buffer">
+        <h1><span class="secnum" id="sec-22.2.3.1"><a href="/sec/sec-get-%typedarray%.prototype.buffer.html" title="link to this section">22.2.3.1</a></span> get  %TypedArray%.prototype.buffer</h1>
+
+        <p class="normalbefore">%TypedArray%.<code>prototype.buffer</code> is an accessor property whose set accessor function is
+        <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>O</i> does not have a [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>buffer</i> be the value of <i>O</i>&#x2019;s [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Return <i>buffer</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-get-%typedarray%.prototype.bytelength">
+        <h1><span class="secnum" id="sec-22.2.3.2"><a href="/sec/sec-get-%typedarray%.prototype.bytelength.html" title="link to this section">22.2.3.2</a></span> get  %TypedArray%.prototype.byteLength</h1>
+
+        <p class="normalbefore">%TypedArray%.<code>prototype.byteLength</code> is an accessor property whose set accessor function
+        is <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>O</i> does not have a [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>buffer</i> be the value of <i>O</i>&#x2019;s [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>buffer</i>) is <b>true</b>, return 0.</li>
+          <li>Let <i>size</i> be the value of <i>O</i>&#x2019;s [[ByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Return <i>size</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-get-%typedarray%.prototype.byteoffset">
+        <h1><span class="secnum" id="sec-22.2.3.3"><a href="/sec/sec-get-%typedarray%.prototype.byteoffset.html" title="link to this section">22.2.3.3</a></span> get  %TypedArray%.prototype.byteOffset</h1>
+
+        <p class="normalbefore">%TypedArray%.<code>prototype.byteOffset</code> is an accessor property whose set accessor function
+        is <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>O</i> does not have a [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>buffer</i> be the value of <i>O</i>&#x2019;s [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>buffer</i>) is <b>true</b>, return 0.</li>
+          <li>Let <i>offset</i> be the value of <i>O</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Return <i>offset</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.constructor">
+        <h1><span class="secnum" id="sec-22.2.3.4"><a href="/sec/sec-%typedarray%.prototype.constructor.html" title="link to this section">22.2.3.4</a></span> %TypedArray%.prototype.constructor</h1>
+
+        <p>The initial value of %TypedArray%.prototype.constructor is the %TypedArray% intrinsic object.</p>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.copywithin">
+        <div class="front">
+          <h1><span class="secnum" id="sec-22.2.3.5"><a href="/sec/sec-%typedarray%.prototype.copywithin.html" title="link to this section">22.2.3.5</a></span> %TypedArray%.prototype.copyWithin (target, start [, end ] )</h1>
+
+          <p>%TypedArray%<code>.prototype.copyWithin</code> is a distinct function that implements the same algorithm as <code><a href="/sec/sec-array.prototype.copywithin.html">Array.prototype.copyWithin</a></code> as defined in <a href="/sec/sec-array.prototype.copywithin.html">22.1.3.3</a> except that the <b>this</b> object&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is accessed in place of performing a [[Get]] of
+          <code>&quot;length&quot;</code> and the actual copying of values in step 17 must be performed in a manner that preserves the
+          bit-level encoding of the source data</p>
+
+          <p>The implementation of the algorithm may be optimized with the knowledge that the <b>this</b> value is an object that
+          has a fixed length and whose integer indexed properties are not sparse. However, such optimization must not introduce
+          any observable changes in the specified behaviour of the algorithm.</p>
+
+          <p>This function is not generic. <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a> is applied to the <b>this</b>
+          value  prior to evaluating the algorithm. If its result is an <a href="/sec/sec-completion-record-specification-type.html">abrupt
+          completion</a> that exception is thrown instead of evaluating the algorithm.</p>
+
+          <p>The <code>length</code> property of the <code>copyWithin</code> method is <b>2</b>.</p>
+        </div>
+
+        <section id="sec-validatetypedarray">
+          <h1><span class="secnum" id="sec-22.2.3.5.1"><a href="/sec/sec-validatetypedarray.html" title="link to this section">22.2.3.5.1</a></span> Runtime Semantics:  ValidateTypedArray ( O )</h1>
+
+          <p class="normalbefore">When called with argument <i>O</i> the following steps are taken:</p>
+
+          <ol class="proc">
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, throw a <b>TypeError</b>
+                exception.</li>
+            <li>If <i>O</i> does not have a [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                slot</a>, throw a <b>TypeError</b> exception.</li>
+            <li>If <i>O</i> does not have a [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, throw a <b>TypeError</b> exception.</li>
+            <li>Let <i>buffer</i> be the value of <i>O</i>&#x2019;s [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>buffer</i>) is <b>true</b>, throw a <b>TypeError</b>
+                exception.</li>
+            <li>Return <i>buffer</i>.</li>
+          </ol>
+        </section>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.entries">
+        <h1><span class="secnum" id="sec-22.2.3.6"><a href="/sec/sec-%typedarray%.prototype.entries.html" title="link to this section">22.2.3.6</a></span> %TypedArray%.prototype.entries ( )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>Let <i>valid</i> be <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>valid</i>).</li>
+          <li>Return <a href="/sec/sec-createarrayiterator.html">CreateArrayIterator</a>(<i>O</i>, <code>&quot;key+value&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.every">
+        <h1><span class="secnum" id="sec-22.2.3.7"><a href="/sec/sec-%typedarray%.prototype.every.html" title="link to this section">22.2.3.7</a></span> %TypedArray%.prototype.every ( callbackfn [ , thisArg ] )</h1>
+
+        <p>%TypedArray%<code>.prototype.every</code> is a distinct function that implements the same algorithm as <code><a href="/sec/sec-array.prototype.every.html">Array.prototype.every</a></code> as defined in <a href="/sec/sec-array.prototype.every.html">22.1.3.5</a> except that the <b>this</b> object&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is accessed in place of performing a [[Get]] of
+        <code>&quot;length&quot;</code>. The implementation of the algorithm may be optimized with the knowledge that the <b>this</b> value
+        is an object that has a fixed length and whose integer indexed properties are not sparse. However, such optimization must
+        not introduce any observable changes in the specified behaviour of the algorithm and must take into account the
+        possibility that calls to <var>callbackfn</var> may cause the <b>this</b> value to become detached.</p>
+
+        <p>This function is not generic. <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a> is applied to the <b>this</b>
+        value  prior to evaluating the algorithm. If its result is an <a href="/sec/sec-completion-record-specification-type.html">abrupt
+        completion</a> that exception is thrown instead of evaluating the algorithm.</p>
+
+        <p>The <code>length</code> property of the <code>every</code> method is <b>1</b>.</p>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.fill">
+        <h1><span class="secnum" id="sec-22.2.3.8"><a href="/sec/sec-%typedarray%.prototype.fill.html" title="link to this section">22.2.3.8</a></span> %TypedArray%.prototype.fill (value [ , start [ , end ] ] )</h1>
+
+        <p>%TypedArray%<code>.prototype.fill</code> is a distinct function that implements the same algorithm as <code><a href="/sec/sec-array.prototype.fill.html">Array.prototype.fill</a></code> as defined in <a href="/sec/sec-array.prototype.fill.html">22.1.3.6</a> except that the <b>this</b> object&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is accessed in place of performing a [[Get]] of
+        <code>&quot;length&quot;</code>. The implementation of the algorithm may be optimized with the knowledge that the <b>this</b> value
+        is an object that has a fixed length and whose integer indexed properties are not sparse. However, such optimization must
+        not introduce any observable changes in the specified behaviour of the algorithm.</p>
+
+        <p>This function is not generic. <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a> is applied to the <b>this</b>
+        value prior to evaluating the algorithm. If its result is an <a href="/sec/sec-completion-record-specification-type.html">abrupt
+        completion</a> that exception is thrown instead of evaluating the algorithm.</p>
+
+        <p>The <code>length</code> property of the <code>fill</code> method is <b>1</b>.</p>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.filter">
+        <h1><span class="secnum" id="sec-22.2.3.9"><a href="/sec/sec-%typedarray%.prototype.filter.html" title="link to this section">22.2.3.9</a></span> %TypedArray%.prototype.filter ( callbackfn [ , thisArg ] )</h1>
+
+        <p>The interpretation and use of the arguments of %TypedArray%<code>.prototype.filter</code> are the same as for  <code><a href="/sec/sec-array.prototype.filter.html">Array.prototype.filter</a></code> as defined in <a href="/sec/sec-array.prototype.filter.html">22.1.3.7</a>.</p>
+
+        <p class="normalbefore">When the <code>filter</code> method is called with one or two arguments, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>Let <i>valid</i> be <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>valid</i>).</li>
+          <li>Let <i>len</i> be the value of <i>O&#x2019;s</i> [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>callbackfn</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>thisArg</i> was supplied, let <i>T</i> be <i>thisArg</i>; else let <i>T</i> be <b>undefined</b>.</li>
+          <li>Let <i>defaultConstructor</i> be the intrinsic object listed in column one of <a href="/sec/table-49.html">Table 49</a> for
+              the value of <i>O</i>&#x2019;s [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>.</li>
+          <li>Let <i>C</i> be <a href="/sec/sec-speciesconstructor.html">SpeciesConstructor</a>(<i>O</i>, <i>defaultConstructor</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>C</i>).</li>
+          <li>Let <i>kept</i> be a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>Let <i>captured</i> be 0.</li>
+          <li>Repeat, while <i>k</i> &lt; <i>len</i>
+            <ol class="block">
+              <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+              <li>Let <i>kValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>Pk</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kValue</i>).</li>
+              <li>Let <i>selected</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-call.html">Call</a>(<i>callbackfn</i>,
+                  <i>T</i>, &#xAB;<i>kValue</i>, <i>k</i>, <i>O</i>&#xBB;)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>selected</i>).</li>
+              <li>If <i>selected</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Append <i>kValue</i> to the end of <i>kept</i>.</li>
+                  <li>Increase <i>captured</i> by 1.</li>
+                </ol>
+              </li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Let <i>A</i> be <a href="/sec/sec-allocatetypedarray.html">AllocateTypedArray</a>(<i>C</i>, <i>captured</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>A</i>).</li>
+          <li>Let <i>n</i> be 0.</li>
+          <li>For each element <i>e</i> of <i>kept</i>
+            <ol class="block">
+              <li>Let <i>status</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>A</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>n</i>), <i>e</i>, <b>true</b> ).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+              <li>Increment <i>n</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>A</i>.</li>
+        </ol>
+
+        <p>This function is not generic. The <b>this</b> value must be an object with a [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+        <p>The <code>length</code> property of the <code>filter</code> method is <b>1</b>.</p>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.find">
+        <h1><span class="secnum" id="sec-22.2.3.10"><a href="/sec/sec-%typedarray%.prototype.find.html" title="link to this section">22.2.3.10</a></span> %TypedArray%.prototype.find (predicate [ , thisArg ] )</h1>
+
+        <p>%TypedArray%<code>.prototype.find</code> is a distinct function that implements the same algorithm as <code><a href="/sec/sec-array.prototype.find.html">Array.prototype.find</a></code> as defined in <a href="/sec/sec-array.prototype.find.html">22.1.3.8</a> except that the <b>this</b> object&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is accessed in place of performing a [[Get]] of
+        <code>&quot;length&quot;</code>. The implementation of the algorithm may be optimized with the knowledge that the <b>this</b> value
+        is an object that has a fixed length and whose integer indexed properties are not sparse. However, such optimization must
+        not introduce any observable changes in the specified behaviour of the algorithm and must take into account the
+        possibility that calls to <var>predicate</var> may cause the <b>this</b> value to become detached.</p>
+
+        <p>This function is not generic. <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a> is applied to the <b>this</b>
+        value  prior to evaluating the algorithm. If its result is an <a href="/sec/sec-completion-record-specification-type.html">abrupt
+        completion</a> that exception is thrown instead of evaluating the algorithm.</p>
+
+        <p>The <code>length</code> property of the <code>find</code> method is <b>1</b>.</p>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.findindex">
+        <h1><span class="secnum" id="sec-22.2.3.11"><a href="/sec/sec-%typedarray%.prototype.findindex.html" title="link to this section">22.2.3.11</a></span> %TypedArray%.prototype.findIndex ( predicate [ , thisArg ] )</h1>
+
+        <p>%TypedArray%<code>.prototype.findIndex</code> is a distinct function that implements the same algorithm as <code><a href="/sec/sec-array.prototype.findindex.html">Array.prototype.findIndex</a></code> as defined in <a href="/sec/sec-array.prototype.findindex.html">22.1.3.9</a> except that the <b>this</b> object&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is accessed in place of performing a [[Get]] of
+        <code>&quot;length&quot;</code>. The implementation of the algorithm may be optimized with the knowledge that the <b>this</b> value
+        is an object that has a fixed length and whose integer indexed properties are not sparse. However, such optimization must
+        not introduce any observable changes in the specified behaviour of the algorithm and must take into account the
+        possibility that calls to <var>predicate</var> may cause the <b>this</b> value to become detached.</p>
+
+        <p>This function is not generic. <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a> is applied to the <b>this</b>
+        value  prior to evaluating the algorithm. If its result is an <a href="/sec/sec-completion-record-specification-type.html">abrupt
+        completion</a> that exception is thrown instead of evaluating the algorithm.</p>
+
+        <p>The <code>length</code> property of the <code>findIndex</code> method is <b>1</b>.</p>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.foreach">
+        <h1><span class="secnum" id="sec-22.2.3.12"><a href="/sec/sec-%typedarray%.prototype.foreach.html" title="link to this section">22.2.3.12</a></span> %TypedArray%.prototype.forEach ( callbackfn [ , thisArg ] )</h1>
+
+        <p>%TypedArray%<code>.prototype.forEach</code> is a distinct function that implements the same algorithm as <code><a href="/sec/sec-array.prototype.foreach.html">Array.prototype.forEach</a></code> as defined in <a href="/sec/sec-array.prototype.foreach.html">22.1.3.10</a> except that the <b>this</b> object&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is accessed in place of performing a [[Get]] of
+        <code>&quot;length&quot;</code>. The implementation of the algorithm may be optimized with the knowledge that the <b>this</b> value
+        is an object that has a fixed length and whose integer indexed properties are not sparse. However, such optimization must
+        not introduce any observable changes in the specified behaviour of the algorithm and must take into account the
+        possibility that calls to <var>callbackfn</var> may cause the <b>this</b> value to become detached.</p>
+
+        <p>This function is not generic. <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a> is applied to the <b>this</b>
+        value  prior to evaluating the algorithm. If its result is an <a href="/sec/sec-completion-record-specification-type.html">abrupt
+        completion</a> that exception is thrown instead of evaluating the algorithm.</p>
+
+        <p>The <code>length</code> property of the <code>forEach</code> method is <b>1</b>.</p>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.indexof">
+        <h1><span class="secnum" id="sec-22.2.3.13"><a href="/sec/sec-%typedarray%.prototype.indexof.html" title="link to this section">22.2.3.13</a></span> %TypedArray%.prototype.indexOf (searchElement [ , fromIndex ] )</h1>
+
+        <p>%TypedArray%<code>.prototype.indexOf</code> is a distinct function that implements the same algorithm as <code><a href="/sec/sec-array.prototype.indexof.html">Array.prototype.indexOf</a></code> as defined in <a href="/sec/sec-array.prototype.indexof.html">22.1.3.11</a> except that the <b>this</b> object&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is accessed in place of performing a [[Get]] of
+        <code>&quot;length&quot;</code>. The implementation of the algorithm may be optimized with the knowledge that the <b>this</b> value
+        is an object that has a fixed length and whose integer indexed properties are not sparse. However, such optimization must
+        not introduce any observable changes in the specified behaviour of the algorithm.</p>
+
+        <p>This function is not generic. <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a> is applied to the <b>this</b>
+        value  prior to evaluating the algorithm. If its result is an <a href="/sec/sec-completion-record-specification-type.html">abrupt
+        completion</a> that exception is thrown instead of evaluating the algorithm.</p>
+
+        <p>The <code>length</code> property of the <code>indexOf</code> method is <b>1</b>.</p>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.join">
+        <h1><span class="secnum" id="sec-22.2.3.14"><a href="/sec/sec-%typedarray%.prototype.join.html" title="link to this section">22.2.3.14</a></span> %TypedArray%.prototype.join ( separator )</h1>
+
+        <p>%TypedArray%<code>.prototype.join</code> is a distinct function that implements the same algorithm as <code><a href="/sec/sec-array.prototype.join.html">Array.prototype.join</a></code> as defined in <a href="/sec/sec-array.prototype.join.html">22.1.3.12</a> except that the <b>this</b> object&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is accessed in place of performing a [[Get]] of
+        <code>&quot;length&quot;</code>. The implementation of the algorithm may be optimized with the knowledge that the <b>this</b> value
+        is an object that has a fixed length and whose integer indexed properties are not sparse. However, such optimization must
+        not introduce any observable changes in the specified behaviour of the algorithm.</p>
+
+        <p>This function is not generic. <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a> is applied to the <b>this</b>
+        value  prior to evaluating the algorithm. If its result is an <a href="/sec/sec-completion-record-specification-type.html">abrupt
+        completion</a> that exception is thrown instead of evaluating the algorithm.</p>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.keys">
+        <h1><span class="secnum" id="sec-22.2.3.15"><a href="/sec/sec-%typedarray%.prototype.keys.html" title="link to this section">22.2.3.15</a></span> %TypedArray%.prototype.keys ( )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>Let <i>valid</i> be <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>valid</i>).</li>
+          <li>Return <a href="/sec/sec-createarrayiterator.html">CreateArrayIterator</a>(<i>O</i>, <code>&quot;key&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.lastindexof">
+        <h1><span class="secnum" id="sec-22.2.3.16"><a href="/sec/sec-%typedarray%.prototype.lastindexof.html" title="link to this section">22.2.3.16</a></span> %TypedArray%.prototype.lastIndexOf ( searchElement [ , fromIndex ]
+            )</h1>
+
+        <p>%TypedArray%<code>.prototype.lastIndexOf</code> is a distinct function that implements the same algorithm as <code><a href="/sec/sec-array.prototype.lastindexof.html">Array.prototype.lastIndexOf</a></code> as defined in <a href="/sec/sec-array.prototype.lastindexof.html">22.1.3.14</a> except that the <b>this</b> object&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is accessed in place of performing a [[Get]] of
+        <code>&quot;length&quot;</code>. The implementation of the algorithm may be optimized with the knowledge that the <b>this</b> value
+        is an object that has a fixed length and whose integer indexed properties are not sparse. However, such optimization must
+        not introduce any observable changes in the specified behaviour of the algorithm.</p>
+
+        <p>This function is not generic. <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a> is applied to the <b>this</b>
+        value  prior to evaluating the algorithm. If its result is an <a href="/sec/sec-completion-record-specification-type.html">abrupt
+        completion</a> that exception is thrown instead of evaluating the algorithm.</p>
+
+        <p>The <code>length</code> property of the <code>lastIndexOf</code> method is <b>1</b>.</p>
+      </section>
+
+      <section id="sec-get-%typedarray%.prototype.length">
+        <h1><span class="secnum" id="sec-22.2.3.17"><a href="/sec/sec-get-%typedarray%.prototype.length.html" title="link to this section">22.2.3.17</a></span> get  %TypedArray%.prototype.length</h1>
+
+        <p class="normalbefore">%TypedArray%.<code>prototype.length</code> is an accessor property whose set accessor function is
+        <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>O</i> does not have a [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>O</i> has [[ViewedArrayBuffer]] and [[ArrayLength]] internal
+              slots.</li>
+          <li>Let <i>buffer</i> be the value of <i>O</i>&#x2019;s [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>buffer</i>) is <b>true</b>, return 0.</li>
+          <li>Let <i>length</i> be the value of <i>O</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Return <i>length</i>.</li>
+        </ol>
+
+        <p>This function is not generic. The <b>this</b> value must be an object with a [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.map">
+        <h1><span class="secnum" id="sec-22.2.3.18"><a href="/sec/sec-%typedarray%.prototype.map.html" title="link to this section">22.2.3.18</a></span> %TypedArray%.prototype.map ( callbackfn [ , thisArg ] )</h1>
+
+        <p>The interpretation and use of the arguments of %TypedArray%<code>.prototype.map</code> are the same as for  <code><a href="/sec/sec-array.prototype.map.html">Array.prototype.map</a></code> as defined in <a href="/sec/sec-array.prototype.map.html">22.1.3.15</a>.</p>
+
+        <p class="normalbefore">When the <code>map</code> method is called with one or two arguments, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>Let <i>valid</i> be <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>valid</i>).</li>
+          <li>Let <i>len</i> be the value of <i>O&#x2019;s</i> [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>callbackfn</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>thisArg</i> was supplied, let <i>T</i> be <i>thisArg</i>; else let <i>T</i> be <b>undefined</b>.</li>
+          <li>Let <i>defaultConstructor</i> be the intrinsic object listed in column one of <a href="/sec/table-49.html">Table 49</a> for
+              the value of <i>O</i>&#x2019;s [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>.</li>
+          <li>Let <i>C</i> be <a href="/sec/sec-speciesconstructor.html">SpeciesConstructor</a>(<i>O</i>, <i>defaultConstructor</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>C</i>).</li>
+          <li>Let <i>A</i> be <a href="/sec/sec-allocatetypedarray.html">AllocateTypedArray</a>(<i>C</i>, <i>len</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>A</i>).</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>Repeat, while <i>k</i> &lt; <i>len</i>
+            <ol class="block">
+              <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+              <li>Let <i>kValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>Pk</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kValue</i>).</li>
+              <li>Let <i>mappedValue</i> be <a href="/sec/sec-call.html">Call</a>(<i>callbackfn</i>, <i>T</i>, &#xAB;<i>kValue</i>,
+                  <i>k</i>, <i>O</i>&#xBB;).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>mappedValue</i>).</li>
+              <li>Let <i>status</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>A</i>, <i>Pk</i>, <i>mappedValue</i>, <b>true</b>
+                  ).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>A</i>.</li>
+        </ol>
+
+        <p>This function is not generic. The <b>this</b> value must be an object with a [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+        <p>The <code>length</code> property of the <code>map</code> method is <b>1</b>.</p>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.reduce">
+        <h1><span class="secnum" id="sec-22.2.3.19"><a href="/sec/sec-%typedarray%.prototype.reduce.html" title="link to this section">22.2.3.19</a></span> %TypedArray%.prototype.reduce ( callbackfn [ , initialValue ] )</h1>
+
+        <p>%TypedArray%<code>.prototype.reduce</code> is a distinct function that implements the same algorithm as <code><a href="/sec/sec-array.prototype.reduce.html">Array.prototype.reduce</a></code> as defined in <a href="/sec/sec-array.prototype.reduce.html">22.1.3.18</a> except that the <b>this</b> object&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is accessed in place of performing a [[Get]] of
+        <code>&quot;length&quot;</code>. The implementation of the algorithm may be optimized with the knowledge that the <b>this</b> value
+        is an object that has a fixed length and whose integer indexed properties are not sparse. However, such optimization must
+        not introduce any observable changes in the specified behaviour of the algorithm and must take into account the
+        possibility that calls to <var>callbackfn</var> may cause the <b>this</b> value to become detached.</p>
+
+        <p>This function is not generic. <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a> is applied to the <b>this</b>
+        value  prior to evaluating the algorithm. If its result is an <a href="/sec/sec-completion-record-specification-type.html">abrupt
+        completion</a> that exception is thrown instead of evaluating the algorithm.</p>
+
+        <p>The <code>length</code> property of the <code>reduce</code> method is <b>1</b>.</p>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.reduceright">
+        <h1><span class="secnum" id="sec-22.2.3.20"><a href="/sec/sec-%typedarray%.prototype.reduceright.html" title="link to this section">22.2.3.20</a></span> %TypedArray%.prototype.reduceRight ( callbackfn [ , initialValue ]
+            )</h1>
+
+        <p>%TypedArray%<code>.prototype.reduceRight</code> is a distinct function that implements the same algorithm as <code><a href="/sec/sec-array.prototype.reduceright.html">Array.prototype.reduceRight</a></code> as defined in <a href="/sec/sec-array.prototype.reduceright.html">22.1.3.19</a> except that the <b>this</b> object&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is accessed in place of performing a [[Get]] of
+        <code>&quot;length&quot;</code>. The implementation of the algorithm may be optimized with the knowledge that the <b>this</b> value
+        is an object that has a fixed length and whose integer indexed properties are not sparse. However, such optimization must
+        not introduce any observable changes in the specified behaviour of the algorithm and must take into account the
+        possibility that calls to <var>callbackfn</var> may cause the <b>this</b> value to become detached.</p>
+
+        <p>This function is not generic. <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a> is applied to the <b>this</b>
+        value  prior to evaluating the algorithm. If its result is an <a href="/sec/sec-completion-record-specification-type.html">abrupt
+        completion</a> that exception is thrown instead of evaluating the algorithm.</p>
+
+        <p>The <code>length</code> property of the <code>reduceRight</code> method is <b>1</b>.</p>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.reverse">
+        <h1><span class="secnum" id="sec-22.2.3.21"><a href="/sec/sec-%typedarray%.prototype.reverse.html" title="link to this section">22.2.3.21</a></span> %TypedArray%.prototype.reverse ( )</h1>
+
+        <p>%TypedArray%<code>.prototype.reverse</code> is a distinct function that implements the same algorithm as <code><a href="/sec/sec-array.prototype.reverse.html">Array.prototype.reverse</a></code> as defined in <a href="/sec/sec-array.prototype.reverse.html">22.1.3.20</a> except that the <b>this</b> object&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is accessed in place of performing a [[Get]] of
+        <code>&quot;length&quot;</code>. The implementation of the algorithm may be optimized with the knowledge that the <b>this</b> value
+        is an object that has a fixed length and whose integer indexed properties are not sparse. However, such optimization must
+        not introduce any observable changes in the specified behaviour of the algorithm.</p>
+
+        <p>This function is not generic. <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a> is applied to the <b>this</b>
+        value  prior to evaluating the algorithm. If its result is an <a href="/sec/sec-completion-record-specification-type.html">abrupt
+        completion</a> that exception is thrown instead of evaluating the algorithm.</p>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.set-overloaded-offset">
+        <div class="front">
+          <h1><span class="secnum" id="sec-22.2.3.22"><a href="/sec/sec-%typedarray%.prototype.set-overloaded-offset.html" title="link to this section">22.2.3.22</a></span> %TypedArray%.prototype.set ( overloaded [ , offset ])</h1>
+
+          <p>%TypedArray%<code>.prototype.set</code> is a single function whose behaviour is overloaded based upon the type of its
+          first argument.</p>
+
+          <p>This function is not generic. The <b>this</b> value must be an object with a [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+          <p class="normalBullet">The <code>length</code> property of the <code>set</code> method is <b>1</b>.</p>
+        </div>
+
+        <section id="sec-%typedarray%.prototype.set-array-offset">
+          <h1><span class="secnum" id="sec-22.2.3.22.1"><a href="/sec/sec-%typedarray%.prototype.set-array-offset.html" title="link to this section">22.2.3.22.1</a></span> %TypedArray%.prototype.set (array [ , offset ] )</h1>
+
+          <p class="normalbefore">Sets multiple values in this <i>TypedArray</i>, reading the values from the object <i>array</i>.
+          The optional <i>offset</i> value indicates the first element index in this <i>TypedArray</i> where values are written.
+          If omitted, it is assumed to be 0.</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>array</i> is any <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language value</a> other than an Object with a [[TypedArrayName]]
+                <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>. If it is such an Object, the
+                definition in <a href="/sec/sec-%typedarray%.prototype.set-typedarray-offset.html">22.2.3.22.2</a> applies.</li>
+            <li>Let <i>target</i> be the <b>this</b> value.</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>target</i>) is not Object, throw a <b>TypeError</b>
+                exception.</li>
+            <li>If <i>target</i> does not have a [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, throw a <b>TypeError</b> exception.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>target</i> has a [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>targetOffset</i> be <a href="/sec/sec-tointeger.html">ToInteger</a> (<i>offset</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetOffset</i>).</li>
+            <li>If <i>targetOffset</i> &lt; 0, throw a <b>RangeError</b> exception.</li>
+            <li>Let <i>targetBuffer</i> be the value of <i>target</i>&#x2019;s [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>targetBuffer</i>) is <b>true</b>, throw a
+                <b>TypeError</b> exception.</li>
+            <li>Let <i>targetLength</i> be the value of <i>target</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>targetName</i> be the String value of <i>target</i>&#x2019;s [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>targetElementSize</i> be the Number value of the Element Size value specified in <a href="/sec/table-49.html">Table
+                49</a> for <i>targetName</i>.</li>
+            <li>Let <i>targetType</i> be the String value of the Element Type value in <a href="/sec/table-49.html">Table 49</a> for
+                <i>targetName</i>.</li>
+            <li>Let <i>targetByteOffset</i> be the value of <i>target</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>src</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<i>array</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>src</i>).</li>
+            <li>Let <i>srcLength</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>src</i>,
+                <code>&quot;length&quot;</code>)).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>srcLength</i>).</li>
+            <li>If <i>srcLength</i> + <i>targetOffset</i> &gt; <i>targetLength</i>, throw a <b>RangeError</b> exception.</li>
+            <li>Let <i>targetByteIndex</i> be <i>targetOffset</i> &#xD7; <i>targetElementSize</i> + <i>targetByteOffset</i>.</li>
+            <li>Let <i>k</i> be 0.</li>
+            <li>Let <i>limit</i> be <i>targetByteIndex</i> + <i>targetElementSize</i> &#xD7; <i>srcLength</i>.</li>
+            <li>Repeat, while <i>targetByteIndex</i> &lt; <i>limit</i>
+              <ol class="block">
+                <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+                <li>Let <i>kNumber</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>src</i>,
+                    <i>Pk</i>)).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kNumber</i>).</li>
+                <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>targetBuffer</i>) is <b>true</b>, throw a
+                    <b>TypeError</b> exception.</li>
+                <li>Perform <a href="/sec/sec-setvalueinbuffer.html">SetValueInBuffer</a>(<i>targetBuffer</i>, <i>targetByteIndex</i>,
+                    <i>targetType</i>, <i>kNumber</i>).</li>
+                <li>Set <i>k</i> to <i>k</i> + 1.</li>
+                <li>Set <i>targetByteIndex</i> to <i>targetByteIndex</i> + <i>targetElementSize</i>.</li>
+              </ol>
+            </li>
+            <li>Return <b>undefined</b>.</li>
+          </ol>
+        </section>
+
+        <section id="sec-%typedarray%.prototype.set-typedarray-offset">
+          <h1><span class="secnum" id="sec-22.2.3.22.2"><a href="/sec/sec-%typedarray%.prototype.set-typedarray-offset.html" title="link to this section">22.2.3.22.2</a></span> %TypedArray%.prototype.set(typedArray [, offset ] )</h1>
+
+          <p class="normalbefore">Sets multiple values in this <i>TypedArray</i>, reading the values from the
+          <var>typedArray</var> argument object. The optional <i>offset</i> value indicates the first element index in this
+          <i>TypedArray</i> where values are written. If omitted, it is assumed to be 0.</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>typedArray</i> has a [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>. If it does not, the definition in <a href="/sec/sec-%typedarray%.prototype.set-array-offset.html">22.2.3.22.1</a> applies.</li>
+            <li>Let <i>target</i> be the <b>this</b> value.</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>target</i>) is not Object, throw a <b>TypeError</b>
+                exception.</li>
+            <li>If <i>target</i> does not have a [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, throw a <b>TypeError</b> exception.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>target</i> has a [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>targetOffset</i> be <a href="/sec/sec-tointeger.html">ToInteger</a> (<i>offset</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetOffset</i>).</li>
+            <li>If <i>targetOffset</i> &lt; 0, throw a <b>RangeError</b> exception.</li>
+            <li>Let <i>targetBuffer</i> be the value of <i>target</i>&#x2019;s [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>targetBuffer</i>) is <b>true</b>, throw a
+                <b>TypeError</b> exception.</li>
+            <li>Let <i>targetLength</i> be the value of <i>target</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>srcBuffer</i> be the value of <i>typedArray</i>&#x2019;s [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>srcBuffer</i>) is <b>true</b>, throw a <b>TypeError</b>
+                exception.</li>
+            <li>Let <i>targetName</i> be the String value of <i>target</i>&#x2019;s [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>targetType</i> be the String value of the Element Type value in <a href="/sec/table-49.html">Table 49</a> for
+                <i>targetName</i>.</li>
+            <li>Let <i>targetElementSize</i> be the Number value of the Element Size value specified in <a href="/sec/table-49.html">Table
+                49</a> for <i>targetName</i>.</li>
+            <li>Let <i>targetByteOffset</i> be the value of <i>target</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>srcName</i> be the String value of <i>typedArray</i>&#x2019;s [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>srcType</i> be the String value of the Element Type value in <a href="/sec/table-49.html">Table 49</a> for
+                <i>srcName</i> .</li>
+            <li>Let <i>srcElementSize</i> be the Number value of the Element Size value specified in <a href="/sec/table-49.html">Table
+                49</a> for <i>srcName</i>.</li>
+            <li>Let <i>srcLength</i> be the value of <i>typedArray</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>srcByteOffset</i> be the value of <i>typedArray</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>If <i>srcLength</i> + <i>targetOffset</i> &gt; <i>targetLength</i>, throw a <b>RangeError</b> exception.</li>
+            <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>srcBuffer</i>, <i>targetBuffer</i>) is <b>true</b>, then
+              <ol class="block">
+                <li>Let <i>srcBuffer</i> be <a href="/sec/sec-clonearraybuffer.html">CloneArrayBuffer</a>(<i>targetBuffer</i>,
+                    <i>srcByteOffset</i>, %ArrayBuffer%).</li>
+                <li>NOTE:  <span style="font-family: Times New Roman">%ArrayBuffer%</span> is used to clone <span style="font-family: Times New Roman"><i>targetBuffer</i></span> because is it known to not have any observable
+                    side-effects.</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>srcBuffer</i>).</li>
+                <li>Let <i>srcByteIndex</i> be 0.</li>
+              </ol>
+            </li>
+            <li>Else, let <i>srcByteIndex</i> be <i>srcByteOffset</i>.</li>
+            <li>Let <i>targetByteIndex</i> be <i>targetOffset</i> &#xD7; <i>targetElementSize</i> + <i>targetByteOffset</i>.</li>
+            <li>Let <i>limit</i> be <i>targetByteIndex</i> + <i>targetElementSize</i> &#xD7; <i>srcLength</i>.</li>
+            <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>srcType</i>, <i>targetType</i>) is <b>false</b>, then
+              <ol class="block">
+                <li>Repeat, while <i>targetByteIndex</i> &lt; <i>limit</i>
+                  <ol class="block">
+                    <li>Let <i>value</i> be <a href="/sec/sec-getvaluefrombuffer.html">GetValueFromBuffer</a>(<i>srcBuffer</i>,
+                        <i>srcByteIndex</i>, <i>srcType</i>).</li>
+                    <li>Perform <a href="/sec/sec-setvalueinbuffer.html">SetValueInBuffer</a> (<i>targetBuffer</i>, <i>targetByteIndex</i>,
+                        <i>targetType</i>, <i>value</i>).</li>
+                    <li>Set <i>srcByteIndex</i> to <i>srcByteIndex</i> + <i>srcElementSize</i>.</li>
+                    <li>Set <i>targetByteIndex</i> to <i>targetByteIndex</i> + <i>targetElementSize</i>.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+            <li>Else,
+              <ol class="block">
+                <li>NOTE:  If <var>srcType</var> and <var>targetType</var> are the same the transfer must be performed in a manner
+                    that preserves the bit-level encoding of the source data.</li>
+                <li>Repeat, while <i>targetByteIndex</i> &lt; <i>limit</i>
+                  <ol class="block">
+                    <li>Let <i>value</i> be <a href="/sec/sec-getvaluefrombuffer.html">GetValueFromBuffer</a>(<i>srcBuffer</i>,
+                        <i>srcByteIndex</i>, <code>&quot;Uint8&quot;</code>).</li>
+                    <li>Perform <a href="/sec/sec-setvalueinbuffer.html">SetValueInBuffer</a> (<i>targetBuffer</i>, <i>targetByteIndex</i>,
+                        <code>&quot;Uint8&quot;</code>, <i>value</i>).</li>
+                    <li>Set <i>srcByteIndex</i> to <i>srcByteIndex</i> + 1.</li>
+                    <li>Set <i>targetByteIndex</i> to <i>targetByteIndex</i> + 1.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+            <li>Return <b>undefined</b>.</li>
+          </ol>
+        </section>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.slice">
+        <h1><span class="secnum" id="sec-22.2.3.23"><a href="/sec/sec-%typedarray%.prototype.slice.html" title="link to this section">22.2.3.23</a></span> %TypedArray%.prototype.slice ( start, end )</h1>
+
+        <p class="normalbefore">The interpretation and use of the arguments of %TypedArray%<code>.prototype.slice</code> are the
+        same as for  <code><a href="/sec/sec-array.prototype.slice.html">Array.prototype.slice</a></code> as defined in <a href="/sec/sec-array.prototype.slice.html">22.1.3.22</a>. The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>Let <i>valid</i> be <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>valid</i>).</li>
+          <li>Let <i>len</i> be the value of <i>O&#x2019;s</i> [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>relativeStart</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>start</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeStart</i>).</li>
+          <li>If <i>relativeStart</i> &lt; 0, let <i>k</i> be max((<i>len</i> + <i>relativeStart</i>),0); else let <i>k</i> be
+              min(<i>relativeStart</i>, <i>len</i>).</li>
+          <li>If <i>end</i> is <b>undefined</b>, let <i>relativeEnd</i> be <i>len</i>; else let <i>relativeEnd</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>end</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeEnd</i>).</li>
+          <li>If <i>relativeEnd</i> &lt; 0, let <i>final</i> be max((<i>len</i> + <i>relativeEnd</i>),0); else let <i>final</i> be
+              min(<i>relativeEnd</i>, <i>len</i>).</li>
+          <li>Let <i>count</i> be max(<i>final</i> &#x2013; <i>k</i>, 0).</li>
+          <li>Let <i>defaultConstructor</i> be the intrinsic object listed in column one of <a href="/sec/table-49.html">Table 49</a> for
+              the value of <i>O</i>&#x2019;s [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>.</li>
+          <li>Let <i>C</i> be <a href="/sec/sec-speciesconstructor.html">SpeciesConstructor</a>(<i>O</i>, <i>defaultConstructor</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>C</i>).</li>
+          <li>Let <i>A</i> be <a href="/sec/sec-allocatetypedarray.html">AllocateTypedArray</a>(<i>C</i>, <i>count</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>A</i>).</li>
+          <li>Let <i>srcName</i> be the String value of <i>O&#x2019;s</i> [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>srcType</i> be the String value of the Element Type value in <a href="/sec/table-49.html">Table 49</a> for
+              <i>srcName</i>.</li>
+          <li>Let <i>targetName</i> be the String value of <i>A&#x2019;s</i> [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>targetType</i> be the String value of the Element Type value in <a href="/sec/table-49.html">Table 49</a> for
+              <i>targetName</i>.</li>
+          <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>srcType</i>, <i>targetType</i>) is <b>false</b>, then
+            <ol class="block">
+              <li>Let <i>n</i> be 0.</li>
+              <li>Repeat, while <i>k</i> &lt; <i>final</i>
+                <ol class="block">
+                  <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+                  <li>Let <i>kValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>Pk</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kValue</i>).</li>
+                  <li>Let <i>status</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>A</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>n</i>), <i>kValue</i>, <b>true</b> ).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+                  <li>Increase <i>k</i> by 1.</li>
+                  <li>Increase <i>n</i> by 1.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Else if <i>count</i> &gt; 0,
+            <ol class="block">
+              <li>Let <i>srcBuffer</i> be the value of <i>O</i>&#x2019;s [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+              <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>srcBuffer</i>) is <b>true</b>, throw a
+                  <b>TypeError</b> exception.</li>
+              <li>Let <i>targetBuffer</i> be the value of <i>A</i>&#x2019;s [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+              <li>Let <i>elementSize</i> be the Number value of the Element Size value specified in <a href="/sec/table-49.html">Table
+                  49</a> for <i>srcType</i>.</li>
+              <li>NOTE:  If <var>srcType</var> and <var>targetType</var> are the same the transfer must be performed in a manner
+                  that preserves the bit-level encoding of the source data.</li>
+              <li>Let <i>srcByteOffet</i> be the value of <i>O</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+              <li>Let <i>targetByteIndex</i> be 0.</li>
+              <li>Let <i>srcByteIndex</i> be (<i>k</i> &#xD7; <i>elementSize</i>) + <i>srcByteOffet</i>.</li>
+              <li>Repeat, while <i>targetByteIndex</i> &lt; <i>count</i> &#xD7; <i>elementSize</i>
+                <ol class="block">
+                  <li>Let <i>value</i> be <a href="/sec/sec-getvaluefrombuffer.html">GetValueFromBuffer</a>(<i>srcBuffer</i>,
+                      <i>srcByteIndex</i>, <code>&quot;Uint8&quot;</code>).</li>
+                  <li>Perform <a href="/sec/sec-setvalueinbuffer.html">SetValueInBuffer</a> (<i>targetBuffer</i>, <i>targetByteIndex</i>,
+                      <code>&quot;Uint8&quot;</code>, <i>value</i>).</li>
+                  <li>Increase <i>srcByteIndex</i> by 1.</li>
+                  <li>Increase <i>targetByteIndex</i> by 1.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Return <i>A</i>.</li>
+        </ol>
+
+        <p>This function is not generic. The <b>this</b> value must be an object with a [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+        <p>The <code>length</code> property of the <code>slice</code> method is <b>2</b>.</p>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.some">
+        <h1><span class="secnum" id="sec-22.2.3.24"><a href="/sec/sec-%typedarray%.prototype.some.html" title="link to this section">22.2.3.24</a></span> %TypedArray%.prototype.some ( callbackfn [ , thisArg ] )</h1>
+
+        <p>%TypedArray%<code>.prototype.some</code> is a distinct function that implements the same algorithm as <code><a href="/sec/sec-array.prototype.some.html">Array.prototype.some</a></code> as defined in <a href="/sec/sec-array.prototype.some.html">22.1.3.23</a> except that the <b>this</b> object&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is accessed in place of performing a [[Get]] of
+        <code>&quot;length&quot;</code>. The implementation of the algorithm may be optimized with the knowledge that the <b>this</b> value
+        is an object that has a fixed length and whose integer indexed properties are not sparse. However, such optimization must
+        not introduce any observable changes in the specified behaviour of the algorithm and must take into account the
+        possibility that calls to <var>callbackfn</var> may cause the <b>this</b> value to become detached.</p>
+
+        <p>This function is not generic. <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a> is applied to the <b>this</b>
+        value  prior to evaluating the algorithm. If its result is an <a href="/sec/sec-completion-record-specification-type.html">abrupt
+        completion</a> that exception is thrown instead of evaluating the algorithm.</p>
+
+        <p>The <code>length</code> property of the <code>some</code> method is <b>1</b>.</p>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.sort">
+        <h1><span class="secnum" id="sec-22.2.3.25"><a href="/sec/sec-%typedarray%.prototype.sort.html" title="link to this section">22.2.3.25</a></span> %TypedArray%.prototype.sort ( comparefn )</h1>
+
+        <p>%TypedArray%<code>.prototype.sort</code> is a distinct function that, except as described below, implements the same
+        requirements as those of  <code><a href="/sec/sec-array.prototype.sort.html">Array.prototype.sort</a></code> as defined in <a href="/sec/sec-array.prototype.sort.html">22.1.3.24</a>. The implementation of the %TypedArray%<code>.prototype.sort</code>
+        specification may be optimized with the knowledge that the <b>this</b> value is an object that has a fixed length and
+        whose integer indexed properties are not sparse. The only internal methods of the <b>this</b> object that the algorithm
+        may call are  [[Get]] and [[Set]].</p>
+
+        <p>This function is not generic. The <b>this</b> value must be an object with a [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+        <p class="normalbefore">Upon entry, the following steps are performed to initialize evaluation of the <code>sort</code>
+        function. These steps are used instead of the entry steps in <a href="/sec/sec-array.prototype.sort.html">22.1.3.24</a>:</p>
+
+        <ol class="proc">
+          <li>Let <i>obj</i> be the <b>this</b> value as the argument.</li>
+          <li>Let <i>buffer</i> be <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a>(<i>obj</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>buffer</i>).</li>
+          <li>Let <i>len</i> be the value of <i>obj</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+        </ol>
+
+        <p>The implementation defined sort order condition for exotic objects is not applied by
+        %TypedArray%<code>.prototype.sort</code>.</p>
+
+        <p>The following version of <a href="/sec/sec-sortcompare.html">SortCompare</a> is used by
+        %TypedArray%<code>.prototype.sort</code>. It performs a numeric comparison rather than the string comparison used in <a href="/sec/sec-array.prototype.sort.html">22.1.3.24</a>. <a href="/sec/sec-sortcompare.html">SortCompare</a> has access to the
+        <var>comparefn</var> and <var>buffer</var> values of the current invocation of the <code>sort</code> method.</p>
+
+        <p class="normalbefore">When the TypedArray <a href="/sec/sec-sortcompare.html">SortCompare</a> abstract operation is called with
+        two arguments <var>x</var> and <var>y</var>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: Both <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) and <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>y</i>) is Number.</li>
+          <li>If the argument <i>comparefn</i> is not <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>v</i> be <a href="/sec/sec-call.html">Call</a>(<i>comparefn</i>, <b>undefined</b>, &#xAB;<i>x</i>,
+                  <i>y</i>&#xBB;).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+              <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>buffer</i>) is <b>true</b>, throw a <b>TypeError</b>
+                  exception.</li>
+              <li>If <i>v</i> is <b>NaN</b>, return +0.</li>
+              <li>Return <i>v</i>.</li>
+            </ol>
+          </li>
+          <li>If <i>x</i> and <i>y</i> are both <b>NaN</b>, return +0.</li>
+          <li>If <i>x</i> is <b>NaN</b>, return 1.</li>
+          <li>If <i>y</i> is <b>NaN</b>, return &#x2212;1.</li>
+          <li>If <i>x</i> &lt; <i>y</i>, return &#x2212;1.</li>
+          <li>If <i>x</i> &gt; <i>y</i>, return 1.</li>
+          <li>If <i>x</i> is &#x2212;0 and <i>y</i> is +0, return &#x2212;1.</li>
+          <li>If <i>x</i> is +0 and <i>y</i> is &#x2212;0, return 1.</li>
+          <li>Return +0.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> Because <b>NaN</b> always compares greater than any other value, <b>NaN</b> property
+          values always sort to the end of the result when <var>comparefn</var> is not provided.</p>
+        </div>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.subarray">
+        <h1><span class="secnum" id="sec-22.2.3.26"><a href="/sec/sec-%typedarray%.prototype.subarray.html" title="link to this section">22.2.3.26</a></span> %TypedArray%.prototype.subarray( [ begin [ , end ] ] )</h1>
+
+        <p>Returns a new <i>TypedArray</i> object whose element type is the same as this <i>TypedArray</i> and whose ArrayBuffer
+        is the same as the ArrayBuffer of this <i>TypedArray</i>, referencing the elements at <var>begin</var>, inclusive, up to
+        <var>end</var>, exclusive. If either <var>begin</var> or <var>end</var> is negative, it refers to an index from the end of
+        the array, as opposed to from the beginning.</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>O</i> does not have a [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>O</i> has a [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>buffer</i> be the value of <i>O</i>&#x2019;s [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>srcLength</i> be the value of <i>O</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>relativeBegin</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>begin</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeBegin</i>).</li>
+          <li>If <i>relativeBegin</i> &lt; 0, let <i>beginIndex</i> be max((<i>srcLength</i> + <i>relativeBegin</i>), 0); else let
+              <i>beginIndex</i> be min(<i>relativeBegin</i>, <i>srcLength</i>).</li>
+          <li>If <i>end</i> is <b>undefined</b>, let <i>relativeEnd</i> be <i>srcLength</i>; else, let <i>relativeEnd</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>end</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeEnd</i>).</li>
+          <li>If <i>relativeEnd</i> &lt; 0, let <i>endIndex</i> be max((<i>srcLength</i> + <i>relativeEnd</i>), 0); else let
+              <i>endIndex</i> be min(<i>relativeEnd</i>, <i>srcLength</i>).</li>
+          <li>Let <i>newLength</i> be max(<i>endIndex</i> &#x2013; <i>beginIndex</i>, 0).</li>
+          <li>Let <i>constructorName</i> be the String value of <i>O</i>&#x2019;s [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>elementSize</i> be the Number value of the Element Size value specified in <a href="/sec/table-49.html">Table 49</a>
+              for <i>constructorName</i>.</li>
+          <li>Let <i>srcByteOffset</i> be the value of <i>O</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>beginByteOffset</i> be <i>srcByteOffset</i> + <i>beginIndex</i> &#xD7; <i>elementSize</i>.</li>
+          <li>Let <i>defaultConstructor</i> be the intrinsic object listed in column one of <a href="/sec/table-49.html">Table 49</a> for
+              <i>constructorName</i>.</li>
+          <li>Let <i>constructor</i> be <a href="/sec/sec-speciesconstructor.html">SpeciesConstructor</a>(<i>O</i>,
+              <i>defaultConstructor</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>constructor</i>).</li>
+          <li>Let <i>argumentsList</i> be &#xAB;<i>buffer</i>, <i>beginByteOffset</i>, <i>newLength</i>&#xBB;.</li>
+          <li>Return <a href="/sec/sec-construct.html">Construct</a>(<i>constructor</i>, <i>argumentsList</i>).</li>
+        </ol>
+
+        <p>This function is not generic. The <b>this</b> value must be an object with a [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+        <p>The <code>length</code> property of the <code>subarray</code> method is <b>2</b>.</p>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.tolocalestring">
+        <h1><span class="secnum" id="sec-22.2.3.27"><a href="/sec/sec-%typedarray%.prototype.tolocalestring.html" title="link to this section">22.2.3.27</a></span> %TypedArray%.prototype.toLocaleString ([ reserved1 [ , reserved2 ]
+            ])</h1>
+
+        <p>%TypedArray%<code>.prototype.toLocaleString</code> is a distinct function that implements the same algorithm as
+        <code>Array.prototype.</code> <code>toLocaleString</code> as defined in <a href="/sec/sec-array.prototype.tolocalestring.html">22.1.3.26</a> except that the <b>this</b> object&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is accessed in place of performing a [[Get]] of
+        <code>&quot;length&quot;</code>. The implementation of the algorithm may be optimized with the knowledge that the <b>this</b> value
+        is an object that has a fixed length and whose integer indexed properties are not sparse. However, such optimization must
+        not introduce any observable changes in the specified behaviour of the algorithm.</p>
+
+        <p>This function is not generic. <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a> is applied to the <b>this</b>
+        value prior to evaluating the algorithm. If its result is an <a href="/sec/sec-completion-record-specification-type.html">abrupt
+        completion</a> that exception is thrown instead of evaluating the algorithm.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> If the ECMAScript implementation includes the ECMA-402 Internationalization API this
+          function is based upon the algorithm for <code><a href="/sec/sec-array.prototype.tolocalestring.html">Array.prototype.toLocaleString</a></code> that is in the ECMA-402
+          specification.</p>
+        </div>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.tostring">
+        <h1><span class="secnum" id="sec-22.2.3.28"><a href="/sec/sec-%typedarray%.prototype.tostring.html" title="link to this section">22.2.3.28</a></span> %TypedArray%.prototype.toString ( )</h1>
+
+        <p>The initial value of the %TypedArray%<code>.prototype.toString</code> data property is the same built-in function
+        object as the <code><a href="/sec/sec-array.prototype.tostring.html">Array.prototype.toString</a></code> method defined in <a href="/sec/sec-array.prototype.tostring.html">22.1.3.27</a>.</p>
+      </section>
+
+      <section id="sec-%typedarray%.prototype.values">
+        <h1><span class="secnum" id="sec-22.2.3.29"><a href="/sec/sec-%typedarray%.prototype.values.html" title="link to this section">22.2.3.29</a></span> %TypedArray%.prototype.values ( )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>Let <i>valid</i> be <a href="/sec/sec-validatetypedarray.html">ValidateTypedArray</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>valid</i>).</li>
+          <li>Return <a href="/sec/sec-createarrayiterator.html">CreateArrayIterator</a>(<i>O</i>, <code>&quot;value&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-%typedarray%.prototype-@@iterator">
+        <h1><span class="secnum" id="sec-22.2.3.30"><a href="/sec/sec-%typedarray%.prototype-@@iterator.html" title="link to this section">22.2.3.30</a></span> %TypedArray%.prototype [ @@iterator ]  ( )</h1>
+
+        <p>The initial value of the @@iterator property is the same function object as the initial value of the
+        %TypedArray%<code>.prototype.values</code> property.</p>
+      </section>
+
+      <section id="sec-get-%typedarray%.prototype-@@tostringtag">
+        <h1><span class="secnum" id="sec-22.2.3.31"><a href="/sec/sec-get-%typedarray%.prototype-@@tostringtag.html" title="link to this section">22.2.3.31</a></span> get %TypedArray%.prototype [ @@toStringTag ]</h1>
+
+        <p class="normalbefore">%TypedArray%.<code>prototype[@@toStringTag]</code> is an accessor property whose set accessor
+        function is <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, return <b>undefined</b>.</li>
+          <li>If <i>O</i> does not have a [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, return <b>undefined</b>.</li>
+          <li>Let <i>name</i> be the value of <i>O</i>&#x2019;s [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>name</i> is a String value.</li>
+          <li>Return <i>name</i>.</li>
+        </ol>
+
+        <p>This property has the attributes { [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+
+        <p>The initial value of the <code>name</code> property of this function is <code>&quot;get [Symbol.toStringTag]&quot;</code>.</p>
+      </section>
+    </section>
+
+    <section id="sec-typedarray-constructors">
+      <div class="front">
+        <h1><span class="secnum" id="sec-22.2.4"><a href="/sec/sec-typedarray-constructors.html" title="link to this section">22.2.4</a></span> The <i>TypedArray</i> Constructors</h1>
+
+        <p>Each of the <i>TypedArray</i> constructor objects is an intrinsic object that has the structure described below,
+        differing only in the name used as the constructor name instead of <i>TypedArray</i>, in <a href="/sec/table-49.html">Table
+        49</a>.</p>
+
+        <p>The <i>TypedArray</i> constructors are not intended to be called as a function and will throw an exception when called
+        in that manner.</p>
+
+        <p>The <i>TypedArray</i> constructors are designed to be subclassable. They may be used as the value of an
+        <code>extends</code> clause of a class definition. Subclass constructors that intend to inherit the specified
+        <i>TypedArray</i> behaviour must include a <code>super</code> call to the <i>TypedArray</i> constructor to create and
+        initialize the subclass instance with the internal state necessary to support the %TypedArray<code>%.prototype</code>
+        built-in methods.</p>
+      </div>
+
+      <section id="sec-typedarray">
+        <h1><span class="secnum" id="sec-22.2.4.1"><a href="/sec/sec-typedarray.html" title="link to this section">22.2.4.1</a></span>
+            <i>TypedArray</i>( ... argumentsList)</h1>
+
+        <p class="normalbefore">A <i>TypedArray</i> constructor with a list of arguments <i>argumentsList</i> performs the
+        following steps:</p>
+
+        <ol class="proc">
+          <li>If NewTarget is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>here</i> be the active function.</li>
+          <li>Let <i>super</i> be <i>here</i>.[[GetPrototypeOf]]().</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>super</i>).</li>
+          <li>If <a href="/sec/sec-isconstructor.html">IsConstructor</a> (<i>super</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]] internal method that invoked the
+              active function.</li>
+          <li>Return <a href="/sec/sec-construct.html">Construct</a>(<i>super</i>, <i>argumentsList</i>, NewTarget).</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-the-typedarray-constructors">
+      <div class="front">
+        <h1><span class="secnum" id="sec-22.2.5"><a href="/sec/sec-properties-of-the-typedarray-constructors.html" title="link to this section">22.2.5</a></span> Properties of the <i>TypedArray</i> Constructors</h1>
+
+        <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of each
+        <i>TypedArray</i> constructor is the %TypedArray% intrinsic object (<a href="/sec/sec-%typedarray%-intrinsic-object.html">22.2.1</a>).</p>
+
+        <p>Each <i>TypedArray</i> constructor has a [[TypedArrayConstructorName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> property whose value is the String value of the
+        constructor name specified for it in <a href="/sec/table-49.html">Table 49</a>.</p>
+
+        <p>Each <i>TypedArray</i> constructor has a <code>name</code> property whose value is the String value of the constructor
+        name specified for it in <a href="/sec/table-49.html">Table 49</a>.</p>
+
+        <p>Besides a <code>length</code> property (whose value is 3), each <i>TypedArray</i> constructor has the following
+        properties:</p>
+      </div>
+
+      <section id="sec-typedarray.bytes_per_element">
+        <h1><span class="secnum" id="sec-22.2.5.1"><a href="/sec/sec-typedarray.bytes_per_element.html" title="link to this section">22.2.5.1</a></span> <i>TypedArray</i>.BYTES_PER_ELEMENT</h1>
+
+        <p>The value of <i>TypedArray</i>.BYTES_PER_ELEMENT is the Number value of the Element Size value specified in <a href="/sec/table-49.html">Table 49</a> for <i>TypedArray</i>.</p>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <b>false</b> }.</p>
+      </section>
+
+      <section id="sec-typedarray.prototype">
+        <h1><span class="secnum" id="sec-22.2.5.2"><a href="/sec/sec-typedarray.prototype.html" title="link to this section">22.2.5.2</a></span> <i>TypedArray</i>.prototype</h1>
+
+        <p>The initial value of <i>TypedArray</i>.prototype is the corresponding <i>TypedArray</i> prototype intrinsic object (<a href="/sec/sec-properties-of-typedarray-prototype-objects.html">22.2.6</a>).</p>
+
+        <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">false</span> }.</p>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-typedarray-prototype-objects">
+      <div class="front">
+        <h1><span class="secnum" id="sec-22.2.6"><a href="/sec/sec-properties-of-typedarray-prototype-objects.html" title="link to this section">22.2.6</a></span> Properties of <i>TypedArray</i> Prototype Objects</h1>
+
+        <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of a
+        <i>TypedArray</i> prototype object is the intrinsic object %TypedArrayPrototype% (<a href="/sec/sec-properties-of-the-%typedarrayprototype%-object.html">22.2.3</a>). A <i>TypedArray</i> prototype object is an
+        ordinary object. It does not have a [[ViewedArrayBuffer]] or any other of the internal slots that are specific to
+        <i>TypedArray</i> instance objects.</p>
+      </div>
+
+      <section id="sec-typedarray.prototype.bytes_per_element">
+        <h1><span class="secnum" id="sec-22.2.6.1"><a href="/sec/sec-typedarray.prototype.bytes_per_element.html" title="link to this section">22.2.6.1</a></span> <i>TypedArray</i>.prototype.BYTES_PER_ELEMENT</h1>
+
+        <p>The value of <i>TypedArray</i><code>.prototype.BYTES_PER_ELEMENT</code> is the Number value of the Element Size value
+        specified in <a href="/sec/table-49.html">Table 49</a> for <i>TypedArray</i>.</p>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <b>false</b> }.</p>
+      </section>
+
+      <section id="sec-typedarray.prototype.constructor">
+        <h1><span class="secnum" id="sec-22.2.6.2"><a href="/sec/sec-typedarray.prototype.constructor.html" title="link to this section">22.2.6.2</a></span> <i>TypedArray</i>.prototype.constructor</h1>
+
+        <p>The initial value of a <i>TypedArray</i><code>.prototype.constructor</code> is the corresponding %<i>TypedArray</i>%
+        intrinsic object.</p>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-typedarray-instances">
+      <h1><span class="secnum" id="sec-22.2.7"><a href="/sec/sec-properties-of-typedarray-instances.html" title="link to this section">22.2.7</a></span> Properties of <i>TypedArray</i> Instances</h1>
+
+      <p><i>TypedArray</i> instances are Integer Indexed exotic objects. Each <i>TypedArray</i> instance inherits properties from
+      the corresponding <i>TypedArray</i> prototype object. Each <i>TypedArray</i> instance has the following internal slots:
+      [[TypedArrayName]], [[ViewedArrayBuffer]], [[ByteLength]], [[ByteOffset]], and [[ArrayLength]].</p>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

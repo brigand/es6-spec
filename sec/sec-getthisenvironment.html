@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-8.3.2"><a href="/sec/sec-getthisenvironment.html" title="link to this section">8.3.2</a></span>
+          GetThisEnvironment ( )</h1>
+
+      <p class="normalbefore">The abstract operation <span style="font-family: Times New Roman">GetThisEnvironment</span> finds
+      the <a href="/sec/sec-environment-records.html">Environment Record</a> that currently supplies the binding of the keyword
+      <code>this</code>. <span style="font-family: Times New Roman">GetThisEnvironment</span> performs the following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>lex</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a>.</li>
+        <li>Repeat
+          <ol class="block">
+            <li>Let <i>envRec</i> be <i>lex</i>&#x2019;s <a href="/sec/sec-lexical-environments.html">EnvironmentRecord</a>.</li>
+            <li>Let <i>exists</i> be <i>envRec</i>.HasThisBinding().</li>
+            <li>If <i>exists</i> is <b>true</b>, return <i>envRec</i>.</li>
+            <li>Let <i>outer</i> be the value of <i>lex&#x2019;s</i> <a href="/sec/sec-lexical-environments.html">outer environment
+                reference</a>.</li>
+            <li>Let <i>lex</i> be <i>outer</i>.</li>
+          </ol>
+        </li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The loop in step 2 will always terminate because the list of environments always ends with
+        <a href="/sec/sec-global-environment-records.html">the global environment</a> which has a <code>this</code> binding.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

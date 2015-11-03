@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-24.1.1.1"><a href="/sec/sec-allocatearraybuffer.html" title="link to this section">24.1.1.1</a></span> AllocateArrayBuffer( constructor, byteLength )</h1>
+
+        <p class="normalbefore">The abstract operation AllocateArrayBuffer with arguments <var>constructor</var> and
+        <var>byteLength</var> is used to create an ArrayBuffer object. It performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>obj</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(<i>constructor</i>,
+              <code>&quot;%ArrayBufferPrototype%&quot;</code>, &#xAB;&#x200D;[[ArrayBufferData]], [[ArrayBufferByteLength]]&#xBB; ).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>obj</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>byteLength</i> is a positive integer.</li>
+          <li>Let <i>block</i> be <a href="/sec/sec-createbytedatablock.html">CreateByteDataBlock</a>(<i>byteLength</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>block</i>).</li>
+          <li>Set <i>obj&#x2019;s</i> [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to <i>block</i>.</li>
+          <li>Set <i>obj</i>&#x2019;s [[ArrayBufferByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to <i>byteLength</i>.</li>
+          <li>Return <i>obj</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

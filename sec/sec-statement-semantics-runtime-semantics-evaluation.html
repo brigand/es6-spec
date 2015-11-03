@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-13.1.8"><a href="/sec/sec-statement-semantics-runtime-semantics-evaluation.html" title="link to this section">13.1.8</a></span> Runtime Semantics: Evaluation</h1>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">HoistableDeclaration</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">GeneratorDeclaration</span></div>
+      </div>
+
+      <ol class="proc">
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family: sans-serif">empty</span>).</li>
+      </ol>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">HoistableDeclaration</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">FunctionDeclaration</span></div>
+      </div>
+
+      <ol class="proc">
+        <li>Return the result of evaluating <i>FunctionDeclaration</i>.</li>
+      </ol>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">BreakableStatement</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">IterationStatement</span></div>
+        <div class="rhs"><span class="nt">SwitchStatement</span></div>
+      </div>
+
+      <ol class="proc">
+        <li>Let <i>newLabelSet</i>  be a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>Return the result of performing LabelledEvaluation of this <i>BreakableStatement</i> with argument
+            <i>newLabelSet</i>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

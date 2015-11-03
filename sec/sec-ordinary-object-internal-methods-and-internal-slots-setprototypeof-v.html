@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.1.2"><a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-setprototypeof-v.html" title="link to this section">9.1.2</a></span> [[SetPrototypeOf]] (V)</h1>
+
+      <p class="normalbefore">When the [[SetPrototypeOf]] internal method of <var>O</var> is called with argument <var>V</var> the
+      following steps are taken:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: Either <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>V</i>) is Object or <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>V</i>) is Null.</li>
+        <li>Let <i>extensible</i> be the value of the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>current</i> be the value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>V</i>, <i>current</i>), return <b>true.</b></li>
+        <li>If <i>extensible</i> is <b>false</b>, return <b>false</b>.</li>
+        <li>Let <i>p</i> be <i>V</i>.</li>
+        <li>Let <i>done</i> be <b>false</b>.</li>
+        <li>Repeat while <i>done</i> is <b>false</b>,
+          <ol class="block">
+            <li>If <i>p</i> is <b>null</b>, let <i>done</i> be <b>true</b>.</li>
+            <li>Else, if <a href="/sec/sec-samevalue.html">SameValue</a>(<i>p</i>, <i>O</i>) is <b>true</b>, return <b>false</b>.</li>
+            <li>Else,
+              <ol class="block">
+                <li>If the [[GetPrototypeOf]] internal method of <i>p</i> is not the ordinary object internal method defined in <a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-getprototypeof.html">9.1.1</a>, let <i>done</i> be
+                    <b>true</b>.</li>
+                <li>Else, let <i>p</i> be the value of <i>p</i>&#x2019;s [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>Set the value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of
+            <i>O</i> to <i>V</i>.</li>
+        <li>Return <b>true</b>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The loop in step 8 guarantees that there will be no circularities in any prototype chain
+        that only includes objects that use the ordinary object definitions for  [[GetPrototypeOf]] and [[SetPrototypeOf]].</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-13.2.14"><a href="/sec/sec-blockdeclarationinstantiation.html" title="link to this section">13.2.14</a></span> Runtime Semantics: BlockDeclarationInstantiation( code, env )</h1>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span>  When a <span class="nt">Block</span> or <span class="nt">CaseBlock</span> production is
+        evaluated a new declarative <a href="/sec/sec-environment-records.html">Environment Record</a> is created and bindings for each
+        block scoped variable, constant, function, generator function, or class declared in the block are instantiated in the <a href="/sec/sec-environment-records.html">Environment Record</a>.</p>
+      </div>
+
+      <p>BlockDeclarationInstantiation is performed as follows using arguments <var>code</var> and <var>env</var>. <var>code</var>
+      is the grammar production corresponding to the body of the block. <var>env</var> is the declarative <a href="/sec/sec-environment-records.html">Environment Record</a> in which bindings are to be created.</p>
+
+      <ol class="proc">
+        <li>Let <i>declarations</i> be the LexicallyScopedDeclarations of <i>code</i>.</li>
+        <li>For each element <i>d</i> in <i>declarations</i> do
+          <ol class="block">
+            <li>For each element <i>dn</i> of the BoundNames of <i>d</i> do
+              <ol class="block">
+                <li>If IsConstantDeclaration of <i>d</i> is <b>true</b>, then
+                  <ol class="block">
+                    <li>Let <i>status</i> be <i>env</i>.CreateImmutableBinding(<i>dn</i>, <b>true</b>).</li>
+                  </ol>
+                </li>
+                <li>Else,
+                  <ol class="block">
+                    <li>Let <i>status</i> be <i>env</i>.CreateMutableBinding(<i>dn</i>, <b>false</b>).</li>
+                  </ol>
+                </li>
+                <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is never an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+              </ol>
+            </li>
+            <li>If <i>d</i> is a <i>GeneratorDeclaration</i> production or a <i>FunctionDeclaration</i> production, then
+              <ol class="block">
+                <li>Let <i>fn</i> be the sole element of the BoundNames of <i>d</i></li>
+                <li>Let <i>fo</i> be the result of performing  InstantiateFunctionObject  for <i>d</i> with argument
+                    <i>env</i>.</li>
+                <li>Perform <i>env</i>.InitializeBinding(<i>fn</i>, <i>fo</i>).</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

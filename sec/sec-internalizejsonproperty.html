@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-24.3.1.1"><a href="/sec/sec-internalizejsonproperty.html" title="link to this section">24.3.1.1</a></span> Runtime Semantics: InternalizeJSONProperty( holder, name)</h1>
+
+        <p class="normalbefore">The abstract operation InternalizeJSONProperty is a recursive abstract operation that takes two
+        parameters: a <var>holder</var> object and the String <var>name</var> of a property in that object.
+        InternalizeJSONProperty uses the value of <var>reviver</var> that was originally passed to the above parse function.</p>
+
+        <ol class="proc">
+          <li>Let <i>val</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>holder</i>, <i>name</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>val</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>val</i>) is Object, then
+            <ol class="block">
+              <li>Let <i>isArray</i> be <a href="/sec/sec-isarray.html">IsArray</a>(<i>val</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>isArray</i>).</li>
+              <li>If <i>isArray</i> is <b>true</b>,  then
+                <ol class="block">
+                  <li>Set <i>I</i> to 0.</li>
+                  <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>val</i>,
+                      <code>&quot;length&quot;</code>)).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+                  <li>Repeat while <i>I</i> &lt; <i>len</i>,
+                    <ol class="block">
+                      <li>Let <i>newElement</i> be InternalizeJSONProperty(<i>val</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>I</i>)).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>newElement</i>).</li>
+                      <li>If <i>newElement</i> is <b>undefined</b>, then
+                        <ol class="block">
+                          <li>Let <i>status</i> be <i>val</i>.[[Delete]](<a href="/sec/sec-tostring.html">ToString</a>(<i>I</i>)).</li>
+                        </ol>
+                      </li>
+                      <li>Else
+                        <ol class="block">
+                          <li>Let <i>status</i> be <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>val</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>I</i>), <i>newElement</i>).</li>
+                          <li>NOTE This algorithm intentionally does not throw an exception if status is <b>false</b>.</li>
+                        </ol>
+                      </li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+                      <li>Add 1 to <i>I</i>.</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>Else
+                <ol class="block">
+                  <li>Let <i>keys</i> be <a href="/sec/sec-enumerableownnames.html">EnumerableOwnNames</a>(<i>val</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>keys</i>).</li>
+                  <li>For each String <i>P</i> in <i>keys</i> do,
+                    <ol class="block">
+                      <li>Let <i>newElement</i> be InternalizeJSONProperty(<i>val</i>, <i>P</i>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>newElement</i>).</li>
+                      <li>If <i>newElement</i> is <b>undefined</b>, then
+                        <ol class="block">
+                          <li>Let <i>status</i> be <i>val</i>.[[Delete]](<i>P</i>).</li>
+                        </ol>
+                      </li>
+                      <li>Else
+                        <ol class="block">
+                          <li>Let <i>status</i> be <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>val</i>, <i>P</i>,
+                              <i>newElement</i>).</li>
+                          <li>NOTE This algorithm intentionally does not throw an exception if status is <b>false</b>.</li>
+                        </ol>
+                      </li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-call.html">Call</a>(<i>reviver</i>, <i>holder</i>, &#xAB;<i>name</i>, <i>val</i>&#xBB;).</li>
+        </ol>
+
+        <p>It is not permitted for a conforming implementation of <code><a href="/sec/sec-json.parse.html">JSON.parse</a></code> to extend
+        the JSON grammars. If an implementation wishes to support a modified or extended JSON interchange format it must do so by
+        defining a different parse function.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> In the case where there are duplicate name Strings within an object, lexically preceding
+          values for the same key shall be overwritten.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

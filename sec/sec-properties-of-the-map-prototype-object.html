@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-23.1.3"><a href="/sec/sec-properties-of-the-map-prototype-object.html" title="link to this section">23.1.3</a></span> Properties of the Map Prototype Object</h1>
+
+        <p>The Map prototype object is the intrinsic object %MapPrototype%. The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the Map prototype object is the intrinsic
+        object %ObjectPrototype% (<a href="/sec/sec-properties-of-the-object-prototype-object.html">19.1.3</a>). The Map prototype object
+        is an ordinary object. It does not have a [[MapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+        slot</a>.</p>
+      </div>
+
+      <section id="sec-map.prototype.clear">
+        <h1><span class="secnum" id="sec-23.1.3.1"><a href="/sec/sec-map.prototype.clear.html" title="link to this section">23.1.3.1</a></span> Map.prototype.clear ( )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>M</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>M</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>M</i> does not have a [[MapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>,
+              throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of
+              <i>M</i>&#x2019;s [[MapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of <i>entries,</i>
+            <ol class="block">
+              <li>Set <i>p</i>.[[key]] to <span style="font-family: sans-serif">empty</span><i>.</i></li>
+              <li>Set <i>p</i>.[[value]] to <span style="font-family: sans-serif">empty</span><i>.</i></li>
+            </ol>
+          </li>
+          <li>Return <b>undefined</b>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The existing [[MapData]] <a href="/sec/sec-list-and-record-specification-type.html">List</a> is
+          preserved because there may be existing MapIterator objects that are <a href="/sec/sec-execution-contexts.html">suspended</a>
+          midway through iterating over that <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</p>
+        </div>
+      </section>
+
+      <section id="sec-map.prototype.constructor">
+        <h1><span class="secnum" id="sec-23.1.3.2"><a href="/sec/sec-map.prototype.constructor.html" title="link to this section">23.1.3.2</a></span> Map.prototype.constructor</h1>
+
+        <p>The initial value of <code>Map.prototype.constructor</code> is the intrinsic object %Map%.</p>
+      </section>
+
+      <section id="sec-map.prototype.delete">
+        <h1><span class="secnum" id="sec-23.1.3.3"><a href="/sec/sec-map.prototype.delete.html" title="link to this section">23.1.3.3</a></span> Map.prototype.delete ( key )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>M</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>M</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>M</i> does not have a [[MapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>,
+              throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of
+              <i>M</i>&#x2019;s [[MapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of <i>entries,</i>
+            <ol class="block">
+              <li>If <i>p</i>.[[key]] is not <span style="font-family: sans-serif">empty</span> and <a href="/sec/sec-samevaluezero.html">SameValueZero</a>(<i>p</i>.[[key]], <i>key</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li>Set <i>p</i>.[[key]] to <span style="font-family: sans-serif">empty</span><i>.</i></li>
+                  <li>Set <i>p</i>.[[value]] to <span style="font-family: sans-serif">empty</span><i>.</i></li>
+                  <li>Return <b>true</b>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The value <b>empty</b> is used as a specification device to indicate that an entry has
+          been deleted. Actual implementations may take other actions such as physically removing the entry from internal data
+          structures.</p>
+        </div>
+      </section>
+
+      <section id="sec-map.prototype.entries">
+        <h1><span class="secnum" id="sec-23.1.3.4"><a href="/sec/sec-map.prototype.entries.html" title="link to this section">23.1.3.4</a></span> Map.prototype.entries ( )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>M</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-createmapiterator.html">CreateMapIterator</a>(<i>M</i>, <code>&quot;key+value&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-map.prototype.foreach">
+        <h1><span class="secnum" id="sec-23.1.3.5"><a href="/sec/sec-map.prototype.foreach.html" title="link to this section">23.1.3.5</a></span> Map.prototype.forEach ( callbackfn [ , thisArg ] )</h1>
+
+        <p class="normalbefore">When the <code>forEach</code> method is called with one or two arguments, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>M</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>M</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>M</i> does not have a [[MapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>,
+              throw a <b>TypeError</b> exception.</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>callbackfn</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>thisArg</i> was supplied, let <i>T</i> be <i>thisArg</i>; else let <i>T</i> be <b>undefined</b>.</li>
+          <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of
+              <i>M</i>&#x2019;s [[MapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Repeat for each Record {[[key]], [[value]]} <i>e</i> that is an element of <i>entries,</i> in original key insertion
+              order
+            <ol class="block">
+              <li>If <i>e</i>.[[key]] is not <span style="font-family: sans-serif">empty</span>, then
+                <ol class="block">
+                  <li>Let <i>funcResult</i> be <a href="/sec/sec-call.html">Call</a>(<i>callbackfn</i>, <i>T</i>,
+                      &#xAB;<i>e</i>.[[value]], <i>e</i>.[[key]], <i>M</i>&#xBB;).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>funcResult</i>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Return <b>undefined</b>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>forEach</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> <var>callbackfn</var> should be a function that accepts three arguments.
+          <code>forEach</code> calls <var>callbackfn</var> once for each key/value pair present in the map object, in key
+          insertion order. <var>callbackfn</var> is called only for keys of the map which actually exist; it is not called for
+          keys that have been  deleted from the map.</p>
+
+          <p>If a <var>thisArg</var> parameter is provided, it will be used as the <b>this</b> value for each invocation of
+          <var>callbackfn</var>. If it is not provided, <b>undefined</b> is used instead.</p>
+
+          <p><var>callbackfn</var> is called with three arguments: the value of the item, the key of the item, and the Map object
+          being traversed.</p>
+
+          <p><code>forEach</code> does not directly mutate the object on which it is called but the object may be mutated by the
+          calls to <var>callbackfn</var>. Each entry of a map&#x2019;s [[MapData]] is only visited once. New keys added after the
+          call to <code>forEach</code> begins are visited. A key will be revisited if it is deleted after it has been visited and
+          then re-added before the <code>forEach</code> call completes. Keys that are deleted after the call to
+          <code>forEach</code> begins and before being visited are not visited unless the key is added again before the
+          <code>forEach</code> call completes.</p>
+        </div>
+      </section>
+
+      <section id="sec-map.prototype.get">
+        <h1><span class="secnum" id="sec-23.1.3.6"><a href="/sec/sec-map.prototype.get.html" title="link to this section">23.1.3.6</a></span> Map.prototype.get ( key )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>M</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>M</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>M</i> does not have a [[MapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>,
+              throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of
+              <i>M</i>&#x2019;s [[MapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of <i>entries,</i>
+            <ol class="block">
+              <li>If <i>p</i>.[[key]] is not <span style="font-family: sans-serif">empty</span> and <a href="/sec/sec-samevaluezero.html">SameValueZero</a>(<i>p</i>.[[key]], <i>key</i>) is <b>true</b>, return
+                  <i>p</i>.[[value]].</li>
+            </ol>
+          </li>
+          <li>Return <b>undefined</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-map.prototype.has">
+        <h1><span class="secnum" id="sec-23.1.3.7"><a href="/sec/sec-map.prototype.has.html" title="link to this section">23.1.3.7</a></span> Map.prototype.has ( key )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>M</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>M</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>M</i> does not have a [[MapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>,
+              throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of
+              <i>M</i>&#x2019;s [[MapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of <i>entries,</i>
+            <ol class="block">
+              <li>If <i>p</i>.[[key]] is not <span style="font-family: sans-serif">empty</span> and <a href="/sec/sec-samevaluezero.html">SameValueZero</a>(<i>p</i>.[[key]], <i>key</i>) is <b>true</b>, return
+                  <b>true</b><i>.</i></li>
+            </ol>
+          </li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-map.prototype.keys">
+        <h1><span class="secnum" id="sec-23.1.3.8"><a href="/sec/sec-map.prototype.keys.html" title="link to this section">23.1.3.8</a></span> Map.prototype.keys ( )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>M</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-createmapiterator.html">CreateMapIterator</a>(<i>M</i>, <code>&quot;key&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-map.prototype.set">
+        <h1><span class="secnum" id="sec-23.1.3.9"><a href="/sec/sec-map.prototype.set.html" title="link to this section">23.1.3.9</a></span> Map.prototype.set ( key , value )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>M</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>M</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>M</i> does not have a [[MapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>,
+              throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of
+              <i>M</i>&#x2019;s [[MapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of <i>entries,</i>
+            <ol class="block">
+              <li>If <i>p</i>.[[key]] is not <span style="font-family: sans-serif">empty</span> and <a href="/sec/sec-samevaluezero.html">SameValueZero</a>(<i>p</i>.[[key]], <i>key</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li>Set <i>p</i>.[[value]] to <i>value.</i></li>
+                  <li>Return <i>M</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>key</i> is &#x2212;0, let <i>key</i> be +0.</li>
+          <li>Let <i>p</i> be the Record {[[key]]: <i>key</i>, [[value]]: <i>value</i>}.</li>
+          <li>Append <i>p</i> as the last element of <i>entries</i>.</li>
+          <li>Return <i>M</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-get-map.prototype.size">
+        <h1><span class="secnum" id="sec-23.1.3.10"><a href="/sec/sec-get-map.prototype.size.html" title="link to this section">23.1.3.10</a></span> get Map.prototype.size</h1>
+
+        <p class="normalbefore">Map.prototype.size is an accessor property whose set accessor function is <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>M</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>M</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>M</i> does not have a [[MapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>,
+              throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of
+              <i>M</i>&#x2019;s [[MapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>count</i> be 0.</li>
+          <li>For each Record {[[key]], [[value]]} <i>p</i> that is an element of <i>entries</i>
+            <ol class="block">
+              <li>If <i>p</i>.[[key]] is not <span style="font-family: sans-serif">empty</span>, set <i>count</i> to
+                  <i>count</i>+1.</li>
+            </ol>
+          </li>
+          <li>Return <i>count</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-map.prototype.values">
+        <h1><span class="secnum" id="sec-23.1.3.11"><a href="/sec/sec-map.prototype.values.html" title="link to this section">23.1.3.11</a></span> Map.prototype.values ( )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>M</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-createmapiterator.html">CreateMapIterator</a>(<i>M</i>, <code>&quot;value&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-map.prototype-@@iterator">
+        <h1><span class="secnum" id="sec-23.1.3.12"><a href="/sec/sec-map.prototype-@@iterator.html" title="link to this section">23.1.3.12</a></span> Map.prototype [ @@iterator ]( )</h1>
+
+        <p>The initial value of the @@iterator property is the same function object as the initial value of the <b>entries</b>
+        property.</p>
+      </section>
+
+      <section id="sec-map.prototype-@@tostringtag">
+        <h1><span class="secnum" id="sec-23.1.3.13"><a href="/sec/sec-map.prototype-@@tostringtag.html" title="link to this section">23.1.3.13</a></span> Map.prototype [ @@toStringTag ]</h1>
+
+        <p>The initial value of the @@toStringTag property is the String value <code>&quot;Map&quot;</code>.</p>
+
+        <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

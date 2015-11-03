@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-B.2.2.1.2"><a href="/sec/sec-set-object.prototype.__proto__.html" title="link to this section">B.2.2.1.2</a></span> set Object.prototype.__proto__</h1>
+
+          <p class="normalbefore">The value of the [[Set]] attribute is a built-in function that takes an argument
+          <var>proto</var>. It performs the following steps:</p>
+
+          <ol class="proc">
+            <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value)<i>.</i></li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>proto</i>) is neither Object nor Null, return
+                <b>undefined</b>.</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, return <b>undefined</b>.</li>
+            <li>Let <i>status</i> be <i>O</i>.[[SetPrototypeOf]](<i>proto</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+            <li>If <i>status</i> is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+            <li>Return <b>undefined</b>.</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

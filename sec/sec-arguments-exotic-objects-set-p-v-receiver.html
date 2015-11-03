@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-9.4.4.4"><a href="/sec/sec-arguments-exotic-objects-set-p-v-receiver.html" title="link to this section">9.4.4.4</a></span> [[Set]] ( P, V, Receiver)</h1>
+
+        <p>The [[Set]] internal method of an arguments exotic object when called with <a href="/sec/sec-object-type.html">property key</a>
+        <var>P</var>, value <var>V</var>, and <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language value</a> <span class="nt">Receiver</span> performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>args</i> be the arguments object.</li>
+          <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>args</i>, <i>Receiver</i>) is <b>false</b>, then
+            <ol class="block">
+              <li>Let <i>isMapped</i> be <b>false</b>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>map</i> be the value of the [[ParameterMap]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the arguments object.</li>
+              <li>Let <i>isMapped</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>map</i>, <i>P</i>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>isMapped</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+            </ol>
+          </li>
+          <li>If <i>isMapped</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>map</i>, <i>P</i>, <i>V</i>,
+                  <b>false</b>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>setStatus</i> is <b>true</b> because formal parameters
+                  mapped by argument objects are always writable.</li>
+            </ol>
+          </li>
+          <li>Return the result of calling the default ordinary object [[Set]] internal method (<a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-set-p-v-receiver.html">9.1.9</a>) on <i>args</i> passing
+              <i>P</i>, <i>V</i> and <i>Receiver</i> as the arguments.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

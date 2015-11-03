@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-5.1.5"><a href="/sec/sec-grammar-notation.html" title="link to this section">5.1.5</a></span>
+          Grammar Notation</h1>
+
+      <p>Terminal symbols of the lexical, RegExp, and numeric string grammars are shown in <code>fixed width</code> font, both in
+      the productions of the grammars and throughout this specification whenever the text directly refers to such a terminal
+      symbol. These are to appear in a script exactly as written. All terminal symbol code points specified in this way are to be
+      understood as the appropriate Unicode code points from the Basic Latin range, as opposed to any similar-looking code points
+      from other Unicode ranges.</p>
+
+      <p>Nonterminal symbols are shown in <var>italic</var> type. The definition of a nonterminal (also called a
+      &#x201C;production&#x201D;) is introduced by the name of the nonterminal being defined followed by one or more colons. (The
+      number of colons indicates to which grammar the production belongs.) One or more alternative right-hand sides for the
+      nonterminal then follow on succeeding lines. For example, the syntactic definition:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">WhileStatement</span> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">while</code> <code class="t">(</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+      </div>
+
+      <p>states that the nonterminal <span class="nt">WhileStatement</span> represents the token <code>while</code>, followed by a
+      left parenthesis token, followed by an <span class="nt">Expression</span>, followed by a right parenthesis token, followed
+      by a <span class="nt">Statement</span>. The occurrences of <span class="nt">Expression</span> and <span class="nt">Statement</span> are themselves nonterminals. As another example, the syntactic definition:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">ArgumentList</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">AssignmentExpression</span></div>
+        <div class="rhs"><span class="nt">ArgumentList</span> <code class="t">,</code> <span class="nt">AssignmentExpression</span></div>
+      </div>
+
+      <p>states that an <span class="nt">ArgumentList</span> may represent either a single <span class="nt">AssignmentExpression</span> or an <span class="nt">ArgumentList</span>, followed by a comma, followed by an <span class="nt">AssignmentExpression</span>. This definition of <span class="nt">ArgumentList</span> is recursive, that is, it is
+      defined in terms of itself. The result is that an <span class="nt">ArgumentList</span> may contain any positive number of
+      arguments, separated by commas, where each argument expression is an <span class="nt">AssignmentExpression</span>. Such
+      recursive definitions of nonterminals are common.</p>
+
+      <p>The subscripted suffix &#x201C;<sub>opt</sub>&#x201D;, which may appear after a terminal or nonterminal, indicates an
+      optional symbol. The alternative containing the optional symbol actually specifies two right-hand sides, one that omits the
+      optional element and one that includes it. This means that:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">VariableDeclaration</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">BindingIdentifier</span> <span class="nt">Initializer</span><sub class="g-opt">opt</sub></div>
+      </div>
+
+      <p>is a convenient abbreviation for:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">VariableDeclaration</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">BindingIdentifier</span></div>
+        <div class="rhs"><span class="nt">BindingIdentifier</span> <span class="nt">Initializer</span></div>
+      </div>
+
+      <p>and that:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">IterationStatement</span> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">LexicalDeclaration</span> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">;</code> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">)</code> <span class="nt">Statement</span></div>
+      </div>
+
+      <p>is a convenient abbreviation for:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">IterationStatement</span> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">LexicalDeclaration</span> <code class="t">;</code> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">)</code> <span class="nt">Statement</span></div>
+        <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">LexicalDeclaration</span> <span class="nt">Expression</span> <code class="t">;</code> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">)</code> <span class="nt">Statement</span></div>
+      </div>
+
+      <p>which in turn is an abbreviation for:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">IterationStatement</span> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">LexicalDeclaration</span> <code class="t">;</code> <code class="t">)</code> <span class="nt">Statement</span></div>
+        <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">LexicalDeclaration</span> <code class="t">;</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+        <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">LexicalDeclaration</span> <span class="nt">Expression</span> <code class="t">;</code> <code class="t">)</code> <span class="nt">Statement</span></div>
+        <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">LexicalDeclaration</span> <span class="nt">Expression</span> <code class="t">;</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+      </div>
+
+      <p>so, in this example, the nonterminal <span class="nt">IterationStatement</span> actually has four alternative right-hand
+      sides.</p>
+
+      <p>A production may be parameterized by a subscripted annotation of the form &#x201C;<sub>[parameters]</sub>&#x201D;, which
+      may appear as a suffix to the nonterminal symbol defined by the production. &#x201C;<sub>parameters</sub>&#x201D; may be
+      either a single name or a comma separated list of names. A parameterized production is shorthand for a set of productions
+      defining all combinations of the parameter names, preceded by an underscore, appended to the parameterized nonterminal
+      symbol. This means that:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">StatementList</span><sub class="g-params">[Return]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">ReturnStatement</span></div>
+        <div class="rhs"><span class="nt">ExpressionStatement</span></div>
+      </div>
+
+      <p>is a convenient abbreviation for:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">StatementList</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">ReturnStatement</span></div>
+        <div class="rhs"><span class="nt">ExpressionStatement</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">StatementList_Return</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">ReturnStatement</span></div>
+        <div class="rhs"><span class="nt">ExpressionStatement</span></div>
+      </div>
+
+      <p>and that:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">StatementList</span><sub class="g-params">[Return, In]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">ReturnStatement</span></div>
+        <div class="rhs"><span class="nt">ExpressionStatement</span></div>
+      </div>
+
+      <p>is an abbreviation for:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">StatementList</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">ReturnStatement</span></div>
+        <div class="rhs"><span class="nt">ExpressionStatement</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">StatementList_Return</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">ReturnStatement</span></div>
+        <div class="rhs"><span class="nt">ExpressionStatement</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">StatementList_In</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">ReturnStatement</span></div>
+        <div class="rhs"><span class="nt">ExpressionStatement</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">StatementList_Return_In</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">ReturnStatement</span></div>
+        <div class="rhs"><span class="nt">ExpressionStatement</span></div>
+      </div>
+
+      <p>Multiple parameters produce a combinatory number of productions, not all of which are necessarily referenced in a
+      complete grammar.</p>
+
+      <p>References to nonterminals on the right-hand side of a production can also be parameterized. For example:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">StatementList</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">ReturnStatement</span></div>
+        <div class="rhs"><span class="nt">ExpressionStatement</span><sub class="g-params">[In]</sub></div>
+      </div>
+
+      <p>is equivalent to saying:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">StatementList</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">ReturnStatement</span></div>
+        <div class="rhs"><span class="nt">ExpressionStatement_In</span></div>
+      </div>
+
+      <p>A nonterminal reference may have both a parameter list and an &#x201C;<sub>opt</sub>&#x201D; suffix. For example:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">VariableDeclaration</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">BindingIdentifier</span> <span class="nt">Initializer</span><sub class="g-params">[In]</sub><sub class="g-opt">opt</sub></div>
+      </div>
+
+      <p>is an abbreviation for:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">VariableDeclaration</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">BindingIdentifier</span></div>
+        <div class="rhs"><span class="nt">BindingIdentifier</span> <span class="nt">Initializer_In</span></div>
+      </div>
+
+      <p>Prefixing a parameter name with &#x201C;<sub>?</sub>&#x201D; on a right-hand side nonterminal reference makes that
+      parameter value dependent upon the occurrence of the parameter name on the reference to the current production&#x2019;s
+      left-hand side symbol. For example:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">VariableDeclaration</span><sub class="g-params">[In]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">BindingIdentifier</span> <span class="nt">Initializer</span><sub class="g-params">[?In]</sub></div>
+      </div>
+
+      <p>is an abbreviation for:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">VariableDeclaration</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">BindingIdentifier</span> <span class="nt">Initializer</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">VariableDeclaration_In</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">BindingIdentifier</span> <span class="nt">Initializer_In</span></div>
+      </div>
+
+      <p>If a right-hand side alternative is prefixed with &#x201C;[+parameter]&#x201D; that alternative is only available if the
+      named parameter was used in referencing the production&#x2019;s nonterminal symbol. If a right-hand side alternative is
+      prefixed with &#x201C;[~parameter]&#x201D; that alternative is only available if the named parameter was <i>not</i> used in
+      referencing the production&#x2019;s nonterminal symbol. This means that:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">StatementList</span><sub class="g-params">[Return]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="grhsannot">[+Return]</span> <span class="nt">ReturnStatement</span></div>
+        <div class="rhs"><span class="nt">ExpressionStatement</span></div>
+      </div>
+
+      <p>is an abbreviation for:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">StatementList</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">ExpressionStatement</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">StatementList_Return</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">ReturnStatement</span></div>
+        <div class="rhs"><span class="nt">ExpressionStatement</span></div>
+      </div>
+
+      <p>and that</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">StatementList</span><sub class="g-params">[Return]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="grhsannot">[~Return]</span> <span class="nt">ReturnStatement</span></div>
+        <div class="rhs"><span class="nt">ExpressionStatement</span></div>
+      </div>
+
+      <p>is an abbreviation for:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">StatementList</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">ReturnStatement</span></div>
+        <div class="rhs"><span class="nt">ExpressionStatement</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">StatementList_Return</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">ExpressionStatement</span></div>
+      </div>
+
+      <p>When the words &#x201C;<b>one of</b>&#x201D; follow the colon(s) in a grammar definition, they signify that each of the
+      terminal symbols on the following line or lines is an alternative definition. For example, the lexical grammar for
+      ECMAScript contains the production:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">NonZeroDigit</span> <span class="geq">::</span> <span class="grhsmod">one of</span></div>
+        <div class="rhs"><code class="t">1</code> <code class="t">2</code> <code class="t">3</code> <code class="t">4</code> <code class="t">5</code> <code class="t">6</code> <code class="t">7</code> <code class="t">8</code> <code class="t">9</code></div>
+      </div>
+
+      <p>which is merely a convenient abbreviation for:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">NonZeroDigit</span> <span class="geq">::</span></div>
+        <div class="rhs"><code class="t">1</code></div>
+        <div class="rhs"><code class="t">2</code></div>
+        <div class="rhs"><code class="t">3</code></div>
+        <div class="rhs"><code class="t">4</code></div>
+        <div class="rhs"><code class="t">5</code></div>
+        <div class="rhs"><code class="t">6</code></div>
+        <div class="rhs"><code class="t">7</code></div>
+        <div class="rhs"><code class="t">8</code></div>
+        <div class="rhs"><code class="t">9</code></div>
+      </div>
+
+      <p>If the phrase &#x201C;[empty]&#x201D; appears as the right-hand side of a production, it indicates that the production&apos;s
+      right-hand side contains no terminals or nonterminals.</p>
+
+      <p>If the phrase &#x201C;[lookahead &#x2209; <var>set</var>]&#x201D; appears in the right-hand side of a production, it
+      indicates that the production may not be used if the immediately following input token sequence is a member of the given
+      <var>set</var>. The <var>set</var> can be written as a comma separated list of one or two element terminal sequences
+      enclosed in curly brackets. For convenience, the set can also be written as a nonterminal, in which case it represents the
+      set of all terminals to which that nonterminal could expand. If the <var>set</var> consists of a single terminal the phrase
+      &#x201C;[lookahead &#x2260; <var>terminal</var>]&#x201D; may be used.</p>
+
+      <p>For example, given the definitions</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">DecimalDigit</span> <span class="geq">::</span> <span class="grhsmod">one of</span></div>
+        <div class="rhs"><code class="t">0</code> <code class="t">1</code> <code class="t">2</code> <code class="t">3</code> <code class="t">4</code> <code class="t">5</code> <code class="t">6</code> <code class="t">7</code> <code class="t">8</code> <code class="t">9</code></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">DecimalDigits</span> <span class="geq">::</span></div>
+        <div class="rhs"><span class="nt">DecimalDigit</span></div>
+        <div class="rhs"><span class="nt">DecimalDigits</span> <span class="nt">DecimalDigit</span></div>
+      </div>
+
+      <p>the definition</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">LookaheadExample</span> <span class="geq">::</span></div>
+        <div class="rhs"><code class="t">n</code> <span class="grhsannot">[lookahead &#x2209; {<code class="t">1</code>, <code class="t">3</code>, <code class="t">5</code>, <code class="t">7</code>, <code class="t">9</code>}]</span> <span class="nt">DecimalDigits</span></div>
+        <div class="rhs"><span class="nt">DecimalDigit</span> <span class="grhsannot">[lookahead &#x2209; <span class="nt">DecimalDigit</span>]</span></div>
+      </div>
+
+      <p>matches either the letter <code>n</code> followed by one or more decimal digits the first of which is even, or a decimal
+      digit not followed by another decimal digit.</p>
+
+      <p>If the phrase &#x201C;[no <span class="nt">LineTerminator</span> here]&#x201D; appears in the right-hand side of a
+      production of the syntactic grammar, it indicates that the production is <i>a restricted production</i>: it may not be used
+      if a <span class="nt">LineTerminator</span> occurs in the input stream at the indicated position. For example, the
+      production:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">ThrowStatement</span> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">throw</code> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <span class="nt">Expression</span> <code class="t">;</code></div>
+      </div>
+
+      <p>indicates that the production may not be used if a <span class="nt">LineTerminator</span> occurs in the script between
+      the <code>throw</code> token and the <span class="nt">Expression</span>.</p>
+
+      <p>Unless the presence of a <span class="nt">LineTerminator</span> is forbidden by a restricted production, any number of
+      occurrences of <span class="nt">LineTerminator</span> may appear between any two consecutive tokens in the stream of input
+      elements without affecting the syntactic acceptability of the script.</p>
+
+      <p>When an alternative in a production of the lexical grammar or the numeric string grammar appears to be a multi-code point
+      token, it represents the sequence of code points that would make up such a token.</p>
+
+      <p>The right-hand side of a production may specify that certain expansions are not permitted by using the phrase
+      &#x201C;<b>but not</b>&#x201D; and then indicating the expansions to be excluded. For example, the production:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">Identifier</span> <span class="geq">::</span></div>
+        <div class="rhs"><span class="nt">IdentifierName</span> <span class="grhsmod">but not</span> <span class="nt">ReservedWord</span></div>
+      </div>
+
+      <p>means that the nonterminal <span class="nt">Identifier</span> may be replaced by any sequence of code points that could
+      replace <span class="nt">IdentifierName</span> provided that the same sequence of code points could not replace <span class="nt">ReservedWord</span>.</p>
+
+      <p>Finally, a few nonterminal symbols are described by a descriptive phrase in sans-serif type in cases where it would be
+      impractical to list all the alternatives:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">SourceCharacter</span> <span class="geq">::</span></div>
+        <div class="rhs"><span class="gprose">any Unicode code point</span></div>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.2.5.6"><a href="/sec/sec-regexp.prototype-@@match.html" title="link to this section">21.2.5.6</a></span> RegExp.prototype [ @@match ] ( string )</h1>
+
+        <p class="normalbefore">When the @@<code>match</code> method is called with argument <var>string</var>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>rx</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>rx</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>string</i>)</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>global</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>rx</i>,
+              <code>&quot;global&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>global</i>).</li>
+          <li>If <i>global</i> is <b>false</b>, then
+            <ol class="block">
+              <li>Return <a href="/sec/sec-regexpexec.html">RegExpExec</a>(<i>rx</i>, <i>S</i>).</li>
+            </ol>
+          </li>
+          <li>Else <i>global</i> is <b>true</b>,
+            <ol class="block">
+              <li>Let <i>fullUnicode</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>rx</i>,
+                  <code>&quot;unicode&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fullUnicode</i>).</li>
+              <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>rx</i>, <code>&quot;lastIndex&quot;</code>, 0,
+                  <b>true</b>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+              <li>Let <i>A</i> be <a href="/sec/sec-arraycreate.html">ArrayCreate</a>(0).</li>
+              <li>Let <i>n</i> be 0.</li>
+              <li>Repeat,
+                <ol class="block">
+                  <li>Let <i>result</i> be <a href="/sec/sec-regexpexec.html">RegExpExec</a>(<i>rx</i>, <i>S</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>result</i>).</li>
+                  <li>If <i>result</i> is <b>null</b>, then
+                    <ol class="block">
+                      <li>If <i>n</i>=0, return <b>null</b>.</li>
+                      <li>Else, return <i>A</i>.</li>
+                    </ol>
+                  </li>
+                  <li>Else <i>result</i> is not <b>null</b>,
+                    <ol class="block">
+                      <li>Let <i>matchStr</i> be <a href="/sec/sec-tostring.html">ToString</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>result</i>, <code>&quot;0&quot;</code>)).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>matchStr</i>).</li>
+                      <li>Let <i>status</i> be <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>A</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>n</i>), <i>matchStr</i>).</li>
+                      <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <i>status</i> is <b>true</b>.</li>
+                      <li>If <i>matchStr</i> is the empty String, then
+                        <ol class="block">
+                          <li>Let <i>thisIndex</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>rx</i>, <code>&quot;lastIndex&quot;</code>)).</li>
+                          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>thisIndex</i>).</li>
+                          <li>Let <i>nextIndex</i> be <a href="/sec/sec-advancestringindex.html">AdvanceStringIndex</a>(<i>S</i>,
+                              <i>thisIndex</i>, <i>fullUnicode</i>).</li>
+                          <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>rx</i>, <code>&quot;lastIndex&quot;</code>,
+                              <i>nextIndex</i>, <b>true</b>).</li>
+                          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                        </ol>
+                      </li>
+                      <li>Increment <i>n</i>.</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
+
+        <p>The value of the <code>name</code> property of this function is <code>&quot;[Symbol.match]&quot;</code>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The @@match property is used by the <a href="/sec/sec-isregexp.html">IsRegExp</a> abstract
+          operation to identify objects that have the basic behaviour of regular expressions. The absence of a @@match property or
+          the existence of such a property whose value does not Boolean coerce to <span class="value">true</span> indicates that
+          the object is not intended to be used as a regular expression object.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

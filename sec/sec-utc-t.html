@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.3.1.10"><a href="/sec/sec-utc-t.html" title="link to this section">20.3.1.10</a></span> UTC ( t
+            )</h1>
+
+        <p class="normalbefore">The abstract operation UTC with argument <var>t</var> converts <var>t</var> from local time to UTC
+        is defined by performing the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>t</i>).</li>
+          <li>Return <i>t</i> &#x2013; <a href="/sec/sec-local-time-zone-adjustment.html">LocalTZA</a> &#x2013; <a href="/sec/sec-daylight-saving-time-adjustment.html">DaylightSavingTA</a>(<i>t</i> &#x2013; <a href="/sec/sec-local-time-zone-adjustment.html">LocalTZA</a>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span>  <span style="font-family: Times New Roman">UTC(<a href="/sec/sec-localtime.html">LocalTime</a>(<i>t</i>))</span> is not necessarily always equal to <i>t</i>.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-8.5"><a href="/sec/sec-ecmascript-initialization.html" title="link to this section">8.5</a></span>
+          ECMAScript Initialization()</h1>
+
+      <p>An ECMAScript implementation performs the following steps prior to the execution of any Jobs or the evaluation of any
+      ECMAScript code:</p>
+
+      <ol class="proc">
+        <li>Let <i>realm</i> be <a href="/sec/sec-createrealm.html">CreateRealm</a>().</li>
+        <li>Let <i>newContext</i> be a new <a href="/sec/sec-execution-contexts.html">execution context</a>.</li>
+        <li>Set the Function of <i>newContext</i> to <b>null</b>.</li>
+        <li>Set the <a href="/sec/sec-code-realms.html">Realm</a> of <i>newContext</i> to <i>realm</i>.</li>
+        <li>Push <i>newContext</i> onto <a href="/sec/sec-execution-contexts.html">the execution context stack</a>; <i>newContext</i> is
+            now <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>Let <i>status</i> be <a href="/sec/sec-initializehostdefinedrealm.html">InitializeHostDefinedRealm</a>(<i>realm</i>).</li>
+        <li>If <i>status</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, then
+          <ol class="block">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: The first realm could not be created.</li>
+            <li>Terminate ECMAScript execution.</li>
+          </ol>
+        </li>
+        <li>In an implementation dependent manner, obtain the ECMAScript source texts (see <a href="/sec/sec-ecmascript-language-source-code.html">clause 10</a>) for zero or more ECMAScript scripts and/or ECMAScript
+            modules. For each such  <i>sourceText</i> do,
+          <ol class="block">
+            <li>If <i>sourceText</i> is the source code of a script, then
+              <ol class="block">
+                <li>Perform <a href="/sec/sec-enqueuejob.html">EnqueueJob</a>(<code>&quot;ScriptJobs&quot;</code>, <a href="/sec/sec-scriptevaluationjob.html">ScriptEvaluationJob</a>, &#xAB; <i>sourceText</i> &#xBB;).</li>
+              </ol>
+            </li>
+            <li>Else <i>sourceText</i> is the source code of a module,
+              <ol class="block">
+                <li>Perform <a href="/sec/sec-enqueuejob.html">EnqueueJob</a>(<code>&quot;ScriptJobs&quot;</code>, <a href="/sec/sec-toplevelmoduleevaluationjob.html">TopLevelModuleEvaluationJob</a>, &#xAB; <i>sourceText</i>
+                    &#xBB;).</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>NextJob <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+      </ol>
+    </div>
+
+    <section id="sec-initializehostdefinedrealm">
+      <h1><span class="secnum" id="sec-8.5.1"><a href="/sec/sec-initializehostdefinedrealm.html" title="link to this section">8.5.1</a></span> InitializeHostDefinedRealm ( realm )</h1>
+
+      <p class="normalbefore">The abstract operation InitializeHostDefinedRealm with parameter <var>realm</var> performs the
+      following steps:</p>
+
+      <ol class="proc">
+        <li>If this implementation requires use of an exotic object to serve as <i>realm</i>&#x2019;s global object, let
+            <i>global</i> be such an object created in an implementation defined manner. Otherwise, let <i>global</i> be
+            <b>undefined</b> indicating that an ordinary object should be created as the global object.</li>
+        <li>Perform <a href="/sec/sec-setrealmglobalobject.html">SetRealmGlobalObject</a>(<i>realm</i>, <i>global</i>).</li>
+        <li>Let <i>globalObj</i> be <a href="/sec/sec-setdefaultglobalbindings.html">SetDefaultGlobalBindings</a>(<i>realm</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>globalObj</i>).</li>
+        <li>Create any implementation defined global object properties on <i>globalObj</i>.</li>
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+      </ol>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

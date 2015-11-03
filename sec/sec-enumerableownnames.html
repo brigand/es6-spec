@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.3.21"><a href="/sec/sec-enumerableownnames.html" title="link to this section">7.3.21</a></span>
+          EnumerableOwnNames (O)</h1>
+
+      <p class="normalbefore">When the abstract operation EnumerableOwnNames is called with Object <var>O</var> the following
+      steps are taken:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>)
+            is Object.</li>
+        <li>Let <i>ownKeys</i> be <i>O</i>.[[OwnPropertyKeys]]().</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>ownKeys</i>).</li>
+        <li>Let <i>names</i> be a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>Repeat, for each element <i>key</i> of <i>ownKeys</i> in <a href="/sec/sec-list-and-record-specification-type.html">List</a>
+            order
+          <ol class="block">
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>key</i>) is String, then
+              <ol class="block">
+                <li>Let <i>desc</i> be <i>O</i>.[[GetOwnProperty]](<i>key</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>desc</i>).</li>
+                <li>If <i>desc</i> is not <b>undefined</b>, then
+                  <ol class="block">
+                    <li>If <i>desc.</i>[[Enumerable]] is <b>true</b>, append <i>key</i> to <i>names</i>.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>Order the elements of <i>names</i> so they are in the same relative order as would be produced by the Iterator that
+            would be returned if the [[Enumerate]] internal method was invoked on <i>O</i>.</li>
+        <li>Return <i>names</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The order of elements in the returned list is the same as the enumeration order that is
+        used by a for-in statement.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

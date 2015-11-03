@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.1.2.4"><a href="/sec/sec-string.raw.html" title="link to this section">21.1.2.4</a></span>
+            String.raw ( template , ...substitutions  )</h1>
+
+        <p class="normalbefore">The <code>String.raw</code> function may be called with a variable number of arguments. The first
+        argument is <var>template</var> and the remainder of the arguments form the <a href="/sec/sec-list-and-record-specification-type.html">List</a> <var>substitutions</var>. The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>substitutions</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> consisting of all of the
+              arguments passed to this function, starting with the second argument. If fewer than two arguments were passed, the
+              <a href="/sec/sec-list-and-record-specification-type.html">List</a> is empty.</li>
+          <li>Let <i>numberOfSubstitutions</i> be the number of elements in <i>substitutions</i>.</li>
+          <li>Let <i>cooked</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<i>template</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>cooked</i>).</li>
+          <li>Let <i>raw</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>cooked</i>,
+              <code>&quot;raw&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>raw</i>).</li>
+          <li>Let <i>literalSegments</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>raw</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>literalSegments</i>).</li>
+          <li>If <i>literalSegments</i> &#x2264; 0, return the empty string.</li>
+          <li>Let <i>stringElements</i> be a new <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>Let <i>nextIndex</i> be 0.</li>
+          <li>Repeat
+            <ol class="block">
+              <li>Let <i>nextKey</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>nextIndex</i>).</li>
+              <li>Let <i>nextSeg</i> be <a href="/sec/sec-tostring.html">ToString</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>raw</i>,
+                  <i>nextKey</i>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextSeg</i>).</li>
+              <li>Append in order the code unit elements of <i>nextSeg</i> to the end of <i>stringElements</i>.</li>
+              <li>If <i>nextIndex</i> + 1 = <i>literalSegments</i>, then
+                <ol class="block">
+                  <li>Return the String value whose code units are, in order, the elements in the <a href="/sec/sec-list-and-record-specification-type.html">List</a> <i>stringElements</i>. If <i>stringElements</i> has
+                      no elements, the empty string is returned.</li>
+                </ol>
+              </li>
+              <li>If <i>nextIndex &lt; numberOfSubstitutions</i>, let <i>next</i> be <i>substitutions</i>[<i>nextIndex</i>].</li>
+              <li>Else, let <i>next</i> be the empty String.</li>
+              <li>Let <i>nextSub</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>next</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextSub</i>).</li>
+              <li>Append in order the code unit elements of <i>nextSub</i> to the end of <i>stringElements</i>.</li>
+              <li>Let <i>nextIndex</i> be <i>nextIndex</i> + 1.</li>
+            </ol>
+          </li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>raw</code> function is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> String.raw is intended for use as a tag function of a Tagged Template (<a href="/sec/sec-tagged-templates.html">12.3.7</a>). When called as such, the first argument will be a well formed template object
+          and the rest parameter will contain the substitution values.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

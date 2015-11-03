@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-13.3.2.4"><a href="/sec/sec-variable-statement-runtime-semantics-evaluation.html" title="link to this section">13.3.2.4</a></span> Runtime Semantics: Evaluation</h1>
+        <div class="gp prod"><span class="nt">VariableStatement</span> <span class="geq">:</span> <code class="t">var</code> <span class="nt">VariableDeclarationList</span> <code class="t">;</code></div>
+        <ol class="proc">
+          <li>Let <i>next</i> be the result of evaluating <i>VariableDeclarationList</i>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>( <span style="font-family:
+              sans-serif">empty</span>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">VariableDeclarationList</span> <span class="geq">:</span> <span class="nt">VariableDeclarationList</span> <code class="t">,</code> <span class="nt">VariableDeclaration</span></div>
+        <ol class="proc">
+          <li>Let <i>next</i> be the result of evaluating <i>VariableDeclarationList</i>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+          <li>Return the result of evaluating <i>VariableDeclaration</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">VariableDeclaration</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span></div>
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+              sans-serif">empty</span>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">VariableDeclaration</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span> <span class="nt">Initializer</span></div>
+        <ol class="proc">
+          <li>Let <i>bindingId</i> be StringValue of <i>BindingIdentifier.</i></li>
+          <li>Let <i>lhs</i> be <a href="/sec/sec-resolvebinding.html">ResolveBinding</a>(<i>bindingId</i>)</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lhs</i>).</li>
+          <li>Let <i>rhs</i> be the result of evaluating <i>Initializer</i>.</li>
+          <li>Let <i>value</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rhs</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+          <li>If <a href="/sec/sec-isanonymousfunctiondefinition.html">IsAnonymousFunctionDefinition</a>(<i>Initializer)</i> is
+              <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>hasNameProperty</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>value</i>,
+                  <code>&quot;name&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasNameProperty</i>).</li>
+              <li>If <i>hasNameProperty</i> is <b>false</b>, perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>value</i>, <i>bindingId</i>).</li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-putvalue.html">PutValue</a>(<i>lhs</i>, <i>value</i>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> If a <span class="nt">VariableDeclaration</span> is nested within a with statement and
+          the <span class="nt">BindingIdentifier</span> in the <span class="nt">VariableDeclaration</span> is the same as a
+          property name of the binding object of the with statement&#x2019;s object <a href="/sec/sec-environment-records.html">Environment
+          Record</a>, then step 7 will assign <var>value</var> to the property instead of assigning to the <a href="/sec/sec-execution-contexts.html">VariableEnvironment</a> binding of the <span class="nt">Identifier</span>.</p>
+        </div>
+
+        <div class="gp prod"><span class="nt">VariableDeclaration</span> <span class="geq">:</span> <span class="nt">BindingPattern</span> <span class="nt">Initializer</span></div>
+        <ol class="proc">
+          <li>Let <i>rhs</i> be the result of evaluating <i>Initializer</i>.</li>
+          <li>Let <i>rval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rhs</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rval</i>).</li>
+          <li>Return the result of performing BindingInitialization for <i>BindingPattern</i> passing <i>rval</i> and
+              <b>undefined</b> as arguments.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

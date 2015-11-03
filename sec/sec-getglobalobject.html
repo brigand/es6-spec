@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-8.3.5"><a href="/sec/sec-getglobalobject.html" title="link to this section">8.3.5</a></span>
+          GetGlobalObject ( )</h1>
+
+      <p class="normalbefore">The abstract operation <span style="font-family: Times New Roman">GetGlobalObject</span> returns the
+      global object used by <a href="/sec/sec-execution-contexts.html">the currently running execution context</a>. <span style="font-family: Times New Roman">GetGlobalObject</span> performs the following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>ctx</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>Let <i>currentRealm</i> be <i>ctx&#x2019;s</i> <a href="/sec/sec-code-realms.html">Realm</a>.</li>
+        <li>Return <i>currentRealm</i>.[[globalThis]].</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

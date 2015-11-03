@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-9.4.5.7"><a href="/sec/sec-integerindexedobjectcreate.html" title="link to this section">9.4.5.7</a></span> IntegerIndexedObjectCreate (prototype, internalSlotsList)</h1>
+
+        <p class="normalbefore">The abstract operation IntegerIndexedObjectCreate with arguments <var>prototype</var> and
+        <var>internalSlotsList</var> is used to specify the creation of new Integer Indexed exotic objects. The argument
+        <var>internalSlotsList</var> is a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of the names of additional
+        internal slots that must be defined as part of the object. IntegerIndexedObjectCreate performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>A</i> be a newly created object with an <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> for each name in <i>internalSlotsList</i>.</li>
+          <li>Set <i>A</i>&#x2019;s essential internal methods to the default ordinary object definitions specified in <a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots.html">9.1</a>.</li>
+          <li>Set the [[GetOwnProperty]] internal method of <i>A</i> as specified in <a href="/sec/sec-integer-indexed-exotic-objects-getownproperty-p.html">9.4.5.1</a>.</li>
+          <li>Set the [[HasProperty]] internal method of <i>A</i> as specified in <a href="/sec/sec-integer-indexed-exotic-objects-hasproperty-p.html">9.4.5.2</a>.</li>
+          <li>Set the [[DefineOwnProperty]] internal method of <i>A</i> as specified in <a href="/sec/sec-integer-indexed-exotic-objects-defineownproperty-p-desc.html">9.4.5.3</a>.</li>
+          <li>Set the [[Get]] internal method of <i>A</i> as specified in <a href="/sec/sec-integer-indexed-exotic-objects-get-p-receiver.html">9.4.5.4</a>.</li>
+          <li>Set the [[Set]] internal method of <i>A</i> as specified in <a href="/sec/sec-integer-indexed-exotic-objects-set-p-v-receiver.html">9.4.5.5</a>.</li>
+          <li>Set the [[OwnPropertyKeys]] internal method of <i>A</i> as specified in <a href="/sec/sec-integer-indexed-exotic-objects-ownpropertykeys.html">9.4.5.6</a>.</li>
+          <li>Set the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>A</i> to
+              <i>prototype</i>.</li>
+          <li>Set the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>A</i> to
+              <b>true</b>.</li>
+          <li>Return <i>A</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

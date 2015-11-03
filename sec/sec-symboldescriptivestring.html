@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-19.4.3.2.1"><a href="/sec/sec-symboldescriptivestring.html" title="link to this section">19.4.3.2.1</a></span> Runtime Semantics:  SymbolDescriptiveString ( sym )</h1>
+
+          <p class="normalbefore">When the abstract operation SymbolDescriptiveString is called with argument <var>sym</var>, the
+          following steps are taken:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>sym</i>) is Symbol.</li>
+            <li>Let <i>desc</i> be <i>sym&#x2019;s</i> [[Description]] value.</li>
+            <li>If <i>desc</i> is <b>undefined</b>, let <i>desc</i> be the empty string.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>desc</i>) is String.</li>
+            <li>Return the result of concatenating the strings <code>&quot;Symbol(&quot;</code>, <i>desc</i>, and <code>&quot;)&quot;</code>.</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

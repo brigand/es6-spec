@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-9.4.2.1"><a href="/sec/sec-array-exotic-objects-defineownproperty-p-desc.html" title="link to this section">9.4.2.1</a></span> [[DefineOwnProperty]] ( P, Desc)</h1>
+
+        <p class="normalbefore">When the [[DefineOwnProperty]] internal method of an <a href="/sec/sec-array-exotic-objects.html">Array
+        exotic object</a> <var>A</var> is called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var>, and <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span> the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+              <b>true</b>.</li>
+          <li>If <i>P</i> is <code>&quot;length&quot;</code>, then
+            <ol class="block">
+              <li>Return <a href="/sec/sec-arraysetlength.html">ArraySetLength</a>(<i>A</i>, <i>Desc</i>).</li>
+            </ol>
+          </li>
+          <li>Else if <i>P</i> is an array index, then
+            <ol class="block">
+              <li>Let <i>oldLenDesc</i> be <a href="/sec/sec-ordinarygetownproperty.html">OrdinaryGetOwnProperty</a>(<i>A</i>,
+                  <code>&quot;length&quot;</code>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>oldLenDesc</i> will never be <b>undefined</b> or an accessor
+                  descriptor because Array objects are created with a length data property that cannot be deleted or
+                  reconfigured.</li>
+              <li>Let <i>oldLen</i> be <i>oldLenDesc</i>.[[Value]].</li>
+              <li>Let <i>index</i> be <a href="/sec/sec-touint32.html">ToUint32</a>(<i>P</i>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>index</i> will never be an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+              <li>If <i>index</i> &#x2265; <i>oldLen</i> and <i>oldLenDesc</i>.[[Writable]] is <b>false</b>, return <b>false</b>.</li>
+              <li>Let <i>succeeded</i> be <a href="/sec/sec-ordinarydefineownproperty.html">OrdinaryDefineOwnProperty</a>(<i>A</i>,
+                  <i>P</i>, <i>Desc</i>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>succeeded</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+              <li>If <i>succeeded</i> is <b>false</b>, return <b>false</b>.</li>
+              <li>If <i>index</i> &#x2265; <i>oldLen</i>
+                <ol class="block">
+                  <li>Set <i>oldLenDesc</i>.[[Value]] to <i>index</i> + 1.</li>
+                  <li>Let <i>succeeded</i> be <a href="/sec/sec-ordinarydefineownproperty.html">OrdinaryDefineOwnProperty</a>(<i>A</i>,
+                      <code>&quot;length&quot;</code>, <i>oldLenDesc</i>).</li>
+                  <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>succeeded</i> is <b>true</b>.</li>
+                </ol>
+              </li>
+              <li>Return <b>true</b>.</li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-ordinarydefineownproperty.html">OrdinaryDefineOwnProperty</a>(<i>A</i>, <i>P</i>, <i>Desc</i>).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

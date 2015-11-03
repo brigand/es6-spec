@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-12.2.10.4"><a href="/sec/sec-grouping-operator-runtime-semantics-evaluation.html" title="link to this section">12.2.10.4</a></span> Runtime Semantics: Evaluation</h1>
+        <div class="gp prod"><span class="nt">PrimaryExpression</span> <span class="geq">:</span> <span class="nt">CoverParenthesizedExpressionAndArrowParameterList</span></div>
+        <ol class="proc">
+          <li>Let <i>expr</i> be CoveredParenthesizedExpression of <i>CoverParenthesizedExpressionAndArrowParameterList</i>.</li>
+          <li>Return the result of evaluating <i>expr</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ParenthesizedExpression</span> <span class="geq">:</span> <code class="t">(</code> <span class="nt">Expression</span> <code class="t">)</code></div>
+        <ol class="proc">
+          <li>Return the result of evaluating <i>Expression</i>. This may be of type <a href="/sec/sec-reference-specification-type.html">Reference</a>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> This algorithm does not apply <a href="/sec/sec-getvalue.html">GetValue</a> to the result of
+          evaluating <span class="nt">Expression</span>. The principal motivation for this is so that operators such as
+          <code>delete</code> and <code>typeof</code> may be applied to parenthesized expressions.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

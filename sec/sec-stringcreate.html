@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-9.4.3.4"><a href="/sec/sec-stringcreate.html" title="link to this section">9.4.3.4</a></span>
+            StringCreate( value, prototype)</h1>
+
+        <p class="normalbefore">The abstract operation StringCreate with arguments <var>value</var> and <var>prototype</var> is
+        used to specify the creation of new exotic String objects. It performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>prototype</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is String.</li>
+          <li>Let <i>S</i> be a newly created <a href="/sec/sec-string-exotic-objects.html">String exotic object</a>.</li>
+          <li>Set the [[StringData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>S</i> to
+              <i>value</i>.</li>
+          <li>Set <i>S</i>&#x2019;s essential internal methods to the default ordinary object definitions specified in <a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots.html">9.1</a>.</li>
+          <li>Set the [[GetOwnProperty]] internal method of <i>S</i> as specified in <a href="/sec/sec-string-exotic-objects-getownproperty-p.html">9.4.3.1</a>.</li>
+          <li>Set the [[HasProperty]] internal method of <i>S</i> as specified in <a href="/sec/sec-string-exotic-objects-hasproperty-p.html">9.4.3.2</a>.</li>
+          <li>Set the [[OwnPropertyKeys]] internal method of <i>S</i> as specified in <a href="/sec/sec-string-exotic-objects-ownpropertykeys.html">9.4.3.3</a>.</li>
+          <li>Set the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>S</i> to
+              <i>prototype</i>.</li>
+          <li>Set the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>S</i> to
+              <b>true</b>.</li>
+          <li>Let <i>length</i> be the number of code unit elements in <i>value.</i></li>
+          <li>Let <i>status</i> be <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>S</i>, <code>&quot;length&quot;</code>,
+              PropertyDescriptor{[[Value]]: <i>length</i>,  [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+              [[Configurable]]: <b>false</b> }).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+          <li>Return <i>S</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

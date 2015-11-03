@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-22.1.5"><a href="/sec/sec-array-iterator-objects.html" title="link to this section">22.1.5</a></span> Array Iterator Objects</h1>
+
+        <p>An Array Iterator is an object, that represents a specific iteration over some specific Array instance object. There is
+        not a named constructor for Array Iterator objects. Instead, Array iterator objects are created by calling certain methods
+        of Array instance objects.</p>
+      </div>
+
+      <section id="sec-createarrayiterator">
+        <h1><span class="secnum" id="sec-22.1.5.1"><a href="/sec/sec-createarrayiterator.html" title="link to this section">22.1.5.1</a></span> CreateArrayIterator Abstract Operation</h1>
+
+        <p class="normalbefore">Several methods of Array objects return Iterator objects. The abstract operation
+        CreateArrayIterator with arguments <var>array</var> and <var>kind</var> is used to create such iterator objects. It
+        performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>array</i>) is Object.</li>
+          <li>Let <i>iterator</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(%ArrayIteratorPrototype%,
+              &#xAB;&#x200D;[[IteratedObject]], [[ArrayIteratorNextIndex]], [[ArrayIterationKind]]&#xBB;).</li>
+          <li>Set <i>iterator&#x2019;s</i> [[IteratedObject]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to <i>array</i>.</li>
+          <li>Set <i>iterator&#x2019;s</i> [[ArrayIteratorNextIndex]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to 0.</li>
+          <li>Set <i>iterator&#x2019;s</i> [[ArrayIterationKind]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to <i>kind</i>.</li>
+          <li>Return <i>iterator</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-%arrayiteratorprototype%-object">
+        <div class="front">
+          <h1><span class="secnum" id="sec-22.1.5.2"><a href="/sec/sec-%arrayiteratorprototype%-object.html" title="link to this section">22.1.5.2</a></span> The %ArrayIteratorPrototype% Object</h1>
+
+          <p>All Array Iterator Objects inherit properties from the %ArrayIteratorPrototype% intrinsic object. The
+          %ArrayIteratorPrototype% object is an ordinary object and its [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is the %IteratorPrototype% intrinsic object (<a href="/sec/sec-%iteratorprototype%-object.html">25.1.2</a>). In addition, %ArrayIteratorPrototype% has the following
+          properties:</p>
+        </div>
+
+        <section id="sec-%arrayiteratorprototype%.next">
+          <h1><span class="secnum" id="sec-22.1.5.2.1"><a href="/sec/sec-%arrayiteratorprototype%.next.html" title="link to this section">22.1.5.2.1</a></span> %ArrayIteratorPrototype%.next( )</h1>
+          <ol class="proc">
+            <li>Let <i>O</i> be the <b>this</b> value.</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, throw a <b>TypeError</b>
+                exception.</li>
+            <li>If <i>O</i> does not have all of the internal slots of an Array Iterator Instance (<a href="/sec/sec-properties-of-array-iterator-instances.html">22.1.5.3</a>), throw a <b>TypeError</b> exception.</li>
+            <li>Let <i>a</i> be the value of the [[IteratedObject]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+            <li>If <i>a</i> is <b>undefined</b>, return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<b>undefined</b>, <b>true</b>).</li>
+            <li>Let <i>index</i> be the value of the [[ArrayIteratorNextIndex]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+            <li>Let <i>itemKind</i> be the value of the [[ArrayIterationKind]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+            <li>If <i>a</i> has a [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>,
+                then
+              <ol class="block">
+                <li>Let <i>len</i> be the value of <i>O</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+              </ol>
+            </li>
+            <li>Else,
+              <ol class="block">
+                <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>a</i>,
+                    <code>&quot;length&quot;</code>)).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+              </ol>
+            </li>
+            <li>If <i>index</i> &#x2265; <i>len</i>, then
+              <ol class="block">
+                <li>Set the value of the [[IteratedObject]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                    slot</a> of <i>O</i> to <b>undefined</b>.</li>
+                <li>Return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<b>undefined</b>, <b>true</b>).</li>
+              </ol>
+            </li>
+            <li>Set the value of the [[ArrayIteratorNextIndex]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                slot</a> of <i>O</i> to <i>index</i>+1.</li>
+            <li>If <i>itemKind</i> is <b>&quot;<code>key</code>&quot;</b>, return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<i>index</i>, <b>false</b>).</li>
+            <li>Let <i>elementKey</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>index</i>).</li>
+            <li>Let <i>elementValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>a</i>, <i>elementKey</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>elementValue</i>).</li>
+            <li>If <i>itemKind</i> is <b>&quot;<code>value</code>&quot;</b>, let <i>result</i> be <i>elementValue</i>.</li>
+            <li>Else,
+              <ol class="block">
+                <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>itemKind</i> is <b>&quot;<code>key+value</code>&quot;</b>.</li>
+                <li>Let <i>result</i> be <a href="/sec/sec-createarrayfromlist.html">CreateArrayFromList</a>(&#xAB;<i>index</i>,
+                    <i>elementValue</i>&#xBB;).</li>
+              </ol>
+            </li>
+            <li>Return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<i>result</i>, <b>false</b>).</li>
+          </ol>
+        </section>
+
+        <section id="sec-%arrayiteratorprototype%-@@tostringtag">
+          <h1><span class="secnum" id="sec-22.1.5.2.2"><a href="/sec/sec-%arrayiteratorprototype%-@@tostringtag.html" title="link to this section">22.1.5.2.2</a></span> %ArrayIteratorPrototype% [ @@toStringTag ]</h1>
+
+          <p>The initial value of the @@toStringTag property is the String value <code>&quot;Array Iterator&quot;</code>.</p>
+
+          <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+        </section>
+      </section>
+
+      <section id="sec-properties-of-array-iterator-instances">
+        <h1><span class="secnum" id="sec-22.1.5.3"><a href="/sec/sec-properties-of-array-iterator-instances.html" title="link to this section">22.1.5.3</a></span> Properties of Array Iterator Instances</h1>
+
+        <p>Array Iterator instances are ordinary objects that inherit properties from the %ArrayIteratorPrototype% intrinsic
+        object. Array Iterator instances are initially created with the internal slots listed in <a href="/sec/table-48.html">Table
+        48</a>.</p>
+
+        <figure>
+          <figcaption><span id="table-48">Table 48</span> &#x2014; Internal Slots of Array Iterator Instances</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Internal Slot</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>[[IteratedObject]]</td>
+              <td>The object whose array elements are being iterated.</td>
+            </tr>
+            <tr>
+              <td>[[ArrayIteratorNextIndex]]</td>
+              <td>The integer index of the next integer index to be examined by this iteration.</td>
+            </tr>
+            <tr>
+              <td>[[ArrayIterationKind]]</td>
+              <td>A String value that identifies what is returned for each element of the iteration. The possible values are: <code>&quot;key&quot;</code>, <code>&quot;value&quot;</code>, <code>&quot;key+value&quot;</code>.</td>
+            </tr>
+          </table>
+        </figure>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

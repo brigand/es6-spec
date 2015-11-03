@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.1.6"><a href="/sec/sec-touint32.html" title="link to this section">7.1.6</a></span> ToUint32 (
+          argument )</h1>
+
+      <p class="normalbefore">The abstract operation ToUint32 converts <var>argument</var> to one of <span style="font-family:
+      Times New Roman">2<sup>32</sup></span> integer values in the range <span style="font-family: Times New Roman">0</span>
+      through <span style="font-family: Times New Roman">2<sup>32</sup>&#x2212;1</span>, inclusive. This abstract operation
+      functions as follows:</p>
+
+      <ol class="proc">
+        <li>Let <i>number</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>argument</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>number</i>).</li>
+        <li>If <i>number</i> is <b>NaN</b>, <b>+0</b>, <b>&#x2212;0</b>, <b>+&#x221E;</b>, or <b>&#x2212;&#x221E;</b>, return
+            <b>+0</b>.</li>
+        <li>Let <i>int</i> be the mathematical value that is the same sign as <i>number</i> and whose magnitude is <a href="/sec/sec-algorithm-conventions.html">floor</a>(<a href="/sec/sec-algorithm-conventions.html">abs</a>(<i>number</i>)).</li>
+        <li>Let <i>int32bit</i> be <i>int</i> <a href="/sec/sec-algorithm-conventions.html">modulo</a> 2<sup>32</sup>.</li>
+        <li>Return <i>int32bit</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> Given the above definition of ToUint32:</p>
+
+        <ul>
+          <li>
+            <p>Step 6 is the only difference between ToUint32 and <a href="/sec/sec-toint32.html">ToInt32</a>.</p>
+          </li>
+
+          <li>
+            <p>The ToUint32 abstract operation is idempotent: if applied to a result that it produced, the second application
+            leaves that value unchanged.</p>
+          </li>
+
+          <li>
+            <p><span style="font-family: Times New Roman">ToUint32(<a href="/sec/sec-toint32.html">ToInt32</a>(<i>x</i>))</span> is equal
+            to <span style="font-family: Times New Roman">ToUint32(<i>x</i>)</span> for all values of <var>x</var>. (It is to
+            preserve this latter property that <b>+&#x221E;</b> and <b>&#x2212;&#x221E;</b> are mapped to <b>+0</b>.)</p>
+          </li>
+
+          <li>
+            <p>ToUint32 maps <b>&#x2212;0</b> to <b>+0</b>.</p>
+          </li>
+        </ul>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

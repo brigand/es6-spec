@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-21.1.5"><a href="/sec/sec-string-iterator-objects.html" title="link to this section">21.1.5</a></span> String Iterator Objects</h1>
+
+        <p>An String Iterator is an object, that represents a specific iteration over some specific String instance object. There
+        is not a named constructor for String Iterator objects. Instead, String iterator objects are created by calling certain
+        methods of String instance objects.</p>
+      </div>
+
+      <section id="sec-createstringiterator">
+        <h1><span class="secnum" id="sec-21.1.5.1"><a href="/sec/sec-createstringiterator.html" title="link to this section">21.1.5.1</a></span> CreateStringIterator Abstract Operation</h1>
+
+        <p class="normalbefore">Several methods of String objects return Iterator objects. The abstract operation
+        CreateStringIterator with argument <var>string</var> is used to create such iterator objects. It performs the following
+        steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>string</i>) is String.</li>
+          <li>Let <i>iterator</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(%StringIteratorPrototype%,
+              &#xAB;[[IteratedString]], [[StringIteratorNextIndex]] &#xBB;).</li>
+          <li>Set <i>iterator&#x2019;s</i> [[IteratedString]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to <i>string</i>.</li>
+          <li>Set <i>iterator&#x2019;s</i> [[StringIteratorNextIndex]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to 0.</li>
+          <li>Return <i>iterator</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-%stringiteratorprototype%-object">
+        <div class="front">
+          <h1><span class="secnum" id="sec-21.1.5.2"><a href="/sec/sec-%stringiteratorprototype%-object.html" title="link to this section">21.1.5.2</a></span> The %StringIteratorPrototype% Object</h1>
+
+          <p>All String Iterator Objects inherit properties from the %StringIteratorPrototype% intrinsic object. The
+          %StringIteratorPrototype% object is an ordinary object and its [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is the %IteratorPrototype% intrinsic object (<a href="/sec/sec-%iteratorprototype%-object.html">25.1.2</a>). In addition, %StringIteratorPrototype% has the following
+          properties:</p>
+        </div>
+
+        <section id="sec-%stringiteratorprototype%.next">
+          <h1><span class="secnum" id="sec-21.1.5.2.1"><a href="/sec/sec-%stringiteratorprototype%.next.html" title="link to this section">21.1.5.2.1</a></span> %StringIteratorPrototype%.next ( )</h1>
+          <ol class="proc">
+            <li>Let <i>O</i> be the <b>this</b> value.</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, throw a <b>TypeError</b>
+                exception.</li>
+            <li>If <i>O</i> does not have all of the internal slots of an String Iterator Instance (<a href="/sec/sec-properties-of-string-iterator-instances.html">21.1.5.3</a>), throw a <b>TypeError</b> exception.</li>
+            <li>Let <i>s</i> be the value of the [[IteratedString]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+            <li>If <i>s</i> is <b>undefined</b>, return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<b>undefined</b>, <b>true</b>).</li>
+            <li>Let <i>position</i> be the value of the [[StringIteratorNextIndex]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+            <li>Let <i>len</i> be the number of elements in <i>s</i>.</li>
+            <li>If <i>position</i> &#x2265; <i>len</i>, then
+              <ol class="block">
+                <li>Set the value of the [[IteratedString]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                    slot</a> of <i>O</i> to <b>undefined</b>.</li>
+                <li>Return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<b>undefined</b>, <b>true</b>).</li>
+              </ol>
+            </li>
+            <li>Let <i>first</i> be the code unit value at index <i>position</i> in <i>s</i>.</li>
+            <li>If <i>first</i> &lt; 0xD800 or <i>first</i> &gt; 0xDBFF or <i>position</i>+1 = <i>len</i>, let <i>resultString</i>
+                be the string consisting of the single code unit <i>first</i>.</li>
+            <li>Else,
+              <ol class="block">
+                <li>Let <i>second</i> be the code unit value at index <i>position</i>+1 in the String <i>S</i>.</li>
+                <li>If <i>second</i> &lt; 0xDC00 or <i>second</i> &gt; 0xDFFF, let <i>resultString</i> be the string consisting of
+                    the single code unit <i>first</i>.</li>
+                <li>Else, let <i>resultString</i> be the string consisting of the code unit <i>first</i> followed by the code unit
+                    <i>second</i>.</li>
+              </ol>
+            </li>
+            <li>Let <i>resultSize</i> be the number of code units in <i>resultString</i>.</li>
+            <li>Set the value of the [[StringIteratorNextIndex]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i> to <i>position</i>+
+                <i>resultSize</i>.</li>
+            <li>Return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<i>resultString</i>, <b>false</b>).</li>
+          </ol>
+        </section>
+
+        <section id="sec-%stringiteratorprototype%-@@tostringtag">
+          <h1><span class="secnum" id="sec-21.1.5.2.2"><a href="/sec/sec-%stringiteratorprototype%-@@tostringtag.html" title="link to this section">21.1.5.2.2</a></span> %StringIteratorPrototype% [ @@toStringTag ]</h1>
+
+          <p>The initial value of the @@toStringTag property is the String value <code>&quot;String Iterator&quot;</code>.</p>
+
+          <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+        </section>
+      </section>
+
+      <section id="sec-properties-of-string-iterator-instances">
+        <h1><span class="secnum" id="sec-21.1.5.3"><a href="/sec/sec-properties-of-string-iterator-instances.html" title="link to this section">21.1.5.3</a></span> Properties of String Iterator Instances</h1>
+
+        <p>String Iterator instances are ordinary objects that inherit properties from the %StringIteratorPrototype% intrinsic
+        object. String Iterator instances are initially created with the internal slots listed in <a href="/sec/table-46.html">Table
+        46</a>.</p>
+
+        <figure>
+          <figcaption><span id="table-46">Table 46</span> &#x2014; Internal Slots of String Iterator Instances</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Internal Slot</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>[[IteratedString]]</td>
+              <td>The String value whose elements are being iterated.</td>
+            </tr>
+            <tr>
+              <td>[[StringIteratorNextIndex]]</td>
+              <td>The integer index of the next string index to be examined by this iteration.</td>
+            </tr>
+          </table>
+        </figure>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-8.1.1.1.5"><a href="/sec/sec-declarative-environment-records-setmutablebinding-n-v-s.html" title="link to this section">8.1.1.1.5</a></span> SetMutableBinding (N,V,S)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method SetMutableBinding
+          for declarative Environment Records attempts to change the bound value of the current binding of the identifier whose
+          name is the value of the argument <var>N</var> to the value of argument <var>V</var>. A binding for <var>N</var>
+          normally already exist, but in rare cases it may not. If the binding is an immutable binding, a <b>TypeError</b> is
+          thrown if <span style="font-family: Times New Roman">S</span> is <span class="value">true</span>.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the declarative <a href="/sec/sec-environment-records.html">Environment Record</a> for which the
+                method was invoked.</li>
+            <li>If <i>envRec</i> does not have a binding for <i>N</i>, then
+              <ol class="block">
+                <li>If <i>S</i> is <b>true</b> throw a <b>ReferenceError</b> exception.</li>
+                <li>Perform <i>envRec</i>.CreateMutableBinding(<i>N</i>, <b>true</b>).</li>
+                <li>Perform <i>envRec</i>.InitializeBinding(<i>N</i>, <i>V</i>).</li>
+                <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+                    sans-serif">empty</span>).</li>
+              </ol>
+            </li>
+            <li>If the binding for <i>N</i> in <i>envRec</i> is a strict binding, let <i>S</i> be <b>true</b>.</li>
+            <li>If the binding for <i>N</i> in <i>envRec</i> has not yet been initialized throw a <b>ReferenceError</b>
+                exception.</li>
+            <li>Else if the binding for <i>N</i> in <i>envRec</i> is a mutable binding, change its bound value to <i>V</i>.</li>
+            <li>Else this must be an attempt to change the value of an immutable binding so if <i>S</i> is <b>true</b> throw a
+                <b>TypeError</b> exception.</li>
+            <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+                sans-serif">empty</span>).</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> An example of ECMAScript code that results in a missing binding at step 2 is:</p>
+
+            <pre class="NoteCode">function f(){eval(&quot;var x; x = (delete x, 0);&quot;)}</pre>
+          </div>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-10.1"><a href="/sec/sec-source-text.html" title="link to this section">10.1</a></span> Source
+          Text</h1>
+      <h2>Syntax</h2>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">SourceCharacter</span> <span class="geq">::</span></div>
+        <div class="rhs"><span class="gprose">any Unicode code point</span></div>
+      </div>
+
+      <p>ECMAScript code is expressed using Unicode, version 5.1 or later. ECMAScript source text is a sequence of code points.
+      All Unicode code point values from U+0000 to U+10FFFF, including surrogate code points, may occur in source text where
+      permitted by the ECMAScript grammars. The actual encodings used to store and interchange ECMAScript source text is not
+      relevant to this specification. Regardless of the external source text encoding, a conforming ECMAScript implementation
+      processes the source text as if it was an equivalent sequence of <span class="nt">SourceCharacter</span> values. Each <span class="nt">SourceCharacter</span> being a Unicode code point. Conforming ECMAScript implementations are not required to
+      perform any normalization of source text, or behave as though they were performing normalization of source text.</p>
+
+      <p>The components of a combining character sequence are treated as individual Unicode code points even though a user might
+      think of the whole sequence as a single character.</p>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> In string literals, regular expression literals, template literals and identifiers, any
+        Unicode code point may also be expressed using Unicode escape sequences that explicitly express a code point&#x2019;s
+        numeric value. Within a comment, such an escape sequence is effectively ignored as part of the comment.</p>
+
+        <p>ECMAScript differs from the Java programming language in the behaviour of Unicode escape sequences. In a Java program,
+        if the Unicode escape sequence <code>\u000A</code>, for example, occurs within a single-line comment, it is interpreted as
+        a line terminator (Unicode code point U+000A is LINE FEED (LF) and therefore the next code point is not part of the
+        comment. Similarly, if the Unicode escape sequence <code>\u000A</code> occurs within a string literal in a Java program,
+        it is likewise interpreted as a line terminator, which is not allowed within a string literal&#x2014;one must write
+        <code>\n</code> instead of <code>\u000A</code> to cause a LINE FEED (LF) to be part of the String value of a string
+        literal. In an ECMAScript program, a Unicode escape sequence occurring within a comment is never interpreted and therefore
+        cannot contribute to termination of the comment. Similarly, a Unicode escape sequence occurring within a string literal in
+        an ECMAScript program always contributes to the literal and is never interpreted as a line terminator or as a code point
+        that might terminate the string literal.</p>
+      </div>
+    </div>
+
+    <section id="sec-utf16encoding">
+      <h1><span class="secnum" id="sec-10.1.1"><a href="/sec/sec-utf16encoding.html" title="link to this section">10.1.1</a></span> Static
+          Semantics:  <var>UTF16Encoding ( cp )</var></h1>
+
+      <p>The UTF16Encoding of a numeric code point value, <var>cp</var>, is determined as follows:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: 0 &#x2264; <i>cp</i> &#x2264; 0x10FFFF.</li>
+        <li>If <i>cp</i> &#x2264; 65535, return <i>cp</i>.</li>
+        <li>Let <i>cu1</i> be <a href="/sec/sec-algorithm-conventions.html">floor</a>((<i>cp</i> &#x2013; 65536) / 1024) + 0xD800.</li>
+        <li>Let <i>cu2</i> be ((<i>cp</i> &#x2013; 65536) <a href="/sec/sec-algorithm-conventions.html">modulo</a> 1024) + 0xDC00.</li>
+        <li>Return the code unit sequence consisting of <i>cu1</i> followed by <i>cu2</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-utf16decode">
+      <h1><span class="secnum" id="sec-10.1.2"><a href="/sec/sec-utf16decode.html" title="link to this section">10.1.2</a></span> Static
+          Semantics: UTF16Decode( lead, trail )</h1>
+
+      <p>Two code units, <var>lead</var> and <var>trail</var>, that form a UTF-16 surrogate pair are converted to a code point by
+      performing the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: 0xD800 &#x2264; <i>lead</i> &#x2264; 0xDBFF and 0xDC00 &#x2264; <i>trail</i> &#x2264;
+            0xDFFF.</li>
+        <li>Let <i>cp</i> be (<i>lead</i> &#x2013; 0xD800) &#xD7; 1024 + (<i>trail</i> &#x2013; 0xDC00) + 0x10000.</li>
+        <li>Return the code point <i>cp</i>.</li>
+      </ol>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

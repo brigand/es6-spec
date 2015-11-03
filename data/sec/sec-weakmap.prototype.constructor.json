@@ -1,0 +1,1 @@
+{"id":"sec-weakmap.prototype.constructor","html":"\n        <h1><span class=\"secnum\" id=\"sec-23.3.3.1\"><a href=\"/sec/sec-weakmap.prototype.constructor.html\" title=\"link to this section\">23.3.3.1</a></span> WeakMap.prototype.constructor</h1>\n\n        <p>The initial value of <code>WeakMap.prototype.constructor</code> is the intrinsic object %WeakMap%.</p>\n      "}

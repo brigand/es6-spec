@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.5.6"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-defineownproperty-p-desc.html" title="link to this section">9.5.6</a></span> [[DefineOwnProperty]] (P, Desc)</h1>
+
+      <p class="normalbefore">When the [[DefineOwnProperty]] internal method of a Proxy exotic object <var>O</var> is called with
+      <a href="/sec/sec-object-type.html">property key</a> <var>P</var> and <a href="/sec/sec-property-descriptor-specification-type.html">Property
+      Descriptor</a> <span class="nt">Desc</span>, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+            <b>true</b>.</li>
+        <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <i>handler</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is Object.</li>
+        <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>trap</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>handler</i>, <code>&quot;defineProperty&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trap</i>).</li>
+        <li>If <i>trap</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Return <i>target</i>.[[DefineOwnProperty]](<i>P</i>, <i>Desc</i>).</li>
+          </ol>
+        </li>
+        <li>Let <i>descObj</i> be <a href="/sec/sec-frompropertydescriptor.html">FromPropertyDescriptor</a>(<i>Desc</i>).</li>
+        <li>Let <i>booleanTrapResult</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-call.html">Call</a>(<i>trap</i>,
+            <i>handler</i>, &#xAB;<i>target</i>, <i>P</i>, <i>descObj</i>&#xBB;)).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>booleanTrapResult</i>).</li>
+        <li>If <i>booleanTrapResult</i> is <b>false</b>, return <b>false</b>.</li>
+        <li>Let <i>targetDesc</i> be <i>target</i>.[[GetOwnProperty]](<i>P</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetDesc</i>).</li>
+        <li>Let <i>extensibleTarget</i> be <a href="/sec/sec-isextensible-o.html">IsExtensible</a>(<i>target</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>extensibleTarget</i>).</li>
+        <li>If <i>Desc</i> has a [[Configurable]] field and if <i>Desc</i>.[[Configurable]] is <b>false,</b> then
+          <ol class="block">
+            <li>Let <i>settingConfigFalse</i> be <b>true</b>.</li>
+          </ol>
+        </li>
+        <li>Else let <i>settingConfigFalse</i> be <b>false</b>.</li>
+        <li>If <i>targetDesc</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>If <i>extensibleTarget</i> is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+            <li>If <i>settingConfigFalse</i> is <b>true</b>, throw a <b>TypeError</b> exception.</li>
+          </ol>
+        </li>
+        <li>Else <i>targetDesc</i> is not <b>undefined<i>,</i></b>
+          <ol class="block">
+            <li>If <a href="/sec/sec-iscompatiblepropertydescriptor.html">IsCompatiblePropertyDescriptor</a>(<i>extensibleTarget</i>,
+                <i>Desc</i> , <i>targetDesc</i>) is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+            <li>If <i>settingConfigFalse</i> is <b>true</b> and <i>targetDesc</i>.[[Configurable]] is <b>true</b>, throw a
+                <b>TypeError</b> exception.</li>
+          </ol>
+        </li>
+        <li>Return <b>true</b>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> [[DefineOwnProperty]] for proxy objects enforces the following invariants:</p>
+
+        <ul>
+          <li>
+            <p>The result of [[DefineOwnProperty]] is a Boolean value.</p>
+          </li>
+
+          <li>
+            <p>A property cannot be added, if the target object is not extensible.</p>
+          </li>
+
+          <li>
+            <p>A property cannot be non-configurable, unless there exists a corresponding non-configurable own property of the
+            target object.</p>
+          </li>
+
+          <li>
+            <p>If a property has a corresponding target object property then applying the <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> of the property to the target object using
+            [[DefineOwnProperty]] will not throw an exception.</p>
+          </li>
+        </ul>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

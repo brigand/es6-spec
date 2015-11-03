@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-9.4.5.8"><a href="/sec/sec-integerindexedelementget.html" title="link to this section">9.4.5.8</a></span> IntegerIndexedElementGet ( O, index )</h1>
+
+        <p class="normalbefore">The abstract operation IntegerIndexedElementGet with arguments <var>O</var> and <var>index</var>
+        performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>index</i>) is Number.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>O</i> is an Object that has [[ViewedArrayBuffer]],
+              [[ArrayLength]], [[ByteOffset]], and [[TypedArrayName]] internal slots.</li>
+          <li>Let <i>buffer</i> be the value of <i>O</i>&#x2019;s [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>buffer</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <a href="/sec/sec-isinteger.html">IsInteger</a>(<i>index</i>) is <b>false</b>, return <b>undefined</b></li>
+          <li>If <i>index</i> = &#x2212;0, return <b>undefined</b>.</li>
+          <li>Let <i>length</i> be the value of <i>O</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>index</i> &lt; 0 or <i>index</i> &#x2265; <i>length</i>, return <b>undefined</b>.</li>
+          <li>Let <i>offset</i> be the value of <i>O</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>arrayTypeName</i> be the String value of <i>O</i>&#x2019;s [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>elementSize</i> be the Number value of the Element Size value specified in <a href="/sec/table-49.html">Table 49</a>
+              for <i>arrayTypeName</i>.</li>
+          <li>Let <i>indexedPosition</i> = (<i>index</i> &#xD7; <i>elementSize</i>) + <i>offset</i>.</li>
+          <li>Let <i>elementType</i> be the String value of the Element Type value in <a href="/sec/table-49.html">Table 49</a> for
+              <i>arrayTypeName</i>.</li>
+          <li>Return <a href="/sec/sec-getvaluefrombuffer.html">GetValueFromBuffer</a>(<i>buffer</i>, <i>indexedPosition</i>,
+              <i>elementType</i>).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

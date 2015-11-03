@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-B.3.1"><a href="/sec/sec-__proto__-property-names-in-object-initializers.html" title="link to this section">B.3.1</a></span> __proto__ Property Names in Object Initializers</h1>
+
+      <p>The following Early Error rule is added to those in <a href="/sec/sec-object-initializer-static-semantics-early-errors.html">12.2.6.1</a>:</p>
+
+      <p><span class="prod"><span class="nt">ObjectLiteral</span> <span class="geq">:</span> <code class="t">{</code> <span class="nt">PropertyDefinitionList</span> <code class="t">}ObjectLiteral</code> <code class="t">:</code> <code class="t">{</code> <span class="nt">PropertyDefinitionList</span> <code class="t">,</code> <code class="t">}</code></span></p>
+
+      <ul>
+        <li>
+          <p>It is a Syntax Error if <span style="font-family: Times New Roman">PropertyNameList</span> of <span class="nt">PropertyDefinitionList</span> contains any duplicate entries for <code>&quot;__proto__&quot;</code> and at least two of
+          those entries were obtained from productions of the form  <span class="prod"><span class="nt">PropertyDefinition</span>
+          <span class="geq">:</span> <span class="nt">PropertyName</span> <code class="t">:</code> <span class="nt">AssignmentExpression</span></span> .</p>
+        </li>
+      </ul>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The <a href="/sec/sec-list-and-record-specification-type.html">List</a> returned by
+        PropertyNameList does not include string literal property names defined as using a <i><span style="font-family: Times New
+        Roman">ComputedPropertyName</span>.</i></p>
+      </div>
+
+      <p class="normalbefore">In <a href="/sec/sec-object-initializer-runtime-semantics-propertydefinitionevaluation.html">12.2.6.9</a> the
+      PropertyDefinitionEvaluation algorithm for the production<br><span class="prod"><span class="nt">PropertyDefinition</span>
+      <span class="geq">:</span> <span class="nt">PropertyName</span> <code class="t">:</code> <span class="nt">AssignmentExpression</span></span><br>is replaced with the following definition:</p>
+
+      <div class="gp prod"><span class="nt">PropertyDefinition</span> <span class="geq">:</span> <span class="nt">PropertyName</span> <code class="t">:</code> <span class="nt">AssignmentExpression</span></div>
+      <ol class="proc">
+        <li>Let <i>propKey</i> be the result of evaluating <i>PropertyName</i>.</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>propKey</i>).</li>
+        <li>Let <i>exprValueRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+        <li>Let <i>propValue</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>exprValueRef</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>propValue</i>).</li>
+        <li>If <i>propKey</i> is the String value <code>&quot;__proto__&quot;</code> and if IsComputedPropertyKey(<i>propKey</i>) is
+            <b>false</b>, then
+          <ol class="block">
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>propValue</i>) is either Object or Null, then
+              <ol class="block">
+                <li>Return <i>object</i>.[[SetPrototypeOf]](<i>propValue</i>).</li>
+              </ol>
+            </li>
+            <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+                sans-serif">empty</span>).</li>
+          </ol>
+        </li>
+        <li>If <a href="/sec/sec-isanonymousfunctiondefinition.html">IsAnonymousFunctionDefinition</a>(<i>AssignmentExpression)</i> is
+            <b>true</b>, then
+          <ol class="block">
+            <li>Let <i>hasNameProperty</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>propValue</i>,
+                <code>&quot;name&quot;</code>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasNameProperty</i>).</li>
+            <li>If <i>hasNameProperty</i> is <b>false</b>, perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>propValue</i>, <i>propKey</i>).</li>
+          </ol>
+        </li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>enumerable</i> is <b>true</b>.</li>
+        <li>Return <a href="/sec/sec-createdatapropertyorthrow.html">CreateDataPropertyOrThrow</a>(<i>object</i>, <i>propKey</i>,
+            <i>propValue</i>).</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

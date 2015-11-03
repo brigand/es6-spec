@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-23.2.5.3"><a href="/sec/sec-properties-of-set-iterator-instances.html" title="link to this section">23.2.5.3</a></span> Properties of Set Iterator Instances</h1>
+
+        <p>Set Iterator instances are ordinary objects that inherit properties from the %SetIteratorPrototype% intrinsic  object.
+        Set Iterator instances are initially created with the internal slots specified in <a href="/sec/table-51.html">Table 51</a>.</p>
+
+        <figure>
+          <figcaption><span id="table-51">Table 51</span> &#x2014; Internal Slots of Set Iterator Instances</figcaption>
+          <table class="real-table">
+            <tr>
+              <th style="background-color: #BFBFBF">Internal Slot</th>
+              <th style="background-color: #BFBFBF">Description</th>
+            </tr>
+            <tr>
+              <td>[[IteratedSet]]</td>
+              <td>The Set object that is being iterated.</td>
+            </tr>
+            <tr>
+              <td>[[SetNextIndex]]</td>
+              <td>The integer index of the next Set data element to be examined by this iterator</td>
+            </tr>
+            <tr>
+              <td>[[SetIterationKind]]</td>
+              <td>A String value that identifies what is to be returned for each element of the iteration. The possible values are: <code>&quot;key&quot;</code>, <code>&quot;value&quot;</code>, <code>&quot;key+value&quot;</code>. <code>&quot;key&quot;</code> and <code>&quot;value&quot;</code> have the same meaning.</td>
+            </tr>
+          </table>
+        </figure>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

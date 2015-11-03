@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <h1><span class="secnum" id="sec-A.5"><a href="/sec/sec-scripts-and-modules.html" title="link to this section">A.5</a></span> Scripts
+        and Modules</h1>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-scripts.html">See 15.1</a></div>
+      <div class="lhs"><span class="nt">Script</span> <span class="geq">:</span> </div>
+      <div class="rhs"><span class="nt">ScriptBody</span><sub class="g-opt">opt</sub></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-scripts.html">See 15.1</a></div>
+      <div class="lhs"><span class="nt">ScriptBody</span> <span class="geq">:</span> </div>
+      <div class="rhs"><span class="nt">StatementList</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-modules.html">See 15.2</a></div>
+      <div class="lhs"><span class="nt">Module</span> <span class="geq">:</span> </div>
+      <div class="rhs"><span class="nt">ModuleBody</span><sub class="g-opt">opt</sub></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-modules.html">See 15.2</a></div>
+      <div class="lhs"><span class="nt">ModuleBody</span> <span class="geq">:</span> </div>
+      <div class="rhs"><span class="nt">ModuleItemList</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-modules.html">See 15.2</a></div>
+      <div class="lhs"><span class="nt">ModuleItemList</span> <span class="geq">:</span> </div>
+      <div class="rhs"><span class="nt">ModuleItem</span></div>
+      <div class="rhs"><span class="nt">ModuleItemList</span> <span class="nt">ModuleItem</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-modules.html">See 15.2</a></div>
+      <div class="lhs"><span class="nt">ModuleItem</span> <span class="geq">:</span> </div>
+      <div class="rhs"><span class="nt">ImportDeclaration</span></div>
+      <div class="rhs"><span class="nt">ExportDeclaration</span></div>
+      <div class="rhs"><span class="nt">StatementListItem</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-imports.html">See 15.2.2</a></div>
+      <div class="lhs"><span class="nt">ImportDeclaration</span> <span class="geq">:</span> </div>
+      <div class="rhs"><code class="t">import</code> <span class="nt">ImportClause</span> <span class="nt">FromClause</span> <code class="t">;</code></div>
+      <div class="rhs"><code class="t">import</code> <span class="nt">ModuleSpecifier</span> <code class="t">;</code></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-imports.html">See 15.2.2</a></div>
+      <div class="lhs"><span class="nt">ImportClause</span> <span class="geq">:</span> </div>
+      <div class="rhs"><span class="nt">ImportedDefaultBinding</span></div>
+      <div class="rhs"><span class="nt">NameSpaceImport</span></div>
+      <div class="rhs"><span class="nt">NamedImports</span></div>
+      <div class="rhs"><span class="nt">ImportedDefaultBinding</span> <code class="t">,</code> <span class="nt">NameSpaceImport</span></div>
+      <div class="rhs"><span class="nt">ImportedDefaultBinding</span> <code class="t">,</code> <span class="nt">NamedImports</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-imports.html">See 15.2.2</a></div>
+      <div class="lhs"><span class="nt">ImportedDefaultBinding</span> <span class="geq">:</span> </div>
+      <div class="rhs"><span class="nt">ImportedBinding</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-imports.html">See 15.2.2</a></div>
+      <div class="lhs"><span class="nt">NameSpaceImport</span> <span class="geq">:</span> </div>
+      <div class="rhs"><code class="t">*</code> <code class="t">as</code> <span class="nt">ImportedBinding</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-imports.html">See 15.2.2</a></div>
+      <div class="lhs"><span class="nt">NamedImports</span> <span class="geq">:</span> </div>
+      <div class="rhs"><code class="t">{</code> <code class="t">}</code></div>
+      <div class="rhs"><code class="t">{</code> <span class="nt">ImportsList</span> <code class="t">}</code></div>
+      <div class="rhs"><code class="t">{</code> <span class="nt">ImportsList</span> <code class="t">,</code> <code class="t">}</code></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-imports.html">See 15.2.2</a></div>
+      <div class="lhs"><span class="nt">FromClause</span> <span class="geq">:</span> </div>
+      <div class="rhs"><code class="t">from</code> <span class="nt">ModuleSpecifier</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-imports.html">See 15.2.2</a></div>
+      <div class="lhs"><span class="nt">ImportsList</span> <span class="geq">:</span> </div>
+      <div class="rhs"><span class="nt">ImportSpecifier</span></div>
+      <div class="rhs"><span class="nt">ImportsList</span> <code class="t">,</code> <span class="nt">ImportSpecifier</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-imports.html">See 15.2.2</a></div>
+      <div class="lhs"><span class="nt">ImportSpecifier</span> <span class="geq">:</span> </div>
+      <div class="rhs"><span class="nt">ImportedBinding</span></div>
+      <div class="rhs"><span class="nt">IdentifierName</span> <code class="t">as</code> <span class="nt">ImportedBinding</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-imports.html">See 15.2.2</a></div>
+      <div class="lhs"><span class="nt">ModuleSpecifier</span> <span class="geq">:</span> </div>
+      <div class="rhs"><span class="nt">StringLiteral</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-imports.html">See 15.2.2</a></div>
+      <div class="lhs"><span class="nt">ImportedBinding</span> <span class="geq">:</span> </div>
+      <div class="rhs"><span class="nt">BindingIdentifier</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-exports.html">See 15.2.3</a></div>
+      <div class="lhs"><span class="nt">ExportDeclaration</span> <span class="geq">:</span> </div>
+      <div class="rhs"><code class="t">export</code> <code class="t">*</code> <span class="nt">FromClause</span> <code class="t">;</code></div>
+      <div class="rhs"><code class="t">export</code> <span class="nt">ExportClause</span> <span class="nt">FromClause</span> <code class="t">;</code></div>
+      <div class="rhs"><code class="t">export</code> <span class="nt">ExportClause</span> <code class="t">;</code></div>
+      <div class="rhs"><code class="t">export</code> <span class="nt">VariableStatement</span></div>
+      <div class="rhs"><code class="t">export</code> <span class="nt">Declaration</span></div>
+      <div class="rhs"><code class="t">export</code> <code class="t">default</code> <span class="nt">HoistableDeclaration</span><sub class="g-params">[Default]</sub></div>
+      <div class="rhs"><code class="t">export</code> <code class="t">default</code> <span class="nt">ClassDeclaration</span><sub class="g-params">[Default]</sub></div>
+      <div class="rhs"><code class="t">export</code> <code class="t">default</code> <span class="grhsannot">[lookahead &#x2209; {<code class="t">function</code>, <code class="t">class</code>}]</span> <span class="nt">AssignmentExpression</span><sub class="g-params">[In]</sub> <code class="t">;</code></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-exports.html">See 15.2.3</a></div>
+      <div class="lhs"><span class="nt">ExportClause</span> <span class="geq">:</span> </div>
+      <div class="rhs"><code class="t">{</code> <code class="t">}</code></div>
+      <div class="rhs"><code class="t">{</code> <span class="nt">ExportsList</span> <code class="t">}</code></div>
+      <div class="rhs"><code class="t">{</code> <span class="nt">ExportsList</span> <code class="t">,</code> <code class="t">}</code></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-exports.html">See 15.2.3</a></div>
+      <div class="lhs"><span class="nt">ExportsList</span> <span class="geq">:</span> </div>
+      <div class="rhs"><span class="nt">ExportSpecifier</span></div>
+      <div class="rhs"><span class="nt">ExportsList</span> <code class="t">,</code> <span class="nt">ExportSpecifier</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-exports.html">See 15.2.3</a></div>
+      <div class="lhs"><span class="nt">ExportSpecifier</span> <span class="geq">:</span> </div>
+      <div class="rhs"><span class="nt">IdentifierName</span></div>
+      <div class="rhs"><span class="nt">IdentifierName</span> <code class="t">as</code> <span class="nt">IdentifierName</span></div>
+    </div>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

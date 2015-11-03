@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-14.6.3"><a href="/sec/sec-preparefortailcall.html" title="link to this section">14.6.3</a></span>
+          Runtime Semantics: PrepareForTailCall ( )</h1>
+
+      <p class="normalbefore">The abstract operation PrepareForTailCall performs the following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>leafContext</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li><a href="/sec/sec-execution-contexts.html">Suspend</a> <i>leafContext</i>.</li>
+        <li>Pop <i>leafContext</i> from <a href="/sec/sec-execution-contexts.html">the execution context stack</a>. The <a href="/sec/sec-execution-contexts.html">execution context</a> now on the top of the stack becomes <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>leafContext</i> has no further use. It will never be activated as
+            <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+      </ol>
+
+      <p>A tail position call must either release any transient internal resources associated with the currently executing
+      function <a href="/sec/sec-execution-contexts.html">execution context</a> before invoking the target function or reuse those
+      resources in support of the target function.</p>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> For example, a tail position call should only grow an implementation&#x2019;s activation
+        record stack by the amount that the size of the target function&#x2019;s activation record exceeds the size of the calling
+        function&#x2019;s activation record. If the target function&#x2019;s activation record is smaller, then the total size of
+        the stack should decrease.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-13.7.5.12"><a href="/sec/sec-runtime-semantics-forin-div-ofheadevaluation-tdznames-expr-iterationkind.html" title="link to this section">13.7.5.12</a></span> Runtime Semantics: ForIn/OfHeadEvaluation ( TDZnames, expr,
+            iterationKind)</h1>
+
+        <p class="normalbefore">The abstract operation ForIn/OfHeadEvaluation is called with arguments <span class="nt">TDZnames</span>, <var>expr</var>, and <span style="font-family: Times New Roman"><i>iterationKind</i>.</span>
+        The value of <var>iterationKind</var> is either <b>enumerate</b> or <b>iterate</b>.</p>
+
+        <ol class="proc">
+          <li>Let <i>oldEnv</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a>.</li>
+          <li>If <i>TDZnames</i> is not an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>, then
+            <ol class="block">
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>TDZnames</i> has no duplicate entries.</li>
+              <li>Let <i>TDZ</i> be <a href="/sec/sec-newdeclarativeenvironment.html">NewDeclarativeEnvironment</a>(<i>oldEnv</i>).</li>
+              <li>For each string <i>name</i> in <i>TDZnames</i>, do
+                <ol class="block">
+                  <li>Let <i>status</i> be <i>TDZ</i>.CreateMutableBinding(<i>name</i>, <b>false</b>).</li>
+                  <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is never an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+                </ol>
+              </li>
+              <li>Set <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> to <i>TDZ</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>exprRef</i> be the result of evaluating the production that is <i>expr</i>.</li>
+          <li>Set <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> to <i>oldEnv</i>.</li>
+          <li>Let <i>exprValue</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>exprRef</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>exprValue</i>).</li>
+          <li>If <i>iterationKind</i> is <span style="font-family: sans-serif">enumerate</span>, then
+            <ol class="block">
+              <li>If <i>exprValue</i>.[[value]] is <b>null</b> or <b>undefined</b>, then
+                <ol class="block">
+                  <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <span style="font-family: sans-serif">break</span>, [[value]]: <span style="font-family: sans-serif">empty,</span>
+                      [[target]]: <span style="font-family: sans-serif">empty</span>}.</li>
+                </ol>
+              </li>
+              <li>Let <i>obj</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<i>exprValue</i>).</li>
+              <li>Return <i>obj</i>.[[Enumerate]]().</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>iterationKind</i> is <span style="font-family:
+                  sans-serif">iterate</span>.</li>
+              <li>Return <a href="/sec/sec-getiterator.html">GetIterator</a>(<i>exprValue</i>).</li>
+            </ol>
+          </li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

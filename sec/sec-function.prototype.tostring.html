@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-19.2.3.5"><a href="/sec/sec-function.prototype.tostring.html" title="link to this section">19.2.3.5</a></span> Function.prototype.toString ( )</h1>
+
+        <p class="normalbefore">When the <code>toString</code> method is called on an object <var>func</var> the following steps
+        are taken:</p>
+
+        <ol class="proc">
+          <li>If <i>func</i> is a <a href="/sec/sec-bound-function-exotic-objects.html">Bound Function</a> exotic object, then
+            <ol class="block">
+              <li>Return an implementation-dependent String source code representation of <i>func</i>. The representation must
+                  conform to the rules below. It is implementation dependent whether the representation includes <a href="/sec/sec-bound-function-exotic-objects.html">bound function</a> information or information about the target
+                  function.</li>
+            </ol>
+          </li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>func</i>) is Object and is either a built-in function
+              object or  has an [[ECMAScriptCode]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>,
+              then
+            <ol class="block">
+              <li>Return an implementation-dependent String source code representation of <i>func</i>. The representation must
+                  conform to the rules below.</li>
+            </ol>
+          </li>
+          <li>Throw a <b>TypeError</b> exception.</li>
+        </ol>
+
+        <p class="normalbefore"><code>toString</code> Representation Requirements:</p>
+
+        <ul>
+          <li>
+            <p>The string representation must have the syntax of a <i>FunctionDeclaration</i>, <i>FunctionExpression</i>,
+            <i>GeneratorDeclaration, GeneratorExpression, ClassDeclaration</i>, <i>ClassExpression</i>, <i>ArrowFunction</i>,
+            <i>MethodDefinition</i>, or <i>GeneratorMethod</i> depending upon the actual characteristics of the object.</p>
+          </li>
+
+          <li>
+            <p>T<span style="font-family: Times New Roman">he use and placement of white space, line terminators, and semicolons
+            within the representation String is implementation-dependent.</span></p>
+          </li>
+
+          <li>
+            <p>If the object was defined using ECMAScript code and the returned string representation is not in the form of a
+            <i>MethodDefinition</i> or <i>GeneratorMethod</i> then the representation must be such that if the string is
+            evaluated, using <code>eval</code> in a lexical context that is equivalent to the lexical context used to create the
+            original object, it will result in a new functionally equivalent object. In that case the returned source code must
+            not mention freely any variables that were not mentioned freely by the original function&#x2019;s source code, even if
+            these &#x201C;extra&#x201D; names were originally in scope.</p>
+          </li>
+
+          <li>
+            <p>If the implementation cannot produce a source code string that meets these criteria then it must return a string
+            for which <code>eval</code> will throw a <span style="font-family: sans-serif"><b>SyntaxError</b></span>
+            exception.</p>
+          </li>
+        </ul>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

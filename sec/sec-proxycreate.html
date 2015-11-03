@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.5.15"><a href="/sec/sec-proxycreate.html" title="link to this section">9.5.15</a></span>
+          ProxyCreate(target, handler)</h1>
+
+      <p class="normalbefore">The abstract operation ProxyCreate with arguments <var>target</var> and <var>handler</var> is used
+      to specify the creation of new Proxy exotic objects. It performs the following steps:</p>
+
+      <ol class="proc">
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>target</i>) is not Object, throw a <b>TypeError</b>
+            exception.</li>
+        <li>If <i>target</i> is a Proxy exotic object and the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>target</i> is <b>null</b>, throw a
+            <b>TypeError</b> exception.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is not Object, throw a <b>TypeError</b>
+            exception.</li>
+        <li>If <i>handler</i> is a Proxy exotic object and the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>handler</i> is <b>null</b>, throw a
+            <b>TypeError</b> exception.</li>
+        <li>Let <i>P</i> be a newly created object.</li>
+        <li>Set <i>P</i>&#x2019;s essential internal methods (except for [[Call]] and [[Construct]]) to the definitions specified
+            in <a href="/sec/sec-proxy-object-internal-methods-and-internal-slots.html">9.5</a>.</li>
+        <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>target</i>) is <b>true</b>, then
+          <ol class="block">
+            <li>Set the [[Call]] internal method of <i>P</i> as specified in <a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-call-thisargument-argumentslist.html">9.5.13</a>.</li>
+            <li>If <i>target</i> has a [[Construct]] internal method, then
+              <ol class="block">
+                <li>Set the [[Construct]] internal method of <i>P</i> as specified in <a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-construct-argumentslist-newtarget.html">9.5.14</a>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>Set the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>P</i> to
+            <i>target</i>.</li>
+        <li>Set the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>P</i> to
+            <i>handler</i>.</li>
+        <li>Return <i>P</i>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

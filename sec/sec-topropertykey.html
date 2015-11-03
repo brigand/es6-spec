@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.1.14"><a href="/sec/sec-topropertykey.html" title="link to this section">7.1.14</a></span>
+          ToPropertyKey ( argument )</h1>
+
+      <p class="normalbefore">The abstract operation ToPropertyKey converts <var>argument</var> to a value that can be used as a
+      <a href="/sec/sec-object-type.html">property key</a> by performing the following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>key</i> be <a href="/sec/sec-toprimitive.html">ToPrimitive</a>(<i>argument</i>, hint String).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>key</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>key</i>) is Symbol, then
+          <ol class="block">
+            <li>Return <i>key</i>.</li>
+          </ol>
+        </li>
+        <li>Return <a href="/sec/sec-tostring.html">ToString</a>(<i>key</i>).</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <div class="front">
+          <h1><span class="secnum" id="sec-19.5.6.3"><a href="/sec/sec-properties-of-the-nativeerror-prototype-objects.html" title="link to this section">19.5.6.3</a></span> Properties of the <i>NativeError</i> Prototype Objects</h1>
+
+          <p>Each <i>NativeError</i> prototype object is an ordinary object. It is not an Error instance and does not have an
+          [[ErrorData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+          <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of each
+          <i>NativeError</i> prototype object is the intrinsic object %ErrorPrototype% (<a href="/sec/sec-properties-of-the-error-prototype-object.html">19.5.3</a>).</p>
+        </div>
+
+        <section id="sec-nativeerror.prototype.constructor">
+          <h1><span class="secnum" id="sec-19.5.6.3.1"><a href="/sec/sec-nativeerror.prototype.constructor.html" title="link to this section">19.5.6.3.1</a></span> <i>NativeError</i>.prototype.constructor</h1>
+
+          <p>The initial value of the <code>constructor</code> property of the prototype for a given <i>NativeError</i>
+          constructor is the corresponding intrinsic object %<i>NativeError</i>% (<a href="/sec/sec-nativeerror-constructors.html">19.5.6.1</a>).</p>
+        </section>
+
+        <section id="sec-nativeerror.prototype.message">
+          <h1><span class="secnum" id="sec-19.5.6.3.2"><a href="/sec/sec-nativeerror.prototype.message.html" title="link to this section">19.5.6.3.2</a></span> <i>NativeError</i>.prototype.message</h1>
+
+          <p>The initial value of the <code>message</code> property of the prototype for a given <i>NativeError</i> constructor is
+          the empty String.</p>
+        </section>
+
+        <section id="sec-nativeerror.prototype.name">
+          <h1><span class="secnum" id="sec-19.5.6.3.3"><a href="/sec/sec-nativeerror.prototype.name.html" title="link to this section">19.5.6.3.3</a></span> <i>NativeError</i>.prototype.name</h1>
+
+          <p>The initial value of the <code>name</code> property of the prototype for a given <i>NativeError</i> constructor is a
+          string consisting of the name of the constructor (the name used instead of <i>NativeError</i>).</p>
+        </section>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

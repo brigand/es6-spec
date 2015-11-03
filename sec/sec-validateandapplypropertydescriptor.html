@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-9.1.6.3"><a href="/sec/sec-validateandapplypropertydescriptor.html" title="link to this section">9.1.6.3</a></span> ValidateAndApplyPropertyDescriptor (O, P, extensible, Desc,
+            current)</h1>
+
+        <p>When the abstract operation <span style="font-family: Times New Roman">ValidateAndApplyPropertyDescriptor</span> is
+        called with Object <var>O</var>, <a href="/sec/sec-object-type.html">property key</a> <span style="font-family: Times New
+        Roman"><i>P</i>,</span> Boolean value <var>extensible</var>, and Property Descriptors <span class="nt">Desc</span>, and
+        <var>current</var> the following steps are taken:</p>
+
+        <p>This algorithm contains steps that test various fields of the <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span> for specific
+        values. The fields that are tested in this manner need not actually exist in <span class="nt">Desc</span>. If a field is
+        absent then its value is considered to be <b>false</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> If <span class="value">undefined</span> is passed as the <var>O</var> argument only
+          validation is performed and no object updates are performed.</p>
+        </div>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: If <i>O</i> is not <b>undefined</b> then <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is <b>true</b>.</li>
+          <li>If <i>current</i> is <b>undefined</b>, then
+            <ol class="block">
+              <li>If <i>extensible</i> is <b>false</b>, return <b>false</b>.</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>extensible</i> is <b>true</b>.</li>
+              <li>If <a href="/sec/sec-isgenericdescriptor.html">IsGenericDescriptor</a>(<i>Desc</i>) or <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>Desc</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li>If <i>O</i> is not <b>undefined</b>, create an own data property named <i>P</i> of object <i>O</i> whose
+                      [[Value]], [[Writable]], [[Enumerable]] and [[Configurable]] attribute values are described by <i>Desc</i>.
+                      If the value of an attribute field of <i>Desc</i> is absent, the attribute of the newly created property is
+                      set to its default value.</li>
+                </ol>
+              </li>
+              <li>Else <i>Desc</i> must be an accessor <a href="/sec/sec-property-descriptor-specification-type.html">Property
+                  Descriptor</a>,
+                <ol class="block">
+                  <li>If <i>O</i> is not <b>undefined</b>, create an own accessor property named <i>P</i> of object <i>O</i> whose
+                      [[Get]], [[Set]], [[Enumerable]] and [[Configurable]] attribute values are described by <i>Desc</i>. If the
+                      value of an attribute field of <i>Desc</i> is absent, the attribute of the newly created property is set to
+                      its default value.</li>
+                </ol>
+              </li>
+              <li>Return <b>true</b>.</li>
+            </ol>
+          </li>
+          <li>Return <b>true</b>, if every field in <i>Desc</i> is absent.</li>
+          <li>Return <b>true</b>, if every field in <i>Desc</i> also occurs in <i>current</i> and the value of every field in
+              <i>Desc</i> is the same value as the corresponding field in <i>current</i> when compared using <a href="/sec/sec-samevalue.html">the SameValue algorithm</a>.</li>
+          <li>If the [[Configurable]] field of <i>current</i> is <b>false</b>, then
+            <ol class="block">
+              <li>Return <b>false</b>, if the [[Configurable]] field of <i>Desc</i> is <b>true</b>.</li>
+              <li>Return <b>false</b>, if the [[Enumerable]] field of <i>Desc</i> is present and the [[Enumerable]] fields of
+                  <i>current</i> and <i>Desc</i> are the Boolean negation of each other.</li>
+            </ol>
+          </li>
+          <li>If <a href="/sec/sec-isgenericdescriptor.html">IsGenericDescriptor</a>(<i>Desc</i>) is <b>true</b>, no further validation is
+              required.</li>
+          <li>Else if <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>current</i>) and <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>Desc</i>) have different results, then
+            <ol class="block">
+              <li>Return <b>false</b>, if the [[Configurable]] field of <i>current</i> is <b>false</b>.</li>
+              <li>If <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>current</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li>If <i>O</i> is not <b>undefined</b>, convert the property named <i>P</i> of object <i>O</i> from a data
+                      property to an accessor property. Preserve the existing values of the converted property&#x2019;s
+                      [[Configurable]] and [[Enumerable]] attributes and set the rest of the property&#x2019;s attributes to their
+                      default values.</li>
+                </ol>
+              </li>
+              <li>Else,
+                <ol class="block">
+                  <li>If <i>O</i> is not <b>undefined</b>, convert the property named <i>P</i> of object <i>O</i> from an accessor
+                      property to a data property. Preserve the existing values of the converted property&#x2019;s [[Configurable]]
+                      and [[Enumerable]] attributes and set the rest of the property&#x2019;s attributes to their default
+                      values.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Else if <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>current</i>) and <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>Desc</i>) are both <b>true</b>, then
+            <ol class="block">
+              <li>If the [[Configurable]] field of <i>current</i> is <b>false</b>, then
+                <ol class="block">
+                  <li>Return <b>false</b>, if the [[Writable]] field of <i>current</i> is <b>false</b> and the [[Writable]] field
+                      of <i>Desc</i> is <b>true</b>.</li>
+                  <li>If the [[Writable]] field of <i>current</i> is <b>false</b>, then
+                    <ol class="block">
+                      <li>Return <b>false</b>, if the [[Value]] field of <i>Desc</i> is present and <a href="/sec/sec-samevalue.html">SameValue</a>(<i>Desc</i>.[[Value]], <i>current</i>.[[Value]]) is
+                          <b>false</b>.</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>Else the [[Configurable]] field of <i>current</i> is <b>true</b>, so any change is acceptable.</li>
+            </ol>
+          </li>
+          <li>Else <a href="/sec/sec-isaccessordescriptor.html">IsAccessorDescriptor</a>(<i>current</i>) and <a href="/sec/sec-isaccessordescriptor.html">IsAccessorDescriptor</a>(<i>Desc</i>) are both <b>true</b>,
+            <ol class="block">
+              <li>If the [[Configurable]] field of <i>current</i> is <b>false</b>, then
+                <ol class="block">
+                  <li>Return <b>false</b>, if the [[Set]] field of <i>Desc</i> is present and <a href="/sec/sec-samevalue.html">SameValue</a>(<i>Desc</i>.[[Set]], <i>current</i>.[[Set]]) is <b>false</b>.</li>
+                  <li>Return <b>false</b>, if the [[Get]] field of <i>Desc</i> is present and <a href="/sec/sec-samevalue.html">SameValue</a>(<i>Desc</i>.[[Get]], <i>current</i>.[[Get]]) is <b>false</b>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>O</i> is not <b>undefined</b>, then
+            <ol class="block">
+              <li>For each field of <i>Desc</i> that is present, set the corresponding attribute of the property named <i>P</i> of
+                  object <i>O</i> to the value of the field.</li>
+            </ol>
+          </li>
+          <li>Return <b>true</b>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> Step 8.b allows any field of <span style="font-family: Times New Roman">Desc</span> to
+          be different from the corresponding field of <span style="font-family: Times New Roman">current</span> if <span style="font-family: Times New Roman">current&#x2019;s</span> [[Configurable]] field is <span class="value">true</span>.
+          This even permits changing the [[Value]] of a property whose [[Writable]] attribute is <span class="value">false</span>.
+          This is allowed because a <span class="value">true</span> [[Configurable]] attribute would permit an equivalent sequence
+          of calls where [[Writable]] is first set to <span class="value">true</span>, a new [[Value]] is set, and then
+          [[Writable]] is set to <span class="value">false</span>.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

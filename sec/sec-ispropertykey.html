@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.2.7"><a href="/sec/sec-ispropertykey.html" title="link to this section">7.2.7</a></span>
+          IsPropertyKey ( argument )</h1>
+
+      <p class="normalbefore">The abstract operation IsPropertyKey determines if <var>argument</var>, which must be an <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language value</a> or a <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a>, is a value that may be used as a <a href="/sec/sec-object-type.html">property key</a>.</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>argument</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>argument</i>) is String, return <b>true</b>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>argument</i>) is Symbol, return <b>true</b>.</li>
+        <li>Return <b>false</b>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

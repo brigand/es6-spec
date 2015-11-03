@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-11.8.4.3"><a href="/sec/sec-static-semantics-sv.html" title="link to this section">11.8.4.3</a></span> Static Semantics: <var>SV</var></h1>
+
+        <p>A string literal stands for a value of the String type. The String value (SV) of the literal is described in terms of
+        code unit values contributed by the various parts of the string literal. As part of this process, some Unicode code points
+        within the string literal are interpreted as having a mathematical value (MV), as described below or in <a href="/sec/sec-literals-numeric-literals.html">11.8.3</a>.</p>
+
+        <ul>
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">StringLiteral</span> <span class="geq">::</span> <code class="t">&quot;&quot;</code></span> is the empty code unit sequence.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">StringLiteral</span> <span class="geq">::</span> <code class="t">&apos;&apos;</code></span> is the empty code unit sequence.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">StringLiteral</span> <span class="geq">::</span> <code class="t">&quot;</code> <span class="nt">DoubleStringCharacters</span> <code class="t">&quot;</code></span> is the SV of
+            <i>DoubleStringCharacters</i>.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">StringLiteral</span> <span class="geq">::</span> <code class="t">&apos;</code> <span class="nt">SingleStringCharacters</span> <code class="t">&apos;</code></span> is the SV of
+            <i>SingleStringCharacters</i>.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">DoubleStringCharacters</span> <span class="geq">::</span> <span class="nt">DoubleStringCharacter</span></span> is a sequence of one or two code units that is the SV of
+            <i>DoubleStringCharacter</i>.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">DoubleStringCharacters</span> <span class="geq">::</span> <span class="nt">DoubleStringCharacter</span> <span class="nt">DoubleStringCharacters</span></span> is a sequence of one or
+            two code units that is the SV of <i>DoubleStringCharacter</i> followed by all the code units in the SV of
+            <i>DoubleStringCharacters</i> in order.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">SingleStringCharacters</span> <span class="geq">::</span> <span class="nt">SingleStringCharacter</span></span> is a sequence of one or two code units that is the SV of
+            <i>SingleStringCharacter</i>.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">SingleStringCharacters</span> <span class="geq">::</span> <span class="nt">SingleStringCharacter</span> <span class="nt">SingleStringCharacters</span></span> is a sequence of one or
+            two code units that is the SV of <i>SingleStringCharacter</i> followed by all the code units in the SV of
+            <i>SingleStringCharacters</i> in order.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">DoubleStringCharacter</span> <span class="geq">::</span> <span class="nt">SourceCharacter</span> <span class="grhsmod">but not one of</span> <code class="t">&quot;</code> <span class="grhsmod">or</span> <code class="t">\</code> <span class="grhsmod">or</span> <span class="nt">LineTerminator</span></span> is the <a href="/sec/sec-utf16encoding.html">UTF16Encoding</a> (<a href="/sec/sec-utf16encoding.html">10.1.1</a>) of the code point value of <i>SourceCharacter</i>.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">DoubleStringCharacter</span> <span class="geq">::</span> <code class="t">\</code> <span class="nt">EscapeSequence</span></span> is the SV of the <i>EscapeSequence</i>.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">DoubleStringCharacter</span> <span class="geq">::</span> <span class="nt">LineContinuation</span></span> is the empty code unit sequence.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">SingleStringCharacter</span> <span class="geq">::</span> <span class="nt">SourceCharacter</span> <span class="grhsmod">but not one of</span> <code class="t">&apos;</code> <span class="grhsmod">or</span> <code class="t">\</code> <span class="grhsmod">or</span> <span class="nt">LineTerminator</span></span> is the <a href="/sec/sec-utf16encoding.html">UTF16Encoding</a> (<a href="/sec/sec-utf16encoding.html">10.1.1</a>) of the code point value of <i>SourceCharacter</i>.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">SingleStringCharacter</span> <span class="geq">::</span> <code class="t">\</code> <span class="nt">EscapeSequence</span></span> is the SV of the <i>EscapeSequence</i>.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">SingleStringCharacter</span> <span class="geq">::</span> <span class="nt">LineContinuation</span></span> is the empty code unit sequence.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">EscapeSequence</span> <span class="geq">::</span> <span class="nt">CharacterEscapeSequence</span></span> is the SV of the <i>CharacterEscapeSequence</i>.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">EscapeSequence</span> <span class="geq">::</span> <code class="t">0</code></span> is the code unit value 0.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">EscapeSequence</span> <span class="geq">::</span> <span class="nt">HexEscapeSequence</span></span> is the SV of the <i>HexEscapeSequence</i>.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">EscapeSequence</span> <span class="geq">::</span> <span class="nt">UnicodeEscapeSequence</span></span> is the SV of the <i>UnicodeEscapeSequence</i>.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">CharacterEscapeSequence</span> <span class="geq">::</span> <span class="nt">SingleEscapeCharacter</span></span> is the code unit whose value is determined by  the
+            <i>SingleEscapeCharacter</i> according to <a href="/sec/table-34.html">Table 34</a>.</p>
+          </li>
+        </ul>
+
+        <figure>
+          <figcaption><span id="table-34">Table 34</span> &#x2014; String Single Character Escape Sequences</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Escape Sequence</th>
+              <th>Code Unit Value</th>
+              <th>Unicode Character Name</th>
+              <th>Symbol</th>
+            </tr>
+            <tr>
+              <td><code>\b</code></td>
+              <td><code>0x0008</code></td>
+              <td>BACKSPACE</td>
+              <td>&lt;BS&gt;</td>
+            </tr>
+            <tr>
+              <td><code>\t</code></td>
+              <td><code>0x0009</code></td>
+              <td>CHARACTER TABULATION</td>
+              <td>&lt;HT&gt;</td>
+            </tr>
+            <tr>
+              <td><code>\n</code></td>
+              <td><code>0x000A</code></td>
+              <td>LINE FEED (LF)</td>
+              <td>&lt;LF&gt;</td>
+            </tr>
+            <tr>
+              <td><code>\v</code></td>
+              <td><code>0x000B</code></td>
+              <td>LINE TABULATION</td>
+              <td>&lt;VT&gt;</td>
+            </tr>
+            <tr>
+              <td><code>\f</code></td>
+              <td><code>0x000C</code></td>
+              <td>FORM FEED (FF)</td>
+              <td>&lt;FF&gt;</td>
+            </tr>
+            <tr>
+              <td><code>\r</code></td>
+              <td><code>0x000D</code></td>
+              <td>CARRIAGE RETURN (CR)</td>
+              <td>&lt;CR&gt;</td>
+            </tr>
+            <tr>
+              <td><code>\&quot;</code></td>
+              <td><code>0x0022</code></td>
+              <td>QUOTATION MARK</td>
+              <td><code>&quot;</code></td>
+            </tr>
+            <tr>
+              <td><code>\&apos;</code></td>
+              <td><code>0x0027</code></td>
+              <td>APOSTROPHE</td>
+              <td><code>&apos;</code></td>
+            </tr>
+            <tr>
+              <td><code>\\</code></td>
+              <td><code>0x005C</code></td>
+              <td>REVERSE SOLIDUS</td>
+              <td><code>\</code></td>
+            </tr>
+          </table>
+        </figure>
+
+        <ul>
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">CharacterEscapeSequence</span> <span class="geq">::</span> <span class="nt">NonEscapeCharacter</span></span> is the SV of the <i>NonEscapeCharacter</i>.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">NonEscapeCharacter</span> <span class="geq">::</span> <span class="nt">SourceCharacter</span> <span class="grhsmod">but not one of</span> <span class="nt">EscapeCharacter</span>
+            <span class="grhsmod">or</span> <span class="nt">LineTerminator</span></span> is the <a href="/sec/sec-utf16encoding.html">UTF16Encoding</a> (<a href="/sec/sec-utf16encoding.html">10.1.1</a>) of the code point value of
+            <i>SourceCharacter</i>.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">HexEscapeSequence</span> <span class="geq">::</span> <code class="t">x</code> <span class="nt">HexDigit</span> <span class="nt">HexDigit</span></span> is the code unit value
+            that is (16 times the MV of the first <i>HexDigit</i>) plus the MV of the second <i>HexDigit</i>.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">UnicodeEscapeSequence</span> <span class="geq">::</span> <code class="t">u</code> <span class="nt">Hex4Digits</span></span> is the SV of <var>Hex4Digits.</var></p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">Hex4Digits</span> <span class="geq">::</span> <span class="nt">HexDigit</span> <span class="nt">HexDigit</span> <span class="nt">HexDigit</span> <span class="nt">HexDigit</span></span> is the code unit value that is (4096 times the MV of the first <i>HexDigit</i>) plus
+            (256 times the MV of the second <i>HexDigit</i>) plus (16 times the MV of the third <i>HexDigit</i>) plus the MV of
+            the fourth <i>HexDigit</i>.</p>
+          </li>
+
+          <li>
+            <p>The SV of <span class="prod"><span class="nt">UnicodeEscapeSequence</span> <span class="geq">::</span> <code class="t">u{</code> <span class="nt">HexDigits</span> <code class="t">}</code></span> is the <a href="/sec/sec-utf16encoding.html">UTF16Encoding</a> (<a href="/sec/sec-utf16encoding.html">10.1.1</a>) of the MV of
+            <i>HexDigits</i>.</p>
+          </li>
+        </ul>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

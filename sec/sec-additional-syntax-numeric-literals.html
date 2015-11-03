@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-B.1.1"><a href="/sec/sec-additional-syntax-numeric-literals.html" title="link to this section">B.1.1</a></span> Numeric Literals</h1>
+
+      <p>The syntax and semantics of <a href="/sec/sec-literals-numeric-literals.html">11.8.3</a> is extended as follows except that this
+      extension is not allowed for <a href="/sec/sec-strict-mode-code.html">strict mode code</a>:</p>
+
+      <h2>Syntax</h2>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">NumericLiteral</span> <span class="geq">::</span></div>
+        <div class="rhs"><span class="nt">DecimalLiteral</span></div>
+        <div class="rhs"><span class="nt">BinaryIntegerLiteral</span></div>
+        <div class="rhs"><span class="nt">OctalIntegerLiteral</span></div>
+        <div class="rhs"><span class="nt">HexIntegerLiteral</span></div>
+        <div class="rhs"><span class="nt">LegacyOctalIntegerLiteral</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">LegacyOctalIntegerLiteral</span> <span class="geq">::</span></div>
+        <div class="rhs"><code class="t">0</code> <span class="nt">OctalDigit</span></div>
+        <div class="rhs"><span class="nt">LegacyOctalIntegerLiteral</span> <span class="nt">OctalDigit</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">DecimalIntegerLiteral</span> <span class="geq">::</span></div>
+        <div class="rhs"><code class="t">0</code></div>
+        <div class="rhs"><span class="nt">NonZeroDigit</span> <span class="nt">DecimalDigits</span><sub class="g-opt">opt</sub></div>
+        <div class="rhs"><span class="nt">NonOctalDecimalIntegerLiteral</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">NonOctalDecimalIntegerLiteral</span> <span class="geq">::</span></div>
+        <div class="rhs"><code class="t">0</code> <span class="nt">NonOctalDigit</span></div>
+        <div class="rhs"><span class="nt">LegacyOctalLikeDecimalIntegerLiteral</span> <span class="nt">NonOctalDigit</span></div>
+        <div class="rhs"><span class="nt">NonOctalDecimalIntegerLiteral</span> <span class="nt">DecimalDigit</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">LegacyOctalLikeDecimalIntegerLiteral</span> <span class="geq">::</span></div>
+        <div class="rhs"><code class="t">0</code> <span class="nt">OctalDigit</span></div>
+        <div class="rhs"><span class="nt">LegacyOctalLikeDecimalIntegerLiteral</span> <span class="nt">OctalDigit</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">NonOctalDigit</span> <span class="geq">::</span> <span class="grhsmod">one of</span></div>
+        <div class="rhs"><code class="t">8</code> <code class="t">9</code></div>
+      </div>
+
+      <p><b>B.1.1.1</b>	<b>Static Semantics</b></p>
+
+      <ul>
+        <li>
+          <p>The MV of <span class="prod"><span class="nt">LegacyOctalIntegerLiteral</span> <span class="geq">::</span> <code class="t">0</code> <span class="nt">OctalDigit</span></span> is the MV of <span class="nt">OctalDigit</span>.</p>
+        </li>
+
+        <li>
+          <p>The MV of <span class="prod"><span class="nt">LegacyOctalIntegerLiteral</span> <span class="geq">::</span> <span class="nt">LegacyOctalIntegerLiteral</span> <span class="nt">OctalDigit</span></span> is (the MV of <span class="nt">LegacyOctalIntegerLiteral</span> times 8) plus the MV of <span class="nt">OctalDigit</span>.</p>
+        </li>
+
+        <li>
+          <p>The MV of <span class="prod"><span class="nt">DecimalIntegerLiteral</span> <span class="geq">::</span> <span class="nt">NonOctalDecimalIntegerLiteral</span></span> is the MV of <span class="nt">NonOctalDecimalIntegerLiteral</span>.</p>
+        </li>
+
+        <li>
+          <p>The MV of <span class="prod"><span class="nt">NonOctalDecimalIntegerLiteral</span> <span class="geq">::</span> <code class="t">0</code> <span class="nt">NonOctalDigit</span></span> is the MV of <span class="nt">NonOctalDigit</span>.</p>
+        </li>
+
+        <li>
+          <p>The MV of <span class="prod"><span class="nt">NonOctalDecimalIntegerLiteral</span> <span class="geq">::</span> <span class="nt">LegacyOctalLikeDecimalIntegerLiteral</span> <span class="nt">NonOctalDigit</span></span> is (the MV of <span class="nt">LegacyOctalLikeDecimalIntegerLiteral</span>  times 10) plus the MV of <span class="nt">NonOctalDigit</span>.</p>
+        </li>
+
+        <li>
+          <p>The MV of <span class="prod"><span class="nt">NonOctalDecimalIntegerLiteral</span> <span class="geq">::</span> <span class="nt">NonOctalDecimalIntegerLiteral</span> <span class="nt">DecimalDigit</span></span> is (the MV of <span class="nt">NonOctalDecimalIntegerLiteral</span> times 10) plus the MV of <span class="nt">DecimalDigit</span>.</p>
+        </li>
+
+        <li>
+          <p>The MV of <span class="prod"><span class="nt">LegacyOctalLikeDecimalIntegerLiteral</span> <span class="geq">::</span>
+          <code class="t">0</code> <span class="nt">OctalDigit</span></span> is the MV of <span class="nt">OctalDigit</span>.</p>
+        </li>
+
+        <li>
+          <p>The MV of <span class="prod"><span class="nt">LegacyOctalLikeDecimalIntegerLiteral</span> <span class="geq">::</span>
+          <span class="nt">LegacyOctalLikeDecimalIntegerLiteral</span> <span class="nt">OctalDigit</span></span> is (the MV of
+          <span class="nt">LegacyOctalLikeDecimalIntegerLiteral</span>  times 10) plus the MV of <span class="nt">OctalDigit</span>.</p>
+        </li>
+
+        <li>
+          <p>The MV of <span class="prod"><span class="nt">NonOctalDigit</span> <span class="geq">::</span> <code class="t">8</code></span> is 8.</p>
+        </li>
+
+        <li>
+          <p>The MV of <span class="prod"><span class="nt">NonOctalDigit</span> <span class="geq">::</span> <code class="t">9</code></span> is 9.</p>
+        </li>
+      </ul>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

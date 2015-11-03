@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <div class="front">
+          <h1><span class="secnum" id="sec-8.1.1.1"><a href="/sec/sec-declarative-environment-records.html" title="link to this section">8.1.1.1</a></span> Declarative Environment Records</h1>
+
+          <p>Each declarative <a href="/sec/sec-environment-records.html">Environment Record</a> is associated with an ECMAScript program
+          scope containing variable, constant, let, class, module, import, and/or function declarations. A declarative <a href="/sec/sec-environment-records.html">Environment Record</a> binds the set of identifiers defined by the declarations
+          contained within its scope.</p>
+
+          <p>The behaviour of the concrete specification methods for declarative Environment Records is defined by the following
+          algorithms.</p>
+        </div>
+
+        <section id="sec-declarative-environment-records-hasbinding-n">
+          <h1><span class="secnum" id="sec-8.1.1.1.1"><a href="/sec/sec-declarative-environment-records-hasbinding-n.html" title="link to this section">8.1.1.1.1</a></span> HasBinding(N)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method HasBinding for
+          declarative Environment Records simply determines if the argument identifier is one of the identifiers bound by the
+          record:</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the declarative <a href="/sec/sec-environment-records.html">Environment Record</a> for which the
+                method was invoked.</li>
+            <li>If <i>envRec</i> has a binding for the name that is the value of <i>N</i>, return <b>true</b>.</li>
+            <li>Return <b>false</b>.</li>
+          </ol>
+        </section>
+
+        <section id="sec-declarative-environment-records-createmutablebinding-n-d">
+          <h1><span class="secnum" id="sec-8.1.1.1.2"><a href="/sec/sec-declarative-environment-records-createmutablebinding-n-d.html" title="link to this section">8.1.1.1.2</a></span> CreateMutableBinding (N, D)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method
+          CreateMutableBinding for declarative Environment Records creates a new mutable binding for the name <var>N</var> that is
+          uninitialized. A binding must not already exist in this <a href="/sec/sec-environment-records.html">Environment Record</a> for
+          <var>N</var>. If Boolean argument <var>D</var> is provided and has the value <b>true</b> the new binding is marked as
+          being subject to deletion.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the declarative <a href="/sec/sec-environment-records.html">Environment Record</a> for which the
+                method was invoked.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>envRec</i> does not already have a binding for <i>N</i>.</li>
+            <li>Create a mutable binding in <i>envRec</i> for <i>N</i> and record that it is uninitialized. If <i>D</i> is
+                <b>true</b> record that the newly created binding may be deleted by a subsequent DeleteBinding call.</li>
+            <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+                sans-serif">empty</span>).</li>
+          </ol>
+        </section>
+
+        <section id="sec-declarative-environment-records-createimmutablebinding-n-s">
+          <h1><span class="secnum" id="sec-8.1.1.1.3"><a href="/sec/sec-declarative-environment-records-createimmutablebinding-n-s.html" title="link to this section">8.1.1.1.3</a></span> CreateImmutableBinding (N, S)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method
+          CreateImmutableBinding for declarative Environment Records creates a new immutable binding for the name <var>N</var>
+          that is uninitialized. A binding must not already exist in this <a href="/sec/sec-environment-records.html">Environment
+          Record</a> for <var>N</var>. If Boolean argument <var>S</var> is provided and has the value <b>true</b> the new binding
+          is marked as a strict binding.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the declarative <a href="/sec/sec-environment-records.html">Environment Record</a> for which the
+                method was invoked.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>envRec</i> does not already have a binding for <i>N</i>.</li>
+            <li>Create an immutable binding in <i>envRec</i> for <i>N</i> and record that it is uninitialized. If <i>S</i> is
+                <b>true</b> record that the newly created binding is a strict binding.</li>
+            <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+                sans-serif">empty</span>).</li>
+          </ol>
+        </section>
+
+        <section id="sec-declarative-environment-records-initializebinding-n-v">
+          <h1><span class="secnum" id="sec-8.1.1.1.4"><a href="/sec/sec-declarative-environment-records-initializebinding-n-v.html" title="link to this section">8.1.1.1.4</a></span> InitializeBinding (N,V)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method InitializeBinding
+          for declarative Environment Records is used to set the bound value of the current binding of the identifier whose name
+          is the value of the argument <var>N</var> to the value of argument <var>V</var>. An uninitialized binding for
+          <var>N</var> must already exist.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the declarative <a href="/sec/sec-environment-records.html">Environment Record</a> for which the
+                method was invoked.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>envRec</i> must have an uninitialized binding for
+                <i>N</i>.</li>
+            <li>Set the bound value for <i>N</i> in <i>envRec</i> to <i>V</i>.</li>
+            <li>Record that the binding for <i>N</i> in <i>envRec</i> has been initialized.</li>
+            <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+                sans-serif">empty</span>).</li>
+          </ol>
+        </section>
+
+        <section id="sec-declarative-environment-records-setmutablebinding-n-v-s">
+          <h1><span class="secnum" id="sec-8.1.1.1.5"><a href="/sec/sec-declarative-environment-records-setmutablebinding-n-v-s.html" title="link to this section">8.1.1.1.5</a></span> SetMutableBinding (N,V,S)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method SetMutableBinding
+          for declarative Environment Records attempts to change the bound value of the current binding of the identifier whose
+          name is the value of the argument <var>N</var> to the value of argument <var>V</var>. A binding for <var>N</var>
+          normally already exist, but in rare cases it may not. If the binding is an immutable binding, a <b>TypeError</b> is
+          thrown if <span style="font-family: Times New Roman">S</span> is <span class="value">true</span>.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the declarative <a href="/sec/sec-environment-records.html">Environment Record</a> for which the
+                method was invoked.</li>
+            <li>If <i>envRec</i> does not have a binding for <i>N</i>, then
+              <ol class="block">
+                <li>If <i>S</i> is <b>true</b> throw a <b>ReferenceError</b> exception.</li>
+                <li>Perform <i>envRec</i>.CreateMutableBinding(<i>N</i>, <b>true</b>).</li>
+                <li>Perform <i>envRec</i>.InitializeBinding(<i>N</i>, <i>V</i>).</li>
+                <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+                    sans-serif">empty</span>).</li>
+              </ol>
+            </li>
+            <li>If the binding for <i>N</i> in <i>envRec</i> is a strict binding, let <i>S</i> be <b>true</b>.</li>
+            <li>If the binding for <i>N</i> in <i>envRec</i> has not yet been initialized throw a <b>ReferenceError</b>
+                exception.</li>
+            <li>Else if the binding for <i>N</i> in <i>envRec</i> is a mutable binding, change its bound value to <i>V</i>.</li>
+            <li>Else this must be an attempt to change the value of an immutable binding so if <i>S</i> is <b>true</b> throw a
+                <b>TypeError</b> exception.</li>
+            <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+                sans-serif">empty</span>).</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> An example of ECMAScript code that results in a missing binding at step 2 is:</p>
+
+            <pre class="NoteCode">function f(){eval(&quot;var x; x = (delete x, 0);&quot;)}</pre>
+          </div>
+        </section>
+
+        <section id="sec-declarative-environment-records-getbindingvalue-n-s">
+          <h1><span class="secnum" id="sec-8.1.1.1.6"><a href="/sec/sec-declarative-environment-records-getbindingvalue-n-s.html" title="link to this section">8.1.1.1.6</a></span> GetBindingValue(N,S)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method GetBindingValue
+          for declarative Environment Records simply returns the value of its bound identifier whose name is the value of the
+          argument <var>N</var>. If the binding exists but is uninitialized a <b>ReferenceError</b> is thrown, regardless of the
+          value of <i><span style="font-family: Times New Roman">S</span>.</i></p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the declarative <a href="/sec/sec-environment-records.html">Environment Record</a> for which the
+                method was invoked.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>envRec</i> has a binding for <i>N</i>.</li>
+            <li>If the binding for <i>N</i> in <i>envRec</i> is an uninitialized binding, throw a <b>ReferenceError</b>
+                exception.</li>
+            <li>Return the value currently bound to <i>N</i> in <i>envRec</i>.</li>
+          </ol>
+        </section>
+
+        <section id="sec-declarative-environment-records-deletebinding-n">
+          <h1><span class="secnum" id="sec-8.1.1.1.7"><a href="/sec/sec-declarative-environment-records-deletebinding-n.html" title="link to this section">8.1.1.1.7</a></span> DeleteBinding (N)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method DeleteBinding for
+          declarative Environment Records can only delete bindings that have been explicitly designated as being subject to
+          deletion.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the declarative <a href="/sec/sec-environment-records.html">Environment Record</a> for which the
+                method was invoked.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>envRec</i> has a binding for the name that is the value of
+                <i>N</i>.</li>
+            <li>If the binding for <i>N</i> in <i>envRec</i> cannot be deleted, return <b>false</b>.</li>
+            <li>Remove the binding for <i>N</i> from <i>envRec</i>.</li>
+            <li>Return <b>true</b>.</li>
+          </ol>
+        </section>
+
+        <section id="sec-declarative-environment-records-hasthisbinding">
+          <h1><span class="secnum" id="sec-8.1.1.1.8"><a href="/sec/sec-declarative-environment-records-hasthisbinding.html" title="link to this section">8.1.1.1.8</a></span> HasThisBinding ()</h1>
+
+          <p class="normalbefore">Regular declarative Environment Records  do not provide a <code>this</code> binding.</p>
+
+          <ol class="proc">
+            <li>Return <b>false</b>.</li>
+          </ol>
+        </section>
+
+        <section id="sec-declarative-environment-records-hassuperbinding">
+          <h1><span class="secnum" id="sec-8.1.1.1.9"><a href="/sec/sec-declarative-environment-records-hassuperbinding.html" title="link to this section">8.1.1.1.9</a></span> HasSuperBinding ()</h1>
+
+          <p class="normalbefore">Regular declarative Environment Records do not provide a <code>super</code> binding.</p>
+
+          <ol class="proc">
+            <li>Return <b>false</b>.</li>
+          </ol>
+        </section>
+
+        <section id="sec-declarative-environment-records-withbaseobject">
+          <h1><span class="secnum" id="sec-8.1.1.1.10"><a href="/sec/sec-declarative-environment-records-withbaseobject.html" title="link to this section">8.1.1.1.10</a></span> WithBaseObject()</h1>
+
+          <p class="normalbefore">Declarative Environment Records  always return <b>undefined</b> as their WithBaseObject.</p>
+
+          <ol class="proc">
+            <li>Return <b>undefined</b>.</li>
+          </ol>
+        </section>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

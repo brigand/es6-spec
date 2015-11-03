@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.1.3.5"><a href="/sec/sec-number.prototype.toprecision.html" title="link to this section">20.1.3.5</a></span> Number.prototype.toPrecision ( precision )</h1>
+
+        <p class="normalbefore">Return a String containing this Number value represented either in decimal exponential notation
+        with one digit before the significand&apos;s decimal point and <span style="font-family: Times New
+        Roman"><i>precision</i>&#x2013;1</span> digits after the significand&apos;s decimal point or in decimal fixed notation with
+        <var>precision</var> significant digits. If <var>precision</var> is <b>undefined</b>, call <a href="/sec/sec-tostring.html">ToString</a> (<a href="/sec/sec-tostring.html">7.1.12</a>) instead. Specifically, perform the following
+        steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>x</i> be thisNumberValue(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>x</i>).</li>
+          <li>If <i>precision</i> is <b>undefined</b>, return <a href="/sec/sec-tostring.html">ToString</a>(<i>x</i>).</li>
+          <li>Let <i>p</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>precision</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>p</i>).</li>
+          <li>If <i>x</i> is <b>NaN</b>, return the String <code>&quot;NaN&quot;</code>.</li>
+          <li>Let <i>s</i> be the empty String.</li>
+          <li>If <i>x</i> &lt; 0, then
+            <ol class="block">
+              <li>Let <i>s</i> be code unit 0x002D (HYPHEN-MINUS).</li>
+              <li>Let <i>x</i> = &#x2013;<i>x</i>.</li>
+            </ol>
+          </li>
+          <li>If <i>x</i> = +&#x221E;, then
+            <ol class="block">
+              <li>Return the String that is the concatenation of <i>s</i> and <code>&quot;Infinity&quot;</code>.</li>
+            </ol>
+          </li>
+          <li>If <i>p</i> &lt; 1 or <i>p</i> &gt; 21, throw a <b>RangeError</b> exception. However, an implementation is permitted
+              to extend the behaviour of <code>toPrecision</code> for values of <i>p</i> less than 1 or greater than 21. In this
+              case <code>toPrecision</code> would not necessarily throw <b>RangeError</b> for such values.</li>
+          <li>If <i>x</i> = 0, then
+            <ol class="block">
+              <li>Let <i>m</i> be the String consisting of <i>p</i> occurrences of the code unit 0x0030 (DIGIT ZERO).</li>
+              <li>Let <i>e</i> = 0.</li>
+            </ol>
+          </li>
+          <li>Else <i>x</i> &#x2260; 0,
+            <ol class="block">
+              <li>Let <i>e</i> and <i>n</i> be integers such that 10<sup><i>p</i>&#x2013;1</sup> &#x2264; <i>n</i> &lt;
+                  10<sup><i>p</i></sup> and for which the exact mathematical value of <i>n</i> &#xD7;
+                  10<sup><i>e</i>&#x2013;<i>p</i>+1</sup> &#x2013; <i>x</i> is as close to zero as possible. If there are two such
+                  sets of <i>e</i> and <i>n</i>, pick the <i>e</i> and <i>n</i> for which <i>n</i> &#xD7;
+                  10<sup><i>e</i>&#x2013;<i>p</i>+1</sup> is larger.</li>
+              <li>Let <i>m</i> be the String consisting of the digits of the decimal representation of <i>n</i> (in order, with no
+                  leading zeroes).</li>
+              <li>If <i>e</i> &lt; &#x2013;6 or <i>e</i> &#x2265; <i>p</i>, then
+                <ol class="block">
+                  <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>e</i> &#x2260; 0</li>
+                  <li>Let <i>a</i> be the first element of <i>m</i>, and let <i>b</i> be the remaining <i>p</i>&#x2013;1 elements
+                      of <i>m</i>.</li>
+                  <li>Let <i>m</i> be the concatenation of <i>a</i>, code unit 0x002E (FULL STOP), and <i>b</i>.</li>
+                  <li>If <i>e</i> &gt; 0,  then
+                    <ol class="block">
+                      <li>Let <i>c</i> be code unit 0x002B (PLUS SIGN).</li>
+                    </ol>
+                  </li>
+                  <li>Else <i>e</i> &lt; 0,
+                    <ol class="block">
+                      <li>Let <i>c</i> be code unit 0x002D (HYPHEN-MINUS).</li>
+                      <li>Let <i>e</i> = &#x2013;<i>e</i>.</li>
+                    </ol>
+                  </li>
+                  <li>Let <i>d</i> be the String consisting of the digits of the decimal representation of <i>e</i> (in order,
+                      with no leading zeroes).</li>
+                  <li>Return the concatenation of <i>s</i>, <i>m</i>, code unit 0x0065 (LATIN SMALL LETTER E), <i>c</i>, and
+                      <i>d</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>e</i> = <i>p</i>&#x2013;1, return the concatenation of the Strings <i>s</i> and <i>m</i>.</li>
+          <li>If <i>e</i> &#x2265; 0, then
+            <ol class="block">
+              <li>Let <i>m</i> be the concatenation of the first <i>e</i>+1 elements of <i>m</i>, the code unit 0x002E (FULL
+                  STOP), and the remaining <i>p</i>&#x2013; (<i>e</i>+1) elements of <i>m</i>.</li>
+            </ol>
+          </li>
+          <li>Else <i>e</i> &lt; 0,
+            <ol class="block">
+              <li>Let <i>m</i> be the String formed by the concatenation of code unit 0x0030 (DIGIT ZERO)<b>,</b> code unit 0x002E
+                  (FULL STOP), &#x2013;(<i>e</i>+1) occurrences of code unit 0x0030 (DIGIT ZERO), and the String <i>m</i>.</li>
+            </ol>
+          </li>
+          <li>Return the String that is the concatenation of <i>s</i> and <i>m</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>toPrecision</code> method is <b>1</b>.</p>
+
+        <p>If the <code>toPrecision</code> method is called with more than one argument, then the behaviour is undefined (see <a href="/sec/sec-ecmascript-standard-built-in-objects.html">clause&#xA0;17</a>).</p>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

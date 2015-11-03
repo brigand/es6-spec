@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-12.3.2.1"><a href="/sec/sec-property-accessors-runtime-semantics-evaluation.html" title="link to this section">12.3.2.1</a></span> Runtime Semantics: Evaluation</h1>
+          <div class="gp prod"><span class="nt">MemberExpression</span> <span class="geq">:</span> <span class="nt">MemberExpression</span> <code class="t">[</code> <span class="nt">Expression</span> <code class="t">]</code></div>
+          <ol class="proc">
+            <li>Let <i>baseReference</i> be the result of evaluating <i>MemberExpression</i>.</li>
+            <li>Let <i>baseValue</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>baseReference</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>baseValue</i>).</li>
+            <li>Let <i>propertyNameReference</i> be the result of evaluating <i>Expression</i>.</li>
+            <li>Let <i>propertyNameValue</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>propertyNameReference</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>propertyNameValue</i>).</li>
+            <li>Let <i>bv</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<i>baseValue</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>bv</i>).</li>
+            <li>Let <i>propertyKey</i> be <a href="/sec/sec-topropertykey.html">ToPropertyKey</a>(<i>propertyNameValue</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>propertyKey</i>).</li>
+            <li>If the code matched by the syntactic production that is being evaluated is <a href="/sec/sec-strict-mode-code.html">strict
+                mode code</a>, let <i>strict</i> be <b>true</b>, else let <i>strict</i> be <b>false</b>.</li>
+            <li>Return a value of type <a href="/sec/sec-reference-specification-type.html">Reference</a> whose base value is <i>bv</i> and
+                whose referenced name is <i>propertyKey</i>, and whose strict reference flag is <i>strict</i>.</li>
+          </ol>
+          <div class="gp prod"><span class="nt">MemberExpression</span> <span class="geq">:</span> <span class="nt">MemberExpression</span> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+          <ol class="proc">
+            <li>Let <i>baseReference</i> be the result of evaluating <i>MemberExpression</i>.</li>
+            <li>Let <i>baseValue</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>baseReference</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>baseValue</i>).</li>
+            <li>Let <i>bv</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<i>baseValue</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>bv</i>).</li>
+            <li>Let <i>propertyNameString</i> be StringValue of <i>IdentifierName</i></li>
+            <li>If the code matched by the syntactic production that is being evaluated is <a href="/sec/sec-strict-mode-code.html">strict
+                mode code</a>, let <i>strict</i> be <b>true</b>, else let <i>strict</i> be <b>false</b>.</li>
+            <li>Return a value of type <a href="/sec/sec-reference-specification-type.html">Reference</a> whose base value is <i>bv</i> and
+                whose referenced name is <i>propertyNameString</i>, and whose strict reference flag is <i>strict</i>.</li>
+          </ol>
+          <div class="gp prod"><span class="nt">CallExpression</span> <span class="geq">:</span> <span class="nt">CallExpression</span> <code class="t">[</code> <span class="nt">Expression</span> <code class="t">]</code></div>
+
+          <p>Is evaluated in exactly the same manner as <span class="prod"><span class="nt">MemberExpression</span> <span class="geq">:</span> <span class="nt">MemberExpression</span> <code class="t">[</code> <span class="nt">Expression</span> <code class="t">]</code></span> except that the contained <span class="nt">CallExpression</span> is evaluated in step 1.</p>
+
+          <div class="gp prod"><span class="nt">CallExpression</span> <span class="geq">:</span> <span class="nt">CallExpression</span> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+
+          <p>Is evaluated in exactly the same manner as <span class="prod"><span class="nt">MemberExpression</span> <span class="geq">:</span> <span class="nt">MemberExpression</span> <code class="t">.</code> <span class="nt">IdentifierName</span></span>  except that the contained <span class="nt">CallExpression</span> is evaluated
+          in step 1.</p>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

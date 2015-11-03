@@ -1,0 +1,1197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-6.1"><a href="/sec/sec-ecmascript-language-types.html" title="link to this section">6.1</a></span>
+          ECMAScript Language Types</h1>
+
+      <p>An ECMAScript language type corresponds to values that are directly manipulated by an ECMAScript programmer using the
+      ECMAScript language. The ECMAScript language types are Undefined, Null, Boolean, String, Symbol, Number, and Object. An
+      ECMAScript language value is a value that is characterized by an ECMAScript language type.</p>
+    </div>
+
+    <section id="sec-ecmascript-language-types-undefined-type">
+      <h1><span class="secnum" id="sec-6.1.1"><a href="/sec/sec-ecmascript-language-types-undefined-type.html" title="link to this section">6.1.1</a></span> The Undefined Type</h1>
+
+      <p>The Undefined type has exactly one value, called <b>undefined</b>. Any variable that has not been assigned a value has
+      the value <b>undefined</b>.</p>
+    </section>
+
+    <section id="sec-ecmascript-language-types-null-type">
+      <h1><span class="secnum" id="sec-6.1.2"><a href="/sec/sec-ecmascript-language-types-null-type.html" title="link to this section">6.1.2</a></span> The Null Type</h1>
+
+      <p>The Null type has exactly one value, called <b>null</b>.</p>
+    </section>
+
+    <section id="sec-ecmascript-language-types-boolean-type">
+      <h1><span class="secnum" id="sec-6.1.3"><a href="/sec/sec-ecmascript-language-types-boolean-type.html" title="link to this section">6.1.3</a></span> The Boolean Type</h1>
+
+      <p>The Boolean type represents a logical entity having two values, called <b>true</b> and <b>false</b>.</p>
+    </section>
+
+    <section id="sec-ecmascript-language-types-string-type">
+      <h1><span class="secnum" id="sec-6.1.4"><a href="/sec/sec-ecmascript-language-types-string-type.html" title="link to this section">6.1.4</a></span> The String Type</h1>
+
+      <p>The String type is the set of all ordered sequences of zero or more 16-bit unsigned integer values
+      (&#x201C;elements&#x201D;) up to a maximum length of 2<sup>53</sup>-1 elements. The String type is generally used to represent
+      textual data in a running ECMAScript program, in which case each element in the String is treated as a UTF-16 code unit
+      value. Each element is regarded as occupying a position within the sequence. These positions are indexed with nonnegative
+      integers. The first element (if any) is at index 0, the next element (if any) at index 1, and so on. The length of a String
+      is the number of elements (i.e., 16-bit values) within it. The empty String has length zero and therefore contains no
+      elements.</p>
+
+      <p>Where ECMAScript operations interpret String values, each element is interpreted as a single UTF-16 code unit. However,
+      ECMAScript does not place any restrictions or requirements on the sequence of code units in a String value, so they may be
+      ill-formed when interpreted as UTF-16 code unit sequences. Operations that do not interpret String contents treat them as
+      sequences of undifferentiated 16-bit unsigned integers. The function <code><a href="/sec/sec-string.prototype.normalize.html">String.prototype.normalize</a></code> (<a href="/sec/sec-string.prototype.normalize.html">see
+      21.1.3.12</a>) can be used to explicitly normalize a String value. <code><a href="/sec/sec-string.prototype.localecompare.html">String.prototype.localeCompare</a></code> (<a href="/sec/sec-string.prototype.localecompare.html">see 21.1.3.10</a>) internally normalizes String values, but no other operations
+      implicitly normalize the strings upon which they operate. Only operations that are explicitly specified to be language or
+      locale sensitive produce language-sensitive results.</p>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The rationale behind this design was to keep the implementation of Strings as simple and
+        high-performing as possible. If ECMAScript source text is in Normalized Form C, string literals are guaranteed to also be
+        normalized, as long as they do not contain any Unicode escape sequences.</p>
+      </div>
+
+      <p>Some operations interpret String contents as UTF-16 encoded Unicode code points. In that case the interpretation is:</p>
+
+      <ul>
+        <li>
+          <p>A code unit in the range <span style="font-family: Times New Roman">0</span> to <span style="font-family: Times New
+          Roman">0xD7FF</span> or in the range <span style="font-family: Times New Roman">0xE000</span> to <span style="font-family: Times New Roman">0xFFFF</span> is interpreted as a code point with the same value.</p>
+        </li>
+
+        <li>
+          <p>A sequence of two code units, where the first code unit <var>c1</var> is in the range <span style="font-family: Times
+          New Roman">0xD800</span> to <span style="font-family: Times New Roman">0xDBFF</span> and the second code unit
+          <var>c2</var> is in the range <span style="font-family: Times New Roman">0xDC00</span> to <span style="font-family:
+          Times New Roman">0xDFFF</span>, is a surrogate pair and is interpreted as a code point with the value (<var>c1</var> -
+          <span style="font-family: Times New Roman">0xD800</span>) &#xD7; <span style="font-family: Times New
+          Roman">0x400</span> + (<var>c2</var> &#x2013; <span style="font-family: Times New Roman">0xDC00</span>) + <span style="font-family: Times New Roman">0x10000</span>. (See <a href="/sec/sec-utf16decode.html">10.1.2</a>)</p>
+        </li>
+
+        <li>
+          <p>A code unit that is in the range <span style="font-family: Times New Roman">0xD800</span> to <span style="font-family: Times New Roman">0xDFFF</span>, but is not part of a surrogate pair, is interpreted as a code point
+          with the same value.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="sec-ecmascript-language-types-symbol-type">
+      <div class="front">
+        <h1><span class="secnum" id="sec-6.1.5"><a href="/sec/sec-ecmascript-language-types-symbol-type.html" title="link to this section">6.1.5</a></span> The Symbol Type</h1>
+
+        <p>The Symbol type is the set of all non-String values that may be used as the key of an Object property (<a href="/sec/sec-object-type.html">6.1.7</a>).</p>
+
+        <p>Each possible Symbol value is unique and immutable.</p>
+
+        <p>Each Symbol value immutably holds an associated value called [[Description]] that is either <span class="value">undefined</span> or a String value.</p>
+      </div>
+
+      <section id="sec-well-known-symbols">
+        <h1><span class="secnum" id="sec-6.1.5.1"><a href="/sec/sec-well-known-symbols.html" title="link to this section">6.1.5.1</a></span> Well-Known Symbols</h1>
+
+        <p>Well-known symbols are built-in Symbol values that are explicitly referenced by algorithms of this specification. They
+        are typically used as the keys of properties whose values serve as extension points of a specification algorithm. Unless
+        otherwise specified, well-known symbols values are shared by all Code Realms (<a href="/sec/sec-code-realms.html">8.2</a>).</p>
+
+        <p>Within this specification a well-known symbol is referred to by using a notation of the form @@name, where
+        &#x201C;name&#x201D; is one of the values listed in <a href="/sec/table-1.html">Table 1</a>.</p>
+
+        <figure>
+          <figcaption><span id="table-1">Table 1</span> &#x2014; Well-known Symbols</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Specification Name</th>
+              <th>[[Description]]</th>
+              <th>Value and Purpose</th>
+            </tr>
+            <tr>
+              <td>@@hasInstance</td>
+              <td><code>&quot;Symbol.hasInstance&quot;</code></td>
+              <td>A method that determines if a constructor object recognizes an object as one of the constructor&#x2019;s instances. Called by the semantics of the <code>instanceof</code> operator.</td>
+            </tr>
+            <tr>
+              <td>@@isConcatSpreadable</td>
+              <td><code>&quot;Symbol.isConcatSpreadable&quot;</code></td>
+              <td>A Boolean valued property that if true indicates that an object should be flattened to its array elements by <code><a href="/sec/sec-array.prototype.concat.html">Array.prototype.concat</a></code>.</td>
+            </tr>
+            <tr>
+              <td>@@iterator</td>
+              <td><code>&quot;Symbol.iterator&quot;</code></td>
+              <td>A method that returns the default Iterator for an object. Called by the semantics of the for-of statement.</td>
+            </tr>
+            <tr>
+              <td>@@match</td>
+              <td><code>&quot;Symbol.match&quot;</code></td>
+              <td>A regular expression method that matches the regular expression against a string. Called by the <code><a href="/sec/sec-string.prototype.match.html">String.prototype.match</a></code> method.</td>
+            </tr>
+            <tr>
+              <td>@@replace</td>
+              <td><code>&quot;Symbol.replace&quot;</code></td>
+              <td>A regular expression method that replaces matched substrings of a string. Called by the <code><a href="/sec/sec-string.prototype.replace.html">String.prototype.replace</a></code> method.</td>
+            </tr>
+            <tr>
+              <td>@@search</td>
+              <td><code>&quot;Symbol.search&quot;</code></td>
+              <td>A regular expression method that returns the index within a string that matches the regular expression. Called by the <code><a href="/sec/sec-string.prototype.search.html">String.prototype.search</a></code> method.</td>
+            </tr>
+            <tr>
+              <td>@@species</td>
+              <td><code>&quot;Symbol.species&quot;</code></td>
+              <td>A function valued property that is the constructor function that is used to create derived objects.</td>
+            </tr>
+            <tr>
+              <td>@@split</td>
+              <td><code>&quot;Symbol.split&quot;</code></td>
+              <td>A regular expression method that splits a string at the indices that match the regular expression. Called by the <code><a href="/sec/sec-string.prototype.split.html">String.prototype.split</a></code> method.</td>
+            </tr>
+            <tr>
+              <td>@@toPrimitive</td>
+              <td><code>&quot;Symbol.toPrimitive&quot;</code></td>
+              <td>A method that converts an object to a corresponding primitive value. Called by the <a href="/sec/sec-toprimitive.html">ToPrimitive</a> abstract operation.</td>
+            </tr>
+            <tr>
+              <td>@@toStringTag</td>
+              <td><code>&quot;Symbol.toStringTag&quot;</code></td>
+              <td>A String valued property that is used in the creation of the default string description of an object. Accessed by the built-in method <code><a href="/sec/sec-object.prototype.tostring.html">Object.prototype.toString</a></code>.</td>
+            </tr>
+            <tr>
+              <td>@@unscopables</td>
+              <td><code>&quot;Symbol.unscopables&quot;</code></td>
+              <td>An object valued property whose own property names are property names that are excluded from the <code>with</code> environment bindings of the associated object.</td>
+            </tr>
+          </table>
+        </figure>
+      </section>
+    </section>
+
+    <section id="sec-ecmascript-language-types-number-type">
+      <h1><span class="secnum" id="sec-6.1.6"><a href="/sec/sec-ecmascript-language-types-number-type.html" title="link to this section">6.1.6</a></span> The Number Type</h1>
+
+      <p>The Number type has exactly <span style="font-family: Times New Roman">18437736874454810627</span> (that is, <span style="font-family: Times New Roman">2<sup>64</sup>&#x2212;2<sup>53</sup>+3</span>) values, representing the double-precision
+      64-bit format IEEE 754-2008 values as specified in the IEEE Standard for Binary Floating-Point Arithmetic, except that the
+      <span style="font-family: Times New Roman">9007199254740990</span> (that is, <span style="font-family: Times New
+      Roman">2<sup>53</sup>&#x2212;2</span>) distinct &#x201C;Not-a-Number&#x201D; values of the IEEE Standard are represented in
+      ECMAScript as a single special <b>NaN</b> value. (Note that the <b>NaN</b> value is produced by the program expression
+      <code>NaN</code>.) In some implementations, external code might be able to detect a difference between various Not-a-Number
+      values, but such behaviour is implementation-dependent; to ECMAScript code, all NaN values are indistinguishable from each
+      other.</p>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The bit pattern that might be observed in an ArrayBuffer (<a href="/sec/sec-arraybuffer-objects.html">see 24.1</a>) after a Number value has been stored into it is not necessarily the same as
+        the internal representation of that Number value used by the ECMAScript implementation.</p>
+      </div>
+
+      <p>There are two other special values, called <b>positive Infinity</b> and <b>negative Infinity</b>. For brevity, these
+      values are also referred to for expository purposes by the symbols <span class="value">+&#x221E;</span> and <span class="value">&#x2212;&#x221E;</span>, respectively. (Note that these two infinite Number values are produced by the program
+      expressions <code>+Infinity</code> (or simply <code>Infinity</code>) and <code>-Infinity</code>.)</p>
+
+      <p>The other <span style="font-family: Times New Roman">18437736874454810624</span> (that is, <span style="font-family:
+      Times New Roman">2<sup>64</sup>&#x2212;2<sup>53</sup></span>) values are called the finite numbers. Half of these are
+      positive numbers and half are negative numbers; for every finite positive Number value there is a corresponding negative
+      value having the same magnitude.</p>
+
+      <p>Note that there is both a <b>positive zero</b> and a <b>negative zero</b>. For brevity, these values are also referred to
+      for expository purposes by the symbols <span class="value">+0</span> and <span class="value">&#x2212;0</span>, respectively.
+      (Note that these two different zero Number values are produced by the program expressions <code>+0</code> (or simply
+      <code>0</code>) and <code>-0</code>.)</p>
+
+      <p>The <span style="font-family: Times New Roman">18437736874454810622</span> (that is, <span style="font-family: Times New
+      Roman">2<sup>64</sup>&#x2212;2<sup>53</sup>&#x2212;2</span>) finite nonzero values are of two kinds:</p>
+
+      <p><span style="font-family: Times New Roman">18428729675200069632</span> (that is, <span style="font-family: Times New
+      Roman">2<sup>64</sup>&#x2212;2<sup>54</sup></span>) of them are normalized, having the form</p>
+
+      <div class="math-display"><i>s</i> &#xD7; <i>m</i> &#xD7; 2<sup><i>e</i></sup></div>
+
+      <p>where <var>s</var> is <span style="font-family: Times New Roman">+1</span> or <span style="font-family: Times New
+      Roman">&#x2212;1</span>, <var>m</var> is a positive integer less than <span style="font-family: Times New
+      Roman">2<sup>53</sup></span> but not less than <span style="font-family: Times New Roman">2<sup>52</sup></span>, and
+      <var>e</var> is an integer ranging from <span style="font-family: Times New Roman">&#x2212;1074</span> to <span style="font-family: Times New Roman">971</span>, inclusive.</p>
+
+      <p>The remaining <span style="font-family: Times New Roman">9007199254740990</span> (that is, <span style="font-family:
+      Times New Roman">2<sup>53</sup>&#x2212;2</span>) values are denormalized, having the form</p>
+
+      <div class="math-display"><i>s</i> &#xD7; <i>m</i> &#xD7; 2<sup><i>e</i></sup></div>
+
+      <p>where <var>s</var> is <span style="font-family: Times New Roman">+1</span> or <span style="font-family: Times New
+      Roman">&#x2212;1</span>, <var>m</var> is a positive integer less than <span style="font-family: Times New
+      Roman">2<sup>52</sup></span>, and <var>e</var> is <span style="font-family: Times New Roman">&#x2212;1074</span>.</p>
+
+      <p>Note that all the positive and negative integers whose magnitude is no greater than <span style="font-family: Times New
+      Roman">2<sup>53</sup></span> are representable in the Number type (indeed, the integer <span style="font-family: Times New
+      Roman">0</span> has two representations, <code>+0</code> and <code>-0</code>).</p>
+
+      <p>A finite number has an <i>odd significand</i> if it is nonzero and the integer <var>m</var> used to express it (in one of
+      the two forms shown above) is odd. Otherwise, it has an <i>even significand</i>.</p>
+
+      <p>In this specification, the phrase &#x201C;<span style="font-family: Times New Roman">the Number value for
+      <i>x</i></span>&#x201D; where <var>x</var> represents an exact nonzero real mathematical quantity (which might even be an
+      irrational number such as <span style="font-family: Times New Roman">&#x3C0;</span>) means a Number value chosen in the
+      following manner. Consider the set of all finite values of the Number type, with <span class="value">&#x2212;0</span> removed
+      and with two additional values added to it that are not representable in the Number type, namely <span style="font-family:
+      Times New Roman">2<sup>1024</sup></span> (which is <span style="font-family: Times New Roman">+1 &#xD7;
+      2<sup>53</sup></span> <span style="font-family: Times New Roman">&#xD7; 2<sup>971</sup></span>) and <span style="font-family: Times New Roman">&#x2212;2<sup>1024</sup></span> (which is <span style="font-family: Times New
+      Roman">&#x2212;1 &#xD7; 2<sup>53</sup></span> <span style="font-family: Times New Roman">&#xD7; 2<sup>971</sup></span>).
+      Choose the member of this set that is closest in value to <var>x</var>. If two values of the set are equally close, then the
+      one with an even significand is chosen; for this purpose, the two extra values <span style="font-family: Times New
+      Roman">2<sup>1024</sup></span> and <span style="font-family: Times New Roman">&#x2212;2<sup>1024</sup></span> are considered
+      to have even significands. Finally, if <span style="font-family: Times New Roman">2<sup>1024</sup></span> was chosen,
+      replace it with <span class="value">+&#x221E;</span>; if <span style="font-family: Times New
+      Roman">&#x2212;2<sup>1024</sup></span> was chosen, replace it with <span class="value">&#x2212;&#x221E;</span>; if <span class="value">+0</span> was chosen, replace it with <span class="value">&#x2212;0</span> if and only if <var>x</var> is less
+      than zero; any other chosen value is used unchanged. The result is the Number value for <var>x</var>. (This procedure
+      corresponds exactly to the behaviour of the IEEE 754-2008 &#x201C;round to nearest, ties to even&#x201D; mode.)</p>
+
+      <p>Some ECMAScript operators deal only with integers in specific ranges such as <span style="font-family: Times New
+      Roman">&#x2212;2<sup>31</sup></span> through <span style="font-family: Times New Roman">2<sup>31</sup>&#x2212;1</span>,
+      inclusive, or in the range <span style="font-family: Times New Roman">0</span> through <span style="font-family: Times New
+      Roman">2<sup>16</sup>&#x2212;1</span>, inclusive. These operators accept any value of the Number type but first convert each
+      such value to an integer value in the expected range. See the descriptions of the numeric conversion operations in <a href="/sec/sec-type-conversion.html">7.1</a>.</p>
+    </section>
+
+    <section id="sec-object-type">
+      <div class="front">
+        <h1><span class="secnum" id="sec-6.1.7"><a href="/sec/sec-object-type.html" title="link to this section">6.1.7</a></span> The
+            Object Type</h1>
+
+        <p>An Object is logically a collection of properties. Each property is either a data property, or an accessor
+        property:</p>
+
+        <ul>
+          <li>
+            <p>A <i>data property</i> associates a key value with an <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language
+            value</a> and a set of Boolean attributes.</p>
+          </li>
+
+          <li>
+            <p>An <i>accessor property</i> associates a key value with one or two accessor functions, and a set of Boolean
+            attributes. The accessor functions are used to store or retrieve an <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language value</a> that is associated with the property.</p>
+          </li>
+        </ul>
+
+        <p>Properties are identified using key values. A property key value is either an ECMAScript String value or a Symbol
+        value. All String and Symbol values, including the empty string, are valid as property keys. A <i>property name</i> is a
+        property key that is a String value.</p>
+
+        <p>An <i>integer index</i> is a String-valued property key that is a canonical numeric String (<a href="/sec/sec-canonicalnumericindexstring.html">see 7.1.16</a>) and whose numeric value is either <span style="font-family: Times
+        New Roman">+0</span> or a positive integer &#x2264; 2<sup>53</sup>&#x2212;1. An <i>array index</i> is an integer index whose
+        numeric value <var>i</var> is in the range <span style="font-family: Times New Roman">+0 &#x2264; <i>i</i> &lt;
+        2<sup>32</sup>&#x2212;1.</span></p>
+
+        <p>Property keys are used to access properties and their values. There are two kinds of access for properties: <i>get</i>
+        and <i>set</i>, corresponding to value retrieval and assignment, respectively. The properties accessible via get and set
+        access includes both <i>own properties</i> that are a direct part of an object and <i>inherited properties</i> which are
+        provided by another associated object via a property inheritance relationship. Inherited properties may be either own or
+        inherited properties of the associated object. Each own property of an object must each have a key value that is distinct
+        from the key values of the other own properties of that object.</p>
+
+        <p>All objects are logically collections of properties, but there are multiple forms of objects that differ in their
+        semantics for accessing and manipulating their properties. O<i>rdinary objects</i> are the most common form of objects and
+        have the default object semantics. An <i>exotic object</i> is any form of object whose property semantics differ in any
+        way from the default semantics.</p>
+      </div>
+
+      <section id="sec-property-attributes">
+        <h1><span class="secnum" id="sec-6.1.7.1"><a href="/sec/sec-property-attributes.html" title="link to this section">6.1.7.1</a></span> Property Attributes</h1>
+
+        <p>Attributes are used in this specification to define and explain the state of Object properties. A data property
+        associates a key value with the attributes listed in <a href="/sec/table-2.html">Table 2</a>.</p>
+
+        <figure>
+          <figcaption><span id="table-2">Table 2</span> &#x2014; Attributes of a Data Property</figcaption>
+          <table class="real-table">
+            <tr>
+              <th style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">Attribute Name</th>
+              <th style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">Value Domain</th>
+              <th style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">Description</th>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black">[[Value]]</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black">Any <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language type</a></td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black">The value retrieved by a get access of the property.</td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black">[[Writable]]</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black">Boolean</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black">If <b>false</b>, attempts by ECMAScript code to change the property&#x2019;s [[Value]] attribute using [[Set]] will not succeed.</td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black">[[Enumerable]]</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black">Boolean</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black">If <b>true</b>, the property will be enumerated by a for-in enumeration (<a href="/sec/sec-for-in-and-for-of-statements.html">see 13.7.5</a>). Otherwise, the property is said to be non-enumerable.</td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black">[[Configurable]]</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black">Boolean</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black">If <b>false</b>, attempts to delete the property, change the property to be an accessor property, or change its attributes (other than [[Value]], or changing [[Writable]] to <b>false</b>) will fail.</td>
+            </tr>
+          </table>
+        </figure>
+
+        <p>An accessor property associates a key value with the attributes listed in <a href="/sec/table-3.html">Table 3</a>.</p>
+
+        <figure>
+          <figcaption><span id="table-3">Table 3</span> &#x2014; Attributes of an Accessor Property</figcaption>
+          <table class="real-table">
+            <tr>
+              <th style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">Attribute Name</th>
+              <th style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">Value Domain</th>
+              <th style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">Description</th>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000">[[Get]]</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black">Object <i>|</i> Undefined</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black">If the value is an Object it must be a function object. The function&#x2019;s [[Call]] internal method (<a href="/sec/table-6.html">Table 6</a>) is called with an empty arguments list to retrieve the property value each time a get access of the property is performed.</td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">[[Set]]</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black">Object <i>|</i> Undefined</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black">If the value is an Object it must be a function object. The function&#x2019;s [[Call]] internal method (<a href="/sec/table-6.html">Table 6</a>) is called with an arguments list containing the assigned value as its sole argument each time a set access of the property is performed. The effect of a property&apos;s [[Set]] internal method may, but is not required to, have an effect on the value returned by subsequent calls to the property&apos;s [[Get]] internal method.</td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">[[Enumerable]]</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black">Boolean</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black">If <b>true</b>, the property is to be enumerated by a for-in enumeration (<a href="/sec/sec-for-in-and-for-of-statements.html">see 13.7.5</a>). Otherwise, the property is said to be non-enumerable.</td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">[[Configurable]]</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black">Boolean</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black">If <b>false</b>, attempts to delete the property, change the property to be a data property, or change its attributes will fail.</td>
+            </tr>
+          </table>
+        </figure>
+
+        <p>If the initial values of a property&#x2019;s attributes are not explicitly specified by this specification, the default
+        value defined in <a href="/sec/table-4.html">Table 4</a> is used.</p>
+
+        <figure>
+          <figcaption><span id="table-4">Table 4</span> &#x2014; Default Attribute Values</figcaption>
+          <table class="real-table">
+            <tr>
+              <th style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">Attribute Name</th>
+              <th style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">Default Value</th>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">[[Value]]</td>
+              <td style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black"><b>undefined</b></td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000">[[Get]]</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black"><b>undefined</b></td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">[[Set]]</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black"><b>undefined</b></td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">[[Writable]]</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black"><b>false</b></td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">[[Enumerable]]</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black"><b>false</b></td>
+            </tr>
+            <tr>
+              <td style="border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid #000000; border-top: 1px solid black">[[Configurable]]</td>
+              <td style="border-bottom: 1px solid black; border-right: 1px solid black"><b>false</b></td>
+            </tr>
+          </table>
+        </figure>
+      </section>
+
+      <section id="sec-object-internal-methods-and-internal-slots">
+        <h1><span class="secnum" id="sec-6.1.7.2"><a href="/sec/sec-object-internal-methods-and-internal-slots.html" title="link to this section">6.1.7.2</a></span> Object Internal Methods and Internal Slots</h1>
+
+        <p>The actual semantics of objects, in ECMAScript, are specified via algorithms called <i>internal methods</i>. Each
+        object in an ECMAScript engine is associated with a set of internal methods that defines its runtime behaviour. These
+        internal methods are not part of the ECMAScript language. They are defined by this specification purely for expository
+        purposes. However, each object within an implementation of ECMAScript must behave as specified by the internal methods
+        associated with it. The exact manner in which this is accomplished is determined by the implementation.</p>
+
+        <p>Internal method names are polymorphic. This means that different object values may perform different algorithms when a
+        common internal method name is invoked upon them. That actual object upon which an internal method is invoked is the
+        &#x201C;target&#x201D; of the invocation. If, at runtime, the implementation of an algorithm attempts to use an internal
+        method of an object that the object does not support, a <b>TypeError</b> exception is thrown.</p>
+
+        <p>Internal slots correspond to internal state that is associated with objects and used by various ECMAScript
+        specification algorithms. Internal slots are not object properties and they are not inherited. Depending upon the specific
+        internal slot specification, such state may consist of values of any <a href="/sec/sec-ecmascript-language-types.html">ECMAScript
+        language type</a> or of specific ECMAScript specification type values. Unless explicitly specified otherwise, internal
+        slots are allocated as part of the process of creating an object and may not be dynamically added to an object. Unless
+        specified otherwise, the initial value of an internal slot is the value <span class="value">undefined</span>. Various
+        algorithms within this specification create objects that have internal slots. However, the ECMAScript language provides no
+        direct way to associate internal slots with an object.</p>
+
+        <p>Internal methods and internal slots are identified within this specification using names enclosed in double square
+        brackets [[ ]].</p>
+
+        <p><a href="/sec/table-5.html">Table 5</a> summarizes the <i>essential internal methods</i> used by this specification that are
+        applicable to all objects created or manipulated by ECMAScript code. Every object must have algorithms for all of the
+        essential internal methods. However, all objects do not necessarily use the same algorithms for those methods.</p>
+
+        <p>The &#x201C;Signature&#x201D; column of <a href="/sec/table-5.html">Table 5</a> and other similar tables describes the invocation
+        pattern for each internal method. The invocation pattern always includes a parenthesized list of descriptive parameter
+        names. If a parameter name is the same as an ECMAScript type name then the name describes the required type of the
+        parameter value. If an internal method  explicitly returns a value, its parameter list is followed by the symbol
+        &#x201C;&#x2192;&#x201D; and the type name of the returned value. The type names used in signatures refer to the types defined
+        in <a href="/sec/sec-ecmascript-data-types-and-values.html">clause 6</a> augmented by the following additional names.
+        &#x201C;<i>any</i>&#x201D; means the value may be any <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language type</a>.
+        An internal method implicitly returns a <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> as
+        described in <a href="/sec/sec-completion-record-specification-type.html">6.2.2</a>. In addition to its parameters, an internal
+        method always has access to the object that is the target of the method invocation.</p>
+
+        <figure>
+          <figcaption><span id="table-5">Table 5</span> &#x2014; Essential Internal Methods</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Internal Method</th>
+              <th>Signature</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>[[GetPrototypeOf]]</td>
+              <td>() <b>&#x2192;</b> Object | Null</td>
+              <td>Determine the object that provides inherited properties for this object. A <b>null</b> value indicates that there are no inherited properties.</td>
+            </tr>
+            <tr>
+              <td>[[SetPrototypeOf]]</td>
+              <td>(<i>Object</i> | Null) <b>&#x2192;</b> Boolean</td>
+              <td>Associate this object with another object that provides inherited properties. Passing <b>null</b> indicates that there are no inherited properties. Returns <b>true</b> indicating that the operation was completed successfully or <b>false</b> indicating that the operation was not successful.</td>
+            </tr>
+            <tr>
+              <td>[[IsExtensible]]</td>
+              <td>( ) <b>&#x2192;</b> Boolean</td>
+              <td>Determine whether it is permitted to add additional properties to this object.</td>
+            </tr>
+            <tr>
+              <td>[[PreventExtensions]]</td>
+              <td>( ) <b>&#x2192;</b> Boolean</td>
+              <td>Control whether new properties may be added to this object. Returns <b>true</b> if the operation was successful or <b>false</b> if the operation was unsuccessful.</td>
+            </tr>
+            <tr>
+              <td>[[GetOwnProperty]]</td>
+              <td>(<i>propertyKey</i>) <b>&#x2192;</b> Undefined | <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a></td>
+              <td>Return a <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> for the own property of this object whose key is <i>propertyKey</i>, or <b>undefined</b> if no such property exists.</td>
+            </tr>
+            <tr>
+              <td>[[HasProperty]]</td>
+              <td>(<i>propertyKey</i>) <b>&#x2192;</b> Boolean</td>
+              <td>Return a Boolean value indicating whether this object already has either an own or inherited property whose key is <i>propertyKey</i>.</td>
+            </tr>
+            <tr>
+              <td>[[Get]]</td>
+              <td>(<i>propertyKey</i>, <i>Receiver</i>)<br><b>&#x2192;</b> <i>any</i></td>
+              <td>Return the value of the property whose key is <i>propertyKey</i> from this object. If any ECMAScript code must be executed to retrieve the property value, <i>Receiver</i> is used as the <b>this</b> value when evaluating the code.</td>
+            </tr>
+            <tr>
+              <td>[[Set]]</td>
+              <td>(<i>propertyKey</i>,<i>value</i>, <i>Receiver</i>) <br><b>&#x2192;</b> <i>Boolean</i></td>
+              <td>Set the value of the property whose key is <i>propertyKey</i> to <i>value</i>. If any ECMAScript code must be executed to set the property value, <i>Receiver</i> is used as the <b>this</b> value when evaluating the code. Returns <b>true</b> if the property value was set or <b>false</b> if it could not be set.</td>
+            </tr>
+            <tr>
+              <td>[[Delete]]</td>
+              <td>(<i>propertyKey</i>) <b>&#x2192;</b> Boolean</td>
+              <td>Remove the own property whose key is <i>propertyKey</i> from this object . Return <b>false</b> if the property was not deleted and is still present. Return <b>true</b> if the property was deleted or is not present.</td>
+            </tr>
+            <tr>
+              <td>[[DefineOwnProperty]]</td>
+              <td>(<i>propertyKey</i>, <i>PropertyDescriptor</i>)<br><b>&#x2192;</b> Boolean</td>
+              <td>Create or alter the own property, whose key is <i>propertyKey</i>, to have the state described by <i>PropertyDescriptor</i>. Return <b>true</b> if that property was successfully created/updated or <b>false</b> if the property could not be created or updated.</td>
+            </tr>
+            <tr>
+              <td>[[Enumerate]]</td>
+              <td>()<b><i>&#x2192;</i></b>Object</td>
+              <td>Return an iterator object that produces the keys of the string-keyed enumerable properties of the object.</td>
+            </tr>
+            <tr>
+              <td>[[OwnPropertyKeys]]</td>
+              <td>()<b>&#x2192;</b><a href="/sec/sec-list-and-record-specification-type.html">List</a> of propertyKey</td>
+              <td>Return a <a href="/sec/sec-list-and-record-specification-type.html">List</a> whose elements are all of the own property keys for the object.</td>
+            </tr>
+          </table>
+        </figure>
+
+        <p><a href="/sec/table-6.html">Table 6</a> summarizes additional essential internal methods that are supported by objects that may
+        be called as functions. A <i>function object</i> is an object that supports the [[Call]] internal methods. A
+        <i>constructor</i> (also referred to as a <i>constructor function</i>) is a function object that supports the
+        [[Construct]] internal method.</p>
+
+        <figure>
+          <figcaption><span id="table-6">Table 6</span> &#x2014; Additional Essential Internal Methods of Function Objects</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Internal Method</th>
+              <th>Signature</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>[[Call]]</td>
+              <td>(<i>any</i>, a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of <i>any</i>)<br><span class="value">&#x2192;</span> <i>any</i></td>
+              <td>Executes code associated with this object. Invoked via a function call expression. The arguments to the internal method are a <b>this</b> value and a list containing the arguments passed to the function by a call expression. Objects that implement this internal method are <i>callable</i>.</td>
+            </tr>
+            <tr>
+              <td>[[Construct]]</td>
+              <td>(a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of <i>any</i>, Object)<br><span class="value">&#x2192;</span> Object</td>
+              <td>Creates an object. Invoked via the <code>new</code> or <code>super</code> operators. The first argument to the internal method is a list containing the arguments of the operator. The second argument is the object to which the <code>new</code> operator was initially applied. Objects that implement this internal method are called <i>constructors</i>. A function object is not necessarily a constructor and such non-constructor function objects do not have a [[Construct]] internal method.</td>
+            </tr>
+          </table>
+        </figure>
+
+        <p>The semantics of the essential internal methods for ordinary objects and standard exotic objects are specified in <a href="/sec/sec-ordinary-and-exotic-objects-behaviours.html">clause 9</a>. If any specified use of an internal method of an exotic
+        object is not supported by an implementation, that usage must throw a <b>TypeError</b> exception when attempted.</p>
+      </section>
+
+      <section id="sec-invariants-of-the-essential-internal-methods">
+        <h1><span class="secnum" id="sec-6.1.7.3"><a href="/sec/sec-invariants-of-the-essential-internal-methods.html" title="link to this section">6.1.7.3</a></span> Invariants of the Essential Internal Methods</h1>
+
+        <p>The Internal Methods of Objects of an ECMAScript engine must conform to the list of invariants specified below.
+        Ordinary ECMAScript Objects as well as all standard exotic objects in this specification maintain these invariants.
+        ECMAScript Proxy objects maintain these invariants by means of runtime checks on the result of traps invoked on the
+        [[ProxyHandler]] object.</p>
+
+        <p>Any implementation provided exotic objects must also maintain these invariants for those objects. Violation of these
+        invariants may cause ECMAScript code to have unpredictable behaviour and create security issues. However, violation of
+        these invariants must never compromise the memory safety of an implementation.</p>
+
+        <p>An implementation must not allow these invariants to be circumvented in any manner such as by providing alternative
+        interfaces that implement the functionality of the essential internal methods without enforcing their invariants.</p>
+
+        <p class="normalbefore">Definitions:</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;The <i>target</i> of an internal method is the object upon which the
+        internal method is called.</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;A target is <i>non-extensible</i> if it has been observed to return
+        false from its [[IsExtensible]] internal method, or true from its [[PreventExtensions]] internal method.</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;A <i>non-existent</i> property is a property that does not exist as an
+        own property on a non-extensible target.</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;All references to <i><a href="/sec/sec-samevalue.html">SameValue</a></i> are
+        according to the definition of <a href="/sec/sec-samevalue.html">SameValue</a> algorithm specified in <a href="/sec/sec-samevalue.html">7.2.9</a>.</p>
+
+        <p class="normalbefore"><b>[[GetPrototypeOf]] ( )</b></p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;The Type of the return value must be either Object or Null.</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;If target is non-extensible, and [[GetPrototypeOf]] returns a value v,
+        then any future calls to [[GetPrototypeOf]] should return the <a href="/sec/sec-samevalue.html">SameValue</a> as v.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> An object&#x2019;s prototype chain should have finite length (that is, starting from
+          any object, recursively applying the [[GetPrototypeOf]] internal method to its result should eventually lead to the
+          value null). However, this requirement is not enforceable as an object level invariant if the prototype chain includes
+          any exotic objects that do not use the ordinary object definition of [[GetPrototypeOf]]. Such a circular prototype chain
+          may result in infinite loops when accessing object properties.</p>
+        </div>
+
+        <p class="normalbefore"><b>[[SetPrototypeOf]] (V)</b></p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;The Type of the return value must be Boolean.</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;If target is non-extensible, [[SetPrototypeOf]] must return false,
+        unless V is the <a href="/sec/sec-samevalue.html">SameValue</a> as the target&#x2019;s observed [[GetPrototypeOf]] value.</p>
+
+        <p class="normalbefore"><b>[[PreventExtensions]] ( )</b></p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;The Type of the return value must be Boolean.</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;If [[PreventExtensions]] returns true, all future calls to
+        [[IsExtensible]] on the target must return false and the target is now considered non-extensible.</p>
+
+        <p class="normalbefore"><b>[[GetOwnProperty]] (P)</b></p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;The Type of the return value must be either <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> or Undefined.</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;If the Type of the return value is <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a>, the return value must be a complete property
+        descriptor (<a href="/sec/sec-completepropertydescriptor.html">see 6.2.4.6</a>).</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;If a property P is described as a data property with Desc.[[Value]]
+        equal to v and Desc.[[Writable]] and Desc.[[Configurable]] are both false, then the <a href="/sec/sec-samevalue.html">SameValue</a>
+        must be returned for the Desc.[[Value]] attribute of the property on all future calls to [[GetOwnProperty]] ( P ).</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;If P&#x2019;s attributes other than [[Writable]] may change over time or
+        if the property might disappear, then P&#x2019;s [[Configurable]] attribute must be true.</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;If the [[Writable]] attribute may change from false to true, then the
+        [[Configurable]] attribute must be true.</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;If the target is non-extensible and P is non-existent, then all future
+        calls to [[GetOwnProperty]] (P)  on the target must describe P as non-existent (i.e. [[GetOwnProperty]] (P) must return
+        undefined).</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> As a consequence of the third invariant, if a property is described as a data property
+          and it may return different values over time, then either or both of the Desc.[[Writable]] and Desc.[[Configurable]]
+          attributes must be true even if no mechanism to change the value is exposed via the other internal methods.</p>
+        </div>
+
+        <p class="normalbefore"><b>[[DefineOwnProperty]] (P, Desc)</b></p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;The Type of the return value must be Boolean.</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;[[DefineOwnProperty]] must return false if P has previously been
+        observed as a non-configurable own property of the target, unless either:</p>
+
+        <p class="normalBulletSubstep">1.	P is a non-configurable writable own data property. A non-configurable writable data
+        property can be changed into a non-configurable non-writable data property.</p>
+
+        <p class="normalBulletSubstep">2.	All attributes in Desc are the <a href="/sec/sec-samevalue.html">SameValue</a> as P&#x2019;s
+        attributes.</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;[[DefineOwnProperty]] (P, Desc) must return false if target is
+        non-extensible and P is a non-existent own property. That is, a non-extensible target object cannot be extended with new
+        properties.</p>
+
+        <p class="normalbefore"><b>[[HasProperty]] ( P )</b></p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;The Type of the return value must be Boolean.</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;If P was previously observed as a non-configurable data or accessor own
+        property of the target, [[HasProperty]] must return true.</p>
+
+        <p class="normalbefore"><b>[[Get]] (P, Receiver)</b></p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;If P was previously observed as a non-configurable, non-writable own
+        data property of the target with value v, then [[Get]] must return the <a href="/sec/sec-samevalue.html">SameValue</a>.</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;If P was previously observed as a non-configurable own accessor property
+        of the target whose [[Get]] attribute is undefined, the [[Get]] operation must return undefined.</p>
+
+        <p class="normalbefore"><b>[[Set]] ( P, V, Receiver)</b></p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;The Type of the return value must be Boolean.</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;If P was previously observed as a non-configurable, non-writable own
+        data property of the target, then [[Set]] must return false unless V is the <a href="/sec/sec-samevalue.html">SameValue</a> as
+        P&#x2019;s [[Value]] attribute.</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;If P was previously observed as a non-configurable own accessor property
+        of the target whose [[Set]] attribute is undefined, the [[Set]] operation must return false.</p>
+
+        <p class="normalbefore"><b>[[Delete]] ( P )</b></p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;The Type of the return value must be Boolean.</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;If P was previously observed to be a non-configurable own data or
+        accessor property of the target, [[Delete]] must return false.</p>
+
+        <p class="normalbefore"><b>[[Enumerate]] ( )</b></p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;The Type of the return value must be Object.</p>
+
+        <p class="normalbefore"><b>[[OwnPropertyKeys]] ( )</b></p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;The return value must be a <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;The Type of each element of the returned <a href="/sec/sec-list-and-record-specification-type.html">List</a> is either String or Symbol.</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;The returned <a href="/sec/sec-list-and-record-specification-type.html">List</a>
+        must contain at least the keys of all non-configurable own properties that have previously been observed.</p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;If the object is non-extensible, the returned <a href="/sec/sec-list-and-record-specification-type.html">List</a> must contain only the keys of all own properties of the object
+        that are observable using [[GetOwnProperty]].</p>
+
+        <p class="normalbefore"><b>[[Construct]] ( )</b></p>
+
+        <p class="normalBullet">&#x25CF;&#xA0;&#xA0;&#xA0;The Type of the return value must be Object.</p>
+      </section>
+
+      <section id="sec-well-known-intrinsic-objects">
+        <h1><span class="secnum" id="sec-6.1.7.4"><a href="/sec/sec-well-known-intrinsic-objects.html" title="link to this section">6.1.7.4</a></span> Well-Known Intrinsic Objects</h1>
+
+        <p>Well-known intrinsics are built-in objects that are explicitly referenced by the algorithms of this specification and
+        which usually have <a href="/sec/sec-code-realms.html">Realm</a> specific identities. Unless otherwise specified each intrinsic
+        object actually corresponds to a set of similar objects, one per <a href="/sec/sec-code-realms.html">Realm</a>.</p>
+
+        <p>Within this specification a reference such as %name% means the intrinsic object, associated with <a href="/sec/sec-execution-contexts.html">the current Realm</a>, corresponding to the name. Determination of <a href="/sec/sec-execution-contexts.html">the current Realm</a> and its intrinsics is described in <a href="/sec/sec-execution-contexts.html">8.3</a>. The well-known intrinsics are listed in <a href="/sec/table-7.html">Table 7</a>.</p>
+
+        <figure>
+          <figcaption><span id="table-7">Table 7</span> &#x2014; Well-known Intrinsic Objects</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Intrinsic Name</th>
+              <th>Global Name</th>
+              <th>ECMAScript Language Association</th>
+            </tr>
+            <tr>
+              <td>%Array%</td>
+              <td><code>Array</code></td>
+              <td>The <code>Array</code> constructor (<a href="/sec/sec-array-constructor.html">22.1.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%ArrayBuffer%</td>
+              <td><code>ArrayBuffer</code></td>
+              <td>The <code>ArrayBuffer</code> constructor (<a href="/sec/sec-arraybuffer-constructor.html">24.1.2</a>)</td>
+            </tr>
+            <tr>
+              <td>%ArrayBufferPrototype%</td>
+              <td><code><a href="/sec/sec-arraybuffer.prototype.html">ArrayBuffer.prototype</a></code></td>
+              <td>The initial value of the <code>prototype</code> data property of %ArrayBuffer%.</td>
+            </tr>
+            <tr>
+              <td>%ArrayIteratorPrototype%</td>
+              <td></td>
+              <td>The prototype of Array iterator objects (<a href="/sec/sec-array-iterator-objects.html">22.1.5</a>)</td>
+            </tr>
+            <tr>
+              <td>%ArrayPrototype%</td>
+              <td><code>Array.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %Array%  (<a href="/sec/sec-properties-of-the-array-prototype-object.html">22.1.3</a>)</td>
+            </tr>
+            <tr>
+              <td>%ArrayProto_values%</td>
+              <td><code><a href="/sec/sec-array.prototype.values.html">Array.prototype.values</a></code></td>
+              <td>The initial value of the <code>values</code> data property of %ArrayPrototype% (<a href="/sec/sec-array.prototype.values.html">22.1.3.29</a>)</td>
+            </tr>
+            <tr>
+              <td>%Boolean%</td>
+              <td><code>Boolean</code></td>
+              <td>The <code>Boolean</code> constructor (<a href="/sec/sec-boolean-constructor.html">19.3.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%BooleanPrototype%</td>
+              <td><code>Boolean.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %Boolean% (<a href="/sec/sec-properties-of-the-boolean-prototype-object.html">19.3.3</a>)</td>
+            </tr>
+            <tr>
+              <td>%DataView%</td>
+              <td><code>DataView</code></td>
+              <td>The <code>DataView</code> constructor (<a href="/sec/sec-dataview-constructor.html">24.2.2</a>)</td>
+            </tr>
+            <tr>
+              <td>%DataViewPrototype%</td>
+              <td><code><a href="/sec/sec-dataview.prototype.html">DataView.prototype</a></code></td>
+              <td>The initial value of the <code>prototype</code> data property of %DataView%</td>
+            </tr>
+            <tr>
+              <td>%Date%</td>
+              <td><code>Date</code></td>
+              <td>The <code>Date</code> constructor (<a href="/sec/sec-date-constructor.html">20.3.2</a>)</td>
+            </tr>
+            <tr>
+              <td>%DatePrototype%</td>
+              <td><code>Date.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %Date%.</td>
+            </tr>
+            <tr>
+              <td>%decodeURI%</td>
+              <td><code>decodeURI</code></td>
+              <td>The <code>decodeURI</code> function (<a href="/sec/sec-decodeuri-encodeduri.html">18.2.6.2</a>)</td>
+            </tr>
+            <tr>
+              <td>%decodeURIComponent%</td>
+              <td><code>decodeURIComponent</code></td>
+              <td>The <code>decodeURIComponent</code> function (<a href="/sec/sec-decodeuricomponent-encodeduricomponent.html">18.2.6.3</a>)</td>
+            </tr>
+            <tr>
+              <td>%encodeURI%</td>
+              <td><code>encodeURI</code></td>
+              <td>The <code>encodeURI</code> function (<a href="/sec/sec-encodeuri-uri.html">18.2.6.4</a>)</td>
+            </tr>
+            <tr>
+              <td>%encodeURIComponent%</td>
+              <td><code>encodeURIComponent</code></td>
+              <td>The <code>encodeURIComponent</code> function (<a href="/sec/sec-encodeuricomponent-uricomponent.html">18.2.6.5</a>)</td>
+            </tr>
+            <tr>
+              <td>%Error%</td>
+              <td><code>Error</code></td>
+              <td>The <code>Error</code> constructor (<a href="/sec/sec-error-constructor.html">19.5.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%ErrorPrototype%</td>
+              <td><code>Error.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %Error%</td>
+            </tr>
+            <tr>
+              <td>%eval%</td>
+              <td><code>eval</code></td>
+              <td>The <code>eval</code> function (<a href="/sec/sec-eval-x.html">18.2.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%EvalError%</td>
+              <td><code>EvalError</code></td>
+              <td>The <code>EvalError</code> constructor (<a href="/sec/sec-native-error-types-used-in-this-standard-evalerror.html">19.5.5.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%EvalErrorPrototype%</td>
+              <td><code>EvalError.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> property of %EvalError%</td>
+            </tr>
+            <tr>
+              <td>%Float32Array%</td>
+              <td><code><a href="/sec/sec-float32array.html">Float32Array</a></code></td>
+              <td>The <code><a href="/sec/sec-float32array.html">Float32Array</a></code> constructor (<a href="/sec/sec-typedarray-objects.html">22.2</a>)</td>
+            </tr>
+            <tr>
+              <td>%Float32ArrayPrototype%</td>
+              <td><code>Float32Array.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %Float32Array%.</td>
+            </tr>
+            <tr>
+              <td>%Float64Array%</td>
+              <td><code><a href="/sec/sec-float64array.html">Float64Array</a></code></td>
+              <td>The <code><a href="/sec/sec-float64array.html">Float64Array</a></code> constructor (<a href="/sec/sec-typedarray-objects.html">22.2</a>)</td>
+            </tr>
+            <tr>
+              <td>%Float64ArrayPrototype%</td>
+              <td><code>Float64Array.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %Float64Array%</td>
+            </tr>
+            <tr>
+              <td>%Function%</td>
+              <td><code>Function</code></td>
+              <td>The <code>Function</code> constructor (<a href="/sec/sec-function-constructor.html">19.2.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%FunctionPrototype%</td>
+              <td><code>Function.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %Function%</td>
+            </tr>
+            <tr>
+              <td>%Generator%</td>
+              <td></td>
+              <td>The initial value of the <code>prototype</code> property of %GeneratorFunction%</td>
+            </tr>
+            <tr>
+              <td>%GeneratorFunction%</td>
+              <td></td>
+              <td>The constructor of generator objects (<a href="/sec/sec-generatorfunction-constructor.html">25.2.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%GeneratorPrototype%</td>
+              <td></td>
+              <td>The initial value of the <code>prototype</code> property of %Generator%</td>
+            </tr>
+            <tr>
+              <td>%Int8Array%</td>
+              <td><code><a href="/sec/sec-int8array.html">Int8Array</a></code></td>
+              <td>The <code><a href="/sec/sec-int8array.html">Int8Array</a></code> constructor (<a href="/sec/sec-typedarray-objects.html">22.2</a>)</td>
+            </tr>
+            <tr>
+              <td>%Int8ArrayPrototype%</td>
+              <td><code>Int8Array.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %Int8Array%</td>
+            </tr>
+            <tr>
+              <td>%Int16Array%</td>
+              <td><code><a href="/sec/sec-int16array.html">Int16Array</a></code></td>
+              <td>The <code><a href="/sec/sec-int16array.html">Int16Array</a></code> constructor (<a href="/sec/sec-typedarray-objects.html">22.2</a>)</td>
+            </tr>
+            <tr>
+              <td>%Int16ArrayPrototype%</td>
+              <td><code>Int16Array.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %Int16Array%</td>
+            </tr>
+            <tr>
+              <td>%Int32Array%</td>
+              <td><code><a href="/sec/sec-int32array.html">Int32Array</a></code></td>
+              <td>The <code><a href="/sec/sec-int32array.html">Int32Array</a></code> constructor (<a href="/sec/sec-typedarray-objects.html">22.2</a>)</td>
+            </tr>
+            <tr>
+              <td>%Int32ArrayPrototype%</td>
+              <td><code>Int32Array.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %Int32Array%</td>
+            </tr>
+            <tr>
+              <td>%isFinite%</td>
+              <td><code>isFinite</code></td>
+              <td>The <code>isFinite</code> function (<a href="/sec/sec-isfinite-number.html">18.2.2</a>)</td>
+            </tr>
+            <tr>
+              <td>%isNaN%</td>
+              <td><code>isNaN</code></td>
+              <td>The <code>isNaN</code> function (<a href="/sec/sec-isnan-number.html">18.2.3</a>)</td>
+            </tr>
+            <tr>
+              <td>%IteratorPrototype%</td>
+              <td></td>
+              <td>An object that all standard built-in  iterator objects indirectly inherit from</td>
+            </tr>
+            <tr>
+              <td>%JSON%</td>
+              <td><code>JSON</code></td>
+              <td>The <code>JSON</code> object (<a href="/sec/sec-json-object.html">24.3</a>)</td>
+            </tr>
+            <tr>
+              <td>%Map%</td>
+              <td><code>Map</code></td>
+              <td>The <code>Map</code> constructor (<a href="/sec/sec-map-constructor.html">23.1.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%MapIteratorPrototype%</td>
+              <td></td>
+              <td>The prototype of Map iterator objects (<a href="/sec/sec-map-iterator-objects.html">23.1.5</a>)</td>
+            </tr>
+            <tr>
+              <td>%MapPrototype%</td>
+              <td><code>Map.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %Map%</td>
+            </tr>
+            <tr>
+              <td>%Math%</td>
+              <td><code>Math</code></td>
+              <td>The <code>Math</code> object (<a href="/sec/sec-math-object.html">20.2</a>)</td>
+            </tr>
+            <tr>
+              <td>%Number%</td>
+              <td><code>Number</code></td>
+              <td>The <code>Number</code> constructor (<a href="/sec/sec-number-constructor.html">20.1.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%NumberPrototype%</td>
+              <td><code>Number.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> property of %Number%</td>
+            </tr>
+            <tr>
+              <td>%Object%</td>
+              <td><code>Object</code></td>
+              <td>The <code>Object</code> constructor (<a href="/sec/sec-object-constructor.html">19.1.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%ObjectPrototype%</td>
+              <td><code>Object.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %Object%. (<a href="/sec/sec-properties-of-the-object-prototype-object.html">19.1.3</a>)</td>
+            </tr>
+            <tr>
+              <td>%ObjProto_toString%</td>
+              <td><code>Object.prototype.<br>toString</code></td>
+              <td>The initial value of the <code>toString</code> data property of %ObjectPrototype% (<a href="/sec/sec-object.prototype.tostring.html">19.1.3.6</a>)</td>
+            </tr>
+            <tr>
+              <td>%parseFloat%</td>
+              <td><code>parseFloat</code></td>
+              <td>The <code>parseFloat</code> function (<a href="/sec/sec-parsefloat-string.html">18.2.4</a>)</td>
+            </tr>
+            <tr>
+              <td>%parseInt%</td>
+              <td><code>parseInt</code></td>
+              <td>The <code>parseInt</code> function (<a href="/sec/sec-parseint-string-radix.html">18.2.5</a>)</td>
+            </tr>
+            <tr>
+              <td>%Promise%</td>
+              <td><code>Promise</code></td>
+              <td>The <code>Promise</code> constructor (<a href="/sec/sec-promise-constructor.html">25.4.3</a>)</td>
+            </tr>
+            <tr>
+              <td>%PromisePrototype%</td>
+              <td><code>Promise.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %Promise%</td>
+            </tr>
+            <tr>
+              <td>%Proxy%</td>
+              <td><code>Proxy</code></td>
+              <td>The <code>Proxy</code> constructor (<a href="/sec/sec-proxy-constructor.html">26.2.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%RangeError%</td>
+              <td><code>RangeError</code></td>
+              <td>The <code>RangeError</code> constructor (<a href="/sec/sec-native-error-types-used-in-this-standard-rangeerror.html">19.5.5.2</a>)</td>
+            </tr>
+            <tr>
+              <td>%RangeErrorPrototype%</td>
+              <td><code>RangeError.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> property of %RangeError%</td>
+            </tr>
+            <tr>
+              <td>%ReferenceError%</td>
+              <td><code>ReferenceError</code></td>
+              <td>The <code>ReferenceError</code> constructor (<a href="/sec/sec-native-error-types-used-in-this-standard-referenceerror.html">19.5.5.3</a>)</td>
+            </tr>
+            <tr>
+              <td>%ReferenceErrorPrototype%</td>
+              <td><code>ReferenceError.<br>prototype</code></td>
+              <td>The initial value of the <code>prototype</code> property of %ReferenceError%</td>
+            </tr>
+            <tr>
+              <td>%Reflect%</td>
+              <td><code>Reflect</code></td>
+              <td>The <code>Reflect</code> object (<a href="/sec/sec-reflect-object.html">26.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%RegExp%</td>
+              <td><code>RegExp</code></td>
+              <td>The <code>RegExp</code> constructor (<a href="/sec/sec-regexp-constructor.html">21.2.3</a>)</td>
+            </tr>
+            <tr>
+              <td>%RegExpPrototype%</td>
+              <td><code><a href="/sec/sec-regexp.prototype.html">RegExp.prototype</a></code></td>
+              <td>The initial value of the <code>prototype</code> data property of %RegExp%</td>
+            </tr>
+            <tr>
+              <td>%Set%</td>
+              <td><code>Set</code></td>
+              <td>The <code>Set</code> constructor (<a href="/sec/sec-set-constructor.html">23.2.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%SetIteratorPrototype%</td>
+              <td></td>
+              <td>The prototype of Set iterator objects (<a href="/sec/sec-set-iterator-objects.html">23.2.5</a>)</td>
+            </tr>
+            <tr>
+              <td>%SetPrototype%</td>
+              <td><code>Set.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %Set%</td>
+            </tr>
+            <tr>
+              <td>%String%</td>
+              <td><code>String</code></td>
+              <td>The <code>String</code> constructor (<a href="/sec/sec-string-constructor.html">21.1.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%StringIteratorPrototype%</td>
+              <td></td>
+              <td>The prototype of String iterator objects (<a href="/sec/sec-string-iterator-objects.html">21.1.5</a>)</td>
+            </tr>
+            <tr>
+              <td>%StringPrototype%</td>
+              <td><code>String.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %String%</td>
+            </tr>
+            <tr>
+              <td>%Symbol%</td>
+              <td><code>Symbol</code></td>
+              <td>The <code>Symbol</code> constructor (<a href="/sec/sec-symbol-constructor.html">19.4.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%SymbolPrototype%</td>
+              <td><code>Symbol.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %Symbol%. (<a href="/sec/sec-properties-of-the-symbol-prototype-object.html">19.4.3</a>)</td>
+            </tr>
+            <tr>
+              <td>%SyntaxError%</td>
+              <td><code>SyntaxError</code></td>
+              <td>The <code>SyntaxError</code> constructor (<a href="/sec/sec-native-error-types-used-in-this-standard-syntaxerror.html">19.5.5.4</a>)</td>
+            </tr>
+            <tr>
+              <td>%SyntaxErrorPrototype%</td>
+              <td><code>SyntaxError.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> property of %SyntaxError%</td>
+            </tr>
+            <tr>
+              <td><a href="/sec/sec-%throwtypeerror%.html">%ThrowTypeError%</a></td>
+              <td></td>
+              <td>A function object that unconditionally throws a new instance of %TypeError%</td>
+            </tr>
+            <tr>
+              <td>%TypedArray%</td>
+              <td></td>
+              <td>The super class of all typed Array  constructors (<a href="/sec/sec-%typedarray%-intrinsic-object.html">22.2.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%TypedArrayPrototype%</td>
+              <td></td>
+              <td>The initial value of the <code>prototype</code> property of %TypedArray%</td>
+            </tr>
+            <tr>
+              <td>%TypeError%</td>
+              <td><code>TypeError</code></td>
+              <td>The <code>TypeError</code> constructor (<a href="/sec/sec-native-error-types-used-in-this-standard-typeerror.html">19.5.5.5</a>)</td>
+            </tr>
+            <tr>
+              <td>%TypeErrorPrototype%</td>
+              <td><code>TypeError.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> property of %TypeError%</td>
+            </tr>
+            <tr>
+              <td>%Uint8Array%</td>
+              <td><code><a href="/sec/sec-uint8array.html">Uint8Array</a></code></td>
+              <td>The <code><a href="/sec/sec-uint8array.html">Uint8Array</a></code> constructor (<a href="/sec/sec-typedarray-objects.html">22.2</a>)</td>
+            </tr>
+            <tr>
+              <td>%Uint8ArrayPrototype%</td>
+              <td><code>Uint8Array.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %Uint8Array%</td>
+            </tr>
+            <tr>
+              <td>%Uint8ClampedArray%</td>
+              <td><code><a href="/sec/sec-uint8clampedarray.html">Uint8ClampedArray</a></code></td>
+              <td>The <code><a href="/sec/sec-uint8clampedarray.html">Uint8ClampedArray</a></code> constructor (<a href="/sec/sec-typedarray-objects.html">22.2</a>)</td>
+            </tr>
+            <tr>
+              <td>%Uint8ClampedArrayPrototype%</td>
+              <td><code><a href="/sec/sec-uint8clampedarray.html">Uint8ClampedArray</a>.<br>prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %Uint8ClampedArray%</td>
+            </tr>
+            <tr>
+              <td>%Uint16Array%</td>
+              <td><code><a href="/sec/sec-uint16array.html">Uint16Array</a></code></td>
+              <td>The <code><a href="/sec/sec-uint16array.html">Uint16Array</a></code> constructor (<a href="/sec/sec-typedarray-objects.html">22.2</a>)</td>
+            </tr>
+            <tr>
+              <td>%Uint16ArrayPrototype%</td>
+              <td><code>Uint16Array.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %Uint16Array%</td>
+            </tr>
+            <tr>
+              <td>%Uint32Array%</td>
+              <td><code><a href="/sec/sec-uint32array.html">Uint32Array</a></code></td>
+              <td>The <code><a href="/sec/sec-uint32array.html">Uint32Array</a></code> constructor (<a href="/sec/sec-typedarray-objects.html">22.2</a>)</td>
+            </tr>
+            <tr>
+              <td>%Uint32ArrayPrototype%</td>
+              <td><code>Uint32Array.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> data property of %Uint32Array%</td>
+            </tr>
+            <tr>
+              <td>%URIError%</td>
+              <td><code><a href="/sec/sec-constructor-properties-of-the-global-object-urierror.html">URIError</a></code></td>
+              <td>The <code><a href="/sec/sec-constructor-properties-of-the-global-object-urierror.html">URIError</a></code> constructor (<a href="/sec/sec-native-error-types-used-in-this-standard-urierror.html">19.5.5.6</a>)</td>
+            </tr>
+            <tr>
+              <td>%URIErrorPrototype%</td>
+              <td><code>URIError.prototype</code></td>
+              <td>The initial value of the <code>prototype</code> property of %URIError%</td>
+            </tr>
+            <tr>
+              <td>%WeakMap%</td>
+              <td><code>WeakMap</code></td>
+              <td>The <code>WeakMap</code> constructor (<a href="/sec/sec-weakmap-constructor.html">23.3.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%WeakMapPrototype%</td>
+              <td><code><a href="/sec/sec-weakmap.prototype.html">WeakMap.prototype</a></code></td>
+              <td>The initial value of the <code>prototype</code> data property of %WeakMap%</td>
+            </tr>
+            <tr>
+              <td>%WeakSet%</td>
+              <td><code>WeakSet</code></td>
+              <td>The <code>WeakSet</code> constructor (<a href="/sec/sec-weakset-constructor.html">23.4.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%WeakSetPrototype%</td>
+              <td><code><a href="/sec/sec-weakset.prototype.html">WeakSet.prototype</a></code></td>
+              <td>The initial value of the <code>prototype</code> data property of %WeakSet%</td>
+            </tr>
+          </table>
+        </figure>
+      </section>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

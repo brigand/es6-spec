@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-25.3.2"><a href="/sec/sec-properties-of-generator-instances.html" title="link to this section">25.3.2</a></span> Properties of Generator Instances</h1>
+
+      <p>Generator instances are initially created with the internal slots described in <a href="/sec/table-56.html">Table 56</a>.</p>
+
+      <figure>
+        <figcaption><span id="table-56">Table 56</span> &#x2014; Internal Slots of Generator Instances</figcaption>
+        <table class="real-table">
+          <tr>
+            <th>Internal Slot</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>[[GeneratorState]]</td>
+            <td>The current execution state of the generator. The possible values are: <b>undefined</b>, <code>&quot;suspendedStart&quot;</code><span style="font-family: Times New Roman">,</span> <code>&quot;suspendedYield&quot;</code><span style="font-family: Times New Roman">,</span> <code>&quot;executing&quot;</code>, and <code>&quot;completed&quot;</code><span style="font-family: Times New Roman">.</span></td>
+          </tr>
+          <tr>
+            <td>[[GeneratorContext]]</td>
+            <td>The <a href="/sec/sec-execution-contexts.html">execution context</a> that is used when executing the code of this generator.</td>
+          </tr>
+        </table>
+      </figure>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

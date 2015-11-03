@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-9.2.1.2"><a href="/sec/sec-ordinarycallbindthis.html" title="link to this section">9.2.1.2</a></span> OrdinaryCallBindThis ( F, calleeContext, thisArgument )</h1>
+
+        <p class="normalbefore">When the abstract operation OrdinaryCallBindThis is called with function object <var>F</var>, <a href="/sec/sec-execution-contexts.html">execution context</a> <var>calleeContext</var>, and ECMAScript value
+        <var>thisArgument</var> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>thisMode</i> be the value of <i>F</i>&#x2019;s [[ThisMode]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>thisMode</i> is <span style="font-family: sans-serif">lexical</span>, return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+          <li>Let <i>calleeRealm</i> be the value of <i>F&#x2019;s</i> [[Realm]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>localEnv</i> be the <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> of <i>calleeContext</i>.</li>
+          <li>If <i>thisMode</i> is <span style="font-family: sans-serif">strict</span>, let <i>thisValue</i> be
+              <i>thisArgument</i>.</li>
+          <li>Else
+            <ol class="block">
+              <li>if <i>thisArgument</i> is <b>null</b> or <b>undefined</b>, then
+                <ol class="block">
+                  <li>Let <i>thisValue</i> be <i>calleeRealm</i>.[[globalThis]].</li>
+                </ol>
+              </li>
+              <li>Else
+                <ol class="block">
+                  <li>Let <i>thisValue</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<i>thisArgument</i>).</li>
+                  <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>thisValue</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+                  <li><span style="font-family: sans-serif">NOTE <a href="/sec/sec-toobject.html">ToObject</a> produces wrapper objects
+                      using</span> <i>calleeRealm</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Let <i>envRec</i> be <i>localEnv</i>&#x2019;s <a href="/sec/sec-lexical-environments.html">EnvironmentRecord</a>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: The next step never returns an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a> because <i>envRec</i>.[[thisBindingStatus]]
+              is not <code>&quot;uninitialized&quot;</code>.</li>
+          <li>Return <i>envRec</i>.<a href="/sec/sec-bindthisvalue.html">BindThisValue</a>(<i>thisValue</i>).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

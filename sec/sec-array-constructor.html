@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-22.1.1"><a href="/sec/sec-array-constructor.html" title="link to this section">22.1.1</a></span>
+            The Array Constructor</h1>
+
+        <p>The Array constructor is the %Array% intrinsic object and the initial value of the <code>Array</code> property of the
+        global object. When called as a constructor it creates and initializes a new exotic Array object. When <code>Array</code>
+        is called as a function rather than as a constructor, it also creates and initializes a new Array object. Thus the
+        function call <code><b>Array(</b>&#x2026;<b>)</b></code> is equivalent to the object creation expression
+        <code><b>new&#xA0;Array(</b>&#x2026;<b>)</b></code> with the same arguments.</p>
+
+        <p>The <code>Array</code> constructor is a single function whose behaviour is overloaded based upon the number and types
+        of its arguments.</p>
+
+        <p>The <code>Array</code> constructor is designed to be subclassable. It may be used as the value of an
+        <code>extends</code> clause of a class definition. Subclass constructors that intend to inherit the exotic
+        <code>Array</code> behaviour must include a <code>super</code> call to the <code>Array</code> constructor to initialize
+        subclass instances that are exotic Array objects. However, most of the <code>Array.prototype</code> methods are generic
+        methods that are not dependent upon their <code>this</code> value being an exotic Array object.</p>
+
+        <p>The <code>length</code> property of the <code>Array</code> constructor function is <b>1</b>.</p>
+      </div>
+
+      <section id="sec-array-constructor-array">
+        <h1><span class="secnum" id="sec-22.1.1.1"><a href="/sec/sec-array-constructor-array.html" title="link to this section">22.1.1.1</a></span> Array ( )</h1>
+
+        <p class="normalbefore">This description applies if and only if the Array constructor is called with no arguments.</p>
+
+        <ol class="proc">
+          <li>Let <i>numberOfArgs</i> be the number of arguments passed to this function call.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>numberOfArgs</i> = 0.</li>
+          <li>If NewTarget is <b>undefined</b><i>,</i> let <i>newTarget</i> be the active function object, else let
+              <i>newTarget</i> be NewTarget.</li>
+          <li>Let <i>proto</i> be <a href="/sec/sec-getprototypefromconstructor.html">GetPrototypeFromConstructor</a>(<i>newTarget</i>,
+              <code>&quot;%ArrayPrototype%&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>proto</i>).</li>
+          <li>Return <a href="/sec/sec-arraycreate.html">ArrayCreate</a>(0, <i>proto</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-array-len">
+        <h1><span class="secnum" id="sec-22.1.1.2"><a href="/sec/sec-array-len.html" title="link to this section">22.1.1.2</a></span> Array
+            (len)</h1>
+
+        <p class="normalbefore">This description applies if and only if the Array constructor is called with exactly one
+        argument.</p>
+
+        <ol class="proc">
+          <li>Let <i>numberOfArgs</i> be the number of arguments passed to this function call.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>numberOfArgs</i> = 1.</li>
+          <li>If NewTarget is <b>undefined</b><i>,</i> let <i>newTarget</i> be the active function object, else let
+              <i>newTarget</i> be NewTarget.</li>
+          <li>Let <i>proto</i> be <a href="/sec/sec-getprototypefromconstructor.html">GetPrototypeFromConstructor</a>(<i>newTarget</i>,
+              <code>&quot;%ArrayPrototype%&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>proto</i>).</li>
+          <li>Let <i>array</i> be <a href="/sec/sec-arraycreate.html">ArrayCreate</a>(0, <i>proto</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>len</i>) is not Number, then
+            <ol class="block">
+              <li>Let <i>defineStatus</i> be <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>array</i>,
+                  <code>&quot;<b>0</b>&quot;</code>, <i>len</i>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>defineStatus</i> is <b>true</b>.</li>
+              <li>Let <i>intLen</i> be 1.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>intLen</i> be <a href="/sec/sec-touint32.html">ToUint32</a>(<i>len</i>).</li>
+              <li>If <i>intLen</i> &#x2260; <i>len</i>, throw a <b>RangeError</b> exception.</li>
+            </ol>
+          </li>
+          <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>array</i>, <code>&quot;length&quot;</code>, <i>intLen</i>,
+              <b>true</b>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>setStatus</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+          <li>Return <i>array</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-array-items">
+        <h1><span class="secnum" id="sec-22.1.1.3"><a href="/sec/sec-array-items.html" title="link to this section">22.1.1.3</a></span>
+            Array (...items )</h1>
+
+        <p>This description applies if and only if the Array constructor is called with at least two arguments.</p>
+
+        <p class="normalbefore">When the <code>Array</code> function is called the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>numberOfArgs</i> be the number of arguments passed to this function call.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>numberOfArgs</i> &#x2265; 2.</li>
+          <li>If NewTarget is <b>undefined</b><i>,</i> let <i>newTarget</i> be the active function object, else let
+              <i>newTarget</i> be NewTarget.</li>
+          <li>Let <i>proto</i> be <a href="/sec/sec-getprototypefromconstructor.html">GetPrototypeFromConstructor</a>(<i>newTarget</i>,
+              <code>&quot;%ArrayPrototype%&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>proto</i>).</li>
+          <li>Let <i>array</i> be <a href="/sec/sec-arraycreate.html">ArrayCreate</a>(<i>numberOfArgs</i>, <i>proto</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>array</i>).</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>Let <i>items</i> be a zero-origined <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the
+              argument items in order.</li>
+          <li>Repeat, while <i>k</i> &lt; <i>numberOfArgs</i>
+            <ol class="block">
+              <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+              <li>Let <i>itemK</i> be <i>items</i>[<i>k</i>].</li>
+              <li>Let <i>defineStatus</i> be <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>array</i>, <i>Pk</i>,
+                  <i>itemK</i>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>defineStatus</i> is <b>true</b>.</li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: the value of <i>array</i>&#x2019;s <code>length</code> property is
+              <i>numberOfArgs</i>.</li>
+          <li>Return <i>array</i>.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

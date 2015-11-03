@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.2.2"><a href="/sec/sec-ecmascript-function-objects-construct-argumentslist-newtarget.html" title="link to this section">9.2.2</a></span> [[Construct]] ( argumentsList, newTarget)</h1>
+
+      <p class="normalbefore">The [[Construct]] internal method for an <a href="/sec/sec-ecmascript-function-objects.html">ECMAScript
+      Function object</a> <var>F</var> is called with parameters <var>argumentsList</var> and <span style="font-family: Times New
+      Roman"><i>newTarget</i>. <i>argumentsList</i></span> is a possibly empty <a href="/sec/sec-list-and-record-specification-type.html">List</a> of <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language
+      values</a>. The following steps are taken:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>F</i> is an <a href="/sec/sec-ecmascript-function-objects.html">ECMAScript
+            function object</a>.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>newTarget</i>) is Object.</li>
+        <li>Let <i>callerContext</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>Let <i>kind</i> be <i>F</i>&#x2019;s [[ConstructorKind]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+        <li>If <i>kind</i> is <code>&quot;base&quot;</code>, then
+          <ol class="block">
+            <li>Let <i>thisArgument</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(<i>newTarget</i>,
+                <code>&quot;%ObjectPrototype%&quot;</code>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>thisArgument</i>).</li>
+          </ol>
+        </li>
+        <li>Let <i>calleeContext</i> be <a href="/sec/sec-prepareforordinarycall.html">PrepareForOrdinaryCall</a>(<i>F</i>,
+            <i>newTarget</i>).</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>calleeContext</i> is now <a href="/sec/sec-execution-contexts.html">the
+            running execution context</a>.</li>
+        <li>If <i>kind</i> is <code>&quot;base&quot;</code>, perform <a href="/sec/sec-ordinarycallbindthis.html">OrdinaryCallBindThis</a>(<i>F</i>,
+            <i>calleeContext</i>, <i>thisArgument</i>).</li>
+        <li>Let <i>constructorEnv</i> be the <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> of
+            <i>calleeContext</i>.</li>
+        <li>Let <i>envRec</i> be <i>constructorEnv</i>&#x2019;s <a href="/sec/sec-lexical-environments.html">EnvironmentRecord</a>.</li>
+        <li>Let <i>result</i> be <a href="/sec/sec-ordinarycallevaluatebody.html">OrdinaryCallEvaluateBody</a>(<i>F</i>,
+            <i>argumentsList</i>).</li>
+        <li>Remove <i>calleeContext</i> from <a href="/sec/sec-execution-contexts.html">the execution context stack</a> and restore
+            <i>callerContext</i> as <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>If <i>result</i>.[[type]] is <span style="font-family: sans-serif">return</span>, then
+          <ol class="block">
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>result</i>.[[value]]) is Object, return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<i>result</i>.[[value]]).</li>
+            <li>If <i>kind</i> is <code>&quot;base&quot;</code>, return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<i>thisArgument</i>).</li>
+            <li>If <i>result</i>.[[value]] is not <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+          </ol>
+        </li>
+        <li>Else, <a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>result</i>).</li>
+        <li>Return <i>envRec</i>.GetThisBinding().</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

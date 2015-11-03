@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-11.9.1"><a href="/sec/sec-rules-of-automatic-semicolon-insertion.html" title="link to this section">11.9.1</a></span> Rules of Automatic Semicolon Insertion</h1>
+
+      <p>In the following rules, &#x201C;token&#x201D; means the actual recognized lexical token determined using the current
+      lexical goal symbol as described in <a href="/sec/sec-ecmascript-language-lexical-grammar.html">clause 11</a>.</p>
+
+      <p>There are three basic rules of semicolon insertion:</p>
+
+      <ol class="proc">
+        <li>When, as a <span style="font-family: Times New Roman"><i>Script</i> or <i>Module</i></span> is parsed from left to
+            right, a token (called the <i>offending token</i>) is encountered that is not allowed by any production of the
+            grammar, then a semicolon is automatically inserted before the offending token if one or more of the following
+            conditions is true:
+          <ul>
+            <li>
+              <p>The offending token is separated from the previous token by at least one <span class="nt">LineTerminator</span>.</p>
+            </li>
+
+            <li>
+              <p>The offending token is <code>}</code>.</p>
+            </li>
+
+            <li>
+              <p>The previous token is <code>)</code> and the inserted semicolon would then be parsed as the terminating semicolon
+              of a do-while statement (<a href="/sec/sec-do-while-statement.html">13.7.2</a>).</p>
+            </li>
+          </ul>
+        </li>
+        <li>When, as the <span style="font-family: Times New Roman"><i>Script</i> or <i>Module</i></span> is parsed from left to
+            right, the end of the input stream of tokens is encountered and the parser is unable to parse the input token stream
+            as a single complete ECMAScript <span style="font-family: Times New Roman"><i>Script</i> or <i>Module</i></span>, then
+            a semicolon is automatically inserted at the end of the input stream.</li>
+        <li>When, as the <span style="font-family: Times New Roman"><i>Script</i> or <i>Module</i></span> is parsed from left to
+            right, a token is encountered that is allowed by some production of the grammar, but the production is a <i>restricted
+            production</i> and the token would be the first token for a terminal or nonterminal immediately following the
+            annotation <span style="font-family: Times New Roman">&#x201C;</span>[no<span style="font-family: Times New
+            Roman">&#xA0;<i>LineTerminator</i></span> here]&#x201D; within the restricted production (and therefore such a token is
+            called a restricted token), and the restricted token is separated from the previous token by at least one <span class="nt">LineTerminator</span>, then a semicolon is automatically inserted before the restricted token.</li>
+      </ol>
+
+      <p>However, there is an additional overriding condition on the preceding rules: a semicolon is never inserted automatically
+      if the semicolon would then be parsed as an empty statement or if that semicolon would become one of the two semicolons in
+      the header of a <code>for</code> statement (<a href="/sec/sec-for-statement.html">see 13.7.4</a>).</p>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The following are the only restricted productions in the grammar:</p>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">PostfixExpression</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">LeftHandSideExpression</span><sub class="g-params">[?Yield]</sub> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <code class="t">++</code></div>
+          <div class="rhs"><span class="nt">LeftHandSideExpression</span><sub class="g-params">[?Yield]</sub> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <code class="t">--</code></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">ContinueStatement</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">continue;</code></div>
+          <div class="rhs"><code class="t">continue</code> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <span class="nt">LabelIdentifier</span><sub class="g-params">[?Yield]</sub> <code class="t">;</code></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">BreakStatement</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">break</code> <code class="t">;</code></div>
+          <div class="rhs"><code class="t">break</code> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <span class="nt">LabelIdentifier</span><sub class="g-params">[?Yield]</sub> <code class="t">;</code></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">ReturnStatement</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">return</code> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <span class="nt">Expression</span> <code class="t">;</code></div>
+          <div class="rhs"><code class="t">return</code> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <span class="nt">Expression</span><sub class="g-params">[In, ?Yield]</sub> <code class="t">;</code></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">ThrowStatement</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">throw</code> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <span class="nt">Expression</span><sub class="g-params">[In, ?Yield]</sub> <code class="t">;</code></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">ArrowFunction</span><sub class="g-params">[In, Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">ArrowParameters</span><sub class="g-params">[?Yield]</sub> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <code class="t">=&gt;</code> <span class="nt">ConciseBody</span><sub class="g-params">[?In]</sub></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">YieldExpression</span><sub class="g-params">[In]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">yield</code> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <code class="t">*</code> <span class="nt">AssignmentExpression</span><sub class="g-params">[?In, Yield]</sub></div>
+          <div class="rhs"><code class="t">yield</code> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <span class="nt">AssignmentExpression</span><sub class="g-params">[?In, Yield]</sub></div>
+        </div>
+
+        <p>The practical effect of these restricted productions is as follows:</p>
+
+        <ul>
+          <li>
+            <p>When a <code>++</code> or <code>--</code> token is encountered where the parser would treat it as a postfix
+            operator, and at least one <span class="nt">LineTerminator</span> occurred between the preceding token and the
+            <code>++</code> or <code>--</code> token, then a semicolon is automatically inserted before the <code>++</code> or
+            <code>--</code> token.</p>
+          </li>
+
+          <li>
+            <p>When a <code>continue</code>, <code>break</code>, <code>return</code>, <code>throw</code>, or <code>yield</code>
+            token is encountered and a <span class="nt">LineTerminator</span> is encountered before the next token, a semicolon is
+            automatically inserted after the <code>continue</code>, <code>break</code>, <code>return</code>, <code>throw</code>,
+            or <code>yield</code>  token.</p>
+          </li>
+        </ul>
+
+        <p>The resulting practical advice to ECMAScript programmers is:</p>
+
+        <ul>
+          <li>
+            <p>A postfix <code>++</code> or <code>--</code> operator should appear on the same line as its operand.</p>
+          </li>
+
+          <li>
+            <p>An <span class="nt">Expression</span> in a <code>return</code> or <code>throw</code> statement or an <span class="nt">AssignmentExpression</span> in a <code>yield</code> expression should start on the same line as the
+            <code>return</code>, <code>throw</code>, or <code>yield</code> token.</p>
+          </li>
+
+          <li>
+            <p>An <span class="nt">IdentifierReference</span> in a <code>break</code> or <code>continue</code> statement should be
+            on the same line as the <code>break</code> or <code>continue</code> token.</p>
+          </li>
+        </ul>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-12.3.4.3"><a href="/sec/sec-evaluatedirectcall.html" title="link to this section">12.3.4.3</a></span> Runtime Semantics: EvaluateDirectCall( func, thisValue, arguments,
+            tailPosition )</h1>
+
+        <p class="normalbefore">The abstract operation EvaluateDirectCall takes as arguments a value <var>func</var>, a value
+        <var>thisValue</var>, a syntactic grammar production <var>arguments</var>, and a Boolean argument <var>tailPosition</var>.
+        It performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>argList</i> be ArgumentListEvaluation(<i>arguments</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>argList</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>func</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>func</i>) is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+          <li>If <i>tailPosition</i> is <b>true</b>, perform <a href="/sec/sec-preparefortailcall.html">PrepareForTailCall</a>().</li>
+          <li>Let <i>result</i> be <a href="/sec/sec-call.html">Call</a>(<i>func</i>, <i>thisValue</i>, <i>argList</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: If <i>tailPosition</i> is <b>true</b>, the above call will not
+              return here, but instead evaluation will continue as if the following return has already occurred.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: If <i>result</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a> then <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>result</i>) is an <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language type</a>.</li>
+          <li>Return <i>result</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

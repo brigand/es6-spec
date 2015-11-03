@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-24.2.4.9"><a href="/sec/sec-dataview.prototype.getint32.html" title="link to this section">24.2.4.9</a></span> DataView.prototype.getInt32 ( byteOffset [ , littleEndian ] )</h1>
+
+        <p class="normalbefore">When the <code>getInt32</code> method is called with argument <var>byteOffset</var> and optional
+        argument <i>littleEndian</i> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>v</i> be the <b>this</b> value.</li>
+          <li>If <i>littleEndian</i> is not present, let <i>littleEndian</i> be <b>undefined</b>.</li>
+          <li>Return <a href="/sec/sec-getviewvalue.html">GetViewValue</a>(<i>v</i>, <i>byteOffset</i>, <i>littleEndian</i>,
+              <code>&quot;Int32&quot;</code>).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

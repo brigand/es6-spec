@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-12.10"><a href="/sec/sec-equality-operators.html" title="link to this section">12.10</a></span>
+          Equality Operators</h1>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The result of evaluating an equality operator is always of type Boolean, reflecting
+        whether the relationship named by the operator holds between its two operands.</p>
+      </div>
+
+      <h2>Syntax</h2>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">EqualityExpression</span><sub class="g-params">[In, Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">RelationalExpression</span><sub class="g-params">[?In, ?Yield]</sub></div>
+        <div class="rhs"><span class="nt">EqualityExpression</span><sub class="g-params">[?In, ?Yield]</sub> <code class="t">==</code> <span class="nt">RelationalExpression</span><sub class="g-params">[?In, ?Yield]</sub></div>
+        <div class="rhs"><span class="nt">EqualityExpression</span><sub class="g-params">[?In, ?Yield]</sub> <code class="t">!=</code> <span class="nt">RelationalExpression</span><sub class="g-params">[?In, ?Yield]</sub></div>
+        <div class="rhs"><span class="nt">EqualityExpression</span><sub class="g-params">[?In, ?Yield]</sub> <code class="t">===</code> <span class="nt">RelationalExpression</span><sub class="g-params">[?In, ?Yield]</sub></div>
+        <div class="rhs"><span class="nt">EqualityExpression</span><sub class="g-params">[?In, ?Yield]</sub> <code class="t">!==</code> <span class="nt">RelationalExpression</span><sub class="g-params">[?In, ?Yield]</sub></div>
+      </div>
+    </div>
+
+    <section id="sec-equality-operators-static-semantics-isfunctiondefinition">
+      <h1><span class="secnum" id="sec-12.10.1"><a href="/sec/sec-equality-operators-static-semantics-isfunctiondefinition.html" title="link to this section">12.10.1</a></span> Static Semantics:  IsFunctionDefinition</h1>
+
+      <p>See also: <a href="/sec/sec-semantics-static-semantics-isfunctiondefinition.html">12.2.1.3</a>, <a href="/sec/sec-grouping-operator-static-semantics-isfunctiondefinition.html">12.2.10.2</a>, <a href="/sec/sec-static-semantics-static-semantics-isfunctiondefinition.html">12.3.1.2</a>, <a href="/sec/sec-postfix-expressions-static-semantics-isfunctiondefinition.html">12.4.2</a>, <a href="/sec/sec-unary-operators-static-semantics-isfunctiondefinition.html">12.5.2</a>, <a href="/sec/sec-multiplicative-operators-static-semantics-isfunctiondefinition.html">12.6.1</a>, <a href="/sec/sec-additive-operators-static-semantics-isfunctiondefinition.html">12.7.1</a>, <a href="/sec/sec-bitwise-shift-operators-static-semantics-isfunctiondefinition.html">12.8.1</a>, <a href="/sec/sec-relational-operators-static-semantics-isfunctiondefinition.html">12.9.1</a>, <a href="/sec/sec-binary-bitwise-operators-static-semantics-isfunctiondefinition.html">12.11.1</a>, <a href="/sec/sec-binary-logical-operators-static-semantics-isfunctiondefinition.html">12.12.1</a>, <a href="/sec/sec-conditional-operator-static-semantics-isfunctiondefinition.html">12.13.1</a>, <a href="/sec/sec-assignment-operators-static-semantics-isfunctiondefinition.html">12.14.2</a>, <a href="/sec/sec-comma-operator-static-semantics-isfunctiondefinition.html">12.15.1</a>, <a href="/sec/sec-function-definitions-static-semantics-isfunctiondefinition.html">14.1.11</a>, <a href="/sec/sec-generator-function-definitions-static-semantics-isfunctiondefinition.html">14.4.9</a>, <a href="/sec/sec-class-definitions-static-semantics-isfunctiondefinition.html">14.5.8</a>.</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">EqualityExpression</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">EqualityExpression</span> <code class="t">==</code> <span class="nt">RelationalExpression</span></div>
+        <div class="rhs"><span class="nt">EqualityExpression</span> <code class="t">!=</code> <span class="nt">RelationalExpression</span></div>
+        <div class="rhs"><span class="nt">EqualityExpression</span> <code class="t">===</code> <span class="nt">RelationalExpression</span></div>
+        <div class="rhs"><span class="nt">EqualityExpression</span> <code class="t">!==</code> <span class="nt">RelationalExpression</span></div>
+      </div>
+
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-equality-operators-static-semantics-isvalidsimpleassignmenttarget">
+      <h1><span class="secnum" id="sec-12.10.2"><a href="/sec/sec-equality-operators-static-semantics-isvalidsimpleassignmenttarget.html" title="link to this section">12.10.2</a></span> Static Semantics:  IsValidSimpleAssignmentTarget</h1>
+
+      <p>See also: <a href="/sec/sec-identifiers-static-semantics-isvalidsimpleassignmenttarget.html">12.1.3</a>, <a href="/sec/sec-semantics-static-semantics-isvalidsimpleassignmenttarget.html">12.2.1.5</a>, <a href="/sec/sec-grouping-operator-static-semantics-isvalidsimpleassignmenttarget.html">12.2.10.3</a>, <a href="/sec/sec-static-semantics-static-semantics-isvalidsimpleassignmenttarget.html">12.3.1.5</a>, <a href="/sec/sec-postfix-expressions-static-semantics-isvalidsimpleassignmenttarget.html">12.4.3</a>, <a href="/sec/sec-unary-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.5.3</a>, <a href="/sec/sec-multiplicative-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.6.2</a>, <a href="/sec/sec-additive-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.7.2</a>, <a href="/sec/sec-bitwise-shift-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.8.2</a>, <a href="/sec/sec-relational-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.9.2</a>, <a href="/sec/sec-binary-bitwise-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.11.2</a>, <a href="/sec/sec-binary-logical-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.12.2</a>, <a href="/sec/sec-conditional-operator-static-semantics-isvalidsimpleassignmenttarget.html">12.13.2</a>, <a href="/sec/sec-assignment-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.14.3</a>, <a href="/sec/sec-comma-operator-static-semantics-isvalidsimpleassignmenttarget.html">12.15.2</a>.</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">EqualityExpression</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">EqualityExpression</span> <code class="t">==</code> <span class="nt">RelationalExpression</span></div>
+        <div class="rhs"><span class="nt">EqualityExpression</span> <code class="t">!=</code> <span class="nt">RelationalExpression</span></div>
+        <div class="rhs"><span class="nt">EqualityExpression</span> <code class="t">===</code> <span class="nt">RelationalExpression</span></div>
+        <div class="rhs"><span class="nt">EqualityExpression</span> <code class="t">!==</code> <span class="nt">RelationalExpression</span></div>
+      </div>
+
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-equality-operators-runtime-semantics-evaluation">
+      <h1><span class="secnum" id="sec-12.10.3"><a href="/sec/sec-equality-operators-runtime-semantics-evaluation.html" title="link to this section">12.10.3</a></span> Runtime Semantics: Evaluation</h1>
+      <div class="gp prod"><span class="nt">EqualityExpression</span> <span class="geq">:</span> <span class="nt">EqualityExpression</span> <code class="t">==</code> <span class="nt">RelationalExpression</span></div>
+      <ol class="proc">
+        <li>Let <i>lref</i> be the result of evaluating <i>EqualityExpression</i>.</li>
+        <li>Let <i>lval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>lref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lval</i>).</li>
+        <li>Let <i>rref</i> be the result of evaluating <i>RelationalExpression</i>.</li>
+        <li>Let <i>rval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rval</i>).</li>
+        <li>Return the result of performing Abstract Equality Comparison <i>rval</i> == <i>lval</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">EqualityExpression</span> <span class="geq">:</span> <span class="nt">EqualityExpression</span> <code class="t">!=</code> <span class="nt">RelationalExpression</span></div>
+      <ol class="proc">
+        <li>Let <i>lref</i> be the result of evaluating <i>EqualityExpression</i>.</li>
+        <li>Let <i>lval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>lref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lval</i>).</li>
+        <li>Let <i>rref</i> be the result of evaluating <i>RelationalExpression</i>.</li>
+        <li>Let <i>rval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rval</i>).</li>
+        <li>Let <i>r</i> be the result of performing Abstract Equality Comparison <i>rval</i> == <i>lval</i>.</li>
+        <li>If <i>r</i> is <b>true</b>, return <b>false</b>. Otherwise, return <b>true</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">EqualityExpression</span> <span class="geq">:</span> <span class="nt">EqualityExpression</span> <code class="t">===</code> <span class="nt">RelationalExpression</span></div>
+      <ol class="proc">
+        <li>Let <i>lref</i> be the result of evaluating <i>EqualityExpression</i>.</li>
+        <li>Let <i>lval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>lref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lval</i>)</li>
+        <li>Let <i>rref</i> be the result of evaluating <i>RelationalExpression</i>.</li>
+        <li>Let <i>rval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rval</i>).</li>
+        <li>Return the result of performing Strict Equality Comparison <i>rval</i> === <i>lval</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">EqualityExpression</span> <span class="geq">:</span> <span class="nt">EqualityExpression</span> <code class="t">!==</code> <span class="nt">RelationalExpression</span></div>
+      <ol class="proc">
+        <li>Let <i>lref</i> be the result of evaluating <i>EqualityExpression</i>.</li>
+        <li>Let <i>lval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>lref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lval</i>).</li>
+        <li>Let <i>rref</i> be the result of evaluating <i>RelationalExpression</i>.</li>
+        <li>Let <i>rval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rval</i>).</li>
+        <li>Let <i>r</i> be the result of performing Strict Equality Comparison <i>rval</i> === <i>lval</i>.</li>
+        <li>If <i>r</i> is <b>true</b>, return <b>false</b>. Otherwise, return <b>true</b>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE 1</span> Given the above definition of equality:</p>
+
+        <ul>
+          <li>String comparison can be forced by: <code>&quot;&quot; + a == &quot;&quot; + b</code>.</li>
+          <li>Numeric comparison can be forced by: <code>+a == +b</code>.</li>
+          <li>Boolean comparison can be forced by: <code>!a == !b</code>.</li>
+        </ul>
+      </div>
+
+      <div class="note">
+        <p><span class="nh">NOTE 2</span> The equality operators maintain the following invariants:</p>
+
+        <ul>
+          <li><code>A</code> <code>!=</code> <code>B</code> is equivalent to <code>!(A</code> <code>==</code>
+              <code>B)</code>.</li>
+          <li><code>A</code> <code>==</code> <code>B</code> is equivalent to <code>B</code> <code>==</code> <code>A</code>, except
+              in the order of evaluation of <code>A</code> and <code>B</code>.</li>
+        </ul>
+      </div>
+
+      <div class="note">
+        <p><span class="nh">NOTE 3</span> The equality operator is not always transitive. For example, there might be two distinct
+        String objects, each representing the same String value; each String object would be considered equal to the String value
+        by the <code>==</code> operator, but the two String objects would not be equal to each other. For example:</p>
+
+        <ul>
+          <li><code>new String(&quot;a&quot;) == &quot;a&quot;</code> and <code>&quot;a&quot; ==  new String(&quot;a&quot;)</code> are both <span class="value">true</span>.</li>
+          <li><code>new String(&quot;a&quot;) == new String(&quot;a&quot;)</code> is <span class="value">false</span>.</li>
+        </ul>
+      </div>
+
+      <div class="note">
+        <p><span class="nh">NOTE 4</span> Comparison of Strings uses a simple equality test on sequences of code unit values.
+        There is no attempt to use the more complex, semantically oriented definitions of character or string equality and
+        collating order defined in the Unicode specification. Therefore Strings values that are canonically equal according to the
+        Unicode standard could test as unequal. In effect this algorithm assumes that both Strings are already in normalized
+        form.</p>
+      </div>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

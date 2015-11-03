@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.1.14"><a href="/sec/sec-ordinarycreatefromconstructor.html" title="link to this section">9.1.14</a></span> OrdinaryCreateFromConstructor ( constructor,  intrinsicDefaultProto,
+          internalSlotsList )</h1>
+
+      <p class="normalbefore">The abstract operation OrdinaryCreateFromConstructor creates an ordinary object whose [[Prototype]]
+      value is retrieved from a constructor&#x2019;s <code>prototype</code> property, if it exists. Otherwise the intrinsic named
+      by <var>intrinsicDefaultProto</var> is used for [[Prototype]]. The optional <var>internalSlotsList</var> is a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of the names of additional internal slots that must be defined as
+      part of the object. If the list is not provided, an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a> is
+      used. This abstract operation performs the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>intrinsicDefaultProto</i> is a String value that is this
+            specification&#x2019;s name of an intrinsic object. The corresponding object must be an intrinsic that is intended to
+            be used as the [[Prototype]] value of an object.</li>
+        <li>Let <i>proto</i> be <a href="/sec/sec-getprototypefromconstructor.html">GetPrototypeFromConstructor</a>(<i>constructor</i>,
+            <i>intrinsicDefaultProto</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>proto</i>).</li>
+        <li>Return <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<i>proto</i>, <i>internalSlotsList</i>).</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

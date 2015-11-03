@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-B.3"><a href="/sec/sec-other-additional-features.html" title="link to this section">B.3</a></span>
+          Other Additional Features</h1>
+    </div>
+
+    <section id="sec-__proto__-property-names-in-object-initializers">
+      <h1><span class="secnum" id="sec-B.3.1"><a href="/sec/sec-__proto__-property-names-in-object-initializers.html" title="link to this section">B.3.1</a></span> __proto__ Property Names in Object Initializers</h1>
+
+      <p>The following Early Error rule is added to those in <a href="/sec/sec-object-initializer-static-semantics-early-errors.html">12.2.6.1</a>:</p>
+
+      <p><span class="prod"><span class="nt">ObjectLiteral</span> <span class="geq">:</span> <code class="t">{</code> <span class="nt">PropertyDefinitionList</span> <code class="t">}ObjectLiteral</code> <code class="t">:</code> <code class="t">{</code> <span class="nt">PropertyDefinitionList</span> <code class="t">,</code> <code class="t">}</code></span></p>
+
+      <ul>
+        <li>
+          <p>It is a Syntax Error if <span style="font-family: Times New Roman">PropertyNameList</span> of <span class="nt">PropertyDefinitionList</span> contains any duplicate entries for <code>&quot;__proto__&quot;</code> and at least two of
+          those entries were obtained from productions of the form  <span class="prod"><span class="nt">PropertyDefinition</span>
+          <span class="geq">:</span> <span class="nt">PropertyName</span> <code class="t">:</code> <span class="nt">AssignmentExpression</span></span> .</p>
+        </li>
+      </ul>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The <a href="/sec/sec-list-and-record-specification-type.html">List</a> returned by
+        PropertyNameList does not include string literal property names defined as using a <i><span style="font-family: Times New
+        Roman">ComputedPropertyName</span>.</i></p>
+      </div>
+
+      <p class="normalbefore">In <a href="/sec/sec-object-initializer-runtime-semantics-propertydefinitionevaluation.html">12.2.6.9</a> the
+      PropertyDefinitionEvaluation algorithm for the production<br><span class="prod"><span class="nt">PropertyDefinition</span>
+      <span class="geq">:</span> <span class="nt">PropertyName</span> <code class="t">:</code> <span class="nt">AssignmentExpression</span></span><br>is replaced with the following definition:</p>
+
+      <div class="gp prod"><span class="nt">PropertyDefinition</span> <span class="geq">:</span> <span class="nt">PropertyName</span> <code class="t">:</code> <span class="nt">AssignmentExpression</span></div>
+      <ol class="proc">
+        <li>Let <i>propKey</i> be the result of evaluating <i>PropertyName</i>.</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>propKey</i>).</li>
+        <li>Let <i>exprValueRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+        <li>Let <i>propValue</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>exprValueRef</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>propValue</i>).</li>
+        <li>If <i>propKey</i> is the String value <code>&quot;__proto__&quot;</code> and if IsComputedPropertyKey(<i>propKey</i>) is
+            <b>false</b>, then
+          <ol class="block">
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>propValue</i>) is either Object or Null, then
+              <ol class="block">
+                <li>Return <i>object</i>.[[SetPrototypeOf]](<i>propValue</i>).</li>
+              </ol>
+            </li>
+            <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+                sans-serif">empty</span>).</li>
+          </ol>
+        </li>
+        <li>If <a href="/sec/sec-isanonymousfunctiondefinition.html">IsAnonymousFunctionDefinition</a>(<i>AssignmentExpression)</i> is
+            <b>true</b>, then
+          <ol class="block">
+            <li>Let <i>hasNameProperty</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>propValue</i>,
+                <code>&quot;name&quot;</code>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasNameProperty</i>).</li>
+            <li>If <i>hasNameProperty</i> is <b>false</b>, perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>propValue</i>, <i>propKey</i>).</li>
+          </ol>
+        </li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>enumerable</i> is <b>true</b>.</li>
+        <li>Return <a href="/sec/sec-createdatapropertyorthrow.html">CreateDataPropertyOrThrow</a>(<i>object</i>, <i>propKey</i>,
+            <i>propValue</i>).</li>
+      </ol>
+    </section>
+
+    <section id="sec-labelled-function-declarations">
+      <h1><span class="secnum" id="sec-B.3.2"><a href="/sec/sec-labelled-function-declarations.html" title="link to this section">B.3.2</a></span> Labelled Function Declarations</h1>
+
+      <p>Prior to ECMAScript 2015, the specification of <span class="nt">LabelledStatement</span> did not allow for the
+      association of a statement label with a <span class="nt">FunctionDeclaration</span>. However, a labelled <span class="nt">FunctionDeclaration</span> was an allowable extension for non-<a href="/sec/sec-strict-mode-code.html">strict code</a> and
+      most browser-hosted ECMAScript implementations supported that extension. In ECMAScript 2015, the grammar productions for
+      <span class="nt">LabelledStatement</span> permits use of <span class="nt">FunctionDeclaration</span> as a <span class="nt">LabelledItem</span> but <a href="/sec/sec-labelled-statements-static-semantics-early-errors.html">13.13.1</a> includes an
+      Early Error rule that produces a Syntax Error if that occurs. For web browser compatibility, that rule is modified with the
+      addition of the underlined text:</p>
+
+      <div class="gp prod"><span class="nt">LabelledItem</span> <span class="geq">:</span> <span class="nt">FunctionDeclaration</span></div>
+      <ul>
+        <li>It is a Syntax Error if any strict mode source code matches this rule.</li>
+      </ul>
+    </section>
+
+    <section id="sec-block-level-function-declarations-web-legacy-compatibility-semantics">
+      <h1><span class="secnum" id="sec-B.3.3"><a href="/sec/sec-block-level-function-declarations-web-legacy-compatibility-semantics.html" title="link to this section">B.3.3</a></span> Block-Level Function Declarations Web Legacy Compatibility Semantics</h1>
+
+      <p>Prior to ECMAScript 2015, the ECMAScript specification did not define the occurrence of a <span class="nt">FunctionDeclaration</span> as an element of a <span class="nt">Block</span> statement&#x2019;s <span class="nt">StatementList</span>. However, support for that form of <span class="nt">FunctionDeclaration</span> was an
+      allowable extension and most browser-hosted ECMAScript implementations permitted them. Unfortunately, the semantics of such
+      declarations differ among those implementations. Because of these semantic differences, existing web ECMAScript code that
+      uses <span class="nt">Block</span> level function declarations is only portable among browser implementation if the usage
+      only depends upon the semantic intersection of all of the browser implementations for such declarations. The following are
+      the use cases that fall within that intersection semantics:</p>
+
+      <ol class="proc">
+        <li>A function is declared and only referenced within a single block
+          <ul>
+            <li>
+              <p>A <span class="nt">FunctionDeclaration</span> whose <span class="nt">BindingIdentifier</span> is the name
+              <var>f</var> occurs exactly once within the function code of an enclosing function <var>g</var> and that declaration
+              is nested within a <span class="nt">Block</span>.</p>
+            </li>
+
+            <li>
+              <p>No other declaration of <var>f</var> that is not a <code>var</code> declaration occurs within the function code
+              of <var>g</var></p>
+            </li>
+
+            <li>
+              <p>All occurrences of <var>f</var> as an <span class="nt">IdentifierReference</span> are within the <span class="nt">StatementList</span> of the <span class="nt">Block</span> containing the declaration of <var>f</var>.</p>
+            </li>
+          </ul>
+        </li>
+        <li>A function is declared and possibly used within a single <span class="nt">Block</span> but also referenced by an inner
+            function definition that is not contained within that same <span class="nt">Block</span>.
+          <ul>
+            <li>
+              <p>A <span class="nt">FunctionDeclaration</span> whose <span class="nt">BindingIdentifier</span> is the name
+              <var>f</var> occurs exactly once within the function code of an enclosing function <var>g</var> and that declaration
+              is nested within a <span class="nt">Block</span>.</p>
+            </li>
+
+            <li>
+              <p>No other declaration of <var>f</var> that is not a <code>var</code> declaration occurs within the function code
+              of <var>g</var></p>
+            </li>
+
+            <li>
+              <p>There may be occurrences of <var>f</var> as an <span class="nt">IdentifierReference</span> within the <span class="nt">StatementList</span> of the <span class="nt">Block</span> containing the declaration of <var>f</var>.</p>
+            </li>
+
+            <li>
+              <p>There is at least one occurrence of <var>f</var> as an <span class="nt">IdentifierReference</span> within the
+              function code of <var>g</var> that lexically follows the <span class="nt">Block</span> containing the declaration of
+              <var>f</var>.</p>
+            </li>
+          </ul>
+        </li>
+        <li>A function is declared and possibly used within a single block but also referenced within subsequent blocks.
+          <ul>
+            <li>
+              <p>A <span class="nt">FunctionDeclaration</span> whose <span class="nt">BindingIdentifier</span> is the name
+              <var>f</var> occurs exactly once within the function code of an enclosing function <var>g</var> and that declaration
+              is nested within a <span class="nt">Block</span>.</p>
+            </li>
+
+            <li>
+              <p>No other declaration of <var>f</var> that is not a <code>var</code> declaration occurs within the function code
+              of <var>g</var></p>
+            </li>
+
+            <li>
+              <p>There may be occurrences of <var>f</var> as an <span class="nt">IdentifierReference</span> within the <span class="nt">StatementList</span> of the <span class="nt">Block</span> containing the declaration of <var>f</var>.</p>
+            </li>
+
+            <li>
+              <p>There is at least one occurrence of <var>f</var> as an <span class="nt">IdentifierReference</span> within another
+              function <var>h</var> that is nested within <var>g</var> and no other declaration of <var>f</var> shadows the
+              references to <var>f</var> from within <var>h</var>.</p>
+            </li>
+
+            <li>
+              <p>All invocations of <i>h</i> occur after the declaration of <i>f</i> has been evaluated.</p>
+            </li>
+          </ul>
+        </li>
+      </ol>
+
+      <p>The first use case is interoperable with the semantics of <span class="nt">Block</span> level function declarations
+      provided by ECMAScript 2015. Any pre-existing ECMAScript code that employees that use case will operate using the Block
+      level function declarations semantics defined by clauses 9, 13, and 14 of this specification.</p>
+
+      <p>ECMAScript 2015 interoperability for the second and third use cases requires the following extensions to the <a href="/sec/sec-ordinary-and-exotic-objects-behaviours.html">clause 9</a> and <a href="/sec/sec-ecmascript-language-functions-and-classes.html">clause 14</a> semantics. During <a href="/sec/sec-functiondeclarationinstantiation.html">FunctionDeclarationInstantiation</a> (<a href="/sec/sec-functiondeclarationinstantiation.html">9.2.12</a>) the following steps are performed in place of step 29:</p>
+
+      <ol class="proc">
+        <li>If <i>strict</i> is <b>false</b>, then
+          <ol class="block">
+            <li>For each <i>FunctionDeclaration</i> <i>f</i> in <i>varDeclarations</i> that is directly contained in the
+                <i>StatementList</i> of a <i>Block</i>, <i>CaseClause</i>, or <i>DefaultClause,</i>
+              <ol class="block">
+                <li>Let <i>F</i> be StringValue of the <i>BindingIdentifier</i> of <i>FunctionDeclaration</i> <i>f</i>.</li>
+                <li>If replacing the <i>FunctionDeclaration</i> <i>f</i> with a <i>VariableStatement</i> that has <i>F</i> as a
+                    <i>BindingIdentifier</i> would not produce any Early Errors for <i>func</i> and <i>F</i> is not an element of
+                    BoundNames of <i>argumentsList</i>, then
+                  <ol class="block">
+                    <li><span style="font-family: sans-serif">NOTE	A var binding for</span> <i>F</i> <span style="font-family:
+                        sans-serif">is only instantiated here if it is neither a VarDeclaredName, the name of a formal parameter,
+                        or another</span> <i>FunctionDeclarations</i>.</li>
+                    <li>If <i>instantiatedVarNames</i> does not contain <i>F</i>, then
+                      <ol class="block">
+                        <li>Let <i>status</i> be <i>varEnvRec.</i>CreateMutableBinding(<i>F</i>).</li>
+                        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is never an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+                        <li>Perform <i>varEnvRec.</i>InitializeBinding(<i>F</i>, <b>undefined</b>).</li>
+                        <li>Append <i>F</i> to <i>instantiatedVarNames</i>.</li>
+                      </ol>
+                    </li>
+                    <li>When the <i>FunctionDeclaration</i> <i>f</i> is evaluated, perform the following steps in place of the
+                        <i>FunctionDeclaration</i> Evaluation algorithm provided in <a href="/sec/sec-function-definitions-runtime-semantics-evaluation.html">14.1.20</a>:
+                      <ol class="nested proc">
+                        <li>Let <i>fenv</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">VariableEnvironment</a>.</li>
+                        <li>Let <i>benv</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a>.</li>
+                        <li>Let <i>fobj</i> be <i>benv</i>.GetBindingValue(<i>F</i>, <b>false</b>).</li>
+                        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fobj</i>).</li>
+                        <li>Let <i>status</i> be <i>fenv</i>.SetMutableBinding(<i>F</i>, <i>fobj</i>, <b>false</b>).</li>
+                        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is never an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+                        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+                            sans-serif">empty</span>).</li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+
+      <p>If an ECMAScript implementation has a mechanism for reporting diagnostic warning messages, a warning should be produced
+      for each function whose function code contains a <i>FunctionDeclaration</i> for which steps 1.a.ii.1-3 will be
+      performed.</p>
+    </section>
+
+    <section id="sec-functiondeclarations-in-ifstatement-statement-clauses">
+      <h1><span class="secnum" id="sec-B.3.4"><a href="/sec/sec-functiondeclarations-in-ifstatement-statement-clauses.html" title="link to this section">B.3.4</a></span> FunctionDeclarations in IfStatement Statement Clauses</h1>
+
+      <p class="normalbefore">The following rules for <span class="nt">IfStatement</span> augment those in <a href="/sec/sec-if-statement.html">13.6</a>:</p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">IfStatement</span><sub class="g-params">[Yield, Return]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">if</code> <code class="t">(</code> <span class="nt">Expression</span><sub class="g-params">[In, ?Yield]</sub> <code class="t">)</code> <span class="nt">FunctionDeclaration</span><sub class="g-params">[?Yield]</sub> <code class="t">else</code> <span class="nt">Statement</span><sub class="g-params">[?Yield, ?Return]</sub></div>
+        <div class="rhs"><code class="t">if</code> <code class="t">(</code> <span class="nt">Expression</span><sub class="g-params">[In, ?Yield]</sub> <code class="t">)</code> <span class="nt">Statement</span><sub class="g-params">[?Yield, ?Return]</sub> <code class="t">else</code> <span class="nt">FunctionDeclaration</span><sub class="g-params">[?Yield]</sub></div>
+        <div class="rhs"><code class="t">if</code> <code class="t">(</code> <span class="nt">Expression</span><sub class="g-params">[In, ?Yield]</sub> <code class="t">)</code> <span class="nt">FunctionDeclaration</span><sub class="g-params">[?Yield]</sub> <code class="t">else</code> <span class="nt">FunctionDeclaration</span><sub class="g-params">[?Yield]</sub></div>
+        <div class="rhs"><code class="t">if</code> <code class="t">(</code> <span class="nt">Expression</span><sub class="g-params">[In, ?Yield]</sub> <code class="t">)</code> <span class="nt">FunctionDeclaration</span><sub class="g-params">[?Yield]</sub></div>
+      </div>
+
+      <p>The above rules are only applied when parsing code that is not <a href="/sec/sec-strict-mode-code.html">strict mode code</a>. If
+      any such code is match by one of these rules subsequent processing of that code takes places as if each matching occurrence
+      of <span class="nt">FunctionDeclaration</span><sub>[?Yield]</sub> was the sole <span class="nt">StatementListItem</span> of
+      a <span class="nt">BlockStatement</span> occupying that position in the source code. The semantics of such a synthetic <span class="nt">BlockStatement</span> includes the web legacy compatibility semantics specified in <a href="/sec/sec-block-level-function-declarations-web-legacy-compatibility-semantics.html">B.3.3</a>.</p>
+    </section>
+
+    <section id="sec-variablestatements-in-catch-blocks">
+      <h1><span class="secnum" id="sec-B.3.5"><a href="/sec/sec-variablestatements-in-catch-blocks.html" title="link to this section">B.3.5</a></span> VariableStatements in Catch blocks</h1>
+
+      <p>The content of <a href="/sec/sec-try-statement-static-semantics-early-errors.html">subclause 13.15.1</a> is replaced with the
+      following:</p>
+
+      <div class="gp prod"><span class="nt">Catch</span> <span class="geq">:</span> <code class="t">catch</code> <code class="t">(</code> <span class="nt">CatchParameter</span> <code class="t">)</code> <span class="nt">Block</span></div>
+      <ul>
+        <li>
+          <p>It is a Syntax Error if BoundNames <span style="font-family: Times New Roman">of <i>CatchParameter</i></span>
+          contains any duplicate elements.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if any element of the BoundNames of <span class="nt">CatchParameter</span> also occurs in the
+          LexicallyDeclaredNames of <span class="nt">Block</span>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if any element of the BoundNames of <span class="nt">CatchParameter</span> also occurs in the
+          VarDeclaredNames of <var>Block, unless that element is only bound by a VariableStatement or the VariableDeclarationList
+          of a for statement, or the ForBinding of a for-in statement</var>.</p>
+        </li>
+      </ul>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The <span class="nt">Block</span> of a <span class="nt">Catch</span> clause may contain
+        <code>var</code> declarations that bind a name that is also bound by the <span class="nt">CatchParameter</span>. At
+        runtime, such bindings are instantiated in the VariableDeclarationEnvironment. They do not shadow the same-named bindings
+        introduced by the <span class="nt">CatchParameter</span> and hence the <span class="nt">Initializer</span> for such
+        <code>var</code> declarations will assign to the corresponding catch parameter rather than the <code>var</code> binding.
+        The relaxation of the normal static semantic rule does not apply to names only bound by for-of statements.</p>
+      </div>
+
+      <p>This modified behaviour also applies to <code>var</code> and <code>function</code> declarations introduced by direct
+      evals contained within the <span class="nt">Block</span> of a <span class="nt">Catch</span> clause. This change is
+      accomplished by modify the algorithm of <a href="/sec/sec-evaldeclarationinstantiation.html">18.2.1.2</a> as follows:</p>
+
+      <p class="normalbefore">Step 5.d.ii.2.a.i is replaced by:</p>
+
+      <p class="special2">i.	If <i>thisEnvRec</i> is not the <a href="/sec/sec-environment-records.html">Environment Record</a> for a
+      <i>Catch</i> clause, throw a <b>SyntaxError</b> exception.</p>
+
+      <p class="special2">ii.	If <i>name</i> is <i>bound by any syntactic form other than a FunctionDeclaration, a
+      VariableStatement, the VariableDeclarationList of a for statement, or the ForBinding of a for-in statement</i>, throw a
+      <b>SyntaxError</b> exception.</p>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

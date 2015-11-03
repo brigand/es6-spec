@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.2.5.14"><a href="/sec/sec-regexp.prototype.tostring.html" title="link to this section">21.2.5.14</a></span> RegExp.prototype.toString ( )</h1>
+        <ol class="proc">
+          <li>Let <i>R</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>R</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>pattern</i> be <a href="/sec/sec-tostring.html">ToString</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>R</i>,
+              <code>&quot;source&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>pattern</i>).</li>
+          <li>Let <i>flags</i> be <a href="/sec/sec-tostring.html">ToString</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>R</i>,
+              <code>&quot;flags&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>flags</i>).</li>
+          <li>Let <i>result</i> be the String value formed by concatenating <code>&quot;<b>/</b>&quot;</code>, <i>pattern</i>, and
+              <code>&quot;<b>/</b>&quot;</code>, and <i>flags</i>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The returned String has the form of a <span class="nt">RegularExpressionLiteral</span>
+          that evaluates to another RegExp object with the same behaviour as this object.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

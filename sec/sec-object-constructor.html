@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-19.1.1"><a href="/sec/sec-object-constructor.html" title="link to this section">19.1.1</a></span>
+            The Object Constructor</h1>
+
+        <p>The Object constructor is the %Object% intrinsic object and the initial value of the <code>Object</code> property of
+        the global object. When called as a constructor it creates a new ordinary object. When <code>Object</code> is called as a
+        function rather than as a constructor, it performs a type conversion.</p>
+
+        <p>The <code>Object</code> constructor is designed to be subclassable. It may be used as the value of an
+        <code>extends</code> clause of a class definition.</p>
+      </div>
+
+      <section id="sec-object-value">
+        <h1><span class="secnum" id="sec-19.1.1.1"><a href="/sec/sec-object-value.html" title="link to this section">19.1.1.1</a></span>
+            Object ( [ value ] )</h1>
+
+        <p class="normalbefore">When <code>Object</code> function is called with optional argument <var>value</var>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>If NewTarget is neither <b>undefined</b> nor the active function<i>,</i> then
+            <ol class="block">
+              <li>Return <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(NewTarget,
+                  <code>&quot;%ObjectPrototype%&quot;</code>).</li>
+            </ol>
+          </li>
+          <li>If <i>value</i> is <b>null</b>, <b>undefined</b> or not supplied, return <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(%ObjectPrototype%).</li>
+          <li>Return <a href="/sec/sec-toobject.html">ToObject</a>(<i>value</i>).</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

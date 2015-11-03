@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-9.4.2.3"><a href="/sec/sec-arrayspeciescreate.html" title="link to this section">9.4.2.3</a></span> ArraySpeciesCreate(originalArray, length)</h1>
+
+        <p class="normalbefore">The abstract operation ArraySpeciesCreate with arguments <var>originalArray</var> and
+        <var>length</var> is used to specify the creation of a new Array object using a constructor function that is derived from
+        <var>originalArray</var>. It performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>length</i> is an integer Number &#x2265; 0.</li>
+          <li>If <i>length</i> is &#x2212;0, let <i>length</i> be +0.</li>
+          <li>Let <i>C</i> be <b>undefined</b>.</li>
+          <li>Let <i>isArray</i> be <a href="/sec/sec-isarray.html">IsArray</a>(<i>originalArray</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>isArray</i>).</li>
+          <li>If <i>isArray</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>C</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>originalArray</i>, <code>&quot;constructor&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>C</i>).</li>
+              <li>If <a href="/sec/sec-isconstructor.html">IsConstructor</a>(<i>C</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>thisRealm</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-code-realms.html">Realm</a>.</li>
+                  <li>Let <i>realmC</i> be <a href="/sec/sec-getfunctionrealm.html">GetFunctionRealm</a>(<i>C</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>realmC</i>).</li>
+                  <li>If <i>thisRealm</i> and <i>realmC</i> are not the same <a href="/sec/sec-code-realms.html">Realm</a> Record, then
+                    <ol class="block">
+                      <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>C</i>, <i>realmC</i>.[[intrinsics]].[[%Array%]]) is
+                          <b>true</b>, let <i>C</i> be <b>undefined</b>.</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>C</i>) is Object, then
+                <ol class="block">
+                  <li>Let <i>C</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>C</i>, @@species).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>C</i>).</li>
+                  <li>If <i>C</i> is <b>null</b>, let <i>C</i> be <b>undefined</b>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>C</i> is <b>undefined</b>, return <a href="/sec/sec-arraycreate.html">ArrayCreate</a>(<i>length</i>).</li>
+          <li>If <a href="/sec/sec-isconstructor.html">IsConstructor</a>(<i>C</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception<i>.</i></li>
+          <li>Return <a href="/sec/sec-construct.html">Construct</a>(<i>C</i>, &#xAB;<i>length</i>&#xBB;).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> If <var>originalArray</var> was created using the standard built-in Array constructor
+          for a <a href="/sec/sec-code-realms.html">Realm</a> that is not the <a href="/sec/sec-code-realms.html">Realm</a>  of <a href="/sec/sec-execution-contexts.html">the running execution context</a>, then a new Array is created using the <a href="/sec/sec-code-realms.html">Realm</a> of <a href="/sec/sec-execution-contexts.html">the running execution context</a>. This maintains
+          compatibility with Web browsers that have historically had that behaviour for the Array.prototype methods that now are
+          defined using  ArraySpeciesCreate.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

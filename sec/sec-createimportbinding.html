@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-8.1.1.5.5"><a href="/sec/sec-createimportbinding.html" title="link to this section">8.1.1.5.5</a></span> CreateImportBinding (N, M, N2)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method
+          CreateImportBinding for module Environment Records creates a new initialized immutable indirect binding for the name
+          <var>N</var>. A binding must not already exist in this <a href="/sec/sec-environment-records.html">Environment Record</a> for
+          <var>N</var>. <var>M</var> is a <a href="/sec/sec-abstract-module-records.html">Module Record</a> (<a href="/sec/sec-abstract-module-records.html">see 15.2.1.15</a>), and <var>N2</var> is the name of a binding that exists in
+          M&#x2019;s module <a href="/sec/sec-environment-records.html">Environment Record</a>. Accesses to the value of the new binding
+          will indirectly access the bound value of value of the target binding.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the module <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>envRec</i> does not already have a binding for <i>N</i>.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>M</i> is a <a href="/sec/sec-abstract-module-records.html">Module
+                Record</a>.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: When <i>M</i>.[[Environment]] is instantiated it will have a
+                direct binding for <i>N2</i>.</li>
+            <li>Create an immutable indirect binding in <i>envRec</i> for <i>N</i> that references <i>M</i> and <i>N2</i> as its
+                target binding and record that the binding is initialized.</li>
+            <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+                sans-serif">empty</span>).</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

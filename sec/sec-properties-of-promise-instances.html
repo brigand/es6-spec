@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-25.4.6"><a href="/sec/sec-properties-of-promise-instances.html" title="link to this section">25.4.6</a></span> Properties of Promise Instances</h1>
+
+      <p>Promise instances are ordinary objects that inherit properties from the Promise prototype object (the intrinsic,
+      %PromisePrototype%). Promise instances are initially created with the internal slots described in <a href="/sec/table-59.html">Table
+      59</a>.</p>
+
+      <figure>
+        <figcaption><span id="table-59">Table 59</span> &#x2014; Internal Slots of Promise Instances</figcaption>
+        <table class="real-table">
+          <tr>
+            <th>Internal Slot</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>[[PromiseState]]</td>
+            <td>A String value that governs how a promise will react to incoming calls to its <code>then</code> method. The possible values are: <code>&quot;pending&quot;</code><span style="font-family: Times New Roman">,</span> <code>&quot;fulfilled&quot;</code>, and <code>&quot;rejected&quot;</code><span style="font-family: Times New Roman">.</span></td>
+          </tr>
+          <tr>
+            <td>[[PromiseResult]]</td>
+            <td>The value with which the promise has been fulfilled or rejected, if any. Only meaningful if <span style="font-family: Times New Roman">[[PromiseState]]</span> is not <code>&quot;pending&quot;</code>.</td>
+          </tr>
+          <tr>
+            <td>[[PromiseFulfillReactions]]</td>
+            <td>A <a href="/sec/sec-list-and-record-specification-type.html">List</a> of PromiseReaction records to be processed when/if the promise transitions from the <code>&quot;pending&quot;</code> state to the <code>&quot;fulfilled&quot;</code> state.</td>
+          </tr>
+          <tr>
+            <td>[[PromiseRejectReactions]]</td>
+            <td>A <a href="/sec/sec-list-and-record-specification-type.html">List</a> of PromiseReaction records to be processed when/if the promise transitions from the <code>&quot;pending&quot;</code> state to the <code>&quot;rejected&quot;</code> state.</td>
+          </tr>
+        </table>
+      </figure>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

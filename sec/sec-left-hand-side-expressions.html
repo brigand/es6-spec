@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-12.3"><a href="/sec/sec-left-hand-side-expressions.html" title="link to this section">12.3</a></span> Left-Hand-Side Expressions</h1>
+      <h2>Syntax</h2>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">MemberExpression</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">PrimaryExpression</span><sub class="g-params">[?Yield]</sub></div>
+        <div class="rhs"><span class="nt">MemberExpression</span><sub class="g-params">[?Yield]</sub> <code class="t">[</code> <span class="nt">Expression</span><sub class="g-params">[In, ?Yield]</sub> <code class="t">]</code></div>
+        <div class="rhs"><span class="nt">MemberExpression</span><sub class="g-params">[?Yield]</sub> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+        <div class="rhs"><span class="nt">MemberExpression</span><sub class="g-params">[?Yield]</sub> <span class="nt">TemplateLiteral</span><sub class="g-params">[?Yield]</sub></div>
+        <div class="rhs"><span class="nt">SuperProperty</span><sub class="g-params">[?Yield]</sub></div>
+        <div class="rhs"><span class="nt">MetaProperty</span></div>
+        <div class="rhs"><code class="t">new</code> <span class="nt">MemberExpression</span><sub class="g-params">[?Yield]</sub> <span class="nt">Arguments</span><sub class="g-params">[?Yield]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">SuperProperty</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">super</code> <code class="t">[</code> <span class="nt">Expression</span><sub class="g-params">[In, ?Yield]</sub> <code class="t">]</code></div>
+        <div class="rhs"><code class="t">super</code> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">MetaProperty</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">NewTarget</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">NewTarget</span> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">new</code> <code class="t">.</code> <code class="t">target</code></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">NewExpression</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">MemberExpression</span><sub class="g-params">[?Yield]</sub></div>
+        <div class="rhs"><code class="t">new</code> <span class="nt">NewExpression</span><sub class="g-params">[?Yield]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">CallExpression</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">MemberExpression</span><sub class="g-params">[?Yield]</sub> <span class="nt">Arguments</span><sub class="g-params">[?Yield]</sub></div>
+        <div class="rhs"><span class="nt">SuperCall</span><sub class="g-params">[?Yield]</sub></div>
+        <div class="rhs"><span class="nt">CallExpression</span><sub class="g-params">[?Yield]</sub> <span class="nt">Arguments</span><sub class="g-params">[?Yield]</sub></div>
+        <div class="rhs"><span class="nt">CallExpression</span><sub class="g-params">[?Yield]</sub> <code class="t">[</code> <span class="nt">Expression</span><sub class="g-params">[In, ?Yield]</sub> <code class="t">]</code></div>
+        <div class="rhs"><span class="nt">CallExpression</span><sub class="g-params">[?Yield]</sub> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+        <div class="rhs"><span class="nt">CallExpression</span><sub class="g-params">[?Yield]</sub> <span class="nt">TemplateLiteral</span><sub class="g-params">[?Yield]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">SuperCall</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">super</code> <span class="nt">Arguments</span><sub class="g-params">[?Yield]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">Arguments</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">(</code> <code class="t">)</code></div>
+        <div class="rhs"><code class="t">(</code> <span class="nt">ArgumentList</span><sub class="g-params">[?Yield]</sub> <code class="t">)</code></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">ArgumentList</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">AssignmentExpression</span><sub class="g-params">[In, ?Yield]</sub></div>
+        <div class="rhs"><code class="t">...</code> <span class="nt">AssignmentExpression</span><sub class="g-params">[In, ?Yield]</sub></div>
+        <div class="rhs"><span class="nt">ArgumentList</span><sub class="g-params">[?Yield]</sub> <code class="t">,</code> <span class="nt">AssignmentExpression</span><sub class="g-params">[In, ?Yield]</sub></div>
+        <div class="rhs"><span class="nt">ArgumentList</span><sub class="g-params">[?Yield]</sub> <code class="t">,</code> <code class="t">...</code> <span class="nt">AssignmentExpression</span><sub class="g-params">[In, ?Yield]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">LeftHandSideExpression</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">NewExpression</span><sub class="g-params">[?Yield]</sub></div>
+        <div class="rhs"><span class="nt">CallExpression</span><sub class="g-params">[?Yield]</sub></div>
+      </div>
+    </div>
+
+    <section id="sec-static-semantics">
+      <div class="front">
+        <h1><span class="secnum" id="sec-12.3.1"><a href="/sec/sec-static-semantics.html" title="link to this section">12.3.1</a></span>
+            Static Semantics</h1>
+      </div>
+
+      <section id="sec-static-semantics-static-semantics-contains">
+        <h1><span class="secnum" id="sec-12.3.1.1"><a href="/sec/sec-static-semantics-static-semantics-contains.html" title="link to this section">12.3.1.1</a></span> Static Semantics:  Contains</h1>
+
+        <p>With parameter <var>symbol</var>.</p>
+
+        <p>See also: <a href="/sec/sec-static-semantic-rules.html">5.3</a>, <a href="/sec/sec-object-initializer-static-semantics-contains.html">12.2.6.3</a>, <a href="/sec/sec-function-definitions-static-semantics-contains.html">14.1.4</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-contains.html">14.2.3</a>, <a href="/sec/sec-generator-function-definitions-static-semantics-contains.html">14.4.4</a>, <a href="/sec/sec-class-definitions-static-semantics-contains.html">14.5.4</a></p>
+
+        <div class="gp prod"><span class="nt">MemberExpression</span> <span class="geq">:</span> <span class="nt">MemberExpression</span> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+        <ol class="proc">
+          <li>If  <i>MemberExpression</i> Contains <i>symbol</i> is <b>true</b>, return <b>true</b>.</li>
+          <li>If <i>symbol</i> is a <i>ReservedWord</i>, return <b>false</b>.</li>
+          <li>If <i>symbol</i> is an <i>Identifier</i> and StringValue of <i>symbol</i> is the same value as the StringValue of
+              <i>IdentifierName</i>, return <b>true</b>;</li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">SuperProperty</span> <span class="geq">:</span> <code class="t">super</code> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+        <ol class="proc">
+          <li>If  <i>symbol</i> is the <i>ReservedWord</i> <code>super</code>, return <b>true</b>.</li>
+          <li>If <i>symbol</i> is a <i>ReservedWord</i>, return <b>false</b>.</li>
+          <li>If <i>symbol</i> is an <i>Identifier</i> and StringValue of <i>symbol</i> is the same value as the StringValue of
+              <i>IdentifierName</i>, return <b>true</b>;</li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">CallExpression</span> <span class="geq">:</span> <span class="nt">CallExpression</span> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+        <ol class="proc">
+          <li>If  <i>CallExpression</i> Contains <i>symbol</i> is <b>true</b>, return <b>true</b>.</li>
+          <li>If <i>symbol</i> is a <i>ReservedWord</i>, return <b>false</b>.</li>
+          <li>If <i>symbol</i> is an <i>Identifier</i> and StringValue of <i>symbol</i> is the same value as the StringValue of
+              <i>IdentifierName</i>, return <b>true</b>;</li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-static-semantics-static-semantics-isfunctiondefinition">
+        <h1><span class="secnum" id="sec-12.3.1.2"><a href="/sec/sec-static-semantics-static-semantics-isfunctiondefinition.html" title="link to this section">12.3.1.2</a></span> Static Semantics:  IsFunctionDefinition</h1>
+
+        <p>See also: <a href="/sec/sec-semantics-static-semantics-isfunctiondefinition.html">12.2.1.3</a>, <a href="/sec/sec-grouping-operator-static-semantics-isfunctiondefinition.html">12.2.10.2</a>, <a href="/sec/sec-postfix-expressions-static-semantics-isfunctiondefinition.html">12.4.2</a>, <a href="/sec/sec-unary-operators-static-semantics-isfunctiondefinition.html">12.5.2</a>, <a href="/sec/sec-multiplicative-operators-static-semantics-isfunctiondefinition.html">12.6.1</a>, <a href="/sec/sec-additive-operators-static-semantics-isfunctiondefinition.html">12.7.1</a>, <a href="/sec/sec-bitwise-shift-operators-static-semantics-isfunctiondefinition.html">12.8.1</a>, <a href="/sec/sec-relational-operators-static-semantics-isfunctiondefinition.html">12.9.1</a>, <a href="/sec/sec-equality-operators-static-semantics-isfunctiondefinition.html">12.10.1</a>, <a href="/sec/sec-binary-bitwise-operators-static-semantics-isfunctiondefinition.html">12.11.1</a>, <a href="/sec/sec-binary-logical-operators-static-semantics-isfunctiondefinition.html">12.12.1</a>, <a href="/sec/sec-conditional-operator-static-semantics-isfunctiondefinition.html">12.13.1</a>, <a href="/sec/sec-assignment-operators-static-semantics-isfunctiondefinition.html">12.14.2</a>, <a href="/sec/sec-comma-operator-static-semantics-isfunctiondefinition.html">12.15.1</a>, <a href="/sec/sec-function-definitions-static-semantics-isfunctiondefinition.html">14.1.11</a>, <a href="/sec/sec-generator-function-definitions-static-semantics-isfunctiondefinition.html">14.4.9</a>, <a href="/sec/sec-class-definitions-static-semantics-isfunctiondefinition.html">14.5.8</a>.</p>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">MemberExpression</span> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">MemberExpression</span> <code class="t">[</code> <span class="nt">Expression</span> <code class="t">]</code></div>
+          <div class="rhs"><span class="nt">MemberExpression</span> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+          <div class="rhs"><span class="nt">MemberExpression</span> <span class="nt">TemplateLiteral</span></div>
+          <div class="rhs"><span class="nt">SuperProperty</span></div>
+          <div class="rhs"><span class="nt">MetaProperty</span></div>
+          <div class="rhs"><code class="t">new</code> <span class="nt">MemberExpression</span> <span class="nt">Arguments</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">NewExpression</span> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">new</code> <span class="nt">NewExpression</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">CallExpression</span> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">MemberExpression</span> <span class="nt">Arguments</span></div>
+          <div class="rhs"><span class="nt">SuperCall</span></div>
+          <div class="rhs"><span class="nt">CallExpression</span> <span class="nt">Arguments</span></div>
+          <div class="rhs"><span class="nt">CallExpression</span> <code class="t">[</code> <span class="nt">Expression</span> <code class="t">]</code></div>
+          <div class="rhs"><span class="nt">CallExpression</span> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+          <div class="rhs"><span class="nt">CallExpression</span> <span class="nt">TemplateLiteral</span></div>
+        </div>
+
+        <ol class="proc">
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-static-semantics-static-semantics-isdestructuring">
+        <h1><span class="secnum" id="sec-12.3.1.3"><a href="/sec/sec-static-semantics-static-semantics-isdestructuring.html" title="link to this section">12.3.1.3</a></span> Static Semantics:  IsDestructuring</h1>
+
+        <p>See also: <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-isdestructuring.html">13.7.5.6</a>.</p>
+
+        <div class="gp prod"><span class="nt">MemberExpression</span> <span class="geq">:</span> <span class="nt">PrimaryExpression</span></div>
+        <ol class="proc">
+          <li>If <i>PrimaryExpression</i> is either an <i>ObjectLiteral</i> or an <i>ArrayLiteral</i>, return <b>true.</b></li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">MemberExpression</span> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">MemberExpression</span> <code class="t">[</code> <span class="nt">Expression</span> <code class="t">]</code></div>
+          <div class="rhs"><span class="nt">MemberExpression</span> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+          <div class="rhs"><span class="nt">MemberExpression</span> <span class="nt">TemplateLiteral</span></div>
+          <div class="rhs"><span class="nt">SuperProperty</span></div>
+          <div class="rhs"><span class="nt">MetaProperty</span></div>
+          <div class="rhs"><code class="t">new</code> <span class="nt">MemberExpression</span> <span class="nt">Arguments</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">NewExpression</span> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">new</code> <span class="nt">NewExpression</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">CallExpression</span> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">MemberExpression</span> <span class="nt">Arguments</span></div>
+          <div class="rhs"><span class="nt">SuperCall</span></div>
+          <div class="rhs"><span class="nt">CallExpression</span> <span class="nt">Arguments</span></div>
+          <div class="rhs"><span class="nt">CallExpression</span> <code class="t">[</code> <span class="nt">Expression</span> <code class="t">]</code></div>
+          <div class="rhs"><span class="nt">CallExpression</span> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+          <div class="rhs"><span class="nt">CallExpression</span> <span class="nt">TemplateLiteral</span></div>
+        </div>
+
+        <ol class="proc">
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-static-semantics-static-semantics-isidentifierref">
+        <h1><span class="secnum" id="sec-12.3.1.4"><a href="/sec/sec-static-semantics-static-semantics-isidentifierref.html" title="link to this section">12.3.1.4</a></span> Static Semantics:  IsIdentifierRef</h1>
+
+        <p>See also: <a href="/sec/sec-semantics-static-semantics-isidentifierref.html">12.2.1.4</a>.</p>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">LeftHandSideExpression</span> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">CallExpression</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">MemberExpression</span> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">MemberExpression</span> <code class="t">[</code> <span class="nt">Expression</span> <code class="t">]</code></div>
+          <div class="rhs"><span class="nt">MemberExpression</span> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+          <div class="rhs"><span class="nt">MemberExpression</span> <span class="nt">TemplateLiteral</span></div>
+          <div class="rhs"><span class="nt">SuperProperty</span></div>
+          <div class="rhs"><span class="nt">MetaProperty</span></div>
+          <div class="rhs"><code class="t">new</code> <span class="nt">MemberExpression</span> <span class="nt">Arguments</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">NewExpression</span> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">new</code> <span class="nt">NewExpression</span></div>
+        </div>
+
+        <ol class="proc">
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-static-semantics-static-semantics-isvalidsimpleassignmenttarget">
+        <h1><span class="secnum" id="sec-12.3.1.5"><a href="/sec/sec-static-semantics-static-semantics-isvalidsimpleassignmenttarget.html" title="link to this section">12.3.1.5</a></span> Static Semantics:  IsValidSimpleAssignmentTarget</h1>
+
+        <p>See also: <a href="/sec/sec-identifiers-static-semantics-isvalidsimpleassignmenttarget.html">12.1.3</a>, <a href="/sec/sec-semantics-static-semantics-isvalidsimpleassignmenttarget.html">12.2.1.5</a>, <a href="/sec/sec-grouping-operator-static-semantics-isvalidsimpleassignmenttarget.html">12.2.10.3</a>, <a href="/sec/sec-postfix-expressions-static-semantics-isvalidsimpleassignmenttarget.html">12.4.3</a>, <a href="/sec/sec-unary-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.5.3</a>, <a href="/sec/sec-multiplicative-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.6.2</a>, <a href="/sec/sec-additive-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.7.2</a>, <a href="/sec/sec-bitwise-shift-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.8.2</a>, <a href="/sec/sec-relational-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.9.2</a>, <a href="/sec/sec-equality-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.10.2</a>, <a href="/sec/sec-binary-bitwise-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.11.2</a>, <a href="/sec/sec-binary-logical-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.12.2</a>, <a href="/sec/sec-conditional-operator-static-semantics-isvalidsimpleassignmenttarget.html">12.13.2</a>, <a href="/sec/sec-assignment-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.14.3</a>, <a href="/sec/sec-comma-operator-static-semantics-isvalidsimpleassignmenttarget.html">12.15.2</a>.</p>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">CallExpression</span> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">CallExpression</span> <code class="t">[</code> <span class="nt">Expression</span> <code class="t">]</code></div>
+          <div class="rhs"><span class="nt">CallExpression</span> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">MemberExpression</span> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">MemberExpression</span> <code class="t">[</code> <span class="nt">Expression</span> <code class="t">]</code></div>
+          <div class="rhs"><span class="nt">MemberExpression</span> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+          <div class="rhs"><span class="nt">SuperProperty</span></div>
+        </div>
+
+        <ol class="proc">
+          <li>Return <b>true</b>.</li>
+        </ol>
+
+        <div class="gp">
+          <div class="lhs">&#xE7;<span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">MemberExpression</span> <span class="nt">Arguments</span></div>
+          <div class="rhs"><span class="nt">SuperCall</span></div>
+          <div class="rhs"><span class="nt">CallExpression</span> <span class="nt">Arguments</span></div>
+          <div class="rhs"><span class="nt">CallExpression</span> <span class="nt">TemplateLiteral</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">NewExpression</span> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">new</code> <span class="nt">NewExpression</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">MemberExpression</span> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">MemberExpression</span> <span class="nt">TemplateLiteral</span></div>
+          <div class="rhs"><code class="t">new</code> <span class="nt">MemberExpression</span> <span class="nt">Arguments</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">NewTarget</span> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">new</code> <code class="t">.</code> <code class="t">target</code></div>
+        </div>
+
+        <ol class="proc">
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-property-accessors">
+      <h1><span class="secnum" id="sec-12.3.2"><a href="/sec/sec-property-accessors.html" title="link to this section">12.3.2</a></span>
+          Property Accessors</h1>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> Properties are accessed by name, using either the dot notation:</p>
+
+        <div class="rhs"><span class="nt">MemberExpression</span> <code>.</code> <span class="nt">IdentifierName</span><br> <span class="nt">CallExpression</span> <code>.</code> <span class="nt">IdentifierName</span></div>
+
+        <p>or the bracket notation:</p>
+
+        <div class="rhs"><span class="nt">MemberExpression</span> <code>[</code> <span class="nt">Expression</span> <code>]</code><br><span class="nt">CallExpression</span> <code>[</code> <span class="nt">Expression</span> <code>]</code></div>
+
+        <p>The dot notation is explained by the following syntactic conversion:</p>
+
+        <div class="rhs"><span class="nt">MemberExpression</span> <code>.</code> <span class="nt">IdentifierName</span></div>
+
+        <p>is identical in its behaviour to</p>
+
+        <div class="rhs"><span class="nt">MemberExpression</span> <code>[</code> &lt;<i>identifier-name-string</i>&gt; <code>]</code></div>
+
+        <p>and similarly</p>
+
+        <div class="rhs"><span class="nt">CallExpression</span> <code>.</code> <span class="nt">IdentifierName</span></div>
+
+        <p>is identical in its behaviour to</p>
+
+        <div class="rhs"><span class="nt">CallExpression</span> <code>[</code> &lt;<i>identifier-name-string</i>&gt; <code>]</code></div>
+
+        <p>where <var>&lt;<i>identifier-name-string</i>&gt;</var> is the result of evaluating StringValue of <span class="nt">IdentifierName</span>.</p>
+
+        <section id="sec-property-accessors-runtime-semantics-evaluation">
+          <h1><span class="secnum" id="sec-12.3.2.1"><a href="/sec/sec-property-accessors-runtime-semantics-evaluation.html" title="link to this section">12.3.2.1</a></span> Runtime Semantics: Evaluation</h1>
+          <div class="gp prod"><span class="nt">MemberExpression</span> <span class="geq">:</span> <span class="nt">MemberExpression</span> <code class="t">[</code> <span class="nt">Expression</span> <code class="t">]</code></div>
+          <ol class="proc">
+            <li>Let <i>baseReference</i> be the result of evaluating <i>MemberExpression</i>.</li>
+            <li>Let <i>baseValue</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>baseReference</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>baseValue</i>).</li>
+            <li>Let <i>propertyNameReference</i> be the result of evaluating <i>Expression</i>.</li>
+            <li>Let <i>propertyNameValue</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>propertyNameReference</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>propertyNameValue</i>).</li>
+            <li>Let <i>bv</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<i>baseValue</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>bv</i>).</li>
+            <li>Let <i>propertyKey</i> be <a href="/sec/sec-topropertykey.html">ToPropertyKey</a>(<i>propertyNameValue</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>propertyKey</i>).</li>
+            <li>If the code matched by the syntactic production that is being evaluated is <a href="/sec/sec-strict-mode-code.html">strict
+                mode code</a>, let <i>strict</i> be <b>true</b>, else let <i>strict</i> be <b>false</b>.</li>
+            <li>Return a value of type <a href="/sec/sec-reference-specification-type.html">Reference</a> whose base value is <i>bv</i> and
+                whose referenced name is <i>propertyKey</i>, and whose strict reference flag is <i>strict</i>.</li>
+          </ol>
+          <div class="gp prod"><span class="nt">MemberExpression</span> <span class="geq">:</span> <span class="nt">MemberExpression</span> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+          <ol class="proc">
+            <li>Let <i>baseReference</i> be the result of evaluating <i>MemberExpression</i>.</li>
+            <li>Let <i>baseValue</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>baseReference</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>baseValue</i>).</li>
+            <li>Let <i>bv</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<i>baseValue</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>bv</i>).</li>
+            <li>Let <i>propertyNameString</i> be StringValue of <i>IdentifierName</i></li>
+            <li>If the code matched by the syntactic production that is being evaluated is <a href="/sec/sec-strict-mode-code.html">strict
+                mode code</a>, let <i>strict</i> be <b>true</b>, else let <i>strict</i> be <b>false</b>.</li>
+            <li>Return a value of type <a href="/sec/sec-reference-specification-type.html">Reference</a> whose base value is <i>bv</i> and
+                whose referenced name is <i>propertyNameString</i>, and whose strict reference flag is <i>strict</i>.</li>
+          </ol>
+          <div class="gp prod"><span class="nt">CallExpression</span> <span class="geq">:</span> <span class="nt">CallExpression</span> <code class="t">[</code> <span class="nt">Expression</span> <code class="t">]</code></div>
+
+          <p>Is evaluated in exactly the same manner as <span class="prod"><span class="nt">MemberExpression</span> <span class="geq">:</span> <span class="nt">MemberExpression</span> <code class="t">[</code> <span class="nt">Expression</span> <code class="t">]</code></span> except that the contained <span class="nt">CallExpression</span> is evaluated in step 1.</p>
+
+          <div class="gp prod"><span class="nt">CallExpression</span> <span class="geq">:</span> <span class="nt">CallExpression</span> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+
+          <p>Is evaluated in exactly the same manner as <span class="prod"><span class="nt">MemberExpression</span> <span class="geq">:</span> <span class="nt">MemberExpression</span> <code class="t">.</code> <span class="nt">IdentifierName</span></span>  except that the contained <span class="nt">CallExpression</span> is evaluated
+          in step 1.</p>
+        </section>
+      </div>
+    </section>
+
+    <section id="sec-new-operator">
+      <div class="front">
+        <h1><span class="secnum" id="sec-12.3.3"><a href="/sec/sec-new-operator.html" title="link to this section">12.3.3</a></span> The
+            <code>new</code> Operator</h1>
+      </div>
+
+      <section id="sec-new-operator-runtime-semantics-evaluation">
+        <div class="front">
+          <h1><span class="secnum" id="sec-12.3.3.1"><a href="/sec/sec-new-operator-runtime-semantics-evaluation.html" title="link to this section">12.3.3.1</a></span> Runtime Semantics: Evaluation</h1>
+          <div class="gp prod"><span class="nt">NewExpression</span> <span class="geq">:</span> <code class="t">new</code> <span class="nt">NewExpression</span></div>
+          <ol class="proc">
+            <li>Return <a href="/sec/sec-evaluatenew.html">EvaluateNew</a>(<i>NewExpression</i>, <span style="font-family:
+                sans-serif">empty</span>).</li>
+          </ol>
+          <div class="gp prod"><span class="nt">MemberExpression</span> <span class="geq">:</span> <code class="t">new</code> <span class="nt">MemberExpression</span> <span class="nt">Arguments</span></div>
+          <ol class="proc">
+            <li>Return <a href="/sec/sec-evaluatenew.html">EvaluateNew</a>(<i>MemberExpression</i>, <i>Arguments</i>).</li>
+          </ol>
+        </div>
+
+        <section id="sec-evaluatenew">
+          <h1><span class="secnum" id="sec-12.3.3.1.1"><a href="/sec/sec-evaluatenew.html" title="link to this section">12.3.3.1.1</a></span> Runtime Semantics: EvaluateNew(constructProduction,
+              arguments)</h1>
+
+          <p class="normalbefore">The abstract operation EvaluateNew with arguments <span style="font-family: Times New
+          Roman"><i>constructProduction</i>,</span> and <var>arguments</var> performs the following steps:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>constructProduction</i> is either a <i>NewExpression</i> or a
+                <i>MemberExpression</i>.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>arguments</i> is either <span style="font-family:
+                sans-serif">empty</span> or an <i>Arguments</i> production.</li>
+            <li>Let <i>ref</i> be the result of evaluating  <i>constructProduction</i>.</li>
+            <li>Let <i>constructor</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>ref</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>constructor</i>).</li>
+            <li>If <i>arguments</i> is <span style="font-family: sans-serif">empty</span>, let <i>argList</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+            <li>Else,
+              <ol class="block">
+                <li>Let <i>argList</i> be ArgumentListEvaluation of <i>arguments</i>.</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>argList</i>).</li>
+              </ol>
+            </li>
+            <li>If <a href="/sec/sec-isconstructor.html">IsConstructor</a> (<i>constructor</i>) is <b>false</b>, throw a <b>TypeError</b>
+                exception.</li>
+            <li>Return <a href="/sec/sec-construct.html">Construct</a>(<i>constructor</i>, <i>argList</i>).</li>
+          </ol>
+        </section>
+      </section>
+    </section>
+
+    <section id="sec-function-calls">
+      <div class="front">
+        <h1><span class="secnum" id="sec-12.3.4"><a href="/sec/sec-function-calls.html" title="link to this section">12.3.4</a></span>
+            Function Calls</h1>
+      </div>
+
+      <section id="sec-function-calls-runtime-semantics-evaluation">
+        <h1><span class="secnum" id="sec-12.3.4.1"><a href="/sec/sec-function-calls-runtime-semantics-evaluation.html" title="link to this section">12.3.4.1</a></span> Runtime Semantics: Evaluation</h1>
+        <div class="gp prod"><span class="nt">CallExpression</span> <span class="geq">:</span> <span class="nt">MemberExpression</span> <span class="nt">Arguments</span></div>
+        <ol class="proc">
+          <li>Let <i>ref</i> be the result of evaluating <i>MemberExpression</i>.</li>
+          <li>Let <i>func</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>ref</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>func</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>ref</i>) is <a href="/sec/sec-reference-specification-type.html">Reference</a> and <a href="/sec/sec-reference-specification-type.html">IsPropertyReference</a>(<i>ref</i>) is <b>false</b> and <a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>ref</i>) <i>is</i> <code>&quot;eval&quot;</code>, then
+            <ol class="block">
+              <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>func</i>, %eval%) is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>argList</i> be ArgumentListEvaluation(<i>Arguments</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>argList</i>).</li>
+                  <li>If <i>argList</i> has no elements, return <b>undefined.</b></li>
+                  <li>Let <i>evalText</i> be the first element of <i>argList</i>.</li>
+                  <li>If the source code matching this <i>CallExpression</i> is <a href="/sec/sec-strict-mode-code.html">strict code</a>,
+                      let <i>strictCaller</i> be <b>true.</b> Otherwise let <i>strictCaller</i> be <b>false.</b></li>
+                  <li>Let <i>evalRealm</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-code-realms.html">Realm</a>.</li>
+                  <li>Return <a href="/sec/sec-performeval.html">PerformEval</a>(<i>evalText</i>, <i>evalRealm</i>, <i>strictCaller</i>,
+                      <b>true</b>). .</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>ref</i>) is <a href="/sec/sec-reference-specification-type.html">Reference</a>, then
+            <ol class="block">
+              <li>If <a href="/sec/sec-reference-specification-type.html">IsPropertyReference</a>(<i>ref</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>thisValue</i> be <a href="/sec/sec-getthisvalue.html">GetThisValue</a>(<i>ref</i>).</li>
+                </ol>
+              </li>
+              <li>Else, the base of <i>ref</i> is an <a href="/sec/sec-environment-records.html">Environment Record</a>
+                <ol class="block">
+                  <li>Let <i>refEnv</i> be <a href="/sec/sec-reference-specification-type.html">GetBase</a>(<i>ref</i>).</li>
+                  <li>Let <i>thisValue</i> be <i>refEnv</i>.WithBaseObject().</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Else <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>ref</i>) is not <a href="/sec/sec-reference-specification-type.html">Reference</a>,
+            <ol class="block">
+              <li>Let <i>thisValue</i> be <b>undefined</b>.</li>
+            </ol>
+          </li>
+          <li>Let <i>thisCall</i> be this <i>CallExpression</i>.</li>
+          <li>Let <i>tailCall</i> be <a href="/sec/sec-isintailposition.html">IsInTailPosition</a>(<i>thisCall</i>). (See <a href="/sec/sec-isintailposition.html">14.6.1</a>)</li>
+          <li>Return <a href="/sec/sec-evaluatedirectcall.html">EvaluateDirectCall</a>(<i>func</i>, <i>thisValue</i>, <i>Arguments</i>,
+              <i>tailCall</i>).</li>
+        </ol>
+
+        <p>A <span class="nt">CallExpression</span> evaluation that executes step 4.a.vii is a <i>direct eval</i>.</p>
+
+        <div class="gp prod"><span class="nt">CallExpression</span> <span class="geq">:</span> <span class="nt">CallExpression</span> <span class="nt">Arguments</span></div>
+        <ol class="proc">
+          <li>Let <i>ref</i> be the result of evaluating <i>CallExpression</i>.</li>
+          <li>Let <i>thisCall</i> be this <i>CallExpression</i></li>
+          <li>Let <i>tailCall</i> be <a href="/sec/sec-isintailposition.html">IsInTailPosition</a>(<i>thisCall</i>). (See <a href="/sec/sec-isintailposition.html">14.6.1</a>)</li>
+          <li>Return <a href="/sec/sec-evaluatecall.html">EvaluateCall</a>(<i>ref</i>, <i>Arguments</i>, <i>tailCall</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-evaluatecall">
+        <h1><span class="secnum" id="sec-12.3.4.2"><a href="/sec/sec-evaluatecall.html" title="link to this section">12.3.4.2</a></span>
+            Runtime Semantics: EvaluateCall( ref, arguments, tailPosition )</h1>
+
+        <p class="normalbefore">The abstract operation EvaluateCall takes as arguments a value <var>ref</var>, a syntactic grammar
+        production <var>arguments</var>,  and a Boolean argument <var>tailPosition</var>. It performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>func</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>ref</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>func</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>ref</i>) is <a href="/sec/sec-reference-specification-type.html">Reference</a>, then
+            <ol class="block">
+              <li>If <a href="/sec/sec-reference-specification-type.html">IsPropertyReference</a>(<i>ref</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>thisValue</i> be <a href="/sec/sec-getthisvalue.html">GetThisValue</a>(<i>ref</i>).</li>
+                </ol>
+              </li>
+              <li>Else, the base of <i>ref</i> is an <a href="/sec/sec-environment-records.html">Environment Record</a>
+                <ol class="block">
+                  <li>Let <i>refEnv</i> be <a href="/sec/sec-reference-specification-type.html">GetBase</a>(<i>ref</i>).</li>
+                  <li>Let <i>thisValue</i> be <i>refEnv</i>.WithBaseObject().</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Else <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>ref</i>) is not <a href="/sec/sec-reference-specification-type.html">Reference</a>,
+            <ol class="block">
+              <li>Let <i>thisValue</i> be <b>undefined</b>.</li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-evaluatedirectcall.html">EvaluateDirectCall</a>(<i>func</i>, <i>thisValue</i>, <i>arguments</i>,
+              <i>tailPosition</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-evaluatedirectcall">
+        <h1><span class="secnum" id="sec-12.3.4.3"><a href="/sec/sec-evaluatedirectcall.html" title="link to this section">12.3.4.3</a></span> Runtime Semantics: EvaluateDirectCall( func, thisValue, arguments,
+            tailPosition )</h1>
+
+        <p class="normalbefore">The abstract operation EvaluateDirectCall takes as arguments a value <var>func</var>, a value
+        <var>thisValue</var>, a syntactic grammar production <var>arguments</var>, and a Boolean argument <var>tailPosition</var>.
+        It performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>argList</i> be ArgumentListEvaluation(<i>arguments</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>argList</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>func</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>func</i>) is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+          <li>If <i>tailPosition</i> is <b>true</b>, perform <a href="/sec/sec-preparefortailcall.html">PrepareForTailCall</a>().</li>
+          <li>Let <i>result</i> be <a href="/sec/sec-call.html">Call</a>(<i>func</i>, <i>thisValue</i>, <i>argList</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: If <i>tailPosition</i> is <b>true</b>, the above call will not
+              return here, but instead evaluation will continue as if the following return has already occurred.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: If <i>result</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a> then <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>result</i>) is an <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language type</a>.</li>
+          <li>Return <i>result</i>.</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-super-keyword">
+      <div class="front">
+        <h1><span class="secnum" id="sec-12.3.5"><a href="/sec/sec-super-keyword.html" title="link to this section">12.3.5</a></span> The
+            <code>super</code> Keyword</h1>
+      </div>
+
+      <section id="sec-super-keyword-runtime-semantics-evaluation">
+        <h1><span class="secnum" id="sec-12.3.5.1"><a href="/sec/sec-super-keyword-runtime-semantics-evaluation.html" title="link to this section">12.3.5.1</a></span> Runtime Semantics: Evaluation</h1>
+        <div class="gp prod"><span class="nt">SuperProperty</span> <span class="geq">:</span> <code class="t">super</code> <code class="t">[</code> <span class="nt">Expression</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Let <i>propertyNameReference</i> be the result of evaluating <i>Expression</i>.</li>
+          <li>Let <i>propertyNameValue</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>propertyNameReference</i>).</li>
+          <li>Let <i>propertyKey</i> be <a href="/sec/sec-topropertykey.html">ToPropertyKey</a>(<i>propertyNameValue</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>propertyKey</i>).</li>
+          <li>If the code matched by the syntactic production that is being evaluated is <a href="/sec/sec-strict-mode-code.html">strict
+              mode code</a>, let <i>strict</i> be <b>true</b>, else let <i>strict</i> be <b>false</b>.</li>
+          <li>Return <a href="/sec/sec-makesuperpropertyreference.html">MakeSuperPropertyReference</a>(<i>propertyKey</i>,
+              <i>strict</i>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">SuperProperty</span> <span class="geq">:</span> <code class="t">super</code> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+        <ol class="proc">
+          <li>Let <i>propertyKey</i> be StringValue of <i>IdentifierName</i>.</li>
+          <li>If the code matched by the syntactic production that is being evaluated is <a href="/sec/sec-strict-mode-code.html">strict
+              mode code</a>, let <i>strict</i> be <b>true</b>, else let <i>strict</i> be <b>false</b>.</li>
+          <li>Return <a href="/sec/sec-makesuperpropertyreference.html">MakeSuperPropertyReference</a>(<i>propertyKey</i>,
+              <i>strict</i>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">SuperCall</span> <span class="geq">:</span> <code class="t">super</code> <span class="nt">Arguments</span></div>
+        <ol class="proc">
+          <li>Let <i>newTarget</i> be <a href="/sec/sec-getnewtarget.html">GetNewTarget</a>().</li>
+          <li>If <i>newTarget</i> is <b>undefined</b>, throw a <b>ReferenceError</b> exception.</li>
+          <li>Let <i>func</i> be <a href="/sec/sec-getsuperconstructor.html">GetSuperConstructor</a>().</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>func</i>).</li>
+          <li>Let <i>argList</i> be ArgumentListEvaluation of <i>Arguments</i>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>argList</i>).</li>
+          <li>Let <i>result</i> be <a href="/sec/sec-construct.html">Construct</a>(<i>func</i>, <i>argList</i>, <i>newTarget</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>result</i>).</li>
+          <li>Let <i>thisER</i> be <a href="/sec/sec-getthisenvironment.html">GetThisEnvironment</a>( ).</li>
+          <li>Return <i>thisER</i>.<a href="/sec/sec-bindthisvalue.html">BindThisValue</a>(<i>result</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-getsuperconstructor">
+        <h1><span class="secnum" id="sec-12.3.5.2"><a href="/sec/sec-getsuperconstructor.html" title="link to this section">12.3.5.2</a></span> Runtime Semantics: GetSuperConstructor ( )</h1>
+
+        <p class="normalbefore">The abstract operation GetSuperConstructor performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>envRec</i> be <a href="/sec/sec-getthisenvironment.html">GetThisEnvironment</a>( ).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>envRec</i> is a function <a href="/sec/sec-environment-records.html">Environment Record</a>.</li>
+          <li>Let <i>activeFunction</i> be <i>envRec</i>.[[FunctionObject]].</li>
+          <li>Let <i>superConstructor</i> be <i>activeFunction</i>.[[GetPrototypeOf]]().</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>superConstructor</i>).</li>
+          <li>If <a href="/sec/sec-isconstructor.html">IsConstructor</a>(<i>superConstructor</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Return <i>superConstructor</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-makesuperpropertyreference">
+        <h1><span class="secnum" id="sec-12.3.5.3"><a href="/sec/sec-makesuperpropertyreference.html" title="link to this section">12.3.5.3</a></span> Runtime Semantics: MakeSuperPropertyReference(propertyKey,
+            strict)</h1>
+
+        <p class="normalbefore">The abstract operation MakeSuperPropertyReference with arguments <var>propertyKey</var> and
+        <var>strict</var> performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>env</i> be <a href="/sec/sec-getthisenvironment.html">GetThisEnvironment</a>( ).</li>
+          <li>If <i>env</i>.HasSuperBinding() is <b>false</b>, throw a <b>ReferenceError</b> exception.</li>
+          <li>Let <i>actualThis</i> be <i>env</i>.GetThisBinding().</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>actualThis</i>).</li>
+          <li>Let <i>baseValue</i> be <i>env</i>.<a href="/sec/sec-getsuperbase.html">GetSuperBase</a>().</li>
+          <li>Let <i>bv</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<i>baseValue</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>bv</i>).</li>
+          <li>Return a value of type <a href="/sec/sec-reference-specification-type.html">Reference</a> that is a Super <a href="/sec/sec-reference-specification-type.html">Reference</a> whose base value is <i>bv</i>, whose referenced name is
+              <i>propertyKey</i>, whose thisValue is <i>actualThis</i>, and whose strict reference flag is <i>strict</i>.</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-argument-lists">
+      <div class="front">
+        <h1><span class="secnum" id="sec-12.3.6"><a href="/sec/sec-argument-lists.html" title="link to this section">12.3.6</a></span>
+            Argument Lists</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The evaluation of an argument list produces a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of values (<a href="/sec/sec-list-and-record-specification-type.html">see
+          6.2.1</a>).</p>
+        </div>
+      </div>
+
+      <section id="sec-argument-lists-runtime-semantics-argumentlistevaluation">
+        <h1><span class="secnum" id="sec-12.3.6.1"><a href="/sec/sec-argument-lists-runtime-semantics-argumentlistevaluation.html" title="link to this section">12.3.6.1</a></span> Runtime Semantics: ArgumentListEvaluation</h1>
+
+        <p>See also: <a href="/sec/sec-template-literals-runtime-semantics-argumentlistevaluation.html">12.2.9.2</a></p>
+
+        <div class="gp prod"><span class="nt">Arguments</span> <span class="geq">:</span> <code class="t">(</code> <code class="t">)</code></div>
+        <ol class="proc">
+          <li>Return an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArgumentList</span> <span class="geq">:</span> <span class="nt">AssignmentExpression</span></div>
+        <ol class="proc">
+          <li>Let <i>ref</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+          <li>Let <i>arg</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>ref</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>arg</i>).</li>
+          <li>Return a <a href="/sec/sec-list-and-record-specification-type.html">List</a> whose sole item is <i>arg</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArgumentList</span> <span class="geq">:</span> <code class="t">...</code> <span class="nt">AssignmentExpression</span></div>
+        <ol class="proc">
+          <li>Let <i>list</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>Let <i>spreadRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+          <li>Let <i>spreadObj</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>spreadRef</i>).</li>
+          <li>Let <i>iterator</i> be <a href="/sec/sec-getiterator.html">GetIterator</a>(<i>spreadObj</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>iterator</i>).</li>
+          <li>Repeat
+            <ol class="block">
+              <li>Let <i>next</i> be <a href="/sec/sec-iteratorstep.html">IteratorStep</a>(<i>iterator</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+              <li>If <i>next</i> is <b>false</b>, return <i>list</i>.</li>
+              <li>Let <i>nextArg</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>next</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextArg</i>).</li>
+              <li>Append <i>nextArg</i> as the last element of <i>list</i>.</li>
+            </ol>
+          </li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArgumentList</span> <span class="geq">:</span> <span class="nt">ArgumentList</span> <code class="t">,</code> <span class="nt">AssignmentExpression</span></div>
+        <ol class="proc">
+          <li>Let <i>precedingArgs</i> be the result of evaluating <i>ArgumentList</i>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>precedingArgs</i>).</li>
+          <li>Let <i>ref</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+          <li>Let <i>arg</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>ref</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>arg</i>).</li>
+          <li>Append <i>arg</i> to the end of <i>precedingArgs</i>.</li>
+          <li>Return <i>precedingArgs</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArgumentList</span> <span class="geq">:</span> <span class="nt">ArgumentList</span> <code class="t">,</code> <code class="t">...</code> <span class="nt">AssignmentExpression</span></div>
+        <ol class="proc">
+          <li>Let <i>precedingArgs</i> be the result of evaluating <i>ArgumentList</i>.</li>
+          <li>Let <i>spreadRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+          <li>Let <i>iterator</i> be <a href="/sec/sec-getiterator.html">GetIterator</a>(<a href="/sec/sec-getvalue.html">GetValue</a>(<i>spreadRef</i>) ).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>iterator</i>).</li>
+          <li>Repeat
+            <ol class="block">
+              <li>Let <i>next</i> be <a href="/sec/sec-iteratorstep.html">IteratorStep</a>(<i>iterator</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+              <li>If <i>next</i> is <b>false</b>, return <i>precedingArgs</i>.</li>
+              <li>Let <i>nextArg</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>next</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextArg</i>).</li>
+              <li>Append <i>nextArg</i> as the last element of <i>precedingArgs</i>.</li>
+            </ol>
+          </li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-tagged-templates">
+      <div class="front">
+        <h1><span class="secnum" id="sec-12.3.7"><a href="/sec/sec-tagged-templates.html" title="link to this section">12.3.7</a></span>
+            Tagged Templates</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> A tagged template is a function call where the arguments of the call are derived from a
+          <span class="nt">TemplateLiteral</span> (<a href="/sec/sec-template-literals.html">12.2.9</a>). The actual arguments include a
+          template object (<a href="/sec/sec-gettemplateobject.html">12.2.9.3</a>) and the values produced by evaluating the expressions
+          embedded within the <span class="nt">TemplateLiteral</span>.</p>
+        </div>
+      </div>
+
+      <section id="sec-tagged-templates-runtime-semantics-evaluation">
+        <h1><span class="secnum" id="sec-12.3.7.1"><a href="/sec/sec-tagged-templates-runtime-semantics-evaluation.html" title="link to this section">12.3.7.1</a></span> Runtime Semantics: Evaluation</h1>
+        <div class="gp prod"><span class="nt">MemberExpression</span> <span class="geq">:</span> <span class="nt">MemberExpression</span> <span class="nt">TemplateLiteral</span></div>
+        <ol class="proc">
+          <li>Let <i>tagRef</i> be the result of evaluating <i>MemberExpression</i>.</li>
+          <li>Let <i>thisCall</i> be this <i>MemberExpression</i>.</li>
+          <li>Let <i>tailCall</i> be <a href="/sec/sec-isintailposition.html">IsInTailPosition</a>(<i>thisCall</i>). (See <a href="/sec/sec-isintailposition.html">14.6.1</a>)</li>
+          <li>Return <a href="/sec/sec-evaluatecall.html">EvaluateCall</a>(<i>tagRef</i>, <i>TemplateLiteral</i>, <i>tailCall</i>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">CallExpression</span> <span class="geq">:</span> <span class="nt">CallExpression</span> <span class="nt">TemplateLiteral</span></div>
+        <ol class="proc">
+          <li>Let <i>tagRef</i> be the result of evaluating <i>CallExpression</i>.</li>
+          <li>Let <i>thisCall</i> be this <i>CallExpression</i>.</li>
+          <li>Let <i>tailCall</i> be <a href="/sec/sec-isintailposition.html">IsInTailPosition</a>(<i>thisCall</i>). (See <a href="/sec/sec-isintailposition.html">14.6.1</a>)</li>
+          <li>Return <a href="/sec/sec-evaluatecall.html">EvaluateCall</a>(<i>tagRef</i>, <i>TemplateLiteral</i>, <i>tailCall</i>).</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-meta-properties">
+      <div class="front">
+        <h1><span class="secnum" id="sec-12.3.8"><a href="/sec/sec-meta-properties.html" title="link to this section">12.3.8</a></span>
+            Meta Properties</h1>
+      </div>
+
+      <section id="sec-meta-properties-runtime-semantics-evaluation">
+        <h1><span class="secnum" id="sec-12.3.8.1"><a href="/sec/sec-meta-properties-runtime-semantics-evaluation.html" title="link to this section">12.3.8.1</a></span> Runtime Semantics: Evaluation</h1>
+        <div class="gp prod"><span class="nt">NewTarget</span> <span class="geq">:</span> <code class="t">new</code> <code class="t">.</code> <code class="t">target</code></div>
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-getnewtarget.html">GetNewTarget</a>().</li>
+        </ol>
+      </section>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

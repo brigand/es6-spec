@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-13.3.3.6"><a href="/sec/sec-destructuring-binding-patterns-runtime-semantics-iteratorbindinginitialization.html" title="link to this section">13.3.3.6</a></span> Runtime Semantics: IteratorBindingInitialization</h1>
+
+        <p>With parameters <var>iteratorRecord,</var> and  <var>environment</var>.</p>
+
+        <p>See also: <a href="/sec/sec-function-definitions-runtime-semantics-iteratorbindinginitialization.html">14.1.18</a>, <a href="/sec/sec-arrow-function-definitions-runtime-semantics-iteratorbindinginitialization.html">14.2.14</a>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> When <b>undefined</b> is passed for <var>environment</var> it indicates that a <a href="/sec/sec-putvalue.html">PutValue</a> operation should be used to assign the initialization value. This is the case for
+          formal parameter lists of non-strict functions. In that case the formal parameter bindings are preinitialized in order
+          to deal with the possibility of multiple parameters with the same name.</p>
+        </div>
+
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+              sans-serif">empty</span>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">Elision</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Return the result of performing IteratorDestructuringAssignmentEvaluation of <i>Elision</i> with
+              <i>iteratorRecord</i> as the argument.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <span class="nt">BindingRestElement</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>If <i>Elision</i> is present, then
+            <ol class="block">
+              <li>Let <i>status</i> be the result of performing IteratorDestructuringAssignmentEvaluation of <i>Elision</i> with
+                  <i>iteratorRecord</i> as the argument.</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+            </ol>
+          </li>
+          <li>Return the result of performing IteratorBindingInitialization for <i>BindingRestElement</i>  with
+              <i>iteratorRecord</i> and <i>environment</i> as arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">BindingElementList</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Return the result of performing IteratorBindingInitialization for <i>BindingElementList</i> with
+              <i>iteratorRecord</i> and <i>environment</i> as arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">BindingElementList</span> <code class="t">,</code> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Return the result of performing IteratorBindingInitialization for <i>BindingElementList</i> with
+              <i>iteratorRecord</i> and <i>environment</i> as arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">BindingElementList</span> <code class="t">,</code> <span class="nt">Elision</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Let <i>status</i> be the result of performing IteratorBindingInitialization for <i>BindingElementList</i> with
+              <i>iteratorRecord</i> and <i>environment</i> as arguments.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          <li>Return the result of performing IteratorDestructuringAssignmentEvaluation of <i>Elision</i> with
+              <i>iteratorRecord</i> as the argument.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">BindingElementList</span> <code class="t">,</code> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <span class="nt">BindingRestElement</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Let <i>status</i> be the result of performing IteratorBindingInitialization for <i>BindingElementList</i> with
+              <i>iteratorRecord</i> and <i>environment</i> as arguments.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          <li>If <i>Elision</i> is present, then
+            <ol class="block">
+              <li>Let <i>status</i> be the result of performing IteratorDestructuringAssignmentEvaluation of <i>Elision</i> with
+                  <i>iteratorRecord</i> as the argument.</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+            </ol>
+          </li>
+          <li>Return the result of performing IteratorBindingInitialization for <i>BindingRestElement</i>  with
+              <i>iteratorRecord</i> and <i>environment</i> as arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElementList</span> <span class="geq">:</span> <span class="nt">BindingElisionElement</span></div>
+        <ol class="proc">
+          <li>Return the result of performing IteratorBindingInitialization for <i>BindingElisionElement</i>  with
+              <i>iteratorRecord</i> and <i>environment</i> as arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElementList</span> <span class="geq">:</span> <span class="nt">BindingElementList</span> <code class="t">,</code> <span class="nt">BindingElisionElement</span></div>
+        <ol class="proc">
+          <li>Let <i>status</i> be the result of performing IteratorBindingInitialization for <i>BindingElementList</i>
+              <i>with</i> <i>iteratorRecord</i> and <i>environment</i> as arguments.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          <li>Return the result of performing IteratorBindingInitialization for <i>BindingElisionElement</i> using
+              <i>iteratorRecord</i> and <i>environment</i> as arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElisionElement</span> <span class="geq">:</span> <span class="nt">BindingElement</span></div>
+        <ol class="proc">
+          <li>Return the result of performing IteratorBindingInitialization of <i>BindingElement</i> with <i>iteratorRecord</i>
+              and <i>environment</i> as the arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElisionElement</span> <span class="geq">:</span> <span class="nt">Elision</span> <span class="nt">BindingElement</span></div>
+        <ol class="proc">
+          <li>Let <i>status</i> be the result of performing IteratorDestructuringAssignmentEvaluation of <i>Elision</i> with
+              <i>iteratorRecord</i> as the argument.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          <li>Return the result of performing IteratorBindingInitialization of <i>BindingElement</i> with <i>iteratorRecord</i>
+              and <i>environment</i> as the arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElement</span> <span class="geq">:</span> <span class="nt">SingleNameBinding</span></div>
+        <ol class="proc">
+          <li>Return the result of performing IteratorBindingInitialization for <i>SingleNameBinding</i> with <i>iteratorRecord
+              and</i> <i>environment</i> as the arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">SingleNameBinding</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span> <span class="nt">Initializer</span><sub class="g-opt">opt</sub></div>
+        <ol class="proc">
+          <li>Let <i>bindingId</i> be StringValue of <i>BindingIdentifier.</i></li>
+          <li>Let <i>lhs</i> be <a href="/sec/sec-resolvebinding.html">ResolveBinding</a>(<i>bindingId</i>, <i>environment</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lhs</i>).</li>
+          <li>If <i>iteratorRecord</i>.[[done]] is <b>false</b>, then
+            <ol class="block">
+              <li>Let <i>next</i> be <a href="/sec/sec-iteratorstep.html">IteratorStep</a>(<i>iteratorRecord</i>.[[iterator]]).</li>
+              <li>If <i>next</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+                  <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+              <li>If <i>next</i> is <b>false</b>, set <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+              <li>Else,
+                <ol class="block">
+                  <li>Let <i>v</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>next</i>).</li>
+                  <li>If <i>v</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+                      <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>iteratorRecord</i>.[[done]] is <b>true</b>, let <i>v</i> be <b>undefined</b>.</li>
+          <li>If <i>Initializer</i> is present and <i>v</i> is <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>defaultValue</i> be the result of evaluating <i>Initializer</i>.</li>
+              <li>Let <i>v</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>defaultValue</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+              <li>If <a href="/sec/sec-isanonymousfunctiondefinition.html">IsAnonymousFunctionDefinition</a>(<i>Initializer)</i> is
+                  <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>hasNameProperty</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>v</i>,
+                      <code>&quot;name&quot;</code>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasNameProperty</i>).</li>
+                  <li>If <i>hasNameProperty</i> is <b>false</b>, perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>v</i>, <i>bindingId</i>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>environment</i> is <b>undefined</b>, return <a href="/sec/sec-putvalue.html">PutValue</a>(<i>lhs</i>, <i>v</i>).</li>
+          <li>Return <a href="/sec/sec-initializereferencedbinding.html">InitializeReferencedBinding</a>(<i>lhs</i>, <i>v</i>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElement</span> <span class="geq">:</span> <span class="nt">BindingPattern</span> <span class="nt">Initializer</span><sub class="g-opt">opt</sub></div>
+        <ol class="proc">
+          <li>If <i>iteratorRecord</i>.[[done]] is <b>false</b>, then
+            <ol class="block">
+              <li>Let <i>next</i> be <a href="/sec/sec-iteratorstep.html">IteratorStep</a>(<i>iteratorRecord</i>.[[iterator]]).</li>
+              <li>If <i>next</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+                  <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+              <li>If <i>next</i> is <b>false</b>, set <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+              <li>Else
+                <ol class="block">
+                  <li>Let <i>v</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>next</i>).</li>
+                  <li>If <i>v</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+                      <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>iteratorRecord</i>.[[done]] is <b>true</b>, let <i>v</i> be <b>undefined</b>.</li>
+          <li>If <i>Initializer</i> is present and <i>v</i> is <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>defaultValue</i> be the result of evaluating <i>Initializer</i>.</li>
+              <li>Let <i>v</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>defaultValue</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+            </ol>
+          </li>
+          <li>Return the result of performing BindingInitialization of <i>BindingPattern</i> with <i>v</i> and <i>environment</i>
+              as the arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingRestElement</span> <span class="geq">:</span> <code class="t">...</code> <span class="nt">BindingIdentifier</span></div>
+        <ol class="proc">
+          <li>Let <i>lhs</i> be <a href="/sec/sec-resolvebinding.html">ResolveBinding</a>(StringValue of <i>BindingIdentifier,
+              environment</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lhs</i>).</li>
+          <li>Let <i>A</i> be <a href="/sec/sec-arraycreate.html">ArrayCreate</a>(0).</li>
+          <li>Let <i>n</i>=0.</li>
+          <li>Repeat<b>,</b>
+            <ol class="block">
+              <li>If <i>iteratorRecord</i>.[[done]] is <b>false</b>,
+                <ol class="block">
+                  <li>Let <i>next</i> be <a href="/sec/sec-iteratorstep.html">IteratorStep</a>(<i>iteratorRecord</i>.[[iterator]]).</li>
+                  <li>If <i>next</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+                      <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+                  <li>If <i>next</i> is <b>false</b>, set <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+                </ol>
+              </li>
+              <li>If <i>iteratorRecord</i>.[[done]] is <b>true</b>, then
+                <ol class="block">
+                  <li>If <i>environment</i> is <b>undefined</b>, return <a href="/sec/sec-putvalue.html">PutValue</a>(<i>lhs</i>,
+                      <i>A</i>).</li>
+                  <li>Return <a href="/sec/sec-initializereferencedbinding.html">InitializeReferencedBinding</a>(<i>lhs</i>,
+                      <i>A</i>).</li>
+                </ol>
+              </li>
+              <li>Let <i>nextValue</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>next</i>).</li>
+              <li>If <i>nextValue</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+                  <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextValue</i>).</li>
+              <li>Let <i>status</i> be <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>A</i>, <a href="/sec/sec-tostring.html">ToString</a> (<i>n</i>), <i>nextValue</i>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is <b>true</b>.</li>
+              <li>Increment <i>n</i> by 1.</li>
+            </ol>
+          </li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

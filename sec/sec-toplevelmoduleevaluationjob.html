@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-15.2.1.19"><a href="/sec/sec-toplevelmoduleevaluationjob.html" title="link to this section">15.2.1.19</a></span> Runtime Semantics: TopLevelModuleEvaluationJob ( sourceText)</h1>
+
+        <p class="normalbefore">A TopLevelModuleEvaluationJob with parameter <var>sourceText</var> is a job that parses,
+        validates, and evaluates <var>sourceText</var> as a <span class="nt">Module</span>.</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>sourceText</i> is an ECMAScript source text (see <a href="/sec/sec-ecmascript-language-source-code.html">clause 10</a>).</li>
+          <li>Let <i>realm</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-code-realms.html">Realm</a>.</li>
+          <li>Let <i>m</i> be <a href="/sec/sec-parsemodule.html">ParseModule</a>(<i>sourceText</i>).</li>
+          <li>If <i>m</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a> or any other
+              implementation defined error indication, then
+            <ol class="block">
+              <li>Report or log the error(s) in an implementation dependent manner.</li>
+              <li>NextJob <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+            </ol>
+          </li>
+          <li>Set <i>m</i>.[[Realm]] to <i>realm</i>.</li>
+          <li>Let <i>status</i> be <i>m</i>.<a href="/sec/sec-moduledeclarationinstantiation.html">ModuleDeclarationInstantiation</a>().</li>
+          <li>If <i>status</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, then
+            <ol class="block">
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: all dependencies of <i>m</i> have been transitively resolved
+                  and <i>m</i> is ready for evaluation.</li>
+              <li>Let <i>status</i> be <i>m</i>.<a href="/sec/sec-moduleevaluation.html">ModuleEvaluation</a>().</li>
+            </ol>
+          </li>
+          <li>NextJob <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>status</i>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> An implementation may parse a <var>sourceText</var> as a <var>Module,</var> analyze it
+          for Early Error conditions, and instantiate it prior to the execution of the TopLevelModuleEvaluationJob for that
+          <var>sourceText</var>. An implementation may also resolve, pre-parse and pre-analyze, and pre-instantiate module
+          dependencies of <span style="font-family: Times New Roman"><i>sourceText</i>.</span> However, the reporting of any
+          errors detected by these actions must be deferred until the TopLevelModuleEvaluationJob is actually executed.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

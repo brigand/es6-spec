@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-9.4.4.7.1"><a href="/sec/sec-makearggetter.html" title="link to this section">9.4.4.7.1</a></span> MakeArgGetter ( name, env)</h1>
+
+          <p class="normalbefore">The abstract operation <span style="font-family: Times New Roman">MakeArgGetter</span> called
+          with String <var>name</var> and <a href="/sec/sec-environment-records.html">Environment Record</a> <var>env</var> creates a
+          built-in function object that when executed returns the value bound for <var>name</var> in <var>env</var>. It performs
+          the following steps:</p>
+
+          <ol class="proc">
+            <li>Let <i>realm</i> be <a href="/sec/sec-execution-contexts.html">the current Realm</a>.</li>
+            <li>Let <i>steps</i> be the steps of an ArgGetter function as specified below.</li>
+            <li>Let <i>getter</i> be <a href="/sec/sec-createbuiltinfunction.html">CreateBuiltinFunction</a>(<i>realm</i>, <i>steps</i>,
+                %FunctionPrototype%, &#xAB;&#x200D;[[name]], [[env]]&#xBB; ).</li>
+            <li>Set <i>getter&#x2019;s</i> [[name]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+                <i>name</i>.</li>
+            <li>Set <i>getter&#x2019;s</i> [[env]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+                <i>env</i>.</li>
+            <li>Return <i>getter</i>.</li>
+          </ol>
+
+          <p class="normalbefore">An ArgGetter function is an anonymous built-in function with [[name]] and [[env]] internal
+          slots. When an ArgGetter function <var>f</var> that expects no arguments is called it performs the following steps:</p>
+
+          <ol class="proc">
+            <li>Let <i>name</i> be the value of <i>f&#x2019;s</i> [[name]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>env</i> be the value of <i>f&#x2019;s</i> [[env]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a></li>
+            <li>Return <i>env</i>.GetBindingValue(<i>name</i>, <b>false</b>).</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> ArgGetter functions are never directly accessible to ECMAScript code.</p>
+          </div>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

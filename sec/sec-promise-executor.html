@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-25.4.3.1"><a href="/sec/sec-promise-executor.html" title="link to this section">25.4.3.1</a></span> Promise ( executor )</h1>
+
+        <p class="normalbefore">When the <code>Promise</code> function is called with argument <var>executor</var> the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>If NewTarget is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>executor</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>promise</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(NewTarget,
+              <code>&quot;%PromisePrototype%&quot;</code>, &#xAB;&#x200D;[[PromiseState]], [[PromiseResult]], [[PromiseFulfillReactions]],
+              [[PromiseRejectReactions]]&#xBB; ).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>promise</i>).</li>
+          <li>Set <i>promise</i>&apos;s [[PromiseState]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <code>&quot;pending&quot;</code>.</li>
+          <li>Set <i>promise</i>&apos;s [[PromiseFulfillReactions]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>Set <i>promise</i>&apos;s [[PromiseRejectReactions]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>Let <i>resolvingFunctions</i> be <a href="/sec/sec-createresolvingfunctions.html">CreateResolvingFunctions</a>(<i>promise</i>).</li>
+          <li>Let <i>completion</i> be <a href="/sec/sec-call.html">Call</a>(<i>executor</i>, <b>undefined</b>,
+              &#xAB;<i>resolvingFunctions</i>.[[Resolve]], <i>resolvingFunctions</i>.[[Reject]]&#xBB;).</li>
+          <li>If <i>completion</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, then
+            <ol class="block">
+              <li>Let <i>status</i> be <a href="/sec/sec-call.html">Call</a>(<i>resolvingFunctions</i>.[[Reject]], <b>undefined</b>,
+                  &#xAB;<i>completion</i>.[[value]]&#xBB;).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+            </ol>
+          </li>
+          <li>Return <i>promise</i>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <var>executor</var> argument must be a function object. It is called for initiating
+          and reporting completion of the possibly deferred action represented by this Promise object. The executor is called with
+          two arguments: <var>resolve</var> and <var>reject</var>. These are functions that may be used by the <var>executor</var>
+          function to report eventual completion or failure of the deferred computation. Returning from the executor function does
+          not mean that the deferred action has been completed but only that the request to eventually perform the deferred action
+          has been accepted.</p>
+
+          <p>The <var>resolve</var> function that is passed to an <var>executor</var> function accepts a single argument. The
+          <var>executor</var> code may eventually call the <var>resolve</var> function to indicate that it wishes to resolve the
+          associated Promise object. The argument passed to the <var>resolve</var> function represents the eventual value of the
+          deferred action and can be either the actual fulfillment value or another Promise object which will provide the value if
+          it is fulfilled.</p>
+
+          <p>The <var>reject</var> function that is passed to an <var>executor</var> function accepts a single argument. The
+          <var>executor</var> code may eventually call the <var>reject</var> function to indicate that the associated Promise is
+          rejected and will never be fulfilled. The argument passed to the <var>reject</var> function is used as the rejection
+          value of the promise. Typically it will be an <code>Error</code> object.</p>
+
+          <p>The resolve and reject functions passed to an <var>executor</var> function by the Promise constructor have the
+          capability to actually resolve and reject the associated promise. Subclasses may have different constructor behaviour
+          that passes in customized values for resolve and reject.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

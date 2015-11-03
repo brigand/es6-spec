@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-14.5.15"><a href="/sec/sec-runtime-semantics-bindingclassdeclarationevaluation.html" title="link to this section">14.5.15</a></span> Runtime Semantics: BindingClassDeclarationEvaluation</h1>
+      <div class="gp prod"><span class="nt">ClassDeclaration</span> <span class="geq">:</span> <code class="t">class</code> <span class="nt">BindingIdentifier</span> <span class="nt">ClassTail</span></div>
+      <ol class="proc">
+        <li>Let <i>className</i> be StringValue of <i>BindingIdentifier</i>.</li>
+        <li>Let <i>value</i> be the result of ClassDefinitionEvaluation of <i>ClassTail</i> with argument <i>className.</i></li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+        <li>Let <i>hasNameProperty</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>value</i>,
+            <code>&quot;name&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasNameProperty</i>).</li>
+        <li>If <i>hasNameProperty</i> is <b>false</b>, then perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>value</i>, <i>className</i>).</li>
+        <li>Let <i>env</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a>.</li>
+        <li>Let <i>status</i> be <a href="/sec/sec-initializeboundname.html">InitializeBoundName</a>(<i>className</i>, <i>value</i>,
+            <i>env</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+        <li>Return <i>value</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">ClassDeclaration</span> <span class="geq">:</span> <code class="t">class</code> <span class="nt">ClassTail</span></div>
+      <ol class="proc">
+        <li>Return the result of ClassDefinitionEvaluation of <i>ClassTail</i> with argument <b>undefined</b><i>.</i></li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> <span class="prod"><span class="nt">ClassDeclaration</span> <span class="geq">:</span>
+        <code class="t">class</code> <span class="nt">ClassTail</span></span> <var>only occurs as part of an</var> <span class="nt">ExportDeclaration</span> and the setting of a  name property and establishing its binding are handled as part
+        of the evaluation action for that production. See <a href="/sec/sec-exports-runtime-semantics-evaluation.html">15.2.3.11</a>.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

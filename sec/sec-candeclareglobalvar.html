@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-8.1.1.4.15"><a href="/sec/sec-candeclareglobalvar.html" title="link to this section">8.1.1.4.15</a></span> CanDeclareGlobalVar (N)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method
+          CanDeclareGlobalVar for global Environment Records determines if a corresponding <a href="/sec/sec-createglobalvarbinding.html">CreateGlobalVarBinding</a> call would succeed if called for the same argument
+          <var>N</var>. Redundant var declarations and var declarations for pre-existing global object properties are allowed.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the global <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li>Let <i>ObjRec</i> be <i>envRec</i>.[[ObjectRecord]].</li>
+            <li>Let <i>globalObject</i> be the binding object for <i>ObjRec</i>.</li>
+            <li>Let <i>hasProperty</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>globalObject, N</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasProperty</i>).</li>
+            <li>If <i>hasProperty</i> is <b>true</b>, return <b>true</b>.</li>
+            <li>Return <a href="/sec/sec-isextensible-o.html">IsExtensible</a>(<i>globalObject</i>).</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

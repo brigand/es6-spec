@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-8.1.1.2.7"><a href="/sec/sec-object-environment-records-deletebinding-n.html" title="link to this section">8.1.1.2.7</a></span> DeleteBinding (N)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method DeleteBinding for
+          object Environment Records can only delete bindings that correspond to properties of the environment object whose
+          [[Configurable]] attribute have the value <b>true</b>.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the object <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li>Let <i>bindings</i> be the binding object for <i>envRec</i>.</li>
+            <li>Return <i>bindings</i>.[[Delete]](<i>N</i>).</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

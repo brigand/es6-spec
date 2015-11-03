@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-26.3.2"><a href="/sec/sec-@@iterator.html" title="link to this section">26.3.2</a></span> [
+          @@iterator ] (   )</h1>
+
+      <p class="normalbefore">When the @@iterator method is called with no arguments, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>N</i> be the <b>this</b> value.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>N</i>) is not Object, throw a <b>TypeError</b>
+            exception.</li>
+        <li>Return <i>N</i>.[[Enumerate]]().</li>
+      </ol>
+
+      <p>The value of the <code>name</code> property of this function is <code>&quot;[Symbol.iterator]&quot;</code>.</p>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

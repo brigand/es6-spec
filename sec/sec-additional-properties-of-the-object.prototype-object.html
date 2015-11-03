@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-B.2.2"><a href="/sec/sec-additional-properties-of-the-object.prototype-object.html" title="link to this section">B.2.2</a></span> Additional Properties of the Object.prototype Object</h1>
+      </div>
+
+      <section id="sec-object.prototype.__proto__">
+        <div class="front">
+          <h1><span class="secnum" id="sec-B.2.2.1"><a href="/sec/sec-object.prototype.__proto__.html" title="link to this section">B.2.2.1</a></span> Object.prototype.__proto__</h1>
+
+          <p>Object.prototype.__proto__ is an accessor property with attributes { [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }. The [[Get]] and [[Set]] attributes are
+          defined as follows</p>
+        </div>
+
+        <section id="sec-get-object.prototype.__proto__">
+          <h1><span class="secnum" id="sec-B.2.2.1.1"><a href="/sec/sec-get-object.prototype.__proto__.html" title="link to this section">B.2.2.1.1</a></span> get Object.prototype.__proto__</h1>
+
+          <p class="normalbefore">The value of the [[Get]] attribute is a built-in function that requires no arguments. It
+          performs the following steps:</p>
+
+          <ol class="proc">
+            <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+            <li>Return <i>O</i>.[[GetPrototypeOf]]().</li>
+          </ol>
+        </section>
+
+        <section id="sec-set-object.prototype.__proto__">
+          <h1><span class="secnum" id="sec-B.2.2.1.2"><a href="/sec/sec-set-object.prototype.__proto__.html" title="link to this section">B.2.2.1.2</a></span> set Object.prototype.__proto__</h1>
+
+          <p class="normalbefore">The value of the [[Set]] attribute is a built-in function that takes an argument
+          <var>proto</var>. It performs the following steps:</p>
+
+          <ol class="proc">
+            <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value)<i>.</i></li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>proto</i>) is neither Object nor Null, return
+                <b>undefined</b>.</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, return <b>undefined</b>.</li>
+            <li>Let <i>status</i> be <i>O</i>.[[SetPrototypeOf]](<i>proto</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+            <li>If <i>status</i> is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+            <li>Return <b>undefined</b>.</li>
+          </ol>
+        </section>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

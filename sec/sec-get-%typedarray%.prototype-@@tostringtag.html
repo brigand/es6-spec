@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-22.2.3.31"><a href="/sec/sec-get-%typedarray%.prototype-@@tostringtag.html" title="link to this section">22.2.3.31</a></span> get %TypedArray%.prototype [ @@toStringTag ]</h1>
+
+        <p class="normalbefore">%TypedArray%.<code>prototype[@@toStringTag]</code> is an accessor property whose set accessor
+        function is <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, return <b>undefined</b>.</li>
+          <li>If <i>O</i> does not have a [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, return <b>undefined</b>.</li>
+          <li>Let <i>name</i> be the value of <i>O</i>&#x2019;s [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>name</i> is a String value.</li>
+          <li>Return <i>name</i>.</li>
+        </ol>
+
+        <p>This property has the attributes { [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+
+        <p>The initial value of the <code>name</code> property of this function is <code>&quot;get [Symbol.toStringTag]&quot;</code>.</p>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

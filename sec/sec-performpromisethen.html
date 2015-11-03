@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-25.4.5.3.1"><a href="/sec/sec-performpromisethen.html" title="link to this section">25.4.5.3.1</a></span> PerformPromiseThen ( promise, onFulfilled, onRejected,
+              resultCapability )</h1>
+
+          <p class="normalbefore">The abstract operation PerformPromiseThen performs the &#x201C;then&#x201D; operation on
+          <var>promise</var> using <var>onFulfilled</var> and <var>onRejected</var> as its settlement actions. The result is
+          <var>resultCapability</var>&#x2019;s promise.</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispromise.html">IsPromise</a>(<i>promise</i>) is
+                <b>true</b>.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>resultCapability</i> is a PromiseCapability record.</li>
+            <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>onFulfilled</i>) is <b>false</b>, then
+              <ol class="block">
+                <li>Let <i>onFulfilled</i> be <code>&quot;Identity&quot;</code>.</li>
+              </ol>
+            </li>
+            <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>onRejected</i>) is <b>false</b>, then
+              <ol class="block">
+                <li>Let <i>onRejected</i> be <code>&quot;Thrower&quot;</code>.</li>
+              </ol>
+            </li>
+            <li>Let <i>fulfillReaction</i> be the PromiseReaction { [[Capabilities]]: <i>resultCapability</i>, [[Handler]]:
+                <i>onFulfilled</i> }.</li>
+            <li>Let <i>rejectReaction</i> be the PromiseReaction { [[Capabilities]]: <i>resultCapability</i>, [[Handler]]:
+                <i>onRejected</i>}.</li>
+            <li>If the value of <i>promise</i>&apos;s [[PromiseState]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is <code>&quot;pending&quot;</code>,
+              <ol class="block">
+                <li>Append <i>fulfillReaction</i> as the last element of the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of <i>promise</i>&apos;s
+                    [[PromiseFulfillReactions]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+                <li>Append <i>rejectReaction</i> as the last element of the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of <i>promise</i>&apos;s
+                    [[PromiseRejectReactions]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+              </ol>
+            </li>
+            <li>Else if the value of <i>promise</i>&apos;s [[PromiseState]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is <code>&quot;fulfilled&quot;</code>,
+              <ol class="block">
+                <li>Let <i>value</i> be the value of <i>promise</i>&apos;s [[PromiseResult]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+                <li>Perform <a href="/sec/sec-enqueuejob.html">EnqueueJob</a>(<code>&quot;PromiseJobs&quot;</code>, <a href="/sec/sec-promisereactionjob.html">PromiseReactionJob</a>, &#xAB;&#x200D;<i>fulfillReaction</i>,
+                    <i>value</i>&#xBB;).</li>
+              </ol>
+            </li>
+            <li>Else if the value of <i>promise</i>&apos;s [[PromiseState]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is <code>&quot;rejected&quot;</code>,
+              <ol class="block">
+                <li>Let <i>reason</i> be the value of <i>promise</i>&apos;s [[PromiseResult]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+                <li>Perform <a href="/sec/sec-enqueuejob.html">EnqueueJob</a>(<code>&quot;PromiseJobs&quot;</code>, <a href="/sec/sec-promisereactionjob.html">PromiseReactionJob</a>, &#xAB;&#x200D;<i>rejectReaction</i>,
+                    <i>reason</i>&#xBB;).</li>
+              </ol>
+            </li>
+            <li>Return <i>resultCapability</i>.[[Promise]].</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.4.6"><a href="/sec/sec-iteratorclose.html" title="link to this section">7.4.6</a></span>
+          IteratorClose( iterator, completion )</h1>
+
+      <p class="normalbefore">The abstract operation IteratorClose with arguments <var>iterator</var> and <var>completion</var> is
+      used to notify an iterator that it should perform any actions it would normally perform when it has reached its completed
+      state:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>iterator</i>) is Object.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <i>completion</i> is a <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a>.</li>
+        <li>Let <i>return</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>iterator</i>, <code>&quot;return&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>return</i>).</li>
+        <li>If <i>return</i> is <b>undefined</b>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>completion</i>).</li>
+        <li>Let <i>innerResult</i> be <a href="/sec/sec-call.html">Call</a>(<i>return</i>, <i>iterator</i>, &#xAB;&#x200D; &#xBB;).</li>
+        <li>If <i>completion</i>.[[type]] is <span style="font-family: sans-serif">throw</span>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>completion</i>).</li>
+        <li>If <i>innerResult</i>.[[type]] is <span style="font-family: sans-serif">throw</span>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>innerResult</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>innerResult</i>.[[value]]) is not Object<i>,</i> throw
+            a <b>TypeError</b> exception.</li>
+        <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>completion</i>).</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <div class="front">
+          <h1><span class="secnum" id="sec-20.3.4.41"><a href="/sec/sec-date.prototype.tostring.html" title="link to this section">20.3.4.41</a></span> Date.prototype.toString ( )</h1>
+
+          <p class="normalbefore">The following steps are performed:</p>
+
+          <ol class="proc">
+            <li>Let <i>O</i> be this Date object.</li>
+            <li>If <i>O</i> does not have a [[DateValue]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                slot</a>, then
+              <ol class="block">
+                <li>Let <i>tv</i> be <b>NaN</b>.</li>
+              </ol>
+            </li>
+            <li>Else,
+              <ol class="block">
+                <li>Let <i>tv</i> be <a href="/sec/sec-properties-of-the-date-prototype-object.html">this time value</a>.</li>
+              </ol>
+            </li>
+            <li>Return <a href="/sec/sec-todatestring.html">ToDateString</a>(<i>tv</i>).</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE 1</span> For any Date object <span style="font-family: monospace"><i>d</i></span> whose
+            milliseconds amount is zero, the result of <code><a href="/sec/sec-date.parse.html">Date.parse</a>(<i>d</i>.toString())</code>
+            is equal to <code><i>d</i>.valueOf()</code>. See <a href="/sec/sec-date.parse.html">20.3.3.2</a>.</p>
+          </div>
+
+          <div class="note">
+            <p><span class="nh">NOTE 2</span> The <code>toString</code> function is intentionally generic; it does not require
+            that its <b>this</b> value be a Date object. Therefore, it can be transferred to other kinds of objects for use as a
+            method.</p>
+          </div>
+        </div>
+
+        <section id="sec-todatestring">
+          <h1><span class="secnum" id="sec-20.3.4.41.1"><a href="/sec/sec-todatestring.html" title="link to this section">20.3.4.41.1</a></span> Runtime Semantics: ToDateString(tv)</h1>
+
+          <p class="normalbefore">The following steps are performed:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>tv</i>) is Number.</li>
+            <li>If <i>tv</i> is <b>NaN</b>, return <code>&quot;Invalid Date&quot;</code>.</li>
+            <li>Return an implementation-dependent String value that represents <i>tv</i> as a date and time in the current time
+                zone using a convenient, human-readable form.</li>
+          </ol>
+        </section>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

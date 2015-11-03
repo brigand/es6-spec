@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-25.4.1.5.1"><a href="/sec/sec-getcapabilitiesexecutor-functions.html" title="link to this section">25.4.1.5.1</a></span> GetCapabilitiesExecutor Functions</h1>
+
+          <p>A GetCapabilitiesExecutor function is an anonymous built-in function that has a [[Capability]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+          <p class="normalbefore">When a GetCapabilitiesExecutor function <var>F</var> is called with arguments <var>resolve</var>
+          and <var>reject</var> the following steps are taken:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>F</i> has a [[Capability]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> whose value is a PromiseCapability
+                Record.</li>
+            <li>Let <i>promiseCapability</i> be the value of <i>F</i>&apos;s [[Capability]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>If <i>promiseCapability</i>.[[Resolve]] is not <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+            <li>If <i>promiseCapability</i>.[[Reject]] is not <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+            <li>Set <i>promiseCapability</i>.[[Resolve]] to <i>resolve</i>.</li>
+            <li>Set <i>promiseCapability</i>.[[Reject]] to <i>reject</i>.</li>
+            <li>Return <b>undefined</b>.</li>
+          </ol>
+
+          <p>The <code>length</code> property of a GetCapabilitiesExecutor function is <b>2</b>.</p>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

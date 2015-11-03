@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-24.1.4.3"><a href="/sec/sec-arraybuffer.prototype.slice.html" title="link to this section">24.1.4.3</a></span> ArrayBuffer.prototype.slice ( start, end )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>O</i> does not have an [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>O</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>len</i> be the value of <i>O</i>&#x2019;s [[ArrayBufferByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>relativeStart</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>start</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeStart</i>).</li>
+          <li>If <i>relativeStart</i> &lt; 0, let <i>first</i> be max((<i>len</i> + <i>relativeStart</i>),0); else let
+              <i>first</i> be min(<i>relativeStart</i>, <i>len</i>).</li>
+          <li>If <i>end</i> is <b>undefined</b>, let <i>relativeEnd</i> be <i>len</i>; else let <i>relativeEnd</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>end</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeEnd</i>).</li>
+          <li>If <i>relativeEnd</i> &lt; 0, let <i>final</i> be max((<i>len</i> + <i>relativeEnd</i>),0); else let <i>final</i> be
+              min(<i>relativeEnd</i>, <i>len</i>).</li>
+          <li>Let <i>newLen</i> be max(<i>final</i>-<i>first</i>,0).</li>
+          <li>Let <i>ctor</i> be <a href="/sec/sec-speciesconstructor.html">SpeciesConstructor</a>(<i>O</i>, %ArrayBuffer%).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>ctor</i>).</li>
+          <li>Let <i>new</i> be <a href="/sec/sec-construct.html">Construct</a>(<i>ctor</i>, &#xAB;<i>newLen</i>&#xBB;).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>new</i>).</li>
+          <li>If <i>new</i> does not have an [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>new</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>new</i>, <i>O</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If the value of <i>new</i>&#x2019;s [[ArrayBufferByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> &lt; <i>newLen</i>, throw a
+              <b>TypeError</b> exception.</li>
+          <li>NOTE: Side-effects of the above steps may have <span style="font-family: Times New Roman">detached</span>
+              <i>O</i>.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>O</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>fromBuf</i> be the value of <i>O</i>&#x2019;s [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>toBuf</i> be the value of <i>new</i>&#x2019;s [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Perform <a href="/sec/sec-copydatablockbytes.html">CopyDataBlockBytes</a>(<i>toBuf</i>, 0, <i>fromBuf</i>, <i>first</i>,
+              <i>newLen</i>).</li>
+          <li>Return <i>new</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

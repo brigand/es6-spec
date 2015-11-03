@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-6.2.2.4"><a href="/sec/sec-returnifabrupt.html" title="link to this section">6.2.2.4</a></span>
+            ReturnIfAbrupt</h1>
+
+        <p class="normalbefore">Algorithms steps that say</p>
+
+        <ol class="proc">
+          <li>ReturnIfAbrupt(<i>argument</i>).</li>
+        </ol>
+
+        <p class="normalbefore">mean the same thing as:</p>
+
+        <ol class="proc">
+          <li>If <i>argument</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, return
+              <i>argument</i>.</li>
+          <li>Else if <i>argument</i> is a <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a>, let
+              <i>argument</i> be <i>argument</i>.[[value]].</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

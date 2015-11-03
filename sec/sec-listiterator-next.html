@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-7.4.8.1"><a href="/sec/sec-listiterator-next.html" title="link to this section">7.4.8.1</a></span>
+            ListIterator next( )</h1>
+
+        <p class="normalbefore">The ListIterator <code>next</code> method is a standard built-in function object (<a href="/sec/sec-ecmascript-standard-built-in-objects.html">clause 17</a>) that performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>Let <i>f</i> be the active function object.</li>
+          <li>If <i>O</i> does not have a [[IteratorNext]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>next</i> be the value of the [[IteratorNext]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+          <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>f</i>, <i>next</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>O</i> does not have a [[IteratedList]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>list</i> be the value of the [[IteratedList]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+          <li>Let <i>index</i> be the value of the [[ListIteratorNextIndex]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+          <li>Let <i>len</i> be the number of elements of <i>list</i>.</li>
+          <li>If <i>index</i> &#x2265; <i>len</i>, then
+            <ol class="block">
+              <li>Return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<b>undefined</b>, <b>true</b>).</li>
+            </ol>
+          </li>
+          <li>Set the value of the [[ListIteratorNextIndex]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> of <i>O</i> to <i>index</i>+1.</li>
+          <li>Return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<i>list</i>[<i>index</i>],
+              <b>false</b>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> A ListIterator <code>next</code> method will throw an exception if applied to any object
+          other than the one with which it was originally associated.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

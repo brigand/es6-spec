@@ -1,0 +1,1 @@
+{"id":"sec-error.prototype.message","html":"\n        <h1><span class=\"secnum\" id=\"sec-19.5.3.2\"><a href=\"/sec/sec-error.prototype.message.html\" title=\"link to this section\">19.5.3.2</a></span> Error.prototype.message</h1>\n\n        <p>The initial value of <code>Error.prototype.message</code> is the empty String.</p>\n      "}

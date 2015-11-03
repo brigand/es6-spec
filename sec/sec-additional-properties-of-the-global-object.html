@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-B.2.1"><a href="/sec/sec-additional-properties-of-the-global-object.html" title="link to this section">B.2.1</a></span> Additional Properties of the Global Object</h1>
+
+        <p>The entries in <a href="/sec/table-60.html">Table 60</a> are added to <a href="/sec/table-7.html">Table 7</a>.</p>
+
+        <figure>
+          <figcaption><span id="table-60">Table 60</span> &#x2014; Additional Well-known Intrinsic Objects</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Intrinsic Name</th>
+              <th>Global Name</th>
+              <th>ECMAScript Language Association</th>
+            </tr>
+            <tr>
+              <td>%escape%</td>
+              <td><code>escape</code></td>
+              <td>The <code>escape</code> function (<a href="/sec/sec-escape-string.html">B.2.1.1</a>)</td>
+            </tr>
+            <tr>
+              <td>%unescape%</td>
+              <td><code>unescape</code></td>
+              <td>The <code>unescape</code> function (<a href="/sec/sec-unescape-string.html">B.2.1.2</a>)</td>
+            </tr>
+          </table>
+        </figure>
+      </div>
+
+      <section id="sec-escape-string">
+        <h1><span class="secnum" id="sec-B.2.1.1"><a href="/sec/sec-escape-string.html" title="link to this section">B.2.1.1</a></span>
+            escape (string)</h1>
+
+        <p>The <code>escape</code> function is a property of the global object. It computes a new version of a String value in
+        which certain code units have been replaced by a hexadecimal escape sequence.</p>
+
+        <p>For those code units being replaced whose value is <code>0x00FF</code> or less, a two-digit escape sequence of the form
+        <code>%</code><i>xx</i> is used. For those characters being replaced whose code unit value is greater than
+        <code>0x00FF</code>, a four-digit escape sequence of the form <code>%u</code><i>xxxx</i> is used.</p>
+
+        <p class="normalbefore">The <code>escape</code> function is the %escape% intrinsic object. When the <code>escape</code>
+        function is called with one argument <var>string</var>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>string</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>string</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>string</i>).</li>
+          <li>Let <i>length</i> be the number of code units in <i>string</i>.</li>
+          <li>Let <i>R</i> be the empty string.</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>Repeat, while <i>k</i> &lt; <i>length</i>,
+            <ol class="block">
+              <li>Let <i>char</i> be the code unit (represented as a 16-bit unsigned integer) at index <i>k</i> within
+                  <i>string</i>.</li>
+              <li>If <i>char</i> is one of the code units in
+                  <b>&quot;<code>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@*_+-./</code>&quot;</b>, then
+                <ol class="block">
+                  <li>Let <i>S</i> be a String containing the single code unit <i>char</i>.</li>
+                </ol>
+              </li>
+              <li>Else if <i>char</i> &#x2265; 256, then
+                <ol class="block">
+                  <li>Let <i>S</i> be a String containing six code units <b>&quot;<code>%u</code></b><i>wxyz</i><b>&quot;</b> where
+                      <i>wxyz</i> are the code units of the four hexadecimal digits encoding the value of <i>char</i>.</li>
+                </ol>
+              </li>
+              <li>Else, <i>char</i> &lt; 256
+                <ol class="block">
+                  <li>Let <i>S</i> be a String containing three code units <b>&quot;<code>%</code></b><i>xy</i><b>&quot;</b> where <i>xy</i>
+                      are the code units of two hexadecimal digits encoding the value of <i>char</i>.</li>
+                </ol>
+              </li>
+              <li>Let <i>R</i> be a new String value computed by concatenating the previous value of <i>R</i> and <i>S</i>.</li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>R</i>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The encoding is partly based on the encoding described in RFC 1738, but the entire
+          encoding specified in this standard is described above without regard to the contents of RFC 1738. This encoding does
+          not reflect changes to RFC 1738 made by RFC 3986.</p>
+        </div>
+      </section>
+
+      <section id="sec-unescape-string">
+        <h1><span class="secnum" id="sec-B.2.1.2"><a href="/sec/sec-unescape-string.html" title="link to this section">B.2.1.2</a></span>
+            unescape (string)</h1>
+
+        <p>The <code>unescape</code> function is a property of the global object. It computes a new version of a String value in
+        which each escape sequence of the sort that might be introduced by the <code>escape</code> function is replaced with the
+        code unit that it represents.</p>
+
+        <p class="normalbefore">The <code>unescape</code> function is the %unescape% intrinsic object. When the
+        <code>unescape</code> function is called with one argument <var>string</var>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>string</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>string</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>string</i>).</li>
+          <li>Let <i>length</i> be the number of code units in <i>string</i>.</li>
+          <li>Let <i>R</i> be the empty String.</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>Repeat, while <i>k</i> &#x2260; <i>length</i>
+            <ol class="block">
+              <li>Let <i>c</i> be the code unit at index <i>k</i> within <i>string</i>.</li>
+              <li>If <i>c</i> is <code>%</code>,
+                <ol class="block">
+                  <li>If <i>k</i> &#x2264; <i>length</i>&#x2212;6 and the code unit at index <i>k</i>+1 within <i>string</i> is
+                      <code>u</code> and the four code units at indices <i>k</i>+2, <i>k</i>+3, <i>k</i>+4, and <i>k</i>+5 within
+                      <i>string</i> are all hexadecimal digits, then
+                    <ol class="block">
+                      <li>Let <i>c</i> be the code unit whose value is the integer represented by the four hexadecimal digits at
+                          indices <i>k</i>+2, <i>k</i>+3, <i>k</i>+4, and <i>k</i>+5 within <i>string</i>.</li>
+                      <li>Increase <i>k</i> by 5.</li>
+                    </ol>
+                  </li>
+                  <li>Else if <i>k</i> &#x2264; <i>length</i>&#x2212;3 and the two code units at indices <i>k</i>+1 and <i>k</i>+2
+                      within <i>string</i> are both hexadecimal digits, then
+                    <ol class="block">
+                      <li>Let <i>c</i> be the code unit whose value is the integer represented by two zeroes plus the two
+                          hexadecimal digits at indices <i>k</i>+1 and <i>k</i>+2 within <i>string</i>.</li>
+                      <li>Increase <i>k</i> by 2.</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>Let <i>R</i> be a new String value computed by concatenating the previous value of <i>R</i> and <i>c</i>.</li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>R</i>.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

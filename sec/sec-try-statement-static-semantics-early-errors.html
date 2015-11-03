@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-13.15.1"><a href="/sec/sec-try-statement-static-semantics-early-errors.html" title="link to this section">13.15.1</a></span> Static Semantics:  Early Errors</h1>
+      <div class="gp prod"><span class="nt">Catch</span> <span class="geq">:</span> <code class="t">catch</code> <code class="t">(</code> <span class="nt">CatchParameter</span> <code class="t">)</code> <span class="nt">Block</span></div>
+      <ul>
+        <li>
+          <p>It is a Syntax Error if BoundNames <span style="font-family: Times New Roman">of <i>CatchParameter</i></span>
+          contains any duplicate elements.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if any element of the BoundNames of <span class="nt">CatchParameter</span> also occurs in the
+          LexicallyDeclaredNames of <span class="nt">Block</span>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if any element of the BoundNames of <span class="nt">CatchParameter</span> also occurs in the
+          VarDeclaredNames of <span class="nt">Block</span>.</p>
+        </li>
+      </ul>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> An alternative static semantics for this production is given in <a href="/sec/sec-variablestatements-in-catch-blocks.html">B.3.5</a>.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

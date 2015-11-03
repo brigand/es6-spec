@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-8.1.2.1"><a href="/sec/sec-getidentifierreference.html" title="link to this section">8.1.2.1</a></span> GetIdentifierReference (lex, name, strict)</h1>
+
+        <p class="normalbefore">The abstract operation GetIdentifierReference is called with a <a href="/sec/sec-lexical-environments.html">Lexical Environment</a> <var>lex</var>, a String <var>name</var>, and a Boolean flag
+        <var>strict.</var> The value of <var>lex</var> may be <b>null</b>. When called, the following steps are performed:</p>
+
+        <ol class="proc">
+          <li>If <i>lex</i> is the value <b>null</b>, then
+            <ol class="block">
+              <li>Return a value of type <a href="/sec/sec-reference-specification-type.html">Reference</a> whose base value is
+                  <b>undefined</b>, whose referenced name is <i>name</i>, and whose strict reference flag is <i>strict</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>envRec</i> be <i>lex</i>&#x2019;s <a href="/sec/sec-lexical-environments.html">EnvironmentRecord</a>.</li>
+          <li>Let <i>exists</i> be <i>envRec</i>.HasBinding(<i>name</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>exists</i>).</li>
+          <li>If <i>exists</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Return a value of type <a href="/sec/sec-reference-specification-type.html">Reference</a> whose base value is
+                  <i>envRec</i>, whose referenced name is <i>name</i>, and whose strict reference flag is <i>strict.</i></li>
+            </ol>
+          </li>
+          <li>Else
+            <ol class="block">
+              <li>Let <i>outer</i> be the value of <i>lex&#x2019;s</i> <a href="/sec/sec-lexical-environments.html">outer environment
+                  reference</a>.</li>
+              <li>Return GetIdentifierReference(<i>outer</i>, <i>name</i>, <i>strict</i>).</li>
+            </ol>
+          </li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

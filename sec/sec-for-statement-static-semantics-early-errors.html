@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-13.7.4.1"><a href="/sec/sec-for-statement-static-semantics-early-errors.html" title="link to this section">13.7.4.1</a></span> Static Semantics:  Early Errors</h1>
+        <div class="gp prod"><span class="nt">IterationStatement</span> <span class="geq">:</span> <code class="t">for</code> <code class="t">(</code> <span class="nt">LexicalDeclaration</span> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">;</code> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">)</code> <span class="nt">Statement</span></div>
+        <ul>
+          <li>
+            <p>It is a Syntax Error if any element of the BoundNames of <span class="nt">LexicalDeclaration</span> also occurs in
+            the VarDeclaredNames of <span class="nt">Statement</span>.</p>
+          </li>
+        </ul>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-12.3.1.4"><a href="/sec/sec-static-semantics-static-semantics-isidentifierref.html" title="link to this section">12.3.1.4</a></span> Static Semantics:  IsIdentifierRef</h1>
+
+        <p>See also: <a href="/sec/sec-semantics-static-semantics-isidentifierref.html">12.2.1.4</a>.</p>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">LeftHandSideExpression</span> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">CallExpression</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">MemberExpression</span> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">MemberExpression</span> <code class="t">[</code> <span class="nt">Expression</span> <code class="t">]</code></div>
+          <div class="rhs"><span class="nt">MemberExpression</span> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+          <div class="rhs"><span class="nt">MemberExpression</span> <span class="nt">TemplateLiteral</span></div>
+          <div class="rhs"><span class="nt">SuperProperty</span></div>
+          <div class="rhs"><span class="nt">MetaProperty</span></div>
+          <div class="rhs"><code class="t">new</code> <span class="nt">MemberExpression</span> <span class="nt">Arguments</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">NewExpression</span> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">new</code> <span class="nt">NewExpression</span></div>
+        </div>
+
+        <ol class="proc">
+          <li>Return <b>false</b>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

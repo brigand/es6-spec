@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.3.18"><a href="/sec/sec-invoke.html" title="link to this section">7.3.18</a></span> Invoke(O,P,
+          [argumentsList])</h1>
+
+      <p class="normalbefore">The abstract operation <span style="font-family: Times New Roman">Invoke</span> is used to call a
+      method property of an object. The operation is called with arguments  <var>O</var>, <var>P</var> , and optionally
+      <var>argumentsList</var> where <var>O</var> serves as both the lookup point for the property and the <b>this</b> value of
+      the call, <var>P</var> is the <a href="/sec/sec-object-type.html">property key</a>, and <var>argumentsList</var> is the list of
+      arguments values passed to the method. If <var>argumentsList</var> is not present, an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a> is used as its value. This abstract operation performs the following
+      steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+            <b>true</b>.</li>
+        <li>If <i>argumentsList</i> was not passed, let <i>argumentsList</i> be a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>Let  <i>func</i> be <a href="/sec/sec-getv.html">GetV</a>(<i>O</i>, <i>P</i>).</li>
+        <li>Return <a href="/sec/sec-call.html">Call</a>(<i>func</i>, <i>O</i>, <i>argumentsList</i>).</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

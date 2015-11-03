@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-9.4.1.3"><a href="/sec/sec-boundfunctioncreate.html" title="link to this section">9.4.1.3</a></span> BoundFunctionCreate (targetFunction, boundThis, boundArgs)</h1>
+
+        <p class="normalbefore">The abstract operation BoundFunctionCreate with arguments <var>targetFunction</var>,
+        <var>boundThis</var> and <var>boundArgs</var> is used to specify the creation of new <a href="/sec/sec-bound-function-exotic-objects.html">Bound Function</a> exotic objects. It performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>targetFunction</i>) is Object.</li>
+          <li>Let <i>proto</i> be <i>targetFunction</i>.[[GetPrototypeOf]]().</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>proto</i>).</li>
+          <li>Let <i>obj</i> be a newly created object.</li>
+          <li>Set <i>obj</i>&#x2019;s essential internal methods to the default ordinary object definitions specified in <a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots.html">9.1</a>.</li>
+          <li>Set the [[Call]] internal method of <i>obj</i> as described in <a href="/sec/sec-bound-function-exotic-objects-call-thisargument-argumentslist.html">9.4.1.1</a>.</li>
+          <li>If <i>targetFunction</i> has a [[Construct]] internal method, then
+            <ol class="block">
+              <li>Set the [[Construct]] internal method of <i>obj</i> as described in <a href="/sec/sec-bound-function-exotic-objects-construct-argumentslist-newtarget.html">9.4.1.2</a>.</li>
+            </ol>
+          </li>
+          <li>Set the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>obj</i> to
+              <i>proto</i>.</li>
+          <li>Set the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>obj</i> to
+              <b>true</b>.</li>
+          <li>Set the <a href="/sec/sec-bound-function-exotic-objects.html">[[BoundTargetFunction]]</a> <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>obj</i> to
+              <i>targetFunction</i>.</li>
+          <li>Set the <a href="/sec/sec-bound-function-exotic-objects.html">[[BoundThis]]</a> <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>obj</i> to the value of
+              <i>boundThis</i>.</li>
+          <li>Set the <a href="/sec/sec-bound-function-exotic-objects.html">[[BoundArguments]]</a> <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>obj</i> to <i>boundArgs</i>.</li>
+          <li>Return <i>obj</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

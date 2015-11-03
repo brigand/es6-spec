@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <h1><span class="secnum" id="sec-11.5"><a href="/sec/sec-tokens.html" title="link to this section">11.5</a></span> Tokens</h1>
+    <h2>Syntax</h2>
+
+    <div class="gp">
+      <div class="lhs"><span class="nt">CommonToken</span> <span class="geq">::</span></div>
+      <div class="rhs"><span class="nt">IdentifierName</span></div>
+      <div class="rhs"><span class="nt">Punctuator</span></div>
+      <div class="rhs"><span class="nt">NumericLiteral</span></div>
+      <div class="rhs"><span class="nt">StringLiteral</span></div>
+      <div class="rhs"><span class="nt">Template</span></div>
+    </div>
+
+    <div class="note">
+      <p><span class="nh">NOTE</span> The <span class="nt">DivPunctuator</span>, <span class="nt">RegularExpressionLiteral</span>,
+      <var>RightBracePunctuator,</var> and <span class="nt">TemplateSubstitutionTail</span> productions derive additional tokens
+      that are not included in the <span class="nt">CommonToken</span> production.</p>
+    </div>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-13.7.5.10"><a href="/sec/sec-runtime-semantics-bindinginstantiation.html" title="link to this section">13.7.5.10</a></span> Runtime Semantics: BindingInstantiation</h1>
+
+        <p>With argument <var>environment</var>.</p>
+
+        <div class="gp prod"><span class="nt">ForDeclaration</span> <span class="geq">:</span> <span class="nt">LetOrConst</span> <span class="nt">ForBinding</span></div>
+        <ol class="proc">
+          <li>For each element <i>name</i> of the BoundNames of <i>ForBinding</i> do
+            <ol class="block">
+              <li>If IsConstantDeclaration of <i>LetOrConst</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Perform <i>environment</i>.CreateImmutableBinding(<i>name</i>, <b>true</b>).</li>
+                </ol>
+              </li>
+              <li>Else,
+                <ol class="block">
+                  <li>Perform <i>environment</i>.CreateMutableBinding(<i>name</i>).</li>
+                  <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: The above call to CreateMutableBinding will never return an
+                      <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.2.2.10"><a href="/sec/sec-math.ceil.html" title="link to this section">20.2.2.10</a></span>
+            Math.ceil ( x )</h1>
+
+        <p class="normalbefore">Returns the smallest (closest to <b>&#x2212;&#x221E;</b>) Number value that is not less than
+        <var>x</var> and is equal to a mathematical integer. If <var>x</var> is already an integer, the result is
+        <var>x</var>.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;0.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is +&#x221E;.</li>
+          <li>If <i>x</i> is &#x2212;&#x221E;, the result is &#x2212;&#x221E;.</li>
+          <li>If <i>x</i> is less than 0 but greater than -1, the result is &#x2212;0.</li>
+        </ul>
+
+        <p>The value of <code>Math.ceil(x)</code> is the same as the value of <code>-<a href="/sec/sec-math.floor.html">Math.floor</a>(-x)</code>.</p>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

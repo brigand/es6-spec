@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-26.3"><a href="/sec/sec-module-namespace-objects.html" title="link to this section">26.3</a></span>
+          Module Namespace Objects</h1>
+
+      <p>A Module Namespace Object is a module namespace exotic object that provides runtime property-based access to a
+      module&#x2019;s exported bindings. There is no constructor function for Module Namespace Objects. Instead, such an object is
+      created for each module that is imported by an <span class="nt">ImportDeclaration</span> that includes a <span class="nt">NameSpaceImport</span> (See <a href="/sec/sec-imports.html">15.2.2</a>).</p>
+
+      <p>In addition to the properties specified in <a href="/sec/sec-module-namespace-exotic-objects.html">9.4.6</a> each Module Namespace
+      Object has the own following properties:</p>
+    </div>
+
+    <section id="sec-@@tostringtag">
+      <h1><span class="secnum" id="sec-26.3.1"><a href="/sec/sec-@@tostringtag.html" title="link to this section">26.3.1</a></span>
+          @@toStringTag</h1>
+
+      <p>The initial value of the @@toStringTag property is the String value <code>&quot;Module&quot;</code>.</p>
+
+      <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+    </section>
+
+    <section id="sec-@@iterator">
+      <h1><span class="secnum" id="sec-26.3.2"><a href="/sec/sec-@@iterator.html" title="link to this section">26.3.2</a></span> [
+          @@iterator ] (   )</h1>
+
+      <p class="normalbefore">When the @@iterator method is called with no arguments, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>N</i> be the <b>this</b> value.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>N</i>) is not Object, throw a <b>TypeError</b>
+            exception.</li>
+        <li>Return <i>N</i>.[[Enumerate]]().</li>
+      </ol>
+
+      <p>The value of the <code>name</code> property of this function is <code>&quot;[Symbol.iterator]&quot;</code>.</p>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

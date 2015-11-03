@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.3.1.2"><a href="/sec/sec-day-number-and-time-within-day.html" title="link to this section">20.3.1.2</a></span> Day Number and Time within Day</h1>
+
+        <p class="normalbefore">A given <a href="/sec/sec-time-values-and-time-range.html">time value</a> <i>t</i> belongs to day
+        number</p>
+
+        <div class="display">Day(<i>t</i>) = <a href="/sec/sec-algorithm-conventions.html">floor</a>(<i>t</i> / msPerDay)</div>
+
+        <p class="normalbefore">where the number of milliseconds per day is</p>
+
+        <div class="display">msPerDay = 86400000</div>
+
+        <p class="normalbefore">The remainder is called the time within the day:</p>
+
+        <div class="display">TimeWithinDay(<i>t</i>) = <i>t</i> <a href="/sec/sec-algorithm-conventions.html">modulo</a> msPerDay</div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-B.2.1.2"><a href="/sec/sec-unescape-string.html" title="link to this section">B.2.1.2</a></span>
+            unescape (string)</h1>
+
+        <p>The <code>unescape</code> function is a property of the global object. It computes a new version of a String value in
+        which each escape sequence of the sort that might be introduced by the <code>escape</code> function is replaced with the
+        code unit that it represents.</p>
+
+        <p class="normalbefore">The <code>unescape</code> function is the %unescape% intrinsic object. When the
+        <code>unescape</code> function is called with one argument <var>string</var>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>string</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>string</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>string</i>).</li>
+          <li>Let <i>length</i> be the number of code units in <i>string</i>.</li>
+          <li>Let <i>R</i> be the empty String.</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>Repeat, while <i>k</i> &#x2260; <i>length</i>
+            <ol class="block">
+              <li>Let <i>c</i> be the code unit at index <i>k</i> within <i>string</i>.</li>
+              <li>If <i>c</i> is <code>%</code>,
+                <ol class="block">
+                  <li>If <i>k</i> &#x2264; <i>length</i>&#x2212;6 and the code unit at index <i>k</i>+1 within <i>string</i> is
+                      <code>u</code> and the four code units at indices <i>k</i>+2, <i>k</i>+3, <i>k</i>+4, and <i>k</i>+5 within
+                      <i>string</i> are all hexadecimal digits, then
+                    <ol class="block">
+                      <li>Let <i>c</i> be the code unit whose value is the integer represented by the four hexadecimal digits at
+                          indices <i>k</i>+2, <i>k</i>+3, <i>k</i>+4, and <i>k</i>+5 within <i>string</i>.</li>
+                      <li>Increase <i>k</i> by 5.</li>
+                    </ol>
+                  </li>
+                  <li>Else if <i>k</i> &#x2264; <i>length</i>&#x2212;3 and the two code units at indices <i>k</i>+1 and <i>k</i>+2
+                      within <i>string</i> are both hexadecimal digits, then
+                    <ol class="block">
+                      <li>Let <i>c</i> be the code unit whose value is the integer represented by two zeroes plus the two
+                          hexadecimal digits at indices <i>k</i>+1 and <i>k</i>+2 within <i>string</i>.</li>
+                      <li>Increase <i>k</i> by 2.</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>Let <i>R</i> be a new String value computed by concatenating the previous value of <i>R</i> and <i>c</i>.</li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>R</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

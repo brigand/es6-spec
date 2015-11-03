@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-6.2"><a href="/sec/sec-ecmascript-specification-types.html" title="link to this section">6.2</a></span> ECMAScript Specification Types</h1>
+
+      <p>A specification type corresponds to meta-values that are used within algorithms to describe the semantics of ECMAScript
+      language constructs and ECMAScript language types. The specification types are <a href="/sec/sec-reference-specification-type.html">Reference</a>, <a href="/sec/sec-list-and-record-specification-type.html">List</a>, <a href="/sec/sec-completion-record-specification-type.html">Completion</a>, <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a>, <a href="/sec/sec-lexical-environments.html">Lexical
+      Environment</a>, <a href="/sec/sec-environment-records.html">Environment Record</a>, and <a href="/sec/sec-data-blocks.html">Data Block</a>.
+      Specification type values are specification artefacts that do not necessarily correspond to any specific entity within an
+      ECMAScript implementation. Specification type values may be used to describe intermediate results of ECMAScript expression
+      evaluation but such values cannot be stored as properties of objects or values of ECMAScript language variables.</p>
+    </div>
+
+    <section id="sec-list-and-record-specification-type">
+      <h1><span class="secnum" id="sec-6.2.1"><a href="/sec/sec-list-and-record-specification-type.html" title="link to this section">6.2.1</a></span> The List and Record Specification Type</h1>
+
+      <p>The List type is used to explain the evaluation of argument lists (<a href="/sec/sec-argument-lists.html">see 12.3.6</a>) in
+      <code>new</code> expressions, in function calls, and in other algorithms where a simple ordered list of values is needed.
+      Values of the List type are simply ordered sequences of list elements containing the individual values. These sequences may
+      be of any length. The elements of a list may be randomly accessed using 0-origin indices. For notational convenience an
+      array-like syntax can be used to access List elements. For example, <i>arguments</i>[2] is shorthand for saying the
+      3<sup>rd</sup> element of the List <i>arguments</i>.</p>
+
+      <p>For notational convenience within this specification, a literal syntax can be used to express a new List value. For
+      example, &#xAB;1, 2&#xBB; defines a List value that has two elements each of which is initialized to a specific value. A
+      new empty List can be expressed as &#xAB;&#xBB;.</p>
+
+      <p>The Record type is used to describe data aggregations within the algorithms of this specification. A Record type value
+      consists of one or more named fields. The value of each field is either an ECMAScript value or an abstract value represented
+      by a name associated with the Record type. Field names are always enclosed in double brackets, for example [[value]].</p>
+
+      <p>For notational convenience within this specification, an object literal-like syntax can be used to express a Record
+      value. For example, {[[field1]]: 42, [[field2]]: <b>false</b>, [[field3]]: <b>empty</b>} defines a Record value that has
+      three fields, each of which is initialized to a specific value. Field name order is not significant. Any fields that are not
+      explicitly listed are considered to be absent.</p>
+
+      <p>In specification text and algorithms, dot notation may be used to refer to a specific field of a Record value. For
+      example, if R is the record shown in the previous paragraph then R.[[field2]] is shorthand for &#x201C;the field of R named
+      [[field2]]&#x201D;.</p>
+
+      <p>Schema for commonly used Record field combinations may be named, and that name may be used as a prefix to a literal
+      Record value to identify the specific kind of aggregations that is being described. For example:
+      PropertyDescriptor{[[Value]]: 42, [[Writable]]: <b>false</b>, [[Configurable]]: <b>true</b>}.</p>
+    </section>
+
+    <section id="sec-completion-record-specification-type">
+      <div class="front">
+        <h1><span class="secnum" id="sec-6.2.2"><a href="/sec/sec-completion-record-specification-type.html" title="link to this section">6.2.2</a></span> The Completion Record Specification Type</h1>
+
+        <p>The Completion type is a Record used to explain the runtime propagation of values and control flow such as the
+        behaviour of statements (<code>break</code>, <code>continue</code>, <code>return</code> and <code>throw</code>) that
+        perform nonlocal transfers of control.</p>
+
+        <p>Values of the Completion type are Record values whose fields are defined as by <a href="/sec/table-8.html">Table 8</a>.</p>
+
+        <figure>
+          <figcaption><span id="table-8">Table 8</span> &#x2014; Completion Record Fields</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Field</th>
+              <th>Value</th>
+              <th>Meaning</th>
+            </tr>
+            <tr>
+              <td>[[type]]</td>
+              <td>One of <b>normal</b>, <b>break</b>, <b>continue</b>, <b>return</b>, or <b>throw</b></td>
+              <td>The type of completion that occurred.</td>
+            </tr>
+            <tr>
+              <td>[[value]]</td>
+              <td>any <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language value</a> or <b>empty</b></td>
+              <td>The value that was produced.</td>
+            </tr>
+            <tr>
+              <td>[[target]]</td>
+              <td>any ECMAScript string or <b>empty</b></td>
+              <td>The target label for directed control transfers.</td>
+            </tr>
+          </table>
+        </figure>
+
+        <p>The term &#x201C;abrupt completion&#x201D; refers to any completion with a <span style="font-family: Times New
+        Roman">[[type]]</span> value other than <b>normal</b>.</p>
+      </div>
+
+      <section id="sec-normalcompletion">
+        <h1><span class="secnum" id="sec-6.2.2.1"><a href="/sec/sec-normalcompletion.html" title="link to this section">6.2.2.1</a></span>
+            NormalCompletion</h1>
+
+        <p class="normalbefore">The abstract operation NormalCompletion with a single <i>argument</i>, such as:</p>
+
+        <ol class="proc">
+          <li>Return NormalCompletion(<i>argument</i>).</li>
+        </ol>
+
+        <p class="normalbefore">Is a shorthand that is defined as follows:</p>
+
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <span style="font-family:
+              sans-serif">normal</span>, [[value]]: <i>argument</i>, [[target]]:<span style="font-family:
+              sans-serif">empty</span>}.</li>
+        </ol>
+      </section>
+
+      <section id="sec-implicit-completion-values">
+        <h1><span class="secnum" id="sec-6.2.2.2"><a href="/sec/sec-implicit-completion-values.html" title="link to this section">6.2.2.2</a></span> Implicit Completion Values</h1>
+
+        <p class="normalbefore">The algorithms of this specification often implicitly return <a href="/sec/sec-completion-record-specification-type.html">Completion</a> Records whose [[type]] is <b>normal</b>. Unless it is
+        otherwise obvious from the context, an algorithm statement that returns a value that is not a <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a>, such as:</p>
+
+        <ol class="proc">
+          <li>Return <code>&quot;Infinity&quot;</code>.</li>
+        </ol>
+
+        <p class="normalbefore">means the same thing as:</p>
+
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<code>&quot;Infinity&quot;</code>).</li>
+        </ol>
+
+        <p>However, if the value expression of a &#x201C;<span style="font-family: Times New Roman">return</span>&#x201D; statement
+        is a <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> construction literal, the resulting <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> is returned. If the value expression is a call to
+        an abstract operation, the &#x201C;<span style="font-family: Times New Roman">return</span>&#x201D; statement simply returns
+        the <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> produced by the abstract operation.</p>
+
+        <p class="normalbefore">The abstract operation <span style="font-family: Times New Roman"><a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>completionRecord</i>)</span> is used to emphasize that
+        a previously computed <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> is being returned. The <a href="/sec/sec-completion-record-specification-type.html">Completion</a> abstract operation takes a single argument,
+        <var>completionRecord</var>, and performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>completionRecord</i> is a <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a>.</li>
+          <li>Return <i>completionRecord</i>  as the <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> of
+              this abstract operation.</li>
+        </ol>
+
+        <p>A &#x201C;<span style="font-family: Times New Roman">return</span>&#x201D; statement without a value in an algorithm step
+        means the same thing as:</p>
+
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+        </ol>
+
+        <p>Any reference to a <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> value that is in a context
+        that does not explicitly require a complete <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a>
+        value is equivalent to an explicit reference to the [[value]] field of the <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> value unless the <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</p>
+      </section>
+
+      <section id="sec-throw-an-exception">
+        <h1><span class="secnum" id="sec-6.2.2.3"><a href="/sec/sec-throw-an-exception.html" title="link to this section">6.2.2.3</a></span> Throw an Exception</h1>
+
+        <p class="normalbefore">Algorithms steps that say to throw an exception, such as</p>
+
+        <ol class="proc">
+          <li>Throw a <b>TypeError</b> exception.</li>
+        </ol>
+
+        <p class="normalbefore">mean the same things as:</p>
+
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <span style="font-family:
+              sans-serif">throw</span>, [[value]]: a newly created <b>TypeError</b> object, [[target]]:<span style="font-family:
+              sans-serif">empty</span>}.</li>
+        </ol>
+      </section>
+
+      <section id="sec-returnifabrupt">
+        <h1><span class="secnum" id="sec-6.2.2.4"><a href="/sec/sec-returnifabrupt.html" title="link to this section">6.2.2.4</a></span>
+            ReturnIfAbrupt</h1>
+
+        <p class="normalbefore">Algorithms steps that say</p>
+
+        <ol class="proc">
+          <li>ReturnIfAbrupt(<i>argument</i>).</li>
+        </ol>
+
+        <p class="normalbefore">mean the same thing as:</p>
+
+        <ol class="proc">
+          <li>If <i>argument</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, return
+              <i>argument</i>.</li>
+          <li>Else if <i>argument</i> is a <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a>, let
+              <i>argument</i> be <i>argument</i>.[[value]].</li>
+        </ol>
+      </section>
+
+      <section id="sec-updateempty">
+        <h1><span class="secnum" id="sec-6.2.2.5"><a href="/sec/sec-updateempty.html" title="link to this section">6.2.2.5</a></span>
+            UpdateEmpty ( completionRecord, value)</h1>
+
+        <p class="normalbefore">The abstract operation UpdateEmpty with arguments <var>completionRecord</var> and <var>value</var>
+        performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: if <i>completionRecord</i>.[[type]] is <span style="font-family:
+              sans-serif">throw</span> then <i>completionRecord</i>.[[value]] is not <span style="font-family:
+              sans-serif">empty</span>.</li>
+          <li>If <i>completionRecord</i>.[[type]] is <span style="font-family: sans-serif">throw</span>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>completionRecord</i>).</li>
+          <li>If <i>completionRecord</i>.[[value]] is not <span style="font-family: sans-serif">empty</span>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>completionRecord</i>).</li>
+          <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]:
+              <i>completionRecord</i>.[[type]], [[value]]: <i>value</i>, [[target]]: <i>completionRecord</i>.[[target]] }.</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-reference-specification-type">
+      <div class="front">
+        <h1><span class="secnum" id="sec-6.2.3"><a href="/sec/sec-reference-specification-type.html" title="link to this section">6.2.3</a></span> The Reference Specification Type</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The Reference type is used to explain the behaviour of such operators as
+          <code>delete</code>, <code>typeof</code>, the assignment operators, the <code>super</code> keyword and other language
+          features. For example, the left-hand operand of an assignment is expected to produce a reference.</p>
+        </div>
+
+        <p>A <b>Reference</b> is a resolved name or property binding. A Reference consists of three components, the
+        <var>base</var> value, the <var>referenced name</var> and the Boolean valued <var>strict reference</var> flag. The
+        <var>base</var> value is either <b>undefined</b>, an Object, a Boolean, a String, a Symbol, a Number, or an <a href="/sec/sec-environment-records.html">Environment Record</a> (<a href="/sec/sec-environment-records.html">8.1.1</a>). A <var>base</var>
+        value of <b>undefined</b> indicates that the Reference could not be resolved to a binding. The <var>referenced name</var>
+        is a String or Symbol value.</p>
+
+        <p>A Super Reference is a Reference that is used to represents a name binding that was expressed using the super keyword.
+        A Super Reference has an additional <var>thisValue</var> component and its <var>base</var> value will never be an <a href="/sec/sec-environment-records.html">Environment Record</a>.</p>
+
+        <p class="normalbefore">The following abstract operations are used in this specification to access the components of
+        references:</p>
+
+        <ul>
+          <li>
+            <p>GetBase(V). Returns the <var>base</var> value component of the reference V.</p>
+          </li>
+
+          <li>
+            <p>GetReferencedName(V). Returns the <var>referenced name</var> component of the reference V.</p>
+          </li>
+
+          <li>
+            <p>IsStrictReference(V). Returns the <var>strict reference</var> flag component of the reference V.</p>
+          </li>
+
+          <li>
+            <p>HasPrimitiveBase(V). Returns <span class="value">true</span> if <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<span style="font-family: Times New Roman"><i>base</i>)</span>
+            is Boolean, String, Symbol, or Number.</p>
+          </li>
+
+          <li>
+            <p>IsPropertyReference(V). Returns <span class="value">true</span> if either the <var>base</var> value is an object or
+            HasPrimitiveBase(V) is <b>true</b>; otherwise returns <span class="value">false</span>.</p>
+          </li>
+
+          <li>
+            <p>IsUnresolvableReference(V). Returns <span class="value">true</span> if the <var>base</var> value is
+            <b>undefined</b> and <b>false</b> otherwise.</p>
+          </li>
+
+          <li>
+            <p>IsSuperReference(V). Returns <span class="value">true</span> if this reference has a <var>thisValue</var>
+            component.</p>
+          </li>
+        </ul>
+
+        <p>The following abstract operations are used in this specification to operate on references:</p>
+      </div>
+
+      <section id="sec-getvalue">
+        <h1><span class="secnum" id="sec-6.2.3.1"><a href="/sec/sec-getvalue.html" title="link to this section">6.2.3.1</a></span> GetValue
+            (V)</h1>
+        <ol class="proc">
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>V</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>V</i>) is not <a href="/sec/sec-reference-specification-type.html">Reference</a>, return <i>V</i>.</li>
+          <li>Let <i>base</i> be <a href="/sec/sec-reference-specification-type.html">GetBase</a>(<i>V</i>).</li>
+          <li>If <a href="/sec/sec-reference-specification-type.html">IsUnresolvableReference</a>(<i>V</i>), throw a <b>ReferenceError</b>
+              exception.</li>
+          <li>If <a href="/sec/sec-reference-specification-type.html">IsPropertyReference</a>(<i>V</i>), then
+            <ol class="block">
+              <li>If <a href="/sec/sec-reference-specification-type.html">HasPrimitiveBase</a>(<i>V</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: In this case, <i>base</i> will never be <b>null</b> or
+                      <b>undefined</b>.</li>
+                  <li>Let <i>base</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<i>base</i>).</li>
+                </ol>
+              </li>
+              <li>Return <i>base.</i>[[Get]](<a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>V</i>), <a href="/sec/sec-getthisvalue.html">GetThisValue</a>(<i>V</i>)).</li>
+            </ol>
+          </li>
+          <li>Else <i>base</i> must be an <a href="/sec/sec-environment-records.html">Environment Record</a>,
+            <ol class="block">
+              <li>Return <i>base.</i>GetBindingValue(<a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>V</i>),
+                  <a href="/sec/sec-reference-specification-type.html">IsStrictReference</a>(<i>V</i>)) (<a href="/sec/sec-environment-records.html">see 8.1.1</a>).</li>
+            </ol>
+          </li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The object that may be created in step 5.a.ii is not accessible outside of the above
+          abstract operation and the ordinary object [[Get]] internal method. An implementation might choose to avoid the actual
+          creation of the object.</p>
+        </div>
+      </section>
+
+      <section id="sec-putvalue">
+        <h1><span class="secnum" id="sec-6.2.3.2"><a href="/sec/sec-putvalue.html" title="link to this section">6.2.3.2</a></span> PutValue
+            (V, W)</h1>
+        <ol class="proc">
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>V</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>W</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>V</i>) is not <a href="/sec/sec-reference-specification-type.html">Reference</a>, throw a <b>ReferenceError</b> exception.</li>
+          <li>Let <i>base</i> be <a href="/sec/sec-reference-specification-type.html">GetBase</a>(<i>V</i>).</li>
+          <li>If <a href="/sec/sec-reference-specification-type.html">IsUnresolvableReference</a>(<i>V</i>), then
+            <ol class="block">
+              <li>If <a href="/sec/sec-reference-specification-type.html">IsStrictReference</a>(<i>V</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li>Throw <b>ReferenceError</b> exception.</li>
+                </ol>
+              </li>
+              <li>Let <i>globalObj</i> be <a href="/sec/sec-getglobalobject.html">GetGlobalObject</a>().</li>
+              <li>Return <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>globalObj</i>,<a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>V</i>), <i>W</i>, <b>false</b>).</li>
+            </ol>
+          </li>
+          <li>Else if <a href="/sec/sec-reference-specification-type.html">IsPropertyReference</a>(<i>V</i>), then
+            <ol class="block">
+              <li>If <a href="/sec/sec-reference-specification-type.html">HasPrimitiveBase</a>(<i>V</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: In this case, <i>base</i> will never be <b>null</b> or
+                      <b>undefined</b>.</li>
+                  <li>Set <i>base</i>  to <a href="/sec/sec-toobject.html">ToObject</a>(<i>base</i>).</li>
+                </ol>
+              </li>
+              <li>Let <i>succeeded</i> be <i>base.</i>[[Set]](<a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>V</i>), <i>W</i>, <a href="/sec/sec-getthisvalue.html">GetThisValue</a>(<i>V</i>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>succeeded</i>).</li>
+              <li>If <i>succeeded</i> is <b>false</b> and <a href="/sec/sec-reference-specification-type.html">IsStrictReference</a>(<i>V</i>) is <b>true</b>, throw a
+                  <b>TypeError</b> exception.</li>
+              <li>Return.</li>
+            </ol>
+          </li>
+          <li>Else <i>base</i> must be an <a href="/sec/sec-environment-records.html">Environment Record</a>.
+            <ol class="block">
+              <li>Return <i>base.</i>SetMutableBinding(<a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>V</i>), <i>W</i>, <a href="/sec/sec-reference-specification-type.html">IsStrictReference</a>(<i>V</i>)) (<a href="/sec/sec-environment-records.html">see 8.1.1</a>).</li>
+            </ol>
+          </li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The object that may be created in step 6.a.ii is not accessible outside of the above
+          algorithm and the ordinary object [[Set]] internal method. An implementation might choose to avoid the actual creation
+          of that object.</p>
+        </div>
+      </section>
+
+      <section id="sec-getthisvalue">
+        <h1><span class="secnum" id="sec-6.2.3.3"><a href="/sec/sec-getthisvalue.html" title="link to this section">6.2.3.3</a></span>
+            GetThisValue (V)</h1>
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-reference-specification-type.html">IsPropertyReference</a>(<i>V</i>) is <b>true</b>.</li>
+          <li>If <a href="/sec/sec-reference-specification-type.html">IsSuperReference</a>(<i>V</i>), then
+            <ol class="block">
+              <li>Return the value of the <i>thisValue</i> component of the reference <i>V</i>.</li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-reference-specification-type.html">GetBase</a>(<i>V</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-initializereferencedbinding">
+        <h1><span class="secnum" id="sec-6.2.3.4"><a href="/sec/sec-initializereferencedbinding.html" title="link to this section">6.2.3.4</a></span> InitializeReferencedBinding (V, W)</h1>
+        <ol class="proc">
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>V</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>W</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>V</i>)
+              is <a href="/sec/sec-reference-specification-type.html">Reference</a>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-reference-specification-type.html">IsUnresolvableReference</a>(<i>V</i>) is <b>false</b>.</li>
+          <li>Let <i>base</i> be <a href="/sec/sec-reference-specification-type.html">GetBase</a>(<i>V</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>base</i> is an <a href="/sec/sec-environment-records.html">Environment
+              Record</a>.</li>
+          <li>Return <i>base.</i>InitializeBinding(<a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>V</i>),
+              <i>W</i>).</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-property-descriptor-specification-type">
+      <div class="front">
+        <h1><span class="secnum" id="sec-6.2.4"><a href="/sec/sec-property-descriptor-specification-type.html" title="link to this section">6.2.4</a></span> The Property Descriptor Specification Type</h1>
+
+        <p>The Property Descriptor type is used to explain the manipulation and reification of Object property attributes. Values
+        of the Property Descriptor type are Records. Each field&#x2019;s name is an attribute name and its value is a corresponding
+        attribute value as specified in <a href="/sec/sec-property-attributes.html">6.1.7.1</a>. In addition, any field may be present or
+        absent. The schema name used within this specification to tag literal descriptions of Property Descriptor records is
+        &#x201C;PropertyDescriptor&#x201D;.</p>
+
+        <p>Property Descriptor values may be further classified as data Property Descriptors and accessor Property Descriptors
+        based upon the existence or use of certain fields. A data Property Descriptor is one that includes any fields named either
+        [[Value]] or [[Writable]]. An accessor Property Descriptor is one that includes any fields named either [[Get]] or
+        [[Set]]. Any Property Descriptor may have fields named [[Enumerable]] and [[Configurable]]. A Property Descriptor value
+        may not be both a data Property Descriptor and an accessor Property Descriptor; however, it may be neither. A generic
+        Property Descriptor is a Property Descriptor value that is neither a data Property Descriptor nor an accessor Property
+        Descriptor. A fully populated Property Descriptor is one that is either an accessor Property Descriptor or a data Property
+        Descriptor and that has all of the fields that correspond to the property attributes defined in either  <a href="/sec/table-2.html">Table 2</a> or <a href="/sec/table-3.html">Table 3</a>.</p>
+
+        <p>The following abstract operations are used in this specification to operate upon Property Descriptor values:</p>
+      </div>
+
+      <section id="sec-isaccessordescriptor">
+        <h1><span class="secnum" id="sec-6.2.4.1"><a href="/sec/sec-isaccessordescriptor.html" title="link to this section">6.2.4.1</a></span> IsAccessorDescriptor ( Desc )</h1>
+
+        <p class="normalbefore">When the abstract operation IsAccessorDescriptor is called with <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>If <i>Desc</i> is <b>undefined</b>, return <b>false</b>.</li>
+          <li>If both <i>Desc</i>.[[Get]] and <i>Desc</i>.[[Set]] are absent, return <b>false</b>.</li>
+          <li>Return <b>true</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-isdatadescriptor">
+        <h1><span class="secnum" id="sec-6.2.4.2"><a href="/sec/sec-isdatadescriptor.html" title="link to this section">6.2.4.2</a></span>
+            IsDataDescriptor ( Desc )</h1>
+
+        <p class="normalbefore">When the abstract operation IsDataDescriptor is called with <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>If <i>Desc</i> is <b>undefined</b>, return <b>false</b>.</li>
+          <li>If both <i>Desc</i>.[[Value]] and <i>Desc</i>.[[Writable]] are absent, return <b>false</b>.</li>
+          <li>Return <b>true</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-isgenericdescriptor">
+        <h1><span class="secnum" id="sec-6.2.4.3"><a href="/sec/sec-isgenericdescriptor.html" title="link to this section">6.2.4.3</a></span> IsGenericDescriptor ( Desc )</h1>
+
+        <p class="normalbefore">When the abstract operation IsGenericDescriptor is called with <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>If <i>Desc</i> is <b>undefined</b>, return <b>false</b>.</li>
+          <li>If <a href="/sec/sec-isaccessordescriptor.html">IsAccessorDescriptor</a>(<i>Desc</i>) and <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>Desc</i>) are both <b>false</b>, return <b>true</b>.</li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-frompropertydescriptor">
+        <h1><span class="secnum" id="sec-6.2.4.4"><a href="/sec/sec-frompropertydescriptor.html" title="link to this section">6.2.4.4</a></span> FromPropertyDescriptor ( Desc )</h1>
+
+        <p class="normalbefore">When the abstract operation FromPropertyDescriptor is called with <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>If <i>Desc</i> is <b>undefined</b>, return <b>undefined</b>.</li>
+          <li>Let <i>obj</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<span style="font-family:
+              sans-serif">%ObjectPrototype%</span>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>obj</i> is an extensible ordinary object with no own
+              properties.</li>
+          <li>If <i>Desc</i> has a [[Value]] field, then
+            <ol class="block">
+              <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i>, <code>&quot;value&quot;</code>,
+                  <i>Desc</i>.[[Value]]).</li>
+            </ol>
+          </li>
+          <li>If <i>Desc</i> has a [[Writable]] field, then
+            <ol class="block">
+              <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i>, <code>&quot;writable&quot;</code>,
+                  <i>Desc</i>.[[Writable]]).</li>
+            </ol>
+          </li>
+          <li>If <i>Desc</i> has a [[Get]] field, then
+            <ol class="block">
+              <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i>, <code>&quot;get&quot;</code>,
+                  <i>Desc</i>.[[Get]]).</li>
+            </ol>
+          </li>
+          <li>If <i>Desc</i> has a [[Set]] field, then
+            <ol class="block">
+              <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i>, <code>&quot;set&quot;</code>,
+                  <i>Desc</i>.[[Set]])</li>
+            </ol>
+          </li>
+          <li>If <i>Desc</i> has an [[Enumerable]] field, then
+            <ol class="block">
+              <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i>, <code>&quot;enumerable&quot;</code>,
+                  <i>Desc</i>.[[Enumerable]]).</li>
+            </ol>
+          </li>
+          <li>If <i>Desc</i> has a [[Configurable]] field, then
+            <ol class="block">
+              <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i> , <code>&quot;configurable&quot;</code>,
+                  <i>Desc</i>.[[Configurable]]).</li>
+            </ol>
+          </li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: all of the above <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a> operations return <b>true</b>.</li>
+          <li>Return <i>obj</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-topropertydescriptor">
+        <h1><span class="secnum" id="sec-6.2.4.5"><a href="/sec/sec-topropertydescriptor.html" title="link to this section">6.2.4.5</a></span> ToPropertyDescriptor ( Obj )</h1>
+
+        <p class="normalbefore">When the abstract operation ToPropertyDescriptor is called with object <span class="nt">Obj</span>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>Obj</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>Obj</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>desc</i> be a new <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> that
+              initially has no fields.</li>
+          <li>Let <i>hasEnumerable</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>Obj</i>, <code>&quot;enumerable&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasEnumerable</i>).</li>
+          <li>If <i>hasEnumerable</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>enum</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>Obj</i>,
+                  <code>&quot;enumerable&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>enum</i>).</li>
+              <li>Set the [[Enumerable]] field of <i>desc</i> to <i>enum</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>hasConfigurable</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>Obj</i>,
+              <code>&quot;configurable&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasConfigurable</i>).</li>
+          <li>If <i>hasConfigurable</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>conf</i>  be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>Obj</i>,
+                  <code>&quot;configurable&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>conf</i>).</li>
+              <li>Set the [[Configurable]] field of <i>desc</i> to <i>conf</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>hasValue</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>Obj</i>, <code>&quot;value&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasValue</i>).</li>
+          <li>If <i>hasValue</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>value</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>Obj</i>, <code>&quot;value&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+              <li>Set the [[Value]] field of <i>desc</i> to <i>value</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>hasWritable</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>Obj</i>, <code>&quot;writable&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasWritable</i>).</li>
+          <li>If <i>hasWritable</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>writable</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>Obj</i>,
+                  <code>&quot;writable&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>writable</i>).</li>
+              <li>Set the [[Writable]] field of <i>desc</i> to <i>writable</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>hasGet</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>Obj</i>, <code>&quot;get&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasGet</i>).</li>
+          <li>If <i>hasGet</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>getter</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>Obj</i>, <code>&quot;get&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>getter</i>).</li>
+              <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>getter</i>) is <b>false</b> and <i>getter</i> is not
+                  <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+              <li>Set the [[Get]] field of <i>desc</i> to <i>getter</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>hasSet</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>Obj</i>, <code>&quot;set&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasSet</i>).</li>
+          <li>If <i>hasSet</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>setter</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>Obj</i>, <code>&quot;set&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setter</i>).</li>
+              <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>setter</i>) is <b>false</b> and <i>setter</i> is not
+                  <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+              <li>Set the [[Set]] field of <i>desc</i> to <i>setter</i>.</li>
+            </ol>
+          </li>
+          <li>If either <i>desc</i>.[[Get]] or <i>desc</i>.[[Set]] is present, then
+            <ol class="block">
+              <li>If either <i>desc</i>.[[Value]] or <i>desc</i>.[[Writable]] is present, throw a <b>TypeError</b> exception.</li>
+            </ol>
+          </li>
+          <li>Return <i>desc</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-completepropertydescriptor">
+        <h1><span class="secnum" id="sec-6.2.4.6"><a href="/sec/sec-completepropertydescriptor.html" title="link to this section">6.2.4.6</a></span> CompletePropertyDescriptor ( Desc  )</h1>
+
+        <p class="normalbefore">When the abstract operation CompletePropertyDescriptor is called with <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span> the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>Desc</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>Desc</i> is a <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a></li>
+          <li>Let <i>like</i> be Record{[[Value]]: <b>undefined</b>, [[Writable]]: <b>false</b>, [[Get]]: <b>undefined</b>,
+              [[Set]]: <b>undefined</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>false</b>}.</li>
+          <li>If either <a href="/sec/sec-isgenericdescriptor.html">IsGenericDescriptor</a>(<i>Desc</i>) or <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>Desc</i>) is <b>true</b>, then
+            <ol class="block">
+              <li>If <i>Desc</i> does not have a [[Value]] field, set <i>Desc</i>.[[Value]] to <i>like</i>.[[Value]].</li>
+              <li>If <i>Desc</i> does not have a [[Writable]] field, set <i>Desc</i>.[[Writable]] to
+                  <i>like</i>.[[Writable]].</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>If <i>Desc</i> does not have a [[Get]] field, set <i>Desc</i>.[[Get]] to <i>like</i>.[[Get]].</li>
+              <li>If <i>Desc</i> does not have a [[Set]] field, set <i>Desc</i>.[[Set]] to <i>like</i>.[[Set]].</li>
+            </ol>
+          </li>
+          <li>If <i>Desc</i> does not have an [[Enumerable]] field, set <i>Desc</i>.[[Enumerable]] to
+              <i>like</i>.[[Enumerable]].</li>
+          <li>If <i>Desc</i> does not have a [[Configurable]] field, set <i>Desc</i>.[[Configurable]] to
+              <i>like</i>.[[Configurable]].</li>
+          <li>Return <i>Desc</i>.</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-lexical-environment-and-environment-record-specification-types">
+      <h1><span class="secnum" id="sec-6.2.5"><a href="/sec/sec-lexical-environment-and-environment-record-specification-types.html" title="link to this section">6.2.5</a></span> The Lexical Environment and Environment Record Specification Types</h1>
+
+      <p>The <a href="/sec/sec-lexical-environments.html">Lexical Environment</a> and <a href="/sec/sec-environment-records.html">Environment
+      Record</a> types are used to explain the behaviour of name resolution in nested functions and blocks. These types and the
+      operations upon them are defined in <a href="/sec/sec-lexical-environments.html">8.1</a>.</p>
+    </section>
+
+    <section id="sec-data-blocks">
+      <div class="front">
+        <h1><span class="secnum" id="sec-6.2.6"><a href="/sec/sec-data-blocks.html" title="link to this section">6.2.6</a></span> Data
+            Blocks</h1>
+
+        <p>The Data Block specification type is used to describe a distinct and mutable sequence of byte-sized (8 bit)  numeric
+        values. A Data Block value is created with a fixed number of bytes that each have the initial value 0.</p>
+
+        <p>For notational convenience within this specification, an array-like syntax can be used to access the individual bytes
+        of a Data Block value. This notation presents a Data Block value as a 0-origined integer indexed sequence of bytes. For
+        example, if <var>db</var> is a 5 byte Data Block value then <var>db</var>[2] can be used to access its 3<sup>rd</sup>
+        byte.</p>
+
+        <p>The following abstract operations are used in this specification to operate upon Data Block values:</p>
+      </div>
+
+      <section id="sec-createbytedatablock">
+        <h1><span class="secnum" id="sec-6.2.6.1"><a href="/sec/sec-createbytedatablock.html" title="link to this section">6.2.6.1</a></span> CreateByteDataBlock(size)</h1>
+
+        <p class="normalbefore">When the abstract operation CreateByteDataBlock is called with integer argument <var>size</var>,
+        the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>size</i>&#x2265;0.</li>
+          <li>Let <i>db</i> be a new <a href="/sec/sec-data-blocks.html">Data Block</a> value consisting of <i>size</i> bytes. If it is
+              impossible to create such a <a href="/sec/sec-data-blocks.html">Data Block</a>, throw a <b>RangeError</b> exception.</li>
+          <li>Set all of the bytes of <i>db</i> to 0.</li>
+          <li>Return <i>db</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-copydatablockbytes">
+        <h1><span class="secnum" id="sec-6.2.6.2"><a href="/sec/sec-copydatablockbytes.html" title="link to this section">6.2.6.2</a></span> CopyDataBlockBytes(toBlock, toIndex, fromBlock, fromIndex, count)</h1>
+
+        <p class="normalbefore">When the abstract operation CopyDataBlockBytes is called the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>fromBlock</i> and <i>toBlock</i> are distinct <a href="/sec/sec-data-blocks.html">Data Block</a> values.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>fromIndex</i>, <i>toIndex</i>, and <i>count</i> are positive
+              integer values.</li>
+          <li>Let <i>fromSize</i> be the number of bytes in <i>fromBlock</i>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>fromIndex</i>+<i>count</i> &#x2264; <i>fromSize</i>.</li>
+          <li>Let <i>toSize</i> be the number of bytes in <i>toBlock</i>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>toIndex</i>+<i>count</i> &#x2264; <i>toSize</i>.</li>
+          <li>Repeat, while <i>count</i>&gt;0
+            <ol class="block">
+              <li>Set <i>toBlock</i>[<i>toIndex</i>] to the value of <i>fromBlock</i>[<i>fromIndex</i>].</li>
+              <li>Increment <i>toIndex</i> and <i>fromIndex</i> each by 1.</li>
+              <li>Decrement <i>count</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family: sans-serif">empty</span>)</li>
+        </ol>
+      </section>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

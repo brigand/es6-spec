@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-12.5.4.2"><a href="/sec/sec-delete-operator-runtime-semantics-evaluation.html" title="link to this section">12.5.4.2</a></span> Runtime Semantics: Evaluation</h1>
+        <div class="gp prod"><span class="nt">UnaryExpression</span> <span class="geq">:</span> <code class="t">delete</code> <span class="nt">UnaryExpression</span></div>
+        <ol class="proc">
+          <li>Let <i>ref</i> be the result of evaluating <i>UnaryExpression</i>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>ref</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>ref</i>) is not <a href="/sec/sec-reference-specification-type.html">Reference</a>, return <b>true</b>.</li>
+          <li>If <a href="/sec/sec-reference-specification-type.html">IsUnresolvableReference</a>(<i>ref</i>) is <b>true</b>, then
+            <ol class="block">
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-reference-specification-type.html">IsStrictReference</a>(<i>ref</i>) is <b>false</b>.</li>
+              <li>Return <b>true</b>.</li>
+            </ol>
+          </li>
+          <li>If <a href="/sec/sec-reference-specification-type.html">IsPropertyReference</a>(<i>ref</i>) is <b>true</b>, then
+            <ol class="block">
+              <li>If <a href="/sec/sec-reference-specification-type.html">IsSuperReference</a>(<i>ref</i>), throw a <b>ReferenceError</b>
+                  exception.</li>
+              <li>Let <i>baseObj</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<a href="/sec/sec-reference-specification-type.html">GetBase</a>(<i>ref</i>)).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>baseObj</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+              <li>Let <i>deleteStatus</i> be <i>baseObj</i>.[[Delete]](<a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>ref</i>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>deleteStatus</i>).</li>
+              <li>If <i>deleteStatus</i> is <b>false</b> and <a href="/sec/sec-reference-specification-type.html">IsStrictReference</a>(<i>ref</i>) is <b>true</b>, throw a
+                  <b>TypeError</b> exception.</li>
+              <li>Return  <i>deleteStatus</i>.</li>
+            </ol>
+          </li>
+          <li>Else <i>ref</i> is a <a href="/sec/sec-reference-specification-type.html">Reference</a> to an <a href="/sec/sec-environment-records.html">Environment Record</a> binding,
+            <ol class="block">
+              <li>Let <i>bindings</i> be <a href="/sec/sec-reference-specification-type.html">GetBase</a>(<i>ref</i>).</li>
+              <li>Return <i>bindings</i>.DeleteBinding(<a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>ref</i>)).</li>
+            </ol>
+          </li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> When a <code>delete</code> operator occurs within <a href="/sec/sec-strict-mode-code.html">strict
+          mode code</a>, a <b>SyntaxError</b> exception is thrown if its <span class="nt">UnaryExpression</span> is a direct
+          reference to a variable, function argument, or function name. In addition, if a <code>delete</code> operator occurs
+          within <a href="/sec/sec-strict-mode-code.html">strict mode code</a> and the property to be deleted has the attribute {
+          [[Configurable]]: <b>false</b> }, a <b>TypeError</b> exception is thrown.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

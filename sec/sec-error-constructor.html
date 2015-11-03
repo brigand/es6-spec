@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-19.5.1"><a href="/sec/sec-error-constructor.html" title="link to this section">19.5.1</a></span>
+            The Error Constructor</h1>
+
+        <p>The Error constructor is the %Error% intrinsic object and the initial value of the <code>Error</code> property of the
+        global object. When <code>Error</code> is called as a function rather than as a constructor, it creates and initializes a
+        new Error object. Thus the function call <code><b>Error(</b>&#x2026;<b>)</b></code> is equivalent to the object creation
+        expression <code><b>new Error(</b>&#x2026;<b>)</b></code> with the same arguments.</p>
+
+        <p>The <code>Error</code> constructor is designed to be subclassable. It may be used as the value of an
+        <code>extends</code> clause of a class definition. Subclass constructors that intend to inherit the specified
+        <code>Error</code> behaviour must include a <code>super</code> call to the <code>Error</code> constructor to create and
+        initialize subclass instances with a [[ErrorData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+        slot</a>.</p>
+      </div>
+
+      <section id="sec-error-message">
+        <h1><span class="secnum" id="sec-19.5.1.1"><a href="/sec/sec-error-message.html" title="link to this section">19.5.1.1</a></span>
+            Error ( message )</h1>
+
+        <p class="normalbefore">When the <code>Error</code> function is called with argument <i>message</i> the following steps
+        are taken:</p>
+
+        <ol class="proc">
+          <li>If NewTarget is <b>undefined</b><i>,</i> let <i>newTarget</i> be the active function object, else let
+              <i>newTarget</i> be NewTarget.</li>
+          <li>Let <i>O</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(<i>newTarget</i>,
+              <code>&quot;%ErrorPrototype%&quot;</code>, &#xAB;[[ErrorData]]&#xBB;).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>If <i>message</i> is not <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>msg</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>message</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>msg</i>).</li>
+              <li>Let <i>msgDesc</i> be the PropertyDescriptor{[[Value]]: <i>msg</i>, [[Writable]]: <b>true</b>, [[Enumerable]]:
+                  <b>false</b>, [[Configurable]]: <b>true</b>}.</li>
+              <li>Let <i>status</i> be <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>O</i>,
+                  &quot;<code>message</code>&quot;, <i>msgDesc</i>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+            </ol>
+          </li>
+          <li>Return <i>O</i>.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-12.3.7"><a href="/sec/sec-tagged-templates.html" title="link to this section">12.3.7</a></span>
+            Tagged Templates</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> A tagged template is a function call where the arguments of the call are derived from a
+          <span class="nt">TemplateLiteral</span> (<a href="/sec/sec-template-literals.html">12.2.9</a>). The actual arguments include a
+          template object (<a href="/sec/sec-gettemplateobject.html">12.2.9.3</a>) and the values produced by evaluating the expressions
+          embedded within the <span class="nt">TemplateLiteral</span>.</p>
+        </div>
+      </div>
+
+      <section id="sec-tagged-templates-runtime-semantics-evaluation">
+        <h1><span class="secnum" id="sec-12.3.7.1"><a href="/sec/sec-tagged-templates-runtime-semantics-evaluation.html" title="link to this section">12.3.7.1</a></span> Runtime Semantics: Evaluation</h1>
+        <div class="gp prod"><span class="nt">MemberExpression</span> <span class="geq">:</span> <span class="nt">MemberExpression</span> <span class="nt">TemplateLiteral</span></div>
+        <ol class="proc">
+          <li>Let <i>tagRef</i> be the result of evaluating <i>MemberExpression</i>.</li>
+          <li>Let <i>thisCall</i> be this <i>MemberExpression</i>.</li>
+          <li>Let <i>tailCall</i> be <a href="/sec/sec-isintailposition.html">IsInTailPosition</a>(<i>thisCall</i>). (See <a href="/sec/sec-isintailposition.html">14.6.1</a>)</li>
+          <li>Return <a href="/sec/sec-evaluatecall.html">EvaluateCall</a>(<i>tagRef</i>, <i>TemplateLiteral</i>, <i>tailCall</i>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">CallExpression</span> <span class="geq">:</span> <span class="nt">CallExpression</span> <span class="nt">TemplateLiteral</span></div>
+        <ol class="proc">
+          <li>Let <i>tagRef</i> be the result of evaluating <i>CallExpression</i>.</li>
+          <li>Let <i>thisCall</i> be this <i>CallExpression</i>.</li>
+          <li>Let <i>tailCall</i> be <a href="/sec/sec-isintailposition.html">IsInTailPosition</a>(<i>thisCall</i>). (See <a href="/sec/sec-isintailposition.html">14.6.1</a>)</li>
+          <li>Return <a href="/sec/sec-evaluatecall.html">EvaluateCall</a>(<i>tagRef</i>, <i>TemplateLiteral</i>, <i>tailCall</i>).</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

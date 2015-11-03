@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-9.4.3"><a href="/sec/sec-string-exotic-objects.html" title="link to this section">9.4.3</a></span>
+            String Exotic Objects</h1>
+
+        <p>A <i>String object</i> is an exotic object that encapsulates a String value and exposes virtual integer indexed data
+        properties corresponding to the individual code unit elements of the String value. Exotic String objects always have a
+        data property named <code>&quot;length&quot;</code> whose value is the number of code unit elements in the encapsulated String
+        value. Both the code unit data properties and the <code>&quot;length&quot;</code> property are non-writable and
+        non-configurable.</p>
+
+        <p>Exotic String objects have the same internal slots as ordinary objects. They also have a [[StringData]] internal
+        slot.</p>
+
+        <p>Exotic String objects provide alternative definitions for the following internal methods. All of the other exotic
+        String object essential internal methods that are not defined below are as specified in <a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots.html">9.1</a>.</p>
+      </div>
+
+      <section id="sec-string-exotic-objects-getownproperty-p">
+        <div class="front">
+          <h1><span class="secnum" id="sec-9.4.3.1"><a href="/sec/sec-string-exotic-objects-getownproperty-p.html" title="link to this section">9.4.3.1</a></span> [[GetOwnProperty]] ( P )</h1>
+
+          <p class="normalbefore">When the [[GetOwnProperty]] internal method of an exotic String object <var>S</var> is called
+          with <a href="/sec/sec-object-type.html">property key</a> <var>P</var> the following steps are taken:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+                <b>true</b>.</li>
+            <li>Let <i>desc</i> be <a href="/sec/sec-ordinarygetownproperty.html">OrdinaryGetOwnProperty</a>(<i>S</i>, <i>P</i>).</li>
+            <li>If <i>desc</i> is not <b>undefined</b> return <i>desc</i>.</li>
+            <li>Return <a href="/sec/sec-stringgetindexproperty.html">StringGetIndexProperty</a>(<i>S</i>, <i>P</i>).</li>
+          </ol>
+        </div>
+
+        <section id="sec-stringgetindexproperty">
+          <h1><span class="secnum" id="sec-9.4.3.1.1"><a href="/sec/sec-stringgetindexproperty.html" title="link to this section">9.4.3.1.1</a></span> StringGetIndexProperty (S, P)</h1>
+
+          <p class="normalbefore">When the abstract operation StringGetIndexProperty is called with an exotic String object
+          <var>S</var> and with <a href="/sec/sec-object-type.html">property key</a> <var>P</var>, the following steps are taken:</p>
+
+          <ol class="proc">
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>P</i>) is not String, return <b>undefined</b>.</li>
+            <li>Let <i>index</i> be <a href="/sec/sec-canonicalnumericindexstring.html">CanonicalNumericIndexString</a> (<i>P</i>).</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>index</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+            <li>If <i>index</i> is <b>undefined</b>, return <b>undefined</b>.</li>
+            <li>If <a href="/sec/sec-isinteger.html">IsInteger</a>(<i>index</i>) is <b>false</b>, return <b>undefined</b>.</li>
+            <li>If <i>index</i> = &#x2212;0, return <b>undefined</b>.</li>
+            <li>Let <i>str</i> be the String value of the [[StringData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>S</i>.</li>
+            <li>Let <i>len</i> be the number of elements in <i>str</i>.</li>
+            <li>If <i>index</i> &lt; 0 or <i>len</i> &#x2264; <i>index</i>, return <b>undefined</b>.</li>
+            <li>Let <i>resultStr</i> be a String value of length 1, containing one code unit from <i>str</i>, specifically the
+                code unit at index <i>index</i>.</li>
+            <li>Return a PropertyDescriptor{ [[Value]]: <i>resultStr</i>, [[Enumerable]]: <b>true</b>, [[Writable]]: <b>false</b>,
+                [[Configurable]]: <b>false</b> }.</li>
+          </ol>
+        </section>
+      </section>
+
+      <section id="sec-string-exotic-objects-hasproperty-p">
+        <h1><span class="secnum" id="sec-9.4.3.2"><a href="/sec/sec-string-exotic-objects-hasproperty-p.html" title="link to this section">9.4.3.2</a></span> [[HasProperty]](P)</h1>
+
+        <p class="normalbefore">When the [[HasProperty]] internal method of an exotic String object <var>S</var> is called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>elementDesc</i> be <a href="/sec/sec-stringgetindexproperty.html">StringGetIndexProperty</a>(<i>S</i>, <i>P</i>).</li>
+          <li>If <i>elementDesc</i> is not <b>undefined</b>, return <b>true</b>.</li>
+          <li>Return <a href="/sec/sec-ordinaryhasproperty.html">OrdinaryHasProperty</a>(<i>S</i>, <i>P</i>)..</li>
+        </ol>
+      </section>
+
+      <section id="sec-string-exotic-objects-ownpropertykeys">
+        <h1><span class="secnum" id="sec-9.4.3.3"><a href="/sec/sec-string-exotic-objects-ownpropertykeys.html" title="link to this section">9.4.3.3</a></span> [[OwnPropertyKeys]] ( )</h1>
+
+        <p class="normalbefore">When the [[OwnPropertyKeys]] internal method of a <a href="/sec/sec-string-exotic-objects.html">String
+        exotic object</a> <var>O</var> is called the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>keys</i> be a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>Let <i>str</i> be the String value of the [[StringData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+          <li>Let <i>len</i> be the number of elements in <i>str</i>.</li>
+          <li>For each integer <i>i</i> starting with 0 such that <i>i</i> &lt; <i>len</i>, in ascending order,
+            <ol class="block">
+              <li>Add <a href="/sec/sec-tostring.html">ToString</a>(<i>i</i>) as the last element of <i>keys</i></li>
+            </ol>
+          </li>
+          <li>For each own <a href="/sec/sec-object-type.html">property key</a> <i>P</i> of <i>O</i> such that <i>P</i> is an integer index
+              and <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>P</i>) &#x2265; <i>len</i>, in ascending numeric index order,
+            <ol class="block">
+              <li>Add <i>P</i> as the last element of <i>keys</i>.</li>
+            </ol>
+          </li>
+          <li>For each own <a href="/sec/sec-object-type.html">property key</a> <i>P</i> of <i>O</i> such that <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>P</i>) is String and <i>P</i> is not an integer index, in
+              property creation order,
+            <ol class="block">
+              <li>Add <i>P</i> as the last element of <i>keys</i>.</li>
+            </ol>
+          </li>
+          <li>For each own <a href="/sec/sec-object-type.html">property key</a> <i>P</i> of <i>O</i> such that <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>P</i>) is Symbol, in property creation order,
+            <ol class="block">
+              <li>Add <i>P</i> as the last element of <i>keys</i>.</li>
+            </ol>
+          </li>
+          <li>Return <i>keys</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-stringcreate">
+        <h1><span class="secnum" id="sec-9.4.3.4"><a href="/sec/sec-stringcreate.html" title="link to this section">9.4.3.4</a></span>
+            StringCreate( value, prototype)</h1>
+
+        <p class="normalbefore">The abstract operation StringCreate with arguments <var>value</var> and <var>prototype</var> is
+        used to specify the creation of new exotic String objects. It performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>prototype</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is String.</li>
+          <li>Let <i>S</i> be a newly created <a href="/sec/sec-string-exotic-objects.html">String exotic object</a>.</li>
+          <li>Set the [[StringData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>S</i> to
+              <i>value</i>.</li>
+          <li>Set <i>S</i>&#x2019;s essential internal methods to the default ordinary object definitions specified in <a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots.html">9.1</a>.</li>
+          <li>Set the [[GetOwnProperty]] internal method of <i>S</i> as specified in <a href="/sec/sec-string-exotic-objects-getownproperty-p.html">9.4.3.1</a>.</li>
+          <li>Set the [[HasProperty]] internal method of <i>S</i> as specified in <a href="/sec/sec-string-exotic-objects-hasproperty-p.html">9.4.3.2</a>.</li>
+          <li>Set the [[OwnPropertyKeys]] internal method of <i>S</i> as specified in <a href="/sec/sec-string-exotic-objects-ownpropertykeys.html">9.4.3.3</a>.</li>
+          <li>Set the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>S</i> to
+              <i>prototype</i>.</li>
+          <li>Set the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>S</i> to
+              <b>true</b>.</li>
+          <li>Let <i>length</i> be the number of code unit elements in <i>value.</i></li>
+          <li>Let <i>status</i> be <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>S</i>, <code>&quot;length&quot;</code>,
+              PropertyDescriptor{[[Value]]: <i>length</i>,  [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+              [[Configurable]]: <b>false</b> }).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+          <li>Return <i>S</i>.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

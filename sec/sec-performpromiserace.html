@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-25.4.4.3.1"><a href="/sec/sec-performpromiserace.html" title="link to this section">25.4.4.3.1</a></span> Runtime Semantics:  PerformPromiseRace ( iteratorRecord,
+              promiseCapability, C )</h1>
+
+          <p class="normalbefore">When the PerformPromiseRace abstract operation is called with arguments <var>iteratorRecord,
+          promiseCapability,</var> and <var>C</var> the following steps are taken:</p>
+
+          <ol class="proc">
+            <li>Repeat
+              <ol class="block">
+                <li>Let <i>next</i> be <a href="/sec/sec-iteratorstep.html">IteratorStep</a>(<i>iteratorRecord</i>.[[iterator]]).</li>
+                <li>If <i>next</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+                    <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+                <li>If <i>next</i> is <b>false</b>, then
+                  <ol class="block">
+                    <li>Set <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+                    <li>Return <i>promiseCapability</i>.[[Promise]].</li>
+                  </ol>
+                </li>
+                <li>Let <i>nextValue</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>next</i>).</li>
+                <li>If <i>nextValue</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+                    <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextValue</i>).</li>
+                <li>Let <i>nextPromise</i> be <a href="/sec/sec-invoke.html">Invoke</a>(<i>C</i>, <code>&quot;resolve&quot;</code>,
+                    &#xAB;&#x200D;<i>nextValue</i>&#xBB;).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextPromise</i>).</li>
+                <li>Let <i>result</i> be <a href="/sec/sec-invoke.html">Invoke</a>(<i>nextPromise</i>, <code>&quot;then&quot;</code>,
+                    &#xAB;&#x200D;<i>promiseCapability</i>.[[Resolve]], <i>promiseCapability</i>.[[Reject]]&#xBB;).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>result</i>).</li>
+              </ol>
+            </li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

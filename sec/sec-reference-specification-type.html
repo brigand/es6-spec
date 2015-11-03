@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-6.2.3"><a href="/sec/sec-reference-specification-type.html" title="link to this section">6.2.3</a></span> The Reference Specification Type</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The Reference type is used to explain the behaviour of such operators as
+          <code>delete</code>, <code>typeof</code>, the assignment operators, the <code>super</code> keyword and other language
+          features. For example, the left-hand operand of an assignment is expected to produce a reference.</p>
+        </div>
+
+        <p>A <b>Reference</b> is a resolved name or property binding. A Reference consists of three components, the
+        <var>base</var> value, the <var>referenced name</var> and the Boolean valued <var>strict reference</var> flag. The
+        <var>base</var> value is either <b>undefined</b>, an Object, a Boolean, a String, a Symbol, a Number, or an <a href="/sec/sec-environment-records.html">Environment Record</a> (<a href="/sec/sec-environment-records.html">8.1.1</a>). A <var>base</var>
+        value of <b>undefined</b> indicates that the Reference could not be resolved to a binding. The <var>referenced name</var>
+        is a String or Symbol value.</p>
+
+        <p>A Super Reference is a Reference that is used to represents a name binding that was expressed using the super keyword.
+        A Super Reference has an additional <var>thisValue</var> component and its <var>base</var> value will never be an <a href="/sec/sec-environment-records.html">Environment Record</a>.</p>
+
+        <p class="normalbefore">The following abstract operations are used in this specification to access the components of
+        references:</p>
+
+        <ul>
+          <li>
+            <p>GetBase(V). Returns the <var>base</var> value component of the reference V.</p>
+          </li>
+
+          <li>
+            <p>GetReferencedName(V). Returns the <var>referenced name</var> component of the reference V.</p>
+          </li>
+
+          <li>
+            <p>IsStrictReference(V). Returns the <var>strict reference</var> flag component of the reference V.</p>
+          </li>
+
+          <li>
+            <p>HasPrimitiveBase(V). Returns <span class="value">true</span> if <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<span style="font-family: Times New Roman"><i>base</i>)</span>
+            is Boolean, String, Symbol, or Number.</p>
+          </li>
+
+          <li>
+            <p>IsPropertyReference(V). Returns <span class="value">true</span> if either the <var>base</var> value is an object or
+            HasPrimitiveBase(V) is <b>true</b>; otherwise returns <span class="value">false</span>.</p>
+          </li>
+
+          <li>
+            <p>IsUnresolvableReference(V). Returns <span class="value">true</span> if the <var>base</var> value is
+            <b>undefined</b> and <b>false</b> otherwise.</p>
+          </li>
+
+          <li>
+            <p>IsSuperReference(V). Returns <span class="value">true</span> if this reference has a <var>thisValue</var>
+            component.</p>
+          </li>
+        </ul>
+
+        <p>The following abstract operations are used in this specification to operate on references:</p>
+      </div>
+
+      <section id="sec-getvalue">
+        <h1><span class="secnum" id="sec-6.2.3.1"><a href="/sec/sec-getvalue.html" title="link to this section">6.2.3.1</a></span> GetValue
+            (V)</h1>
+        <ol class="proc">
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>V</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>V</i>) is not <a href="/sec/sec-reference-specification-type.html">Reference</a>, return <i>V</i>.</li>
+          <li>Let <i>base</i> be <a href="/sec/sec-reference-specification-type.html">GetBase</a>(<i>V</i>).</li>
+          <li>If <a href="/sec/sec-reference-specification-type.html">IsUnresolvableReference</a>(<i>V</i>), throw a <b>ReferenceError</b>
+              exception.</li>
+          <li>If <a href="/sec/sec-reference-specification-type.html">IsPropertyReference</a>(<i>V</i>), then
+            <ol class="block">
+              <li>If <a href="/sec/sec-reference-specification-type.html">HasPrimitiveBase</a>(<i>V</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: In this case, <i>base</i> will never be <b>null</b> or
+                      <b>undefined</b>.</li>
+                  <li>Let <i>base</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<i>base</i>).</li>
+                </ol>
+              </li>
+              <li>Return <i>base.</i>[[Get]](<a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>V</i>), <a href="/sec/sec-getthisvalue.html">GetThisValue</a>(<i>V</i>)).</li>
+            </ol>
+          </li>
+          <li>Else <i>base</i> must be an <a href="/sec/sec-environment-records.html">Environment Record</a>,
+            <ol class="block">
+              <li>Return <i>base.</i>GetBindingValue(<a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>V</i>),
+                  <a href="/sec/sec-reference-specification-type.html">IsStrictReference</a>(<i>V</i>)) (<a href="/sec/sec-environment-records.html">see 8.1.1</a>).</li>
+            </ol>
+          </li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The object that may be created in step 5.a.ii is not accessible outside of the above
+          abstract operation and the ordinary object [[Get]] internal method. An implementation might choose to avoid the actual
+          creation of the object.</p>
+        </div>
+      </section>
+
+      <section id="sec-putvalue">
+        <h1><span class="secnum" id="sec-6.2.3.2"><a href="/sec/sec-putvalue.html" title="link to this section">6.2.3.2</a></span> PutValue
+            (V, W)</h1>
+        <ol class="proc">
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>V</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>W</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>V</i>) is not <a href="/sec/sec-reference-specification-type.html">Reference</a>, throw a <b>ReferenceError</b> exception.</li>
+          <li>Let <i>base</i> be <a href="/sec/sec-reference-specification-type.html">GetBase</a>(<i>V</i>).</li>
+          <li>If <a href="/sec/sec-reference-specification-type.html">IsUnresolvableReference</a>(<i>V</i>), then
+            <ol class="block">
+              <li>If <a href="/sec/sec-reference-specification-type.html">IsStrictReference</a>(<i>V</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li>Throw <b>ReferenceError</b> exception.</li>
+                </ol>
+              </li>
+              <li>Let <i>globalObj</i> be <a href="/sec/sec-getglobalobject.html">GetGlobalObject</a>().</li>
+              <li>Return <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>globalObj</i>,<a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>V</i>), <i>W</i>, <b>false</b>).</li>
+            </ol>
+          </li>
+          <li>Else if <a href="/sec/sec-reference-specification-type.html">IsPropertyReference</a>(<i>V</i>), then
+            <ol class="block">
+              <li>If <a href="/sec/sec-reference-specification-type.html">HasPrimitiveBase</a>(<i>V</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: In this case, <i>base</i> will never be <b>null</b> or
+                      <b>undefined</b>.</li>
+                  <li>Set <i>base</i>  to <a href="/sec/sec-toobject.html">ToObject</a>(<i>base</i>).</li>
+                </ol>
+              </li>
+              <li>Let <i>succeeded</i> be <i>base.</i>[[Set]](<a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>V</i>), <i>W</i>, <a href="/sec/sec-getthisvalue.html">GetThisValue</a>(<i>V</i>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>succeeded</i>).</li>
+              <li>If <i>succeeded</i> is <b>false</b> and <a href="/sec/sec-reference-specification-type.html">IsStrictReference</a>(<i>V</i>) is <b>true</b>, throw a
+                  <b>TypeError</b> exception.</li>
+              <li>Return.</li>
+            </ol>
+          </li>
+          <li>Else <i>base</i> must be an <a href="/sec/sec-environment-records.html">Environment Record</a>.
+            <ol class="block">
+              <li>Return <i>base.</i>SetMutableBinding(<a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>V</i>), <i>W</i>, <a href="/sec/sec-reference-specification-type.html">IsStrictReference</a>(<i>V</i>)) (<a href="/sec/sec-environment-records.html">see 8.1.1</a>).</li>
+            </ol>
+          </li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The object that may be created in step 6.a.ii is not accessible outside of the above
+          algorithm and the ordinary object [[Set]] internal method. An implementation might choose to avoid the actual creation
+          of that object.</p>
+        </div>
+      </section>
+
+      <section id="sec-getthisvalue">
+        <h1><span class="secnum" id="sec-6.2.3.3"><a href="/sec/sec-getthisvalue.html" title="link to this section">6.2.3.3</a></span>
+            GetThisValue (V)</h1>
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-reference-specification-type.html">IsPropertyReference</a>(<i>V</i>) is <b>true</b>.</li>
+          <li>If <a href="/sec/sec-reference-specification-type.html">IsSuperReference</a>(<i>V</i>), then
+            <ol class="block">
+              <li>Return the value of the <i>thisValue</i> component of the reference <i>V</i>.</li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-reference-specification-type.html">GetBase</a>(<i>V</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-initializereferencedbinding">
+        <h1><span class="secnum" id="sec-6.2.3.4"><a href="/sec/sec-initializereferencedbinding.html" title="link to this section">6.2.3.4</a></span> InitializeReferencedBinding (V, W)</h1>
+        <ol class="proc">
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>V</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>W</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>V</i>)
+              is <a href="/sec/sec-reference-specification-type.html">Reference</a>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-reference-specification-type.html">IsUnresolvableReference</a>(<i>V</i>) is <b>false</b>.</li>
+          <li>Let <i>base</i> be <a href="/sec/sec-reference-specification-type.html">GetBase</a>(<i>V</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>base</i> is an <a href="/sec/sec-environment-records.html">Environment
+              Record</a>.</li>
+          <li>Return <i>base.</i>InitializeBinding(<a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>V</i>),
+              <i>W</i>).</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

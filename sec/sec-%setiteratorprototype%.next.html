@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-23.2.5.2.1"><a href="/sec/sec-%setiteratorprototype%.next.html" title="link to this section">23.2.5.2.1</a></span> %SetIteratorPrototype%.next ( )</h1>
+          <ol class="proc">
+            <li>Let <i>O</i> be the <b>this</b> value.</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, throw a <b>TypeError</b>
+                exception.</li>
+            <li>If <i>O</i> does not have all of the internal slots of a Set Iterator Instance (<a href="/sec/sec-properties-of-set-iterator-instances.html">23.2.5.3</a>), throw a <b>TypeError</b> exception.</li>
+            <li>Let <i>s</i> be the value of the [[IteratedSet]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+            <li>Let <i>index</i> be the value of the [[SetNextIndex]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+            <li>Let <i>itemKind</i> be the value of the [[SetIterationKind]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+            <li>If <i>s</i> is <b>undefined</b>, return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<b>undefined</b>, <b>true</b>).</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>s</i> has a [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of the
+                [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>s</i>.</li>
+            <li>Repeat while <i>index</i> is less than the total number of elements of <i>entries</i>. The number of elements must
+                be redetermined each time this method is evaluated.
+              <ol class="block">
+                <li>Let <i>e</i> be <i>entries</i>[<i>index</i>].</li>
+                <li>Set <i>index</i> to <i>index</i>+1;</li>
+                <li>Set the [[SetNextIndex]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of
+                    <i>O</i> to <i>index</i>.</li>
+                <li>If <i>e</i> is not <span style="font-family: sans-serif">empty</span>, then
+                  <ol class="block">
+                    <li>If <i>itemKind</i> is <b>&quot;<code>key+value</code>&quot;</b>, then
+                      <ol class="block">
+                        <li>Return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<a href="/sec/sec-createarrayfromlist.html">CreateArrayFromList</a>(&#xAB;<i>e</i>, <i>e</i>&#xBB;),
+                            <b>false</b>).</li>
+                      </ol>
+                    </li>
+                    <li>Return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<i>e</i>, <b>false</b>).</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+            <li>Set the [[IteratedSet]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i> to
+                <b>undefined</b>.</li>
+            <li>Return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<b>undefined</b>, <b>true</b>).</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

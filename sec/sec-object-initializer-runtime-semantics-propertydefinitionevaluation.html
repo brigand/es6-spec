@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-12.2.6.9"><a href="/sec/sec-object-initializer-runtime-semantics-propertydefinitionevaluation.html" title="link to this section">12.2.6.9</a></span> Runtime Semantics: PropertyDefinitionEvaluation</h1>
+
+        <p>With parameter <var>object</var> and <span style="font-family: Times New Roman"><i>enumerable</i>.</span></p>
+
+        <p>See also: <a href="/sec/sec-method-definitions-runtime-semantics-propertydefinitionevaluation.html">14.3.9</a>, <a href="/sec/sec-generator-function-definitions-runtime-semantics-propertydefinitionevaluation.html">14.4.13</a>, B.3.1</p>
+
+        <div class="gp prod"><span class="nt">PropertyDefinitionList</span> <span class="geq">:</span> <span class="nt">PropertyDefinitionList</span> <code class="t">,</code> <span class="nt">PropertyDefinition</span></div>
+        <ol class="proc">
+          <li>Let <i>status</i> be the result of performing PropertyDefinitionEvaluation of  <i>PropertyDefinitionList</i> with
+              arguments <i>object</i> and <i>enumerable</i>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          <li>Return the result of performing PropertyDefinitionEvaluation of <i>PropertyDefinition</i> with arguments
+              <i>object</i> and <i>enumerable</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">PropertyDefinition</span> <span class="geq">:</span> <span class="nt">IdentifierReference</span></div>
+        <ol class="proc">
+          <li>Let <i>propName</i> be StringValue of <i>IdentifierReference</i>.</li>
+          <li>Let <i>exprValue</i> be the result of evaluating <i>IdentifierReference</i>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>exprValue</i>).</li>
+          <li>Let <i>propValue</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>exprValue</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>propValue</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>enumerable</i> is <b>true</b>.</li>
+          <li>Return <a href="/sec/sec-createdatapropertyorthrow.html">CreateDataPropertyOrThrow</a>(<i>object</i>, <i>propName</i>,
+              <i>propValue</i>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">PropertyDefinition</span> <span class="geq">:</span> <span class="nt">PropertyName</span> <code class="t">:</code> <span class="nt">AssignmentExpression</span></div>
+        <ol class="proc">
+          <li>Let <i>propKey</i> be the result of evaluating <i>PropertyName</i>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>propKey</i>).</li>
+          <li>Let <i>exprValueRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+          <li>Let <i>propValue</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>exprValueRef</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>propValue</i>).</li>
+          <li>If <a href="/sec/sec-isanonymousfunctiondefinition.html">IsAnonymousFunctionDefinition</a>(<i>AssignmentExpression)</i> is
+              <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>hasNameProperty</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>propValue</i>,
+                  <code>&quot;name&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasNameProperty</i>).</li>
+              <li>If <i>hasNameProperty</i> is <b>false</b>, perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>propValue</i>, <i>propKey</i>).</li>
+            </ol>
+          </li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>enumerable</i> is <b>true</b>.</li>
+          <li>Return <a href="/sec/sec-createdatapropertyorthrow.html">CreateDataPropertyOrThrow</a>(<i>object</i>, <i>propKey</i>,
+              <i>propValue</i>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> An alternative semantics for this production is given in <a href="/sec/sec-__proto__-property-names-in-object-initializers.html">B.3.1</a>.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-12.1.1"><a href="/sec/sec-identifiers-static-semantics-early-errors.html" title="link to this section">12.1.1</a></span> Static Semantics:  Early Errors</h1>
+      <div class="gp prod"><span class="nt">BindingIdentifier</span> <span class="geq">:</span> <span class="nt">Identifier</span></div>
+      <ul>
+        <li>
+          <p>It is a Syntax Error if the code matched by this production is contained in <a href="/sec/sec-strict-mode-code.html">strict
+          mode code</a> and the StringValue of <span class="nt">Identifier</span> is <code>&quot;arguments&quot;</code> or
+          <code>&quot;eval&quot;</code>.</p>
+        </li>
+      </ul>
+
+      <p><span class="prod"><span class="nt">IdentifierReference</span> <span class="geq">:</span> <code class="t">yield</code></span><br><span class="prod"><span class="nt">BindingIdentifier</span> <span class="geq">:</span>
+      <code class="t">yield</code></span><br><span class="prod"><span class="nt">LabelIdentifier</span> <span class="geq">:</span>
+      <code class="t">yield</code></span></p>
+
+      <ul>
+        <li>
+          <p>It is a Syntax Error if the code matched by this production is contained in <a href="/sec/sec-strict-mode-code.html">strict
+          mode code</a><var>.</var></p>
+        </li>
+      </ul>
+
+      <p><i>IdentifierReference</i><span style="font-family: sans-serif"><sub>[Yield]</sub> <b>:</b></span>  <i>Identifier</i>
+      <span style="font-family: sans-serif"><br></span><i>BindingIdentifier</i><span style="font-family:
+      sans-serif"><sub>[Yield]</sub> <b>:</b></span>  <i>Identifier</i>  <span style="font-family:
+      sans-serif"><br></span><i>LabelIdentifier</i><span style="font-family: sans-serif"><sub>[Yield]</sub> <b>:</b></span>
+      <i>Identifier</i></p>
+
+      <ul>
+        <li>
+          <p>It is a Syntax Error if this production has a <sub>[Yield]</sub> parameter and StringValue of <span class="nt">Identifier</span> is <code>&quot;yield&quot;</code>.</p>
+        </li>
+      </ul>
+      <div class="gp prod"><span class="nt">Identifier</span> <span class="geq">:</span> <span class="nt">IdentifierName</span> <span class="grhsmod">but not</span> <span class="nt">ReservedWord</span></div>
+      <ul>
+        <li>
+          <p>It is a Syntax Error if this phrase is contained in <a href="/sec/sec-strict-mode-code.html">strict mode code</a> and the
+          StringValue of <span class="nt">IdentifierName</span> is: <code>&quot;implements&quot;</code>, <code>&quot;interface&quot;</code>,
+          <code>&quot;let&quot;</code>, <code>&quot;package&quot;</code>, <code>&quot;private&quot;</code>, <code>&quot;protected&quot;</code>, <code>&quot;public&quot;</code>,
+          <code>&quot;static&quot;</code>, or <code>&quot;yield&quot;</code>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if StringValue of <span class="nt">IdentifierName</span> is the same String value as the
+          StringValue of any <span class="nt">ReservedWord</span> except for <code>yield</code>.</p>
+        </li>
+      </ul>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span>  StringValue of <span class="nt">IdentifierName</span> normalizes any Unicode escape
+        sequences in <span class="nt">IdentifierName</span> hence such escapes cannot be used to write an <span class="nt">Identifier</span> whose code point sequence is the same as a <span class="nt">ReservedWord</span>.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

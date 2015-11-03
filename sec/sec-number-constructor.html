@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-20.1.1"><a href="/sec/sec-number-constructor.html" title="link to this section">20.1.1</a></span>
+            The Number Constructor</h1>
+
+        <p>The Number constructor is the %Number% intrinsic object and the initial value of the <code>Number</code> property of
+        the global object. When called as a constructor, it creates and initializes a new Number object. When <code>Number</code>
+        is called as a function rather than as a constructor, it performs a type conversion.</p>
+
+        <p>The <code>Number</code> constructor is designed to be subclassable. It may be used as the value of an
+        <code>extends</code> clause of a class definition. Subclass constructors that intend to inherit the specified
+        <code>Number</code> behaviour must include a <code>super</code> call to the <code>Number</code> constructor to create and
+        initialize the subclass instance with a [[NumberData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+        slot</a>.</p>
+      </div>
+
+      <section id="sec-number-constructor-number-value">
+        <h1><span class="secnum" id="sec-20.1.1.1"><a href="/sec/sec-number-constructor-number-value.html" title="link to this section">20.1.1.1</a></span> Number ( [ value ] )</h1>
+
+        <p class="normalbefore">When <code>Number</code> is called with argument <var>number</var>, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>If no arguments were passed to this function invocation, let <i>n</i> be +0.</li>
+          <li>Else, let <i>n</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>value</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>n</i>).</li>
+          <li>If NewTarget is <b>undefined</b><i>,</i> return <i>n</i>.</li>
+          <li>Let <i>O</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(NewTarget,
+              <code>&quot;%NumberPrototype%&quot;</code>, &#xAB;[[NumberData]]&#xBB; ).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Set the value of <i>O&#x2019;s</i> [[NumberData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to <i>n</i>.</li>
+          <li>Return <i>O</i>.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.5.11"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-enumerate.html" title="link to this section">9.5.11</a></span> [[Enumerate]] ()</h1>
+
+      <p class="normalbefore">When the [[Enumerate]] internal method of a Proxy exotic object <var>O</var> is called the following
+      steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <i>handler</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is Object.</li>
+        <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>trap</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>handler</i>, <code>&quot;enumerate&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trap</i>).</li>
+        <li>If <i>trap</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Return <i>target</i>.[[Enumerate]]().</li>
+          </ol>
+        </li>
+        <li>Let <i>trapResult</i> be <a href="/sec/sec-call.html">Call</a>(<i>trap</i>, <i>handler</i>, &#xAB;<i>target</i>&#xBB;).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trapResult</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>trapResult</i>) is not Object, throw a <b>TypeError</b>
+            exception.</li>
+        <li>Return <i>trapResult</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> [[Enumerate]] for proxy objects enforces the following invariants:</p>
+
+        <ul>
+          <li>The result of [[Enumerate]] must be an Object.</li>
+        </ul>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

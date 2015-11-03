@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-14.5.1"><a href="/sec/sec-class-definitions-static-semantics-early-errors.html" title="link to this section">14.5.1</a></span> Static Semantics:  Early Errors</h1>
+      <div class="gp prod"><span class="nt">ClassTail</span> <span class="geq">:</span> <span class="nt">ClassHeritage</span><sub class="g-opt">opt</sub> <code class="t">{</code> <span class="nt">ClassBody</span> <code class="t">}</code></div>
+      <ul>
+        <li>
+          <p>It is a Syntax Error if <span class="nt">ClassHeritage</span> is not present <span style="font-family: Times New
+          Roman"><i>and the following algorithm evaluates to <b>true</b>:</i></span></p>
+
+          <ol class="proc">
+            <li>Let <i>constructor</i> be ConstructorMethod of <i>ClassBody</i>.</li>
+            <li>If <i>constructor</i> is <span style="font-family: sans-serif">empty</span>, return <b>false</b>.</li>
+            <li>Return HasDirectSuper of <i>constructor</i>.</li>
+          </ol>
+        </li>
+      </ul>
+      <div class="gp prod"><span class="nt">ClassBody</span> <span class="geq">:</span> <span class="nt">ClassElementList</span></div>
+      <ul>
+        <li>
+          <p>It is a Syntax Error if <span style="font-family: Times New Roman">PrototypePropertyNameList</span> of <span class="nt">ClassElementList</span> <var>contains more than one occurrence of</var> <code>&quot;constructor&quot;</code>.</p>
+        </li>
+      </ul>
+      <div class="gp prod"><span class="nt">ClassElement</span> <span class="geq">:</span> <span class="nt">MethodDefinition</span></div>
+      <ul>
+        <li>
+          <p>It is a Syntax Error if <span style="font-family: Times New Roman">PropName</span> of <span class="nt">MethodDefinition</span> is not <code>&quot;constructor&quot;</code> <var>and</var> HasDirectSuper of <span class="nt">MethodDefinition</span> is <span style="font-family: Times New Roman"><b><i>true</i></b></span>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if <span style="font-family: Times New Roman">PropName</span> of <span class="nt">MethodDefinition</span> is <code>&quot;constructor&quot;</code> <var>and SpecialMethod of</var> <span class="nt">MethodDefinition</span> <var>is</var> <span style="font-family: Times New
+          Roman"><i><b>true</b>.</i></span></p>
+        </li>
+      </ul>
+      <div class="gp prod"><span class="nt">ClassElement</span> <span class="geq">:</span> <code class="t">static</code> <span class="nt">MethodDefinition</span></div>
+      <ul>
+        <li>It is a Syntax Error if HasDirectSuper of <span class="nt">MethodDefinition</span> is <span style="font-family: Times
+            New Roman"><b><i>true</i></b></span>.</li>
+        <li>It is a Syntax Error if <span style="font-family: Times New Roman">PropName</span> of <span class="nt">MethodDefinition</span> <var>is</var> <code>&quot;prototype&quot;</code><var>.</var></li>
+      </ul>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-19.4.1"><a href="/sec/sec-symbol-constructor.html" title="link to this section">19.4.1</a></span>
+            The Symbol Constructor</h1>
+
+        <p>The Symbol constructor is the %Symbol% intrinsic object and the initial value of the <code>Symbol</code> property of
+        the global object. When <code>Symbol</code> is called as a function, it returns a new Symbol value.</p>
+
+        <p>The <code>Symbol</code> constructor is not intended to be used with the <code>new</code> operator or to be subclassed.
+        It may be used as the value of an <code>extends</code> clause of a class definition but a <code>super</code> call to the
+        <code>Symbol</code> constructor will cause an exception.</p>
+      </div>
+
+      <section id="sec-symbol-description">
+        <h1><span class="secnum" id="sec-19.4.1.1"><a href="/sec/sec-symbol-description.html" title="link to this section">19.4.1.1</a></span> Symbol ( [ description ] )</h1>
+
+        <p class="normalbefore">When <code>Symbol</code> is called with optional argument <var>description</var>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>If NewTarget is not <b>undefined</b><i>,</i> throw a <b>TypeError</b> exception.</li>
+          <li>If <i>description</i> is <b>undefined</b>, let <i>descString</i> be <b>undefined</b>.</li>
+          <li>Else, let <i>descString</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>description</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>descString</i>).</li>
+          <li>Return a new unique Symbol value whose [[Description]] value is <i>descString</i>.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

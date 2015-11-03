@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-11.6.1.2"><a href="/sec/sec-identifier-names-static-semantics-stringvalue.html" title="link to this section">11.6.1.2</a></span> Static Semantics: <span class="nt">StringValue</span></h1>
+
+        <p>See also: <a href="/sec/sec-string-literals-static-semantics-stringvalue.html">11.8.4.2</a>, <a href="/sec/sec-identifiers-static-semantics-stringvalue.html">12.1.4</a>.</p>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">IdentifierName</span> <span class="geq">::</span></div>
+          <div class="rhs"><span class="nt">IdentifierStart</span></div>
+          <div class="rhs"><span class="nt">IdentifierName</span> <span class="nt">IdentifierPart</span></div>
+        </div>
+
+        <ol class="proc">
+          <li>Return the String value consisting of the sequence of code units corresponding to <i>IdentifierName</i>. In
+              determining the sequence any occurrences of <code>\</code> <i>UnicodeEscapeSequence</i> are first replaced with the
+              code point represented by the <i>UnicodeEscapeSequence</i> and then the code points of the entire
+              <i>IdentifierName</i> are converted to code units by <a href="/sec/sec-utf16encoding.html">UTF16Encoding</a> (<a href="/sec/sec-utf16encoding.html">10.1.1</a>) each code point.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

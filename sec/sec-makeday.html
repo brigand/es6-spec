@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.3.1.13"><a href="/sec/sec-makeday.html" title="link to this section">20.3.1.13</a></span>
+            MakeDay (year, month, date)</h1>
+
+        <p>The abstract operation MakeDay calculates a number of days from its three arguments, which must be ECMAScript Number
+        values. This operator functions as follows:</p>
+
+        <ol class="proc">
+          <li>If <i>year</i> is not finite or <i>month</i> is not finite or <i>date</i> is not finite, return <b>NaN</b>.</li>
+          <li>Let <i>y</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>year</i>).</li>
+          <li>Let <i>m</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>month</i>).</li>
+          <li>Let <i>dt</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>date</i>).</li>
+          <li>Let <i>ym</i> be <i>y</i> + <a href="/sec/sec-algorithm-conventions.html">floor</a>(<i>m</i> /12).</li>
+          <li>Let <i>mn</i> be <i>m</i> <a href="/sec/sec-algorithm-conventions.html">modulo</a> 12.</li>
+          <li>Find a value <i>t</i> such that <a href="/sec/sec-year-number.html">YearFromTime</a>(<i>t</i>) is <i>ym</i> and <a href="/sec/sec-month-number.html">MonthFromTime</a>(<i>t</i>) is <i>mn</i> and <a href="/sec/sec-date-number.html">DateFromTime</a>(<i>t</i>) is 1; but if this is not possible (because some argument is out
+              of range), return <b>NaN</b>.</li>
+          <li>Return <a href="/sec/sec-day-number-and-time-within-day.html">Day</a>(<i>t</i>) + <i>dt</i> &#x2212; 1.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

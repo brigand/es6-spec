@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-13.2.13"><a href="/sec/sec-block-runtime-semantics-evaluation.html" title="link to this section">13.2.13</a></span> Runtime Semantics: Evaluation</h1>
+      <div class="gp prod"><span class="nt">Block</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family: sans-serif">empty</span>).</li>
+      </ol>
+      <div class="gp prod"><span class="nt">Block</span> <span class="geq">:</span> <code class="t">{</code> <span class="nt">StatementList</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Let <i>oldEnv</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a>.</li>
+        <li>Let <i>blockEnv</i> be <a href="/sec/sec-newdeclarativeenvironment.html">NewDeclarativeEnvironment</a>(<i>oldEnv</i>).</li>
+        <li>Perform <a href="/sec/sec-blockdeclarationinstantiation.html">BlockDeclarationInstantiation</a>(<i>StatementList,</i>
+            <i>blockEnv</i>).</li>
+        <li>Set <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> to <i>blockEnv</i>.</li>
+        <li>Let <i>blockValue</i> be the result of evaluating <i>StatementList</i>.</li>
+        <li>Set <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> to <i>oldEnv</i>.</li>
+        <li>Return <i>blockValue</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE 1</span> No matter how control leaves the <span class="nt">Block</span> the <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> is always restored to its former state.</p>
+      </div>
+
+      <div class="gp prod"><span class="nt">StatementList</span> <span class="geq">:</span> <span class="nt">StatementList</span> <span class="nt">StatementListItem</span></div>
+      <ol class="proc">
+        <li>Let <i>sl</i> be the result of evaluating <i>StatementList</i>.</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>sl</i>).</li>
+        <li>Let <i>s</i> be the result of evaluating <i>StatementListItem</i>.</li>
+        <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<a href="/sec/sec-updateempty.html">UpdateEmpty</a>(<i>s</i>, <i>sl</i>.[[value]])).</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE 2</span> The value of a <span class="nt">StatementList</span> is the value of the last value
+        producing item in the <span class="nt">StatementList</span>. For example, the following calls to the <code>eval</code>
+        function all return the value 1:</p>
+
+        <p><code>eval(&quot;1;;;;;&quot;)</code></p>
+
+        <p><code>eval(&quot;1;{}&quot;)</code></p>
+
+        <p><code>eval(&quot;1;var a;&quot;)</code></p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

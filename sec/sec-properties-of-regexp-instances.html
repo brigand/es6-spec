@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-21.2.6"><a href="/sec/sec-properties-of-regexp-instances.html" title="link to this section">21.2.6</a></span> Properties of RegExp Instances</h1>
+
+        <p>RegExp instances are ordinary objects that inherit properties from the RegExp prototype object. RegExp instances have
+        internal slots [[RegExpMatcher]], [[OriginalSource]], and [[OriginalFlags]]. The value of the [[RegExpMatcher]] internal
+        slot is an implementation dependent representation of the <span class="nt">Pattern</span> of the RegExp object.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> Prior to ECMAScript 2015, <code>RegExp</code> instances were specified as having the own
+          data properties <code>source</code>, <code>global</code>, <code>ignoreCase</code>, and <code>multiline</code>. Those
+          properties are now specified as accessor properties of <a href="/sec/sec-regexp.prototype.html">RegExp.prototype</a>.</p>
+        </div>
+
+        <p>RegExp instances also have the following property:</p>
+      </div>
+
+      <section id="sec-lastindex">
+        <h1><span class="secnum" id="sec-21.2.6.1"><a href="/sec/sec-lastindex.html" title="link to this section">21.2.6.1</a></span>
+            lastIndex</h1>
+
+        <p>The value of the <code>lastIndex</code> property specifies the String index at which to start the next match. It is
+        coerced to an integer when used (<a href="/sec/sec-regexpbuiltinexec.html">see 21.2.5.2.2</a>). This property shall have the
+        attributes {&#xA0;[[Writable]]: <b>true</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>false</b>&#xA0;}.</p>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

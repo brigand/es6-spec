@@ -1,0 +1,1 @@
+{"id":"sec-error.prototype.constructor","html":"\n        <h1><span class=\"secnum\" id=\"sec-19.5.3.1\"><a href=\"/sec/sec-error.prototype.constructor.html\" title=\"link to this section\">19.5.3.1</a></span> Error.prototype.constructor</h1>\n\n        <p>The initial value of <code>Error.prototype.constructor</code> is the intrinsic object %Error%.</p>\n      "}

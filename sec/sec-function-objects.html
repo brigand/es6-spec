@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-19.2"><a href="/sec/sec-function-objects.html" title="link to this section">19.2</a></span> Function
+          Objects</h1>
+    </div>
+
+    <section id="sec-function-constructor">
+      <div class="front">
+        <h1><span class="secnum" id="sec-19.2.1"><a href="/sec/sec-function-constructor.html" title="link to this section">19.2.1</a></span> The Function Constructor</h1>
+
+        <p>The Function constructor is the %Function% intrinsic object and the initial value of the <code>Function</code> property
+        of the global object. When <code>Function</code> is called as a function rather than as a constructor, it creates and
+        initializes a new Function object. Thus the function call <code><b>Function(</b>&#x2026;<b>)</b></code> is equivalent to
+        the object creation expression <code><b>new Function(</b>&#x2026;<b>)</b></code> with the same arguments.</p>
+
+        <p>The <code>Function</code> constructor is designed to be subclassable. It may be used as the value of an
+        <code>extends</code> clause of a class definition. Subclass constructors that intend to inherit the specified
+        <code>Function</code> behaviour must include a <code>super</code> call to the <code>Function</code> constructor to create
+        and initialize a subclass instances with the internal slots necessary for built-in function behaviour. All ECMAScript
+        syntactic forms for defining function objects create instances of <code>Function</code>. There is no syntactic means to
+        create instances of <code>Function</code> subclasses except for the built-in Generator Function subclass.</p>
+      </div>
+
+      <section id="sec-function-p1-p2-pn-body">
+        <div class="front">
+          <h1><span class="secnum" id="sec-19.2.1.1"><a href="/sec/sec-function-p1-p2-pn-body.html" title="link to this section">19.2.1.1</a></span> Function ( p1, p2, &#x2026; , pn, body )</h1>
+
+          <p>The last argument specifies the body (executable code) of a function; any preceding arguments specify formal
+          parameters.</p>
+
+          <p class="normalbefore">When the <code>Function</code> function is called with some arguments <var>p1</var>,
+          <var>p2</var>, &#x2026; , <var>pn</var>, <var>body</var> (where <var>n</var> might be <span style="font-family: Times
+          New Roman">0</span>, that is, there are no &#x201C;<var>p</var>&#x201D; arguments, and where <var>body</var> might also
+          not be provided), the following steps are taken:</p>
+
+          <ol class="proc">
+            <li>Let <i>C</i> be the active function object.</li>
+            <li>Let <i>args</i> be the <i>argumentsList</i> that was passed to this function by [[Call]] or [[Construct]].</li>
+            <li>Return <a href="/sec/sec-createdynamicfunction.html">CreateDynamicFunction</a>(<i>C</i>, NewTarget, <code>&quot;normal&quot;</code>,
+                <i>args</i>).</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> It is permissible but not necessary to have one argument for each formal parameter to
+            be specified. For example, all three of the following expressions produce the same result:</p>
+
+            <pre class="NoteCode">new Function(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;return a+b+c&quot;)</pre>
+            <pre class="NoteCode">new Function(&quot;a, b, c&quot;, &quot;return a+b+c&quot;)</pre>
+            <pre class="NoteCode">new Function(&quot;a,b&quot;, &quot;c&quot;, &quot;return a+b+c&quot;)</pre>
+          </div>
+        </div>
+
+        <section id="sec-createdynamicfunction">
+          <h1><span class="secnum" id="sec-19.2.1.1.1"><a href="/sec/sec-createdynamicfunction.html" title="link to this section">19.2.1.1.1</a></span> RuntimeSemantics: CreateDynamicFunction(constructor, newTarget,
+              kind, args)</h1>
+
+          <p>The abstract operation CreateDynamicFunction is called with arguments <var>constructor</var>, <var>newTarget</var>,
+          <var>kind</var>, and <var>args</var>. <var>constructor</var> is the constructor function that is performing this action,
+          <var>newTarget</var> is the constructor that <code>new</code> was initially applied to, <var>kind</var> is either
+          <code>&quot;normal&quot;</code> or <code>&quot;generator&quot;</code>, and <var>args</var> is a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the actual argument values that were passed to
+          <var>constructor</var>. The following steps are taken:</p>
+
+          <ol class="proc">
+            <li>If <i>newTarget</i> is <b>undefined</b><i>,</i> let <i>newTarget</i> be <i>constructor</i>.</li>
+            <li>If <i>kind</i> is <code>&quot;normal&quot;</code>, then
+              <ol class="block">
+                <li>Let <i>goal</i> be the grammar symbol <i>FunctionBody.</i></li>
+                <li>Let <i>parameterGoal</i> be the grammar symbol <i>FormalParameters</i>.</li>
+                <li>Let <i>fallbackProto</i> be <code>&quot;%FunctionPrototype%&quot;</code>.</li>
+              </ol>
+            </li>
+            <li>Else,
+              <ol class="block">
+                <li>Let <i>goal</i> be the grammar symbol <i>GeneratorBody</i>.</li>
+                <li>Let <i>parameterGoal</i> be the grammar symbol <i>FormalParameters</i><sub>[Yield]</sub>.</li>
+                <li>Let <i>fallbackProto</i> be <code>&quot;%Generator%&quot;</code>.</li>
+              </ol>
+            </li>
+            <li>Let <i>argCount</i> be the number of elements in <i>args</i>.</li>
+            <li>Let <i>P</i> be the empty String.</li>
+            <li>If <i>argCount</i> = 0, let <i>bodyText</i> be the empty String.</li>
+            <li>Else if <i>argCount</i> = 1, let <i>bodyText</i> be <i>args</i>[0].</li>
+            <li>Else <i>argCount</i> &gt; 1,
+              <ol class="block">
+                <li>Let <i>firstArg</i> be <i>args</i>[0].</li>
+                <li>Let <i>P</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>firstArg</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>P</i>).</li>
+                <li>Let <i>k</i> be 1.</li>
+                <li>Repeat, while <i>k</i> &lt; <i>argCount</i>-1
+                  <ol class="block">
+                    <li>Let <i>nextArg</i> be <i>args</i>[<i>k</i>].</li>
+                    <li>Let <i>nextArgString</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>nextArg</i>).</li>
+                    <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextArgString</i>).</li>
+                    <li>Let <i>P</i> be the result of concatenating the previous value of <i>P</i>, the String <code>&quot;,&quot;</code> (a
+                        comma), and <i>nextArgString</i>.</li>
+                    <li>Increase <i>k</i> by 1.</li>
+                  </ol>
+                </li>
+                <li>Let <i>bodyText</i> be <i>args</i>[<i>k</i>].</li>
+              </ol>
+            </li>
+            <li>Let <i>bodyText</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>bodyText</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>bodyText</i>).</li>
+            <li>Let <i>body</i> be the result of parsing <i>bodyText</i>, interpreted as UTF-16 encoded Unicode text as described
+                in <a href="/sec/sec-ecmascript-language-types-string-type.html">6.1.4</a><i>,</i> using <i>goal</i> as the goal symbol.
+                Throw a <b>SyntaxError</b> exception if the parse fails or if any static semantics errors are detected.</li>
+            <li>If <i>bodyText</i> is <a href="/sec/sec-strict-mode-code.html">strict mode code</a> (<a href="/sec/sec-strict-mode-code.html">see
+                10.2.1</a>) then let <i>strict</i> be <b>true</b>, else let <i>strict</i> be <b>false</b>.</li>
+            <li>Let <i>parameters</i> be the result of parsing <i>P</i>, interpreted as UTF-16 encoded Unicode text as described
+                in <a href="/sec/sec-ecmascript-language-types-string-type.html">6.1.4</a><i>,</i> using <i>parameterGoal</i> as the goal
+                symbol. Throw a <b>SyntaxError</b> exception if the parse fails or if any static semantics errors are detected. If
+                <i>strict</i> is <b>true</b>, the Early Error rules for <span class="prod"><span class="nt">StrictFormalParameters</span> <span class="geq">:</span> <span class="nt">FormalParameters</span></span> are applied.</li>
+            <li>If any element of the BoundNames of <i>parameters</i> also occurs in the LexicallyDeclaredNames of <i>body</i>,
+                throw a <b>SyntaxError</b> exception.</li>
+            <li>If <i>body</i> Contains <i>SuperCall</i> is <i><b>true</b>,</i> throw a <b>SyntaxError</b> exception.</li>
+            <li>If <i>parameters</i> Contains <i>SuperCall</i> is <i><b>true</b>,</i> throw a <b>SyntaxError</b> exception.</li>
+            <li>If <i>body</i> Contains <i>SuperProperty</i> is <i><b>true</b>,</i> throw a <b>SyntaxError</b> exception.</li>
+            <li>If <i>parameters</i> Contains <i>SuperProperty</i> is <i><b>true</b>,</i> throw a <b>SyntaxError</b>
+                exception.</li>
+            <li>If <i>kind</i> is <code>&quot;generator&quot;</code>, then
+              <ol class="block">
+                <li>If <i>parameters</i> Contains <i>YieldExpression</i> is <i><b>true</b>,</i> throw a <b>SyntaxError</b>
+                    exception.</li>
+              </ol>
+            </li>
+            <li>If <i>strict</i> is <b>true</b>, then
+              <ol class="block">
+                <li>If BoundNames of <i>parameters</i> contains any duplicate elements<i>,</i> throw a <b>SyntaxError</b>
+                    exception.</li>
+              </ol>
+            </li>
+            <li>Let <i>proto</i> be <a href="/sec/sec-getprototypefromconstructor.html">GetPrototypeFromConstructor</a>(<i>newTarget</i>,
+                <i>fallbackProto</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>proto</i>).</li>
+            <li>Let <i>F</i> be <a href="/sec/sec-functionallocate.html">FunctionAllocate</a>(<i>proto</i>, <i>strict</i>,
+                <i>kind</i>).</li>
+            <li>Let <i>realmF</i> be the value of <i>F&#x2019;s</i> [[Realm]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>scope</i> be <i>realmF</i>.[[globalEnv]].</li>
+            <li>Perform <a href="/sec/sec-functioninitialize.html">FunctionInitialize</a>(<i>F</i>, <span style="font-family:
+                sans-serif">Normal</span>, <i>parameters</i>, <i>body, scope</i>).</li>
+            <li>If <i>kind</i> is <code>&quot;generator&quot;</code>, then
+              <ol class="block">
+                <li>Let <i>prototype</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<span style="font-family:
+                    sans-serif">%GeneratorPrototype%</span>).</li>
+                <li>Perform <a href="/sec/sec-makeconstructor.html">MakeConstructor</a>(<i>F</i>, <b>true</b>, <i>prototype</i>).</li>
+              </ol>
+            </li>
+            <li>Else, perform <a href="/sec/sec-makeconstructor.html">MakeConstructor</a>(<i>F</i>).</li>
+            <li>Perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>F</i>, <code>&quot;<b>anonymous</b>&quot;</code>).</li>
+            <li>Return <i>F</i>.</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> A <code>prototype</code> property is automatically created for every function created
+            using CreateDynamicFunction , to provide for the possibility that the function will be used as a constructor.</p>
+          </div>
+        </section>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-the-function-constructor">
+      <div class="front">
+        <h1><span class="secnum" id="sec-19.2.2"><a href="/sec/sec-properties-of-the-function-constructor.html" title="link to this section">19.2.2</a></span> Properties of the Function Constructor</h1>
+
+        <p>The <code>Function</code> constructor is itself a built-in function object. The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the <code>Function</code> constructor is
+        %FunctionPrototype%, the intrinsic Function prototype object (<a href="/sec/sec-properties-of-the-function-prototype-object.html">19.2.3</a>).</p>
+
+        <p>The value of the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the
+        Function constructor is <b>true</b>.</p>
+
+        <p class="normalbefore">The Function constructor has the following properties:</p>
+      </div>
+
+      <section id="sec-function.length">
+        <h1><span class="secnum" id="sec-19.2.2.1"><a href="/sec/sec-function.length.html" title="link to this section">19.2.2.1</a></span>
+            Function.length</h1>
+
+        <p>This is a data property with a value of 1. This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+      </section>
+
+      <section id="sec-function.prototype">
+        <h1><span class="secnum" id="sec-19.2.2.2"><a href="/sec/sec-function.prototype.html" title="link to this section">19.2.2.2</a></span> Function.prototype</h1>
+
+        <p>The value of <code>Function.prototype</code> is %FunctionPrototype%, the intrinsic Function prototype object (<a href="/sec/sec-properties-of-the-function-prototype-object.html">19.2.3</a>).</p>
+
+        <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">false</span> }.</p>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-the-function-prototype-object">
+      <div class="front">
+        <h1><span class="secnum" id="sec-19.2.3"><a href="/sec/sec-properties-of-the-function-prototype-object.html" title="link to this section">19.2.3</a></span> Properties of the Function Prototype Object</h1>
+
+        <p>The Function prototype object is the intrinsic object %FunctionPrototype%. The Function prototype object is itself a
+        built-in function object. When invoked, it accepts any arguments and returns <span class="value">undefined</span>. It does
+        not have a [[Construct]] internal method so it is not a constructor.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The Function prototype object is specified to be a function object to ensure
+          compatibility with ECMAScript code that was created prior to the ECMAScript 2015 specification.</p>
+        </div>
+
+        <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the
+        Function prototype object is the intrinsic object %ObjectPrototype% (<a href="/sec/sec-properties-of-the-object-prototype-object.html">19.1.3</a>). The initial value of the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the Function prototype object is <span class="value">true</span>.</p>
+
+        <p>The Function prototype object does not have a <code>prototype</code> property.</p>
+
+        <p>The value of the <code>length</code> property of the Function prototype object is <b>0</b>.</p>
+
+        <p>The value of the <code>name</code> property of the Function prototype object is the empty String.</p>
+      </div>
+
+      <section id="sec-function.prototype.apply">
+        <h1><span class="secnum" id="sec-19.2.3.1"><a href="/sec/sec-function.prototype.apply.html" title="link to this section">19.2.3.1</a></span> Function.prototype.apply ( thisArg, argArray )</h1>
+
+        <p class="normalbefore">When the <code>apply</code> method is called on an object <var>func</var> with arguments
+        <var>thisArg</var> and <var>argArray</var>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>func</i>) is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+          <li>If <i>argArray</i> is <b>null</b> or <b>undefined</b>, then
+            <ol class="block">
+              <li>Return <a href="/sec/sec-call.html">Call</a>(<i>func</i>, <i>thisArg</i>).</li>
+            </ol>
+          </li>
+          <li>Let <i>argList</i> be <a href="/sec/sec-createlistfromarraylike.html">CreateListFromArrayLike</a>(<i>argArray</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>argList</i> ).</li>
+          <li>Perform <a href="/sec/sec-preparefortailcall.html">PrepareForTailCall</a>().</li>
+          <li>Return <a href="/sec/sec-call.html">Call</a>(<i>func</i>, <i>thisArg</i>, <i>argList</i>).</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>apply</code> method is <b>2</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The thisArg value is passed without modification as the <b>this</b> value. This is a
+          change from Edition 3, where an <b>undefined</b> or <b>null</b> thisArg is replaced with the global object and <a href="/sec/sec-toobject.html">ToObject</a> is applied to all other values and that result is passed as the <b>this</b> value.
+          Even though the thisArg is passed without modification, non-strict functions still perform these transformations upon
+          entry to the function.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> If <var>func</var> is an arrow function or a <a href="/sec/sec-bound-function-exotic-objects.html">bound function</a> then the <var>thisArg</var> will be ignored by the function
+          [[Call]] in step 6.</p>
+        </div>
+      </section>
+
+      <section id="sec-function.prototype.bind">
+        <h1><span class="secnum" id="sec-19.2.3.2"><a href="/sec/sec-function.prototype.bind.html" title="link to this section">19.2.3.2</a></span> Function.prototype.bind ( thisArg , ...args)</h1>
+
+        <p class="normalbefore">When the <code>bind</code> method is called with argument <var>thisArg</var> and zero or more
+        <var>args</var>, it performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>Target</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>Target</i>) is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>args</i> be a new (possibly empty) <a href="/sec/sec-list-and-record-specification-type.html">List</a> consisting of
+              all of the argument values provided after <i>thisArg</i>  in order.</li>
+          <li>Let <i>F</i> be <a href="/sec/sec-boundfunctioncreate.html">BoundFunctionCreate</a>(<i>Target</i>, <i>thisArg</i>,
+              <i>args</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>F</i>).</li>
+          <li>Let <i>targetHasLength</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>Target</i>,
+              <code>&quot;length&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetHasLength</i>).</li>
+          <li>If <i>targetHasLength</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>targetLen</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>Target</i>, <code>&quot;length&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetLen</i>).</li>
+              <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>targetLen</i>) is not Number, let <i>L</i> be
+                  0.</li>
+              <li>Else,
+                <ol class="block">
+                  <li>Let <i>targetLen</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>targetLen</i>).</li>
+                  <li>Let <i>L</i> be the larger of 0 and the result of <i>targetLen</i> minus the number of elements of
+                      <i>args</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Else let <i>L</i> be 0.</li>
+          <li>Let <i>status</i> be <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>F</i>, <code>&quot;length&quot;</code>,
+              PropertyDescriptor {[[Value]]: <i>L</i>, [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+              <b>true</b>}).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+          <li>Let <i>targetName</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>Target</i>, <code>&quot;name&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetName</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>targetName</i>) is not String, let <i>targetName</i>
+              be the empty string.</li>
+          <li>Perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>F</i>, <i>targetName</i>, <code>&quot;bound&quot;</code>).</li>
+          <li>Return <i>F</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>bind</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> Function objects created using <code>Function.prototype.bind</code> are exotic
+          objects. They also do not have a <code>prototype</code> property.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> If <span class="nt">Target</span> is an arrow function or a <a href="/sec/sec-bound-function-exotic-objects.html">bound function</a> then the <var>thisArg</var> passed to this method will not
+          be used by subsequent calls to <var>F</var>.</p>
+        </div>
+      </section>
+
+      <section id="sec-function.prototype.call">
+        <h1><span class="secnum" id="sec-19.2.3.3"><a href="/sec/sec-function.prototype.call.html" title="link to this section">19.2.3.3</a></span> Function.prototype.call (thisArg , ...args)</h1>
+
+        <p class="normalbefore">When the <code>call</code> method is called on an object <var>func</var> with argument,
+        <var>thisArg</var> and zero or more <var>args</var>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>func</i>) is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>argList</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>If this method was called with more than one argument then in left to right order, starting with the second
+              argument, append each argument as the last element of <i>argList</i>.</li>
+          <li>Perform <a href="/sec/sec-preparefortailcall.html">PrepareForTailCall</a>().</li>
+          <li>Return <a href="/sec/sec-call.html">Call</a>(<i>func</i>, <i>thisArg</i>, <i>argList</i>).</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>call</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The thisArg value is passed without modification as the <b>this</b> value. This is a
+          change from Edition 3, where an <b>undefined</b> or <b>null</b> thisArg is replaced with the global object and <a href="/sec/sec-toobject.html">ToObject</a> is applied to all other values and that result is passed as the <b>this</b> value.
+          Even though the thisArg is passed without modification, non-strict functions still perform these transformations upon
+          entry to the function.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> If <var>func</var> is an arrow function or a <a href="/sec/sec-bound-function-exotic-objects.html">bound function</a> then the <var>thisArg</var> will be ignored by the function
+          [[Call]] in step 5.</p>
+        </div>
+      </section>
+
+      <section id="sec-function.prototype.constructor">
+        <h1><span class="secnum" id="sec-19.2.3.4"><a href="/sec/sec-function.prototype.constructor.html" title="link to this section">19.2.3.4</a></span> Function.prototype.constructor</h1>
+
+        <p>The initial value of <code>Function.prototype.constructor</code> is the intrinsic object %Function%.</p>
+      </section>
+
+      <section id="sec-function.prototype.tostring">
+        <h1><span class="secnum" id="sec-19.2.3.5"><a href="/sec/sec-function.prototype.tostring.html" title="link to this section">19.2.3.5</a></span> Function.prototype.toString ( )</h1>
+
+        <p class="normalbefore">When the <code>toString</code> method is called on an object <var>func</var> the following steps
+        are taken:</p>
+
+        <ol class="proc">
+          <li>If <i>func</i> is a <a href="/sec/sec-bound-function-exotic-objects.html">Bound Function</a> exotic object, then
+            <ol class="block">
+              <li>Return an implementation-dependent String source code representation of <i>func</i>. The representation must
+                  conform to the rules below. It is implementation dependent whether the representation includes <a href="/sec/sec-bound-function-exotic-objects.html">bound function</a> information or information about the target
+                  function.</li>
+            </ol>
+          </li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>func</i>) is Object and is either a built-in function
+              object or  has an [[ECMAScriptCode]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>,
+              then
+            <ol class="block">
+              <li>Return an implementation-dependent String source code representation of <i>func</i>. The representation must
+                  conform to the rules below.</li>
+            </ol>
+          </li>
+          <li>Throw a <b>TypeError</b> exception.</li>
+        </ol>
+
+        <p class="normalbefore"><code>toString</code> Representation Requirements:</p>
+
+        <ul>
+          <li>
+            <p>The string representation must have the syntax of a <i>FunctionDeclaration</i>, <i>FunctionExpression</i>,
+            <i>GeneratorDeclaration, GeneratorExpression, ClassDeclaration</i>, <i>ClassExpression</i>, <i>ArrowFunction</i>,
+            <i>MethodDefinition</i>, or <i>GeneratorMethod</i> depending upon the actual characteristics of the object.</p>
+          </li>
+
+          <li>
+            <p>T<span style="font-family: Times New Roman">he use and placement of white space, line terminators, and semicolons
+            within the representation String is implementation-dependent.</span></p>
+          </li>
+
+          <li>
+            <p>If the object was defined using ECMAScript code and the returned string representation is not in the form of a
+            <i>MethodDefinition</i> or <i>GeneratorMethod</i> then the representation must be such that if the string is
+            evaluated, using <code>eval</code> in a lexical context that is equivalent to the lexical context used to create the
+            original object, it will result in a new functionally equivalent object. In that case the returned source code must
+            not mention freely any variables that were not mentioned freely by the original function&#x2019;s source code, even if
+            these &#x201C;extra&#x201D; names were originally in scope.</p>
+          </li>
+
+          <li>
+            <p>If the implementation cannot produce a source code string that meets these criteria then it must return a string
+            for which <code>eval</code> will throw a <span style="font-family: sans-serif"><b>SyntaxError</b></span>
+            exception.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="sec-function.prototype-@@hasinstance">
+        <h1><span class="secnum" id="sec-19.2.3.6"><a href="/sec/sec-function.prototype-@@hasinstance.html" title="link to this section">19.2.3.6</a></span> Function.prototype[@@hasInstance] ( V )</h1>
+
+        <p class="normalbefore">When the @@hasInstance method of an object <var>F</var> is called with value <var>V</var>, the
+        following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>F</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-ordinaryhasinstance.html">OrdinaryHasInstance</a>(<i>F</i>, <i>V</i>).</li>
+        </ol>
+
+        <p>The value of the <code>name</code> property of this function is <code>&quot;[Symbol.hasInstance]&quot;</code>.</p>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <span class="value">false</span>,
+        [[Configurable]]: <span class="value">false</span> }.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> This is the default implementation of <code>@@hasInstance</code> that most functions
+          inherit. <code>@@hasInstance</code> is called by the <code>instanceof</code> operator to determine whether a value is an
+          instance of a specific constructor. An expression such as</p>
+
+          <p>&#xA0;&#xA0;&#xA0;<code>v instanceof F</code></p>
+
+          <p>evaluates as</p>
+
+          <p>&#xA0;&#xA0;&#xA0;<code>F[@@hasInstance](v)</code></p>
+
+          <p>A constructor function can control which objects are recognized as its instances by <code>instanceof</code> by
+          exposing a different <code>@@hasInstance</code> method on the function.</p>
+        </div>
+
+        <p>This property is non-writable and non-configurable to prevent tampering that could be used to globally expose the
+        target function of a <a href="/sec/sec-bound-function-exotic-objects.html">bound function</a>.</p>
+      </section>
+    </section>
+
+    <section id="sec-function-instances">
+      <div class="front">
+        <h1><span class="secnum" id="sec-19.2.4"><a href="/sec/sec-function-instances.html" title="link to this section">19.2.4</a></span>
+            Function Instances</h1>
+
+        <p>Every function instance is an <a href="/sec/sec-ecmascript-function-objects.html">ECMAScript function object</a> and has the
+        internal slots listed in <a href="/sec/table-27.html">Table 27</a>. Function instances created using the <code><a href="/sec/sec-function.prototype.bind.html">Function.prototype.bind</a></code> method (<a href="/sec/sec-function.prototype.bind.html">19.2.3.2</a>) have the internal slots listed in <a href="/sec/table-28.html">Table 28</a>.</p>
+
+        <p>The Function instances have the following properties:</p>
+      </div>
+
+      <section id="sec-function-instances-length">
+        <h1><span class="secnum" id="sec-19.2.4.1"><a href="/sec/sec-function-instances-length.html" title="link to this section">19.2.4.1</a></span> length</h1>
+
+        <p>The value of the <code>length</code> property is an integer that indicates the typical number of arguments expected by
+        the function. However, the language permits the function to be invoked with some other number of arguments. The behaviour
+        of a function when invoked on a number of arguments other than the number specified by its <code>length</code> property
+        depends on the function. This property has the attributes {&#xA0;[[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+        [[Configurable]]: <b>true</b>&#xA0;}.</p>
+      </section>
+
+      <section id="sec-function-instances-name">
+        <h1><span class="secnum" id="sec-19.2.4.2"><a href="/sec/sec-function-instances-name.html" title="link to this section">19.2.4.2</a></span> name</h1>
+
+        <p>The value of the <code>name</code> property is an String that is descriptive of the function. The name has no semantic
+        significance but is typically a variable or property name that is used to refer to the function at its point of definition
+        in ECMAScript code. This property has the attributes {&#xA0;[[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+        [[Configurable]]: <b>true</b>&#xA0;}.</p>
+
+        <p>Anonymous functions objects that do not have a contextual name associated with them by this specification do not have a
+        <code>name</code> own property but inherit the <code>name</code> property of %FunctionPrototype%.</p>
+      </section>
+
+      <section id="sec-function-instances-prototype">
+        <h1><span class="secnum" id="sec-19.2.4.3"><a href="/sec/sec-function-instances-prototype.html" title="link to this section">19.2.4.3</a></span> prototype</h1>
+
+        <p>Function instances that can be used as a constructor have a <code>prototype</code> property. Whenever such a function
+        instance is created another ordinary object is also created and is the initial value of the function&#x2019;s
+        <code>prototype</code> property. Unless otherwise specified, the value of the <code>prototype</code> property is used to
+        initialize the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the object
+        created when that function is invoked as a constructor.</p>
+
+        <p>This property has the attributes {&#xA0;[[Writable]]: <b>true</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <b>false</b> }.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> Function objects created using <code><a href="/sec/sec-function.prototype.bind.html">Function.prototype.bind</a></code>, or by evaluating a <span class="nt">MethodDefinition</span> (that are not a <span class="nt">GeneratorMethod</span>) or an <span class="nt">ArrowFunction</span> grammar production do not have a <code>prototype</code> property.</p>
+        </div>
+      </section>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

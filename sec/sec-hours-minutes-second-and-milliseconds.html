@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.3.1.11"><a href="/sec/sec-hours-minutes-second-and-milliseconds.html" title="link to this section">20.3.1.11</a></span> Hours, Minutes, Second, and Milliseconds</h1>
+
+        <p class="normalbefore">The following abstract operations are useful in decomposing time values:</p>
+
+        <p class="normalBullet">HourFromTime(<i>t</i>)	= <a href="/sec/sec-algorithm-conventions.html">floor</a>(<i>t</i> / msPerHour)
+        <a href="/sec/sec-algorithm-conventions.html">modulo</a> HoursPerDay</p>
+
+        <p class="normalBullet">MinFromTime(<i>t</i>)	= <a href="/sec/sec-algorithm-conventions.html">floor</a>(<i>t</i> / msPerMinute)
+        <a href="/sec/sec-algorithm-conventions.html">modulo</a> MinutesPerHour</p>
+
+        <p class="normalBullet">SecFromTime(<i>t</i>)	= <a href="/sec/sec-algorithm-conventions.html">floor</a>(<i>t</i> / msPerSecond)
+        <a href="/sec/sec-algorithm-conventions.html">modulo</a> SecondsPerMinute</p>
+
+        <p class="normalBullet">msFromTime(<i>t</i>)	= <i>t</i> <a href="/sec/sec-algorithm-conventions.html">modulo</a>
+        msPerSecond</p>
+
+        <p class="normalbefore">where</p>
+
+        <p class="normalBullet">HoursPerDay	= 24</p>
+
+        <p class="normalBullet">MinutesPerHour	= 60</p>
+
+        <p class="normalBullet">SecondsPerMinute	= 60</p>
+
+        <p class="normalBullet">msPerSecond	= 1000</p>
+
+        <p class="normalBullet">msPerMinute	= 60000	= msPerSecond &#xD7; SecondsPerMinute</p>
+
+        <p class="normalBullet">msPerHour	= 3600000	= msPerMinute &#xD7; MinutesPerHour</p>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

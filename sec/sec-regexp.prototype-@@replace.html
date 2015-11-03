@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.2.5.8"><a href="/sec/sec-regexp.prototype-@@replace.html" title="link to this section">21.2.5.8</a></span> RegExp.prototype [ @@replace ] ( string, replaceValue )</h1>
+
+        <p class="normalbefore">When the @@<code>replace</code> method is called with arguments <var>string</var> and
+        <var>replaceValue</var> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>rx</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>rx</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>string</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>lengthS</i> be the number of code unit elements in <i>S</i>.</li>
+          <li>Let <i>functionalReplace</i> be <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>replaceValue</i>).</li>
+          <li>If <i>functionalReplace</i> is <b>false</b>, then
+            <ol class="block">
+              <li>Let <i>replaceValue</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>replaceValue</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>replaceValue</i>).</li>
+            </ol>
+          </li>
+          <li>Let <i>global</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>rx</i>,
+              <code>&quot;global&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>global</i>).</li>
+          <li>If <i>global</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>fullUnicode</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>rx</i>,
+                  <code>&quot;unicode&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fullUnicode</i>).</li>
+              <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>rx</i>, <code>&quot;lastIndex&quot;</code>, 0,
+                  <b>true</b>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+            </ol>
+          </li>
+          <li>Let <i>results</i> be a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>Let <i>done</i> be <b>false</b>.</li>
+          <li>Repeat, while <i>done</i> is <b>false</b>
+            <ol class="block">
+              <li>Let <i>result</i> be <a href="/sec/sec-regexpexec.html">RegExpExec</a>(<i>rx</i>, <i>S</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>result</i>).</li>
+              <li>If <i>result</i> is <b>null</b>, set <i>done</i> to <b>true</b>.</li>
+              <li>Else <i>result</i> is not <b>null</b>,
+                <ol class="block">
+                  <li>Append <i>result</i> to the end of <i>results</i>.</li>
+                  <li>If <i>global</i> is <b>false</b>, set <i>done</i> to <b>true</b>.</li>
+                  <li>Else,
+                    <ol class="block">
+                      <li>Let <i>matchStr</i> be <a href="/sec/sec-tostring.html">ToString</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>result</i>, <code>&quot;0&quot;</code>)).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>matchStr</i>).</li>
+                      <li>If <i>matchStr</i> is the empty String, then
+                        <ol class="block">
+                          <li>Let <i>thisIndex</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>rx</i>, <code>&quot;lastIndex&quot;</code>)).</li>
+                          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>thisIndex</i>).</li>
+                          <li>Let <i>nextIndex</i> be <a href="/sec/sec-advancestringindex.html">AdvanceStringIndex</a>(<i>S</i>,
+                              <i>thisIndex</i>, <i>fullUnicode</i>).</li>
+                          <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>rx</i>, <code>&quot;lastIndex&quot;</code>,
+                              <i>nextIndex</i>, <b>true</b>).</li>
+                          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                        </ol>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Let <i>accumulatedResult</i> be the empty String value.</li>
+          <li>Let <i>nextSourcePosition</i> be 0.</li>
+          <li>Repeat, for each <i>result</i> in <i>results</i>,
+            <ol class="block">
+              <li>Let <i>nCaptures</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>result</i>,
+                  <code>&quot;length&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nCaptures</i>).</li>
+              <li>Let <i>nCaptures</i> be max(<i>nCaptures</i> &#x2212; 1, 0).</li>
+              <li>Let <i>matched</i> be <a href="/sec/sec-tostring.html">ToString</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>result</i>,
+                  <code>&quot;0&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>matched</i>).</li>
+              <li>Let <i>matchLength</i> be the number of code units in <i>matched</i>.</li>
+              <li>Let <i>position</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>result</i>,
+                  <code>&quot;index&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>position</i>).</li>
+              <li>Let <i>position</i> be max(min(<i>position</i>, <i>lengthS</i>), 0).</li>
+              <li>Let <i>n</i> be 1.</li>
+              <li>Let <i>captures</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+              <li>Repeat while <i>n</i> &#x2264; <i>nCaptures</i>
+                <ol class="block">
+                  <li>Let <i>capN</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>result</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>n</i>)).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>capN</i>).</li>
+                  <li>If <i>capN</i> is not <b>undefined</b>, then
+                    <ol class="block">
+                      <li>Let <i>capN</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>capN</i>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>capN</i>).</li>
+                    </ol>
+                  </li>
+                  <li>Append <i>capN</i> as the last element of <i>captures.</i></li>
+                  <li>Let <i>n</i> be <i>n</i>+1</li>
+                </ol>
+              </li>
+              <li>If <i>functionalReplace</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>replacerArgs</i> be &#xAB;<i>matched</i>&#xBB;.</li>
+                  <li>Append in list order the elements of <i>captures</i> to the end of the <a href="/sec/sec-list-and-record-specification-type.html">List</a> <i>replacerArgs</i>.</li>
+                  <li>Append <i>position</i> and <i>S</i> as the last two elements of <i>replacerArgs.</i></li>
+                  <li>Let <i>replValue</i> be <a href="/sec/sec-call.html">Call</a>(<i>replaceValue</i>, <b>undefined</b>,
+                      <i>replacerArgs</i>).</li>
+                  <li>Let <i>replacement</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>replValue</i>).</li>
+                </ol>
+              </li>
+              <li>Else,
+                <ol class="block">
+                  <li>Let <i>replacement</i> be <a href="/sec/sec-getsubstitution.html">GetSubstitution</a>(<i>matched</i>, <i>S</i>,
+                      <i>position</i>, <i>captures</i>, <i>replaceValue</i>).</li>
+                </ol>
+              </li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>replacement</i>).</li>
+              <li>If <i>position</i> &#x2265; <i>nextSourcePosition</i>, then
+                <ol class="block">
+                  <li>NOTE	<span style="font-family: Times New Roman"><i>position</i></span> should not normally move
+                      backwards. If it does, it is an indication of an ill-behaving RegExp subclass or use of an access triggered
+                      side-effect to change the global flag or other characteristics of <i><span style="font-family: Times New
+                      Roman">rx</span>.</i> In such cases, the corresponding substitution is ignored.</li>
+                  <li>Let <i>accumulatedResult</i> be the String formed by concatenating the code units of the current value of
+                      <i>accumulatedResult</i> with the substring of <i>S</i> consisting of the code units from
+                      <i>nextSourcePosition</i> (inclusive) up to <i>position</i> (exclusive) and with the code units of
+                      <i>replacement</i>.</li>
+                  <li>Let <i>nextSourcePosition</i> be <i>position</i> + <i>matchLength</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>nextSourcePosition</i> &#x2265; <i>lengthS</i>, return <i>accumulatedResult</i>.</li>
+          <li>Return the String formed by concatenating the code units of <i>accumulatedResult</i> with the substring of <i>S</i>
+              consisting of the code units from <i>nextSourcePosition</i> (inclusive) up through the final code unit of <i>S</i>
+              (inclusive).</li>
+        </ol>
+
+        <p>The value of the <code>name</code> property of this function is <code>&quot;[Symbol.replace]&quot;</code>.</p>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

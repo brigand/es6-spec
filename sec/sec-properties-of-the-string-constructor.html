@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-21.1.2"><a href="/sec/sec-properties-of-the-string-constructor.html" title="link to this section">21.1.2</a></span> Properties of the String Constructor</h1>
+
+        <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the
+        String constructor is the intrinsic object %FunctionPrototype% (<a href="/sec/sec-properties-of-the-function-prototype-object.html">19.2.3</a>).</p>
+
+        <p>Besides the <code>length</code> property (whose value is <b>1</b>), the String constructor has the following
+        properties:</p>
+      </div>
+
+      <section id="sec-string.fromcharcode">
+        <h1><span class="secnum" id="sec-21.1.2.1"><a href="/sec/sec-string.fromcharcode.html" title="link to this section">21.1.2.1</a></span> String.fromCharCode ( ...codeUnits )</h1>
+
+        <p class="normalbefore">The <code>String.fromCharCode</code> function may be called with any number of arguments which
+        form the rest parameter <var>codeUnits</var>. The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>codeUnits</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the arguments passed
+              to this function.</li>
+          <li>Let <i>length</i> be the number of elements in <i>codeUnits</i><b>.</b></li>
+          <li>Let <i>elements</i> be  a new <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>Let <i>nextIndex</i> be 0.</li>
+          <li>Repeat while <i>nextIndex</i> &lt; <i>length</i>
+            <ol class="block">
+              <li>Let <i>next</i> be <i>codeUnits</i>[<i>nextIndex</i>].</li>
+              <li>Let <i>nextCU</i> be <a href="/sec/sec-touint16.html">ToUint16</a>(<i>next</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextCU</i>).</li>
+              <li>Append <i>nextCU</i> to the end of <i>elements</i>.</li>
+              <li>Let <i>nextIndex</i> be <i>nextIndex</i> + 1.</li>
+            </ol>
+          </li>
+          <li>Return the String value whose elements are, in order, the elements in the <a href="/sec/sec-list-and-record-specification-type.html">List</a> <i>elements</i>. If <i>length</i> is 0, the empty string is
+              returned.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>fromCharCode</code> function is <b>1</b>.</p>
+      </section>
+
+      <section id="sec-string.fromcodepoint">
+        <h1><span class="secnum" id="sec-21.1.2.2"><a href="/sec/sec-string.fromcodepoint.html" title="link to this section">21.1.2.2</a></span> String.fromCodePoint ( ...codePoints )</h1>
+
+        <p class="normalbefore">The <code>String.fromCodePoint</code> function may be called with any number of arguments which
+        form the rest parameter <var>codePoints</var>. The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>codePoints</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the arguments
+              passed to this function.</li>
+          <li>Let <i>length</i> be the number of elements in <i>codePoints</i><code>.</code></li>
+          <li>Let <i>elements</i> be a new <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>Let <i>nextIndex</i> be 0.</li>
+          <li>Repeat while <i>nextIndex</i> &lt; <i>length</i>
+            <ol class="block">
+              <li>Let <i>next</i> be <i>codePoints</i>[<i>nextIndex</i>].</li>
+              <li>Let <i>nextCP</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>next</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextCP</i>).</li>
+              <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>nextCP</i>, <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>nextCP</i>))
+                  is <b>false</b>, throw a <b>RangeError</b> exception.</li>
+              <li>If  <i>nextCP</i> &lt; 0 or <i>nextCP</i> &gt; 0x10FFFF, throw a <b>RangeError</b> exception.</li>
+              <li>Append the elements of the <a href="/sec/sec-utf16encoding.html">UTF16Encoding</a> (<a href="/sec/sec-utf16encoding.html">10.1.1</a>) of <i>nextCP</i> to the end of <i>elements</i>.</li>
+              <li>Let <i>nextIndex</i> be <i>nextIndex</i> + 1.</li>
+            </ol>
+          </li>
+          <li>Return the String value whose elements are, in order, the elements in the <a href="/sec/sec-list-and-record-specification-type.html">List</a> <i>elements</i>. If <i>length</i> is 0, the empty string is
+              returned.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>fromCodePoint</code> function is <b>1</b>.</p>
+      </section>
+
+      <section id="sec-string.prototype">
+        <h1><span class="secnum" id="sec-21.1.2.3"><a href="/sec/sec-string.prototype.html" title="link to this section">21.1.2.3</a></span> String.prototype</h1>
+
+        <p>The initial value of <code>String.prototype</code> is the intrinsic object %StringPrototype% (<a href="/sec/sec-properties-of-the-string-prototype-object.html">21.1.3</a>).</p>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <b>false</b> }.</p>
+      </section>
+
+      <section id="sec-string.raw">
+        <h1><span class="secnum" id="sec-21.1.2.4"><a href="/sec/sec-string.raw.html" title="link to this section">21.1.2.4</a></span>
+            String.raw ( template , ...substitutions  )</h1>
+
+        <p class="normalbefore">The <code>String.raw</code> function may be called with a variable number of arguments. The first
+        argument is <var>template</var> and the remainder of the arguments form the <a href="/sec/sec-list-and-record-specification-type.html">List</a> <var>substitutions</var>. The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>substitutions</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> consisting of all of the
+              arguments passed to this function, starting with the second argument. If fewer than two arguments were passed, the
+              <a href="/sec/sec-list-and-record-specification-type.html">List</a> is empty.</li>
+          <li>Let <i>numberOfSubstitutions</i> be the number of elements in <i>substitutions</i>.</li>
+          <li>Let <i>cooked</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<i>template</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>cooked</i>).</li>
+          <li>Let <i>raw</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>cooked</i>,
+              <code>&quot;raw&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>raw</i>).</li>
+          <li>Let <i>literalSegments</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>raw</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>literalSegments</i>).</li>
+          <li>If <i>literalSegments</i> &#x2264; 0, return the empty string.</li>
+          <li>Let <i>stringElements</i> be a new <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>Let <i>nextIndex</i> be 0.</li>
+          <li>Repeat
+            <ol class="block">
+              <li>Let <i>nextKey</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>nextIndex</i>).</li>
+              <li>Let <i>nextSeg</i> be <a href="/sec/sec-tostring.html">ToString</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>raw</i>,
+                  <i>nextKey</i>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextSeg</i>).</li>
+              <li>Append in order the code unit elements of <i>nextSeg</i> to the end of <i>stringElements</i>.</li>
+              <li>If <i>nextIndex</i> + 1 = <i>literalSegments</i>, then
+                <ol class="block">
+                  <li>Return the String value whose code units are, in order, the elements in the <a href="/sec/sec-list-and-record-specification-type.html">List</a> <i>stringElements</i>. If <i>stringElements</i> has
+                      no elements, the empty string is returned.</li>
+                </ol>
+              </li>
+              <li>If <i>nextIndex &lt; numberOfSubstitutions</i>, let <i>next</i> be <i>substitutions</i>[<i>nextIndex</i>].</li>
+              <li>Else, let <i>next</i> be the empty String.</li>
+              <li>Let <i>nextSub</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>next</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextSub</i>).</li>
+              <li>Append in order the code unit elements of <i>nextSub</i> to the end of <i>stringElements</i>.</li>
+              <li>Let <i>nextIndex</i> be <i>nextIndex</i> + 1.</li>
+            </ol>
+          </li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>raw</code> function is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> String.raw is intended for use as a tag function of a Tagged Template (<a href="/sec/sec-tagged-templates.html">12.3.7</a>). When called as such, the first argument will be a well formed template object
+          and the rest parameter will contain the substitution values.</p>
+        </div>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

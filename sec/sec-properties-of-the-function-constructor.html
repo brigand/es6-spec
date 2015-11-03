@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-19.2.2"><a href="/sec/sec-properties-of-the-function-constructor.html" title="link to this section">19.2.2</a></span> Properties of the Function Constructor</h1>
+
+        <p>The <code>Function</code> constructor is itself a built-in function object. The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the <code>Function</code> constructor is
+        %FunctionPrototype%, the intrinsic Function prototype object (<a href="/sec/sec-properties-of-the-function-prototype-object.html">19.2.3</a>).</p>
+
+        <p>The value of the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the
+        Function constructor is <b>true</b>.</p>
+
+        <p class="normalbefore">The Function constructor has the following properties:</p>
+      </div>
+
+      <section id="sec-function.length">
+        <h1><span class="secnum" id="sec-19.2.2.1"><a href="/sec/sec-function.length.html" title="link to this section">19.2.2.1</a></span>
+            Function.length</h1>
+
+        <p>This is a data property with a value of 1. This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+      </section>
+
+      <section id="sec-function.prototype">
+        <h1><span class="secnum" id="sec-19.2.2.2"><a href="/sec/sec-function.prototype.html" title="link to this section">19.2.2.2</a></span> Function.prototype</h1>
+
+        <p>The value of <code>Function.prototype</code> is %FunctionPrototype%, the intrinsic Function prototype object (<a href="/sec/sec-properties-of-the-function-prototype-object.html">19.2.3</a>).</p>
+
+        <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">false</span> }.</p>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

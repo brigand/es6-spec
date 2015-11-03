@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.5.2"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-setprototypeof-v.html" title="link to this section">9.5.2</a></span> [[SetPrototypeOf]] (V)</h1>
+
+      <p class="normalbefore">When the [[SetPrototypeOf]] internal method of a Proxy exotic object <var>O</var> is called with
+      argument <var>V</var> the following steps are taken:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: Either <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>V</i>) is Object or <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>V</i>) is Null.</li>
+        <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <i>handler</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is Object.</li>
+        <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>trap</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>handler</i>, <code>&quot;setPrototypeOf&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trap</i>).</li>
+        <li>If <i>trap</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Return <i>target</i>.[[SetPrototypeOf]](<i>V</i>).</li>
+          </ol>
+        </li>
+        <li>Let <i>booleanTrapResult</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-call.html">Call</a>(<i>trap</i>,
+            <i>handler</i>, &#xAB;<i>target</i>, <i>V</i>&#xBB;)).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>booleanTrapResult</i>).</li>
+        <li>Let <i>extensibleTarget</i> be <a href="/sec/sec-isextensible-o.html">IsExtensible</a>(<i>target</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>extensibleTarget</i>).</li>
+        <li>If <i>extensibleTarget</i> is <b>true</b>, return <i>booleanTrapResult</i>.</li>
+        <li>Let <i>targetProto</i> be <i>target</i>.[[GetPrototypeOf]]().</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetProto</i>).</li>
+        <li>If <i>booleanTrapResult</i> is <b>true</b> and <a href="/sec/sec-samevalue.html">SameValue</a>(<i>V</i>, <i>targetProto</i>) is
+            <b>false</b>, throw a <b>TypeError</b> exception.</li>
+        <li>Return <i>booleanTrapResult</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> [[SetPrototypeOf]] for proxy objects enforces the following invariant:</p>
+
+        <ul>
+          <li>
+            <p>The result of [[SetPrototypeOf]] is a Boolean value.</p>
+          </li>
+
+          <li>
+            <p>If the target object is not extensible, the argument value must be the same as the result of [[GetPrototypeOf]]
+            applied to target object.</p>
+          </li>
+        </ul>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.3.4.23"><a href="/sec/sec-date.prototype.setmilliseconds.html" title="link to this section">20.3.4.23</a></span> Date.prototype.setMilliseconds ( ms )</h1>
+
+        <p class="normalbefore">The following steps are performed:</p>
+
+        <ol class="proc">
+          <li>Let <i>t</i> be <a href="/sec/sec-localtime.html">LocalTime</a>(<a href="/sec/sec-properties-of-the-date-prototype-object.html">this
+              time value</a>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>t</i>).</li>
+          <li>Let <i>ms</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>ms</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>ms</i>).</li>
+          <li>Let <i>time</i> be <a href="/sec/sec-maketime.html">MakeTime</a>(<a href="/sec/sec-hours-minutes-second-and-milliseconds.html">HourFromTime</a>(<i>t</i>), <a href="/sec/sec-hours-minutes-second-and-milliseconds.html">MinFromTime</a>(<i>t</i>), <a href="/sec/sec-hours-minutes-second-and-milliseconds.html">SecFromTime</a>(<i>t</i>), <i>ms</i>).</li>
+          <li>Let <i>u</i> be <a href="/sec/sec-timeclip.html">TimeClip</a>(<a href="/sec/sec-utc-t.html">UTC</a>(<a href="/sec/sec-makedate.html">MakeDate</a>(<a href="/sec/sec-day-number-and-time-within-day.html">Day</a>(<i>t</i>),
+              <i>time</i>))).</li>
+          <li>Set the [[DateValue]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of this Date
+              object to <i>u</i>.</li>
+          <li>Return <i>u</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

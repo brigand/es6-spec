@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-19.1.2.2"><a href="/sec/sec-object.create.html" title="link to this section">19.1.2.2</a></span>
+            Object.create ( O [ , Properties ] )</h1>
+
+        <p class="normalbefore">The <b>create</b> function creates a new object with a specified prototype. When the <b>create</b>
+        function is called, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is neither Object nor Null, throw a
+              <b>TypeError</b> exception.</li>
+          <li>Let <i>obj</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<i>O</i>).</li>
+          <li>If the argument <i>Properties</i> is present and not <b>undefined</b>, then
+            <ol class="block">
+              <li>Return <a href="/sec/sec-objectdefineproperties.html">ObjectDefineProperties</a>(<i>obj</i>, <i>Properties</i>).</li>
+            </ol>
+          </li>
+          <li>Return <i>obj</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

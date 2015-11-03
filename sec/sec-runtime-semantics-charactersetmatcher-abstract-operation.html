@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-21.2.2.8.1"><a href="/sec/sec-runtime-semantics-charactersetmatcher-abstract-operation.html" title="link to this section">21.2.2.8.1</a></span> Runtime Semantics: CharacterSetMatcher Abstract Operation</h1>
+
+          <p class="normalbefore">The abstract operation CharacterSetMatcher takes two arguments, a CharSet <var>A</var> and a
+          Boolean flag <var>invert</var>, and performs the following steps:</p>
+
+          <ol class="proc">
+            <li>Return an internal Matcher closure that takes two arguments, a State <i>x</i> and a Continuation <i>c</i>, and
+                performs the following steps when evaluated:
+              <ol class="nested proc">
+                <li>Let <i>e</i> be <i>x</i>&apos;s <i>endIndex</i>.</li>
+                <li>If <i>e</i> is <i>InputLength</i>, return <b>failure</b>.</li>
+                <li>Let <i>ch</i> be the character <i>Input</i>[<i>e</i>].</li>
+                <li>Let <i>cc</i> be Canonicalize(<i>ch</i>).</li>
+                <li>If <i>invert</i> is <b>false</b>, then
+                  <ol class="block">
+                    <li>If there does not exist a member <i>a</i> of set <i>A</i> such that Canonicalize(<i>a</i>) is <i>cc</i>,
+                        return <b>failure</b>.</li>
+                  </ol>
+                </li>
+                <li>Else <i>invert</i> is <b>true</b>,
+                  <ol class="block">
+                    <li>If there exists a member <i>a</i> of set <i>A</i> such that Canonicalize(<i>a</i>) is <i>cc</i>, return
+                        <b>failure.</b></li>
+                  </ol>
+                </li>
+                <li>Let <i>cap</i> be <i>x</i>&apos;s <i>captures</i> <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+                <li>Let <i>y</i> be the State (<i>e</i>+1, <i>cap</i>).</li>
+                <li><a href="/sec/sec-call.html">Call</a> <i>c</i>(<i>y</i>) and return its result.</li>
+              </ol>
+            </li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

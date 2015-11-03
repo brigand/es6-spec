@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-14.1.18"><a href="/sec/sec-function-definitions-runtime-semantics-iteratorbindinginitialization.html" title="link to this section">14.1.18</a></span> Runtime Semantics: IteratorBindingInitialization</h1>
+
+      <p>With parameters <var>iteratorRecord</var> and  <var>environment</var>.</p>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> When <b>undefined</b> is passed for <var>environment</var> it indicates that a <a href="/sec/sec-putvalue.html">PutValue</a> operation should be used to assign the initialization value. This is the case for formal
+        parameter lists of non-strict functions. In that case the formal parameter bindings are preinitialized in order to deal
+        with the possibility of multiple parameters with the same name.</p>
+      </div>
+
+      <p>See also: <a href="/sec/sec-destructuring-binding-patterns-runtime-semantics-iteratorbindinginitialization.html">13.3.3.6</a>, <a href="/sec/sec-arrow-function-definitions-runtime-semantics-iteratorbindinginitialization.html">14.2.14</a>.</p>
+
+      <div class="gp prod"><span class="nt">FormalParameters</span> <span class="geq">:</span> <span class="grhsannot">[empty]</span></div>
+      <ol class="proc">
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family: sans-serif">empty</span>).</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalParameterList</span> <span class="geq">:</span> <span class="nt">FormalsList</span> <code class="t">,</code> <span class="nt">FunctionRestParameter</span></div>
+      <ol class="proc">
+        <li>Let <i>restIndex</i> be the result of performing IteratorBindingInitialization for <i>FormalsList</i> using
+            <i>iteratorRecord</i>, and <i>environment</i> as the arguments.</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>restIndex</i>).</li>
+        <li>Return the result of performing IteratorBindingInitialization for <i>FunctionRestParameter</i> using
+            <i>iteratorRecord</i> and <i>environment</i> as the arguments.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalsList</span> <span class="geq">:</span> <span class="nt">FormalsList</span> <code class="t">,</code> <span class="nt">FormalParameter</span></div>
+      <ol class="proc">
+        <li>Let <i>status</i> be the result of performing IteratorBindingInitialization for <i>FormalsList</i> using
+            <i>iteratorRecord</i> and <i>environment</i> as the arguments.</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+        <li>Return the result of performing IteratorBindingInitialization for <i>FormalParameter</i> using <i>iteratorRecord</i>
+            and <i>environment</i> as the arguments.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalParameter</span> <span class="geq">:</span> <span class="nt">BindingElement</span></div>
+      <ol class="proc">
+        <li>If HasInitializer of <i>BindingElement</i> is <b>false</b>, return the result of performing
+            IteratorBindingInitialization for <i>BindingElement</i> using <i>iteratorRecord</i> and <i>environment</i> as the
+            arguments.</li>
+        <li>Let <i>currentContext</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>Let <i>originalEnv</i> be the <a href="/sec/sec-execution-contexts.html">VariableEnvironment</a> of <i>currentContext</i>.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: The <a href="/sec/sec-execution-contexts.html">VariableEnvironment</a> and <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> of <i>currentContext</i> are the same.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>environment</i> and <i>originalEnv</i> are the same.</li>
+        <li>Let <i>paramVarEnv</i> be <a href="/sec/sec-newdeclarativeenvironment.html">NewDeclarativeEnvironment</a>(<i>originalEnv</i>).</li>
+        <li>Set the <a href="/sec/sec-execution-contexts.html">VariableEnvironment</a> of <i>currentContext</i> to <i>paramVarEnv</i>.</li>
+        <li>Set the <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> of <i>currentContext</i> to <i>paramVarEnv</i>.</li>
+        <li>Let <i>result</i> be the result of performing IteratorBindingInitialization for <i>BindingElement</i> using
+            <i>iteratorRecord</i> and <i>environment</i> as the arguments.</li>
+        <li>Set the <a href="/sec/sec-execution-contexts.html">VariableEnvironment</a> of <i>currentContext</i> to <i>originalEnv</i>.</li>
+        <li>Set the <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> of <i>currentContext</i> to <i>originalEnv</i>.</li>
+        <li>Return <i>result</i>.</li>
+      </ol>
+
+      <p>The new <a href="/sec/sec-environment-records.html">Environment Record</a> created in step 6 is only used if the <i><span style="font-family: Times New Roman">BindElement</span>&#x2019;</i>s <span class="nt">Initializer</span> contains a direct
+      eval.</p>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

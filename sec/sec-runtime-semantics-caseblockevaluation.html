@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-13.12.9"><a href="/sec/sec-runtime-semantics-caseblockevaluation.html" title="link to this section">13.12.9</a></span> Runtime Semantics: CaseBlockEvaluation</h1>
+
+      <p>With argument <var>input</var>.</p>
+
+      <div class="gp prod"><span class="nt">CaseBlock</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+      </ol>
+      <div class="gp prod"><span class="nt">CaseBlock</span> <span class="geq">:</span> <code class="t">{</code> <span class="nt">CaseClauses</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Let <i>V</i> = <b>undefined</b>.</li>
+        <li>Let <i>A</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> of <i>CaseClause</i> items in
+            <i>CaseClauses</i>, in source text order.</li>
+        <li>Let <i>found</i> be <b>false</b>.</li>
+        <li>Repeat for each <i>CaseClause</i> <i>C</i> in <i>A</i>,
+          <ol class="block">
+            <li>If <i>found</i> is <b>false</b>, then
+              <ol class="block">
+                <li>Let <i>clauseSelector</i> be the result of CaseSelectorEvaluation of <i>C</i>.</li>
+                <li>If <i>clauseSelector</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, then
+                  <ol class="block">
+                    <li>If <i>clauseSelector</i>.[[value]] is <span style="font-family: sans-serif">empty</span>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <i>clauseSelector</i>.[[type]],
+                        [[value]]:  <b>undefined</b>, [[target]]:  <i>clauseSelector</i>.[[target]]}.</li>
+                    <li>Else, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>clauseSelector</i>).</li>
+                  </ol>
+                </li>
+                <li>Let <i>found</i> be the result of performing Strict Equality Comparison <i>input</i> ===
+                    <i>clauseSelector</i>.[[value]].</li>
+              </ol>
+            </li>
+            <li>If <i>found</i> is <b>true</b>, then
+              <ol class="block">
+                <li>Let <i>R</i> be the result of evaluating <i>C</i>.</li>
+                <li>If <i>R</i>.[[value]] is not <span style="font-family: sans-serif">empty</span>, let <i>V</i> =
+                    <i>R</i>.[[value]].</li>
+                <li>If <i>R</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<a href="/sec/sec-updateempty.html">UpdateEmpty</a>(<i>R</i>, <i>V</i>)).</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<i>V</i>).</li>
+      </ol>
+      <div class="gp prod"><span class="nt">CaseBlock</span> <span class="geq">:</span> <code class="t">{</code> <span class="nt">CaseClauses</span><sub class="g-opt">opt</sub> <span class="nt">DefaultClause</span> <span class="nt">CaseClauses</span><sub class="g-opt">opt</sub> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Let <i>V</i> = <b>undefined</b>.</li>
+        <li>Let <i>A</i> be the list of <i>CaseClause</i> items in the first <i>CaseClauses</i>, in source text order. If the
+            first <i>CaseClauses</i> is not present <i>A</i> is &#xAB; &#xBB;.</li>
+        <li>Let <i>found</i> be <b>false</b>.</li>
+        <li>Repeat for each <i>CaseClause</i> <i>C</i> in <i>A</i>
+          <ol class="block">
+            <li>If <i>found</i> is <b>false</b>, then
+              <ol class="block">
+                <li>Let <i>clauseSelector</i> be the result of CaseSelectorEvaluation of <i>C</i>.</li>
+                <li>If <i>clauseSelector</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, then
+                  <ol class="block">
+                    <li>If <i>clauseSelector</i>.[[value]] is <span style="font-family: sans-serif">empty</span>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <i>clauseSelector</i>.[[type]],
+                        [[value]]:  <b>undefined</b>, [[target]]:  <i>clauseSelector</i>.[[target]]}.</li>
+                    <li>Else, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>clauseSelector</i>).</li>
+                  </ol>
+                </li>
+                <li>Let <i>found</i> be the result of performing Strict Equality Comparison <i>input</i> ===
+                    <i>clauseSelector</i>.[[value]].</li>
+              </ol>
+            </li>
+            <li>If <i>found</i> is <b>true</b>, then
+              <ol class="block">
+                <li>Let <i>R</i> be the result of evaluating <i>C</i>.</li>
+                <li>If <i>R</i>.[[value]] is not <span style="font-family: sans-serif">empty</span>, let <i>V</i> =
+                    <i>R</i>.[[value]].</li>
+                <li>If <i>R</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<a href="/sec/sec-updateempty.html">UpdateEmpty</a>(<i>R</i>, <i>V</i>)).</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>Let <i>foundInB</i> be <b>false</b>.</li>
+        <li>Let <i>B</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the <i>CaseClause</i> items
+            in the second <i>CaseClauses</i>, in source text order. If the second <i>CaseClauses</i> is not present <i>B</i> is
+            &#xAB; &#xBB;.</li>
+        <li>If <i>found</i> is <b>false</b>, then
+          <ol class="block">
+            <li>Repeat for  each <i>CaseClause C</i> in <i>B</i>
+              <ol class="block">
+                <li>If <i>foundInB</i> is <b>false</b>, then
+                  <ol class="block">
+                    <li>Let <i>clauseSelector</i> be the result of CaseSelectorEvaluation of <i>C</i>.</li>
+                    <li>If <i>clauseSelector</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>,
+                        then
+                      <ol class="block">
+                        <li>If <i>clauseSelector</i>.[[value]] is <span style="font-family: sans-serif">empty</span>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]:
+                            <i>clauseSelector</i>.[[type]], [[value]]: <b>undefined</b>, [[target]]:
+                            <i>clauseSelector</i>.[[target]]}.</li>
+                        <li>Else, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>clauseSelector</i>).</li>
+                      </ol>
+                    </li>
+                    <li>Let <i>foundInB</i> be the result of performing Strict Equality Comparison <i>input</i> ===
+                        <i>clauseSelector</i>.[[value]].</li>
+                  </ol>
+                </li>
+                <li>If <i>foundInB</i> is <b>true</b>, then
+                  <ol class="block">
+                    <li>Let <i>R</i> be the result of evaluating <i>CaseClause C</i>.</li>
+                    <li>If <i>R</i>.[[value]] is not <span style="font-family: sans-serif">empty</span>, let <i>V</i> =
+                        <i>R</i>.[[value]].</li>
+                    <li>If <i>R</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<a href="/sec/sec-updateempty.html">UpdateEmpty</a>(<i>R</i>, <i>V</i>)).</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>If <i>foundInB</i> is <b>true</b>, return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<i>V</i>).</li>
+        <li>Let <i>R</i> be the result of evaluating <i>DefaultClause</i>.</li>
+        <li>If <i>R</i>.[[value]] is not <span style="font-family: sans-serif">empty</span>, let <i>V</i> =
+            <i>R</i>.[[value]].</li>
+        <li>If <i>R</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<a href="/sec/sec-updateempty.html">UpdateEmpty</a>(<i>R</i>,
+            <i>V</i>)).</li>
+        <li>Repeat for each <i>CaseClause C</i> in <i>B</i> (NOTE  this is another complete iteration of the second
+            <i>CaseClauses</i>)
+          <ol class="block">
+            <li>Let <i>R</i> be the result of evaluating <i>CaseClause</i> <i>C</i>.</li>
+            <li>If <i>R</i>.[[value]] is not <span style="font-family: sans-serif">empty</span>, let <i>V</i> =
+                <i>R</i>.[[value]].</li>
+            <li>If <i>R</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<a href="/sec/sec-updateempty.html">UpdateEmpty</a>(<i>R</i>, <i>V</i>)).</li>
+          </ol>
+        </li>
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<i>V</i>).</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

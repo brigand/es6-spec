@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.3.2.3"><a href="/sec/sec-date-constructor-date.html" title="link to this section">20.3.2.3</a></span> Date ( )</h1>
+
+        <p>This description applies only if the Date constructor is called with no arguments.</p>
+
+        <p class="normalbefore">When the <code>Date</code> function is called the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>numberOfArgs</i> be the number of arguments passed to this function call.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>numberOfArgs</i> = 0.</li>
+          <li>If NewTarget is not <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>O</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(NewTarget,
+                  <code>&quot;%DatePrototype%&quot;</code>, &#xAB;&#x200D; [[DateValue]]&#xBB;).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+              <li>Set the [[DateValue]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i> to
+                  the <a href="/sec/sec-time-values-and-time-range.html">time value</a> (UTC) identifying the current time.</li>
+              <li>Return <i>O</i>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>now</i> be the Number that is the <a href="/sec/sec-time-values-and-time-range.html">time value</a> (UTC)
+                  identifying the current time.</li>
+              <li>Return <a href="/sec/sec-todatestring.html">ToDateString</a> (<i>now</i>).</li>
+            </ol>
+          </li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-6.2.4.4"><a href="/sec/sec-frompropertydescriptor.html" title="link to this section">6.2.4.4</a></span> FromPropertyDescriptor ( Desc )</h1>
+
+        <p class="normalbefore">When the abstract operation FromPropertyDescriptor is called with <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>If <i>Desc</i> is <b>undefined</b>, return <b>undefined</b>.</li>
+          <li>Let <i>obj</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<span style="font-family:
+              sans-serif">%ObjectPrototype%</span>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>obj</i> is an extensible ordinary object with no own
+              properties.</li>
+          <li>If <i>Desc</i> has a [[Value]] field, then
+            <ol class="block">
+              <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i>, <code>&quot;value&quot;</code>,
+                  <i>Desc</i>.[[Value]]).</li>
+            </ol>
+          </li>
+          <li>If <i>Desc</i> has a [[Writable]] field, then
+            <ol class="block">
+              <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i>, <code>&quot;writable&quot;</code>,
+                  <i>Desc</i>.[[Writable]]).</li>
+            </ol>
+          </li>
+          <li>If <i>Desc</i> has a [[Get]] field, then
+            <ol class="block">
+              <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i>, <code>&quot;get&quot;</code>,
+                  <i>Desc</i>.[[Get]]).</li>
+            </ol>
+          </li>
+          <li>If <i>Desc</i> has a [[Set]] field, then
+            <ol class="block">
+              <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i>, <code>&quot;set&quot;</code>,
+                  <i>Desc</i>.[[Set]])</li>
+            </ol>
+          </li>
+          <li>If <i>Desc</i> has an [[Enumerable]] field, then
+            <ol class="block">
+              <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i>, <code>&quot;enumerable&quot;</code>,
+                  <i>Desc</i>.[[Enumerable]]).</li>
+            </ol>
+          </li>
+          <li>If <i>Desc</i> has a [[Configurable]] field, then
+            <ol class="block">
+              <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i> , <code>&quot;configurable&quot;</code>,
+                  <i>Desc</i>.[[Configurable]]).</li>
+            </ol>
+          </li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: all of the above <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a> operations return <b>true</b>.</li>
+          <li>Return <i>obj</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

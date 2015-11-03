@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.1.13"><a href="/sec/sec-objectcreate.html" title="link to this section">9.1.13</a></span>
+          ObjectCreate(proto, internalSlotsList)</h1>
+
+      <p class="normalbefore">The abstract operation ObjectCreate with argument <var>proto</var> (an object or null) is used to
+      specify the runtime creation of new ordinary objects. The optional argument <var>internalSlotsList</var> is a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of the names of additional internal slots that must be defined as
+      part of the object. If the list is not provided, an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a> is
+      used. This abstract operation performs the following steps:</p>
+
+      <ol class="proc">
+        <li>If <i>internalSlotsList</i> was not provided, let <i>internalSlotsList</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>Let <i>obj</i> be a newly created object with an <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+            slot</a> for each name in <i>internalSlotsList</i>.</li>
+        <li>Set <i>obj</i>&#x2019;s essential internal methods to the default ordinary object definitions specified in <a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots.html">9.1</a>.</li>
+        <li>Set the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>obj</i> to
+            <i>proto</i>.</li>
+        <li>Set the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>obj</i> to
+            <b>true</b>.</li>
+        <li>Return <i>obj</i>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

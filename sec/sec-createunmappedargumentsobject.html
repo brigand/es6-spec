@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-9.4.4.6"><a href="/sec/sec-createunmappedargumentsobject.html" title="link to this section">9.4.4.6</a></span> CreateUnmappedArgumentsObject(argumentsList)</h1>
+
+        <p class="normalbefore">The abstract operation <span style="font-family: Times New
+        Roman">CreateUnmappedArgumentsObject</span> called with an argument <var>argumentsList</var> performs the following
+        steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>len</i> be the number of elements in <i>argumentsList</i>.</li>
+          <li>Let <i>obj</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(%ObjectPrototype%,
+              &#xAB;&#x200D;[[ParameterMap]]&#xBB;).</li>
+          <li>Set <i>obj</i>&#x2019;s [[ParameterMap]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>
+              to <b>undefined</b>.</li>
+          <li>Perform <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>obj</i>, <code>&quot;length&quot;</code>,
+              PropertyDescriptor{[[Value]]: <i>len</i>, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+              <b>true</b>}).</li>
+          <li>Let <i>index</i> be 0.</li>
+          <li>Repeat while <i>index</i> &lt; <i>len</i>,
+            <ol class="block">
+              <li>Let <i>val</i> be <i>argumentsList</i>[<i>index</i>].</li>
+              <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>index</i>), <i>val</i>).</li>
+              <li>Let <i>index</i> be <i>index</i> + 1</li>
+            </ol>
+          </li>
+          <li>Perform <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>obj</i>, @@iterator, PropertyDescriptor
+              {[[Value]]:%ArrayProto_values%, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+              <b>true</b>}).</li>
+          <li>Perform <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>obj</i>, <code>&quot;caller&quot;</code>,
+              PropertyDescriptor {[[Get]]: <a href="/sec/sec-%throwtypeerror%.html">%ThrowTypeError%</a>, [[Set]]: <a href="/sec/sec-%throwtypeerror%.html">%ThrowTypeError%</a>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+              <b>false</b>}).</li>
+          <li>Perform <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>obj</i>, <code>&quot;callee&quot;</code>,
+              PropertyDescriptor {[[Get]]: <a href="/sec/sec-%throwtypeerror%.html">%ThrowTypeError%</a>, [[Set]]: <a href="/sec/sec-%throwtypeerror%.html">%ThrowTypeError%</a>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+              <b>false</b>}).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: the above property definitions will not produce an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+          <li>Return <i>obj</i></li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

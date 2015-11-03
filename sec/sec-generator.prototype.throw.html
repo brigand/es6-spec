@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-25.3.1.4"><a href="/sec/sec-generator.prototype.throw.html" title="link to this section">25.3.1.4</a></span> Generator.prototype.throw ( exception )</h1>
+
+        <p class="normalbefore">The <code>throw</code> method performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>g</i> be the <b>this</b> value.</li>
+          <li>Let <i>C</i> be <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <span style="font-family: sans-serif">throw</span>, [[value]]: <i>exception</i>, [[target]]: <span style="font-family:
+              sans-serif">empty</span>}.</li>
+          <li>Return <a href="/sec/sec-generatorresumeabrupt.html">GeneratorResumeAbrupt</a>(<i>g</i>, <i>C</i>).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

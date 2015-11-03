@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.2.4"><a href="/sec/sec-functioninitialize.html" title="link to this section">9.2.4</a></span>
+          FunctionInitialize (F, kind, ParameterList, Body, Scope)</h1>
+
+      <p class="normalbefore">The abstract operation FunctionInitialize requires the arguments: a function object <var>F</var>,
+      <var>kind</var> which is one of (Normal, Method, Arrow), a parameter list production specified by <span class="nt">ParameterList</span>, a body production specified by <span class="nt">Body</span>, a <a href="/sec/sec-lexical-environments.html">Lexical Environment</a> specified by <span style="font-family: Times New
+      Roman"><i>Scope</i>.</span> FunctionInitialize performs the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>F</i> is an extensible object that does not have a
+            <code>length</code> own property.</li>
+        <li>Let <i>len</i> be the ExpectedArgumentCount of <i>ParameterList</i>.</li>
+        <li>Let <i>status</i> be <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>F</i>, <code>&quot;length&quot;</code>,
+            PropertyDescriptor{[[Value]]: <i>len</i>, [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+            <b>true</b>}).</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+        <li>Let <i>Strict</i> be the value of the [[Strict]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+            slot</a> of <i>F</i>.</li>
+        <li>Set the [[Environment]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>F</i> to the
+            value of <i>Scope</i>.</li>
+        <li>Set the [[FormalParameters]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>F</i>
+            to <i>ParameterList</i> .</li>
+        <li>Set the [[ECMAScriptCode]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>F</i> to
+            <i>Body</i>.</li>
+        <li>If <i>kind</i> is <span style="font-family: sans-serif">Arrow</span>, set the [[ThisMode]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>F</i> to <span style="font-family:
+            sans-serif">lexical</span>.</li>
+        <li>Else if <i>Strict</i> is <b>true</b>, set the [[ThisMode]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>F</i> to <span style="font-family:
+            sans-serif">strict</span>.</li>
+        <li>Else set the [[ThisMode]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>F</i> to
+            <span style="font-family: sans-serif">global</span>.</li>
+        <li>Return <i>F</i>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

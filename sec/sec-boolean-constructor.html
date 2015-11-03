@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-19.3.1"><a href="/sec/sec-boolean-constructor.html" title="link to this section">19.3.1</a></span>
+            The Boolean Constructor</h1>
+
+        <p>The Boolean constructor is the %Boolean% intrinsic object and the initial value of the <code>Boolean</code> property of
+        the global object. When called as a constructor it creates and initializes a new Boolean object. When <code>Boolean</code>
+        is called as a function rather than as a constructor, it performs a type conversion.</p>
+
+        <p>The <code>Boolean</code> constructor is designed to be subclassable. It may be used as the value of an
+        <code>extends</code> clause of a class definition. Subclass constructors that intend to inherit the specified
+        <code>Boolean</code> behaviour must include a <code>super</code> call to the <code>Boolean</code> constructor to create
+        and initialize the subclass instance with a [[BooleanData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+      </div>
+
+      <section id="sec-boolean-constructor-boolean-value">
+        <h1><span class="secnum" id="sec-19.3.1.1"><a href="/sec/sec-boolean-constructor-boolean-value.html" title="link to this section">19.3.1.1</a></span> Boolean ( value )</h1>
+
+        <p class="normalbefore">When <code>Boolean</code> is called with argument <var>value</var>, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>b</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<i>value</i>).</li>
+          <li>If NewTarget is <b>undefined</b><i>,</i> return <i>b</i>.</li>
+          <li>Let <i>O</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(NewTarget,
+              <code>&quot;%BooleanPrototype%&quot;</code>, &#xAB;[[BooleanData]]&#xBB; ).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Set the value of <i>O&#x2019;s</i> [[BooleanData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to <i>b</i>.</li>
+          <li>Return <i>O</i>.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

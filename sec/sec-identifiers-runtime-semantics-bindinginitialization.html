@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-12.1.5"><a href="/sec/sec-identifiers-runtime-semantics-bindinginitialization.html" title="link to this section">12.1.5</a></span> Runtime Semantics: BindingInitialization</h1>
+
+        <p>With arguments <var>value</var> and <var>environment</var>.</p>
+
+        <p>See also: <a href="/sec/sec-destructuring-binding-patterns-runtime-semantics-bindinginitialization.html">13.3.3.5</a>, <a href="/sec/sec-for-in-and-for-of-statements-runtime-semantics-bindinginitialization.html">13.7.5.9</a>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> <b>undefined</b> is passed for <var>environment</var> to indicate that a <a href="/sec/sec-putvalue.html">PutValue</a> operation should be used to assign the initialization value. This is the case for
+          <code>var</code> statements and formal parameter lists of some non-strict functions (See <a href="/sec/sec-functiondeclarationinstantiation.html">9.2.12</a>). In those cases a lexical binding is hoisted and preinitialized
+          prior to evaluation of its initializer.</p>
+        </div>
+
+        <div class="gp prod"><span class="nt">BindingIdentifier</span> <span class="geq">:</span> <span class="nt">Identifier</span></div>
+        <ol class="proc">
+          <li>Let <i>name</i> be StringValue of <i>Identifier</i>.</li>
+          <li>Return <a href="/sec/sec-initializeboundname.html">InitializeBoundName</a>( <i>name</i>, <i>value</i>,
+              <i>environment</i>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingIdentifier</span> <span class="geq">:</span> <code class="t">yield</code></div>
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-initializeboundname.html">InitializeBoundName</a>(<code>&quot;yield&quot;</code>, <i>value</i>,
+              <i>environment</i>).</li>
+        </ol>
+      </div>
+
+      <section id="sec-initializeboundname">
+        <h1><span class="secnum" id="sec-12.1.5.1"><a href="/sec/sec-initializeboundname.html" title="link to this section">12.1.5.1</a></span> Runtime Semantics: InitializeBoundName(name, value, environment)</h1>
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>name</i>) is String.</li>
+          <li>If <i>environment</i> is not <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>env</i> be the <a href="/sec/sec-lexical-environments.html">EnvironmentRecord</a> component of
+                  <i>environment</i>.</li>
+              <li>Perform <i>env</i>.InitializeBinding(<i>name</i>, <i>value</i>).</li>
+              <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+            </ol>
+          </li>
+          <li>Else
+            <ol class="block">
+              <li>Let <i>lhs</i> be <a href="/sec/sec-resolvebinding.html">ResolveBinding</a>(<i>name</i>).</li>
+              <li>Return <a href="/sec/sec-putvalue.html">PutValue</a>(<i>lhs</i>, <i>value</i>).</li>
+            </ol>
+          </li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

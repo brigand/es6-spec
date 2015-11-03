@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-23.4.1"><a href="/sec/sec-weakset-constructor.html" title="link to this section">23.4.1</a></span>
+            The WeakSet Constructor</h1>
+
+        <p>The WeakSet constructor is the %WeakSet% intrinsic object and the initial value of the <code>WeakSet</code> property of
+        the global object. When called as a constructor it creates and initializes a new WeakSet object. <code>WeakSet</code> is
+        not intended to be called as a function and will throw an exception when called in that manner.</p>
+
+        <p>The <code>WeakSet</code> constructor is designed to be subclassable. It may be used as the value in an
+        <code>extends</code> clause of a class definition. Subclass constructors that intend to inherit the specified
+        <code>WeakSet</code> behaviour must include a <code>super</code> call to the <code>WeakSet</code> constructor to create
+        and initialize the subclass instance with the internal state necessary to support the <code><a href="/sec/sec-weakset.prototype.html">WeakSet.prototype</a></code> built-in methods.</p>
+      </div>
+
+      <section id="sec-weakset-iterable">
+        <h1><span class="secnum" id="sec-23.4.1.1"><a href="/sec/sec-weakset-iterable.html" title="link to this section">23.4.1.1</a></span> WeakSet ( [ iterable ] )</h1>
+
+        <p class="normalbefore">When the <code>WeakSet</code> function is called with optional argument <var>iterable</var> the
+        following steps are taken:</p>
+
+        <ol class="proc">
+          <li>If NewTarget is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>set</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(NewTarget,
+              <code>&quot;%WeakSetPrototype%&quot;</code>, &#xAB;&#x200D;[[WeakSetData]]&#xBB; ).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>set</i>).</li>
+          <li>Set <i>set&#x2019;s</i> [[WeakSetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>
+              to a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>If <i>iterable</i> is not present, let <i>iterable</i> be <b>undefined</b>.</li>
+          <li>If <i>iterable</i> is either <b>undefined</b> or <b>null</b>, let <i>iter</i> be <b>undefined</b>.</li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>adder</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>set</i>, <code>&quot;add&quot;</code>)<b>.</b></li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>adder</i>).</li>
+              <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>adder</i>) is <b>false</b>, throw a <b>TypeError</b>
+                  exception.</li>
+              <li>Let <i>iter</i> be <a href="/sec/sec-getiterator.html">GetIterator</a>(<i>iterable</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>iter</i>).</li>
+            </ol>
+          </li>
+          <li>If <i>iter</i> is <b>undefined</b>, return <i>set</i>.</li>
+          <li>Repeat
+            <ol class="block">
+              <li>Let <i>next</i> be <a href="/sec/sec-iteratorstep.html">IteratorStep</a>(<i>iter</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+              <li>If <i>next</i> is <b>false</b>, return <i>set</i>.</li>
+              <li>Let <i>nextValue</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>next</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextValue</i>).</li>
+              <li>Let <i>status</i> be <a href="/sec/sec-call.html">Call</a>(<i>adder</i>, <i>set</i>, &#xAB;<i>nextValue</i>
+                  &#xBB;).</li>
+              <li>If <i>status</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, return <a href="/sec/sec-iteratorclose.html">IteratorClose</a>(<i>iter</i>, <i>status</i>).</li>
+            </ol>
+          </li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

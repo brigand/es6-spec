@@ -1,0 +1,949 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-9.5"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots.html" title="link to this section">9.5</a></span> Proxy Object Internal Methods and Internal Slots</h1>
+
+      <p>A proxy object is an exotic object whose essential internal methods are partially implemented using ECMAScript code.
+      Every proxy objects has an <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> called
+      [[ProxyHandler]]. The value of [[ProxyHandler]] is an object, called the proxy&#x2019;s <i>handler object</i>, or <span class="value">null</span>. Methods (see <a href="/sec/table-30.html">Table 30</a>) of a handler object may be used to augment the
+      implementation for one or more of the proxy object&#x2019;s internal methods. Every proxy object also has an <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> called [[ProxyTarget]] whose value is either an
+      object or the <b>null</b> value. This object is called the proxy&#x2019;s <i>target object</i>.</p>
+
+      <figure>
+        <figcaption><span id="table-30">Table 30</span> &#x2014; Proxy Handler Methods</figcaption>
+        <table class="real-table">
+          <tr>
+            <th>Internal Method</th>
+            <th>Handler Method</th>
+          </tr>
+          <tr>
+            <td>[[GetPrototypeOf]]</td>
+            <td><code>getPrototypeOf</code></td>
+          </tr>
+          <tr>
+            <td>[[SetPrototypeOf]]</td>
+            <td><code>setPrototypeOf</code></td>
+          </tr>
+          <tr>
+            <td>[[IsExtensible]]</td>
+            <td><code>isExtensible</code></td>
+          </tr>
+          <tr>
+            <td>[[PreventExtensions]]</td>
+            <td><code>preventExtensions</code></td>
+          </tr>
+          <tr>
+            <td>[[GetOwnProperty]]</td>
+            <td><code>getOwnPropertyDescriptor</code></td>
+          </tr>
+          <tr>
+            <td>[[HasProperty]]</td>
+            <td><code>has</code></td>
+          </tr>
+          <tr>
+            <td>[[Get]]</td>
+            <td><code>get</code></td>
+          </tr>
+          <tr>
+            <td>[[Set]]</td>
+            <td><code>set</code></td>
+          </tr>
+          <tr>
+            <td>[[Delete]]</td>
+            <td><code>deleteProperty</code></td>
+          </tr>
+          <tr>
+            <td>[[DefineOwnProperty]]</td>
+            <td><code>defineProperty</code></td>
+          </tr>
+          <tr>
+            <td>[[Enumerate]]</td>
+            <td><code>enumerate</code></td>
+          </tr>
+          <tr>
+            <td>[[OwnPropertyKeys]]</td>
+            <td><code>ownKeys</code></td>
+          </tr>
+          <tr>
+            <td>[[Call]]</td>
+            <td><code>apply</code></td>
+          </tr>
+          <tr>
+            <td>[[Construct]]</td>
+            <td><code>construct</code></td>
+          </tr>
+        </table>
+      </figure>
+
+      <p>When a handler method is called to provide the implementation of a proxy object internal method, the handler method is
+      passed the proxy&#x2019;s target object as a parameter. A proxy&#x2019;s handler object does not necessarily have a method
+      corresponding to every essential internal method. Invoking an internal method on the proxy results in the invocation of the
+      corresponding internal method on the proxy&#x2019;s target object if the handler object does not have a method corresponding
+      to the internal trap.</p>
+
+      <p>The [[ProxyHandler]] and [[ProxyTarget]] internal slots of a proxy object are always initialized when the object is
+      created and typically may not be modified. Some proxy objects are created in a manner that permits them to be subsequently
+      <i>revoked</i>. When a proxy is revoked, its [[ProxyHander]] and [[ProxyTarget]] internal slots are set to <b>null</b>
+      causing subsequent invocations of internal methods on that proxy object to throw a <span class="value">TypeError</span>
+      exception.</p>
+
+      <p>Because proxy objects permit the implementation of internal methods to be provided by arbitrary ECMAScript code, it is
+      possible to define a proxy object whose handler methods violates the invariants defined in <a href="/sec/sec-invariants-of-the-essential-internal-methods.html">6.1.7.3</a>. Some of the internal method invariants defined in <a href="/sec/sec-invariants-of-the-essential-internal-methods.html">6.1.7.3</a> are essential integrity invariants. These invariants
+      are explicitly enforced by the proxy object internal methods specified in this section. An ECMAScript implementation must be
+      robust in the presence of all possible invariant violations.</p>
+
+      <p>In the following algorithm descriptions, assume <var>O</var> is an ECMAScript proxy object, <var>P</var> is a <a href="/sec/sec-object-type.html">property key value</a>, <var>V</var> is any <a href="/sec/sec-ecmascript-language-types.html">ECMAScript
+      language value</a> and <span style="font-family: Times New Roman">Desc</span> is a <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> record.</p>
+    </div>
+
+    <section id="sec-proxy-object-internal-methods-and-internal-slots-getprototypeof">
+      <h1><span class="secnum" id="sec-9.5.1"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-getprototypeof.html" title="link to this section">9.5.1</a></span> [[GetPrototypeOf]] ( )</h1>
+
+      <p class="normalbefore">When the [[GetPrototypeOf]] internal method of a Proxy exotic object <var>O</var> is called the
+      following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <i>handler</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is Object.</li>
+        <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>trap</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>handler</i>, <code>&quot;getPrototypeOf&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trap</i>).</li>
+        <li>If <i>trap</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Return <i>target</i>.[[GetPrototypeOf]]().</li>
+          </ol>
+        </li>
+        <li>Let <i>handlerProto</i> be <a href="/sec/sec-call.html">Call</a>(<i>trap</i>, <i>handler</i>,
+            &#xAB;<i>target</i>&#xBB;).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>handlerProto</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handlerProto</i>) is neither Object nor Null, throw a
+            <b>TypeError</b> exception.</li>
+        <li>Let <i>extensibleTarget</i> be <a href="/sec/sec-isextensible-o.html">IsExtensible</a>(<i>target</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>extensibleTarget</i>).</li>
+        <li>If <i>extensibleTarget</i> is <b>true</b>, return <i>handlerProto</i>.</li>
+        <li>Let <i>targetProto</i> be <i>target</i>.[[GetPrototypeOf]]().</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetProto</i>).</li>
+        <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>handlerProto</i>, <i>targetProto</i>) is <b>false</b>, throw a
+            <b>TypeError</b> exception.</li>
+        <li>Return <i>handlerProto</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> [[GetPrototypeOf]] for proxy objects enforces the following invariant:</p>
+
+        <ul>
+          <li>
+            <p>The result of [[GetPrototypeOf]] must be either an Object or <b>null</b>.</p>
+          </li>
+
+          <li>
+            <p>If the target object is not extensible, [[GetPrototypeOf]] applied to the proxy object must return the same value
+            as [[GetPrototypeOf]] applied to the proxy object&#x2019;s target object.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="sec-proxy-object-internal-methods-and-internal-slots-setprototypeof-v">
+      <h1><span class="secnum" id="sec-9.5.2"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-setprototypeof-v.html" title="link to this section">9.5.2</a></span> [[SetPrototypeOf]] (V)</h1>
+
+      <p class="normalbefore">When the [[SetPrototypeOf]] internal method of a Proxy exotic object <var>O</var> is called with
+      argument <var>V</var> the following steps are taken:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: Either <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>V</i>) is Object or <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>V</i>) is Null.</li>
+        <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <i>handler</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is Object.</li>
+        <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>trap</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>handler</i>, <code>&quot;setPrototypeOf&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trap</i>).</li>
+        <li>If <i>trap</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Return <i>target</i>.[[SetPrototypeOf]](<i>V</i>).</li>
+          </ol>
+        </li>
+        <li>Let <i>booleanTrapResult</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-call.html">Call</a>(<i>trap</i>,
+            <i>handler</i>, &#xAB;<i>target</i>, <i>V</i>&#xBB;)).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>booleanTrapResult</i>).</li>
+        <li>Let <i>extensibleTarget</i> be <a href="/sec/sec-isextensible-o.html">IsExtensible</a>(<i>target</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>extensibleTarget</i>).</li>
+        <li>If <i>extensibleTarget</i> is <b>true</b>, return <i>booleanTrapResult</i>.</li>
+        <li>Let <i>targetProto</i> be <i>target</i>.[[GetPrototypeOf]]().</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetProto</i>).</li>
+        <li>If <i>booleanTrapResult</i> is <b>true</b> and <a href="/sec/sec-samevalue.html">SameValue</a>(<i>V</i>, <i>targetProto</i>) is
+            <b>false</b>, throw a <b>TypeError</b> exception.</li>
+        <li>Return <i>booleanTrapResult</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> [[SetPrototypeOf]] for proxy objects enforces the following invariant:</p>
+
+        <ul>
+          <li>
+            <p>The result of [[SetPrototypeOf]] is a Boolean value.</p>
+          </li>
+
+          <li>
+            <p>If the target object is not extensible, the argument value must be the same as the result of [[GetPrototypeOf]]
+            applied to target object.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="sec-proxy-object-internal-methods-and-internal-slots-isextensible">
+      <h1><span class="secnum" id="sec-9.5.3"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-isextensible.html" title="link to this section">9.5.3</a></span> [[IsExtensible]] ( )</h1>
+
+      <p class="normalbefore">When the [[IsExtensible]] internal method of a Proxy exotic object <var>O</var> is called the
+      following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <i>handler</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is Object.</li>
+        <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>trap</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>handler</i>, <code>&quot;isExtensible&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trap</i>).</li>
+        <li>If <i>trap</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Return <i>target</i>.[[IsExtensible]]().</li>
+          </ol>
+        </li>
+        <li>Let <i>booleanTrapResult</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-call.html">Call</a>(<i>trap</i>,
+            <i>handler</i>, &#xAB;<i>target</i>&#xBB;)).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>booleanTrapResult</i>).</li>
+        <li>Let <i>targetResult</i> be <i>target</i>.[[IsExtensible]]().</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetResult</i>).</li>
+        <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>booleanTrapResult</i>, <i>targetResult</i>) is <b>false</b>, throw a
+            <b>TypeError</b> exception.</li>
+        <li>Return <i>booleanTrapResult</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> [[IsExtensible]] for proxy objects enforces the following invariant:</p>
+
+        <ul>
+          <li>
+            <p>The result of [[IsExtensible]] is a Boolean value.</p>
+          </li>
+
+          <li>
+            <p>[[IsExtensible]] applied to the proxy object must return the same value as [[IsExtensible]] applied to the proxy
+            object&#x2019;s target object with the same argument.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="sec-proxy-object-internal-methods-and-internal-slots-preventextensions">
+      <h1><span class="secnum" id="sec-9.5.4"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-preventextensions.html" title="link to this section">9.5.4</a></span> [[PreventExtensions]] ( )</h1>
+
+      <p class="normalbefore">When the [[PreventExtensions]] internal method of a Proxy exotic object <var>O</var> is called the
+      following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <i>handler</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is Object.</li>
+        <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>trap</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>handler</i>, <code>&quot;preventExtensions&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trap</i>).</li>
+        <li>If <i>trap</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Return <i>target</i>.[[PreventExtensions]]().</li>
+          </ol>
+        </li>
+        <li>Let <i>booleanTrapResult</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-call.html">Call</a>(<i>trap</i>,
+            <i>handler</i>, &#xAB;<i>target</i>&#xBB;)).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>booleanTrapResult</i>).</li>
+        <li>If <i>booleanTrapResult</i> is <b>true</b>, then
+          <ol class="block">
+            <li>Let <i>targetIsExtensible</i> be <i>target</i>.[[IsExtensible]]().</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetIsExtensible</i>).</li>
+            <li>If <i>targetIsExtensible</i> is <b>true</b>, throw a <b>TypeError</b> exception.</li>
+          </ol>
+        </li>
+        <li>Return <i>booleanTrapResult</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> [[PreventExtensions]] for proxy objects enforces the following invariant:</p>
+
+        <ul>
+          <li>
+            <p>The result of [[PreventExtensions]] is a Boolean value.</p>
+          </li>
+
+          <li>
+            <p>[[PreventExtensions]] applied to the proxy object only returns <b>true</b> if [[IsExtensible]] applied to the proxy
+            object&#x2019;s target object is <b>false</b>.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="sec-proxy-object-internal-methods-and-internal-slots-getownproperty-p">
+      <h1><span class="secnum" id="sec-9.5.5"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-getownproperty-p.html" title="link to this section">9.5.5</a></span> [[GetOwnProperty]] (P)</h1>
+
+      <p class="normalbefore">When the [[GetOwnProperty]] internal method of a Proxy exotic object <var>O</var> is called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var>, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+            <b>true</b>.</li>
+        <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <i>handler</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is Object.</li>
+        <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>trap</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>handler</i>,
+            <code>&quot;getOwnPropertyDescriptor&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trap</i>).</li>
+        <li>If <i>trap</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Return <i>target</i>.[[GetOwnProperty]](<i>P</i>).</li>
+          </ol>
+        </li>
+        <li>Let <i>trapResultObj</i> be <a href="/sec/sec-call.html">Call</a>(<i>trap</i>, <i>handler</i>, &#xAB;<i>target</i>,
+            <i>P</i>&#xBB;).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trapResultObj</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>trapResultObj</i>) is neither Object nor Undefined,
+            throw a <b>TypeError</b> exception.</li>
+        <li>Let <i>targetDesc</i> be <i>target</i>.[[GetOwnProperty]](<i>P</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetDesc</i>).</li>
+        <li>If <i>trapResultObj</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>If <i>targetDesc</i> is <b>undefined</b>, return <b>undefined</b>.</li>
+            <li>If <i>targetDesc</i>.[[Configurable]] is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+            <li>Let <i>extensibleTarget</i> be <a href="/sec/sec-isextensible-o.html">IsExtensible</a>(<i>target</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>extensibleTarget</i>).</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>extensibleTarget</i>) is Boolean.</li>
+            <li>If <i>extensibleTarget</i> is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+            <li>Return <b>undefined</b>.</li>
+          </ol>
+        </li>
+        <li>Let <i>extensibleTarget</i> be <a href="/sec/sec-isextensible-o.html">IsExtensible</a>(<i>target</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>extensibleTarget</i>).</li>
+        <li>Let <i>resultDesc</i> be <a href="/sec/sec-topropertydescriptor.html">ToPropertyDescriptor</a>(<i>trapResultObj</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>resultDesc</i>).</li>
+        <li><a href="/sec/sec-call.html">Call</a> <a href="/sec/sec-completepropertydescriptor.html">CompletePropertyDescriptor</a>(<i>resultDesc</i>).</li>
+        <li>Let <i>valid</i> be <a href="/sec/sec-iscompatiblepropertydescriptor.html">IsCompatiblePropertyDescriptor</a>
+            (<i>extensibleTarget</i>, <i>resultDesc</i>, <i>targetDesc</i>).</li>
+        <li>If <i>valid</i> is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+        <li>If <i>resultDesc</i>.[[Configurable]] is <b>false</b>, then
+          <ol class="block">
+            <li>If <i>targetDesc</i> is <b>undefined</b> or <i>targetDesc</i>.[[Configurable]] is <b>true</b><i>,</i> then
+              <ol class="block">
+                <li>Throw a <b>TypeError</b> exception.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>Return <i>resultDesc</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> [[GetOwnProperty]] for proxy objects enforces the following invariants:</p>
+
+        <ul>
+          <li>
+            <p>The result of [[GetOwnProperty]] must be either an Object or <b>undefined</b>.</p>
+          </li>
+
+          <li>
+            <p>A property cannot be reported as non-existent, if it exists as a non-configurable own property of the target
+            object.</p>
+          </li>
+
+          <li>
+            <p>A property cannot be reported as non-existent, if it exists as an own property of the target object and the target
+            object is not extensible.</p>
+          </li>
+
+          <li>
+            <p>A property cannot be reported as existent, if it does not exists as an own property of the target object and the
+            target object is not extensible.</p>
+          </li>
+
+          <li>
+            <p>A property cannot be reported as non-configurable, if it does not exists as an own property of the target object or
+            if it exists as a configurable own property of the target object.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="sec-proxy-object-internal-methods-and-internal-slots-defineownproperty-p-desc">
+      <h1><span class="secnum" id="sec-9.5.6"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-defineownproperty-p-desc.html" title="link to this section">9.5.6</a></span> [[DefineOwnProperty]] (P, Desc)</h1>
+
+      <p class="normalbefore">When the [[DefineOwnProperty]] internal method of a Proxy exotic object <var>O</var> is called with
+      <a href="/sec/sec-object-type.html">property key</a> <var>P</var> and <a href="/sec/sec-property-descriptor-specification-type.html">Property
+      Descriptor</a> <span class="nt">Desc</span>, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+            <b>true</b>.</li>
+        <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <i>handler</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is Object.</li>
+        <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>trap</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>handler</i>, <code>&quot;defineProperty&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trap</i>).</li>
+        <li>If <i>trap</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Return <i>target</i>.[[DefineOwnProperty]](<i>P</i>, <i>Desc</i>).</li>
+          </ol>
+        </li>
+        <li>Let <i>descObj</i> be <a href="/sec/sec-frompropertydescriptor.html">FromPropertyDescriptor</a>(<i>Desc</i>).</li>
+        <li>Let <i>booleanTrapResult</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-call.html">Call</a>(<i>trap</i>,
+            <i>handler</i>, &#xAB;<i>target</i>, <i>P</i>, <i>descObj</i>&#xBB;)).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>booleanTrapResult</i>).</li>
+        <li>If <i>booleanTrapResult</i> is <b>false</b>, return <b>false</b>.</li>
+        <li>Let <i>targetDesc</i> be <i>target</i>.[[GetOwnProperty]](<i>P</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetDesc</i>).</li>
+        <li>Let <i>extensibleTarget</i> be <a href="/sec/sec-isextensible-o.html">IsExtensible</a>(<i>target</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>extensibleTarget</i>).</li>
+        <li>If <i>Desc</i> has a [[Configurable]] field and if <i>Desc</i>.[[Configurable]] is <b>false,</b> then
+          <ol class="block">
+            <li>Let <i>settingConfigFalse</i> be <b>true</b>.</li>
+          </ol>
+        </li>
+        <li>Else let <i>settingConfigFalse</i> be <b>false</b>.</li>
+        <li>If <i>targetDesc</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>If <i>extensibleTarget</i> is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+            <li>If <i>settingConfigFalse</i> is <b>true</b>, throw a <b>TypeError</b> exception.</li>
+          </ol>
+        </li>
+        <li>Else <i>targetDesc</i> is not <b>undefined<i>,</i></b>
+          <ol class="block">
+            <li>If <a href="/sec/sec-iscompatiblepropertydescriptor.html">IsCompatiblePropertyDescriptor</a>(<i>extensibleTarget</i>,
+                <i>Desc</i> , <i>targetDesc</i>) is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+            <li>If <i>settingConfigFalse</i> is <b>true</b> and <i>targetDesc</i>.[[Configurable]] is <b>true</b>, throw a
+                <b>TypeError</b> exception.</li>
+          </ol>
+        </li>
+        <li>Return <b>true</b>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> [[DefineOwnProperty]] for proxy objects enforces the following invariants:</p>
+
+        <ul>
+          <li>
+            <p>The result of [[DefineOwnProperty]] is a Boolean value.</p>
+          </li>
+
+          <li>
+            <p>A property cannot be added, if the target object is not extensible.</p>
+          </li>
+
+          <li>
+            <p>A property cannot be non-configurable, unless there exists a corresponding non-configurable own property of the
+            target object.</p>
+          </li>
+
+          <li>
+            <p>If a property has a corresponding target object property then applying the <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> of the property to the target object using
+            [[DefineOwnProperty]] will not throw an exception.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="sec-proxy-object-internal-methods-and-internal-slots-hasproperty-p">
+      <h1><span class="secnum" id="sec-9.5.7"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-hasproperty-p.html" title="link to this section">9.5.7</a></span> [[HasProperty]] (P)</h1>
+
+      <p class="normalbefore">When the [[HasProperty]] internal method of a Proxy exotic object <var>O</var> is called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var>, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+            <b>true</b>.</li>
+        <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <i>handler</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is Object.</li>
+        <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>trap</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>handler</i>, <code>&quot;has&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trap</i>).</li>
+        <li>If <i>trap</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Return <i>target</i>.[[HasProperty]](<i>P</i>).</li>
+          </ol>
+        </li>
+        <li>Let <i>booleanTrapResult</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-call.html">Call</a>(<i>trap</i>,
+            <i>handler</i>, &#xAB;<i>target</i>, <i>P</i>&#xBB;)).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>booleanTrapResult</i>).</li>
+        <li>If <i>booleanTrapResult</i> is <b>false</b>, then
+          <ol class="block">
+            <li>Let <i>targetDesc</i> be <i>target</i>.[[GetOwnProperty]](<i>P</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetDesc</i>).</li>
+            <li>If <i>targetDesc</i> is not <b>undefined</b>, then
+              <ol class="block">
+                <li>If <i>targetDesc</i>.[[Configurable]] is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+                <li>Let <i>extensibleTarget</i> be <a href="/sec/sec-isextensible-o.html">IsExtensible</a>(<i>target</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>extensibleTarget</i>).</li>
+                <li>If <i>extensibleTarget</i> is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>Return <i>booleanTrapResult</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> [[HasProperty]] for proxy objects enforces the following invariants:</p>
+
+        <ul>
+          <li>
+            <p>The result of [[HasProperty]] is a Boolean value.</p>
+          </li>
+
+          <li>
+            <p>A property cannot be reported as non-existent, if it exists as a non-configurable own property of the target
+            object.</p>
+          </li>
+
+          <li>
+            <p>A property cannot be reported as non-existent, if it exists as an own property of the target object and the target
+            object is not extensible.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="sec-proxy-object-internal-methods-and-internal-slots-get-p-receiver">
+      <h1><span class="secnum" id="sec-9.5.8"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-get-p-receiver.html" title="link to this section">9.5.8</a></span> [[Get]] (P, Receiver)</h1>
+
+      <p class="normalbefore">When the [[Get]] internal method of a Proxy exotic object <var>O</var> is called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var> and <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language
+      value</a> <span class="nt">Receiver</span> the following steps are taken:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+            <b>true</b>.</li>
+        <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <i>handler</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is Object.</li>
+        <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>trap</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>handler</i>, <code>&quot;get&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trap</i>).</li>
+        <li>If <i>trap</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Return <i>target</i>.[[Get]](<i>P</i>, <i>Receiver</i>).</li>
+          </ol>
+        </li>
+        <li>Let <i>trapResult</i> be <a href="/sec/sec-call.html">Call</a>(<i>trap</i>, <i>handler</i>, &#xAB;<i>target</i>, <i>P</i>,
+            <i>Receiver</i>&#xBB;).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trapResult</i>).</li>
+        <li>Let <i>targetDesc</i> be <i>target</i>.[[GetOwnProperty]](<i>P</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetDesc</i>).</li>
+        <li>If <i>targetDesc</i> is not <b>undefined</b>, then
+          <ol class="block">
+            <li>If <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>targetDesc</i>) and <i>targetDesc</i>.[[Configurable]]
+                is <b>false</b> and <i>targetDesc</i>.[[Writable]] is <b>false</b>, then
+              <ol class="block">
+                <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>trapResult</i>, <i>targetDesc</i>.[[Value]]) is <b>false</b>,
+                    throw a <b>TypeError</b> exception.</li>
+              </ol>
+            </li>
+            <li>If <a href="/sec/sec-isaccessordescriptor.html">IsAccessorDescriptor</a>(<i>targetDesc</i>) and
+                <i>targetDesc</i>.[[Configurable]] is <b>false</b> and <i>targetDesc</i>.[[Get]] is <b>undefined</b>, then
+              <ol class="block">
+                <li>If <i>trapResult</i> is not <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>Return <i>trapResult</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> [[Get]] for proxy objects enforces the following invariants:</p>
+
+        <ul>
+          <li>
+            <p>The value reported for a property must be the same as the value of the corresponding target object property if the
+            target object property is a non-writable, non-configurable own data property.</p>
+          </li>
+
+          <li>
+            <p>The value reported for a property must be <span class="value">undefined</span> if the corresponding target object
+            property is a non-configurable own accessor property that has <span class="value">undefined</span> as its [[Get]]
+            attribute.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="sec-proxy-object-internal-methods-and-internal-slots-set-p-v-receiver">
+      <h1><span class="secnum" id="sec-9.5.9"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-set-p-v-receiver.html" title="link to this section">9.5.9</a></span> [[Set]] ( P, V, Receiver)</h1>
+
+      <p class="normalbefore">When the [[Set]] internal method of a Proxy exotic object <var>O</var> is called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var>, value <var>V</var>, and <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language value</a> <span class="nt">Receiver</span>, the following steps
+      are taken:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+            <b>true</b>.</li>
+        <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <i>handler</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is Object.</li>
+        <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>trap</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>handler</i>, <code>&quot;set&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trap</i>).</li>
+        <li>If <i>trap</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Return <i>target</i>.[[Set]](<i>P</i>, <i>V</i>, <i>Receiver</i>).</li>
+          </ol>
+        </li>
+        <li>Let <i>booleanTrapResult</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-call.html">Call</a>(<i>trap</i>,
+            <i>handler</i>, &#xAB;<i>target</i>, <i>P</i>, <i>V</i>, <i>Receiver</i>&#xBB;)).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>booleanTrapResult</i>).</li>
+        <li>If <i>booleanTrapResult</i> is <b>false</b>, return <b>false</b>.</li>
+        <li>Let <i>targetDesc</i> be <i>target</i>.[[GetOwnProperty]](<i>P</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetDesc</i>).</li>
+        <li>If <i>targetDesc</i> is not <b>undefined</b>, then
+          <ol class="block">
+            <li>If <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>targetDesc</i>) and <i>targetDesc</i>.[[Configurable]]
+                is <b>false</b> and <i>targetDesc</i>.[[Writable]] is <b>false</b>, then
+              <ol class="block">
+                <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>V</i>, <i>targetDesc</i>.[[Value]]) is <b>false</b>, throw a
+                    <b>TypeError</b> exception.</li>
+              </ol>
+            </li>
+            <li>If <a href="/sec/sec-isaccessordescriptor.html">IsAccessorDescriptor</a>(<i>targetDesc</i>) and
+                <i>targetDesc</i>.[[Configurable]] is <b>false</b>, then
+              <ol class="block">
+                <li>If <i>targetDesc</i>.[[Set]] is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>Return <b>true</b>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> [[Set]] for proxy objects enforces the following invariants:</p>
+
+        <ul>
+          <li>
+            <p>The result of [[Set]] is a Boolean value.</p>
+          </li>
+
+          <li>
+            <p>Cannot change the value of a property to be different from the value of the corresponding target object property if
+            the corresponding target object property is a non-writable, non-configurable own data property.</p>
+          </li>
+
+          <li>
+            <p>Cannot set the value of a property if the corresponding target object property is a non-configurable own accessor
+            property that has <span class="value">undefined</span> as its [[Set]] attribute.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="sec-proxy-object-internal-methods-and-internal-slots-delete-p">
+      <h1><span class="secnum" id="sec-9.5.10"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-delete-p.html" title="link to this section">9.5.10</a></span> [[Delete]] (P)</h1>
+
+      <p class="normalbefore">When the [[Delete]] internal method of a Proxy exotic object <var>O</var> is called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var> the following steps are taken:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+            <b>true</b>.</li>
+        <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <i>handler</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is Object.</li>
+        <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>trap</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>handler</i>, <code>&quot;deleteProperty&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trap</i>).</li>
+        <li>If <i>trap</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Return <i>target</i>.[[Delete]](<i>P</i>).</li>
+          </ol>
+        </li>
+        <li>Let <i>booleanTrapResult</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-call.html">Call</a>(<i>trap</i>,
+            <i>handler</i>, &#xAB;<i>target</i>, <i>P</i>&#xBB;)).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>booleanTrapResult</i>).</li>
+        <li>If <i>booleanTrapResult</i> is <b>false</b>, return <b>false</b>.</li>
+        <li>Let <i>targetDesc</i> be <i>target</i>.[[GetOwnProperty]](<i>P</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetDesc</i>).</li>
+        <li>If <i>targetDesc</i> is <b>undefined</b>, return <b>true</b>.</li>
+        <li>If <i>targetDesc</i>.[[Configurable]] is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+        <li>Return <b>true</b>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> [[Delete]] for proxy objects enforces the following invariant:</p>
+
+        <ul>
+          <li>The result of [[Delete]] is a Boolean value.</li>
+          <li>A property cannot be reported as deleted, if it exists as a non-configurable own property of the target object.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="sec-proxy-object-internal-methods-and-internal-slots-enumerate">
+      <h1><span class="secnum" id="sec-9.5.11"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-enumerate.html" title="link to this section">9.5.11</a></span> [[Enumerate]] ()</h1>
+
+      <p class="normalbefore">When the [[Enumerate]] internal method of a Proxy exotic object <var>O</var> is called the following
+      steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <i>handler</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is Object.</li>
+        <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>trap</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>handler</i>, <code>&quot;enumerate&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trap</i>).</li>
+        <li>If <i>trap</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Return <i>target</i>.[[Enumerate]]().</li>
+          </ol>
+        </li>
+        <li>Let <i>trapResult</i> be <a href="/sec/sec-call.html">Call</a>(<i>trap</i>, <i>handler</i>, &#xAB;<i>target</i>&#xBB;).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trapResult</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>trapResult</i>) is not Object, throw a <b>TypeError</b>
+            exception.</li>
+        <li>Return <i>trapResult</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> [[Enumerate]] for proxy objects enforces the following invariants:</p>
+
+        <ul>
+          <li>The result of [[Enumerate]] must be an Object.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="sec-proxy-object-internal-methods-and-internal-slots-ownpropertykeys">
+      <h1><span class="secnum" id="sec-9.5.12"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-ownpropertykeys.html" title="link to this section">9.5.12</a></span> [[OwnPropertyKeys]] ( )</h1>
+
+      <p class="normalbefore">When the [[OwnPropertyKeys]] internal method of a Proxy exotic object <var>O</var> is called the
+      following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <i>handler</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is Object.</li>
+        <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>trap</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>handler</i>, <code>&quot;ownKeys&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trap</i>).</li>
+        <li>If <i>trap</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Return <i>target</i>.[[OwnPropertyKeys]]().</li>
+          </ol>
+        </li>
+        <li>Let <i>trapResultArray</i> be <a href="/sec/sec-call.html">Call</a>(<i>trap</i>, <i>handler</i>,
+            &#xAB;<i>target</i>&#xBB;).</li>
+        <li>Let <i>trapResult</i> be <a href="/sec/sec-createlistfromarraylike.html">CreateListFromArrayLike</a>(<i>trapResultArray</i>,
+            &#xAB;&#x200D;String, Symbol&#xBB;).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trapResult</i>).</li>
+        <li>Let <i>extensibleTarget</i> be <a href="/sec/sec-isextensible-o.html">IsExtensible</a>(<i>target</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>extensibleTarget</i>).</li>
+        <li>Let <i>targetKeys</i> be <i>target</i>.[[OwnPropertyKeys]]().</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetKeys</i>).</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>targetKeys</i> is a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing only String and Symbol values.</li>
+        <li>Let <i>targetConfigurableKeys</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>Let <i>targetNonconfigurableKeys</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>Repeat, for each element <i>key</i> of <i>targetKeys</i>,
+          <ol class="block">
+            <li>Let <i>desc</i> be <i>target</i>.[[GetOwnProperty]](<i>key</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>desc</i>).</li>
+            <li>If <i>desc</i> is not <b>undefined</b> and <i>desc.</i>[[Configurable]] is <b>false</b>, then
+              <ol class="block">
+                <li>Append <i>key</i> as an element of <i>targetNonconfigurableKeys</i>.</li>
+              </ol>
+            </li>
+            <li>Else,
+              <ol class="block">
+                <li>Append <i>key</i> as an element of <i>targetConfigurableKeys</i>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>If <i>extensibleTarget</i> is <b>true</b> and <i>targetNonconfigurableKeys</i> is empty, then
+          <ol class="block">
+            <li>Return <i>trapResult</i>.</li>
+          </ol>
+        </li>
+        <li>Let <i>uncheckedResultKeys</i> be a new <a href="/sec/sec-list-and-record-specification-type.html">List</a> which is a copy of
+            <i>trapResult</i>.</li>
+        <li>Repeat, for each <i>key</i> that is an element of <i>targetNonconfigurableKeys</i>,
+          <ol class="block">
+            <li>If <i>key</i> is not an element of <i>uncheckedResultKeys</i>, throw a <b>TypeError</b> exception.</li>
+            <li>Remove <i>key</i> from <i>uncheckedResultKeys</i></li>
+          </ol>
+        </li>
+        <li>If <i>extensibleTarget</i> is <b>true</b>, return <i>trapResult</i>.</li>
+        <li>Repeat, for each <i>key</i> that is an element of <i>targetConfigurableKeys</i>,
+          <ol class="block">
+            <li>If <i>key</i> is not an element of <i>uncheckedResultKeys</i>, throw a <b>TypeError</b> exception.</li>
+            <li>Remove <i>key</i> from <i>uncheckedResultKeys</i></li>
+          </ol>
+        </li>
+        <li>If <i>uncheckedResultKeys</i> is not empty, throw a <b>TypeError</b> exception.</li>
+        <li>Return <i>trapResult</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> [[OwnPropertyKeys]] for proxy objects enforces the following invariants:</p>
+
+        <ul>
+          <li>
+            <p>The result of [[OwnPropertyKeys]] is a <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</p>
+          </li>
+
+          <li>
+            <p>The Type of each result <a href="/sec/sec-list-and-record-specification-type.html">List</a> element is either String or
+            Symbol.</p>
+          </li>
+
+          <li>
+            <p>The result <a href="/sec/sec-list-and-record-specification-type.html">List</a> must contain the keys of all non-configurable
+            own properties of the target object.</p>
+          </li>
+
+          <li>
+            <p>If the target object is not extensible, then the result <a href="/sec/sec-list-and-record-specification-type.html">List</a>
+            must contain all the keys of the own properties of the target object and no other values.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="sec-proxy-object-internal-methods-and-internal-slots-call-thisargument-argumentslist">
+      <h1><span class="secnum" id="sec-9.5.13"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-call-thisargument-argumentslist.html" title="link to this section">9.5.13</a></span> [[Call]] (thisArgument, argumentsList)</h1>
+
+      <p class="normalbefore">The [[Call]] internal method of a Proxy exotic object <var>O</var> is called with parameters
+      <var>thisArgument</var> and <var>argumentsList</var>, a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language values</a>. The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <i>handler</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is Object.</li>
+        <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>trap</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>handler</i>, <code>&quot;apply&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trap</i>).</li>
+        <li>If <i>trap</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Return <a href="/sec/sec-call.html">Call</a>(<i>target</i>, <i>thisArgument</i>, <i>argumentsList</i>).</li>
+          </ol>
+        </li>
+        <li>Let <i>argArray</i> be <a href="/sec/sec-createarrayfromlist.html">CreateArrayFromList</a>(<i>argumentsList</i>).</li>
+        <li>Return <a href="/sec/sec-call.html">Call</a>(<i>trap</i>, <i>handler</i>, &#xAB;<i>target</i>, <i>thisArgument</i>,
+            <i>argArray</i>&#xBB;).</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> A Proxy exotic object only has a [[Call]] internal method if the initial value of its
+        [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is an object that has a
+        [[Call]] internal method.</p>
+      </div>
+    </section>
+
+    <section id="sec-proxy-object-internal-methods-and-internal-slots-construct-argumentslist-newtarget">
+      <h1><span class="secnum" id="sec-9.5.14"><a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-construct-argumentslist-newtarget.html" title="link to this section">9.5.14</a></span> [[Construct]] ( argumentsList, newTarget)</h1>
+
+      <p class="normalbefore">The [[Construct]] internal method of a Proxy exotic object <var>O</var> is called with parameters
+      <var>argumentsList</var> which is a possibly empty <a href="/sec/sec-list-and-record-specification-type.html">List</a> of <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language values</a> and <var>newTarget</var>. The following steps are
+      taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>handler</i> be the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <i>handler</i> is <b>null</b>, throw a <b>TypeError</b> exception.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is Object.</li>
+        <li>Let <i>target</i> be the value of the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>trap</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>handler</i>, <code>&quot;construct&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>trap</i>).</li>
+        <li>If <i>trap</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>target</i> has a [[Construct]] internal method.</li>
+            <li>Return <a href="/sec/sec-construct.html">Construct</a>(<i>target</i>, <i>argumentsList</i>, <i>newTarget</i>).</li>
+          </ol>
+        </li>
+        <li>Let <i>argArray</i> be <a href="/sec/sec-createarrayfromlist.html">CreateArrayFromList</a>(<i>argumentsList</i>).</li>
+        <li>Let <i>newObj</i> be <a href="/sec/sec-call.html">Call</a>(<i>trap</i>, <i>handler</i>, &#xAB;<i>target</i>, <i>argArray</i>,
+            <i>newTarget</i> &#xBB;).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>newObj</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>newObj</i>) is not Object, throw a <b>TypeError</b>
+            exception.</li>
+        <li>Return <i>newObj</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE 1</span> A Proxy exotic object only has a [[Construct]] internal method if the initial value of
+        its [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is an object that has a
+        [[Construct]] internal method.</p>
+      </div>
+
+      <div class="note">
+        <p><span class="nh">NOTE 2</span> [[Construct]] for proxy objects enforces the following invariants:</p>
+
+        <ul>
+          <li>The result of [[Construct]] must be an Object.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="sec-proxycreate">
+      <h1><span class="secnum" id="sec-9.5.15"><a href="/sec/sec-proxycreate.html" title="link to this section">9.5.15</a></span>
+          ProxyCreate(target, handler)</h1>
+
+      <p class="normalbefore">The abstract operation ProxyCreate with arguments <var>target</var> and <var>handler</var> is used
+      to specify the creation of new Proxy exotic objects. It performs the following steps:</p>
+
+      <ol class="proc">
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>target</i>) is not Object, throw a <b>TypeError</b>
+            exception.</li>
+        <li>If <i>target</i> is a Proxy exotic object and the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>target</i> is <b>null</b>, throw a
+            <b>TypeError</b> exception.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>handler</i>) is not Object, throw a <b>TypeError</b>
+            exception.</li>
+        <li>If <i>handler</i> is a Proxy exotic object and the value of the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>handler</i> is <b>null</b>, throw a
+            <b>TypeError</b> exception.</li>
+        <li>Let <i>P</i> be a newly created object.</li>
+        <li>Set <i>P</i>&#x2019;s essential internal methods (except for [[Call]] and [[Construct]]) to the definitions specified
+            in <a href="/sec/sec-proxy-object-internal-methods-and-internal-slots.html">9.5</a>.</li>
+        <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>target</i>) is <b>true</b>, then
+          <ol class="block">
+            <li>Set the [[Call]] internal method of <i>P</i> as specified in <a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-call-thisargument-argumentslist.html">9.5.13</a>.</li>
+            <li>If <i>target</i> has a [[Construct]] internal method, then
+              <ol class="block">
+                <li>Set the [[Construct]] internal method of <i>P</i> as specified in <a href="/sec/sec-proxy-object-internal-methods-and-internal-slots-construct-argumentslist-newtarget.html">9.5.14</a>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>Set the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>P</i> to
+            <i>target</i>.</li>
+        <li>Set the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>P</i> to
+            <i>handler</i>.</li>
+        <li>Return <i>P</i>.</li>
+      </ol>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

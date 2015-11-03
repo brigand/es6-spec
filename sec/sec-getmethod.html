@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.3.9"><a href="/sec/sec-getmethod.html" title="link to this section">7.3.9</a></span> GetMethod (O,
+          P)</h1>
+
+      <p>The abstract operation GetMethod is used to get the value of a specific property of an object when the value of the
+      property is expected to be a function. The operation is called with arguments <var>O</var> and <var>P</var> where
+      <var>O</var> is the object, <var>P</var> is the <a href="/sec/sec-object-type.html">property key</a>. This abstract operation
+      performs the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+            <b>true</b>.</li>
+        <li>Let  <i>func</i> be <a href="/sec/sec-getv.html">GetV</a>(<i>O</i>, <i>P</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>func</i>).</li>
+        <li>If <i>func</i> is either <b>undefined</b> or <b>null</b>, return <b>undefined</b>.</li>
+        <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>func</i>) is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+        <li>Return <i>func</i>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

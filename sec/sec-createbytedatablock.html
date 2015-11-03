@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-6.2.6.1"><a href="/sec/sec-createbytedatablock.html" title="link to this section">6.2.6.1</a></span> CreateByteDataBlock(size)</h1>
+
+        <p class="normalbefore">When the abstract operation CreateByteDataBlock is called with integer argument <var>size</var>,
+        the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>size</i>&#x2265;0.</li>
+          <li>Let <i>db</i> be a new <a href="/sec/sec-data-blocks.html">Data Block</a> value consisting of <i>size</i> bytes. If it is
+              impossible to create such a <a href="/sec/sec-data-blocks.html">Data Block</a>, throw a <b>RangeError</b> exception.</li>
+          <li>Set all of the bytes of <i>db</i> to 0.</li>
+          <li>Return <i>db</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <div class="front">
+          <h1><span class="secnum" id="sec-25.4.4.3"><a href="/sec/sec-promise.race.html" title="link to this section">25.4.4.3</a></span>
+              Promise.race ( iterable )</h1>
+
+          <p class="normalbefore">The <code>race</code> function returns a new promise which is settled in the same way as the
+          first passed promise to settle. It resolves all elements of the passed <span style="font-family: Times New
+          Roman">iterable</span> to promises as it runs this algorithm.</p>
+
+          <ol class="proc">
+            <li>Let <i>C</i> be the <b>this</b> value.</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>C</i>) is not Object, throw a <b>TypeError</b>
+                exception.</li>
+            <li>Let <i>S</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>C</i>, @@species).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+            <li>If <i>S</i> is neither <b>undefined</b> nor <b>null</b>, let <i>C</i> be <i>S</i>.</li>
+            <li>Let <i>promiseCapability</i> be <a href="/sec/sec-newpromisecapability.html">NewPromiseCapability</a>(<i>C</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>promiseCapability</i>).</li>
+            <li>Let <i>iterator</i> be <a href="/sec/sec-getiterator.html">GetIterator</a>(<i>iterable</i>).</li>
+            <li><a href="/sec/sec-ifabruptrejectpromise.html">IfAbruptRejectPromise</a>(<i>iterator</i>, <i>promiseCapability</i>).</li>
+            <li>Let <i>iteratorRecord</i> be Record {[[iterator]]: <i>iterator</i>, [[done]]: <b>false</b>}.</li>
+            <li>Let <i>result</i> be <a href="/sec/sec-performpromiserace.html">PerformPromiseRace</a>(<i>iteratorRecord</i>,
+                <i>promiseCapability</i>, <i>C</i>).</li>
+            <li>If <i>result</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, then
+              <ol class="block">
+                <li>If <i>iteratorRecord</i>.[[done]] is <b>false</b>, let <i>result</i> be <a href="/sec/sec-iteratorclose.html">IteratorClose</a>(<i>iterator,result</i>).</li>
+                <li><a href="/sec/sec-ifabruptrejectpromise.html">IfAbruptRejectPromise</a>(<i>result</i>, <i>promiseCapability</i>).</li>
+              </ol>
+            </li>
+            <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>result</i>).</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE 1</span> If the <var>iterable</var> argument is empty or if none of the promises in
+            <var>iterable</var> ever settle then the pending promise returned by this method will never be settled</p>
+          </div>
+
+          <div class="note">
+            <p><span class="nh">NOTE 2</span> The <code>race</code> function expects its <b>this</b> value to be a constructor
+            function that supports the parameter conventions of the <code>Promise</code> constructor. It also expects that its
+            <b>this</b> value provides a <code>resolve</code> method.</p>
+          </div>
+        </div>
+
+        <section id="sec-performpromiserace">
+          <h1><span class="secnum" id="sec-25.4.4.3.1"><a href="/sec/sec-performpromiserace.html" title="link to this section">25.4.4.3.1</a></span> Runtime Semantics:  PerformPromiseRace ( iteratorRecord,
+              promiseCapability, C )</h1>
+
+          <p class="normalbefore">When the PerformPromiseRace abstract operation is called with arguments <var>iteratorRecord,
+          promiseCapability,</var> and <var>C</var> the following steps are taken:</p>
+
+          <ol class="proc">
+            <li>Repeat
+              <ol class="block">
+                <li>Let <i>next</i> be <a href="/sec/sec-iteratorstep.html">IteratorStep</a>(<i>iteratorRecord</i>.[[iterator]]).</li>
+                <li>If <i>next</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+                    <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+                <li>If <i>next</i> is <b>false</b>, then
+                  <ol class="block">
+                    <li>Set <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+                    <li>Return <i>promiseCapability</i>.[[Promise]].</li>
+                  </ol>
+                </li>
+                <li>Let <i>nextValue</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>next</i>).</li>
+                <li>If <i>nextValue</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+                    <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextValue</i>).</li>
+                <li>Let <i>nextPromise</i> be <a href="/sec/sec-invoke.html">Invoke</a>(<i>C</i>, <code>&quot;resolve&quot;</code>,
+                    &#xAB;&#x200D;<i>nextValue</i>&#xBB;).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextPromise</i>).</li>
+                <li>Let <i>result</i> be <a href="/sec/sec-invoke.html">Invoke</a>(<i>nextPromise</i>, <code>&quot;then&quot;</code>,
+                    &#xAB;&#x200D;<i>promiseCapability</i>.[[Resolve]], <i>promiseCapability</i>.[[Reject]]&#xBB;).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>result</i>).</li>
+              </ol>
+            </li>
+          </ol>
+        </section>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

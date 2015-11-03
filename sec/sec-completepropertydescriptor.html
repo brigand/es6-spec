@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-6.2.4.6"><a href="/sec/sec-completepropertydescriptor.html" title="link to this section">6.2.4.6</a></span> CompletePropertyDescriptor ( Desc  )</h1>
+
+        <p class="normalbefore">When the abstract operation CompletePropertyDescriptor is called with <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span> the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>Desc</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>Desc</i> is a <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a></li>
+          <li>Let <i>like</i> be Record{[[Value]]: <b>undefined</b>, [[Writable]]: <b>false</b>, [[Get]]: <b>undefined</b>,
+              [[Set]]: <b>undefined</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>false</b>}.</li>
+          <li>If either <a href="/sec/sec-isgenericdescriptor.html">IsGenericDescriptor</a>(<i>Desc</i>) or <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>Desc</i>) is <b>true</b>, then
+            <ol class="block">
+              <li>If <i>Desc</i> does not have a [[Value]] field, set <i>Desc</i>.[[Value]] to <i>like</i>.[[Value]].</li>
+              <li>If <i>Desc</i> does not have a [[Writable]] field, set <i>Desc</i>.[[Writable]] to
+                  <i>like</i>.[[Writable]].</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>If <i>Desc</i> does not have a [[Get]] field, set <i>Desc</i>.[[Get]] to <i>like</i>.[[Get]].</li>
+              <li>If <i>Desc</i> does not have a [[Set]] field, set <i>Desc</i>.[[Set]] to <i>like</i>.[[Set]].</li>
+            </ol>
+          </li>
+          <li>If <i>Desc</i> does not have an [[Enumerable]] field, set <i>Desc</i>.[[Enumerable]] to
+              <i>like</i>.[[Enumerable]].</li>
+          <li>If <i>Desc</i> does not have a [[Configurable]] field, set <i>Desc</i>.[[Configurable]] to
+              <i>like</i>.[[Configurable]].</li>
+          <li>Return <i>Desc</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

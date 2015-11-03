@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-24.2.2"><a href="/sec/sec-dataview-constructor.html" title="link to this section">24.2.2</a></span> The DataView Constructor</h1>
+
+        <p>The DataView constructor is the %DataView% intrinsic object and the initial value of the <code>DataView</code> property
+        of the global object. When called as a constructor it creates and initializes a new DataView object. <code>DataView</code>
+        is not intended to be called as a function and will throw an exception when called in that manner.</p>
+
+        <p>The <code>DataView</code> constructor is designed to be subclassable. It may be used as the value of an
+        <code>extends</code> clause of a class definition. Subclass constructors that intend to inherit the specified
+        <code>DataView</code> behaviour must include a <code>super</code> call to the <code>DataView</code> constructor to create
+        and initialize subclass instances with the internal state necessary to support the <code><a href="/sec/sec-dataview.prototype.html">DataView.prototype</a></code> built-in methods.</p>
+      </div>
+
+      <section id="sec-dataview-buffer-byteoffset-bytelength">
+        <h1><span class="secnum" id="sec-24.2.2.1"><a href="/sec/sec-dataview-buffer-byteoffset-bytelength.html" title="link to this section">24.2.2.1</a></span> DataView (buffer [ , byteOffset [ , byteLength ] ] )</h1>
+
+        <p class="normalbefore"><code>DataView</code> called with arguments <span style="font-family: Times New
+        Roman"><i>buffer</i>, <i>byteOffset</i>, and <i>length</i></span> performs the following steps:</p>
+
+        <ol class="proc">
+          <li>If NewTarget is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>buffer</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>buffer</i> does not have an [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>numberOffset</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>byteOffset</i>).</li>
+          <li>Let <i>offset</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>numberOffset</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>offset</i>).</li>
+          <li>If <i>numberOffset</i> &#x2260; <i>offset</i> or <i>offset</i> &lt; 0, throw a <b>RangeError</b> exception.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>buffer</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>bufferByteLength</i> be the value of <i>buffer&#x2019;s</i> [[ArrayBufferByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>offset</i> &gt; <i>bufferByteLength</i>, throw a <b>RangeError</b> exception.</li>
+          <li>If <i>byteLength</i> is <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>viewByteLength</i> be <i>bufferByteLength</i> &#x2013; <i>offset</i>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>viewByteLength</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<i>byteLength</i>)<i>.</i></li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>viewByteLength</i>).</li>
+              <li>If <i>offset</i>+<i>viewByteLength</i> &gt; <i>bufferByteLength</i>, throw a <b>RangeError</b> exception.</li>
+            </ol>
+          </li>
+          <li>Let <i>O</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(NewTarget,
+              <code>&quot;%DataViewPrototype%&quot;</code>, &#xAB;&#x200D;[[DataView]], [[ViewedArrayBuffer]], [[ByteLength]],
+              [[ByteOffset]]&#xBB; ).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Set <i>O&#x2019;s</i> [[DataView]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <b>true</b>.</li>
+          <li>Set <i>O&#x2019;s</i> [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to <i>buffer</i>.</li>
+          <li>Set <i>O</i>&#x2019;s [[ByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <i>viewByteLength</i>.</li>
+          <li>Set <i>O</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <i>offset</i>.</li>
+          <li>Return <i>O</i>.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

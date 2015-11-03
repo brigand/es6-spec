@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-13.11.7"><a href="/sec/sec-with-statement-runtime-semantics-evaluation.html" title="link to this section">13.11.7</a></span> Runtime Semantics: Evaluation</h1>
+      <div class="gp prod"><span class="nt">WithStatement</span> <span class="geq">:</span> <code class="t">with</code> <code class="t">(</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+      <ol class="proc">
+        <li>Let <i>val</i> be the result of evaluating <i>Expression</i>.</li>
+        <li>Let <i>obj</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<a href="/sec/sec-getvalue.html">GetValue</a>(<i>val</i>)).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>obj</i>).</li>
+        <li>Let <i>oldEnv</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a>.</li>
+        <li>Let <i>newEnv</i> be <a href="/sec/sec-newobjectenvironment.html">NewObjectEnvironment</a>(<i>obj</i>, <i>oldEnv</i>).</li>
+        <li>Set the <i>withEnvironment</i> flag of <i>newEnv&#x2019;s</i> <a href="/sec/sec-lexical-environments.html">EnvironmentRecord</a>
+            to <b>true</b>.</li>
+        <li>Set <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> to <i>newEnv</i>.</li>
+        <li>Let <i>C</i> be the result of evaluating <i>Statement</i>.</li>
+        <li>Set <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-lexical-environments.html">Lexical Environment</a> to <i>oldEnv</i>.</li>
+        <li>If <i>C</i>.[[type]] is <span style="font-family: sans-serif">normal</span> and <i>C</i>.[[value]] is <span style="font-family: sans-serif">empty</span>, return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+        <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>C</i>).</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> No matter how control leaves the embedded <span class="nt">Statement</span>, whether
+        normally or by some form of <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a> or exception, the <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> is always restored to its former state.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

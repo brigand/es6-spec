@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-24.3.2.3"><a href="/sec/sec-serializejsonobject.html" title="link to this section">24.3.2.3</a></span> Runtime Semantics: SerializeJSONObject ( value )</h1>
+
+        <p class="normalbefore">The abstract operation SerializeJSONObject with argument <var>value</var> serializes an object. It
+        has access to the <var>stack</var>, <var>indent</var>, <var>gap</var>, and <span class="nt">PropertyList</span> values of
+        the current invocation of the <code>stringify</code> method.</p>
+
+        <ol class="proc">
+          <li>If <i>stack</i> contains <i>value</i>, throw a <b>TypeError</b> exception because the structure is cyclical.</li>
+          <li>Append <i>value</i> to <i>stack</i>.</li>
+          <li>Let <i>stepback</i> be <i>indent</i>.</li>
+          <li>Let <i>indent</i> be the concatenation of <i>indent</i> and <i>gap</i>.</li>
+          <li>If <i>PropertyList</i> is not <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>K</i> be <i>PropertyList</i>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>K</i> be <a href="/sec/sec-enumerableownnames.html">EnumerableOwnNames</a>(<i>value</i>).</li>
+            </ol>
+          </li>
+          <li>Let <i>partial</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>For each element <i>P</i> of <i>K</i>,
+            <ol class="block">
+              <li>Let <i>strP</i> be <a href="/sec/sec-serializejsonproperty.html">SerializeJSONProperty</a>(<i>P</i>, <i>value</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>strP</i>).</li>
+              <li>If <i>strP</i> is not <b>undefined</b>, then
+                <ol class="block">
+                  <li>Let <i>member</i> be <a href="/sec/sec-quotejsonstring.html">QuoteJSONString</a>(<i>P</i>).</li>
+                  <li>Let <i>member</i> be the concatenation of <i>member</i> and the string <code>&quot;:&quot;</code>.</li>
+                  <li>If <i>gap</i> is not the empty String, then
+                    <ol class="block">
+                      <li>Let <i>member</i> be the concatenation of <i>member</i> and code unit 0x0020 (SPACE).</li>
+                    </ol>
+                  </li>
+                  <li>Let <i>member</i> be the concatenation of <i>member</i> and <i>strP</i>.</li>
+                  <li>Append <i>member</i> to <i>partial</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>partial</i> is empty, then
+            <ol class="block">
+              <li>Let <i>final</i> be <code>&quot;{}&quot;</code>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>If <i>gap</i> is the empty String, then
+                <ol class="block">
+                  <li>Let <i>properties</i> be a String formed by concatenating all the element Strings of <i>partial</i> with
+                      each adjacent pair of Strings separated with code unit 0x002C (COMMA). A comma is not inserted either before
+                      the first String or after the last String.</li>
+                  <li>Let <i>final</i> be the result of concatenating <b><code>&quot;{&quot;</code>,</b> <i>properties</i>, and
+                      <code>&quot;}&quot;</code>.</li>
+                </ol>
+              </li>
+              <li>Else <i>gap</i> is not the empty String
+                <ol class="block">
+                  <li>Let <i>separator</i> be the result of concatenating code unit 0x002C (COMMA), code unit 0x000A (LINE FEED),
+                      and <i>indent</i>.</li>
+                  <li>Let <i>properties</i> be a String formed by concatenating all the element Strings of <i>partial</i> with
+                      each adjacent pair of Strings separated with <i>separator</i>. The <i>separator</i> String is not inserted
+                      either before the first String or after the last String.</li>
+                  <li>Let <i>final</i> be the result of concatenating <code>&quot;{&quot;</code>, code unit 0x000A (LINE FEED),
+                      <i>indent</i>, <i>properties</i>, code unit 0x000A, <i>stepback</i>, and <code>&quot;}&quot;</code>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Remove the last element of <i>stack</i>.</li>
+          <li>Let <i>indent</i> be <i>stepback</i>.</li>
+          <li>Return <i>final</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

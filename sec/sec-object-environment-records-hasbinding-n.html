@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-8.1.1.2.1"><a href="/sec/sec-object-environment-records-hasbinding-n.html" title="link to this section">8.1.1.2.1</a></span> HasBinding(N)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method HasBinding for
+          object Environment Records determines if its associated binding object has a property whose name is the value of the
+          argument <var>N</var>:</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the object <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li>Let <i>bindings</i> be the binding object for <i>envRec</i>.</li>
+            <li>Let <i>foundBinding</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>bindings</i>, <i>N</i>)</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>foundBinding</i>).</li>
+            <li>If <i>foundBinding</i> is <b>false</b>, return <b>false</b>.</li>
+            <li>If the <i>withEnvironment</i> flag of <i>envRec</i> is <b>false</b>, return <b>true</b>.</li>
+            <li>Let <i>unscopables</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>bindings</i>, @@unscopables).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>unscopables</i>).</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>unscopables</i>) is Object, then
+              <ol class="block">
+                <li>Let <i>blocked</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>unscopables</i>, <i>N</i>)).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>blocked</i>).</li>
+                <li>If <i>blocked</i> is <b>true</b>, return <b>false</b>.</li>
+              </ol>
+            </li>
+            <li>Return <b>true</b>.</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

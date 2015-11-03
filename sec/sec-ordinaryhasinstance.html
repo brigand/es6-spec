@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.3.19"><a href="/sec/sec-ordinaryhasinstance.html" title="link to this section">7.3.19</a></span>
+          OrdinaryHasInstance (C, O)</h1>
+
+      <p class="normalbefore">The abstract operation <span style="font-family: Times New Roman">OrdinaryHasInstance</span>
+      implements the default algorithm for determining if an object <var>O</var> inherits from the instance object inheritance
+      path provided by constructor <var>C</var>. This abstract operation performs the following steps:</p>
+
+      <ol class="proc">
+        <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>C</i>) is <b>false</b>, return <b>false</b>.</li>
+        <li>If <i>C</i> has a <a href="/sec/sec-bound-function-exotic-objects.html">[[BoundTargetFunction]]</a> <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, then
+          <ol class="block">
+            <li>Let <i>BC</i> be the value of <i>C&#x2019;s</i> <a href="/sec/sec-bound-function-exotic-objects.html">[[BoundTargetFunction]]</a> <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Return <a href="/sec/sec-instanceofoperator.html">InstanceofOperator</a>(<i>O</i>,<i>BC</i>)  (<a href="/sec/sec-instanceofoperator.html">see 12.9.4</a>).</li>
+          </ol>
+        </li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, return <b>false</b>.</li>
+        <li>Let <i>P</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>C</i>, <code>&quot;prototype&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>P</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>P</i>) is not Object, throw a <b>TypeError</b>
+            exception.</li>
+        <li>Repeat
+          <ol class="block">
+            <li>Let <i>O</i> be <i>O</i>.[[GetPrototypeOf]]().</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+            <li>If <i>O</i> is <code>null</code>, return <b>false</b>.</li>
+            <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>P</i>, <i>O</i>) is <b>true</b>, return <b>true</b>.</li>
+          </ol>
+        </li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

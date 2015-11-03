@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-19.1.2.1"><a href="/sec/sec-object.assign.html" title="link to this section">19.1.2.1</a></span>
+            Object.assign ( target, ...sources )</h1>
+
+        <p class="normalbefore">The <b>assign</b> function is used to copy the values of all of the enumerable own properties from
+        one or more source objects to a <var>target</var> object. When the <b>assign</b> function is called, the following steps
+        are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>to</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<i>target</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>to</i>).</li>
+          <li>If only one argument was passed, return <i>to</i>.</li>
+          <li>Let <i>sources</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> of argument values starting
+              with the second argument.</li>
+          <li>For each element <i>nextSource</i> of <i>sources</i>, in ascending index order,
+            <ol class="block">
+              <li>If <i>nextSource</i> is <b>undefined</b> or <b>null</b>, let <i>keys</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+              <li>Else,
+                <ol class="block">
+                  <li>Let <i>from</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<i>nextSource</i>).</li>
+                  <li>Let <i>keys</i> be <i>from</i>.[[OwnPropertyKeys]]().</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>keys</i>).</li>
+                </ol>
+              </li>
+              <li>Repeat for each element <i>nextKey</i> of <i>keys</i> in <a href="/sec/sec-list-and-record-specification-type.html">List</a> order,
+                <ol class="block">
+                  <li>Let <i>desc</i> be <i>from</i>.[[GetOwnProperty]](<i>nextKey</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>desc</i>).</li>
+                  <li>if <i>desc</i> is not <b>undefined</b> and <i>desc</i>.[[Enumerable]] is <b>true</b>, then
+                    <ol class="block">
+                      <li>Let <i>propValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>from</i>, <i>nextKey</i>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>propValue</i>).</li>
+                      <li>Let <i>status</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>to</i>, <i>nextKey</i>, <i>propValue</i>,
+                          <b>true</b>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Return <i>to</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>assign</code> method is <b>2</b>.</p>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

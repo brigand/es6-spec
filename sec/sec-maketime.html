@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.3.1.12"><a href="/sec/sec-maketime.html" title="link to this section">20.3.1.12</a></span>
+            MakeTime (hour, min, sec, ms)</h1>
+
+        <p class="normalbefore">The abstract operation MakeTime calculates a number of milliseconds from its four arguments, which
+        must be ECMAScript Number values. This operator functions as follows:</p>
+
+        <ol class="proc">
+          <li>If <i>hour</i> is not finite or <i>min</i> is not finite or <i>sec</i> is not finite or <i>ms</i> is not finite,
+              return <b>NaN</b>.</li>
+          <li>Let <i>h</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>hour</i>).</li>
+          <li>Let <i>m</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>min</i>).</li>
+          <li>Let <i>s</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>sec</i>).</li>
+          <li>Let <i>milli</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>ms</i>).</li>
+          <li>Let <i>t</i> be <i>h</i> <code>*</code> <a href="/sec/sec-hours-minutes-second-and-milliseconds.html">msPerHour</a>
+              <code>+</code> <i>m</i> <code>*</code> <a href="/sec/sec-hours-minutes-second-and-milliseconds.html">msPerMinute</a>
+              <code>+</code> <i>s</i> <code>*</code> <a href="/sec/sec-hours-minutes-second-and-milliseconds.html">msPerSecond</a>
+              <code>+</code> <i>milli</i>, performing the arithmetic according to IEEE 754-2008 rules (that is, as if using the
+              ECMAScript operators <code>*</code> and <code>+</code>).</li>
+          <li>Return <i>t</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,1 @@
+{"id":"sec-symbol.prototype.constructor","html":"\n        <h1><span class=\"secnum\" id=\"sec-19.4.3.1\"><a href=\"/sec/sec-symbol.prototype.constructor.html\" title=\"link to this section\">19.4.3.1</a></span> Symbol.prototype.constructor</h1>\n\n        <p>The initial value of <code>Symbol.prototype.constructor</code> is the intrinsic object %Symbol%.</p>\n      "}

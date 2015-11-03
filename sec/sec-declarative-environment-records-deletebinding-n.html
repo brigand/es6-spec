@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-8.1.1.1.7"><a href="/sec/sec-declarative-environment-records-deletebinding-n.html" title="link to this section">8.1.1.1.7</a></span> DeleteBinding (N)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method DeleteBinding for
+          declarative Environment Records can only delete bindings that have been explicitly designated as being subject to
+          deletion.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the declarative <a href="/sec/sec-environment-records.html">Environment Record</a> for which the
+                method was invoked.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>envRec</i> has a binding for the name that is the value of
+                <i>N</i>.</li>
+            <li>If the binding for <i>N</i> in <i>envRec</i> cannot be deleted, return <b>false</b>.</li>
+            <li>Remove the binding for <i>N</i> from <i>envRec</i>.</li>
+            <li>Return <b>true</b>.</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

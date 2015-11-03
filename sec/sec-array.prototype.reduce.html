@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-22.1.3.18"><a href="/sec/sec-array.prototype.reduce.html" title="link to this section">22.1.3.18</a></span> Array.prototype.reduce ( callbackfn [ , initialValue ] )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> <var>callbackfn</var> should be a function that takes four arguments.
+          <code>reduce</code> calls the callback, as a function, once for each element present in the array, in ascending
+          order.</p>
+
+          <p><var>callbackfn</var> is called with four arguments: the <i>previousValue</i> (value from the previous call to
+          <var>callbackfn</var>), the <i>currentValue</i> (value of the current element), the <i>currentIndex</i>, and the object
+          being traversed. The first time that callback is called, the <i>previousValue</i> and <i>currentValue</i> can be one of
+          two values. If an <var>initialValue</var> was provided in the call to <code>reduce</code>, then <i>previousValue</i>
+          will be equal to <var>initialValue</var> and <i>currentValue</i> will be equal to the first value in the array. If no
+          <var>initialValue</var> was provided, then <i>previousValue</i> will be equal to the first value in the array and
+          <i>currentValue</i> will be equal to the second. It is a <b>TypeError</b> if the array contains no elements and
+          <var>initialValue</var> is not provided.</p>
+
+          <p><code>reduce</code> does not directly mutate the object on which it is called but the object may be mutated by the
+          calls to <var>callbackfn</var>.</p>
+
+          <p>The range of elements processed by <code>reduce</code> is set before the first call to <var>callbackfn</var>.
+          Elements that are appended to the array after the call to <code>reduce</code> begins will not be visited by
+          <var>callbackfn</var>. If existing elements of the array are changed, their value as passed to <var>callbackfn</var>
+          will be the value at the time <code>reduce</code> visits them; elements that are deleted after the call to
+          <code>reduce</code> begins and before being visited are not visited.</p>
+        </div>
+
+        <p class="normalbefore">When the <code>reduce</code> method is called with one or two arguments, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>callbackfn</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>len</i> is 0 and <i>initialValue</i> is not present, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>If <i>initialValue</i> is present, then
+            <ol class="block">
+              <li>Set <i>accumulator</i> to <i>initialValue</i>.</li>
+            </ol>
+          </li>
+          <li>Else <i>initialValue</i> is not present,
+            <ol class="block">
+              <li>Let <i>kPresent</i> be <b>false</b>.</li>
+              <li>Repeat, while  <i>kPresent</i> is <b>false</b> and  <i>k</i> &lt; <i>len</i>
+                <ol class="block">
+                  <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+                  <li>Let <i>kPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>Pk</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kPresent</i>).</li>
+                  <li>If <i>kPresent</i> is <b>true</b>, then
+                    <ol class="block">
+                      <li>Let <i>accumulator</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>Pk</i>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>accumulator</i>).</li>
+                    </ol>
+                  </li>
+                  <li>Increase <i>k</i> by 1.</li>
+                </ol>
+              </li>
+              <li>If <i>kPresent</i> is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+            </ol>
+          </li>
+          <li>Repeat, while <i>k</i> &lt; <i>len</i>
+            <ol class="block">
+              <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+              <li>Let <i>kPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>Pk</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kPresent</i>).</li>
+              <li>If <i>kPresent</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>kValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>Pk</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kValue</i>).</li>
+                  <li>Let <i>accumulator</i> be <a href="/sec/sec-call.html">Call</a>(<i>callbackfn</i>, <b>undefined</b>,
+                      &#xAB;<i>accumulator</i>, <i>kValue</i>, <i>k</i>, <i>O</i>&#xBB;).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>accumulator</i>).</li>
+                </ol>
+              </li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>accumulator</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>reduce</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>reduce</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

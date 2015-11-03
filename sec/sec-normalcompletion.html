@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-6.2.2.1"><a href="/sec/sec-normalcompletion.html" title="link to this section">6.2.2.1</a></span>
+            NormalCompletion</h1>
+
+        <p class="normalbefore">The abstract operation NormalCompletion with a single <i>argument</i>, such as:</p>
+
+        <ol class="proc">
+          <li>Return NormalCompletion(<i>argument</i>).</li>
+        </ol>
+
+        <p class="normalbefore">Is a shorthand that is defined as follows:</p>
+
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <span style="font-family:
+              sans-serif">normal</span>, [[value]]: <i>argument</i>, [[target]]:<span style="font-family:
+              sans-serif">empty</span>}.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

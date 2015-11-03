@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-14.6.2.1"><a href="/sec/sec-statement-rules.html" title="link to this section">14.6.2.1</a></span>
+            Statement Rules</h1>
+        <div class="gp prod"><span class="nt">ConciseBody</span> <span class="geq">:</span> <span class="nt">AssignmentExpression</span></div>
+        <ol class="proc">
+          <li>Return HasProductionInTailPosition of <i>AssignmentExpression</i> with argument <i>nonterminal</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">StatementList</span> <span class="geq">:</span> <span class="nt">StatementList</span> <span class="nt">StatementListItem</span></div>
+        <ol class="proc">
+          <li>Let <i>has</i> be HasProductionInTailPosition of <i>StatementList</i> with argument <i>nonterminal</i>.</li>
+          <li>If <i>has</i> is <b>true</b>, return <b>true</b>.</li>
+          <li>Return HasProductionInTailPosition of <i>StatementListItem</i> with argument <i>nonterminal</i>.</li>
+        </ol>
+
+        <p><span class="prod"><span class="nt">FunctionStatementList</span> <span class="geq">:</span> <span class="grhsannot">[empty]</span></span></p>
+
+        <p><span class="prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Declaration</span></span></p>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">Statement</span> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">VariableStatement</span></div>
+          <div class="rhs"><span class="nt">EmptyStatement</span></div>
+          <div class="rhs"><span class="nt">ExpressionStatement</span></div>
+          <div class="rhs"><span class="nt">ContinueStatement</span></div>
+          <div class="rhs"><span class="nt">BreakStatement</span></div>
+          <div class="rhs"><span class="nt">ThrowStatement</span></div>
+          <div class="rhs"><span class="nt">DebuggerStatement</span></div>
+          <div class="rhs"><span class="nt">Block</span> <code class="t">:</code> <code class="t">{</code> <code class="t">}</code></div>
+          <div class="rhs"><span class="nt">ReturnStatement</span> <code class="t">:</code> <code class="t">return</code> <code class="t">;</code></div>
+          <div class="rhs"><span class="nt">LabelledItem</span> <code class="t">:</code> <span class="nt">FunctionDeclaration</span></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">IterationStatement</span> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">LeftHandSideExpression</span> <code class="t">in</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <code class="t">var</code> <span class="nt">ForBinding</span> <code class="t">in</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">ForDeclaration</span> <code class="t">in</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">LeftHandSideExpression</span> <code class="t">of</code> <span class="nt">AssignmentExpression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <code class="t">var</code> <span class="nt">ForBinding</span> <code class="t">of</code> <span class="nt">AssignmentExpression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">ForDeclaration</span> <code class="t">of</code> <span class="nt">AssignmentExpression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><span class="nt">CaseBlock</span> <code class="t">:</code> <code class="t">{</code> <code class="t">}</code></div>
+        </div>
+
+        <ol class="proc">
+          <li>Return <b>false</b>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">IfStatement</span> <span class="geq">:</span> <code class="t">if</code> <code class="t">(</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">Statement</span> <code class="t">else</code> <span class="nt">Statement</span></div>
+        <ol class="proc">
+          <li>Let <i>has</i> be HasProductionInTailPosition of the first <i>Statement</i> with argument <i>nonterminal</i>.</li>
+          <li>If <i>has</i> is <b>true</b>, return <b>true</b>.</li>
+          <li>Return HasProductionInTailPosition of the second <i>Statement</i> with argument <i>nonterminal</i>.</li>
+        </ol>
+
+        <p><span class="prod"><span class="nt">IfStatement</span> <span class="geq">:</span> <code class="t">if</code> <code class="t">(</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">Statement</span></span></p>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">IterationStatement</span> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">do</code> <span class="nt">Statement</span> <code class="t">while</code> <code class="t">(</code> <span class="nt">Expression</span> <code class="t">)</code> <code class="t">;</code></div>
+          <div class="rhs"><code class="t">while</code> <code class="t">(</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">;</code> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">;</code> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <code class="t">var</code> <span class="nt">VariableDeclarationList</span> <code class="t">;</code> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">;</code> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">LexicalDeclaration</span> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">;</code> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><span class="nt">WithStatement</span> <code class="t">:</code> <code class="t">with</code> <code class="t">(</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+        </div>
+
+        <ol class="proc">
+          <li>Return HasProductionInTailPosition of <i>Statement</i> with argument <i>nonterminal</i>.</li>
+        </ol>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">LabelledStatement</span> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">LabelIdentifier</span> <code class="t">:</code> <span class="nt">LabelledItem</span></div>
+        </div>
+
+        <ol class="proc">
+          <li>Return HasProductionInTailPosition of <i>LabelledItem</i> with argument <i>nonterminal</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ReturnStatement</span> <span class="geq">:</span> <code class="t">return</code> <span class="nt">Expression</span> <code class="t">;</code></div>
+        <ol class="proc">
+          <li>Return HasProductionInTailPosition of <i>Expression</i> with argument <i>nonterminal</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">SwitchStatement</span> <span class="geq">:</span> <code class="t">switch</code> <code class="t">(</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">CaseBlock</span></div>
+        <ol class="proc">
+          <li>Return HasProductionInTailPosition of <i>CaseBlock</i> with argument <i>nonterminal</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">CaseBlock</span> <span class="geq">:</span> <code class="t">{</code> <span class="nt">CaseClauses</span><sub class="g-opt">opt</sub> <span class="nt">DefaultClause</span> <span class="nt">CaseClauses</span><sub class="g-opt">opt</sub> <code class="t">}</code></div>
+        <ol class="proc">
+          <li>Let <i>has</i> be <b>false</b>.</li>
+          <li>If the first <i>CaseClauses</i> is present, let <i>has</i> be HasProductionInTailPosition of the first
+              <i>CaseClauses</i> with argument <i>nonterminal</i>.</li>
+          <li>If <i>has</i> is <b>true</b>, return <b>true</b>.</li>
+          <li>Let <i>has</i> be HasProductionInTailPosition of the <i>DefaultClause</i> with argument <i>nonterminal</i>.</li>
+          <li>If <i>has</i> is <b>true</b>, return <b>true</b>.</li>
+          <li>If the second <i>CaseClauses</i> is present, let <i>has</i> be HasProductionInTailPosition of the second
+              <i>CaseClauses</i> with argument <i>nonterminal</i>.</li>
+          <li>Return <i>has</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">CaseClauses</span> <span class="geq">:</span> <span class="nt">CaseClauses</span> <span class="nt">CaseClause</span></div>
+        <ol class="proc">
+          <li>Let <i>has</i> be HasProductionInTailPosition of <i>CaseClauses</i> with argument <i>nonterminal</i>.</li>
+          <li>If <i>has</i> is <b>true</b>, return <b>true</b>.</li>
+          <li>Return HasProductionInTailPosition of <i>CaseClause</i> with argument <i>nonterminal</i>.</li>
+        </ol>
+
+        <p><span class="prod"><span class="nt">CaseClause</span> <span class="geq">:</span> <code class="t">case</code> <span class="nt">Expression</span> <code class="t">:</code> <span class="nt">StatementList</span><sub class="g-opt">opt</sub></span></p>
+
+        <div class="gp prod"><span class="nt">DefaultClause</span> <span class="geq">:</span> <code class="t">default</code> <code class="t">:</code> <span class="nt">StatementList</span><sub class="g-opt">opt</sub></div>
+        <ol class="proc">
+          <li>If <i>StatementList</i> is present, return HasProductionInTailPosition of <i>StatementList</i> with argument
+              <i>nonterminal</i>.</li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Catch</span></div>
+        <ol class="proc">
+          <li>Return HasProductionInTailPosition of <i>Catch</i> with argument <i>nonterminal</i>.</li>
+        </ol>
+
+        <p><span class="prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Finally</span></span></p>
+
+        <div class="gp prod"><span class="nt">TryStatement</span> <span class="geq">:</span> <code class="t">try</code> <span class="nt">Block</span> <span class="nt">Catch</span> <span class="nt">Finally</span></div>
+        <ol class="proc">
+          <li>Return HasProductionInTailPosition of <i>Finally</i> with argument <i>nonterminal</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">Catch</span> <span class="geq">:</span> <code class="t">catch</code> <code class="t">(</code> <span class="nt">CatchParameter</span> <code class="t">)</code> <span class="nt">Block</span></div>
+        <ol class="proc">
+          <li>Return HasProductionInTailPosition of <i>Block</i> with argument <i>nonterminal</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

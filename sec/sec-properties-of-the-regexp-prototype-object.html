@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-21.2.5"><a href="/sec/sec-properties-of-the-regexp-prototype-object.html" title="link to this section">21.2.5</a></span> Properties of the RegExp Prototype Object</h1>
+
+        <p>The RegExp prototype object is the intrinsic object %RegExpPrototype%. The RegExp prototype object is an ordinary
+        object. It is not a RegExp instance and does not have a [[RegExpMatcher]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> or any of the other internal slots of RegExp
+        instance objects.</p>
+
+        <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the
+        RegExp prototype object is the intrinsic object %ObjectPrototype% (<a href="/sec/sec-properties-of-the-object-prototype-object.html">19.1.3</a>).</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The RegExp prototype object does not have a <code>valueOf</code> property of its own;
+          however, it inherits the <code>valueOf</code> property from the Object prototype object.</p>
+        </div>
+      </div>
+
+      <section id="sec-regexp.prototype.constructor">
+        <h1><span class="secnum" id="sec-21.2.5.1"><a href="/sec/sec-regexp.prototype.constructor.html" title="link to this section">21.2.5.1</a></span> RegExp.prototype.constructor</h1>
+
+        <p>The initial value of <code>RegExp.prototype.constructor</code> is the intrinsic object %RegExp%.</p>
+      </section>
+
+      <section id="sec-regexp.prototype.exec">
+        <div class="front">
+          <h1><span class="secnum" id="sec-21.2.5.2"><a href="/sec/sec-regexp.prototype.exec.html" title="link to this section">21.2.5.2</a></span> RegExp.prototype.exec ( string )</h1>
+
+          <p>Performs a regular expression match of <var>string</var> against the regular expression and returns an Array object
+          containing the results of the match, or <b>null</b> if <var>string</var> did not match.</p>
+
+          <p class="normalbefore">The String <span style="font-family: Times New Roman"><a href="/sec/sec-tostring.html">ToString</a>(<i>string</i>)</span> is searched for an occurrence of the regular expression pattern
+          as follows:</p>
+
+          <ol class="proc">
+            <li>Let <i>R</i> be the <b>this</b> value.</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>R</i>) is not Object, throw a <b>TypeError</b>
+                exception.</li>
+            <li>If <i>R</i> does not have a [[RegExpMatcher]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                slot</a>, throw a <b>TypeError</b> exception.</li>
+            <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>string</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+            <li>Return <a href="/sec/sec-regexpbuiltinexec.html">RegExpBuiltinExec</a>(<i>R</i>, <i>S</i>).</li>
+          </ol>
+        </div>
+
+        <section id="sec-regexpexec">
+          <h1><span class="secnum" id="sec-21.2.5.2.1"><a href="/sec/sec-regexpexec.html" title="link to this section">21.2.5.2.1</a></span> Runtime Semantics: RegExpExec ( R, S )</h1>
+
+          <p class="normalbefore">The abstract operation RegExpExec with arguments <var>R</var> and <var>S</var> performs the
+          following steps:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>R</i>) is Object.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>S</i>) is String.</li>
+            <li>Let <i>exec</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>R</i>, <code>&quot;<b>exec&quot;</b></code>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>exec</i>).</li>
+            <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>exec</i>) is <b>true</b>, then
+              <ol class="block">
+                <li>Let <i>result</i> be <a href="/sec/sec-call.html">Call</a>(<i>exec</i>, <i>R</i>, &#xAB;<i>S</i>&#xBB;).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>result</i>).</li>
+                <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>result</i>) is neither Object or Null, throw a
+                    <b>TypeError</b> exception.</li>
+                <li>Return <i>result</i>.</li>
+              </ol>
+            </li>
+            <li>If <i>R</i> does not have a [[RegExpMatcher]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                slot</a>, throw a <b>TypeError</b> exception.</li>
+            <li>Return <a href="/sec/sec-regexpbuiltinexec.html">RegExpBuiltinExec</a>(<i>R</i>, <i>S</i>).</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> If a callable <code>exec</code> property is not found this algorithm falls back to
+            attempting to use the built-in RegExp matching algorithm. This provides compatible behaviour for code written for
+            prior editions where most built-in algorithms that use regular expressions did not perform a dynamic property lookup
+            of <code>exec</code>.</p>
+          </div>
+        </section>
+
+        <section id="sec-regexpbuiltinexec">
+          <h1><span class="secnum" id="sec-21.2.5.2.2"><a href="/sec/sec-regexpbuiltinexec.html" title="link to this section">21.2.5.2.2</a></span> Runtime Semantics: RegExpBuiltinExec ( R, S )</h1>
+
+          <p class="normalbefore">The abstract operation RegExpBuiltinExec with arguments <var>R</var> and <var>S</var> performs
+          the following steps:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>R</i> is an initialized RegExp instance.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>S</i>) is String.</li>
+            <li>Let <i>length</i> be the number of code units in <i>S</i>.</li>
+            <li>Let <i>lastIndex</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>R</i>,<code>&quot;<b>lastIndex</b>&quot;</code>)).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lastIndex</i>).</li>
+            <li>Let <i>global</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>R</i>,
+                <code>&quot;<b>global&quot;</b></code>)).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>global</i>).</li>
+            <li>Let <i>sticky</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>R</i>,
+                <code>&quot;<b>sticky&quot;</b></code>)).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>sticky</i>).</li>
+            <li>If <i>global</i> is <b>false</b> and <i>sticky</i> is <b>false</b>, let <i>lastIndex</i> be 0.</li>
+            <li>Let <i>matcher</i> be the value of <i>R&#x2019;s</i> [[RegExpMatcher]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>flags</i> be the value of <i>R&#x2019;s</i> [[OriginalFlags]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>If <i>flags</i> contains <code>&quot;u&quot;</code>, let <i>fullUnicode</i> be <b>true</b>, else let <i>fullUnicode</i> be
+                <b>false.</b></li>
+            <li>Let <i>matchSucceeded</i> be <b>false</b>.</li>
+            <li>Repeat, while <i>matchSucceeded</i> is <b>false</b>
+              <ol class="block">
+                <li>If <i>lastIndex</i> &gt; <i>length</i>, then
+                  <ol class="block">
+                    <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>R</i>, <code>&quot;<b>lastIndex&quot;</b></code>,
+                        0, <b>true</b>).</li>
+                    <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                    <li>Return <b>null</b>.</li>
+                  </ol>
+                </li>
+                <li>Let <i>r</i> be <i>matcher</i>(<i>S</i>, <i>lastIndex</i>).</li>
+                <li>If <i>r</i> is <b>failure</b>, then
+                  <ol class="block">
+                    <li>If <i>sticky</i> is <b>true</b>, then
+                      <ol class="block">
+                        <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>R</i>,
+                            <code>&quot;<b>lastIndex&quot;</b></code>, 0, <b>true</b>).</li>
+                        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                        <li>Return <b>null</b>.</li>
+                      </ol>
+                    </li>
+                    <li>Let <i>lastIndex</i> be <a href="/sec/sec-advancestringindex.html">AdvanceStringIndex</a>(<i>S</i>,
+                        <i>lastIndex</i>, <i>fullUnicode</i>).</li>
+                  </ol>
+                </li>
+                <li>Else,
+                  <ol class="block">
+                    <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>r</i> is a State.</li>
+                    <li>Set <i>matchSucceeded</i> to <b>true</b>.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+            <li>Let <i>e</i> be <i>r</i>&apos;s <i>endIndex</i> value.</li>
+            <li>If <i>fullUnicode</i> is <b>true</b>, then
+              <ol class="block">
+                <li><i>e</i> is an index into the <i>Input</i> character list, derived from <i>S</i>, matched by <i>matcher</i>.
+                    Let <i>eUTF</i>  be the smallest index into <i>S</i> that corresponds to the character at element <i>e</i> of
+                    <i>Input</i>. If <i>e</i> is greater than or equal to the length of <i>Input</i>, then <i>eUTF</i> is the
+                    number of code units in <i>S.</i></li>
+                <li>Let <i>e</i> be <i>eUTF</i>.</li>
+              </ol>
+            </li>
+            <li>If <i>global</i> is <b>true</b> or <i>sticky</i> is <b>true</b>,
+              <ol class="block">
+                <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>R</i>, <code>&quot;<b>lastIndex&quot;</b></code>,
+                    <i>e</i>, <b>true</b>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+              </ol>
+            </li>
+            <li>Let <i>n</i> be the length of <i>r</i>&apos;s <i>captures</i> <a href="/sec/sec-list-and-record-specification-type.html">List</a>. (This is the same value as <a href="/sec/sec-notation.html">21.2.2.1</a>&apos;s <i>NcapturingParens</i>.)</li>
+            <li>Let <i>A</i> be <a href="/sec/sec-arraycreate.html">ArrayCreate</a>(<i>n</i> + 1).</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: The value of <i>A</i>&#x2019;s <code>&quot;<b>length&quot;</b></code>
+                property is <i>n</i> + 1.</li>
+            <li>Let <i>matchIndex</i> be <i>lastIndex</i>.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: The following <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a> calls will not result in an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+            <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>A</i>, <code>&quot;<b>index&quot;</b></code>,
+                <i>matchIndex</i>).</li>
+            <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>A</i>, <code>&quot;<b>input&quot;</b></code>,
+                <i>S</i>).</li>
+            <li>Let <i>matchedSubstr</i> be the matched substring (i.e. the portion of <i>S</i> between offset <i>lastIndex</i>
+                inclusive and offset <i>e</i> exclusive).</li>
+            <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>A</i>, <code>&quot;<b>0&quot;</b></code>,
+                <i>matchedSubstr</i>).</li>
+            <li>For each integer <i>i</i> such that <i>i</i> &gt; 0 and <i>i</i> &#x2264; <i>n</i>
+              <ol class="block">
+                <li>Let <i>captureI</i> be <i>i</i><sup>th</sup> element of <i>r</i>&apos;s <i>captures</i> <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+                <li>If <i>captureI</i> is <b>undefined</b>, let <i>capturedValue</i> be <b>undefined</b>.</li>
+                <li>Else if <i>fullUnicode</i> is <b>true</b>,
+                  <ol class="block">
+                    <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>captureI</i> is a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of code points.</li>
+                    <li>Let <i>capturedValue</i> be a string whose code units are the <a href="/sec/sec-utf16encoding.html">UTF16Encoding</a> <span style="font-family: sans-serif">(<a href="/sec/sec-utf16encoding.html">10.1.1</a>)</span> of the code points of <i>captureI.</i></li>
+                  </ol>
+                </li>
+                <li>Else, <i>fullUnicode</i> is <b>false</b>,
+                  <ol class="block">
+                    <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>captureI</i> is a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of code units.</li>
+                    <li>Let <i>capturedValue</i> be a string consisting of the code units of <i>captureI.</i></li>
+                  </ol>
+                </li>
+                <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>A</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>i</i>) , <i>capturedValue</i>).</li>
+              </ol>
+            </li>
+            <li>Return <i>A</i>.</li>
+          </ol>
+        </section>
+
+        <section id="sec-advancestringindex">
+          <h1><span class="secnum" id="sec-21.2.5.2.3"><a href="/sec/sec-advancestringindex.html" title="link to this section">21.2.5.2.3</a></span> AdvanceStringIndex ( S, index, unicode )</h1>
+
+          <p class="normalbefore">The abstract operation AdvanceStringIndex with arguments <var>S</var>, <var>index</var>, and
+          <var>unicode</var> performs the following steps:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>S</i>) is String.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>index</i> is an integer such that
+                0&#x2264;<i>index</i>&#x2264;2<sup>53</sup>-1.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>unicode</i>) is Boolean.</li>
+            <li>If <i>unicode</i> is <b>false</b>, return <i>index</i>+1.</li>
+            <li>Let <i>length</i> be the number of code units in <i>S</i>.</li>
+            <li>If <i>index</i>+1 &#x2265; <i>length</i>, return <i>index</i>+1.</li>
+            <li>Let <i>first</i> be the code unit value at index <i>index</i> in <i>S</i>.</li>
+            <li>If <i>first</i> &lt; 0xD800 or <i>first</i> &gt; 0xDBFF, return <i>index</i>+1.</li>
+            <li>Let <i>second</i> be the code unit value at index <i>index</i>+1 in <i>S</i>.</li>
+            <li>If <i>second</i> &lt; 0xDC00 or <i>second</i> &gt; 0xDFFF, return <i>index</i>+1.</li>
+            <li>Return <i>index</i>+2.</li>
+          </ol>
+        </section>
+      </section>
+
+      <section id="sec-get-regexp.prototype.flags">
+        <h1><span class="secnum" id="sec-21.2.5.3"><a href="/sec/sec-get-regexp.prototype.flags.html" title="link to this section">21.2.5.3</a></span> get RegExp.prototype.flags</h1>
+
+        <p class="normalbefore"><code>RegExp.prototype.flags</code> is an accessor property whose set accessor function is <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>R</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>R</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>result</i> be the empty String.</li>
+          <li>Let <i>global</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>R</i>,
+              <code>&quot;global&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>global</i>).</li>
+          <li>If <i>global</i> is <b>true</b>, append <code>&quot;g&quot;</code> as the last code unit of <i>result</i>.</li>
+          <li>Let <i>ignoreCase</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>R</i>,
+              <code>&quot;ignoreCase&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>ignoreCase</i>).</li>
+          <li>If <i>ignoreCase</i> is <b>true</b>, append <code>&quot;i&quot;</code> as the last code unit of <i>result</i>.</li>
+          <li>Let <i>multiline</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>R</i>,
+              <code>&quot;multiline&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>multiline</i>).</li>
+          <li>If <i>multiline</i> is <b>true</b>, append <code>&quot;m&quot;</code> as the last code unit of <i>result</i>.</li>
+          <li>Let <i>unicode</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>R</i>,
+              <code>&quot;unicode&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>unicode</i>).</li>
+          <li>If <i>unicode</i> is <b>true</b>, append <code>&quot;u&quot;</code> as the last code unit of <i>result</i>.</li>
+          <li>Let <i>sticky</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>R</i>,
+              <code>&quot;sticky&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>sticky</i>).</li>
+          <li>If <i>sticky</i> is <b>true</b>, append <code>&quot;y&quot;</code> as the last code unit of <i>result</i>.</li>
+          <li>Return <i>result</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-get-regexp.prototype.global">
+        <h1><span class="secnum" id="sec-21.2.5.4"><a href="/sec/sec-get-regexp.prototype.global.html" title="link to this section">21.2.5.4</a></span> get RegExp.prototype.global</h1>
+
+        <p class="normalbefore"><code>RegExp.prototype.global</code> is an accessor property whose set accessor function is <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>R</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>R</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>R</i> does not have an [[OriginalFlags]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>flags</i> be the value of <i>R&#x2019;s</i> [[OriginalFlags]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>flags</i> contains the code unit <code>&quot;g&quot;</code>, return <b>true</b>.</li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-get-regexp.prototype.ignorecase">
+        <h1><span class="secnum" id="sec-21.2.5.5"><a href="/sec/sec-get-regexp.prototype.ignorecase.html" title="link to this section">21.2.5.5</a></span> get RegExp.prototype.ignoreCase</h1>
+
+        <p class="normalbefore"><code>RegExp.prototype.ignoreCase</code> is an accessor property whose set accessor function is
+        <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>R</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>R</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>R</i> does not have an [[OriginalFlags]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>flags</i> be the value of <i>R&#x2019;s</i> [[OriginalFlags]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>flags</i> contains the code unit <code>&quot;i&quot;</code>, return <b>true</b>.</li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-regexp.prototype-@@match">
+        <h1><span class="secnum" id="sec-21.2.5.6"><a href="/sec/sec-regexp.prototype-@@match.html" title="link to this section">21.2.5.6</a></span> RegExp.prototype [ @@match ] ( string )</h1>
+
+        <p class="normalbefore">When the @@<code>match</code> method is called with argument <var>string</var>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>rx</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>rx</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>string</i>)</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>global</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>rx</i>,
+              <code>&quot;global&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>global</i>).</li>
+          <li>If <i>global</i> is <b>false</b>, then
+            <ol class="block">
+              <li>Return <a href="/sec/sec-regexpexec.html">RegExpExec</a>(<i>rx</i>, <i>S</i>).</li>
+            </ol>
+          </li>
+          <li>Else <i>global</i> is <b>true</b>,
+            <ol class="block">
+              <li>Let <i>fullUnicode</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>rx</i>,
+                  <code>&quot;unicode&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fullUnicode</i>).</li>
+              <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>rx</i>, <code>&quot;lastIndex&quot;</code>, 0,
+                  <b>true</b>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+              <li>Let <i>A</i> be <a href="/sec/sec-arraycreate.html">ArrayCreate</a>(0).</li>
+              <li>Let <i>n</i> be 0.</li>
+              <li>Repeat,
+                <ol class="block">
+                  <li>Let <i>result</i> be <a href="/sec/sec-regexpexec.html">RegExpExec</a>(<i>rx</i>, <i>S</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>result</i>).</li>
+                  <li>If <i>result</i> is <b>null</b>, then
+                    <ol class="block">
+                      <li>If <i>n</i>=0, return <b>null</b>.</li>
+                      <li>Else, return <i>A</i>.</li>
+                    </ol>
+                  </li>
+                  <li>Else <i>result</i> is not <b>null</b>,
+                    <ol class="block">
+                      <li>Let <i>matchStr</i> be <a href="/sec/sec-tostring.html">ToString</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>result</i>, <code>&quot;0&quot;</code>)).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>matchStr</i>).</li>
+                      <li>Let <i>status</i> be <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>A</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>n</i>), <i>matchStr</i>).</li>
+                      <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <i>status</i> is <b>true</b>.</li>
+                      <li>If <i>matchStr</i> is the empty String, then
+                        <ol class="block">
+                          <li>Let <i>thisIndex</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>rx</i>, <code>&quot;lastIndex&quot;</code>)).</li>
+                          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>thisIndex</i>).</li>
+                          <li>Let <i>nextIndex</i> be <a href="/sec/sec-advancestringindex.html">AdvanceStringIndex</a>(<i>S</i>,
+                              <i>thisIndex</i>, <i>fullUnicode</i>).</li>
+                          <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>rx</i>, <code>&quot;lastIndex&quot;</code>,
+                              <i>nextIndex</i>, <b>true</b>).</li>
+                          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                        </ol>
+                      </li>
+                      <li>Increment <i>n</i>.</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
+
+        <p>The value of the <code>name</code> property of this function is <code>&quot;[Symbol.match]&quot;</code>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The @@match property is used by the <a href="/sec/sec-isregexp.html">IsRegExp</a> abstract
+          operation to identify objects that have the basic behaviour of regular expressions. The absence of a @@match property or
+          the existence of such a property whose value does not Boolean coerce to <span class="value">true</span> indicates that
+          the object is not intended to be used as a regular expression object.</p>
+        </div>
+      </section>
+
+      <section id="sec-get-regexp.prototype.multiline">
+        <h1><span class="secnum" id="sec-21.2.5.7"><a href="/sec/sec-get-regexp.prototype.multiline.html" title="link to this section">21.2.5.7</a></span> get RegExp.prototype.multiline</h1>
+
+        <p class="normalbefore"><code>RegExp.prototype.multiline</code> is an accessor property whose set accessor function is
+        <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>R</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>R</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>R</i> does not have an [[OriginalFlags]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>flags</i> be the value of <i>R&#x2019;s</i> [[OriginalFlags]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>flags</i> contains the code unit <code>&quot;m&quot;</code>, return <b>true</b>.</li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-regexp.prototype-@@replace">
+        <h1><span class="secnum" id="sec-21.2.5.8"><a href="/sec/sec-regexp.prototype-@@replace.html" title="link to this section">21.2.5.8</a></span> RegExp.prototype [ @@replace ] ( string, replaceValue )</h1>
+
+        <p class="normalbefore">When the @@<code>replace</code> method is called with arguments <var>string</var> and
+        <var>replaceValue</var> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>rx</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>rx</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>string</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>lengthS</i> be the number of code unit elements in <i>S</i>.</li>
+          <li>Let <i>functionalReplace</i> be <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>replaceValue</i>).</li>
+          <li>If <i>functionalReplace</i> is <b>false</b>, then
+            <ol class="block">
+              <li>Let <i>replaceValue</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>replaceValue</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>replaceValue</i>).</li>
+            </ol>
+          </li>
+          <li>Let <i>global</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>rx</i>,
+              <code>&quot;global&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>global</i>).</li>
+          <li>If <i>global</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>fullUnicode</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>rx</i>,
+                  <code>&quot;unicode&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fullUnicode</i>).</li>
+              <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>rx</i>, <code>&quot;lastIndex&quot;</code>, 0,
+                  <b>true</b>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+            </ol>
+          </li>
+          <li>Let <i>results</i> be a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>Let <i>done</i> be <b>false</b>.</li>
+          <li>Repeat, while <i>done</i> is <b>false</b>
+            <ol class="block">
+              <li>Let <i>result</i> be <a href="/sec/sec-regexpexec.html">RegExpExec</a>(<i>rx</i>, <i>S</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>result</i>).</li>
+              <li>If <i>result</i> is <b>null</b>, set <i>done</i> to <b>true</b>.</li>
+              <li>Else <i>result</i> is not <b>null</b>,
+                <ol class="block">
+                  <li>Append <i>result</i> to the end of <i>results</i>.</li>
+                  <li>If <i>global</i> is <b>false</b>, set <i>done</i> to <b>true</b>.</li>
+                  <li>Else,
+                    <ol class="block">
+                      <li>Let <i>matchStr</i> be <a href="/sec/sec-tostring.html">ToString</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>result</i>, <code>&quot;0&quot;</code>)).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>matchStr</i>).</li>
+                      <li>If <i>matchStr</i> is the empty String, then
+                        <ol class="block">
+                          <li>Let <i>thisIndex</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>rx</i>, <code>&quot;lastIndex&quot;</code>)).</li>
+                          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>thisIndex</i>).</li>
+                          <li>Let <i>nextIndex</i> be <a href="/sec/sec-advancestringindex.html">AdvanceStringIndex</a>(<i>S</i>,
+                              <i>thisIndex</i>, <i>fullUnicode</i>).</li>
+                          <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>rx</i>, <code>&quot;lastIndex&quot;</code>,
+                              <i>nextIndex</i>, <b>true</b>).</li>
+                          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                        </ol>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Let <i>accumulatedResult</i> be the empty String value.</li>
+          <li>Let <i>nextSourcePosition</i> be 0.</li>
+          <li>Repeat, for each <i>result</i> in <i>results</i>,
+            <ol class="block">
+              <li>Let <i>nCaptures</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>result</i>,
+                  <code>&quot;length&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nCaptures</i>).</li>
+              <li>Let <i>nCaptures</i> be max(<i>nCaptures</i> &#x2212; 1, 0).</li>
+              <li>Let <i>matched</i> be <a href="/sec/sec-tostring.html">ToString</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>result</i>,
+                  <code>&quot;0&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>matched</i>).</li>
+              <li>Let <i>matchLength</i> be the number of code units in <i>matched</i>.</li>
+              <li>Let <i>position</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>result</i>,
+                  <code>&quot;index&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>position</i>).</li>
+              <li>Let <i>position</i> be max(min(<i>position</i>, <i>lengthS</i>), 0).</li>
+              <li>Let <i>n</i> be 1.</li>
+              <li>Let <i>captures</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+              <li>Repeat while <i>n</i> &#x2264; <i>nCaptures</i>
+                <ol class="block">
+                  <li>Let <i>capN</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>result</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>n</i>)).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>capN</i>).</li>
+                  <li>If <i>capN</i> is not <b>undefined</b>, then
+                    <ol class="block">
+                      <li>Let <i>capN</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>capN</i>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>capN</i>).</li>
+                    </ol>
+                  </li>
+                  <li>Append <i>capN</i> as the last element of <i>captures.</i></li>
+                  <li>Let <i>n</i> be <i>n</i>+1</li>
+                </ol>
+              </li>
+              <li>If <i>functionalReplace</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>replacerArgs</i> be &#xAB;<i>matched</i>&#xBB;.</li>
+                  <li>Append in list order the elements of <i>captures</i> to the end of the <a href="/sec/sec-list-and-record-specification-type.html">List</a> <i>replacerArgs</i>.</li>
+                  <li>Append <i>position</i> and <i>S</i> as the last two elements of <i>replacerArgs.</i></li>
+                  <li>Let <i>replValue</i> be <a href="/sec/sec-call.html">Call</a>(<i>replaceValue</i>, <b>undefined</b>,
+                      <i>replacerArgs</i>).</li>
+                  <li>Let <i>replacement</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>replValue</i>).</li>
+                </ol>
+              </li>
+              <li>Else,
+                <ol class="block">
+                  <li>Let <i>replacement</i> be <a href="/sec/sec-getsubstitution.html">GetSubstitution</a>(<i>matched</i>, <i>S</i>,
+                      <i>position</i>, <i>captures</i>, <i>replaceValue</i>).</li>
+                </ol>
+              </li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>replacement</i>).</li>
+              <li>If <i>position</i> &#x2265; <i>nextSourcePosition</i>, then
+                <ol class="block">
+                  <li>NOTE	<span style="font-family: Times New Roman"><i>position</i></span> should not normally move
+                      backwards. If it does, it is an indication of an ill-behaving RegExp subclass or use of an access triggered
+                      side-effect to change the global flag or other characteristics of <i><span style="font-family: Times New
+                      Roman">rx</span>.</i> In such cases, the corresponding substitution is ignored.</li>
+                  <li>Let <i>accumulatedResult</i> be the String formed by concatenating the code units of the current value of
+                      <i>accumulatedResult</i> with the substring of <i>S</i> consisting of the code units from
+                      <i>nextSourcePosition</i> (inclusive) up to <i>position</i> (exclusive) and with the code units of
+                      <i>replacement</i>.</li>
+                  <li>Let <i>nextSourcePosition</i> be <i>position</i> + <i>matchLength</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>nextSourcePosition</i> &#x2265; <i>lengthS</i>, return <i>accumulatedResult</i>.</li>
+          <li>Return the String formed by concatenating the code units of <i>accumulatedResult</i> with the substring of <i>S</i>
+              consisting of the code units from <i>nextSourcePosition</i> (inclusive) up through the final code unit of <i>S</i>
+              (inclusive).</li>
+        </ol>
+
+        <p>The value of the <code>name</code> property of this function is <code>&quot;[Symbol.replace]&quot;</code>.</p>
+      </section>
+
+      <section id="sec-regexp.prototype-@@search">
+        <h1><span class="secnum" id="sec-21.2.5.9"><a href="/sec/sec-regexp.prototype-@@search.html" title="link to this section">21.2.5.9</a></span> RegExp.prototype [ @@search ] ( string )</h1>
+
+        <p class="normalbefore">When the @@search method is called with argument <var>string</var>, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>rx</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>rx</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>string</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>previousLastIndex</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>rx</i>, <code>&quot;lastIndex&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>previousLastIndex</i>).</li>
+          <li>Let <i>status</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>rx</i>, <code>&quot;lastIndex&quot;</code>, 0,
+              <b>true</b>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          <li>Let <i>result</i> be <a href="/sec/sec-regexpexec.html">RegExpExec</a>(<i>rx</i>, <i>S</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>result</i>).</li>
+          <li>Let <i>status</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>rx</i>, <code>&quot;lastIndex&quot;</code>,
+              <i>previousLastIndex</i>, <b>true</b>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          <li>If <i>result</i> is <b>null</b>, return &#x2013;1.</li>
+          <li>Return <a href="/sec/sec-get-o-p.html">Get</a>(<i>result</i>, <code>&quot;index&quot;</code>).</li>
+        </ol>
+
+        <p>The value of the <code>name</code> property of this function is <code>&quot;[Symbol.search]&quot;</code>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <code>lastIndex</code> and <code>global</code> properties of this RegExp object are
+          ignored when performing the search. The <code>lastIndex</code> property is left unchanged.</p>
+        </div>
+      </section>
+
+      <section id="sec-get-regexp.prototype.source">
+        <h1><span class="secnum" id="sec-21.2.5.10"><a href="/sec/sec-get-regexp.prototype.source.html" title="link to this section">21.2.5.10</a></span> get RegExp.prototype.source</h1>
+
+        <p class="normalbefore"><code>RegExp.prototype.source</code> is an accessor property whose set accessor function is <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>R</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>R</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>R</i> does not have an [[OriginalSource]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>If <i>R</i> does not have an [[OriginalFlags]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>src</i> be the value of <i>R&#x2019;s</i> [[OriginalSource]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>flags</i> be the value of <i>R&#x2019;s</i> [[OriginalFlags]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Return <a href="/sec/sec-escaperegexppattern.html">EscapeRegExpPattern</a>(<i>src</i>, <i>flags</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-regexp.prototype-@@split">
+        <h1><span class="secnum" id="sec-21.2.5.11"><a href="/sec/sec-regexp.prototype-@@split.html" title="link to this section">21.2.5.11</a></span> RegExp.prototype [ @@split ] ( string, limit )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> Returns an Array object into which substrings of the result of converting
+          <var>string</var> to a String have been stored. The substrings are determined by searching from left to right for
+          matches of the <b>this</b> value regular expression; these occurrences are not part of any substring in the returned
+          array, but serve to divide up the String value.</p>
+        </div>
+
+        <p class="NoteMore">The <b>this</b> value may be an empty regular expression or a regular expression that can match an
+        empty String. In this case, regular expression does not match the empty substring at the beginning or end of the input
+        String, nor does it match the empty substring at the end of the previous separator match. (For example, if the regular
+        expression matches the empty String, the String is split up into individual code unit elements; the length of the result
+        array equals the length of the String, and each substring contains one code unit.) Only the first match at a given index
+        of the <b>this</b> String is considered, even if backtracking could yield a non-empty-substring match at that index. (For
+        example, <code>/a*?/[Symbol.split](&quot;ab&quot;)</code> evaluates to the array <code>[&quot;a&quot;,&quot;b&quot;]</code>, while
+        <code>/a*/[Symbol.split](&quot;ab&quot;)</code> evaluates to the array<code>[&quot;&quot;,&quot;b&quot;]</code>.)</p>
+
+        <p class="NoteMore">If the <var>string</var> is (or converts to) the empty String, the result depends on whether the
+        regular expression can match the empty String. If it can, the result array contains no elements. Otherwise, the result
+        array contains one element, which is the empty String.</p>
+
+        <p class="NoteMore">If the regular expression that contains capturing parentheses, then each time <var>separator</var> is
+        matched the results (including any <b>undefined</b> results) of the capturing parentheses are spliced into the output
+        array. For&#xA0;example,</p>
+
+        <p class="NoteMore">&#xA0;&#xA0;&#xA0;&#xA0;<code>/&lt;(\/)?([^&lt;&gt;]+)&gt;/[Symbol.split](&quot;A&lt;B&gt;bold&lt;/B&gt;and&lt;CODE&gt;coded&lt;/CODE&gt;&quot;)</code></p>
+
+        <p class="NoteMore">evaluates to the array</p>
+
+        <p class="NoteMore">&#xA0;&#xA0;&#xA0;&#xA0;<code>[&quot;A&quot;,undefined,&quot;B&quot;,&quot;bold&quot;,&quot;/&quot;,&quot;B&quot;,&quot;and&quot;,undefined,&quot;CODE&quot;,&quot;coded&quot;,&quot;/&quot;,&quot;CODE&quot;,&quot;&quot;]</code></p>
+
+        <p class="NoteMore">If <var>limit</var> is not <b>undefined</b>, then the output array is truncated so that it contains no
+        more than <var>limit</var> elements.</p>
+
+        <p class="normalbefore">When the @@<code>split</code> method is called, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>rx</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>rx</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>string</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>C</i> be <a href="/sec/sec-speciesconstructor.html">SpeciesConstructor</a>(<i>rx</i>, %RegExp%).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>C</i>).</li>
+          <li>Let <i>flags</i> be <a href="/sec/sec-tostring.html">ToString</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>rx</i>,
+              <code>&quot;<b>flags&quot;</b></code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>flags</i>).</li>
+          <li>If <i>flags</i> contains <code>&quot;<b>u&quot;</b></code>, let <i>unicodeMatching</i> be <b>true</b>.</li>
+          <li>Else, let <i>unicodeMatching</i> be <b>false</b>.</li>
+          <li>If <i>flags</i> contains <code>&quot;<b>y&quot;</b></code>, let <i>newFlags</i> be <i>flags</i>.</li>
+          <li>Else, let <i>newFlags</i> be the string that is the concatenation of <i>flags</i> and <code>&quot;<b>y&quot;</b></code>.</li>
+          <li>Let <i>splitter</i> be <a href="/sec/sec-construct.html">Construct</a>(<i>C</i>, &#xAB;<i>rx</i>,
+              <i>newFlags</i>&#xBB;).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>splitter</i>).</li>
+          <li>Let <i>A</i> be <a href="/sec/sec-arraycreate.html">ArrayCreate</a>(0).</li>
+          <li>Let <i>lengthA</i> be 0.</li>
+          <li>If <i>limit</i> is <b>undefined</b>, let <i>lim</i> be 2<sup>53</sup>&#x2013;1; else let <i>lim</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<i>limit</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lim</i>).</li>
+          <li>Let <i>size</i> be the number of elements in <i>S</i>.</li>
+          <li>Let <i>p</i> be 0.</li>
+          <li>If <i>lim</i> = 0, return <i>A</i>.</li>
+          <li>If <i>size</i> = 0, then
+            <ol class="block">
+              <li>Let <i>z</i> be <a href="/sec/sec-regexpexec.html">RegExpExec</a>(<i>splitter</i>, <i>S</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>z</i>).</li>
+              <li>If <i>z</i> is not <b>null</b>, return <i>A</i>.</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: The following call will never result in an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+              <li>Perform  <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>A</i>, <code>&quot;<b>0</b>&quot;</code>,
+                  <i>S</i>).</li>
+              <li>Return <i>A</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>q</i> be <i>p</i>.</li>
+          <li>Repeat, while <i>q</i> &lt; <i>size</i>
+            <ol class="block">
+              <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>splitter</i>, <code>&quot;<b>lastIndex</b>&quot;</code>,
+                  <i>q</i>, <b>true</b>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+              <li>Let <i>z</i> be <a href="/sec/sec-regexpexec.html">RegExpExec</a>(<i>splitter</i>, <i>S</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>z</i>).</li>
+              <li>If <i>z</i> is <b>null</b>, let <i>q</i> be <a href="/sec/sec-advancestringindex.html">AdvanceStringIndex</a>(<i>S</i>,
+                  <i>q</i>, <i>unicodeMatching</i>).</li>
+              <li>Else  <i>z</i> is not <b>null</b>,
+                <ol class="block">
+                  <li>Let <i>e</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>splitter</i>,
+                      <code>&quot;<b>lastIndex</b>&quot;</code>)).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>e</i>).</li>
+                  <li>If <i>e</i> = <i>p</i>, let <i>q</i> be <a href="/sec/sec-advancestringindex.html">AdvanceStringIndex</a>(<i>S</i>,
+                      <i>q</i>, <i>unicodeMatching</i>).</li>
+                  <li>Else <i>e</i> &#x2260; <i>p</i>,
+                    <ol class="block">
+                      <li>Let <i>T</i> be a String value equal to the substring of <i>S</i> consisting of the elements at indices
+                          <i>p</i> (inclusive) through <i>q</i> (exclusive).</li>
+                      <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: The following call will never result in an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+                      <li>Perform  <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>A</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>lengthA</i>), <i>T</i>).</li>
+                      <li>Let <i>lengthA</i> be <i>lengthA</i> +1.</li>
+                      <li>If <i>lengthA</i> = <i>lim</i>, return <i>A</i>.</li>
+                      <li>Let <i>p</i> be <i>e</i>.</li>
+                      <li>Let <i>numberOfCaptures</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>z</i>, <code>&quot;<b>length</b>&quot;</code>)).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>numberOfCaptures</i>).</li>
+                      <li>Let <i>numberOfCaptures</i> be max(<i>numberOfCaptures</i>-1, 0).</li>
+                      <li>Let <i>i</i> be 1.</li>
+                      <li>Repeat, while <i>i</i> &#x2264; <i>numberOfCaptures</i>.
+                        <ol class="block">
+                          <li>Let <i>nextCapture</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>z</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>i</i>)).</li>
+                          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextCapture</i>).</li>
+                          <li>Perform  <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>A</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>lengthA</i>), <i>nextCapture</i>).</li>
+                          <li>Let <i>i</i> be <i>i</i> +1.</li>
+                          <li>Let <i>lengthA</i> be <i>lengthA</i> +1.</li>
+                          <li>If <i>lengthA</i> = <i>lim</i>, return <i>A</i>.</li>
+                        </ol>
+                      </li>
+                      <li>Let <i>q</i> be <i>p</i>.</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Let <i>T</i> be a String value equal to the substring of <i>S</i> consisting of the elements at indices <i>p</i>
+              (inclusive) through <i>size</i> (exclusive).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: The following call will never result in an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+          <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>A</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>lengthA</i>), <i>T</i> ).</li>
+          <li>Return <i>A</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the @@<code>split</code> method is <b>2</b>.</p>
+
+        <p>The value of the <code>name</code> property of this function is <code>&quot;[Symbol.split]&quot;</code>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The @@<code>split</code> method ignores the value of the <code>global</code> and
+          <code>sticky</code> properties of this RegExp object.</p>
+        </div>
+      </section>
+
+      <section id="sec-get-regexp.prototype.sticky">
+        <h1><span class="secnum" id="sec-21.2.5.12"><a href="/sec/sec-get-regexp.prototype.sticky.html" title="link to this section">21.2.5.12</a></span> get RegExp.prototype.sticky</h1>
+
+        <p class="normalbefore"><code>RegExp.prototype.sticky</code> is an accessor property whose set accessor function is <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>R</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>R</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>R</i> does not have an [[OriginalFlags]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>flags</i> be the value of <i>R&#x2019;s</i> [[OriginalFlags]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>flags</i> contains the code unit <code>&quot;y&quot;</code>, return <b>true</b>.</li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-regexp.prototype.test">
+        <h1><span class="secnum" id="sec-21.2.5.13"><a href="/sec/sec-regexp.prototype.test.html" title="link to this section">21.2.5.13</a></span> RegExp.prototype.test( S )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>R</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>R</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>string</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>S</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>string</i>).</li>
+          <li>Let <i>match</i> be <a href="/sec/sec-regexpexec.html">RegExpExec</a>(<i>R</i>, <i>string</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>match</i>).</li>
+          <li>If <i>match</i> is not <b>null</b>, return <b>true</b>; else return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-regexp.prototype.tostring">
+        <h1><span class="secnum" id="sec-21.2.5.14"><a href="/sec/sec-regexp.prototype.tostring.html" title="link to this section">21.2.5.14</a></span> RegExp.prototype.toString ( )</h1>
+        <ol class="proc">
+          <li>Let <i>R</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>R</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>pattern</i> be <a href="/sec/sec-tostring.html">ToString</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>R</i>,
+              <code>&quot;source&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>pattern</i>).</li>
+          <li>Let <i>flags</i> be <a href="/sec/sec-tostring.html">ToString</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>R</i>,
+              <code>&quot;flags&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>flags</i>).</li>
+          <li>Let <i>result</i> be the String value formed by concatenating <code>&quot;<b>/</b>&quot;</code>, <i>pattern</i>, and
+              <code>&quot;<b>/</b>&quot;</code>, and <i>flags</i>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The returned String has the form of a <span class="nt">RegularExpressionLiteral</span>
+          that evaluates to another RegExp object with the same behaviour as this object.</p>
+        </div>
+      </section>
+
+      <section id="sec-get-regexp.prototype.unicode">
+        <h1><span class="secnum" id="sec-21.2.5.15"><a href="/sec/sec-get-regexp.prototype.unicode.html" title="link to this section">21.2.5.15</a></span> get RegExp.prototype.unicode</h1>
+
+        <p class="normalbefore"><code>RegExp.prototype.unicode</code> is an accessor property whose set accessor function is <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>R</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>R</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>R</i> does not have an [[OriginalFlags]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>flags</i> be the value of <i>R&#x2019;s</i> [[OriginalFlags]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>flags</i> contains the code unit <code>&quot;u&quot;</code>, return <b>true</b>.</li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

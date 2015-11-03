@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.3.4.37"><a href="/sec/sec-date.prototype.tojson.html" title="link to this section">20.3.4.37</a></span> Date.prototype.toJSON ( key )</h1>
+
+        <p>This function provides a String representation of a Date object for use by <code><a href="/sec/sec-json.stringify.html">JSON.stringify</a></code> (<a href="/sec/sec-json.stringify.html">24.3.2</a>).</p>
+
+        <p class="normalbefore">When the <code>toJSON</code> method is called with argument <var>key</var>, the following steps
+        are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li>Let <i>tv</i> be <a href="/sec/sec-toprimitive.html">ToPrimitive</a>(<i>O</i>, hint Number).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>tv</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>tv</i>) is Number and <i>tv</i> is not finite, return
+              <b>null</b>.</li>
+          <li>Return <a href="/sec/sec-invoke.html">Invoke</a>(<i>O</i>, <code>&quot;toISOString&quot;</code>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The argument is ignored.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>toJSON</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be a Date object. Therefore, it can be transferred to other kinds of objects for use as a method.
+          However, it does require that any such object have a <code>toISOString</code> method.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

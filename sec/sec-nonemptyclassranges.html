@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <div class="front">
+          <h1><span class="secnum" id="sec-21.2.2.15"><a href="/sec/sec-nonemptyclassranges.html" title="link to this section">21.2.2.15</a></span> NonemptyClassRanges</h1>
+
+          <p class="normalbefore">The production <span class="prod"><span class="nt">NonemptyClassRanges</span> <span class="geq">::</span> <span class="nt">ClassAtom</span></span> evaluates as follows:</p>
+
+          <ol class="proc">
+            <li>Return the CharSet that is the result of evaluating <i>ClassAtom</i>.</li>
+          </ol>
+
+          <p class="normalbefore">The production <span class="prod"><span class="nt">NonemptyClassRanges</span> <span class="geq">::</span> <span class="nt">ClassAtom</span> <span class="nt">NonemptyClassRangesNoDash</span></span>
+          evaluates as follows:</p>
+
+          <ol class="proc">
+            <li>Evaluate <i>ClassAtom</i> to obtain a CharSet <i>A</i>.</li>
+            <li>Evaluate <i>NonemptyClassRangesNoDash</i> to obtain a CharSet <i>B</i>.</li>
+            <li>Return the union of CharSets <i>A</i> and <i>B</i>.</li>
+          </ol>
+
+          <p class="normalbefore">The production <span class="prod"><span class="nt">NonemptyClassRanges</span> <span class="geq">::</span> <span class="nt">ClassAtom</span> <code class="t">-</code> <span class="nt">ClassAtom</span> <span class="nt">ClassRanges</span></span> evaluates as follows:</p>
+
+          <ol class="proc">
+            <li>Evaluate the first <i>ClassAtom</i> to obtain a CharSet <i>A</i>.</li>
+            <li>Evaluate the second <i>ClassAtom</i> to obtain a CharSet <i>B</i>.</li>
+            <li>Evaluate <i>ClassRanges</i> to obtain a CharSet <i>C</i>.</li>
+            <li><a href="/sec/sec-call.html">Call</a> CharacterRange(<i>A</i>, <i>B</i>) and let <i>D</i> be the resulting CharSet.</li>
+            <li>Return the union of CharSets <i>D</i> and <i>C</i>.</li>
+          </ol>
+        </div>
+
+        <section id="sec-runtime-semantics-characterrange-abstract-operation">
+          <h1><span class="secnum" id="sec-21.2.2.15.1"><a href="/sec/sec-runtime-semantics-characterrange-abstract-operation.html" title="link to this section">21.2.2.15.1</a></span> Runtime Semantics: CharacterRange Abstract Operation</h1>
+
+          <p class="normalbefore">The abstract operation CharacterRange takes two CharSet parameters <var>A</var> and <var>B</var>
+          and performs the following steps:</p>
+
+          <ol class="proc">
+            <li>If <i>A</i> does not contain exactly one character or <i>B</i> does not contain exactly one character, throw a
+                <b>SyntaxError</b> exception.</li>
+            <li>Let <i>a</i> be the one character in CharSet <i>A</i>.</li>
+            <li>Let <i>b</i> be the one character in CharSet <i>B</i>.</li>
+            <li>Let <i>i</i> be the character value of character <i>a</i>.</li>
+            <li>Let <i>j</i> be the character value of character <i>b</i>.</li>
+            <li>If <i>i</i> &gt; <i>j</i>, throw a <b>SyntaxError</b> exception.</li>
+            <li>Return the set containing all characters numbered <i>i</i> through <i>j</i>, inclusive.</li>
+          </ol>
+        </section>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

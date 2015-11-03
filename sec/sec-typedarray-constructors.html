@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-22.2.4"><a href="/sec/sec-typedarray-constructors.html" title="link to this section">22.2.4</a></span> The <i>TypedArray</i> Constructors</h1>
+
+        <p>Each of the <i>TypedArray</i> constructor objects is an intrinsic object that has the structure described below,
+        differing only in the name used as the constructor name instead of <i>TypedArray</i>, in <a href="/sec/table-49.html">Table
+        49</a>.</p>
+
+        <p>The <i>TypedArray</i> constructors are not intended to be called as a function and will throw an exception when called
+        in that manner.</p>
+
+        <p>The <i>TypedArray</i> constructors are designed to be subclassable. They may be used as the value of an
+        <code>extends</code> clause of a class definition. Subclass constructors that intend to inherit the specified
+        <i>TypedArray</i> behaviour must include a <code>super</code> call to the <i>TypedArray</i> constructor to create and
+        initialize the subclass instance with the internal state necessary to support the %TypedArray<code>%.prototype</code>
+        built-in methods.</p>
+      </div>
+
+      <section id="sec-typedarray">
+        <h1><span class="secnum" id="sec-22.2.4.1"><a href="/sec/sec-typedarray.html" title="link to this section">22.2.4.1</a></span>
+            <i>TypedArray</i>( ... argumentsList)</h1>
+
+        <p class="normalbefore">A <i>TypedArray</i> constructor with a list of arguments <i>argumentsList</i> performs the
+        following steps:</p>
+
+        <ol class="proc">
+          <li>If NewTarget is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>here</i> be the active function.</li>
+          <li>Let <i>super</i> be <i>here</i>.[[GetPrototypeOf]]().</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>super</i>).</li>
+          <li>If <a href="/sec/sec-isconstructor.html">IsConstructor</a> (<i>super</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>argumentsList</i> be the <i>argumentsList</i> argument of the [[Construct]] internal method that invoked the
+              active function.</li>
+          <li>Return <a href="/sec/sec-construct.html">Construct</a>(<i>super</i>, <i>argumentsList</i>, NewTarget).</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

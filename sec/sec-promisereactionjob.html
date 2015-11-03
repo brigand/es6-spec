@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-25.4.2.1"><a href="/sec/sec-promisereactionjob.html" title="link to this section">25.4.2.1</a></span> PromiseReactionJob ( reaction, argument )</h1>
+
+        <p class="normalbefore">The job PromiseReactionJob with parameters <var>reaction</var> and <var>argument</var> applies the
+        appropriate handler to the incoming value, and uses the handler&apos;s return value to resolve or reject the derived promise
+        associated with that handler.</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>reaction</i> is a PromiseReaction Record.</li>
+          <li>Let <i>promiseCapability</i> be <i>reaction</i>.[[Capabilities]].</li>
+          <li>Let <i>handler</i> be <i>reaction</i>.[[Handler]].</li>
+          <li>If <i>handler</i> is <code>&quot;Identity&quot;</code>, let <i>handlerResult</i> be <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<i>argument</i>).</li>
+          <li>Else if <i>handler</i> is <code>&quot;Thrower&quot;</code>, let <i>handlerResult</i> be <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <span style="font-family:
+              sans-serif">throw</span>, [[value]]: <i>argument</i>, [[target]]: <span style="font-family:
+              sans-serif">empty</span>}.</li>
+          <li>Else, let <i>handlerResult</i> be <a href="/sec/sec-call.html">Call</a>(<i>handler</i>, <b>undefined</b>,
+              &#xAB;<i>argument</i>&#xBB;).</li>
+          <li>If <i>handlerResult</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, then
+            <ol class="block">
+              <li>Let <i>status</i> be <a href="/sec/sec-call.html">Call</a>(<i>promiseCapability</i>.[[Reject]], <b>undefined</b>,
+                  &#xAB;<i>handlerResult</i>.[[value]]&#xBB;).</li>
+              <li>NextJob <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>status</i>).</li>
+            </ol>
+          </li>
+          <li>Let <i>status</i> be <a href="/sec/sec-call.html">Call</a>(<i>promiseCapability</i>.[[Resolve]], <b>undefined</b>,
+              &#xAB;<i>handlerResult</i>.[[value]]&#xBB;)<i>.</i></li>
+          <li>NextJob <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>status</i>).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-13.7.1"><a href="/sec/sec-iteration-statements-semantics.html" title="link to this section">13.7.1</a></span> Semantics</h1>
+      </div>
+
+      <section id="sec-semantics-static-semantics-early-errors">
+        <h1><span class="secnum" id="sec-13.7.1.1"><a href="/sec/sec-semantics-static-semantics-early-errors.html" title="link to this section">13.7.1.1</a></span> Static Semantics:  Early Errors</h1>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">IterationStatement</span> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">do</code> <span class="nt">Statement</span> <code class="t">while</code> <code class="t">(</code> <span class="nt">Expression</span> <code class="t">)</code> <code class="t">;</code></div>
+          <div class="rhs"><code class="t">while</code> <code class="t">(</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">;</code> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">;</code> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <code class="t">var</code> <span class="nt">VariableDeclarationList</span> <code class="t">;</code> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">;</code> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">LexicalDeclaration</span> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">;</code> <span class="nt">Expression</span><sub class="g-opt">opt</sub> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">LeftHandSideExpression</span> <code class="t">in</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <code class="t">var</code> <span class="nt">ForBinding</span> <code class="t">in</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">ForDeclaration</span> <code class="t">in</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">LeftHandSideExpression</span> <code class="t">of</code> <span class="nt">AssignmentExpression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <code class="t">var</code> <span class="nt">ForBinding</span> <code class="t">of</code> <span class="nt">AssignmentExpression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">ForDeclaration</span> <code class="t">of</code> <span class="nt">AssignmentExpression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+        </div>
+
+        <ul>
+          <li>It is a Syntax Error if <a href="/sec/sec-islabelledfunction.html">IsLabelledFunction</a>(<span class="nt">Statement</span>)
+              is <span class="value">true</span>.</li>
+        </ul>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> It is only necessary to apply this rule if the extension specified in  <a href="/sec/sec-labelled-function-declarations.html">B.3.2</a> is implemented.</p>
+        </div>
+      </section>
+
+      <section id="sec-loopcontinues">
+        <h1><span class="secnum" id="sec-13.7.1.2"><a href="/sec/sec-loopcontinues.html" title="link to this section">13.7.1.2</a></span>
+            Runtime Semantics: LoopContinues(completion, labelSet)</h1>
+
+        <p class="normalbefore">The abstract operation <span style="font-family: Times New Roman">LoopContinues</span> with
+        arguments <var>completion</var> and <var>labelSet</var> is defined by the following steps:</p>
+
+        <ol class="proc">
+          <li>If <i>completion</i>.[[type]] is <span style="font-family: sans-serif">normal</span>, return <b>true</b>.</li>
+          <li>If <i>completion</i>.[[type]] is not <span style="font-family: sans-serif">continue</span>, return
+              <b>false</b>.</li>
+          <li>If <i>completion</i>.[[target]] is <span style="font-family: sans-serif">empty</span>, return <b>true</b>.</li>
+          <li>If <i>completion</i>.[[target]] is an element of <i>labelSet</i>, return <b>true</b>.</li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> Within the <span class="nt">Statement</span> part of an <span class="nt">IterationStatement</span> a <span class="nt">ContinueStatement</span> may be used to begin a new
+          iteration.</p>
+        </div>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

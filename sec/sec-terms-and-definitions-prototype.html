@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-4.3.5"><a href="/sec/sec-terms-and-definitions-prototype.html" title="link to this section">4.3.5</a></span> prototype</h1>
+
+      <p>object that provides shared properties for other objects</p>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> When a constructor creates an object, that object implicitly references the
+        constructor&#x2019;s <code>prototype</code> property for the purpose of resolving property references. The
+        constructor&#x2019;s <code>prototype</code> property can be referenced by the program expression
+        <code><i>constructor</i><b>.prototype</b></code>, and properties added to an object&#x2019;s prototype are shared, through
+        inheritance, by all objects sharing the prototype. Alternatively, a new object may be created with an explicitly specified
+        prototype by using the <code><a href="/sec/sec-object.create.html">Object.create</a></code> built-in function.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

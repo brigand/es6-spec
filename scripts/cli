@@ -1,0 +1,11 @@
+#!/bin/bash
+
+SCRIPT_PATH="$(dirname ${BASH_SOURCE[0]})";
+echo $SCRIPT_PATH
+cd $SCRIPT_PATH
+NPM_ROOT="$(npm root -g)"
+
+node "$NPM_ROOT/es6-spec/lib/cli.js" "$@" > /tmp/es6.segment.html
+$NPM_ROOT/es6-spec/node_modules/.bin/hermit /tmp/es6.segment.html | less -R
+
+

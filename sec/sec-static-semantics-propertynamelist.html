@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-12.2.6.7"><a href="/sec/sec-static-semantics-propertynamelist.html" title="link to this section">12.2.6.7</a></span> Static Semantics:  PropertyNameList</h1>
+        <div class="gp prod"><span class="nt">PropertyDefinitionList</span> <span class="geq">:</span> <span class="nt">PropertyDefinition</span></div>
+        <ol class="proc">
+          <li>If PropName of <i>PropertyDefinition</i> is <span style="font-family: sans-serif">empty</span>, return a new empty
+              <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>Return a new <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing PropName of
+              <i>PropertyDefinition</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">PropertyDefinitionList</span> <span class="geq">:</span> <span class="nt">PropertyDefinitionList</span> <code class="t">,</code> <span class="nt">PropertyDefinition</span></div>
+        <ol class="proc">
+          <li>Let <i>list</i> be PropertyNameList of <i>PropertyDefinitionList.</i></li>
+          <li>If PropName of <i>PropertyDefinition</i> is <span style="font-family: sans-serif">empty</span>, return
+              <i>list</i>.</li>
+          <li>Append PropName of <i>PropertyDefinition</i> to the end of <i>list</i>.</li>
+          <li>Return <i>list</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

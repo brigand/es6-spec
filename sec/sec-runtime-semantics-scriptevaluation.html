@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-15.1.7"><a href="/sec/sec-runtime-semantics-scriptevaluation.html" title="link to this section">15.1.7</a></span> Runtime Semantics: ScriptEvaluation</h1>
+
+      <p>With argument <var>realm</var>.</p>
+
+      <div class="gp prod"><span class="nt">Script</span> <span class="geq">:</span> <span class="nt">ScriptBody</span><sub class="g-opt">opt</sub></div>
+      <ol class="proc">
+        <li>If <i>ScriptBody</i> is not present, return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family: sans-serif">empty</span>).</li>
+        <li>Let <i>globalEnv</i> be <i>realm</i>.[[globalEnv]].</li>
+        <li>Let <i>scriptCxt</i> be a new <a href="/sec/sec-execution-contexts.html">ECMAScript code execution context</a>.</li>
+        <li>Set the Function of <i>scriptCxt</i> to <b>null</b>.</li>
+        <li>Set the <a href="/sec/sec-code-realms.html">Realm</a> of <i>scriptCxt</i> to <i>realm</i>.</li>
+        <li>Set the <a href="/sec/sec-execution-contexts.html">VariableEnvironment</a> of <i>scriptCxt</i> to <i>globalEnv</i>.</li>
+        <li>Set the <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> of <i>scriptCxt</i> to <i>globalEnv</i>.</li>
+        <li><a href="/sec/sec-execution-contexts.html">Suspend</a> <a href="/sec/sec-execution-contexts.html">the currently running execution
+            context</a>.</li>
+        <li>Push <i>scriptCxt</i> on to <a href="/sec/sec-execution-contexts.html">the execution context stack</a>; <i>scriptCxt</i> is now
+            <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>Let <i>result</i> be <a href="/sec/sec-globaldeclarationinstantiation.html">GlobalDeclarationInstantiation</a>(<i>ScriptBody</i>,
+            <i>globalEnv</i>).</li>
+        <li>If <i>result</i>.[[type]] is <span style="font-family: sans-serif">normal</span>, then
+          <ol class="block">
+            <li>Let <i>result</i> be the result of evaluating <i>ScriptBody</i>.</li>
+          </ol>
+        </li>
+        <li>If <i>result</i>.[[type]] is <span style="font-family: sans-serif">normal</span> and <i>result</i>.[[value]] is <span style="font-family: sans-serif">empty</span>, then
+          <ol class="block">
+            <li>Let <i>result</i> be <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+          </ol>
+        </li>
+        <li><a href="/sec/sec-execution-contexts.html">Suspend</a> <i>scriptCxt</i> and remove it from <a href="/sec/sec-execution-contexts.html">the execution context stack</a>.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-execution-contexts.html">the execution context stack</a> is
+            not empty.</li>
+        <li>Resume the context that is now on the top of <a href="/sec/sec-execution-contexts.html">the execution context stack</a> as <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>result</i>).</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

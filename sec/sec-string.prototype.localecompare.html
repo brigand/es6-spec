@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.1.3.10"><a href="/sec/sec-string.prototype.localecompare.html" title="link to this section">21.1.3.10</a></span> String.prototype.localeCompare ( that [, reserved1 [ , reserved2 ] ]
+            )</h1>
+
+        <p>An ECMAScript implementation that includes the ECMA-402 Internationalization API must implement the
+        <code>localeCompare</code> method as specified in the ECMA-402 specification. If an ECMAScript implementation does not
+        include the ECMA-402 API the following  specification of the <code>localeCompare</code> method is used.</p>
+
+        <p>When the <code>localeCompare</code> method is called with argument <var>that</var>, it returns a Number other than
+        <b>NaN</b> that represents the result of a locale-sensitive String comparison of the <b>this</b> value (converted to a
+        String) with <var>that</var> (converted to a String). The two Strings are <var>S</var> and <span class="nt">That</span>.
+        The two Strings are compared in an implementation-defined fashion. The result is intended to order String values in the
+        sort order specified by a host default locale, and will be negative, zero, or positive, depending on whether <var>S</var>
+        comes before <span class="nt">That</span> in the sort order, the Strings are equal, or <var>S</var> comes after <span class="nt">That</span> in the sort order, respectively.</p>
+
+        <p class="normalbefore">Before performing the comparisons, the following steps are performed to prepare the Strings:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>That</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>that</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>That</i>).</li>
+        </ol>
+
+        <p>The meaning of the optional second and third parameters to this method are defined in the ECMA-402 specification;
+        implementations that do not include ECMA-402 support must not assign any other interpretation to those parameter
+        positions.</p>
+
+        <p>The <code>localeCompare</code> method, if considered as a function of two arguments <b>this</b> and <var>that</var>, is
+        a consistent comparison function (as defined in <a href="/sec/sec-array.prototype.sort.html">22.1.3.24</a>) on the set of all
+        Strings.</p>
+
+        <p>The actual return values are implementation-defined to permit implementers to encode additional information in the
+        value, but the function is required to define a total ordering on all Strings. This function must treat Strings that are
+        canonically equivalent according to the Unicode standard as identical and must return <code>0</code> when comparing
+        Strings that are considered canonically equivalent.</p>
+
+        <p>The <code>length</code> property of the <code>localeCompare</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The <code>localeCompare</code> method itself is not directly suitable as an argument
+          to <code><a href="/sec/sec-array.prototype.sort.html">Array.prototype.sort</a></code> because the latter requires a function of
+          two arguments.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> This function is intended to rely on whatever language-sensitive comparison
+          functionality is available to the ECMAScript environment from the host environment, and to compare according to the
+          rules of the host environment&#x2019;s current locale. However, regardless of the host provided comparison capabilities,
+          this function must treat Strings that are canonically equivalent according to the Unicode standard as identical. It is
+          recommended that this function should not honour Unicode compatibility equivalences or decompositions. For a definition
+          and discussion of canonical equivalence see the Unicode Standard, chapters 2 and 3, as well as Unicode Standard Annex
+          #15, Unicode Normalization Forms (<a href="http://www.unicode.org/reports/tr15/">http://www.unicode.org/reports/tr15/</a>) and Unicode Technical Note #5,
+          Canonical Equivalence in Applications (<a href="http://www.unicode.org/notes/tn5/">http://www.unicode.org/notes/tn5/</a>). Also see Unicode Technical Standard
+          #10,  Unicode Collation Algorithm (<a href="http://www.unicode.org/reports/tr10/">http://www.unicode.org/reports/tr10/</a>).</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 3</span> The <code>localeCompare</code> function is intentionally generic; it does not require
+          that its <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

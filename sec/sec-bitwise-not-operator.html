@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-12.5.11"><a href="/sec/sec-bitwise-not-operator.html" title="link to this section">12.5.11</a></span> Bitwise NOT Operator ( <code>~</code> )</h1>
+      </div>
+
+      <section id="sec-bitwise-not-operator-runtime-semantics-evaluation">
+        <h1><span class="secnum" id="sec-12.5.11.1"><a href="/sec/sec-bitwise-not-operator-runtime-semantics-evaluation.html" title="link to this section">12.5.11.1</a></span> Runtime Semantics: Evaluation</h1>
+        <div class="gp prod"><span class="nt">UnaryExpression</span> <span class="geq">:</span> <code class="t">~</code> <span class="nt">UnaryExpression</span></div>
+        <ol class="proc">
+          <li>Let <i>expr</i> be the result of evaluating <i>UnaryExpression</i>.</li>
+          <li>Let <i>oldValue</i> be <a href="/sec/sec-toint32.html">ToInt32</a>(<a href="/sec/sec-getvalue.html">GetValue</a>(<i>expr</i>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>oldValue</i>).</li>
+          <li>Return the result of applying bitwise complement to <i>oldValue</i>. The result is a signed 32-bit integer.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

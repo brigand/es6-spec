@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <div class="front">
+          <h1><span class="secnum" id="sec-25.4.1.5"><a href="/sec/sec-newpromisecapability.html" title="link to this section">25.4.1.5</a></span> NewPromiseCapability ( C )</h1>
+
+          <p class="normalbefore">The abstract operation NewPromiseCapability takes a constructor function, and attempts to use
+          that constructor function in the fashion of the built-in <code>Promise</code> constructor to create a Promise object and
+          extract its resolve and reject functions. The promise plus the resolve and reject functions are used to initialize a new
+          PromiseCapability record which is returned as the value of this abstract operation.</p>
+
+          <ol class="proc">
+            <li>If <a href="/sec/sec-isconstructor.html">IsConstructor</a>(<i>C</i>) is <b>false</b>, throw a <b>TypeError</b>
+                exception.</li>
+            <li>NOTE <span style="font-family: Times New Roman"><i>C</i></span> is assumed to be a constructor function that
+                supports the parameter conventions of the <code>Promise</code> constructor (<a href="/sec/sec-promise-executor.html">see
+                25.4.3.1</a>).</li>
+            <li>Let <i>promiseCapability</i> be a new PromiseCapability { [[Promise]]: <b>undefined</b>, [[Resolve]]:
+                <b>undefined</b>, [[Reject]]: <b>undefined</b> }.</li>
+            <li>Let <i>executor</i> be a new built-in function object as defined in <a href="/sec/sec-getcapabilitiesexecutor-functions.html">GetCapabilitiesExecutor Functions</a> (<a href="/sec/sec-getcapabilitiesexecutor-functions.html">25.4.1.5.1</a>).</li>
+            <li>Set the [[Capability]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of
+                <i>executor</i> to <i>promiseCapability</i>.</li>
+            <li>Let <i>promise</i> be <a href="/sec/sec-construct.html">Construct</a>(<i>C</i>, &#xAB;<i>executor</i>&#xBB;).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>promise</i>).</li>
+            <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>promiseCapability</i>.[[Resolve]]) is <b>false</b>, throw a
+                <b>TypeError</b> exception.</li>
+            <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>promiseCapability</i>.[[Reject]]) is <b>false</b>, throw a
+                <b>TypeError</b> exception.</li>
+            <li>Set <i>promiseCapability</i>.[[Promise]] to <i>promise</i>.</li>
+            <li>Return <i>promiseCapability</i>.</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> This abstract operation supports Promise subclassing, as it is generic on any
+            constructor that calls a passed executor function argument in the same way as the Promise constructor. It is used to
+            generalize static methods of the Promise constructor to any subclass.</p>
+          </div>
+        </div>
+
+        <section id="sec-getcapabilitiesexecutor-functions">
+          <h1><span class="secnum" id="sec-25.4.1.5.1"><a href="/sec/sec-getcapabilitiesexecutor-functions.html" title="link to this section">25.4.1.5.1</a></span> GetCapabilitiesExecutor Functions</h1>
+
+          <p>A GetCapabilitiesExecutor function is an anonymous built-in function that has a [[Capability]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+          <p class="normalbefore">When a GetCapabilitiesExecutor function <var>F</var> is called with arguments <var>resolve</var>
+          and <var>reject</var> the following steps are taken:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>F</i> has a [[Capability]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> whose value is a PromiseCapability
+                Record.</li>
+            <li>Let <i>promiseCapability</i> be the value of <i>F</i>&apos;s [[Capability]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>If <i>promiseCapability</i>.[[Resolve]] is not <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+            <li>If <i>promiseCapability</i>.[[Reject]] is not <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+            <li>Set <i>promiseCapability</i>.[[Resolve]] to <i>resolve</i>.</li>
+            <li>Set <i>promiseCapability</i>.[[Reject]] to <i>reject</i>.</li>
+            <li>Return <b>undefined</b>.</li>
+          </ol>
+
+          <p>The <code>length</code> property of a GetCapabilitiesExecutor function is <b>2</b>.</p>
+        </section>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

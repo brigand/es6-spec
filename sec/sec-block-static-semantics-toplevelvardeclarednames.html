@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-13.2.9"><a href="/sec/sec-block-static-semantics-toplevelvardeclarednames.html" title="link to this section">13.2.9</a></span> Static Semantics:  TopLevelVarDeclaredNames</h1>
+
+      <p>See also: <a href="/sec/sec-labelled-statements-static-semantics-toplevelvardeclarednames.html">13.13.10</a>.</p>
+
+      <div class="gp prod"><span class="nt">Block</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementList</span> <span class="geq">:</span> <span class="nt">StatementList</span> <span class="nt">StatementListItem</span></div>
+      <ol class="proc">
+        <li>Let <i>names</i> be TopLevelVarDeclaredNames of <i>StatementList</i>.</li>
+        <li>Append to <i>names</i> the elements of the TopLevelVarDeclaredNames of <i>StatementListItem.</i></li>
+        <li>Return <i>names</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Declaration</span></div>
+      <ol class="proc">
+        <li>If <i>Declaration</i> is <span class="prod"><span class="nt">Declaration</span> <span class="geq">:</span> <span class="nt">HoistableDeclaration</span></span> , then
+          <ol class="block">
+            <li>If <i>HoistableDeclaration</i> is <span class="prod"><span class="nt">HoistableDeclaration</span> <span class="geq">:</span> <span class="nt">FunctionDeclaration</span></span> , return the BoundNames of
+                <i>FunctionDeclaration</i>.</li>
+            <li>If <i>HoistableDeclaration</i> is <span class="prod"><span class="nt">HoistableDeclaration</span> <span class="geq">:</span> <span class="nt">GeneratorDeclaration</span></span> , return the BoundNames of
+                <i>GeneratorDeclaration</i>.</li>
+          </ol>
+        </li>
+        <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Statement</span></div>
+      <ol class="proc">
+        <li>If <i>Statement</i> is <span class="prod"><span class="nt">Statement</span> <span class="geq">:</span> <span class="nt">LabelledStatement</span></span> , return TopLevelVarDeclaredNames of <i>Statement</i>.</li>
+        <li>Return VarDeclaredNames of <i>Statement</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> At the top level of a function or script, inner function declarations are treated like var
+        declarations.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

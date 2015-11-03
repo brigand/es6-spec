@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-12.7.4"><a href="/sec/sec-subtraction-operator-minus.html" title="link to this section">12.7.4</a></span> The Subtraction Operator ( <code>-</code> )</h1>
+      </div>
+
+      <section id="sec-subtraction-operator-minus-runtime-semantics-evaluation">
+        <h1><span class="secnum" id="sec-12.7.4.1"><a href="/sec/sec-subtraction-operator-minus-runtime-semantics-evaluation.html" title="link to this section">12.7.4.1</a></span> Runtime Semantics: Evaluation</h1>
+        <div class="gp prod"><span class="nt">AdditiveExpression</span> <span class="geq">:</span> <span class="nt">AdditiveExpression</span> <code class="t">-</code> <span class="nt">MultiplicativeExpression</span></div>
+        <ol class="proc">
+          <li>Let <i>lref</i> be the result of evaluating <i>AdditiveExpression</i>.</li>
+          <li>Let <i>lval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>lref</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lval</i>).</li>
+          <li>Let <i>rref</i> be the result of evaluating <i>MultiplicativeExpression</i>.</li>
+          <li>Let <i>rval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rref</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rval</i>).</li>
+          <li>Let <i>lnum</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>lval</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lnum</i>).</li>
+          <li>Let <i>rnum</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>rval</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rnum</i>).</li>
+          <li>Return the result of applying the subtraction operation to <i>lnum</i> and <i>rnum</i>. See the note below <a href="/sec/sec-applying-the-additive-operators-to-numbers.html">12.7.5</a>.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

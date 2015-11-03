@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-20.3.1.16.1"><a href="/sec/sec-extended-years.html" title="link to this section">20.3.1.16.1</a></span> Extended years</h1>
+
+          <p>ECMAScript requires the ability to specify <span style="font-family: Times New Roman">6</span> digit years (extended
+          years); approximately <span style="font-family: Times New Roman">285,426</span> years, either forward or backward, from
+          01 January, 1970 UTC. To represent years before <span style="font-family: Times New Roman">0</span> or after <span style="font-family: Times New Roman">9999</span>, ISO 8601 permits the expansion of the year representation, but only by
+          prior agreement between the sender and the receiver. In the simplified ECMAScript format such an expanded year
+          representation shall have <span style="font-family: Times New Roman">2</span> extra year digits and is always prefixed
+          with a + or &#x2013; sign. The year <span style="font-family: Times New Roman">0</span> is considered positive and hence
+          prefixed with a + sign.</p>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> Examples of extended years:</p>
+
+            <figure>
+              <table class="lightweight-table">
+                <tr>
+                  <td>
+                    <p class="NoteCode">-283457-03-21T15:00:59.008Z</p>
+                  </td>
+
+                  <td>
+                    <p class="NoteCode">283458 B.C.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="NoteCode">-000001-01-01T00:00:00Z</p>
+                  </td>
+
+                  <td>
+                    <p class="NoteCode">2 B.C.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="NoteCode">+000000-01-01T00:00:00Z</p>
+                  </td>
+
+                  <td>
+                    <p class="NoteCode">1 B.C.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="NoteCode">+000001-01-01T00:00:00Z</p>
+                  </td>
+
+                  <td>
+                    <p class="NoteCode">1 A.D.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="NoteCode">+001970-01-01T00:00:00Z</p>
+                  </td>
+
+                  <td>
+                    <p class="NoteCode">1970 A.D.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="NoteCode">+002009-12-15T00:00:00Z</p>
+                  </td>
+
+                  <td>
+                    <p class="NoteCode">2009 A.D.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="NoteCode">+287396-10-12T08:59:00.992Z</p>
+                  </td>
+
+                  <td>
+                    <p class="NoteCode">287396 A.D.</p>
+                  </td>
+                </tr>
+              </table>
+            </figure>
+          </div>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

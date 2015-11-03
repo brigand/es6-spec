@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-12.14.5.4"><a href="/sec/sec-runtime-semantics-keyeddestructuringassignmentevaluation.html" title="link to this section">12.14.5.4</a></span> Runtime Semantics: KeyedDestructuringAssignmentEvaluation</h1>
+
+        <p>with parameters <var>value</var> and <var>propertyName</var></p>
+
+        <p><span style="font-family: Times New Roman"><i>AssignmentElement<sub>[Yield]</sub></i></span> <b>:</b> <span class="nt">DestructuringAssignmentTarget</span>   <span class="nt">Initializer</span><sub>opt</sub></p>
+
+        <ol class="proc">
+          <li>If <i>DestructuringAssignmentTarget</i> is neither an <i>ObjectLiteral</i> nor an <i>ArrayLiteral</i>, then
+            <ol class="block">
+              <li>Let <i>lref</i> be the result of evaluating <i>DestructuringAssignmentTarget</i>.</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lref</i>).</li>
+            </ol>
+          </li>
+          <li>Let <i>v</i> be <a href="/sec/sec-getv.html">GetV</a>(<i>value</i>, <i>propertyName</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+          <li>If <i>Initializer</i> is present and <i>v</i> is <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>defaultValue</i> be the result of evaluating <i>Initializer</i>.</li>
+              <li>Let <i>rhsValue</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>defaultValue</i>)</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rhsValue</i>).</li>
+            </ol>
+          </li>
+          <li>Else, let <i>rhsValue</i> be <i>v</i>.</li>
+          <li>If <i>DestructuringAssignmentTarget</i> is an <i>ObjectLiteral or an ArrayLiteral</i>, then
+            <ol class="block">
+              <li>Let <i>assignmentPattern</i> be the parse of the source text corresponding to
+                  <i>DestructuringAssignmentTarget</i> using either <i>AssignmentPattern</i> or
+                  <i>AssignmentPattern</i><sub>[Yield]</sub> as the goal symbol depending upon whether this
+                  <i>AssignmentElement</i> has the <span style="font-family: sans-serif"><sub>Yield</sub></span> parameter.</li>
+              <li>Return the result of performing DestructuringAssignmentEvaluation of <i>assignmentPattern</i> with
+                  <i>rhsValue</i> as the argument.</li>
+            </ol>
+          </li>
+          <li>If <i>Initializer</i> is present and <i>v</i> is <b>undefined</b> and <a href="/sec/sec-isanonymousfunctiondefinition.html">IsAnonymousFunctionDefinition</a>(<i>Initializer)</i> and IsIdentifierRef
+              of <i>DestructuringAssignmentTarget</i> are both <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>hasNameProperty</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>rhsValue</i>,
+                  <code>&quot;name&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasNameProperty</i>).</li>
+              <li>If <i>hasNameProperty</i> is <b>false</b>, perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>rhsValue</i>, <a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>lref</i>)).</li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-putvalue.html">PutValue</a>(<i>lref</i>, <i>rhsValue</i>).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

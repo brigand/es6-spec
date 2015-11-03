@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-9.4.6.8"><a href="/sec/sec-module-namespace-exotic-objects-get-p-receiver.html" title="link to this section">9.4.6.8</a></span> [[Get]] (P, Receiver)</h1>
+
+        <p class="normalbefore">When the [[Get]] internal method of a module namespace exotic object <var>O</var> is called with
+        <a href="/sec/sec-object-type.html">property key</a> <var>P</var> and <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language
+        value</a> <span class="nt">Receiver</span> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+              <b>true</b>.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>P</i>) is Symbol, then
+            <ol class="block">
+              <li>Return the result of calling the default ordinary object [[Get]] internal method (<a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-get-p-receiver.html">9.1.8</a>) on <i>O</i> passing
+                  <i>P</i> and <i>Receiver</i> as arguments.</li>
+            </ol>
+          </li>
+          <li>Let <i>exports</i> be the value of <i>O</i>&#x2019;s [[Exports]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>P</i> is not an element of <i>exports</i>, return <b>undefined</b>.</li>
+          <li>Let <i>m</i> be the value of <i>O</i>&#x2019;s [[Module]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>binding</i> be <i>m</i>.<a href="/sec/sec-resolveexport.html">ResolveExport</a>(<i>P</i>, &#xAB;&#xBB;,
+              &#xAB;&#xBB;).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>binding</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>binding</i> is neither <b>null</b> nor
+              <code>&quot;ambiguous&quot;</code>.</li>
+          <li>Let <i>targetModule</i> be <i>binding</i>.[[module]],</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>targetModule</i> is not <b>undefined</b>.</li>
+          <li>Let <i>targetEnv</i> be <i>targetModule</i>.[[Environment]].</li>
+          <li>If <i>targetEnv</i> is <b>undefined</b>, throw a <b>ReferenceError</b> exception.</li>
+          <li>Let <i>targetEnvRec</i> be <i>targetEnv</i>&#x2019;s <a href="/sec/sec-lexical-environments.html">EnvironmentRecord</a>.</li>
+          <li>Return <i>targetEnvRec</i>.GetBindingValue(<i>binding.</i>[[bindingName]], <b>true</b>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> <a href="/sec/sec-resolveexport.html">ResolveExport</a> is idempotent and side-effect free. An
+          implementation might choose to pre-compute or cache the <a href="/sec/sec-resolveexport.html">ResolveExport</a> results for the
+          [[Exports]] of each module namespace exotic object.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

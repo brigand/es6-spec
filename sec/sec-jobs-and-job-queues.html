@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-8.4"><a href="/sec/sec-jobs-and-job-queues.html" title="link to this section">8.4</a></span> Jobs
+          and Job Queues</h1>
+
+      <p>A Job is an abstract operation that initiates an ECMAScript computation when no other ECMAScript computation is currently
+      in progress. A Job abstract operation may be defined to accept an arbitrary set of job parameters.</p>
+
+      <p>Execution of a Job can be initiated only when there is no running <a href="/sec/sec-execution-contexts.html">execution context</a>
+      and <a href="/sec/sec-execution-contexts.html">the execution context stack</a> is empty. A PendingJob is a request for the future
+      execution of a Job. A PendingJob is an internal Record whose fields are specified in <a href="/sec/table-25.html">Table 25</a>. Once
+      execution of a Job is initiated, the Job always executes to completion. No other Job may be initiated until the currently
+      running Job completes. However, the currently running Job or external events may cause the enqueuing of additional
+      PendingJobs that may be initiated sometime after completion of the currently running Job.</p>
+
+      <figure>
+        <figcaption><span id="table-25">Table 25</span> &#x2014; PendingJob Record Fields</figcaption>
+        <table class="real-table">
+          <tr>
+            <th>Field Name</th>
+            <th>Value</th>
+            <th>Meaning</th>
+          </tr>
+          <tr>
+            <td>[[Job]]</td>
+            <td>The name of a Job abstract operation</td>
+            <td>This is the abstract operation that is performed when execution of this PendingJob is initiated. Jobs are abstract operations that use NextJob rather than Return to indicate that they have completed.</td>
+          </tr>
+          <tr>
+            <td>[[Arguments]]</td>
+            <td>A <a href="/sec/sec-list-and-record-specification-type.html">List</a></td>
+            <td>The <a href="/sec/sec-list-and-record-specification-type.html">List</a> of argument values that are to be passed to [[Job]] when it is activated.</td>
+          </tr>
+          <tr>
+            <td>[[Realm]]</td>
+            <td>A <a href="/sec/sec-code-realms.html">Realm</a> Record</td>
+            <td>The <a href="/sec/sec-code-realms.html">Realm</a> for the initial <a href="/sec/sec-execution-contexts.html">execution context</a> when this Pending Job is initiated.</td>
+          </tr>
+          <tr>
+            <td>[[HostDefined]]</td>
+            <td>Any, default value is <span class="value">undefined</span>.</td>
+            <td>Field reserved for use by host environments that need to associate additional information with a pending Job.</td>
+          </tr>
+        </table>
+      </figure>
+
+      <p>A Job Queue is a FIFO queue of PendingJob records. Each Job Queue has a name and the full set of available Job Queues are
+      defined by an ECMAScript implementation. Every ECMAScript implementation has at least the Job Queues defined in <a href="/sec/table-26.html">Table 26</a>.</p>
+
+      <figure>
+        <figcaption><span id="table-26">Table 26</span> &#x2014; Required Job Queues</figcaption>
+        <table class="real-table">
+          <tr>
+            <th>Name</th>
+            <th>Purpose</th>
+          </tr>
+          <tr>
+            <td>ScriptJobs</td>
+            <td>Jobs that validate and evaluate ECMAScript <span class="nt">Script</span> and <span class="nt">Module</span> source text. See clauses 10 and 15.</td>
+          </tr>
+          <tr>
+            <td>PromiseJobs</td>
+            <td>Jobs that are responses to the settlement of a Promise (<a href="/sec/sec-promise-objects.html">see 25.4</a>).</td>
+          </tr>
+        </table>
+      </figure>
+
+      <p>A request for the future execution of a Job is made by enqueueing, on a Job Queue, a PendingJob record that includes a
+      Job abstract operation name and any necessary argument values. When there is no running <a href="/sec/sec-execution-contexts.html">execution context</a> and <a href="/sec/sec-execution-contexts.html">the execution context stack</a>
+      is empty, the ECMAScript implementation removes the first PendingJob from a Job Queue and uses the information contained in
+      it to create an <a href="/sec/sec-execution-contexts.html">execution context</a> and starts execution of the associated Job abstract
+      operation.</p>
+
+      <p>The PendingJob records from a single Job Queue are always initiated in FIFO order. This specification does not define the
+      order in which multiple Job Queues are serviced. An ECMAScript implementation may interweave the FIFO evaluation of the
+      PendingJob records of a Job Queue with the evaluation of the PendingJob records of one or more other Job Queues. An
+      implementation must define what occurs when there are no running <a href="/sec/sec-execution-contexts.html">execution context</a> and
+      all Job Queues are empty.</p>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> Typically an ECMAScript implementation will have its Job Queues pre-initialized with at
+        least one PendingJob and one of those Jobs will be the first to be executed. An implementation might choose to free all
+        resources and terminate if the current Job completes and all Job Queues are empty. Alternatively, it might choose to wait
+        for a some implementation specific agent or mechanism to enqueue new PendingJob requests.</p>
+      </div>
+
+      <p>The following abstract operations are used to create and manage Jobs and Job Queues:</p>
+    </div>
+
+    <section id="sec-enqueuejob">
+      <h1><span class="secnum" id="sec-8.4.1"><a href="/sec/sec-enqueuejob.html" title="link to this section">8.4.1</a></span> EnqueueJob
+          (queueName, job, arguments)</h1>
+
+      <p class="normalbefore">The EnqueueJob abstract operation requires three arguments: <var>queueName</var>, <var>job</var>,
+      and <var>arguments</var>. It performs the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>queueName</i>) is String and its value is the name of a Job
+            Queue recognized by this implementation.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>job</i> is the name of a Job.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>arguments</i> is a <a href="/sec/sec-list-and-record-specification-type.html">List</a> that has the same number of elements as the number of
+            parameters required by <i>job</i>.</li>
+        <li>Let <i>callerContext</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>Let <i>callerRealm</i> be <i>callerContext&#x2019;s</i> <a href="/sec/sec-code-realms.html">Realm</a>.</li>
+        <li>Let <i>pending</i> be PendingJob{ [[Job]]: <i>job</i>, [[Arguments]]: <i>arguments</i>, [[Realm]]: <i>callerRealm</i>,
+            [[HostDefined]]: <b>undefined</b> }.</li>
+        <li>Perform any implementation or host environment defined processing of <i>pending</i>. This may include modifying the
+            [[HostDefined]] field or any other field of <i>pending</i>.</li>
+        <li>Add <i>pending</i> at the back of the Job Queue named by <i>queueName</i>.</li>
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family: sans-serif">empty</span>).</li>
+      </ol>
+    </section>
+
+    <section id="sec-nextjob-result">
+      <h1><span class="secnum" id="sec-8.4.2"><a href="/sec/sec-nextjob-result.html" title="link to this section">8.4.2</a></span> NextJob
+          result</h1>
+
+      <p class="normalbefore">An algorithm step such as:</p>
+
+      <ol class="proc">
+        <li>NextJob <i>result</i>.</li>
+      </ol>
+
+      <p>is used in Job abstract operations in place of:</p>
+
+      <ol class="proc">
+        <li>Return <i>result</i>.</li>
+      </ol>
+
+      <p>Job abstract operations must not contain a Return step or a <a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a> step. The
+      NextJob <var>result</var> operation is equivalent to the following steps:</p>
+
+      <ol class="proc">
+        <li>If <i>result</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, perform
+            implementation defined unhandled exception processing.</li>
+        <li><a href="/sec/sec-execution-contexts.html">Suspend</a> <a href="/sec/sec-execution-contexts.html">the running execution context</a> and
+            remove it from <a href="/sec/sec-execution-contexts.html">the execution context stack</a>.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: The <a href="/sec/sec-execution-contexts.html">execution context stack</a> is
+            now empty.</li>
+        <li>Let <i>nextQueue</i> be a non-empty Job Queue chosen in an implementation defined manner. If all Job Queues are empty,
+            the result is implementation defined.</li>
+        <li>Let <i>nextPending</i> be the PendingJob record at the front of <i>nextQueue</i>. Remove that record from
+            <i>nextQueue</i>.</li>
+        <li>Let <i>newContext</i> be a new <a href="/sec/sec-execution-contexts.html">execution context</a>.</li>
+        <li>Set <i>newContext</i>&#x2019;s <a href="/sec/sec-code-realms.html">Realm</a> to <i>nextPending</i>.[[Realm]].</li>
+        <li>Push <i>newContext</i> onto <a href="/sec/sec-execution-contexts.html">the execution context stack</a>; <i>newContext</i> is
+            now <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>Perform any implementation or host environment defined job initialization using <i>nextPending</i>.</li>
+        <li>Perform the abstract operation named by <i>nextPending</i>.[[Job]] using the elements of
+            <i>nextPending</i>.[[Arguments]] as its arguments.</li>
+      </ol>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

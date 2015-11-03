@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-15.1.1"><a href="/sec/sec-scripts-static-semantics-early-errors.html" title="link to this section">15.1.1</a></span> Static Semantics:  Early Errors</h1>
+      <div class="gp prod"><span class="nt">Script</span> <span class="geq">:</span> <span class="nt">ScriptBody</span></div>
+      <ul>
+        <li>
+          <p>It is a Syntax Error if the LexicallyDeclaredNames of <span class="nt">ScriptBody</span> contains any duplicate
+          entries.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if any element of the <span style="font-family: Times New Roman">LexicallyDeclaredNames</span>
+          of <span class="nt">ScriptBody</span> also occurs in the <span style="font-family: Times New
+          Roman">VarDeclaredNames</span> of <span class="nt">ScriptBody</span>.</p>
+        </li>
+      </ul>
+      <div class="gp prod"><span class="nt">ScriptBody</span> <span class="geq">:</span> <span class="nt">StatementList</span></div>
+      <ul>
+        <li>
+          <p>It is a Syntax Error if <span class="nt">StatementList</span> <span style="font-family: Times New
+          Roman">Contains</span> <code>super</code> unless the source code containing <code>super</code> is eval code that is
+          being processed by a direct <code>eval</code> that is contained in function code that is not the function code of an
+          <span class="nt">ArrowFunction</span>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if <span class="nt">StatementList</span> <span style="font-family: Times New
+          Roman">Contains</span> <span class="nt">NewTarget</span> unless the source code containing <span class="nt">NewTarget</span> is eval code that is being processed by a direct <code>eval</code> that is contained in
+          function code that is not the function code of an <span class="nt">ArrowFunction</span>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if ContainsDuplicateLabels of <span class="nt">StatementList</span> <span style="font-family:
+          Times New Roman">with argument &#xAB; &#xBB; is <b>true</b>.</span></p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if ContainsUndefinedBreakTarget of <span class="nt">StatementList</span> <span style="font-family: Times New Roman">with argument &#xAB; &#xBB; is <b>true</b>.</span></p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if ContainsUndefinedContinueTarget of <span style="font-family: Times New
+          Roman"><i>StatementList</i> with arguments &#xAB; &#xBB; and &#xAB; &#xBB; is <b>true</b>.</span></p>
+        </li>
+      </ul>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

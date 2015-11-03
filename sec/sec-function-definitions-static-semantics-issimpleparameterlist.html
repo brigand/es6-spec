@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-14.1.12"><a href="/sec/sec-function-definitions-static-semantics-issimpleparameterlist.html" title="link to this section">14.1.12</a></span> Static Semantics:  IsSimpleParameterList</h1>
+
+      <p>See also: <a href="/sec/sec-destructuring-binding-patterns-static-semantics-issimpleparameterlist.html">13.3.3.4</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-issimpleparameterlist.html">14.2.8</a></p>
+
+      <div class="gp prod"><span class="nt">FormalParameters</span> <span class="geq">:</span> <span class="grhsannot">[empty]</span></div>
+      <ol class="proc">
+        <li>Return <b>true</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalParameterList</span> <span class="geq">:</span> <span class="nt">FunctionRestParameter</span></div>
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalParameterList</span> <span class="geq">:</span> <span class="nt">FormalsList</span> <code class="t">,</code> <span class="nt">FunctionRestParameter</span></div>
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalsList</span> <span class="geq">:</span> <span class="nt">FormalsList</span> <code class="t">,</code> <span class="nt">FormalParameter</span></div>
+      <ol class="proc">
+        <li>If IsSimpleParameterList of <i>FormalsList</i> is <b>false</b>, return <b>false</b>.</li>
+        <li>Return IsSimpleParameterList of <i>FormalParameter</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalParameter</span> <span class="geq">:</span> <span class="nt">BindingElement</span></div>
+      <ol class="proc">
+        <li>Return IsSimpleParameterList of <i>BindingElement</i>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

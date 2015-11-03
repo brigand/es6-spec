@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.3.1.3"><a href="/sec/sec-year-number.html" title="link to this section">20.3.1.3</a></span>
+            Year Number</h1>
+
+        <p class="normalbefore">ECMAScript uses an extrapolated Gregorian system to map a day number to a year number and to
+        determine the month and date within that year. In this system, leap years are precisely those which are (divisible by
+        <span style="font-family: Times New Roman">4</span>) and ((not divisible by <span style="font-family: Times New
+        Roman">100</span>) or (divisible by <span style="font-family: Times New Roman">400</span>)). The number of days in year
+        number <var>y</var> is therefore defined by</p>
+
+        <p class="normalBullet">DaysInYear(<i>y</i>) <br>= 365  if (<i>y</i> <a href="/sec/sec-algorithm-conventions.html">modulo</a> 4)
+        &#x2260; 0<br>= 366  if (<i>y</i> <a href="/sec/sec-algorithm-conventions.html">modulo</a> 4) = 0 and (<i>y</i> <a href="/sec/sec-algorithm-conventions.html">modulo</a> 100) &#x2260; 0<br>= 365  if (<i>y</i> <a href="/sec/sec-algorithm-conventions.html">modulo</a> 100) = 0 and (<i>y</i> <a href="/sec/sec-algorithm-conventions.html">modulo</a> 400)
+        &#x2260; 0<br>= 366  if (<i>y</i> <a href="/sec/sec-algorithm-conventions.html">modulo</a> 400) = 0</p>
+
+        <p class="normalbefore">All non-leap years have <span style="font-family: Times New Roman">365</span> days with the usual
+        number of days per month and leap years have an extra day in February. The day number of the first day of year
+        <var>y</var> is given by:</p>
+
+        <p class="normalBullet">DayFromYear(<i>y</i>) = 365 &#xD7; (<i>y</i>&#x2212;1970) + <a href="/sec/sec-algorithm-conventions.html">floor</a>((<i>y</i>&#x2212;1969)/4) &#x2212; <a href="/sec/sec-algorithm-conventions.html">floor</a>((<i>y</i>&#x2212;1901)/100) + <a href="/sec/sec-algorithm-conventions.html">floor</a>((<i>y</i>&#x2212;1601)/400)</p>
+
+        <p class="normalbefore">The <a href="/sec/sec-time-values-and-time-range.html">time value</a> of the start of a year is:</p>
+
+        <p class="normalBullet">TimeFromYear(<i>y</i>) = <a href="/sec/sec-day-number-and-time-within-day.html">msPerDay</a> &#xD7;
+        DayFromYear(<i>y</i>)</p>
+
+        <p class="normalbefore">A <a href="/sec/sec-time-values-and-time-range.html">time value</a> determines a year by:</p>
+
+        <p class="normalBullet">YearFromTime(<i>t</i>) = the largest integer <i>y</i> (closest to positive infinity) such that
+        TimeFromYear(<i>y</i>) &#x2264; <i>t</i></p>
+
+        <p class="normalbefore">The leap-year function is 1 for a time within a leap year and otherwise is zero:</p>
+
+        <p class="normalBullet">InLeapYear(<i>t</i>)<br>= 0  if DaysInYear(YearFromTime(<i>t</i>)) = 365<br>= 1  if
+        DaysInYear(YearFromTime(<i>t</i>)) = 366</p>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

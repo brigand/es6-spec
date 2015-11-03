@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.3.1.15"><a href="/sec/sec-timeclip.html" title="link to this section">20.3.1.15</a></span>
+            TimeClip (time)</h1>
+
+        <p class="normalbefore">The abstract operation TimeClip calculates a number of milliseconds from its argument, which must
+        be an ECMAScript Number value. This operator functions as follows:</p>
+
+        <ol class="proc">
+          <li>If <i>time</i> is not finite, return <b>NaN</b>.</li>
+          <li>If <a href="/sec/sec-algorithm-conventions.html">abs</a>(<i>time</i>) &gt; 8.64&#xA0;<span style="font-family:
+              sans-serif">&#xD7;</span>&#xA0;10<sup>15</sup>, return <b>NaN</b>.</li>
+          <li>Return <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>time</i>) + (<b>+0</b>). (Adding a positive zero converts
+              <b>&#x2212;0</b> to <b>+0</b>.)</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The point of step 3 is that an implementation is permitted a choice of internal
+          representations of time values, for example as a 64-bit signed integer or as a 64-bit floating-point value. Depending on
+          the implementation, this internal representation may or may not distinguish <b>&#x2212;0</b> and <b>+0</b>.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

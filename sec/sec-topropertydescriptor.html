@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-6.2.4.5"><a href="/sec/sec-topropertydescriptor.html" title="link to this section">6.2.4.5</a></span> ToPropertyDescriptor ( Obj )</h1>
+
+        <p class="normalbefore">When the abstract operation ToPropertyDescriptor is called with object <span class="nt">Obj</span>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>Obj</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>Obj</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>desc</i> be a new <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> that
+              initially has no fields.</li>
+          <li>Let <i>hasEnumerable</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>Obj</i>, <code>&quot;enumerable&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasEnumerable</i>).</li>
+          <li>If <i>hasEnumerable</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>enum</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>Obj</i>,
+                  <code>&quot;enumerable&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>enum</i>).</li>
+              <li>Set the [[Enumerable]] field of <i>desc</i> to <i>enum</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>hasConfigurable</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>Obj</i>,
+              <code>&quot;configurable&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasConfigurable</i>).</li>
+          <li>If <i>hasConfigurable</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>conf</i>  be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>Obj</i>,
+                  <code>&quot;configurable&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>conf</i>).</li>
+              <li>Set the [[Configurable]] field of <i>desc</i> to <i>conf</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>hasValue</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>Obj</i>, <code>&quot;value&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasValue</i>).</li>
+          <li>If <i>hasValue</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>value</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>Obj</i>, <code>&quot;value&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+              <li>Set the [[Value]] field of <i>desc</i> to <i>value</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>hasWritable</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>Obj</i>, <code>&quot;writable&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasWritable</i>).</li>
+          <li>If <i>hasWritable</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>writable</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>Obj</i>,
+                  <code>&quot;writable&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>writable</i>).</li>
+              <li>Set the [[Writable]] field of <i>desc</i> to <i>writable</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>hasGet</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>Obj</i>, <code>&quot;get&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasGet</i>).</li>
+          <li>If <i>hasGet</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>getter</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>Obj</i>, <code>&quot;get&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>getter</i>).</li>
+              <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>getter</i>) is <b>false</b> and <i>getter</i> is not
+                  <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+              <li>Set the [[Get]] field of <i>desc</i> to <i>getter</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>hasSet</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>Obj</i>, <code>&quot;set&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasSet</i>).</li>
+          <li>If <i>hasSet</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>setter</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>Obj</i>, <code>&quot;set&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setter</i>).</li>
+              <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>setter</i>) is <b>false</b> and <i>setter</i> is not
+                  <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+              <li>Set the [[Set]] field of <i>desc</i> to <i>setter</i>.</li>
+            </ol>
+          </li>
+          <li>If either <i>desc</i>.[[Get]] or <i>desc</i>.[[Set]] is present, then
+            <ol class="block">
+              <li>If either <i>desc</i>.[[Value]] or <i>desc</i>.[[Writable]] is present, throw a <b>TypeError</b> exception.</li>
+            </ol>
+          </li>
+          <li>Return <i>desc</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-22.1.1.1"><a href="/sec/sec-array-constructor-array.html" title="link to this section">22.1.1.1</a></span> Array ( )</h1>
+
+        <p class="normalbefore">This description applies if and only if the Array constructor is called with no arguments.</p>
+
+        <ol class="proc">
+          <li>Let <i>numberOfArgs</i> be the number of arguments passed to this function call.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>numberOfArgs</i> = 0.</li>
+          <li>If NewTarget is <b>undefined</b><i>,</i> let <i>newTarget</i> be the active function object, else let
+              <i>newTarget</i> be NewTarget.</li>
+          <li>Let <i>proto</i> be <a href="/sec/sec-getprototypefromconstructor.html">GetPrototypeFromConstructor</a>(<i>newTarget</i>,
+              <code>&quot;%ArrayPrototype%&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>proto</i>).</li>
+          <li>Return <a href="/sec/sec-arraycreate.html">ArrayCreate</a>(0, <i>proto</i>).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

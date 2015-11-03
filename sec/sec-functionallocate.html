@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.2.3"><a href="/sec/sec-functionallocate.html" title="link to this section">9.2.3</a></span>
+          FunctionAllocate (functionPrototype, strict [,functionKind] )</h1>
+
+      <p class="normalbefore">The abstract operation FunctionAllocate requires the two arguments <span style="font-family: Times
+      New Roman"><i>functionPrototype</i> and <i>strict</i>.</span> It also accepts one optional argument,
+      <var>functionKind</var>. FunctionAllocate performs the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>functionPrototype</i>) is Object.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: If <i>functionKind</i> is present, its value is either
+            <code>&quot;normal&quot;</code>, <code>&quot;non-constructor&quot;</code> or <code>&quot;generator&quot;</code>.</li>
+        <li>If <i>functionKind</i> is not present, let <i>functionKind</i> be <code>&quot;normal&quot;</code>.</li>
+        <li>If <i>functionKind</i> is <code>&quot;non-constructor&quot;</code>, then
+          <ol class="block">
+            <li>Let <i>functionKind</i> be <code>&quot;normal&quot;</code>.</li>
+            <li>Let <i>needsConstruct</i> be <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>Else let <i>needsConstruct</i> be <b>true</b>.</li>
+        <li>Let <i>F</i> be a newly created <a href="/sec/sec-ecmascript-function-objects.html">ECMAScript function object</a> with the
+            internal slots listed in <a href="/sec/table-27.html">Table 27</a>. All of those internal slots are initialized to
+            <b>undefined</b>.</li>
+        <li>Set <i>F</i>&#x2019;s essential internal methods to the default ordinary object definitions specified in <a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots.html">9.1</a>.</li>
+        <li>Set <i>F</i>&#x2019;s [[Call]] internal method to the definition specified in <a href="/sec/sec-ecmascript-function-objects-call-thisargument-argumentslist.html">9.2.1</a>.</li>
+        <li>If <i>needsConstruct</i> is <b>true</b>, then
+          <ol class="block">
+            <li>Set <i>F</i>&#x2019;s [[Construct]] internal method to the definition specified in <a href="/sec/sec-ecmascript-function-objects-construct-argumentslist-newtarget.html">9.2.2</a>.</li>
+            <li>If <i>functionKind</i> is <code>&quot;generator&quot;</code>, set the [[ConstructorKind]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>F</i> to
+                <code>&quot;derived&quot;</code>.</li>
+            <li>Else, set the [[ConstructorKind]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of
+                <i>F</i> to <code>&quot;base&quot;</code>.</li>
+            <li>NOTE  Generator functions are tagged as <code>&quot;derived&quot;</code> constructors to prevent [[Construct]] from
+                preallocating a generator instance. Generator instance objects are allocated when EvaluateBody is applied to the
+                <span class="nt">GeneratorBody</span> of a generator function.</li>
+          </ol>
+        </li>
+        <li>Set the [[Strict]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>F</i> to
+            <i>strict</i>.</li>
+        <li>Set the [[FunctionKind]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>F</i> to
+            <i>functionKind</i>.</li>
+        <li>Set the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>F</i> to
+            <i>functionPrototype</i>.</li>
+        <li>Set the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>F</i> to
+            <b>true</b>.</li>
+        <li>Set the [[Realm]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>F</i> to <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-code-realms.html">Realm</a>.</li>
+        <li>Return <i>F</i>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

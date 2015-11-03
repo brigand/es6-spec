@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-15.2.1.1"><a href="/sec/sec-module-semantics-static-semantics-early-errors.html" title="link to this section">15.2.1.1</a></span> Static Semantics:  Early Errors</h1>
+        <div class="gp prod"><span class="nt">ModuleBody</span> <span class="geq">:</span> <span class="nt">ModuleItemList</span></div>
+        <ul>
+          <li>
+            <p>It is a Syntax Error if the LexicallyDeclaredNames of <span class="nt">ModuleItemList</span> contains any duplicate
+            entries.</p>
+          </li>
+
+          <li>
+            <p>It is a Syntax Error if any element of the LexicallyDeclaredNames of <span class="nt">ModuleItemList</span> also
+            occurs in the VarDeclaredNames of <span class="nt">ModuleItemList</span>.</p>
+          </li>
+
+          <li>
+            <p>It is a Syntax Error if the ExportedNames of <span class="nt">ModuleItemList</span> contains any duplicate
+            entries.</p>
+          </li>
+
+          <li>
+            <p>It is a Syntax Error if any element of the ExportedBindings of <span class="nt">ModuleItemList</span> does not also
+            occur in either the VarDeclaredNames of <var>ModuleItemList,</var> or the LexicallyDeclaredNames of <span class="nt">ModuleItemList</span>.</p>
+          </li>
+
+          <li>
+            <p>It is a Syntax Error if <span class="nt">ModuleItemList</span> Contains <code>super</code>.</p>
+          </li>
+
+          <li>
+            <p>It is a Syntax Error if <span style="font-family: Times New Roman"><i>ModuleItemList</i> Contains
+            <i>NewTarget</i></span></p>
+          </li>
+
+          <li>
+            <p>It is a Syntax Error if ContainsDuplicateLabels of <span class="nt">ModuleItemList</span> <span style="font-family:
+            Times New Roman">with argument &#xAB; &#xBB; is <b>true</b>.</span></p>
+          </li>
+
+          <li>
+            <p>It is a Syntax Error if ContainsUndefinedBreakTarget of <span class="nt">ModuleItemList</span> <span style="font-family: Times New Roman">with argument &#xAB; &#xBB; is <b>true</b>.</span></p>
+          </li>
+
+          <li>
+            <p>It is a Syntax Error if ContainsUndefinedContinueTarget of <span class="nt">ModuleItemList</span> <span style="font-family: Times New Roman">with arguments &#xAB; &#xBB; and &#xAB; &#xBB; is <b>true</b>.</span></p>
+          </li>
+        </ul>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The duplicate ExportedNames rule implies that multiple <code>export default</code> <span class="nt">ExportDeclaration</span> items within a <span class="nt">ModuleBody</span> is a Syntax Error. Additional
+          error conditions relating to conflicting or duplicate declarations are checked during module linking prior to evaluation
+          of a <span class="nt">Module</span>. If any such errors are detected the <span class="nt">Module</span> is not
+          evaluated.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

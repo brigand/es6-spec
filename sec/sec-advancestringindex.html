@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-21.2.5.2.3"><a href="/sec/sec-advancestringindex.html" title="link to this section">21.2.5.2.3</a></span> AdvanceStringIndex ( S, index, unicode )</h1>
+
+          <p class="normalbefore">The abstract operation AdvanceStringIndex with arguments <var>S</var>, <var>index</var>, and
+          <var>unicode</var> performs the following steps:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>S</i>) is String.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>index</i> is an integer such that
+                0&#x2264;<i>index</i>&#x2264;2<sup>53</sup>-1.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>unicode</i>) is Boolean.</li>
+            <li>If <i>unicode</i> is <b>false</b>, return <i>index</i>+1.</li>
+            <li>Let <i>length</i> be the number of code units in <i>S</i>.</li>
+            <li>If <i>index</i>+1 &#x2265; <i>length</i>, return <i>index</i>+1.</li>
+            <li>Let <i>first</i> be the code unit value at index <i>index</i> in <i>S</i>.</li>
+            <li>If <i>first</i> &lt; 0xD800 or <i>first</i> &gt; 0xDBFF, return <i>index</i>+1.</li>
+            <li>Let <i>second</i> be the code unit value at index <i>index</i>+1 in <i>S</i>.</li>
+            <li>If <i>second</i> &lt; 0xDC00 or <i>second</i> &gt; 0xDFFF, return <i>index</i>+1.</li>
+            <li>Return <i>index</i>+2.</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

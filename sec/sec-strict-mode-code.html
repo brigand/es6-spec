@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-10.2.1"><a href="/sec/sec-strict-mode-code.html" title="link to this section">10.2.1</a></span>
+          Strict Mode Code</h1>
+
+      <p>An ECMAScript <span class="nt">Script</span> syntactic unit may be processed using either unrestricted or strict mode
+      syntax and semantics. Code is interpreted as <i>strict mode code</i> in the following situations:</p>
+
+      <ul>
+        <li>
+          <p>Global code is strict mode code if it begins with a <a href="/sec/sec-directive-prologues-and-the-use-strict-directive.html">Directive Prologue</a> that contains a <a href="/sec/sec-directive-prologues-and-the-use-strict-directive.html">Use Strict Directive</a> (see  <a href="/sec/sec-directive-prologues-and-the-use-strict-directive.html">14.1.1</a>).</p>
+        </li>
+
+        <li>
+          <p>Module code is always strict mode code.</p>
+        </li>
+
+        <li>
+          <p>All parts of a <span class="nt">ClassDeclaration</span> or a <span class="nt">ClassExpression</span> are strict mode
+          code.</p>
+        </li>
+
+        <li>
+          <p>Eval code is strict mode code if it begins with a <a href="/sec/sec-directive-prologues-and-the-use-strict-directive.html">Directive Prologue</a> that contains a <a href="/sec/sec-directive-prologues-and-the-use-strict-directive.html">Use Strict Directive</a> or if the call to eval is a direct
+          eval (<a href="/sec/sec-function-calls-runtime-semantics-evaluation.html">see 12.3.4.1</a>) that is contained in strict mode
+          code.</p>
+        </li>
+
+        <li>
+          <p>Function code is strict mode code if the associated <span class="nt">FunctionDeclaration</span>, <span class="nt">FunctionExpression</span>, <span class="nt">GeneratorDeclaration</span>, <span class="nt">GeneratorExpression</span>, <span class="nt">MethodDefinition</span>, or <span class="nt">ArrowFunction</span> is contained in strict mode code or if the code that produces the value of the
+          function&#x2019;s [[ECMAScriptCode]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> begins
+          with a <a href="/sec/sec-directive-prologues-and-the-use-strict-directive.html">Directive Prologue</a> that contains a <a href="/sec/sec-directive-prologues-and-the-use-strict-directive.html">Use Strict Directive</a>.</p>
+        </li>
+
+        <li>
+          <p>Function code that is supplied as the arguments to the built-in <code>Function</code> and <code>Generator</code>
+          constructors is strict mode code if the last argument is a String that when processed is a <span class="nt">FunctionBody</span> that begins with a <a href="/sec/sec-directive-prologues-and-the-use-strict-directive.html">Directive Prologue</a> that contains a <a href="/sec/sec-directive-prologues-and-the-use-strict-directive.html">Use Strict Directive</a>.</p>
+        </li>
+      </ul>
+
+      <p>ECMAScript code that is not strict mode code is called <i>non-strict code</i>.</p>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

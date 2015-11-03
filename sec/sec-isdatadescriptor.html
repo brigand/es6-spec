@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-6.2.4.2"><a href="/sec/sec-isdatadescriptor.html" title="link to this section">6.2.4.2</a></span>
+            IsDataDescriptor ( Desc )</h1>
+
+        <p class="normalbefore">When the abstract operation IsDataDescriptor is called with <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>If <i>Desc</i> is <b>undefined</b>, return <b>false</b>.</li>
+          <li>If both <i>Desc</i>.[[Value]] and <i>Desc</i>.[[Writable]] are absent, return <b>false</b>.</li>
+          <li>Return <b>true</b>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

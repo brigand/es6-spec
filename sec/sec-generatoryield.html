@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-25.3.3.5"><a href="/sec/sec-generatoryield.html" title="link to this section">25.3.3.5</a></span>
+            GeneratorYield ( iterNextObj )</h1>
+
+        <p class="normalbefore">The abstract operation GeneratorYield with argument <var>iterNextObj</var> performs the following
+        steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>iterNextObj</i> is an Object that implements the
+              <i>IteratorResult</i> interface.</li>
+          <li>Let <i>genContext</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>genContext</i> is the <a href="/sec/sec-execution-contexts.html">execution context</a> of a generator.</li>
+          <li>Let <i>generator</i> be the value of the Generator component of <i>genContext</i>.</li>
+          <li>Set the value of <i>generator&#x2019;s</i> [[GeneratorState]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to <code>&quot;suspendedYield&quot;</code>.</li>
+          <li>Remove <i>genContext</i> from <a href="/sec/sec-execution-contexts.html">the execution context stack</a> and restore the <a href="/sec/sec-execution-contexts.html">execution context</a> that is at the top of <a href="/sec/sec-execution-contexts.html">the
+              execution context stack</a> as <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+          <li>Set the code evaluation state of <i>genContext</i> such that when evaluation is resumed with a <a href="/sec/sec-completion-record-specification-type.html">Completion</a> <i>resumptionValue</i> the following steps will be
+              performed:
+            <ol class="nested proc">
+              <li>Return <i>resumptionValue</i>.</li>
+              <li>NOTE:  This returns to the evaluation of the <span class="nt">YieldExpression</span> production that originally
+                  called this abstract operation.</li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<i>iterNextObj</i>).</li>
+          <li><span style="font-family: sans-serif">NOTE:  This returns to the evaluation of the operation that had most
+              previously resumed evaluation of</span> <i>genContext</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-12.14.4"><a href="/sec/sec-assignment-operators-runtime-semantics-evaluation.html" title="link to this section">12.14.4</a></span> Runtime Semantics: Evaluation</h1>
+
+      <p><span class="nt">AssignmentExpression</span><sub>[In, Yield]</sub> <b>:</b> <span class="nt">LeftHandSideExpression</span><sub>[?Yield]</sub> <code>=</code> <span class="nt">AssignmentExpression</span><sub>[?In, ?Yield]</sub></p>
+
+      <ol class="proc">
+        <li>If <i>LeftHandSideExpression</i> is neither an <i>ObjectLiteral</i> nor an <i>ArrayLiteral</i>, then
+          <ol class="block">
+            <li>Let <i>lref</i> be the result of evaluating <i>LeftHandSideExpression</i>.</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lref</i>).</li>
+            <li>Let <i>rref</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+            <li>Let <i>rval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rref</i>).</li>
+            <li>If <a href="/sec/sec-isanonymousfunctiondefinition.html">IsAnonymousFunctionDefinition</a>(<i>AssignmentExpression)</i> and
+                IsIdentifierRef of <i>LeftHandSideExpression</i> are both <b>true</b>, then
+              <ol class="block">
+                <li>Let <i>hasNameProperty</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>rval</i>,
+                    <code>&quot;name&quot;</code>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasNameProperty</i>).</li>
+                <li>If <i>hasNameProperty</i> is <b>false</b>, perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>rval</i>, <a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>lref</i>)).</li>
+              </ol>
+            </li>
+            <li>Let <i>status</i> be <a href="/sec/sec-putvalue.html">PutValue</a>(<i>lref</i>, <i>rval</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+            <li>Return <i>rval</i>.</li>
+          </ol>
+        </li>
+        <li>Let <i>assignmentPattern</i> be the parse of the source text corresponding to <i>LeftHandSideExpression</i> using
+            <i>AssignmentPattern</i><sub>[?Yield]</sub> as the goal symbol.</li>
+        <li>Let <i>rref</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+        <li>Let <i>rval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rval</i>).</li>
+        <li>Let <i>status</i> be the result of performing DestructuringAssignmentEvaluation of <i>assignmentPattern</i> using
+            <i>rval</i> as the argument.</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+        <li>Return <i>rval</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">AssignmentExpression</span> <span class="geq">:</span> <span class="nt">LeftHandSideExpression</span> <span class="nt">AssignmentOperator</span> <span class="nt">AssignmentExpression</span></div>
+      <ol class="proc">
+        <li>Let <i>lref</i> be the result of evaluating <i>LeftHandSideExpression</i>.</li>
+        <li>Let <i>lval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>lref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lval</i>).</li>
+        <li>Let <i>rref</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+        <li>Let <i>rval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rref</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rval</i>).</li>
+        <li>Let <i>op</i> be the <code>@</code> where <i>AssignmentOperator</i> is <code>@=</code></li>
+        <li>Let <i>r</i> be the result of applying <i>op</i> to <i>lval</i> and <i>rval</i> as if evaluating the expression
+            <i>lval</i> <i>op</i> <i>rval</i>.</li>
+        <li>Let <i>status</i> be <a href="/sec/sec-putvalue.html">PutValue</a>(<i>lref</i>, <i>r</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+        <li>Return <i>r</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> When an assignment occurs within <a href="/sec/sec-strict-mode-code.html">strict mode code</a>, it
+        is an runtime error if <var>lref</var> in step 1.f.of the first algorithm or step 9 of the second algorithm it is an
+        unresolvable reference. If it is, a <b>ReferenceError</b> exception is thrown. The <span class="nt">LeftHandSide</span>
+        also may not be a reference to a data property with the attribute value <span style="font-family: Times New
+        Roman">{[[Writable]]:<b>false</b>}</span>, to an accessor property with the attribute value <span style="font-family:
+        Times New Roman">{[[Set]]:<b>undefined</b>}</span>, nor to a non-existent property of an object for which the <a href="/sec/sec-isextensible-o.html">IsExtensible</a> predicate returns the value <b>false</b>. In these cases a <b>TypeError</b>
+        exception is thrown.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

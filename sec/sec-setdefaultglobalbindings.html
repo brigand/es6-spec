@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-8.2.4"><a href="/sec/sec-setdefaultglobalbindings.html" title="link to this section">8.2.4</a></span> SetDefaultGlobalBindings ( realmRec )</h1>
+
+      <p class="normalbefore">The abstract operation SetDefaultGlobalBindings with argument <var>realmRec</var> performs the
+      following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>global</i> be <i>realmRec</i>.[[globalThis]].</li>
+        <li>For each property of the Global Object specified in <a href="/sec/sec-global-object.html">clause 18</a>, do
+          <ol class="block">
+            <li>Let <i>name</i> be the String value of the property name.</li>
+            <li>Let <i>desc</i> be the fully populated data property descriptor for the property containing the specified
+                attributes for the property. For properties listed in <a href="/sec/sec-function-properties-of-the-global-object.html">18.2</a>, <a href="/sec/sec-constructor-properties-of-the-global-object.html">18.3</a>, or <a href="/sec/sec-other-properties-of-the-global-object.html">18.4</a> the value of the [[Value]] attribute is the
+                corresponding intrinsic object from <i>realmRec</i>.</li>
+            <li>Let <i>status</i> be <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>global</i>, <i>name</i>,
+                <i>desc</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          </ol>
+        </li>
+        <li>Return <i>global</i>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

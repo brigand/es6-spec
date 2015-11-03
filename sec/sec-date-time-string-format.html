@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <div class="front">
+          <h1><span class="secnum" id="sec-20.3.1.16"><a href="/sec/sec-date-time-string-format.html" title="link to this section">20.3.1.16</a></span> Date Time String Format</h1>
+
+          <p>ECMAScript defines a string interchange format for date-times based upon a simplification of the ISO 8601 Extended
+          Format. The format is as follows: <code>YYYY-MM-DDTHH:mm:ss.sss<i>Z</i></code></p>
+
+          <p class="normalbefore">Where the fields are as follows:</p>
+
+          <figure>
+            <table class="lightweight-table">
+              <tr>
+                <td><code>YYYY</code></td>
+                <td>is the decimal digits of the year 0000 to 9999 in the Gregorian calendar.</td>
+              </tr>
+              <tr>
+                <td><code>-</code></td>
+                <td><code>&quot;-&quot;</code> <span style="font-family: sans-serif">(hyphen) appears literally twice in the string.</span></td>
+              </tr>
+              <tr>
+                <td><code>MM</code></td>
+                <td>is the month of the year from 01 (January) to 12 (December).</td>
+              </tr>
+              <tr>
+                <td><code>DD</code></td>
+                <td>is the day of the month from 01 to 31.</td>
+              </tr>
+              <tr>
+                <td><code>T</code></td>
+                <td><code>&quot;T&quot;</code> <span style="font-family: sans-serif">appears literally in the string, to indicate the beginning of the time element.</span></td>
+              </tr>
+              <tr>
+                <td><code>HH</code></td>
+                <td>is the number of complete hours that have passed since midnight as two decimal digits from 00 to 24.</td>
+              </tr>
+              <tr>
+                <td><code>:</code></td>
+                <td><code>&quot;:&quot;</code> <span style="font-family: sans-serif">(colon) appears literally twice in the string.</span></td>
+              </tr>
+              <tr>
+                <td><code>mm</code></td>
+                <td>is the number of complete minutes since the start of the hour as two decimal digits from 00 to 59.</td>
+              </tr>
+              <tr>
+                <td><code>ss</code></td>
+                <td>is the number of complete seconds since the start of the minute as two decimal digits from 00 to 59.</td>
+              </tr>
+              <tr>
+                <td><code>.</code></td>
+                <td><code>&quot;.&quot;</code> <span style="font-family: sans-serif">(dot) appears literally in the string.</span></td>
+              </tr>
+              <tr>
+                <td><code>sss</code></td>
+                <td>is the number of complete milliseconds since the start of the second as three decimal digits.</td>
+              </tr>
+              <tr>
+                <td><code>Z</code></td>
+                <td><span style="font-family: sans-serif">is the time zone offset specified as</span> <code>&quot;Z&quot;</code> <span style="font-family: sans-serif">(for UTC) or either</span> <code>&quot;+&quot;</code> <span style="font-family: sans-serif">or</span> <code>&quot;-&quot;</code> <span style="font-family: sans-serif">followed by a time expression</span> <code>HH:mm</code></td>
+              </tr>
+            </table>
+          </figure>
+
+          <p class="normalbefore">This format includes date-only forms:</p>
+
+          <pre>YYYY<br>YYYY-MM<br>YYYY-MM-DD</pre>
+
+          <p class="normalbefore">It also includes &#x201C;date-time&#x201D; forms that consist of one of the above date-only forms
+          immediately followed by one of the following time forms with an optional time zone offset appended:</p>
+
+          <pre>THH:mm<br>THH:mm:ss<br>THH:mm:ss.sss</pre>
+
+          <p>All numbers must be base <span style="font-family: Times New Roman">10</span>. If the <code>MM</code> or
+          <code>DD</code> fields are absent <code>&quot;01&quot;</code> is used as the value. If the <code>HH</code>, <code>mm</code>, or
+          <code>ss</code> fields are absent <code>&quot;00&quot;</code> is used as the value and the value of an absent <code>sss</code>
+          field is <code>&quot;000&quot;</code>. If the time zone offset is absent, the date-time is interpreted as a local time.</p>
+
+          <p>Illegal values (out-of-bounds as well as syntax errors) in a format string means that the format string is not a
+          valid instance of this format.</p>
+
+          <div class="note">
+            <p><span class="nh">NOTE 1</span> As every day both starts and ends with midnight, the two notations
+            <code>00:00</code> and <code>24:00</code> are available to distinguish the two midnights that can be associated with
+            one date. This means that the following two notations refer to exactly the same point in time:
+            <code>1995-02-04T24:00</code> and <code>1995-02-05T00:00</code></p>
+          </div>
+
+          <div class="note">
+            <p><span class="nh">NOTE 2</span> There exists no international standard that specifies abbreviations for civil time
+            zones like CET, EST, etc. and sometimes the same abbreviation is even used for two very different time zones. For this
+            reason, ISO 8601 and this format specifies numeric representations of date and time.</p>
+          </div>
+        </div>
+
+        <section id="sec-extended-years">
+          <h1><span class="secnum" id="sec-20.3.1.16.1"><a href="/sec/sec-extended-years.html" title="link to this section">20.3.1.16.1</a></span> Extended years</h1>
+
+          <p>ECMAScript requires the ability to specify <span style="font-family: Times New Roman">6</span> digit years (extended
+          years); approximately <span style="font-family: Times New Roman">285,426</span> years, either forward or backward, from
+          01 January, 1970 UTC. To represent years before <span style="font-family: Times New Roman">0</span> or after <span style="font-family: Times New Roman">9999</span>, ISO 8601 permits the expansion of the year representation, but only by
+          prior agreement between the sender and the receiver. In the simplified ECMAScript format such an expanded year
+          representation shall have <span style="font-family: Times New Roman">2</span> extra year digits and is always prefixed
+          with a + or &#x2013; sign. The year <span style="font-family: Times New Roman">0</span> is considered positive and hence
+          prefixed with a + sign.</p>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> Examples of extended years:</p>
+
+            <figure>
+              <table class="lightweight-table">
+                <tr>
+                  <td>
+                    <p class="NoteCode">-283457-03-21T15:00:59.008Z</p>
+                  </td>
+
+                  <td>
+                    <p class="NoteCode">283458 B.C.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="NoteCode">-000001-01-01T00:00:00Z</p>
+                  </td>
+
+                  <td>
+                    <p class="NoteCode">2 B.C.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="NoteCode">+000000-01-01T00:00:00Z</p>
+                  </td>
+
+                  <td>
+                    <p class="NoteCode">1 B.C.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="NoteCode">+000001-01-01T00:00:00Z</p>
+                  </td>
+
+                  <td>
+                    <p class="NoteCode">1 A.D.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="NoteCode">+001970-01-01T00:00:00Z</p>
+                  </td>
+
+                  <td>
+                    <p class="NoteCode">1970 A.D.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="NoteCode">+002009-12-15T00:00:00Z</p>
+                  </td>
+
+                  <td>
+                    <p class="NoteCode">2009 A.D.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="NoteCode">+287396-10-12T08:59:00.992Z</p>
+                  </td>
+
+                  <td>
+                    <p class="NoteCode">287396 A.D.</p>
+                  </td>
+                </tr>
+              </table>
+            </figure>
+          </div>
+        </section>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

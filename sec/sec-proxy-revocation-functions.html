@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-26.2.2.1.1"><a href="/sec/sec-proxy-revocation-functions.html" title="link to this section">26.2.2.1.1</a></span> Proxy Revocation Functions</h1>
+
+          <p>A Proxy revocation function is an anonymous function that has the ability to invalidate a specific Proxy object.</p>
+
+          <p>Each Proxy revocation function has a [[RevocableProxy]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+          <p class="normalbefore">When a Proxy revocation function, <var>F</var>, is called the following steps are taken:</p>
+
+          <ol class="proc">
+            <li>Let <i>p</i> be the value of <i>F</i>&#x2019;s [[RevocableProxy]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>If <i>p</i> is <b>null</b>, return <b>undefined</b>.</li>
+            <li>Set the value of <i>F</i>&#x2019;s [[RevocableProxy]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to <b>null</b>.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>p</i> is a Proxy object.</li>
+            <li>Set the [[ProxyTarget]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>p</i> to
+                <b>null</b>.</li>
+            <li>Set the [[ProxyHandler]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>p</i>
+                to <b>null</b>.</li>
+            <li>Return <b>undefined</b>.</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

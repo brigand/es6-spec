@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-23.1.5"><a href="/sec/sec-map-iterator-objects.html" title="link to this section">23.1.5</a></span> Map Iterator Objects</h1>
+
+        <p>A Map Iterator is an object, that represents a specific iteration over some specific Map instance object. There is not
+        a named constructor for Map Iterator objects. Instead, map iterator objects are created by calling certain methods of Map
+        instance objects.</p>
+      </div>
+
+      <section id="sec-createmapiterator">
+        <h1><span class="secnum" id="sec-23.1.5.1"><a href="/sec/sec-createmapiterator.html" title="link to this section">23.1.5.1</a></span> CreateMapIterator Abstract Operation</h1>
+
+        <p class="normalbefore">Several methods of Map objects return Iterator objects. The abstract operation CreateMapIterator
+        with arguments <var>map</var> and <var>kind</var> is used to create such iterator objects. It performs the following
+        steps:</p>
+
+        <ol class="proc">
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>map</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>map</i> does not have a [[MapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>iterator</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(%MapIteratorPrototype%, &#xAB;&#x200D;[[Map]],
+              [[MapNextIndex]], [[MapIterationKind]]&#xBB;).</li>
+          <li>Set <i>iterator&#x2019;s</i> [[Map]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <i>map</i>.</li>
+          <li>Set <i>iterator&#x2019;s</i> [[MapNextIndex]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to 0.</li>
+          <li>Set <i>iterator&#x2019;s</i> [[MapIterationKind]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to <i>kind</i>.</li>
+          <li>Return <i>iterator</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-%mapiteratorprototype%-object">
+        <div class="front">
+          <h1><span class="secnum" id="sec-23.1.5.2"><a href="/sec/sec-%mapiteratorprototype%-object.html" title="link to this section">23.1.5.2</a></span> The %MapIteratorPrototype% Object</h1>
+
+          <p>All Map Iterator Objects inherit properties from the %MapIteratorPrototype% intrinsic object. The
+          %MapIteratorPrototype% intrinsic object is an ordinary object and its [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is the %IteratorPrototype% intrinsic object (<a href="/sec/sec-%iteratorprototype%-object.html">25.1.2</a>). In addition, %MapIteratorPrototype% has the following
+          properties:</p>
+        </div>
+
+        <section id="sec-%mapiteratorprototype%.next">
+          <h1><span class="secnum" id="sec-23.1.5.2.1"><a href="/sec/sec-%mapiteratorprototype%.next.html" title="link to this section">23.1.5.2.1</a></span> %MapIteratorPrototype%.next ( )</h1>
+          <ol class="proc">
+            <li>Let <i>O</i> be the <b>this</b> value.</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, throw a <b>TypeError</b>
+                exception.</li>
+            <li>If <i>O</i> does not have all of the internal slots of a Map Iterator Instance (<a href="/sec/sec-properties-of-map-iterator-instances.html">23.1.5.3</a>), throw a <b>TypeError</b> exception.</li>
+            <li>Let <i>m</i> be the value of the [[Map]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+                slot</a> of <i>O</i>.</li>
+            <li>Let <i>index</i> be the value of the [[MapNextIndex]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+            <li>Let <i>itemKind</i> be the value of the [[MapIterationKind]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+            <li>If <i>m</i> is <b>undefined</b>, return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<b>undefined</b>, <b>true</b>).</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>m</i> has a [[MapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of the
+                [[MapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>m</i>.</li>
+            <li>Repeat while <i>index</i> is less than the total number of elements of <i>entries</i>. The number of elements must
+                be redetermined each time this method is evaluated.
+              <ol class="block">
+                <li>Let <i>e</i> be the Record {[[key]], [[value]]} that is the value of <i>entries</i>[<i>index</i>].</li>
+                <li>Set <i>index</i> to <i>index</i>+1.</li>
+                <li>Set the [[MapNextIndex]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of
+                    <i>O</i> to <i>index</i>.</li>
+                <li>If <i>e</i>.[[key]] is not <span style="font-family: sans-serif">empty</span>, then
+                  <ol class="block">
+                    <li>If <i>itemKind</i> is <b>&quot;<code>key</code>&quot;</b>, let <i>result</i> be <i>e</i>.[[key]].</li>
+                    <li>Else if <i>itemKind</i> is <b>&quot;<code>value</code>&quot;</b>, let <i>result</i> be <i>e</i>.[[value]].</li>
+                    <li>Else,
+                      <ol class="block">
+                        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>itemKind</i> is <code>&quot;key+value&quot;</code>.</li>
+                        <li>Let <i>result</i> be <a href="/sec/sec-createarrayfromlist.html">CreateArrayFromList</a>(&#xAB;<i>e</i>.[[key]],
+                            <i>e</i>.[[value]]&#xBB;).</li>
+                      </ol>
+                    </li>
+                    <li>Return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<i>result</i>, <b>false</b>).</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+            <li>Set the [[Map]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i> to
+                <b>undefined</b>.</li>
+            <li>Return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<b>undefined</b>, <b>true</b>).</li>
+          </ol>
+        </section>
+
+        <section id="sec-%mapiteratorprototype%-@@tostringtag">
+          <h1><span class="secnum" id="sec-23.1.5.2.2"><a href="/sec/sec-%mapiteratorprototype%-@@tostringtag.html" title="link to this section">23.1.5.2.2</a></span> %MapIteratorPrototype% [ @@toStringTag ]</h1>
+
+          <p>The initial value of the @@toStringTag property is the String value <code>&quot;Map Iterator&quot;</code>.</p>
+
+          <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+        </section>
+      </section>
+
+      <section id="sec-properties-of-map-iterator-instances">
+        <h1><span class="secnum" id="sec-23.1.5.3"><a href="/sec/sec-properties-of-map-iterator-instances.html" title="link to this section">23.1.5.3</a></span> Properties of Map Iterator Instances</h1>
+
+        <p>Map Iterator instances are ordinary objects that inherit properties from the %MapIteratorPrototype% intrinsic  object.
+        Map Iterator instances are initially created with the internal slots described in <a href="/sec/table-50.html">Table 50</a>.</p>
+
+        <figure>
+          <figcaption><span id="table-50">Table 50</span> &#x2014; Internal Slots of Map Iterator Instances</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Internal Slot</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>[[Map]]</td>
+              <td>The Map object that is being iterated.</td>
+            </tr>
+            <tr>
+              <td>[[MapNextIndex]]</td>
+              <td>The integer index of the next Map data element to be examined by this iterator.</td>
+            </tr>
+            <tr>
+              <td>[[MapIterationKind]]</td>
+              <td>A String value that identifies what is to be returned for each element of the iteration. The possible values are: <code>&quot;key&quot;</code>, <code>&quot;value&quot;</code>, <code>&quot;key+value&quot;</code>.</td>
+            </tr>
+          </table>
+        </figure>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

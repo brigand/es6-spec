@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-12.3.7.1"><a href="/sec/sec-tagged-templates-runtime-semantics-evaluation.html" title="link to this section">12.3.7.1</a></span> Runtime Semantics: Evaluation</h1>
+        <div class="gp prod"><span class="nt">MemberExpression</span> <span class="geq">:</span> <span class="nt">MemberExpression</span> <span class="nt">TemplateLiteral</span></div>
+        <ol class="proc">
+          <li>Let <i>tagRef</i> be the result of evaluating <i>MemberExpression</i>.</li>
+          <li>Let <i>thisCall</i> be this <i>MemberExpression</i>.</li>
+          <li>Let <i>tailCall</i> be <a href="/sec/sec-isintailposition.html">IsInTailPosition</a>(<i>thisCall</i>). (See <a href="/sec/sec-isintailposition.html">14.6.1</a>)</li>
+          <li>Return <a href="/sec/sec-evaluatecall.html">EvaluateCall</a>(<i>tagRef</i>, <i>TemplateLiteral</i>, <i>tailCall</i>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">CallExpression</span> <span class="geq">:</span> <span class="nt">CallExpression</span> <span class="nt">TemplateLiteral</span></div>
+        <ol class="proc">
+          <li>Let <i>tagRef</i> be the result of evaluating <i>CallExpression</i>.</li>
+          <li>Let <i>thisCall</i> be this <i>CallExpression</i>.</li>
+          <li>Let <i>tailCall</i> be <a href="/sec/sec-isintailposition.html">IsInTailPosition</a>(<i>thisCall</i>). (See <a href="/sec/sec-isintailposition.html">14.6.1</a>)</li>
+          <li>Return <a href="/sec/sec-evaluatecall.html">EvaluateCall</a>(<i>tagRef</i>, <i>TemplateLiteral</i>, <i>tailCall</i>).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

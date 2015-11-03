@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-9.4.2"><a href="/sec/sec-array-exotic-objects.html" title="link to this section">9.4.2</a></span>
+            Array Exotic Objects</h1>
+
+        <p>An <i>Array object</i> is an exotic object that gives special treatment to array index property keys (<a href="/sec/sec-object-type.html">see 6.1.7</a>). A property whose property name is an array index is also called an <i>element</i>.
+        Every Array object has a <code>length</code> property whose value is always a nonnegative integer less than <span style="font-family: Times New Roman">2<sup>32</sup></span>. The value of the <code>length</code> property is numerically
+        greater than the name of every own property whose name is an array index; whenever an own property of an Array object is
+        created or changed, other properties are adjusted as necessary to maintain this invariant. Specifically, whenever an own
+        property is added whose name is an array index, the value of the <code>length</code> property is changed, if necessary, to
+        be one more than the numeric value of that array index; and whenever the value of the <code>length</code> property is
+        changed, every own property whose name is an array index whose value is not smaller than the new length is deleted. This
+        constraint applies only to own properties of an Array object and is unaffected by <code>length</code> or array index
+        properties that may be inherited from its prototypes.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> A String property name <var>P</var> is an <i>array index</i> if and only if <span style="font-family: Times New Roman"><a href="/sec/sec-tostring.html">ToString</a>(<a href="/sec/sec-touint32.html">ToUint32</a>(<i>P</i>))</span> is equal to <var>P</var> and <span style="font-family: Times New
+          Roman"><a href="/sec/sec-touint32.html">ToUint32</a>(<i>P</i>)</span> is not equal to <span style="font-family: Times New
+          Roman">2<sup>32</sup>&#x2212;1</span>.</p>
+        </div>
+
+        <p>Array exotic objects always have a non-configurable property named <code>&quot;length&quot;</code>.</p>
+
+        <p>Array exotic objects provide an alternative definition for the [[DefineOwnProperty]] internal method. Except for that
+        internal method, Array exotic objects provide all of the other essential internal methods as specified in <a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots.html">9.1</a>.</p>
+      </div>
+
+      <section id="sec-array-exotic-objects-defineownproperty-p-desc">
+        <h1><span class="secnum" id="sec-9.4.2.1"><a href="/sec/sec-array-exotic-objects-defineownproperty-p-desc.html" title="link to this section">9.4.2.1</a></span> [[DefineOwnProperty]] ( P, Desc)</h1>
+
+        <p class="normalbefore">When the [[DefineOwnProperty]] internal method of an <a href="/sec/sec-array-exotic-objects.html">Array
+        exotic object</a> <var>A</var> is called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var>, and <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span> the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+              <b>true</b>.</li>
+          <li>If <i>P</i> is <code>&quot;length&quot;</code>, then
+            <ol class="block">
+              <li>Return <a href="/sec/sec-arraysetlength.html">ArraySetLength</a>(<i>A</i>, <i>Desc</i>).</li>
+            </ol>
+          </li>
+          <li>Else if <i>P</i> is an array index, then
+            <ol class="block">
+              <li>Let <i>oldLenDesc</i> be <a href="/sec/sec-ordinarygetownproperty.html">OrdinaryGetOwnProperty</a>(<i>A</i>,
+                  <code>&quot;length&quot;</code>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>oldLenDesc</i> will never be <b>undefined</b> or an accessor
+                  descriptor because Array objects are created with a length data property that cannot be deleted or
+                  reconfigured.</li>
+              <li>Let <i>oldLen</i> be <i>oldLenDesc</i>.[[Value]].</li>
+              <li>Let <i>index</i> be <a href="/sec/sec-touint32.html">ToUint32</a>(<i>P</i>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>index</i> will never be an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+              <li>If <i>index</i> &#x2265; <i>oldLen</i> and <i>oldLenDesc</i>.[[Writable]] is <b>false</b>, return <b>false</b>.</li>
+              <li>Let <i>succeeded</i> be <a href="/sec/sec-ordinarydefineownproperty.html">OrdinaryDefineOwnProperty</a>(<i>A</i>,
+                  <i>P</i>, <i>Desc</i>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>succeeded</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+              <li>If <i>succeeded</i> is <b>false</b>, return <b>false</b>.</li>
+              <li>If <i>index</i> &#x2265; <i>oldLen</i>
+                <ol class="block">
+                  <li>Set <i>oldLenDesc</i>.[[Value]] to <i>index</i> + 1.</li>
+                  <li>Let <i>succeeded</i> be <a href="/sec/sec-ordinarydefineownproperty.html">OrdinaryDefineOwnProperty</a>(<i>A</i>,
+                      <code>&quot;length&quot;</code>, <i>oldLenDesc</i>).</li>
+                  <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>succeeded</i> is <b>true</b>.</li>
+                </ol>
+              </li>
+              <li>Return <b>true</b>.</li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-ordinarydefineownproperty.html">OrdinaryDefineOwnProperty</a>(<i>A</i>, <i>P</i>, <i>Desc</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-arraycreate">
+        <h1><span class="secnum" id="sec-9.4.2.2"><a href="/sec/sec-arraycreate.html" title="link to this section">9.4.2.2</a></span>
+            ArrayCreate(length, proto)</h1>
+
+        <p class="normalbefore">The abstract operation ArrayCreate with argument <var>length</var> (a positive integer) and
+        optional argument <var>proto</var> is used to specify the creation of new Array exotic objects. It performs the following
+        steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>length</i> is an integer Number &#x2265; 0.</li>
+          <li>If <i>length</i> is &#x2212;0, let <i>length</i> be +0.</li>
+          <li>If <i>length</i>&gt;2<sup>32</sup>-1, throw a <b>RangeError</b> exception.</li>
+          <li>If the <i>proto</i> argument was not passed, let <i>proto</i> be the intrinsic object <span style="font-family:
+              sans-serif">%ArrayPrototype%</span>.</li>
+          <li>Let <i>A</i> be a newly created <a href="/sec/sec-array-exotic-objects.html">Array exotic object</a>.</li>
+          <li>Set <i>A</i>&#x2019;s essential internal methods except for [[DefineOwnProperty]] to the default ordinary object
+              definitions specified in <a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots.html">9.1</a>.</li>
+          <li>Set the [[DefineOwnProperty]] internal method of <i>A</i> as specified in <a href="/sec/sec-array-exotic-objects-defineownproperty-p-desc.html">9.4.2.1</a>.</li>
+          <li>Set the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>A</i> to
+              <i>proto</i>.</li>
+          <li>Set the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>A</i> to
+              <b>true</b>.</li>
+          <li>Perform <a href="/sec/sec-ordinarydefineownproperty.html">OrdinaryDefineOwnProperty</a>(<i>A</i>, <code>&quot;length&quot;</code>,
+              PropertyDescriptor{[[Value]]: <i>length</i>, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>false</b>,
+              [[Configurable]]: <b>false</b>}).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: the preceding step never produces an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+          <li>Return <i>A</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-arrayspeciescreate">
+        <h1><span class="secnum" id="sec-9.4.2.3"><a href="/sec/sec-arrayspeciescreate.html" title="link to this section">9.4.2.3</a></span> ArraySpeciesCreate(originalArray, length)</h1>
+
+        <p class="normalbefore">The abstract operation ArraySpeciesCreate with arguments <var>originalArray</var> and
+        <var>length</var> is used to specify the creation of a new Array object using a constructor function that is derived from
+        <var>originalArray</var>. It performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>length</i> is an integer Number &#x2265; 0.</li>
+          <li>If <i>length</i> is &#x2212;0, let <i>length</i> be +0.</li>
+          <li>Let <i>C</i> be <b>undefined</b>.</li>
+          <li>Let <i>isArray</i> be <a href="/sec/sec-isarray.html">IsArray</a>(<i>originalArray</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>isArray</i>).</li>
+          <li>If <i>isArray</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>C</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>originalArray</i>, <code>&quot;constructor&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>C</i>).</li>
+              <li>If <a href="/sec/sec-isconstructor.html">IsConstructor</a>(<i>C</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>thisRealm</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-code-realms.html">Realm</a>.</li>
+                  <li>Let <i>realmC</i> be <a href="/sec/sec-getfunctionrealm.html">GetFunctionRealm</a>(<i>C</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>realmC</i>).</li>
+                  <li>If <i>thisRealm</i> and <i>realmC</i> are not the same <a href="/sec/sec-code-realms.html">Realm</a> Record, then
+                    <ol class="block">
+                      <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>C</i>, <i>realmC</i>.[[intrinsics]].[[%Array%]]) is
+                          <b>true</b>, let <i>C</i> be <b>undefined</b>.</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>C</i>) is Object, then
+                <ol class="block">
+                  <li>Let <i>C</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>C</i>, @@species).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>C</i>).</li>
+                  <li>If <i>C</i> is <b>null</b>, let <i>C</i> be <b>undefined</b>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>C</i> is <b>undefined</b>, return <a href="/sec/sec-arraycreate.html">ArrayCreate</a>(<i>length</i>).</li>
+          <li>If <a href="/sec/sec-isconstructor.html">IsConstructor</a>(<i>C</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception<i>.</i></li>
+          <li>Return <a href="/sec/sec-construct.html">Construct</a>(<i>C</i>, &#xAB;<i>length</i>&#xBB;).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> If <var>originalArray</var> was created using the standard built-in Array constructor
+          for a <a href="/sec/sec-code-realms.html">Realm</a> that is not the <a href="/sec/sec-code-realms.html">Realm</a>  of <a href="/sec/sec-execution-contexts.html">the running execution context</a>, then a new Array is created using the <a href="/sec/sec-code-realms.html">Realm</a> of <a href="/sec/sec-execution-contexts.html">the running execution context</a>. This maintains
+          compatibility with Web browsers that have historically had that behaviour for the Array.prototype methods that now are
+          defined using  ArraySpeciesCreate.</p>
+        </div>
+      </section>
+
+      <section id="sec-arraysetlength">
+        <h1><span class="secnum" id="sec-9.4.2.4"><a href="/sec/sec-arraysetlength.html" title="link to this section">9.4.2.4</a></span>
+            ArraySetLength(A, Desc)</h1>
+
+        <p class="normalbefore">When the abstract operation ArraySetLength is called with an <a href="/sec/sec-array-exotic-objects.html">Array exotic object</a> <span style="font-family: Times New Roman"><i>A</i>,</span> and
+        <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span> the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>If the [[Value]] field of <i>Desc</i> is absent, then
+            <ol class="block">
+              <li>Return <a href="/sec/sec-ordinarydefineownproperty.html">OrdinaryDefineOwnProperty</a>(<i>A</i>, <code>&quot;length&quot;</code>,
+                  <i>Desc</i>).</li>
+            </ol>
+          </li>
+          <li>Let <i>newLenDesc</i> be a copy of <i>Desc</i>.</li>
+          <li>Let <i>newLen</i> be <a href="/sec/sec-touint32.html">ToUint32</a>(<i>Desc</i>.[[Value]]).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>newLen</i>).</li>
+          <li>Let <i>numberLen</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>Desc</i>.[[Value]]).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>newLen</i>).</li>
+          <li>If <i>newLen</i> &#x2260; <i>numberLen</i>, throw a <b>RangeError</b> exception.</li>
+          <li>Set <i>newLenDesc</i>.[[Value]] to <i>newLen</i>.</li>
+          <li>Let <i>oldLenDesc</i> be <a href="/sec/sec-ordinarygetownproperty.html">OrdinaryGetOwnProperty</a>(<i>A</i>,
+              <code>&quot;length&quot;</code>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>oldLenDesc</i> will never be <b>undefined</b> or an accessor
+              descriptor because Array objects are created with a length data property that cannot be deleted or
+              reconfigured.</li>
+          <li>Let <i>oldLen</i> be <i>oldLenDesc</i>.[[Value]].</li>
+          <li>If <i>newLen</i> &#x2265;<i>oldLen</i>, then
+            <ol class="block">
+              <li>Return <a href="/sec/sec-ordinarydefineownproperty.html">OrdinaryDefineOwnProperty</a>(<i>A</i>, <code>&quot;length&quot;</code>,
+                  <i>newLenDesc</i>).</li>
+            </ol>
+          </li>
+          <li>If <i>oldLenDesc</i>.[[Writable]] is <b>false</b>, return <b>false</b>.</li>
+          <li>If <i>newLenDesc</i>.[[Writable]] is absent or has the value <b>true</b>, let <i>newWritable</i> be
+              <b>true</b>.</li>
+          <li>Else,
+            <ol class="block">
+              <li>Need to defer setting the [[Writable]] attribute to <b>false</b> in case any elements cannot be deleted.</li>
+              <li>Let <i>newWritable</i> be <b>false</b>.</li>
+              <li>Set <i>newLenDesc</i>.[[Writable]] to <b>true</b>.</li>
+            </ol>
+          </li>
+          <li>Let <i>succeeded</i> be <a href="/sec/sec-ordinarydefineownproperty.html">OrdinaryDefineOwnProperty</a>(<i>A</i>,
+              <code>&quot;length&quot;</code>, <i>newLenDesc</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>succeeded</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+          <li>If <i>succeeded</i> is <b>false</b>, return <b>false</b>.</li>
+          <li>While <i>newLen</i> &lt; <i>oldLen</i> repeat,
+            <ol class="block">
+              <li>Set <i>oldLen</i> to <i>oldLen</i> &#x2013; 1.</li>
+              <li>Let <i>deleteSucceeded</i> be <i>A</i>.[[Delete]](<a href="/sec/sec-tostring.html">ToString</a>(<i>oldLen</i>)).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>deleteSucceeded</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+              <li>If <i>deleteSucceeded</i> is <b>false</b>, then
+                <ol class="block">
+                  <li>Set <i>newLenDesc</i>.[[Value]] to <i>oldLen</i> <i>+</i> 1.</li>
+                  <li>If <i>newWritable</i> is <b>false</b>, set <i>newLenDesc</i>.[[Writable]] to <b>false</b>.</li>
+                  <li>Let <i>succeeded</i> be <a href="/sec/sec-ordinarydefineownproperty.html">OrdinaryDefineOwnProperty</a>(<i>A</i>,
+                      <code>&quot;length&quot;</code>, <i>newLenDesc</i>).</li>
+                  <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>succeeded</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+                  <li>Return <b>false</b>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>newWritable</i> is <b>false</b>, then
+            <ol class="block">
+              <li>Return <a href="/sec/sec-ordinarydefineownproperty.html">OrdinaryDefineOwnProperty</a>(<i>A</i>, <code>&quot;length&quot;</code>,
+                  PropertyDescriptor{[[Writable]]: <b>false</b>}). This call will always return <b>true</b>.</li>
+            </ol>
+          </li>
+          <li>Return <b>true</b>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> In steps 3 and 4, if <span style="font-family: Times New
+          Roman"><i>Desc</i>.[[Value]]</span> is an object then its <code>valueOf</code> method is called twice. This is legacy
+          behaviour that was specified with this effect starting with the 2<sup>nd</sup> Edition of this specification.</p>
+        </div>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

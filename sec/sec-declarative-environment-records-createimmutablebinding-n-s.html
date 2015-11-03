@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-8.1.1.1.3"><a href="/sec/sec-declarative-environment-records-createimmutablebinding-n-s.html" title="link to this section">8.1.1.1.3</a></span> CreateImmutableBinding (N, S)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method
+          CreateImmutableBinding for declarative Environment Records creates a new immutable binding for the name <var>N</var>
+          that is uninitialized. A binding must not already exist in this <a href="/sec/sec-environment-records.html">Environment
+          Record</a> for <var>N</var>. If Boolean argument <var>S</var> is provided and has the value <b>true</b> the new binding
+          is marked as a strict binding.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the declarative <a href="/sec/sec-environment-records.html">Environment Record</a> for which the
+                method was invoked.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>envRec</i> does not already have a binding for <i>N</i>.</li>
+            <li>Create an immutable binding in <i>envRec</i> for <i>N</i> and record that it is uninitialized. If <i>S</i> is
+                <b>true</b> record that the newly created binding is a strict binding.</li>
+            <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+                sans-serif">empty</span>).</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

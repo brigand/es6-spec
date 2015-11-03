@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-7.1.12.1"><a href="/sec/sec-tostring-applied-to-the-number-type.html" title="link to this section">7.1.12.1</a></span> ToString Applied to the Number Type</h1>
+
+        <p class="normalbefore">The abstract operation <a href="/sec/sec-tostring.html">ToString</a> converts a Number <var>m</var> to
+        String format as follows:</p>
+
+        <ol class="proc">
+          <li>If <i>m</i> is <b>NaN</b>, return the String <code>&quot;NaN&quot;</code>.</li>
+          <li>If <i>m</i> is <b>+0</b> or <b>&#x2212;0</b>, return the String <code>&quot;0&quot;</code>.</li>
+          <li>If <i>m</i> is less than zero, return the String concatenation of the String <code>&quot;-&quot;</code> and <a href="/sec/sec-tostring.html">ToString</a>(&#x2212;<i>m</i>).</li>
+          <li>If <i>m</i> is +&#x221E;, return the String <code>&quot;Infinity&quot;</code>.</li>
+          <li>Otherwise, let <i>n</i>, <i>k</i>, and <i>s</i> be integers such that <i>k</i> &#x2265; 1, 10<sup><i>k</i>&#x2212;1</sup>
+              &#x2264; <i>s</i> &lt; 10<sup><i>k</i></sup>, the Number value for <i>s</i> &#xD7; 10<sup><i>n&#x2212;k</i></sup> is
+              <i>m</i>, and <i>k</i> is as small as possible. Note that <i>k</i> is the number of digits in the decimal
+              representation of <i>s</i>, that <i>s</i> is not divisible by 10, and that the least significant digit of <i>s</i>
+              is not necessarily uniquely determined by these criteria.</li>
+          <li>If <i>k</i> &#x2264; <i>n</i> &#x2264; 21, return the String consisting of the code units of the <i>k</i> digits of the
+              decimal representation of <i>s</i> (in order, with no leading zeroes), followed by <i>n&#x2212;k</i> occurrences of
+              the code unit 0x0030 (DIGIT ZERO).</li>
+          <li>If 0 &lt; <i>n</i> &#x2264; 21, return the String consisting of the code units of the most significant <i>n</i> digits
+              of the decimal representation of <i>s</i>, followed by the code unit 0x002E (FULL STOP), followed by the code units
+              of the remaining <i>k&#x2212;n</i> digits of the decimal representation of <i>s</i>.</li>
+          <li>If &#x2212;6 &lt; <i>n</i> &#x2264; 0, return the String consisting of the code unit 0x0030 (DIGIT ZERO), followed by the
+              code unit 0x002E (FULL STOP), followed by &#x2212;<i>n</i> occurrences of the code unit 0x0030 (DIGIT ZERO), followed
+              by the code units of the <i>k</i> digits of the decimal representation of <i>s</i>.</li>
+          <li>Otherwise, if <i>k</i> = 1, return the String consisting of the code unit of the single digit of <i>s</i>, followed
+              by code unit 0x0065 (LATIN SMALL LETTER E), followed by the code unit 0x002B (PLUS SIGN) or the code unit 0x002D
+              (HYPHEN-MINUS) according to whether <i>n</i>&#x2212;1 is positive or negative, followed by the code units of the
+              decimal representation of the integer <a href="/sec/sec-algorithm-conventions.html">abs</a>(<i>n</i>&#x2212;1) (with no
+              leading zeroes).</li>
+          <li>Return the String consisting of the code units of the most significant digit of the decimal representation of
+              <i>s</i>, followed by code unit 0x002E (FULL STOP), followed by the code units of the remaining <i>k</i>&#x2212;1
+              digits of the decimal representation of <i>s</i>, followed by code unit 0x0065 (LATIN SMALL LETTER E), followed by
+              code unit 0x002B (PLUS SIGN) or the code unit 0x002D (HYPHEN-MINUS) according to whether <i>n</i>&#x2212;1 is
+              positive or negative, followed by the code units of the decimal representation of the integer <a href="/sec/sec-algorithm-conventions.html">abs</a>(<i>n</i>&#x2212;1) (with no leading zeroes).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The following observations may be useful as guidelines for implementations, but are
+          not part of the normative requirements of this Standard:</p>
+
+          <ul>
+            <li>
+              <p>If x is any Number value other than <b>&#x2212;0</b>, then <a href="/sec/sec-tonumber.html">ToNumber</a>(<a href="/sec/sec-tostring.html">ToString</a>(x)) is exactly the same Number value as x.</p>
+            </li>
+
+            <li>
+              <p>The least significant digit of s is not always uniquely determined by the requirements listed in step 5.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> For implementations that provide more accurate conversions than required by the rules
+          above, it is recommended that the following alternative version of step 5 be used as a guideline:</p>
+
+          <p class="special4">5.	Otherwise, let <i>n</i>, <i>k</i>, and <i>s</i> be integers such that <i>k</i> &#x2265; 1,
+          10<sup><i>k</i>&#x2212;1</sup> &#x2264; <i>s</i> &lt; 10<sup><i>k</i></sup>, the Number value for <i>s</i> &#xD7;
+          10<sup><i>n</i>&#x2212;<i>k</i></sup> is <i>m</i>, and <i>k</i> is as small as possible. If there are multiple
+          possibilities for <i>s</i>, choose the value of <i>s</i> for which <i>s</i> &#xD7; 10<sup><i>n</i>&#x2212;<i>k</i></sup>
+          is closest in value to <i>m</i>. If there are two such possible values of <i>s</i>, choose the one that is even. Note
+          that <i>k</i> is the number of digits in the decimal representation of <i>s</i> and that <i>s</i> is not divisible by
+          10.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 3</span> Implementers of ECMAScript may find useful the paper and code written by David M. Gay
+          for binary-to-decimal conversion of floating-point numbers:</p>
+
+          <p>Gay, David M. Correctly Rounded Binary-Decimal and Decimal-Binary Conversions. Numerical Analysis, Manuscript 90-10.
+          AT&amp;T Bell Laboratories (Murray Hill, New Jersey). November 30, 1990. Available as<br><a href="http://cm.bell-labs.com/cm/cs/doc/90/4-10.ps.gz">http://cm.bell-labs.com/cm/cs/doc/90/4-10.ps.gz</a>. Associated
+          code available as<br><a href="http://netlib.sandia.gov/fp/dtoa.c">http://netlib.sandia.gov/fp/dtoa.c</a>&#xA0;and&#xA0;as<br><a href="http://netlib.sandia.gov/fp/g_fmt.c">http://netlib.sandia.gov/fp/g_fmt.c</a> and may also be found at the various
+          <code>netlib</code> mirror sites.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

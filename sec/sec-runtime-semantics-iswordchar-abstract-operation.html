@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-21.2.2.6.1"><a href="/sec/sec-runtime-semantics-iswordchar-abstract-operation.html" title="link to this section">21.2.2.6.1</a></span> Runtime Semantics: IsWordChar Abstract Operation</h1>
+
+          <p class="normalbefore">The abstract operation IsWordChar takes an integer parameter <var>e</var> and performs the
+          following steps:</p>
+
+          <ol class="proc">
+            <li>If <i>e</i> is &#x2013;1 or <i>e</i>  is <i>InputLength</i>, return <b>false</b>.</li>
+            <li>Let <i>c</i> be the character <i>Input</i>[<i>e</i>].</li>
+            <li>If <i>c</i> is one of the sixty-three characters below, return <b>true</b>.
+              <figure>
+                <table class="lightweight-table">
+                  <tr>
+                    <td><code>a</code></td>
+                    <td><code>b</code></td>
+                    <td><code>c</code></td>
+                    <td><code>d</code></td>
+                    <td><code>e</code></td>
+                    <td><code>f</code></td>
+                    <td><code>g</code></td>
+                    <td><code>h</code></td>
+                    <td><code>i</code></td>
+                    <td><code>j</code></td>
+                    <td><code>k</code></td>
+                    <td><code>l</code></td>
+                    <td><code>m</code></td>
+                    <td><code>n</code></td>
+                    <td><code>o</code></td>
+                    <td><code>p</code></td>
+                    <td><code>q</code></td>
+                    <td><code>r</code></td>
+                    <td><code>s</code></td>
+                    <td><code>t</code></td>
+                    <td><code>u</code></td>
+                    <td><code>v</code></td>
+                    <td><code>w</code></td>
+                    <td><code>x</code></td>
+                    <td><code>y</code></td>
+                    <td><code>z</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>A</code></td>
+                    <td><code>B</code></td>
+                    <td><code>C</code></td>
+                    <td><code>D</code></td>
+                    <td><code>E</code></td>
+                    <td><code>F</code></td>
+                    <td><code>G</code></td>
+                    <td><code>H</code></td>
+                    <td><code>I</code></td>
+                    <td><code>J</code></td>
+                    <td><code>K</code></td>
+                    <td><code>L</code></td>
+                    <td><code>M</code></td>
+                    <td><code>N</code></td>
+                    <td><code>O</code></td>
+                    <td><code>P</code></td>
+                    <td><code>Q</code></td>
+                    <td><code>R</code></td>
+                    <td><code>S</code></td>
+                    <td><code>T</code></td>
+                    <td><code>U</code></td>
+                    <td><code>V</code></td>
+                    <td><code>W</code></td>
+                    <td><code>X</code></td>
+                    <td><code>Y</code></td>
+                    <td><code>Z</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>0</code></td>
+                    <td><code>1</code></td>
+                    <td><code>2</code></td>
+                    <td><code>3</code></td>
+                    <td><code>4</code></td>
+                    <td><code>5</code></td>
+                    <td><code>6</code></td>
+                    <td><code>7</code></td>
+                    <td><code>8</code></td>
+                    <td><code>9</code></td>
+                    <td><code>_</code></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </table>
+              </figure>
+            </li>
+            <li>Return <b>false</b>.</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

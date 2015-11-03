@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-19.2.3.3"><a href="/sec/sec-function.prototype.call.html" title="link to this section">19.2.3.3</a></span> Function.prototype.call (thisArg , ...args)</h1>
+
+        <p class="normalbefore">When the <code>call</code> method is called on an object <var>func</var> with argument,
+        <var>thisArg</var> and zero or more <var>args</var>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>func</i>) is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>argList</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>If this method was called with more than one argument then in left to right order, starting with the second
+              argument, append each argument as the last element of <i>argList</i>.</li>
+          <li>Perform <a href="/sec/sec-preparefortailcall.html">PrepareForTailCall</a>().</li>
+          <li>Return <a href="/sec/sec-call.html">Call</a>(<i>func</i>, <i>thisArg</i>, <i>argList</i>).</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>call</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The thisArg value is passed without modification as the <b>this</b> value. This is a
+          change from Edition 3, where an <b>undefined</b> or <b>null</b> thisArg is replaced with the global object and <a href="/sec/sec-toobject.html">ToObject</a> is applied to all other values and that result is passed as the <b>this</b> value.
+          Even though the thisArg is passed without modification, non-strict functions still perform these transformations upon
+          entry to the function.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> If <var>func</var> is an arrow function or a <a href="/sec/sec-bound-function-exotic-objects.html">bound function</a> then the <var>thisArg</var> will be ignored by the function
+          [[Call]] in step 5.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

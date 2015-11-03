@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-25.4.1.3.2"><a href="/sec/sec-promise-resolve-functions.html" title="link to this section">25.4.1.3.2</a></span> Promise Resolve Functions</h1>
+
+          <p>A promise resolve function is an anonymous built-in function that has [[Promise]] and [[AlreadyResolved]] internal
+          slots.</p>
+
+          <p class="normalbefore">When a promise resolve function <var>F</var> is called with argument <var>resolution</var>, the
+          following steps are taken:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>F</i> has a [[Promise]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> whose value is an Object.</li>
+            <li>Let <i>promise</i> be the value of <i>F</i>&apos;s [[Promise]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>alreadyResolved</i> be the value of <i>F</i>&apos;s [[AlreadyResolved]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>If <i>alreadyResolved</i>.[[value]] is <b>true</b>, return <b>undefined</b>.</li>
+            <li>Set <i>alreadyResolved</i>.[[value]] to <b>true</b>.</li>
+            <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>resolution</i>, <i>promise</i>) is <b>true</b>, then
+              <ol class="block">
+                <li>Let <i>selfResolutionError</i> be a newly created <b>TypeError</b> object.</li>
+                <li>Return <a href="/sec/sec-rejectpromise.html">RejectPromise</a>(<i>promise</i>, <i>selfResolutionError</i>).</li>
+              </ol>
+            </li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>resolution</i>) is not Object, then
+              <ol class="block">
+                <li>Return <a href="/sec/sec-fulfillpromise.html">FulfillPromise</a>(<i>promise</i>, <i>resolution</i>).</li>
+              </ol>
+            </li>
+            <li>Let <i>then</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>resolution</i>, <code>&quot;then&quot;</code>).</li>
+            <li>If <i>then</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, then
+              <ol class="block">
+                <li>Return <a href="/sec/sec-rejectpromise.html">RejectPromise</a>(<i>promise</i>, <i>then</i>.[[value]]).</li>
+              </ol>
+            </li>
+            <li>Let <i>thenAction</i> be <i>then</i>.[[value]].</li>
+            <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>thenAction</i>) is <b>false</b>, then
+              <ol class="block">
+                <li>Return <a href="/sec/sec-fulfillpromise.html">FulfillPromise</a>(<i>promise</i>, <i>resolution</i>).</li>
+              </ol>
+            </li>
+            <li>Perform <a href="/sec/sec-enqueuejob.html">EnqueueJob</a> (<code>&quot;PromiseJobs&quot;</code>, <a href="/sec/sec-promiseresolvethenablejob.html">PromiseResolveThenableJob</a>, &#xAB;&#x200D;<i>promise</i>,
+                <i>resolution</i>, <i>thenAction</i>&#xBB;)</li>
+            <li>Return <b>undefined</b>.</li>
+          </ol>
+
+          <p>The <code>length</code> property of a promise resolve function is <b>1</b>.</p>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

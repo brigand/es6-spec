@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-12.2.9.4"><a href="/sec/sec-runtime-semantics-substitutionevaluation.html" title="link to this section">12.2.9.4</a></span> Runtime Semantics: SubstitutionEvaluation</h1>
+        <div class="gp prod"><span class="nt">TemplateSpans</span> <span class="geq">:</span> <span class="nt">TemplateTail</span></div>
+        <ol class="proc">
+          <li>Return an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">TemplateSpans</span> <span class="geq">:</span> <span class="nt">TemplateMiddleList</span> <span class="nt">TemplateTail</span></div>
+        <ol class="proc">
+          <li>Return the result of SubstitutionEvaluation of <i>TemplateMiddleList</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">TemplateMiddleList</span> <span class="geq">:</span> <span class="nt">TemplateMiddle</span> <span class="nt">Expression</span></div>
+        <ol class="proc">
+          <li>Let <i>sub</i> be the result of evaluating <i>Expression</i>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>sub</i>).</li>
+          <li>Return a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing only <i>sub</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">TemplateMiddleList</span> <span class="geq">:</span> <span class="nt">TemplateMiddleList</span> <span class="nt">TemplateMiddle</span> <span class="nt">Expression</span></div>
+        <ol class="proc">
+          <li>Let <i>preceding</i> be the result of SubstitutionEvaluation of <i>TemplateMiddleList</i> .</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>preceding</i>).</li>
+          <li>Let <i>next</i>  be the result of evaluating <i>Expression</i>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+          <li>Append <i>next</i> as the last element of the <a href="/sec/sec-list-and-record-specification-type.html">List</a>
+              <i>preceding</i>.</li>
+          <li>Return <i>preceding</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

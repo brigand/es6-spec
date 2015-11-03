@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-9.4.2.2"><a href="/sec/sec-arraycreate.html" title="link to this section">9.4.2.2</a></span>
+            ArrayCreate(length, proto)</h1>
+
+        <p class="normalbefore">The abstract operation ArrayCreate with argument <var>length</var> (a positive integer) and
+        optional argument <var>proto</var> is used to specify the creation of new Array exotic objects. It performs the following
+        steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>length</i> is an integer Number &#x2265; 0.</li>
+          <li>If <i>length</i> is &#x2212;0, let <i>length</i> be +0.</li>
+          <li>If <i>length</i>&gt;2<sup>32</sup>-1, throw a <b>RangeError</b> exception.</li>
+          <li>If the <i>proto</i> argument was not passed, let <i>proto</i> be the intrinsic object <span style="font-family:
+              sans-serif">%ArrayPrototype%</span>.</li>
+          <li>Let <i>A</i> be a newly created <a href="/sec/sec-array-exotic-objects.html">Array exotic object</a>.</li>
+          <li>Set <i>A</i>&#x2019;s essential internal methods except for [[DefineOwnProperty]] to the default ordinary object
+              definitions specified in <a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots.html">9.1</a>.</li>
+          <li>Set the [[DefineOwnProperty]] internal method of <i>A</i> as specified in <a href="/sec/sec-array-exotic-objects-defineownproperty-p-desc.html">9.4.2.1</a>.</li>
+          <li>Set the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>A</i> to
+              <i>proto</i>.</li>
+          <li>Set the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>A</i> to
+              <b>true</b>.</li>
+          <li>Perform <a href="/sec/sec-ordinarydefineownproperty.html">OrdinaryDefineOwnProperty</a>(<i>A</i>, <code>&quot;length&quot;</code>,
+              PropertyDescriptor{[[Value]]: <i>length</i>, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>false</b>,
+              [[Configurable]]: <b>false</b>}).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: the preceding step never produces an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+          <li>Return <i>A</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.2.1"><a href="/sec/sec-requireobjectcoercible.html" title="link to this section">7.2.1</a></span>
+          RequireObjectCoercible ( argument )</h1>
+
+      <p>The abstract operation RequireObjectCoercible throws an error if <var>argument</var> is a value that cannot be converted
+      to an Object using <a href="/sec/sec-toobject.html">ToObject</a>. It is defined by <a href="/sec/table-14.html">Table 14</a>:</p>
+
+      <figure>
+        <figcaption><span id="table-14">Table 14</span>&#xA0;&#x2014; RequireObjectCoercible Results</figcaption>
+        <table class="real-table">
+          <tr>
+            <th>Argument Type</th>
+            <th>Result</th>
+          </tr>
+          <tr>
+            <td><a href="/sec/sec-completion-record-specification-type.html">Completion Record</a></td>
+            <td>If <var>argument</var> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, return <var>argument</var>. Otherwise return RequireObjectCoercible(<var>argument</var>.[[value]]).</td>
+          </tr>
+          <tr>
+            <td>Undefined</td>
+            <td>Throw a <b>TypeError</b> exception.</td>
+          </tr>
+          <tr>
+            <td>Null</td>
+            <td>Throw a <b>TypeError</b> exception.</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>Return <var>argument</var>.</td>
+          </tr>
+          <tr>
+            <td>Number</td>
+            <td>Return <var>argument</var>.</td>
+          </tr>
+          <tr>
+            <td>String</td>
+            <td>Return <var>argument</var>.</td>
+          </tr>
+          <tr>
+            <td>Symbol</td>
+            <td>Return <var>argument</var>.</td>
+          </tr>
+          <tr>
+            <td>Object</td>
+            <td>Return <var>argument</var>.</td>
+          </tr>
+        </table>
+      </figure>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

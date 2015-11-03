@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-25.4.4.1.2"><a href="/sec/sec-promise.all-resolve-element-functions.html" title="link to this section">25.4.4.1.2</a></span> Promise.all Resolve Element Functions</h1>
+
+          <p>A <a href="/sec/sec-promise.all.html">Promise.all</a> resolve element function is an anonymous built-in function that is used
+          to resolve a specific <a href="/sec/sec-promise.all.html">Promise.all</a> element. Each <a href="/sec/sec-promise.all.html">Promise.all</a> resolve element function has [[Index]], [[Values]], [[Capabilities]],
+          [[RemainingElements]], and [[AlreadyCalled]] internal slots.</p>
+
+          <p class="normalbefore">When a <a href="/sec/sec-promise.all.html">Promise.all</a> resolve element function <var>F</var> is
+          called with argument <var>x</var>, the following steps are taken:</p>
+
+          <ol class="proc">
+            <li>Let <i>alreadyCalled</i> be the value of <i>F</i>&apos;s [[AlreadyCalled]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>If <i>alreadyCalled</i>.[[value]] is <b>true</b>, return <b>undefined</b>.</li>
+            <li>Set <i>alreadyCalled</i>.[[value]] to <b>true</b>.</li>
+            <li>Let <i>index</i> be the value of <i>F</i>&apos;s [[Index]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>values</i> be the value of <i>F</i>&apos;s [[Values]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>promiseCapability</i> be the value of <i>F</i>&apos;s [[Capabilities]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>remainingElementsCount</i> be the value of <i>F</i>&apos;s [[RemainingElements]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Set <i>values</i>[<i>index</i>] to <i>x</i>.</li>
+            <li>Set <i>remainingElementsCount</i>.[[value]] to <i>remainingElementsCount</i>.[[value]] - 1.</li>
+            <li>If <i>remainingElementsCount</i>.[[value]] is 0,
+              <ol class="block">
+                <li>Let <i>valuesArray</i> be <a href="/sec/sec-createarrayfromlist.html">CreateArrayFromList</a>(<i>values</i>).</li>
+                <li>Return <a href="/sec/sec-call.html">Call</a>(<i>promiseCapability</i>.[[Resolve]], <b>undefined</b>,
+                    &#xAB;<i>valuesArray</i>&#xBB;).</li>
+              </ol>
+            </li>
+            <li>Return <b>undefined</b>.</li>
+          </ol>
+
+          <p>The <code>length</code> property of a <a href="/sec/sec-promise.all.html">Promise.all</a> resolve element function is
+          <b>1</b>.</p>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

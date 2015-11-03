@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.3.2"><a href="/sec/sec-built-in-function-objects-construct-argumentslist-newtarget.html" title="link to this section">9.3.2</a></span> [[Construct]] (argumentsList, newTarget)</h1>
+
+      <p class="normalbefore">The [[Construct]] internal method for built-in function object <var>F</var> is called with
+      parameters <var>argumentsList</var> and <var>newTarget</var>. The steps performed are the same as [[Call]] (<a href="/sec/sec-built-in-function-objects-call-thisargument-argumentslist.html">see 9.3.1</a>) except that step 9 is replaced by:</p>
+
+      <p class="special1" style="-ooxml-indentation: 18.0pt">9.	Let <i>result</i> be the <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> that is the result of evaluating <i>F</i> in an
+      implementation defined manner that conforms to the specification of <i>F</i>. The <b>this</b> value is uninitialized,
+      <i>argumentsList</i> provides the named parameters, and <i>newTarget</i> provides the NewTarget value.</p>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

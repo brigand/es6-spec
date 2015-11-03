@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-20.3.2"><a href="/sec/sec-date-constructor.html" title="link to this section">20.3.2</a></span>
+            The Date Constructor</h1>
+
+        <p>The Date constructor is the %Date% intrinsic object and the initial value of the <code>Date</code> property of the
+        global object. When called as a constructor it creates and initializes a new Date object. When <code>Date</code> is called
+        as a function rather than as a constructor, it returns a String representing the current time (UTC).</p>
+
+        <p>The <code>Date</code> constructor is a single function whose behaviour is overloaded based upon the number and types of
+        its arguments.</p>
+
+        <p>The <code>Date</code> constructor is designed to be subclassable. It may be used as the value of an
+        <code>extends</code> clause of a class definition. Subclass constructors that intend to inherit the specified
+        <code>Date</code> behaviour must include a <code>super</code> call to the <code>Date</code> constructor to create and
+        initialize the subclass instance with a [[DateValue]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+        slot</a>.</p>
+      </div>
+
+      <section id="sec-date-year-month-date-hours-minutes-seconds-ms">
+        <h1><span class="secnum" id="sec-20.3.2.1"><a href="/sec/sec-date-year-month-date-hours-minutes-seconds-ms.html" title="link to this section">20.3.2.1</a></span> Date ( year, month [, date [ , hours [ , minutes [ , seconds [ , ms ]
+            ] ] ] ] )</h1>
+
+        <p>This description applies only if the Date constructor is called with at least two arguments.</p>
+
+        <p class="normalbefore">When the <code>Date</code> function is called the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>numberOfArgs</i> be the number of arguments passed to this function call.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>numberOfArgs</i> &#x2265; 2.</li>
+          <li>If NewTarget is not <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>y</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>year</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>y</i>).</li>
+              <li>Let <i>m</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>month</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>m</i>).</li>
+              <li>If <i>date</i> is supplied, let <i>dt</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>date</i>); else let
+                  <i>dt</i> be <b>1</b>.</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>dt</i>).</li>
+              <li>If <i>hours</i> is supplied, let <i>h</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>hours</i>); else let
+                  <i>h</i> be <b>0</b>.</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>h</i>).</li>
+              <li>If <i>minutes</i> is supplied, let <i>min</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>minutes</i>); else let
+                  <i>min</i> be <b>0</b>.</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>min</i>).</li>
+              <li>If <i>seconds</i> is supplied, let <i>s</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>seconds</i>); else let
+                  <i>s</i> be <b>0</b>.</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>s</i>).</li>
+              <li>If <i>ms</i> is supplied, let <i>milli</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>ms</i>); else let
+                  <i>milli</i> be <b>0</b>.</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>milli</i>).</li>
+              <li>If&#xA0;<i>y</i>&#xA0;is&#xA0;not&#xA0;<b>NaN</b>&#xA0;and&#xA0;0&#xA0;&#x2264;&#xA0;<a href="/sec/sec-tointeger.html">ToInteger</a>(<i>y</i>)&#xA0;&#x2264;&#xA0;99, let <i>yr</i> be&#xA0;1900+<a href="/sec/sec-tointeger.html">ToInteger</a>(<i>y</i>); otherwise, let <i>yr</i> be <i>y</i>.</li>
+              <li>Let <i>finalDate</i> be  <a href="/sec/sec-makedate.html">MakeDate</a>(<a href="/sec/sec-makeday.html">MakeDay</a>(<i>yr</i>,
+                  <i>m</i>, <i>dt</i>), <a href="/sec/sec-maketime.html">MakeTime</a>(<i>h</i>, <i>min</i>, <i>s</i>, <i>milli</i>)).</li>
+              <li>Let <i>O</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(NewTarget,
+                  <code>&quot;%DatePrototype%&quot;</code>, &#xAB;&#x200D; [[DateValue]]&#xBB;).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+              <li>Set the [[DateValue]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i> to
+                  <a href="/sec/sec-timeclip.html">TimeClip</a>(<a href="/sec/sec-utc-t.html">UTC</a>(<i>finalDate</i>)).</li>
+              <li>Return <i>O</i>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>now</i> be the Number that is the <a href="/sec/sec-time-values-and-time-range.html">time value</a> (UTC)
+                  identifying the current time.</li>
+              <li>Return <a href="/sec/sec-todatestring.html">ToDateString</a> (<i>now</i>).</li>
+            </ol>
+          </li>
+        </ol>
+      </section>
+
+      <section id="sec-date-value">
+        <h1><span class="secnum" id="sec-20.3.2.2"><a href="/sec/sec-date-value.html" title="link to this section">20.3.2.2</a></span> Date
+            ( value )</h1>
+
+        <p>This description applies only if the Date constructor is called with exactly one argument.</p>
+
+        <p class="normalbefore">When the <code>Date</code> function is called the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>numberOfArgs</i> be the number of arguments passed to this function call.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>numberOfArgs</i> = 1.</li>
+          <li>If NewTarget is not <b>undefined</b>, then
+            <ol class="block">
+              <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is Object and  <i>value</i> has a
+                  [[DateValue]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, then
+                <ol class="block">
+                  <li>Let <i>tv</i> be thisTimeValue(<i>value</i>).</li>
+                </ol>
+              </li>
+              <li>Else,
+                <ol class="block">
+                  <li>Let <i>v</i> be <a href="/sec/sec-toprimitive.html">ToPrimitive</a>(<i>value</i>).</li>
+                  <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>v</i>) is String, then
+                    <ol class="block">
+                      <li>Let <i>tv</i> be the result of parsing <i>v</i> as a date, in exactly the same manner as for the
+                          <code>parse</code> method (<a href="/sec/sec-date.parse.html">20.3.3.2</a>). If the parse resulted in an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, <i>tv</i> is the <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a>.</li>
+                    </ol>
+                  </li>
+                  <li>Else,
+                    <ol class="block">
+                      <li>Let <i>tv</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>v</i>).</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>tv</i>).</li>
+              <li>Let <i>O</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(NewTarget,
+                  <code>&quot;%DatePrototype%&quot;</code>, &#xAB;&#x200D; [[DateValue]]&#xBB;).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+              <li>Set the [[DateValue]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i> to
+                  <a href="/sec/sec-timeclip.html">TimeClip</a>(<i>tv</i>).</li>
+              <li>Return <i>O</i>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>now</i> be the Number that is the <a href="/sec/sec-time-values-and-time-range.html">time value</a> (UTC)
+                  identifying the current time.</li>
+              <li>Return <a href="/sec/sec-todatestring.html">ToDateString</a> (<i>now</i>).</li>
+            </ol>
+          </li>
+        </ol>
+      </section>
+
+      <section id="sec-date-constructor-date">
+        <h1><span class="secnum" id="sec-20.3.2.3"><a href="/sec/sec-date-constructor-date.html" title="link to this section">20.3.2.3</a></span> Date ( )</h1>
+
+        <p>This description applies only if the Date constructor is called with no arguments.</p>
+
+        <p class="normalbefore">When the <code>Date</code> function is called the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>numberOfArgs</i> be the number of arguments passed to this function call.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>numberOfArgs</i> = 0.</li>
+          <li>If NewTarget is not <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>O</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(NewTarget,
+                  <code>&quot;%DatePrototype%&quot;</code>, &#xAB;&#x200D; [[DateValue]]&#xBB;).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+              <li>Set the [[DateValue]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i> to
+                  the <a href="/sec/sec-time-values-and-time-range.html">time value</a> (UTC) identifying the current time.</li>
+              <li>Return <i>O</i>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>now</i> be the Number that is the <a href="/sec/sec-time-values-and-time-range.html">time value</a> (UTC)
+                  identifying the current time.</li>
+              <li>Return <a href="/sec/sec-todatestring.html">ToDateString</a> (<i>now</i>).</li>
+            </ol>
+          </li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-23.1.5.1"><a href="/sec/sec-createmapiterator.html" title="link to this section">23.1.5.1</a></span> CreateMapIterator Abstract Operation</h1>
+
+        <p class="normalbefore">Several methods of Map objects return Iterator objects. The abstract operation CreateMapIterator
+        with arguments <var>map</var> and <var>kind</var> is used to create such iterator objects. It performs the following
+        steps:</p>
+
+        <ol class="proc">
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>map</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>map</i> does not have a [[MapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>iterator</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(%MapIteratorPrototype%, &#xAB;&#x200D;[[Map]],
+              [[MapNextIndex]], [[MapIterationKind]]&#xBB;).</li>
+          <li>Set <i>iterator&#x2019;s</i> [[Map]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <i>map</i>.</li>
+          <li>Set <i>iterator&#x2019;s</i> [[MapNextIndex]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to 0.</li>
+          <li>Set <i>iterator&#x2019;s</i> [[MapIterationKind]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to <i>kind</i>.</li>
+          <li>Return <i>iterator</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-12.1.6"><a href="/sec/sec-identifiers-runtime-semantics-evaluation.html" title="link to this section">12.1.6</a></span> Runtime Semantics: Evaluation</h1>
+      <div class="gp prod"><span class="nt">IdentifierReference</span> <span class="geq">:</span> <span class="nt">Identifier</span></div>
+      <ol class="proc">
+        <li>Return <a href="/sec/sec-resolvebinding.html">ResolveBinding</a>(StringValue of <i>Identifier</i>).</li>
+      </ol>
+      <div class="gp prod"><span class="nt">IdentifierReference</span> <span class="geq">:</span> <code class="t">yield</code></div>
+      <ol class="proc">
+        <li>Return <a href="/sec/sec-resolvebinding.html">ResolveBinding</a>(<code>&quot;yield&quot;</code>).</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE 1</span> The result of evaluating an <span class="nt">IdentifierReference</span> is always a
+        value of type <a href="/sec/sec-reference-specification-type.html">Reference</a>.</p>
+      </div>
+
+      <div class="note">
+        <p><span class="nh">NOTE 2</span> In non-<a href="/sec/sec-strict-mode-code.html">strict code</a>, the keyword <code>yield</code>
+        may be used as an identifier. Evaluating the <span class="nt">IdentifierReference</span> production resolves the binding
+        of <code>yield</code> as if it was an <span class="nt">Identifier</span>. Early Error restriction ensures that such an
+        evaluation only can occur for non-<a href="/sec/sec-strict-mode-code.html">strict code</a>. See <a href="/sec/sec-let-and-const-declarations.html">13.3.1</a> for the handling of <code>yield</code> in binding creation contexts.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

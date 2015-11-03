@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-12.1"><a href="/sec/sec-identifiers.html" title="link to this section">12.1</a></span>
+          Identifiers</h1>
+
+      <p><b>Syntax</b></p>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">IdentifierReference</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">Identifier</span></div>
+        <div class="rhs"><span class="grhsannot">[~Yield]</span> <code class="t">yield</code></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">BindingIdentifier</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">Identifier</span></div>
+        <div class="rhs"><span class="grhsannot">[~Yield]</span> <code class="t">yield</code></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">LabelIdentifier</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">Identifier</span></div>
+        <div class="rhs"><span class="grhsannot">[~Yield]</span> <code class="t">yield</code></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">Identifier</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">IdentifierName</span> <span class="grhsmod">but not</span> <span class="nt">ReservedWord</span></div>
+      </div>
+    </div>
+
+    <section id="sec-identifiers-static-semantics-early-errors">
+      <h1><span class="secnum" id="sec-12.1.1"><a href="/sec/sec-identifiers-static-semantics-early-errors.html" title="link to this section">12.1.1</a></span> Static Semantics:  Early Errors</h1>
+      <div class="gp prod"><span class="nt">BindingIdentifier</span> <span class="geq">:</span> <span class="nt">Identifier</span></div>
+      <ul>
+        <li>
+          <p>It is a Syntax Error if the code matched by this production is contained in <a href="/sec/sec-strict-mode-code.html">strict
+          mode code</a> and the StringValue of <span class="nt">Identifier</span> is <code>&quot;arguments&quot;</code> or
+          <code>&quot;eval&quot;</code>.</p>
+        </li>
+      </ul>
+
+      <p><span class="prod"><span class="nt">IdentifierReference</span> <span class="geq">:</span> <code class="t">yield</code></span><br><span class="prod"><span class="nt">BindingIdentifier</span> <span class="geq">:</span>
+      <code class="t">yield</code></span><br><span class="prod"><span class="nt">LabelIdentifier</span> <span class="geq">:</span>
+      <code class="t">yield</code></span></p>
+
+      <ul>
+        <li>
+          <p>It is a Syntax Error if the code matched by this production is contained in <a href="/sec/sec-strict-mode-code.html">strict
+          mode code</a><var>.</var></p>
+        </li>
+      </ul>
+
+      <p><i>IdentifierReference</i><span style="font-family: sans-serif"><sub>[Yield]</sub> <b>:</b></span>  <i>Identifier</i>
+      <span style="font-family: sans-serif"><br></span><i>BindingIdentifier</i><span style="font-family:
+      sans-serif"><sub>[Yield]</sub> <b>:</b></span>  <i>Identifier</i>  <span style="font-family:
+      sans-serif"><br></span><i>LabelIdentifier</i><span style="font-family: sans-serif"><sub>[Yield]</sub> <b>:</b></span>
+      <i>Identifier</i></p>
+
+      <ul>
+        <li>
+          <p>It is a Syntax Error if this production has a <sub>[Yield]</sub> parameter and StringValue of <span class="nt">Identifier</span> is <code>&quot;yield&quot;</code>.</p>
+        </li>
+      </ul>
+      <div class="gp prod"><span class="nt">Identifier</span> <span class="geq">:</span> <span class="nt">IdentifierName</span> <span class="grhsmod">but not</span> <span class="nt">ReservedWord</span></div>
+      <ul>
+        <li>
+          <p>It is a Syntax Error if this phrase is contained in <a href="/sec/sec-strict-mode-code.html">strict mode code</a> and the
+          StringValue of <span class="nt">IdentifierName</span> is: <code>&quot;implements&quot;</code>, <code>&quot;interface&quot;</code>,
+          <code>&quot;let&quot;</code>, <code>&quot;package&quot;</code>, <code>&quot;private&quot;</code>, <code>&quot;protected&quot;</code>, <code>&quot;public&quot;</code>,
+          <code>&quot;static&quot;</code>, or <code>&quot;yield&quot;</code>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if StringValue of <span class="nt">IdentifierName</span> is the same String value as the
+          StringValue of any <span class="nt">ReservedWord</span> except for <code>yield</code>.</p>
+        </li>
+      </ul>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span>  StringValue of <span class="nt">IdentifierName</span> normalizes any Unicode escape
+        sequences in <span class="nt">IdentifierName</span> hence such escapes cannot be used to write an <span class="nt">Identifier</span> whose code point sequence is the same as a <span class="nt">ReservedWord</span>.</p>
+      </div>
+    </section>
+
+    <section id="sec-identifiers-static-semantics-boundnames">
+      <h1><span class="secnum" id="sec-12.1.2"><a href="/sec/sec-identifiers-static-semantics-boundnames.html" title="link to this section">12.1.2</a></span> Static Semantics: BoundNames</h1>
+
+      <p>See also: <a href="/sec/sec-let-and-const-declarations-static-semantics-boundnames.html">13.3.1.2</a>, <a href="/sec/sec-variable-statement-static-semantics-boundnames.html">13.3.2.1</a>, <a href="/sec/sec-destructuring-binding-patterns-static-semantics-boundnames.html">13.3.3.1</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-boundnames.html">13.7.5.2</a>, <a href="/sec/sec-function-definitions-static-semantics-boundnames.html">14.1.3</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-boundnames.html">14.2.2</a>, <a href="/sec/sec-generator-function-definitions-static-semantics-boundnames.html">14.4.2</a>, <a href="/sec/sec-class-definitions-static-semantics-boundnames.html">14.5.2</a>, <a href="/sec/sec-imports-static-semantics-boundnames.html">15.2.2.2</a>, <a href="/sec/sec-exports-static-semantics-boundnames.html">15.2.3.2</a>.</p>
+
+      <div class="gp prod"><span class="nt">BindingIdentifier</span> <span class="geq">:</span> <span class="nt">Identifier</span></div>
+      <ol class="proc">
+        <li>Return a new <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the StringValue of
+            <i>Identifier</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">BindingIdentifier</span> <span class="geq">:</span> <code class="t">yield</code></div>
+      <ol class="proc">
+        <li>Return a new <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing <code>&quot;yield&quot;</code>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-identifiers-static-semantics-isvalidsimpleassignmenttarget">
+      <h1><span class="secnum" id="sec-12.1.3"><a href="/sec/sec-identifiers-static-semantics-isvalidsimpleassignmenttarget.html" title="link to this section">12.1.3</a></span> Static Semantics:  IsValidSimpleAssignmentTarget</h1>
+
+      <p>See also: <a href="/sec/sec-semantics-static-semantics-isvalidsimpleassignmenttarget.html">12.2.1.5</a>, <a href="/sec/sec-grouping-operator-static-semantics-isvalidsimpleassignmenttarget.html">12.2.10.3</a>, <a href="/sec/sec-static-semantics-static-semantics-isvalidsimpleassignmenttarget.html">12.3.1.5</a>, <a href="/sec/sec-postfix-expressions-static-semantics-isvalidsimpleassignmenttarget.html">12.4.3</a>, <a href="/sec/sec-unary-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.5.3</a>, <a href="/sec/sec-multiplicative-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.6.2</a>, <a href="/sec/sec-additive-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.7.2</a>, <a href="/sec/sec-bitwise-shift-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.8.2</a>, <a href="/sec/sec-relational-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.9.2</a>, <a href="/sec/sec-equality-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.10.2</a>, <a href="/sec/sec-binary-bitwise-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.11.2</a>, <a href="/sec/sec-binary-logical-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.12.2</a>, <a href="/sec/sec-conditional-operator-static-semantics-isvalidsimpleassignmenttarget.html">12.13.2</a>, <a href="/sec/sec-assignment-operators-static-semantics-isvalidsimpleassignmenttarget.html">12.14.3</a>, <a href="/sec/sec-comma-operator-static-semantics-isvalidsimpleassignmenttarget.html">12.15.2</a>.</p>
+
+      <div class="gp prod"><span class="nt">IdentifierReference</span> <span class="geq">:</span> <span class="nt">Identifier</span></div>
+      <ol class="proc">
+        <li>If this <i>IdentifierReference</i> is contained in <a href="/sec/sec-strict-mode-code.html">strict mode code</a> and
+            StringValue of <i>Identifier</i> is <code>&quot;eval&quot;</code> or <code>&quot;arguments&quot;</code>, return <b>false</b>.</li>
+        <li>Return <b>true</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">IdentifierReference</span> <span class="geq">:</span> <code class="t">yield</code></div>
+      <ol class="proc">
+        <li>Return <b>true</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-identifiers-static-semantics-stringvalue">
+      <h1><span class="secnum" id="sec-12.1.4"><a href="/sec/sec-identifiers-static-semantics-stringvalue.html" title="link to this section">12.1.4</a></span> Static Semantics: <span class="nt">StringValue</span></h1>
+
+      <p>See also: <a href="/sec/sec-identifier-names-static-semantics-stringvalue.html">11.6.1.2</a>, <a href="/sec/sec-string-literals-static-semantics-stringvalue.html">11.8.4.2</a>.</p>
+
+      <p><span class="prod"><span class="nt">IdentifierReference</span> <span class="geq">:</span> <code class="t">yield</code></span><br><span class="prod"><span class="nt">BindingIdentifier</span> <span class="geq">:</span>
+      <code class="t">yield</code></span><br><span class="prod"><span class="nt">LabelIdentifier</span> <span class="geq">:</span>
+      <code class="t">yield</code></span></p>
+
+      <ol class="proc">
+        <li>Return <code>&quot;yield&quot;</code>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">Identifier</span> <span class="geq">:</span> <span class="nt">IdentifierName</span> <span class="grhsmod">but not</span> <span class="nt">ReservedWord</span></div>
+      <ol class="proc">
+        <li>Return the StringValue of <i>IdentifierName</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-identifiers-runtime-semantics-bindinginitialization">
+      <div class="front">
+        <h1><span class="secnum" id="sec-12.1.5"><a href="/sec/sec-identifiers-runtime-semantics-bindinginitialization.html" title="link to this section">12.1.5</a></span> Runtime Semantics: BindingInitialization</h1>
+
+        <p>With arguments <var>value</var> and <var>environment</var>.</p>
+
+        <p>See also: <a href="/sec/sec-destructuring-binding-patterns-runtime-semantics-bindinginitialization.html">13.3.3.5</a>, <a href="/sec/sec-for-in-and-for-of-statements-runtime-semantics-bindinginitialization.html">13.7.5.9</a>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> <b>undefined</b> is passed for <var>environment</var> to indicate that a <a href="/sec/sec-putvalue.html">PutValue</a> operation should be used to assign the initialization value. This is the case for
+          <code>var</code> statements and formal parameter lists of some non-strict functions (See <a href="/sec/sec-functiondeclarationinstantiation.html">9.2.12</a>). In those cases a lexical binding is hoisted and preinitialized
+          prior to evaluation of its initializer.</p>
+        </div>
+
+        <div class="gp prod"><span class="nt">BindingIdentifier</span> <span class="geq">:</span> <span class="nt">Identifier</span></div>
+        <ol class="proc">
+          <li>Let <i>name</i> be StringValue of <i>Identifier</i>.</li>
+          <li>Return <a href="/sec/sec-initializeboundname.html">InitializeBoundName</a>( <i>name</i>, <i>value</i>,
+              <i>environment</i>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingIdentifier</span> <span class="geq">:</span> <code class="t">yield</code></div>
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-initializeboundname.html">InitializeBoundName</a>(<code>&quot;yield&quot;</code>, <i>value</i>,
+              <i>environment</i>).</li>
+        </ol>
+      </div>
+
+      <section id="sec-initializeboundname">
+        <h1><span class="secnum" id="sec-12.1.5.1"><a href="/sec/sec-initializeboundname.html" title="link to this section">12.1.5.1</a></span> Runtime Semantics: InitializeBoundName(name, value, environment)</h1>
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>name</i>) is String.</li>
+          <li>If <i>environment</i> is not <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>env</i> be the <a href="/sec/sec-lexical-environments.html">EnvironmentRecord</a> component of
+                  <i>environment</i>.</li>
+              <li>Perform <i>env</i>.InitializeBinding(<i>name</i>, <i>value</i>).</li>
+              <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+            </ol>
+          </li>
+          <li>Else
+            <ol class="block">
+              <li>Let <i>lhs</i> be <a href="/sec/sec-resolvebinding.html">ResolveBinding</a>(<i>name</i>).</li>
+              <li>Return <a href="/sec/sec-putvalue.html">PutValue</a>(<i>lhs</i>, <i>value</i>).</li>
+            </ol>
+          </li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-identifiers-runtime-semantics-evaluation">
+      <h1><span class="secnum" id="sec-12.1.6"><a href="/sec/sec-identifiers-runtime-semantics-evaluation.html" title="link to this section">12.1.6</a></span> Runtime Semantics: Evaluation</h1>
+      <div class="gp prod"><span class="nt">IdentifierReference</span> <span class="geq">:</span> <span class="nt">Identifier</span></div>
+      <ol class="proc">
+        <li>Return <a href="/sec/sec-resolvebinding.html">ResolveBinding</a>(StringValue of <i>Identifier</i>).</li>
+      </ol>
+      <div class="gp prod"><span class="nt">IdentifierReference</span> <span class="geq">:</span> <code class="t">yield</code></div>
+      <ol class="proc">
+        <li>Return <a href="/sec/sec-resolvebinding.html">ResolveBinding</a>(<code>&quot;yield&quot;</code>).</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE 1</span> The result of evaluating an <span class="nt">IdentifierReference</span> is always a
+        value of type <a href="/sec/sec-reference-specification-type.html">Reference</a>.</p>
+      </div>
+
+      <div class="note">
+        <p><span class="nh">NOTE 2</span> In non-<a href="/sec/sec-strict-mode-code.html">strict code</a>, the keyword <code>yield</code>
+        may be used as an identifier. Evaluating the <span class="nt">IdentifierReference</span> production resolves the binding
+        of <code>yield</code> as if it was an <span class="nt">Identifier</span>. Early Error restriction ensures that such an
+        evaluation only can occur for non-<a href="/sec/sec-strict-mode-code.html">strict code</a>. See <a href="/sec/sec-let-and-const-declarations.html">13.3.1</a> for the handling of <code>yield</code> in binding creation contexts.</p>
+      </div>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.1.1.1"><a href="/sec/sec-string-constructor-string-value.html" title="link to this section">21.1.1.1</a></span> String ( value )</h1>
+
+        <p class="normalbefore">When <code>String</code> is called with argument <var>value</var>, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>If no arguments were passed to this function invocation, let <i>s</i> be <code>&quot;&quot;</code>.</li>
+          <li>Else,
+            <ol class="block">
+              <li>If NewTarget is <b>undefined</b> and <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is
+                  Symbol, return <a href="/sec/sec-symboldescriptivestring.html">SymbolDescriptiveString</a>(<i>value</i>).</li>
+              <li>Let <i>s</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>value</i>).</li>
+            </ol>
+          </li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>s</i>).</li>
+          <li>If NewTarget is <b>undefined</b><i>,</i> return <i>s</i>.</li>
+          <li>Return <a href="/sec/sec-stringcreate.html">StringCreate</a>(<i>s</i>, <a href="/sec/sec-getprototypefromconstructor.html">GetPrototypeFromConstructor</a>(NewTarget,
+              <code>&quot;%StringPrototype%&quot;</code>)).</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>String</code> function is <b>1</b>.</p>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

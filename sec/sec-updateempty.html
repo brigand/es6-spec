@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-6.2.2.5"><a href="/sec/sec-updateempty.html" title="link to this section">6.2.2.5</a></span>
+            UpdateEmpty ( completionRecord, value)</h1>
+
+        <p class="normalbefore">The abstract operation UpdateEmpty with arguments <var>completionRecord</var> and <var>value</var>
+        performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: if <i>completionRecord</i>.[[type]] is <span style="font-family:
+              sans-serif">throw</span> then <i>completionRecord</i>.[[value]] is not <span style="font-family:
+              sans-serif">empty</span>.</li>
+          <li>If <i>completionRecord</i>.[[type]] is <span style="font-family: sans-serif">throw</span>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>completionRecord</i>).</li>
+          <li>If <i>completionRecord</i>.[[value]] is not <span style="font-family: sans-serif">empty</span>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>completionRecord</i>).</li>
+          <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]:
+              <i>completionRecord</i>.[[type]], [[value]]: <i>value</i>, [[target]]: <i>completionRecord</i>.[[target]] }.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

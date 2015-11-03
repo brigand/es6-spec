@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-13.3.3.5"><a href="/sec/sec-destructuring-binding-patterns-runtime-semantics-bindinginitialization.html" title="link to this section">13.3.3.5</a></span> Runtime Semantics: BindingInitialization</h1>
+
+        <p>With parameters <var>value</var> and <var>environment</var>.</p>
+
+        <p>See also: <a href="/sec/sec-identifiers-runtime-semantics-bindinginitialization.html">12.1.5</a>, <a href="/sec/sec-for-in-and-for-of-statements-runtime-semantics-bindinginitialization.html">13.7.5.9</a>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> When <b>undefined</b> is passed for <var>environment</var> it indicates that a <a href="/sec/sec-putvalue.html">PutValue</a> operation should be used to assign the initialization value. This is the case for
+          formal parameter lists of non-strict functions. In that case the formal parameter bindings are preinitialized in order
+          to deal with the possibility of multiple parameters with the same name.</p>
+        </div>
+
+        <div class="gp prod"><span class="nt">BindingPattern</span> <span class="geq">:</span> <span class="nt">ObjectBindingPattern</span></div>
+        <ol class="proc">
+          <li>Let  <i>valid</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<i>value</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>valid</i>).</li>
+          <li>Return the result of performing BindingInitialization for <i>ObjectBindingPattern</i> using <i>value</i> and
+              <i>environment</i> as arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingPattern</span> <span class="geq">:</span> <span class="nt">ArrayBindingPattern</span></div>
+        <ol class="proc">
+          <li>Let <i>iterator</i> be <a href="/sec/sec-getiterator.html">GetIterator</a>(<i>value</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>iterator</i>).</li>
+          <li>Let <i>iteratorRecord</i> be Record {[[iterator]]: <i>iterator</i>, [[done]]: <b>false</b>}.</li>
+          <li>Let <i>result</i> be IteratorBindingInitialization for <i>ArrayBindingPattern</i> using <i>iteratorRecord</i>, and
+              <i>environment</i> as arguments.</li>
+          <li>If <i>iteratorRecord</i>.[[done]] is <b>false</b>, return <a href="/sec/sec-iteratorclose.html">IteratorClose</a>(<i>iterator</i>, <i>result</i>).</li>
+          <li>Return <i>result</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ObjectBindingPattern</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+              sans-serif">empty</span>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingPropertyList</span> <span class="geq">:</span> <span class="nt">BindingPropertyList</span> <code class="t">,</code> <span class="nt">BindingProperty</span></div>
+        <ol class="proc">
+          <li>Let <i>status</i> be the result of performing BindingInitialization for <i>BindingPropertyList</i> using
+              <i>value</i> and <i>environment</i> as arguments.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          <li>Return the result of performing BindingInitialization for <i>BindingProperty</i> using <i>value</i> and
+              <i>environment</i> as arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingProperty</span> <span class="geq">:</span> <span class="nt">SingleNameBinding</span></div>
+        <ol class="proc">
+          <li>Let <i>name</i> be the string that is the only element of BoundNames of <i>SingleNameBinding</i>.</li>
+          <li>Return the result of performing KeyedBindingInitialization for <i>SingleNameBinding</i> using  <i>value</i>,
+              <i>environment</i>, and <i>name</i> as the arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingProperty</span> <span class="geq">:</span> <span class="nt">PropertyName</span> <code class="t">:</code> <span class="nt">BindingElement</span></div>
+        <ol class="proc">
+          <li>Let <i>P</i> be the result of evaluating <i>PropertyName</i></li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>P</i>).</li>
+          <li>Return the result of performing KeyedBindingInitialization for <i>BindingElement</i> using <i>value</i>,
+              <i>environment</i>, and <i>P</i> as arguments.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

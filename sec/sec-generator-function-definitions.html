@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-14.4"><a href="/sec/sec-generator-function-definitions.html" title="link to this section">14.4</a></span> Generator Function Definitions</h1>
+      <h2>Syntax</h2>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">GeneratorMethod</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">*</code> <span class="nt">PropertyName</span><sub class="g-params">[?Yield]</sub> <code class="t">(</code> <span class="nt">StrictFormalParameters</span><sub class="g-params">[Yield]</sub> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">GeneratorDeclaration</span><sub class="g-params">[Yield, Default]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">function</code> <code class="t">*</code> <span class="nt">BindingIdentifier</span><sub class="g-params">[?Yield]</sub> <code class="t">(</code> <span class="nt">FormalParameters</span><sub class="g-params">[Yield]</sub> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+        <div class="rhs"><span class="grhsannot">[+Default]</span> <code class="t">function</code> <code class="t">*</code> <code class="t">(</code> <span class="nt">FormalParameters</span><sub class="g-params">[Yield]</sub> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">GeneratorExpression</span> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">function</code> <code class="t">*</code> <span class="nt">BindingIdentifier</span><sub class="g-params">[Yield]</sub><sub class="g-opt">opt</sub> <code class="t">(</code> <span class="nt">FormalParameters</span><sub class="g-params">[Yield]</sub> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">GeneratorBody</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">FunctionBody</span><sub class="g-params">[Yield]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">YieldExpression</span><sub class="g-params">[In]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">yield</code></div>
+        <div class="rhs"><code class="t">yield</code> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <span class="nt">AssignmentExpression</span><sub class="g-params">[?In, Yield]</sub></div>
+        <div class="rhs"><code class="t">yield</code> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <code class="t">*</code> <span class="nt">AssignmentExpression</span><sub class="g-params">[?In, Yield]</sub></div>
+      </div>
+
+      <div class="note">
+        <p><span class="nh">NOTE 1</span> The syntactic context immediately following <code>yield</code> requires use of the <span class="nt">InputElementRegExpOrTemplateTail</span> lexical goal.</p>
+      </div>
+
+      <div class="note">
+        <p><span class="nh">NOTE 2</span> <span class="nt">YieldExpression</span> cannot be used within the <span class="nt">FormalParameters</span> of a generator function because any expressions that are part of <span class="nt">FormalParameters</span> are evaluated before the resulting generator object is in a resumable state.</p>
+      </div>
+
+      <div class="note">
+        <p><span class="nh">NOTE 3</span> Abstract operations relating to generator objects are defined in <a href="/sec/sec-generator-abstract-operations.html">25.3.3</a>.</p>
+      </div>
+    </div>
+
+    <section id="sec-generator-function-definitions-static-semantics-early-errors">
+      <h1><span class="secnum" id="sec-14.4.1"><a href="/sec/sec-generator-function-definitions-static-semantics-early-errors.html" title="link to this section">14.4.1</a></span> Static Semantics:  Early Errors</h1>
+      <div class="gp prod"><span class="nt">GeneratorMethod</span> <span class="geq">:</span> <code class="t">*</code> <span class="nt">PropertyName</span> <code class="t">(</code> <span class="nt">StrictFormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ul>
+        <li>
+          <p>It is a Syntax Error if HasDirectSuper of <span class="nt">GeneratorMethod</span>  is <span style="font-family: Times
+          New Roman"><b><i>true</i></b></span>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if <span class="nt">StrictFormalParameters</span> Contains <span class="nt">YieldExpression</span> is <span style="font-family: Times New Roman"><b><i>true</i></b></span>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if any element of the <span style="font-family: Times New Roman">BoundNames</span> of <span class="nt">StrictFormalParameters</span> also occurs in the <span style="font-family: Times New
+          Roman">LexicallyDeclaredNames</span> of <span class="nt">GeneratorBody</span>.</p>
+        </li>
+      </ul>
+      <div class="gp prod"><span class="nt">GeneratorDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">*</code> <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ul>
+        <li>It is a Syntax Error if HasDirectSuper of <span class="nt">GeneratorDeclaration</span> is <span style="font-family:
+            Times New Roman"><b><i>true</i></b></span>.</li>
+      </ul>
+      <div class="gp prod"><span class="nt">GeneratorExpression</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">*</code> <span class="nt">BindingIdentifier</span><sub class="g-opt">opt</sub> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ul>
+        <li>It is a Syntax Error if HasDirectSuper of <span class="nt">GeneratorExpression</span> is <span style="font-family:
+            Times New Roman"><b><i>true</i></b></span>.</li>
+      </ul>
+
+      <p><span class="prod"><span class="nt">GeneratorDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">*</code> <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span>
+      <code class="t">}</code></span><br><span class="prod"><span class="nt">GeneratorExpression</span> <span class="geq">:</span>
+      <code class="t">function</code> <code class="t">*</code> <span class="nt">BindingIdentifier</span><sub class="g-opt">opt</sub> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></span></p>
+
+      <ul>
+        <li>
+          <p>If the source code matching this production is <a href="/sec/sec-strict-mode-code.html">strict code</a>, the Early Error rules
+          for <span class="prod"><span class="nt">StrictFormalParameters</span> <span class="geq">:</span> <span class="nt">FormalParameters</span></span> are applied.</p>
+        </li>
+
+        <li>
+          <p>If the source code matching this production is <a href="/sec/sec-strict-mode-code.html">strict code</a>, it is a Syntax Error
+          if <span class="nt">BindingIdentifier</span> is the <span class="nt">IdentifierName</span> <code>eval</code> or the
+          <span class="nt">IdentifierName</span> <code>arguments</code>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if any element of the <span style="font-family: Times New Roman">BoundNames</span> of <span class="nt">FormalParameters</span> also occurs in the <span style="font-family: Times New
+          Roman">LexicallyDeclaredNames</span> of <span class="nt">GeneratorBody</span>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if <span class="nt">FormalParameters</span> Contains <span class="nt">YieldExpression</span> is
+          <span style="font-family: Times New Roman"><b><i>true</i></b></span>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if <span class="nt">FormalParameters</span> Contains <span class="nt">SuperProperty</span> is
+          <span style="font-family: Times New Roman"><b><i>true</i></b></span>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if <span class="nt">GeneratorBody</span> Contains <span class="nt">SuperProperty</span> is <span style="font-family: Times New Roman"><b><i>true</i></b></span>.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="sec-generator-function-definitions-static-semantics-boundnames">
+      <h1><span class="secnum" id="sec-14.4.2"><a href="/sec/sec-generator-function-definitions-static-semantics-boundnames.html" title="link to this section">14.4.2</a></span> Static Semantics:  BoundNames</h1>
+
+      <p>See also: <a href="/sec/sec-identifiers-static-semantics-boundnames.html">12.1.2</a>, <a href="/sec/sec-let-and-const-declarations-static-semantics-boundnames.html">13.3.1.2</a>, <a href="/sec/sec-variable-statement-static-semantics-boundnames.html">13.3.2.1</a>, <a href="/sec/sec-destructuring-binding-patterns-static-semantics-boundnames.html">13.3.3.1</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-boundnames.html">13.7.5.2</a>, <a href="/sec/sec-function-definitions-static-semantics-boundnames.html">14.1.3</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-boundnames.html">14.2.2</a>, <a href="/sec/sec-class-definitions-static-semantics-boundnames.html">14.5.2</a>, <a href="/sec/sec-imports-static-semantics-boundnames.html">15.2.2.2</a>, <a href="/sec/sec-exports-static-semantics-boundnames.html">15.2.3.2</a>.</p>
+
+      <div class="gp prod"><span class="nt">GeneratorDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">*</code> <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return the BoundNames of <i>BindingIdentifier</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">GeneratorDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">*</code> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return &#xAB;<code>&quot;*default*&quot;</code>&#xBB;.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> <code>&quot;*default*&quot;</code> is used within this specification as a synthetic name for
+        hoistable anonymous functions that are defined using export declarations.</p>
+      </div>
+    </section>
+
+    <section id="sec-generator-function-definitions-static-semantics-computedpropertycontains">
+      <h1><span class="secnum" id="sec-14.4.3"><a href="/sec/sec-generator-function-definitions-static-semantics-computedpropertycontains.html" title="link to this section">14.4.3</a></span> Static Semantics:  ComputedPropertyContains</h1>
+
+      <p>With parameter <var>symbol</var>.</p>
+
+      <p>See also: <a href="/sec/sec-object-initializer-static-semantics-computedpropertycontains.html">12.2.6.2</a>, <a href="/sec/sec-method-definitions-static-semantics-computedpropertycontains.html">14.3.2</a>, <a href="/sec/sec-class-definitions-static-semantics-computedpropertycontains.html">14.5.5</a>.</p>
+
+      <div class="gp prod"><span class="nt">GeneratorMethod</span> <span class="geq">:</span> <code class="t">*</code> <span class="nt">PropertyName</span> <code class="t">(</code> <span class="nt">StrictFormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return the result of ComputedPropertyContains for <i>PropertyName</i> with argument <i>symbol</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-generator-function-definitions-static-semantics-contains">
+      <h1><span class="secnum" id="sec-14.4.4"><a href="/sec/sec-generator-function-definitions-static-semantics-contains.html" title="link to this section">14.4.4</a></span> Static Semantics:  Contains</h1>
+
+      <p>With parameter <var>symbol</var>.</p>
+
+      <p>See also: <a href="/sec/sec-static-semantic-rules.html">5.3</a>, <a href="/sec/sec-object-initializer-static-semantics-contains.html">12.2.6.3</a>, <a href="/sec/sec-static-semantics-static-semantics-contains.html">12.3.1.1</a>, <a href="/sec/sec-function-definitions-static-semantics-contains.html">14.1.4</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-contains.html">14.2.3</a>, <a href="/sec/sec-class-definitions-static-semantics-contains.html">14.5.4</a></p>
+
+      <p><span class="prod"><span class="nt">GeneratorDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">*</code> <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span>
+      <code class="t">}GeneratorDeclaration</code> <code class="t">:</code> <code class="t">function</code> <code class="t">*</code> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></span></p>
+
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">GeneratorExpression</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">*</code> <span class="nt">BindingIdentifier</span><sub class="g-opt">opt</sub> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> Static semantic rules that depend upon substructure generally do not look into function
+        definitions.</p>
+      </div>
+    </section>
+
+    <section id="sec-generator-function-definitions-static-semantics-hascomputedpropertykey">
+      <h1><span class="secnum" id="sec-14.4.5"><a href="/sec/sec-generator-function-definitions-static-semantics-hascomputedpropertykey.html" title="link to this section">14.4.5</a></span> Static Semantics:  HasComputedPropertyKey</h1>
+
+      <p>See also: <a href="/sec/sec-object-initializer-static-semantics-hascomputedpropertykey.html">12.2.6.4</a>, <a href="/sec/sec-method-definitions-static-semantics-hascomputedpropertykey.html">14.3.4</a>.</p>
+
+      <div class="gp prod"><span class="nt">GeneratorMethod</span> <span class="geq">:</span> <code class="t">*</code> <span class="nt">PropertyName</span> <code class="t">(</code> <span class="nt">StrictFormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return IsComputedPropertyKey of <i>PropertyName</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-generator-function-definitions-static-semantics-hasdirectsuper">
+      <h1><span class="secnum" id="sec-14.4.6"><a href="/sec/sec-generator-function-definitions-static-semantics-hasdirectsuper.html" title="link to this section">14.4.6</a></span> Static Semantics:  HasDirectSuper</h1>
+
+      <p>See also: <a href="/sec/sec-method-definitions-static-semantics-hasdirectsuper.html">14.3.5</a>.</p>
+
+      <div class="gp prod"><span class="nt">GeneratorMethod</span> <span class="geq">:</span> <code class="t">*</code> <span class="nt">PropertyName</span> <code class="t">(</code> <span class="nt">StrictFormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>If <i>StrictFormalParameters</i> Contains <i>SuperCall</i> is <b>true</b>, return <b>true.</b></li>
+        <li>Return <i>GeneratorBody</i> Contains <i>SuperCall</i>.</li>
+      </ol>
+
+      <p><span class="prod"><span class="nt">GeneratorDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">*</code> <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span>
+      <code class="t">}</code> <span class="nt">GeneratorDeclaration</span> <code class="t">:</code> <code class="t">function</code> <code class="t">*</code> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></span><br><span class="prod"><span class="nt">GeneratorExpression</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">*</code> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></span><br><span class="prod"><span class="nt">GeneratorExpression</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">*</code>
+      <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></span></p>
+
+      <ol class="proc">
+        <li>If <i>FormalParameters</i> Contains <i>SuperCall</i> is <b>true</b>, return <b>true.</b></li>
+        <li>Return <i>GeneratorBody</i> Contains <i>SuperCall</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-generator-function-definitions-static-semantics-hasname">
+      <h1><span class="secnum" id="sec-14.4.7"><a href="/sec/sec-generator-function-definitions-static-semantics-hasname.html" title="link to this section">14.4.7</a></span> Static Semantics:  HasName</h1>
+
+      <p>See also: <a href="/sec/sec-semantics-static-semantics-hasname.html">12.2.1.2</a>, <a href="/sec/sec-function-definitions-static-semantics-hasname.html">14.1.8</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-hasname.html">14.2.7</a>, <a href="/sec/sec-class-definitions-static-semantics-hasname.html">14.5.6</a>.</p>
+
+      <div class="gp prod"><span class="nt">GeneratorExpression</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">*</code> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">GeneratorExpression</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">*</code> <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return <b>true</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-generator-function-definitions-static-semantics-isconstantdeclaration">
+      <h1><span class="secnum" id="sec-14.4.8"><a href="/sec/sec-generator-function-definitions-static-semantics-isconstantdeclaration.html" title="link to this section">14.4.8</a></span> Static Semantics:  IsConstantDeclaration</h1>
+
+      <p>See also: <a href="/sec/sec-let-and-const-declarations-static-semantics-isconstantdeclaration.html">13.3.1.3</a>, <a href="/sec/sec-function-definitions-static-semantics-isconstantdeclaration.html">14.1.10</a>, <a href="/sec/sec-class-definitions-static-semantics-isconstantdeclaration.html">14.5.7</a>, <a href="/sec/sec-exports-static-semantics-isconstantdeclaration.html">15.2.3.7</a>.</p>
+
+      <p><span class="prod"><span class="nt">GeneratorDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">*</code> <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span>
+      <code class="t">}GeneratorDeclaration</code> <code class="t">:</code> <code class="t">function</code> <code class="t">*</code> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></span></p>
+
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-generator-function-definitions-static-semantics-isfunctiondefinition">
+      <h1><span class="secnum" id="sec-14.4.9"><a href="/sec/sec-generator-function-definitions-static-semantics-isfunctiondefinition.html" title="link to this section">14.4.9</a></span> Static Semantics:  IsFunctionDefinition</h1>
+
+      <p>See also: <a href="/sec/sec-semantics-static-semantics-isfunctiondefinition.html">12.2.1.3</a>, <a href="/sec/sec-grouping-operator-static-semantics-isfunctiondefinition.html">12.2.10.2</a>, <a href="/sec/sec-static-semantics-static-semantics-isfunctiondefinition.html">12.3.1.2</a>, <a href="/sec/sec-postfix-expressions-static-semantics-isfunctiondefinition.html">12.4.2</a>, <a href="/sec/sec-unary-operators-static-semantics-isfunctiondefinition.html">12.5.2</a>, <a href="/sec/sec-multiplicative-operators-static-semantics-isfunctiondefinition.html">12.6.1</a>, <a href="/sec/sec-additive-operators-static-semantics-isfunctiondefinition.html">12.7.1</a>, <a href="/sec/sec-bitwise-shift-operators-static-semantics-isfunctiondefinition.html">12.8.1</a>, <a href="/sec/sec-relational-operators-static-semantics-isfunctiondefinition.html">12.9.1</a>, <a href="/sec/sec-equality-operators-static-semantics-isfunctiondefinition.html">12.10.1</a>, <a href="/sec/sec-binary-bitwise-operators-static-semantics-isfunctiondefinition.html">12.11.1</a>, <a href="/sec/sec-binary-logical-operators-static-semantics-isfunctiondefinition.html">12.12.1</a>, <a href="/sec/sec-conditional-operator-static-semantics-isfunctiondefinition.html">12.13.1</a>, <a href="/sec/sec-assignment-operators-static-semantics-isfunctiondefinition.html">12.14.2</a>, <a href="/sec/sec-comma-operator-static-semantics-isfunctiondefinition.html">12.15.1</a>, <a href="/sec/sec-function-definitions-static-semantics-isfunctiondefinition.html">14.1.11</a>, <a href="/sec/sec-class-definitions-static-semantics-isfunctiondefinition.html">14.5.8</a>.</p>
+
+      <div class="gp prod"><span class="nt">GeneratorExpression</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">*</code> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return <b>true</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">GeneratorExpression</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">*</code> <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return <b>true</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-generator-function-definitions-static-semantics-propname">
+      <h1><span class="secnum" id="sec-14.4.10"><a href="/sec/sec-generator-function-definitions-static-semantics-propname.html" title="link to this section">14.4.10</a></span> Static Semantics:  PropName</h1>
+
+      <p>See also: <a href="/sec/sec-object-initializer-static-semantics-propname.html">12.2.6.6</a>, <a href="/sec/sec-method-definitions-static-semantics-propname.html">14.3.6</a>, <a href="/sec/sec-class-definitions-static-semantics-propname.html">14.5.12</a></p>
+
+      <div class="gp prod"><span class="nt">GeneratorMethod</span> <span class="geq">:</span> <code class="t">*</code> <span class="nt">PropertyName</span> <code class="t">(</code> <span class="nt">StrictFormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return PropName of <i>PropertyName</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-generator-function-definitions-runtime-semantics-evaluatebody">
+      <h1><span class="secnum" id="sec-14.4.11"><a href="/sec/sec-generator-function-definitions-runtime-semantics-evaluatebody.html" title="link to this section">14.4.11</a></span> Runtime Semantics: EvaluateBody</h1>
+
+      <p>With parameter <var>functionObject</var>.</p>
+
+      <p>See also: <a href="/sec/sec-function-definitions-runtime-semantics-evaluatebody.html">14.1.17</a>, <a href="/sec/sec-arrow-function-definitions-runtime-semantics-evaluatebody.html">14.2.15</a>.</p>
+
+      <div class="gp prod"><span class="nt">GeneratorBody</span> <span class="geq">:</span> <span class="nt">FunctionBody</span></div>
+      <ol class="proc">
+        <li>Let <i>G</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(<i>functionObject</i>,
+            <code>&quot;%GeneratorPrototype%&quot;</code>, &#xAB;&#x200D;[[GeneratorState]], [[GeneratorContext]]&#xBB; ).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>G</i>).</li>
+        <li>Perform <a href="/sec/sec-generatorstart.html">GeneratorStart</a>(<i>G</i>, <i>FunctionBody</i>).</li>
+        <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <span style="font-family:
+            sans-serif">return</span>, [[value]]: <i>G</i>, [[target]]: <span style="font-family: sans-serif">empty</span>}.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> If the generator was invoked using [[Call]], the <code>this</code> binding will have
+        already been initialized in the normal manner. If the generator was invoked using [[Construct]], the <code>this</code>
+        bind is not initialized and any references to <code>this</code> within the <span class="nt">FunctionBody</span> will
+        produce a <span class="value">ReferenceError</span> exception.</p>
+      </div>
+    </section>
+
+    <section id="sec-generator-function-definitions-runtime-semantics-instantiatefunctionobject">
+      <h1><span class="secnum" id="sec-14.4.12"><a href="/sec/sec-generator-function-definitions-runtime-semantics-instantiatefunctionobject.html" title="link to this section">14.4.12</a></span> Runtime Semantics: InstantiateFunctionObject</h1>
+
+      <p>With parameter <var>scope</var>.</p>
+
+      <p>See also: <a href="/sec/sec-function-definitions-runtime-semantics-instantiatefunctionobject.html">14.1.19</a>.</p>
+
+      <div class="gp prod"><span class="nt">GeneratorDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">*</code> <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>If the function code for <i>GeneratorDeclaration</i> is <a href="/sec/sec-strict-mode-code.html">strict mode code</a>, let
+            <i>strict</i> be <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.</li>
+        <li>Let <i>name</i> be StringValue of <i>BindingIdentifier.</i></li>
+        <li>Let <i>F</i> be <a href="/sec/sec-generatorfunctioncreate.html">GeneratorFunctionCreate</a>(<span style="font-family:
+            sans-serif">Normal</span>, <i>FormalParameters</i>, <i>GeneratorBody</i>, <i>scope</i>, <i>strict</i>).</li>
+        <li>Let <i>prototype</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<span style="font-family:
+            sans-serif">%GeneratorPrototype%</span>).</li>
+        <li>Perform <a href="/sec/sec-makeconstructor.html">MakeConstructor</a>(<i>F</i>, <b>true</b>, <i>prototype</i>).</li>
+        <li>Perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>F</i>, <i>name</i>).</li>
+        <li>Return <i>F</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">GeneratorDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">*</code> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>If the function code for <i>GeneratorDeclaration</i> is <a href="/sec/sec-strict-mode-code.html">strict mode code</a>, let
+            <i>strict</i> be <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.</li>
+        <li>Let <i>F</i> be <a href="/sec/sec-generatorfunctioncreate.html">GeneratorFunctionCreate</a>(<span style="font-family:
+            sans-serif">Normal</span>, <i>FormalParameters</i>, <i>GeneratorBody</i>, <i>scope</i>, <i>strict</i>).</li>
+        <li>Let <i>prototype</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<span style="font-family:
+            sans-serif">%GeneratorPrototype%</span>).</li>
+        <li>Perform <a href="/sec/sec-makeconstructor.html">MakeConstructor</a>(<i>F</i>, <b>true</b>, <i>prototype</i>).</li>
+        <li>Perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>F</i>, <code>&quot;default&quot;</code>).</li>
+        <li>Return <i>F</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> An anonymous <span class="nt">GeneratorDeclaration</span> can only occur as part of an
+        <code>export default</code> declaration.</p>
+      </div>
+    </section>
+
+    <section id="sec-generator-function-definitions-runtime-semantics-propertydefinitionevaluation">
+      <h1><span class="secnum" id="sec-14.4.13"><a href="/sec/sec-generator-function-definitions-runtime-semantics-propertydefinitionevaluation.html" title="link to this section">14.4.13</a></span> Runtime Semantics: PropertyDefinitionEvaluation</h1>
+
+      <p>With parameter <var>object</var> and <span style="font-family: Times New Roman"><i>enumerable</i>.</span></p>
+
+      <p>See also: <a href="/sec/sec-object-initializer-runtime-semantics-propertydefinitionevaluation.html">12.2.6.9</a>, <a href="/sec/sec-method-definitions-runtime-semantics-propertydefinitionevaluation.html">14.3.9</a>, B.3.1</p>
+
+      <div class="gp prod"><span class="nt">GeneratorMethod</span> <span class="geq">:</span> <code class="t">*</code> <span class="nt">PropertyName</span> <code class="t">(</code> <span class="nt">StrictFormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Let <i>propKey</i> be the result of evaluating <i>PropertyName</i>.</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>propKey</i>).</li>
+        <li>If the function code for this <i>GeneratorMethod</i> is <a href="/sec/sec-strict-mode-code.html">strict mode code</a>, let
+            <i>strict</i> be <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.</li>
+        <li>Let <i>scope</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a>.</li>
+        <li>Let <i>closure</i> be <a href="/sec/sec-generatorfunctioncreate.html">GeneratorFunctionCreate</a>(<span style="font-family:
+            sans-serif">Method</span>, <i>StrictFormalParameters</i>, <i>GeneratorBody, scope</i>, <i>strict</i>).</li>
+        <li>Perform <a href="/sec/sec-makemethod.html">MakeMethod</a>(<i>closure</i>, <i>object</i>).</li>
+        <li>Let <i>prototype</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<span style="font-family:
+            sans-serif">%GeneratorPrototype</span>%).</li>
+        <li>Perform <a href="/sec/sec-makeconstructor.html">MakeConstructor</a>(<i>closure</i>, <b>true</b>, <i>prototype</i>).</li>
+        <li>Perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>closure</i>, <i>propKey</i>).</li>
+        <li>Let <i>desc</i> be the <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a>{[[Value]]:
+            <i>closure</i>, [[Writable]]: <b>true</b>, [[Enumerable]]: <i>enumerable</i>, [[Configurable]]: <b>true</b>}.</li>
+        <li>Return <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>object</i>, <i>propKey</i>,
+            <i>desc</i>).</li>
+      </ol>
+    </section>
+
+    <section id="sec-generator-function-definitions-runtime-semantics-evaluation">
+      <h1><span class="secnum" id="sec-14.4.14"><a href="/sec/sec-generator-function-definitions-runtime-semantics-evaluation.html" title="link to this section">14.4.14</a></span> Runtime Semantics: Evaluation</h1>
+      <div class="gp prod"><span class="nt">GeneratorExpression</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">*</code> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>If the function code for this <i>GeneratorExpression</i> is <a href="/sec/sec-strict-mode-code.html">strict mode code</a>, let
+            <i>strict</i> be <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.</li>
+        <li>Let <i>scope</i> be the <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> of <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>Let <i>closure</i> be <a href="/sec/sec-generatorfunctioncreate.html">GeneratorFunctionCreate</a>(<span style="font-family:
+            sans-serif">Normal</span>, <i>FormalParameters</i>, <i>GeneratorBody, scope</i>, <i>strict</i>).</li>
+        <li>Let <i>prototype</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<span style="font-family:
+            sans-serif">%GeneratorPrototype%</span>).</li>
+        <li>Perform <a href="/sec/sec-makeconstructor.html">MakeConstructor</a>(<i>closure</i>, <b>true</b>, <i>prototype</i>).</li>
+        <li>Return <i>closure</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">GeneratorExpression</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">*</code> <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>If the function code for this <i>GeneratorExpression</i> is <a href="/sec/sec-strict-mode-code.html">strict mode code</a>, let
+            <i>strict</i> be <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.</li>
+        <li>Let <i>runningContext</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-lexical-environments.html">Lexical Environment</a>.</li>
+        <li>Let <i>funcEnv</i> be <a href="/sec/sec-newdeclarativeenvironment.html">NewDeclarativeEnvironment</a>(<i>runningContext</i>).</li>
+        <li>Let <i>envRec</i> be <i>funcEnv&#x2019;s</i> <a href="/sec/sec-lexical-environments.html">EnvironmentRecord</a>.</li>
+        <li>Let <i>name</i> be StringValue of <i>BindingIdentifier</i>.</li>
+        <li>Perform <i>envRec.</i>CreateImmutableBinding(<i>name</i>).</li>
+        <li>Let <i>closure</i> be <a href="/sec/sec-generatorfunctioncreate.html">GeneratorFunctionCreate</a>(<span style="font-family:
+            sans-serif">Normal</span>, <i>FormalParameters</i>, <i>GeneratorBody, funcEnv</i>, <i>strict</i>).</li>
+        <li>Let <i>prototype</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<span style="font-family:
+            sans-serif">%GeneratorPrototype%</span>).</li>
+        <li>Perform <a href="/sec/sec-makeconstructor.html">MakeConstructor</a> (<i>closure</i>, <b>true</b>, <i>prototype</i>).</li>
+        <li>Perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>closure</i>, <i>name</i>).</li>
+        <li>Perform <i>envRec.</i>InitializeBinding(<i>name,</i> <i>closure</i>).</li>
+        <li>Return <i>closure</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The <span class="nt">BindingIdentifier</span> in a <span class="nt">GeneratorExpression</span> can be referenced from inside the <var>GeneratorExpression&apos;s</var> <span class="nt">FunctionBody</span> to allow the generator code to call itself recursively. However, unlike in a <span class="nt">GeneratorDeclaration</span>, the <span class="nt">BindingIdentifier</span> in a <span class="nt">GeneratorExpression</span> cannot be referenced from and does not affect the scope enclosing the <span class="nt">GeneratorExpression</span>.</p>
+      </div>
+
+      <div class="gp prod"><span class="nt">YieldExpression</span> <span class="geq">:</span> <code class="t">yield</code></div>
+      <ol class="proc">
+        <li>Return <a href="/sec/sec-generatoryield.html">GeneratorYield</a>(<a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<b>undefined</b>, <b>false</b>)).</li>
+      </ol>
+      <div class="gp prod"><span class="nt">YieldExpression</span> <span class="geq">:</span> <code class="t">yield</code> <span class="nt">AssignmentExpression</span></div>
+      <ol class="proc">
+        <li>Let <i>exprRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+        <li>Let <i>value</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>exprRef</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+        <li>Return <a href="/sec/sec-generatoryield.html">GeneratorYield</a>(<a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<i>value</i>, <b>false</b>)).</li>
+      </ol>
+      <div class="gp prod"><span class="nt">YieldExpression</span> <span class="geq">:</span> <code class="t">yield</code> <code class="t">*</code> <span class="nt">AssignmentExpression</span></div>
+      <ol class="proc">
+        <li>Let <i>exprRef</i> be the result of evaluating <i>AssignmentExpression</i>.</li>
+        <li>Let <i>value</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>exprRef</i>).</li>
+        <li>Let <i>iterator</i> be <a href="/sec/sec-getiterator.html">GetIterator</a>(<i>value</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>iterator</i>)<i>.</i></li>
+        <li>Let <i>received</i> be <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+        <li>Repeat
+          <ol class="block">
+            <li>If <i>received</i>.[[type]] is <span style="font-family: sans-serif">normal</span>, then
+              <ol class="block">
+                <li>Let <i>innerResult</i> be <a href="/sec/sec-iteratornext.html">IteratorNext</a>(<i>iterator</i>,
+                    <i>received</i>.[[value]]).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>innerResult</i>).</li>
+                <li>Let <i>done</i> be <a href="/sec/sec-iteratorcomplete.html">IteratorComplete</a>(<i>innerResult</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>done</i>).</li>
+                <li>If <i>done</i> is <b>true</b>, then
+                  <ol class="block">
+                    <li>Return <a href="/sec/sec-iteratorvalue.html">IteratorValue</a> (<i>innerResult</i>).</li>
+                  </ol>
+                </li>
+                <li>Let <i>received</i>  be <a href="/sec/sec-generatoryield.html">GeneratorYield</a>(<i>innerResult</i>).</li>
+              </ol>
+            </li>
+            <li>Else if <i>received</i>.[[type]] is <span style="font-family: sans-serif">throw</span>, then
+              <ol class="block">
+                <li>Let <i>throw</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>iterator</i>, <code>&quot;throw&quot;</code>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>throw</i>)<span style="font-family:
+                    sans-serif">.</span></li>
+                <li>If <i>throw</i> is not <b>undefined</b>, then
+                  <ol class="block">
+                    <li>Let <i>innerResult</i> be <a href="/sec/sec-call.html">Call</a>(<i>throw</i>, <i>iterator</i>,
+                        &#xAB;&#x200D;<i>received</i>.[[value]]&#xBB;).</li>
+                    <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>innerResult</i>)<span style="font-family:
+                        sans-serif">.</span></li>
+                    <li>NOTE:  Exceptions from the inner iterator <code>throw</code> method are propagated. Normal completions
+                        from an inner <code>throw</code> method are processed similarly to an inner <code>next</code>.</li>
+                    <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>innerResult</i>) is not Object, throw a
+                        <b>TypeError</b> exception.</li>
+                    <li>Let <i>done</i> be <a href="/sec/sec-iteratorcomplete.html">IteratorComplete</a>(<i>innerResult</i>).</li>
+                    <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>done</i>).</li>
+                    <li>If <i>done</i> is <b>true</b>, then
+                      <ol class="block">
+                        <li>Let <i>value</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>innerResult</i>).</li>
+                        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+                        <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <span style="font-family: sans-serif">return</span> , [[value]]:<i>value</i>, [[target]]:<span style="font-family: sans-serif">empty</span>}.</li>
+                      </ol>
+                    </li>
+                    <li>Let <i>received</i>  be <a href="/sec/sec-generatoryield.html">GeneratorYield</a>(<i>innerResult</i>).</li>
+                  </ol>
+                </li>
+                <li>Else,
+                  <ol class="block">
+                    <li>NOTE:  If <var>iterator</var> does not have a <code>throw</code> method, this throw is going to terminate
+                        the <code>yield*</code> loop. But first we need to give <var>iterator</var> a chance to clean up.</li>
+                    <li>Let <i>closeResult</i> be <a href="/sec/sec-iteratorclose.html">IteratorClose</a>(<i>iterator</i>, <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <span style="font-family:
+                        sans-serif">normal</span> , [[value]]: <span style="font-family: sans-serif">empty</span>,
+                        [[target]]:<span style="font-family: sans-serif">empty</span>}).</li>
+                    <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>closeResult</i>).</li>
+                    <li>NOTE: The next step throws a <span class="value">TypeError</span> to indicate that there was a
+                        <code>yield*</code> protocol violation: <var>iterator</var> does not have a <code>throw</code>
+                        method.</li>
+                    <li>Throw a <b>TypeError</b> exception.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+            <li>Else,
+              <ol class="block">
+                <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>received</i>.[[type]] is <span style="font-family:
+                    sans-serif">return</span>.</li>
+                <li>Let <i>return</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>iterator</i>, <code>&quot;return&quot;</code>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>return</i>)<span style="font-family:
+                    sans-serif">.</span></li>
+                <li>If <i>return</i> is <b>undefined</b>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>received</i>).</li>
+                <li>Let <i>innerReturnResult</i> be <a href="/sec/sec-call.html">Call</a>(<i>return</i>, <i>iterator</i>,
+                    &#xAB;&#x200D;<i>received</i>.[[value]]&#xBB;).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>innerReturnResult</i>)<span style="font-family:
+                    sans-serif">.</span></li>
+                <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>innerReturnResult</i>) is not Object, throw a
+                    <b>TypeError</b> exception.</li>
+                <li>Let <i>done</i> be <a href="/sec/sec-iteratorcomplete.html">IteratorComplete</a>(<i>innerReturnResult</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>done</i>).</li>
+                <li>If <i>done</i> is <b>true</b>, then
+                  <ol class="block">
+                    <li>Let <i>value</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>innerReturnResult</i>).</li>
+                    <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+                    <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <span style="font-family: sans-serif">return</span> , [[value]]: <i>value</i>, [[target]]:<span style="font-family: sans-serif">empty</span>}.</li>
+                  </ol>
+                </li>
+                <li>Let <i>received</i>  be <a href="/sec/sec-generatoryield.html">GeneratorYield</a>(<i>innerReturnResult</i>).</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

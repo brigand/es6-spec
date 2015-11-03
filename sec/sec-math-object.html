@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-20.2"><a href="/sec/sec-math-object.html" title="link to this section">20.2</a></span> The Math
+          Object</h1>
+
+      <p>The Math object is the %Math% intrinsic object and the initial value of the <code>Math</code> property of the global
+      object. The Math object is a single ordinary object.</p>
+
+      <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the Math
+      object is the intrinsic object %ObjectPrototype% (<a href="/sec/sec-properties-of-the-object-prototype-object.html">19.1.3</a>).</p>
+
+      <p>The Math object is not a function object. It does not have a [[Construct]] internal method; it is not possible to use the
+      Math object as a constructor with the <code>new</code> operator. The Math object also does not have a [[Call]] internal
+      method; it is not possible to invoke the Math object as a function.</p>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> In this specification, the phrase &#x201C;the Number value for <var>x</var>&#x201D; has a
+        technical meaning defined in <a href="/sec/sec-ecmascript-language-types-number-type.html">6.1.6</a>.</p>
+      </div>
+    </div>
+
+    <section id="sec-value-properties-of-the-math-object">
+      <div class="front">
+        <h1><span class="secnum" id="sec-20.2.1"><a href="/sec/sec-value-properties-of-the-math-object.html" title="link to this section">20.2.1</a></span> Value Properties of the Math Object</h1>
+      </div>
+
+      <section id="sec-math.e">
+        <h1><span class="secnum" id="sec-20.2.1.1"><a href="/sec/sec-math.e.html" title="link to this section">20.2.1.1</a></span>
+            Math.E</h1>
+
+        <p>The Number value for <var>e</var>, the base of the natural logarithms, which is approximately
+        2.7182818284590452354.</p>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <b>false</b> }.</p>
+      </section>
+
+      <section id="sec-math.ln10">
+        <h1><span class="secnum" id="sec-20.2.1.2"><a href="/sec/sec-math.ln10.html" title="link to this section">20.2.1.2</a></span>
+            Math.LN10</h1>
+
+        <p>The Number value for the natural logarithm of 10, which is approximately 2.302585092994046.</p>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <b>false</b> }.</p>
+      </section>
+
+      <section id="sec-math.ln2">
+        <h1><span class="secnum" id="sec-20.2.1.3"><a href="/sec/sec-math.ln2.html" title="link to this section">20.2.1.3</a></span>
+            Math.LN2</h1>
+
+        <p>The Number value for the natural logarithm of 2, which is approximately 0.6931471805599453.</p>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <b>false</b> }.</p>
+      </section>
+
+      <section id="sec-math.log10e">
+        <h1><span class="secnum" id="sec-20.2.1.4"><a href="/sec/sec-math.log10e.html" title="link to this section">20.2.1.4</a></span>
+            Math.LOG10E</h1>
+
+        <p>The Number value for the base-<span style="font-family: Times New Roman">10</span> logarithm of <var>e</var>, the base
+        of the natural logarithms; this value is approximately <span style="font-family: Times New
+        Roman">0.4342944819032518</span>.</p>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <b>false</b> }.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The value of <code>Math.LOG10E</code> is approximately the reciprocal of the value of
+          <code>Math.LN10</code>.</p>
+        </div>
+      </section>
+
+      <section id="sec-math.log2e">
+        <h1><span class="secnum" id="sec-20.2.1.5"><a href="/sec/sec-math.log2e.html" title="link to this section">20.2.1.5</a></span>
+            Math.LOG2E</h1>
+
+        <p>The Number value for the base-<span style="font-family: Times New Roman">2</span> logarithm of <var>e</var>, the base
+        of the natural logarithms; this value is approximately <span style="font-family: Times New
+        Roman">1.4426950408889634</span>.</p>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <b>false</b> }.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The value of <code>Math.LOG2E</code> is approximately the reciprocal of the value of
+          <code>Math.LN2</code>.</p>
+        </div>
+      </section>
+
+      <section id="sec-math.pi">
+        <h1><span class="secnum" id="sec-20.2.1.6"><a href="/sec/sec-math.pi.html" title="link to this section">20.2.1.6</a></span>
+            Math.PI</h1>
+
+        <p>The Number value for <span style="font-family: Times New Roman">&#x3C0;</span>, the ratio of the circumference of a circle
+        to its diameter, which is approximately <span style="font-family: Times New Roman">3.1415926535897932</span>.</p>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <b>false</b> }.</p>
+      </section>
+
+      <section id="sec-math.sqrt1_2">
+        <h1><span class="secnum" id="sec-20.2.1.7"><a href="/sec/sec-math.sqrt1_2.html" title="link to this section">20.2.1.7</a></span>
+            Math.SQRT1_2</h1>
+
+        <p>The Number value for the square root of <span style="font-family: Times New Roman">&#xBD;</span>, which is
+        approximately <span style="font-family: Times New Roman">0.7071067811865476</span>.</p>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <b>false</b> }.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The value of <code>Math.SQRT1_2</code> is approximately the reciprocal of the value of
+          <code>Math.SQRT2</code>.</p>
+        </div>
+      </section>
+
+      <section id="sec-math.sqrt2">
+        <h1><span class="secnum" id="sec-20.2.1.8"><a href="/sec/sec-math.sqrt2.html" title="link to this section">20.2.1.8</a></span>
+            Math.SQRT2</h1>
+
+        <p>The Number value for the square root of <span style="font-family: Times New Roman">2</span>, which is approximately
+        <span style="font-family: Times New Roman">1.4142135623730951</span>.</p>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <b>false</b> }.</p>
+      </section>
+
+      <section id="sec-math-@@tostringtag">
+        <h1><span class="secnum" id="sec-20.2.1.9"><a href="/sec/sec-math-@@tostringtag.html" title="link to this section">20.2.1.9</a></span> Math [ @@toStringTag ]</h1>
+
+        <p>The initial value of the @@toStringTag property is the String value <code>&quot;Math&quot;</code>.</p>
+
+        <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+      </section>
+    </section>
+
+    <section id="sec-function-properties-of-the-math-object">
+      <div class="front">
+        <h1><span class="secnum" id="sec-20.2.2"><a href="/sec/sec-function-properties-of-the-math-object.html" title="link to this section">20.2.2</a></span> Function Properties of the Math Object</h1>
+
+        <p>Each of the following <code>Math</code> object functions applies the <a href="/sec/sec-tonumber.html">ToNumber</a> abstract
+        operation to each of its arguments (in left-to-right order if there is more than one). If <a href="/sec/sec-tonumber.html">ToNumber</a> returns an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>,
+        that <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> is immediately returned. Otherwise, the
+        function performs a computation on the resulting Number value(s). The value returned by each function is a Number.</p>
+
+        <p>In the function descriptions below, the symbols NaN, &#x2212;0, +0, &#x2212;&#x221E; and +&#x221E; refer to the Number
+        values described in <a href="/sec/sec-ecmascript-language-types-number-type.html">6.1.6</a>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The behaviour of the functions <code>acos</code>, <code>acosh</code>, <code>asin</code>,
+          <code>asinh</code>, <code>atan</code>, <code>atanh</code>, <code>atan2</code>, <code>cbrt</code>, <code>cos</code>,
+          <code>cosh</code>, <code>exp</code>, <code>expm1</code>, <code>hypot</code>, <code>log</code>,<code>log1p</code>,
+          <code>log2</code>, <code>log10</code>, <code>pow</code>, <code>random</code>, <code>sin</code>, <code>sinh</code>,
+          <code>sqrt</code>, <code>tan</code>, and <code>tanh</code> is not precisely specified here except to require specific
+          results for certain argument values that represent boundary cases of interest. For other argument values, these
+          functions are intended to compute approximations to the results of familiar mathematical functions, but some latitude is
+          allowed in the choice of approximation algorithms. The general intent is that an implementer should be able to use the
+          same mathematical library for ECMAScript on a given hardware platform that is available to C programmers on that
+          platform.</p>
+
+          <p>Although the choice of algorithms is left to the implementation, it is recommended (but not specified by this
+          standard) that implementations use the approximation algorithms for IEEE 754-2008 arithmetic contained in
+          <code>fdlibm</code>, the freely distributable mathematical library from Sun Microsystems (<a href="http://www.netlib.org/fdlibm">http://www.netlib.org/fdlibm</a><code>)</code>.</p>
+        </div>
+      </div>
+
+      <section id="sec-math.abs">
+        <h1><span class="secnum" id="sec-20.2.2.1"><a href="/sec/sec-math.abs.html" title="link to this section">20.2.2.1</a></span>
+            Math.abs ( x )</h1>
+
+        <p class="normalbefore">Returns the absolute value of <var>x</var>; the result has the same magnitude as <var>x</var> but
+        has positive sign.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is +0.</li>
+          <li>If <i>x</i> is &#x2212;&#x221E;, the result is +&#x221E;.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.acos">
+        <h1><span class="secnum" id="sec-20.2.2.2"><a href="/sec/sec-math.acos.html" title="link to this section">20.2.2.2</a></span>
+            Math.acos ( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the arc cosine of <var>x</var>. The result is
+        expressed in radians and ranges from <span style="font-family: Times New Roman">+0</span> to <span style="font-family:
+        Times New Roman">+&#x3C0;</span>.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is greater than 1, the result is NaN.</li>
+          <li>If <i>x</i> is less than <b>&#x2212;</b>1, the result is NaN.</li>
+          <li>If <i>x</i> is exactly 1, the result is +0.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.acosh">
+        <h1><span class="secnum" id="sec-20.2.2.3"><a href="/sec/sec-math.acosh.html" title="link to this section">20.2.2.3</a></span>
+            Math.acosh( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the inverse hyperbolic cosine of
+        <i>x</i>.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If x is less than 1, the result is NaN.</li>
+          <li>If x is 1, the result is +0.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is +&#x221E;.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.asin">
+        <h1><span class="secnum" id="sec-20.2.2.4"><a href="/sec/sec-math.asin.html" title="link to this section">20.2.2.4</a></span>
+            Math.asin ( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the arc sine of <var>x</var>. The result is
+        expressed in radians and ranges from <span style="font-family: Times New Roman">&#x2212;&#x3C0;/2</span> to <span style="font-family: Times New Roman">+&#x3C0;/2</span>.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is greater than 1, the result is NaN.</li>
+          <li>If <i>x</i> is less than &#x2013;1, the result is NaN.</li>
+          <li>If <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;0.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.asinh">
+        <h1><span class="secnum" id="sec-20.2.2.5"><a href="/sec/sec-math.asinh.html" title="link to this section">20.2.2.5</a></span>
+            Math.asinh( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the inverse hyperbolic sine of <i>x</i>.</p>
+
+        <ul>
+          <li>I<span style="font-family: Times New Roman">f <i>x</i> is NaN, the result is NaN.</span></li>
+          <li>If <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;0.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is +&#x221E;.</li>
+          <li>If x is &#x2212;&#x221E;, the result is &#x2212;&#x221E;.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.atan">
+        <h1><span class="secnum" id="sec-20.2.2.6"><a href="/sec/sec-math.atan.html" title="link to this section">20.2.2.6</a></span>
+            Math.atan ( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the arc tangent of <var>x</var>. The result
+        is expressed in radians and ranges from <span style="font-family: Times New Roman">&#x2212;&#x3C0;/2</span> to <span style="font-family: Times New Roman">+&#x3C0;/2</span>.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;0.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is an implementation-dependent approximation to +&#x3C0;/2.</li>
+          <li>If <i>x</i> is &#x2212;&#x221E;, the result is an implementation-dependent approximation to &#x2212;&#x3C0;/2.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.atanh">
+        <h1><span class="secnum" id="sec-20.2.2.7"><a href="/sec/sec-math.atanh.html" title="link to this section">20.2.2.7</a></span>
+            Math.atanh( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the inverse hyperbolic tangent of
+        <i>x</i>.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is less than &#x2212;1, the result is NaN.</li>
+          <li>If <i>x</i> is greater than 1, the result is NaN.</li>
+          <li>If <i>x</i> is &#x2212;1, the result is &#x2212;&#x221E;.</li>
+          <li>If <i>x</i> is +1, the result is +&#x221E;.</li>
+          <li>If <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;0.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.atan2">
+        <h1><span class="secnum" id="sec-20.2.2.8"><a href="/sec/sec-math.atan2.html" title="link to this section">20.2.2.8</a></span>
+            Math.atan2 ( y, x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the arc tangent of the quotient <span style="font-family: Times New Roman"><i>y</i><b>/</b><i>x</i></span> of the arguments <var>y</var> and <var>x</var>, where
+        the signs of <var>y</var> and <var>x</var> are used to determine the quadrant of the result. Note that it is intentional
+        and traditional for the two-argument arc tangent function that the argument named <var>y</var> be first and the argument
+        named <var>x</var> be second. The result is expressed in radians and ranges from <span style="font-family: Times New
+        Roman">&#x2212;&#x3C0;</span> to <span style="font-family: Times New Roman">+&#x3C0;</span>.</p>
+
+        <ul>
+          <li>If either <i>x</i> or <i>y</i> is NaN, the result is NaN.</li>
+          <li>If <i>y</i>&gt;0 and <i>x</i> is +0, the result is an implementation-dependent approximation to  +&#x3C0;/2.</li>
+          <li>If <i>y</i>&gt;0 and <i>x</i> is &#x2212;0, the result is an implementation-dependent approximation to  +&#x3C0;/2.</li>
+          <li>If <i>y</i> is +0 and <i>x</i>&gt;0, the result is +0.</li>
+          <li>If <i>y</i> is +0 and <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>y</i> is +0 and <i>x</i> is &#x2212;0, the result is an implementation-dependent approximation to  +&#x3C0;.</li>
+          <li>If <i>y</i> is +0 and <i>x</i>&lt;0, the result is an implementation-dependent approximation to  +&#x3C0;.</li>
+          <li>If <i>y</i> is &#x2212;0 and <i>x</i>&gt;0, the result is &#x2212;0.</li>
+          <li>If <i>y</i> is &#x2212;0 and <i>x</i> is +0, the result is &#x2212;0.</li>
+          <li>If <i>y</i> is &#x2212;0 and <i>x</i> is &#x2212;0, the result is an implementation-dependent approximation to
+              &#x2212;&#x3C0;.</li>
+          <li>If <i>y</i> is &#x2212;0 and <i>x</i>&lt;0, the result is an implementation-dependent approximation to
+              &#x2212;&#x3C0;.</li>
+          <li>If <i>y</i>&lt;0 and <i>x</i> is +0, the result is an implementation-dependent approximation to  &#x2212;&#x3C0;/2.</li>
+          <li>If <i>y</i>&lt;0 and <i>x</i> is &#x2212;0, the result is an implementation-dependent approximation to
+              &#x2212;&#x3C0;/2.</li>
+          <li>If <i>y</i>&gt;0 and <i>y</i> is finite and <i>x</i> is +&#x221E;, the result is +0.</li>
+          <li>If <i>y</i>&gt;0 and <i>y</i> is finite and <i>x</i> is &#x2212;&#x221E;, the result if an implementation-dependent
+              approximation to  +&#x3C0;.</li>
+          <li>If <i>y</i>&lt;0 and <i>y</i> is finite and <i>x</i> is +&#x221E;, the result is &#x2212;0.</li>
+          <li>If <i>y</i>&lt;0 and <i>y</i> is finite and <i>x</i> is &#x2212;&#x221E;, the result is an implementation-dependent
+              approximation to &#x2212;&#x3C0;.</li>
+          <li>If <i>y</i> is +&#x221E; and <i>x</i> is finite, the result is an implementation-dependent approximation to
+              +&#x3C0;/2.</li>
+          <li>If <i>y</i> is &#x2212;&#x221E; and <i>x</i> is finite, the result is an implementation-dependent approximation to
+              &#x2212;&#x3C0;/2.</li>
+          <li>If <i>y</i> is +&#x221E; and <i>x</i> is +&#x221E;, the result is an implementation-dependent approximation to
+              +&#x3C0;/4.</li>
+          <li>If <i>y</i> is +&#x221E; and <i>x</i> is &#x2212;&#x221E;, the result is an implementation-dependent approximation to
+              +3&#x3C0;/4.</li>
+          <li>If <i>y</i> is &#x2212;&#x221E; and <i>x</i> is +&#x221E;, the result is an implementation-dependent approximation to
+              &#x2212;&#x3C0;/4.</li>
+          <li>If <i>y</i> is &#x2212;&#x221E; and <i>x</i> is &#x2212;&#x221E;, the result is an implementation-dependent
+              approximation to  &#x2212;3&#x3C0;/4.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.cbrt">
+        <h1><span class="secnum" id="sec-20.2.2.9"><a href="/sec/sec-math.cbrt.html" title="link to this section">20.2.2.9</a></span>
+            Math.cbrt ( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the cube root of <i>x</i>.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;0.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is +&#x221E;.</li>
+          <li>If <i>x</i> is &#x2212;&#x221E;, the result is &#x2212;&#x221E;.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.ceil">
+        <h1><span class="secnum" id="sec-20.2.2.10"><a href="/sec/sec-math.ceil.html" title="link to this section">20.2.2.10</a></span>
+            Math.ceil ( x )</h1>
+
+        <p class="normalbefore">Returns the smallest (closest to <b>&#x2212;&#x221E;</b>) Number value that is not less than
+        <var>x</var> and is equal to a mathematical integer. If <var>x</var> is already an integer, the result is
+        <var>x</var>.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;0.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is +&#x221E;.</li>
+          <li>If <i>x</i> is &#x2212;&#x221E;, the result is &#x2212;&#x221E;.</li>
+          <li>If <i>x</i> is less than 0 but greater than -1, the result is &#x2212;0.</li>
+        </ul>
+
+        <p>The value of <code>Math.ceil(x)</code> is the same as the value of <code>-<a href="/sec/sec-math.floor.html">Math.floor</a>(-x)</code>.</p>
+      </section>
+
+      <section id="sec-math.clz32">
+        <h1><span class="secnum" id="sec-20.2.2.11"><a href="/sec/sec-math.clz32.html" title="link to this section">20.2.2.11</a></span>
+            Math.clz32 ( x )</h1>
+
+        <p class="normalbefore">When <code>Math.clz32</code> is called with one argument <var>x</var>, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>n</i> be <a href="/sec/sec-touint32.html">ToUint32</a>(<i>x</i>).</li>
+          <li>Let <i>p</i> be the number of leading zero bits in the 32-bit binary representation of <i>n</i>.</li>
+          <li>Return <i>p</i>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> If <var>n</var> is 0, <var>p</var> will be 32. If the most significant bit of the 32-bit
+          binary encoding of <var>n</var> is 1, <var>p</var> will be 0.</p>
+        </div>
+      </section>
+
+      <section id="sec-math.cos">
+        <h1><span class="secnum" id="sec-20.2.2.12"><a href="/sec/sec-math.cos.html" title="link to this section">20.2.2.12</a></span>
+            Math.cos ( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the cosine of <var>x</var>. The argument is
+        expressed in radians.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is +0, the result is 1.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is 1.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is NaN.</li>
+          <li>If <i>x</i> is &#x2212;&#x221E;, the result is NaN.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.cosh">
+        <h1><span class="secnum" id="sec-20.2.2.13"><a href="/sec/sec-math.cosh.html" title="link to this section">20.2.2.13</a></span>
+            Math.cosh ( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the hyperbolic cosine of <i>x</i>.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is +0, the result is 1.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is 1.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is +&#x221E;.</li>
+          <li>If <i>x</i> is &#x2212;&#x221E;, the result is +&#x221E;.</li>
+        </ul>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The value of cosh(x) is the same as <i>(exp(x) + exp(-x))/2</i>.</p>
+        </div>
+      </section>
+
+      <section id="sec-math.exp">
+        <h1><span class="secnum" id="sec-20.2.2.14"><a href="/sec/sec-math.exp.html" title="link to this section">20.2.2.14</a></span>
+            Math.exp ( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the exponential function of <var>x</var>
+        (<var>e</var> raised to the power of <var>x</var>, where <var>e</var> is the base of the natural logarithms).</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is +0, the result is 1.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is 1.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is +&#x221E;.</li>
+          <li>If <i>x</i> is &#x2212;&#x221E;, the result is +0.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.expm1">
+        <h1><span class="secnum" id="sec-20.2.2.15"><a href="/sec/sec-math.expm1.html" title="link to this section">20.2.2.15</a></span>
+            Math.expm1 ( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to subtracting 1 from the exponential function
+        of <i>x</i> (<i>e</i> raised to the power of <i>x</i>, where <i>e</i> is the base of the natural logarithms). The result
+        is computed in a way that is accurate even when the value of x is close 0.</p>
+
+        <ul>
+          <li>I<span style="font-family: Times New Roman">f <i>x</i> is NaN, the result is NaN.</span></li>
+          <li>If <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;0.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is +&#x221E;.</li>
+          <li>If <i>x</i> is &#x2212;&#x221E;, the result is &#x2212;1.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.floor">
+        <h1><span class="secnum" id="sec-20.2.2.16"><a href="/sec/sec-math.floor.html" title="link to this section">20.2.2.16</a></span>
+            Math.floor ( x )</h1>
+
+        <p class="normalbefore">Returns the greatest (closest to <b>+&#x221E;</b>) Number value that is not greater than
+        <var>x</var> and is equal to a mathematical integer. If <var>x</var> is already an integer, the result is
+        <var>x</var>.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;0.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is +&#x221E;.</li>
+          <li>If <i>x</i> is &#x2212;&#x221E;, the result is &#x2212;&#x221E;.</li>
+          <li>If <i>x</i> is greater than 0 but less than 1, the result is +0.</li>
+        </ul>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The value of <code>Math.<a href="/sec/sec-algorithm-conventions.html">floor</a>(x)</code> is the
+          same as the value of <code>-<a href="/sec/sec-math.ceil.html">Math.ceil</a>(-x)</code>.</p>
+        </div>
+      </section>
+
+      <section id="sec-math.fround">
+        <h1><span class="secnum" id="sec-20.2.2.17"><a href="/sec/sec-math.fround.html" title="link to this section">20.2.2.17</a></span>
+            Math.fround ( x )</h1>
+
+        <p class="normalbefore">When <code>Math.fround</code> is called with argument <i>x</i> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>If <i>x</i> is NaN, return NaN.</li>
+          <li>If <i>x</i> is one of +0, &#x2212;0, +&#x221E;, &#x2212;&#x221E;, return <i>x</i>.</li>
+          <li>Let <i>x32</i> be the result of converting <i>x</i> to a value in IEEE 754-2008 binary32 format using
+              roundTiesToEven.</li>
+          <li>Let <i>x64</i> be the result of converting <i>x32</i> to a value in IEEE 754-2008 binary64 format.</li>
+          <li>Return the ECMAScript Number value corresponding to <i>x64</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-math.hypot">
+        <h1><span class="secnum" id="sec-20.2.2.18"><a href="/sec/sec-math.hypot.html" title="link to this section">20.2.2.18</a></span>
+            Math.hypot ( value1 , value2 , &#x2026;values )</h1>
+
+        <p class="normalbefore"><code>Math.hypot</code> returns an implementation-dependent approximation of the square root of
+        the sum of squares of its arguments.</p>
+
+        <ul>
+          <li>If no arguments are passed, the result is +0.</li>
+          <li>If any argument is +&#x221E;, the result is +&#x221E;.</li>
+          <li>If any argument is &#x2212;&#x221E;, the result is +&#x221E;.</li>
+          <li>If no argument is +&#x221E; or &#x2212;&#x221E;, and any argument is NaN, the result is NaN.</li>
+          <li>If all arguments are either +0 or &#x2212;0, the result is +0.</li>
+        </ul>
+
+        <p>The length property of the <code>hypot</code> function is 2.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> Implementations should take care to avoid the loss of precision from overflows and
+          underflows that are prone to occur in naive implementations when this function is called with two or more arguments.</p>
+        </div>
+      </section>
+
+      <section id="sec-math.imul">
+        <h1><span class="secnum" id="sec-20.2.2.19"><a href="/sec/sec-math.imul.html" title="link to this section">20.2.2.19</a></span>
+            Math.imul ( x, y )</h1>
+
+        <p class="normalbefore">When the <code>Math.imul</code> is called with arguments <var>x</var> and <var>y</var> the
+        following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>a</i> be <a href="/sec/sec-touint32.html">ToUint32</a>(<i>x</i>).</li>
+          <li>Let <i>b</i> be <a href="/sec/sec-touint32.html">ToUint32</a>(<i>y</i>).</li>
+          <li>Let <i>product</i> be (<i>a</i> &#xD7; <i>b</i>) <a href="/sec/sec-algorithm-conventions.html">modulo</a>
+              2<sup>32</sup>.</li>
+          <li>If <i>product</i> &#x2265; 2<sup>31</sup>, return <i>product</i> &#x2212; 2<sup>32</sup>, otherwise return
+              <i>product</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-math.log">
+        <h1><span class="secnum" id="sec-20.2.2.20"><a href="/sec/sec-math.log.html" title="link to this section">20.2.2.20</a></span>
+            Math.log ( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the natural logarithm of <var>x</var>.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is less than 0, the result is NaN.</li>
+          <li>If <i>x</i> is +0 or &#x2212;0, the result is &#x2212;&#x221E;.</li>
+          <li>If <i>x</i> is 1, the result is +0.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is +&#x221E;.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.log1p">
+        <h1><span class="secnum" id="sec-20.2.2.21"><a href="/sec/sec-math.log1p.html" title="link to this section">20.2.2.21</a></span>
+            Math.log1p ( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the natural logarithm of 1 + <i>x</i>. The
+        result is computed in a way that is accurate even when the value of x is close to zero.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is less than -1, the result is NaN.</li>
+          <li>If x is -1, the result is -&#x221E;.</li>
+          <li>If <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;0.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is +&#x221E;.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.log10">
+        <h1><span class="secnum" id="sec-20.2.2.22"><a href="/sec/sec-math.log10.html" title="link to this section">20.2.2.22</a></span>
+            Math.log10 ( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the base 10 logarithm of <i>x</i>.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is less than 0, the result is NaN.</li>
+          <li>If <i>x</i> is +0, the result is &#x2212;&#x221E;.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;&#x221E;.</li>
+          <li>If <i>x</i> is 1, the result is +0.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is +&#x221E;.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.log2">
+        <h1><span class="secnum" id="sec-20.2.2.23"><a href="/sec/sec-math.log2.html" title="link to this section">20.2.2.23</a></span>
+            Math.log2 ( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the base 2 logarithm of <i>x</i>.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is less than 0, the result is NaN.</li>
+          <li>If <i>x</i> is +0, the result is &#x2212;&#x221E;.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;&#x221E;.</li>
+          <li>If <i>x</i> is 1, the result is +0.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is +&#x221E;.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.max">
+        <h1><span class="secnum" id="sec-20.2.2.24"><a href="/sec/sec-math.max.html" title="link to this section">20.2.2.24</a></span>
+            Math.max ( value1, value2  , &#x2026;values  )</h1>
+
+        <p class="normalbefore">Given zero or more arguments, calls <a href="/sec/sec-tonumber.html">ToNumber</a> on each of the arguments
+        and returns the largest of the resulting values.</p>
+
+        <ul>
+          <li>
+            <p>If no arguments are given, the result is &#x2212;&#x221E;.</p>
+          </li>
+
+          <li>
+            <p>If any value is NaN, the result is NaN.</p>
+          </li>
+
+          <li>
+            <p>The comparison of values to determine the largest value is done using the Abstract Relational Comparison algorithm
+            (<span style="font-family: sans-serif"><a href="/sec/sec-abstract-relational-comparison.html">7.2.11</a></span>) except that +0
+            is considered to be larger than &#x2212;0.</p>
+          </li>
+        </ul>
+
+        <p>The <code>length</code> property of the <code>max</code> method is <b>2</b>.</p>
+      </section>
+
+      <section id="sec-math.min">
+        <h1><span class="secnum" id="sec-20.2.2.25"><a href="/sec/sec-math.min.html" title="link to this section">20.2.2.25</a></span>
+            Math.min ( value1, value2  , &#x2026;values  )</h1>
+
+        <p class="normalbefore">Given zero or more arguments, calls <a href="/sec/sec-tonumber.html">ToNumber</a> on each of the arguments
+        and returns the smallest of the resulting values.</p>
+
+        <ul>
+          <li>
+            <p>If no arguments are given, the result is +&#x221E;.</p>
+          </li>
+
+          <li>
+            <p>If any value is NaN, the result is NaN.</p>
+          </li>
+
+          <li>
+            <p>The comparison of values to determine the smallest value is done using the Abstract Relational Comparison algorithm
+            (<span style="font-family: sans-serif"><a href="/sec/sec-abstract-relational-comparison.html">7.2.11</a></span>) except that +0
+            is considered to be larger than &#x2212;0.</p>
+          </li>
+        </ul>
+
+        <p>The <code>length</code> property of the <code>min</code> method is <b>2</b>.</p>
+      </section>
+
+      <section id="sec-math.pow">
+        <h1><span class="secnum" id="sec-20.2.2.26"><a href="/sec/sec-math.pow.html" title="link to this section">20.2.2.26</a></span>
+            Math.pow ( x, y )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the result of raising <var>x</var> to the
+        power <var>y</var>.</p>
+
+        <ul>
+          <li>If <i>y</i> is NaN, the result is NaN.</li>
+          <li>If <i>y</i> is +0, the result is 1, even if <i>x</i> is NaN.</li>
+          <li>If <i>y</i> is &#x2212;0, the result is 1, even if <i>x</i> is NaN.</li>
+          <li>If <i>x</i> is NaN and <i>y</i> is nonzero, the result is NaN.</li>
+          <li>If <a href="/sec/sec-algorithm-conventions.html">abs</a>(<i>x</i>)&gt;1 and <i>y</i> is +&#x221E;, the result is
+              +&#x221E;.</li>
+          <li>If <a href="/sec/sec-algorithm-conventions.html">abs</a>(<i>x</i>)&gt;1 and <i>y</i> is &#x2212;&#x221E;, the result is
+              +0.</li>
+          <li>If <a href="/sec/sec-algorithm-conventions.html">abs</a>(<i>x</i>) is 1 and <i>y</i> is +&#x221E;, the result is NaN.</li>
+          <li>If <a href="/sec/sec-algorithm-conventions.html">abs</a>(<i>x</i>) is 1 and <i>y</i> is &#x2212;&#x221E;, the result is
+              NaN.</li>
+          <li>If <a href="/sec/sec-algorithm-conventions.html">abs</a>(<i>x</i>)&lt;1 and <i>y</i> is +&#x221E;, the result is +0.</li>
+          <li>If <a href="/sec/sec-algorithm-conventions.html">abs</a>(<i>x</i>)&lt;1 and <i>y</i> is &#x2212;&#x221E;, the result is
+              +&#x221E;.</li>
+          <li>If <i>x</i> is +&#x221E; and <i>y</i>&gt;0, the result is +&#x221E;.</li>
+          <li>If <i>x</i> is +&#x221E; and <i>y</i>&lt;0, the result is +0.</li>
+          <li>If <i>x</i> is &#x2212;&#x221E; and <i>y</i>&gt;0 and <i>y</i> is an odd integer, the result is &#x2212;&#x221E;.</li>
+          <li>If <i>x</i> is &#x2212;&#x221E; and <i>y</i>&gt;0 and <i>y</i> is not an odd integer, the result is +&#x221E;.</li>
+          <li>If <i>x</i> is &#x2212;&#x221E; and <i>y</i>&lt;0 and <i>y</i> is an odd integer, the result is &#x2212;0.</li>
+          <li>If <i>x</i> is &#x2212;&#x221E; and <i>y</i>&lt;0 and <i>y</i> is not an odd integer, the result is +0.</li>
+          <li>If <i>x</i> is +0 and <i>y</i>&gt;0, the result is +0.</li>
+          <li>If <i>x</i> is +0 and <i>y</i>&lt;0, the result is +&#x221E;.</li>
+          <li>If <i>x</i> is &#x2212;0 and <i>y</i>&gt;0 and <i>y</i> is an odd integer, the result is &#x2212;0.</li>
+          <li>If <i>x</i> is &#x2212;0 and <i>y</i>&gt;0 and <i>y</i> is not an odd integer, the result is +0.</li>
+          <li>If <i>x</i> is &#x2212;0 and <i>y</i>&lt;0 and <i>y</i> is an odd integer, the result is &#x2212;&#x221E;.</li>
+          <li>If <i>x</i> is &#x2212;0 and <i>y</i>&lt;0 and <i>y</i> is not an odd integer, the result is +&#x221E;.</li>
+          <li>If <i>x</i>&lt;0 and <i>x</i> is finite and <i>y</i> is finite and <i>y</i> is not an integer, the result is
+              NaN.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.random">
+        <h1><span class="secnum" id="sec-20.2.2.27"><a href="/sec/sec-math.random.html" title="link to this section">20.2.2.27</a></span>
+            Math.random ( )</h1>
+
+        <p>Returns a Number value with positive sign, greater than or equal to 0 but less than 1, chosen randomly or pseudo
+        randomly with approximately uniform distribution over that range, using an implementation-dependent algorithm or strategy.
+        This function takes no arguments.</p>
+
+        <p>Each <code>Math.random</code> function created for distinct code Realms must produce a distinct sequence of values from
+        successive calls.</p>
+      </section>
+
+      <section id="sec-math.round">
+        <h1><span class="secnum" id="sec-20.2.2.28"><a href="/sec/sec-math.round.html" title="link to this section">20.2.2.28</a></span>
+            Math.round ( x )</h1>
+
+        <p class="normalbefore">Returns the Number value that is closest to <var>x</var> and is equal to a mathematical integer.
+        If two integer Number values are equally close to <var>x</var>, then the result is the Number value that is closer to
+        <span style="font-family: Times New Roman">+&#x221E;</span>. If <var>x</var> is already an integer, the result is
+        <var>x</var>.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;0.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is +&#x221E;.</li>
+          <li>If <i>x</i> is &#x2212;&#x221E;, the result is &#x2212;&#x221E;.</li>
+          <li>If <i>x</i> is greater than 0 but less than 0.5, the result is +0.</li>
+          <li>If <i>x</i> is less than 0 but greater than or equal to -0.5, the result is &#x2212;0.</li>
+        </ul>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> <code>Math.round(3.5)</code> returns <span style="font-family: Times New
+          Roman">4</span>, but <code>Math.round(&#x2013;3.5)</code> returns <span style="font-family: Times New
+          Roman">&#x2013;3</span>.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The value of <code>Math.round(x)</code> is not always the same as the value of
+          <code><a href="/sec/sec-math.floor.html">Math.floor</a>(x+0.5)</code>. When <code>x</code> is <span style="font-family: Times New
+          Roman">&#x2212;0</span> or is less than <span style="font-family: Times New Roman">0</span> but greater than or equal to
+          <span style="font-family: Times New Roman">-0.5</span>, <code>Math.round(x)</code> returns <span style="font-family:
+          Times New Roman">&#x2212;0</span>, but <code><a href="/sec/sec-math.floor.html">Math.floor</a>(x+0.5)</code> returns <span style="font-family: Times New Roman">+0</span>. <code>Math.round(x)</code> may also differ from the value of <code><a href="/sec/sec-math.floor.html">Math.floor</a>(x+0.5)</code>because of internal rounding when computing <code>x+0.5</code>.</p>
+        </div>
+      </section>
+
+      <section id="sec-math.sign">
+        <h1><span class="secnum" id="sec-20.2.2.29"><a href="/sec/sec-math.sign.html" title="link to this section">20.2.2.29</a></span>
+            Math.sign(x)</h1>
+
+        <p class="normalbefore">Returns the sign of the x, indicating whether x is positive, negative or zero.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;0.</li>
+          <li>If <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>x</i> is negative and not &#x2212;0, the result is &#x2212;1.</li>
+          <li>If <i>x</i> is positive and not +0, the result is +1.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.sin">
+        <h1><span class="secnum" id="sec-20.2.2.30"><a href="/sec/sec-math.sin.html" title="link to this section">20.2.2.30</a></span>
+            Math.sin ( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the sine of <var>x</var>. The argument is
+        expressed in radians.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;0.</li>
+          <li>If <i>x</i> is +&#x221E; or &#x2212;&#x221E;, the result is NaN.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.sinh">
+        <h1><span class="secnum" id="sec-20.2.2.31"><a href="/sec/sec-math.sinh.html" title="link to this section">20.2.2.31</a></span>
+            Math.sinh( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the hyperbolic sine of <i>x</i>.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;0.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is +&#x221E;.</li>
+          <li>If x is &#x2212;&#x221E;, the result is &#x2212;&#x221E;.</li>
+        </ul>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The value of sinh(x) is the same as <i>(exp(x) - exp(-x))/2</i>.</p>
+        </div>
+      </section>
+
+      <section id="sec-math.sqrt">
+        <h1><span class="secnum" id="sec-20.2.2.32"><a href="/sec/sec-math.sqrt.html" title="link to this section">20.2.2.32</a></span>
+            Math.sqrt ( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the square root of <var>x</var>.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is less than 0, the result is NaN.</li>
+          <li>If <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;0.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is +&#x221E;.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.tan">
+        <h1><span class="secnum" id="sec-20.2.2.33"><a href="/sec/sec-math.tan.html" title="link to this section">20.2.2.33</a></span>
+            Math.tan ( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the tangent of <var>x</var>. The argument is
+        expressed in radians.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;0.</li>
+          <li>If <i>x</i> is +&#x221E; or &#x2212;&#x221E;, the result is NaN.</li>
+        </ul>
+      </section>
+
+      <section id="sec-math.tanh">
+        <h1><span class="secnum" id="sec-20.2.2.34"><a href="/sec/sec-math.tanh.html" title="link to this section">20.2.2.34</a></span>
+            Math.tanh ( x )</h1>
+
+        <p class="normalbefore">Returns an implementation-dependent approximation to the hyperbolic tangent of <i>x</i>.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;0.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is +1.</li>
+          <li>If <i>x</i> is &#x2212;&#x221E;, the result is -1.</li>
+        </ul>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The value of tanh(x) is the same as <i>(exp(x) - exp(-x))/(exp(x) + exp(-x))</i>.</p>
+        </div>
+      </section>
+
+      <section id="sec-math.trunc">
+        <h1><span class="secnum" id="sec-20.2.2.35"><a href="/sec/sec-math.trunc.html" title="link to this section">20.2.2.35</a></span>
+            Math.trunc ( x )</h1>
+
+        <p class="normalbefore">Returns the integral part of the number <var>x</var>, removing any fractional digits. If
+        <var>x</var> is already an integer, the result is <var>x</var>.</p>
+
+        <ul>
+          <li>If <i>x</i> is NaN, the result is NaN.</li>
+          <li>If <i>x</i> is &#x2212;0, the result is &#x2212;0.</li>
+          <li>If <i>x</i> is +0, the result is +0.</li>
+          <li>If <i>x</i> is +&#x221E;, the result is +&#x221E;.</li>
+          <li>If x is &#x2212;&#x221E;, the result is &#x2212;&#x221E;.</li>
+          <li>If <i>x</i> is greater than 0 but less than 1, the result is +0.</li>
+          <li>If <i>x</i> is less than 0 but greater than &#x2212;1, the result is &#x2212;0.</li>
+        </ul>
+      </section>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

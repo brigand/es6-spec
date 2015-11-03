@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-23.2"><a href="/sec/sec-set-objects.html" title="link to this section">23.2</a></span> Set
+          Objects</h1>
+
+      <p>Set objects are collections of <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language values</a>. A distinct value
+      may only occur once as an element of a Set&#x2019;s collection. Distinct values are discriminated using the <a href="/sec/sec-samevaluezero.html">SameValueZero</a> comparison algorithm.</p>
+
+      <p>Set objects must be implemented using either hash tables or other mechanisms that, on average, provide access times that
+      are sublinear on the number of elements in the collection. The data structures used in this Set objects specification is
+      only intended to describe the required observable semantics of Set objects. It is not intended to be a viable implementation
+      model.</p>
+    </div>
+
+    <section id="sec-set-constructor">
+      <div class="front">
+        <h1><span class="secnum" id="sec-23.2.1"><a href="/sec/sec-set-constructor.html" title="link to this section">23.2.1</a></span> The
+            Set Constructor</h1>
+
+        <p>The Set constructor is the %Set% intrinsic object and the initial value of the <code>Set</code> property of the global
+        object. When called as a constructor it creates and initializes a new Set object. <code>Set</code> is not intended to be
+        called as a function and will throw an exception when called in that manner.</p>
+
+        <p>The <code>Set</code> constructor is designed to be subclassable. It may be used as the value in an <code>extends</code>
+        clause of a class definition. Subclass constructors that intend to inherit the specified <code>Set</code> behaviour must
+        include a <code>super</code> call to the <code>Set</code> constructor to create and initialize the subclass instance with
+        the internal state necessary to support the <code>Set.prototype</code> built-in methods.</p>
+      </div>
+
+      <section id="sec-set-iterable">
+        <h1><span class="secnum" id="sec-23.2.1.1"><a href="/sec/sec-set-iterable.html" title="link to this section">23.2.1.1</a></span>
+            Set ( [ iterable ] )</h1>
+
+        <p class="normalbefore">When the <code>Set</code> function is called with optional argument <var>iterable</var> the
+        following steps are taken:</p>
+
+        <ol class="proc">
+          <li>If NewTarget is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>set</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(NewTarget,
+              <code>&quot;%SetPrototype%&quot;</code>, &#xAB;&#x200D;[[SetData]]&#xBB; ).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>set</i>).</li>
+          <li>Set <i>set&#x2019;s</i> [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to a
+              new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>If <i>iterable</i> is not present, let <i>iterable</i> be <b>undefined</b>.</li>
+          <li>If <i>iterable</i> is either <b>undefined</b> or <b>null</b>, let <i>iter</i> be <b>undefined</b>.</li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>adder</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>set</i>, <code>&quot;add&quot;</code>)<b>.</b></li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>adder</i>).</li>
+              <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>adder</i>) is <b>false</b>, throw a <b>TypeError</b>
+                  exception.</li>
+              <li>Let <i>iter</i> be <a href="/sec/sec-getiterator.html">GetIterator</a>(<i>iterable</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>iter</i>).</li>
+            </ol>
+          </li>
+          <li>If <i>iter</i> is <b>undefined</b>, return <i>set</i>.</li>
+          <li>Repeat
+            <ol class="block">
+              <li>Let <i>next</i> be <a href="/sec/sec-iteratorstep.html">IteratorStep</a>(<i>iter</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+              <li>If <i>next</i> is <b>false</b>, return <i>set</i>.</li>
+              <li>Let <i>nextValue</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>next</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextValue</i>).</li>
+              <li>Let <i>status</i> be <a href="/sec/sec-call.html">Call</a>(<i>adder</i>, <i>set</i>,
+                  &#xAB;<i>nextValue</i>.[[value]]&#xBB;).</li>
+              <li>If <i>status</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, return <a href="/sec/sec-iteratorclose.html">IteratorClose</a>(<i>iter</i>, <i>status</i>).</li>
+            </ol>
+          </li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-the-set-constructor">
+      <div class="front">
+        <h1><span class="secnum" id="sec-23.2.2"><a href="/sec/sec-properties-of-the-set-constructor.html" title="link to this section">23.2.2</a></span> Properties of the Set Constructor</h1>
+
+        <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the Set
+        constructor is the intrinsic object %FunctionPrototype% (<a href="/sec/sec-properties-of-the-function-prototype-object.html">19.2.3</a>).</p>
+
+        <p>Besides the <code>length</code> property (whose value is <b>0</b>), the Set constructor has the following
+        properties:</p>
+      </div>
+
+      <section id="sec-set.prototype">
+        <h1><span class="secnum" id="sec-23.2.2.1"><a href="/sec/sec-set.prototype.html" title="link to this section">23.2.2.1</a></span>
+            Set.prototype</h1>
+
+        <p>The initial value of <code>Set.prototype</code> is the intrinsic %SetPrototype% object (<a href="/sec/sec-properties-of-the-set-prototype-object.html">23.2.3</a>).</p>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <b>false</b> }.</p>
+      </section>
+
+      <section id="sec-get-set-@@species">
+        <h1><span class="secnum" id="sec-23.2.2.2"><a href="/sec/sec-get-set-@@species.html" title="link to this section">23.2.2.2</a></span> get Set [ @@species ]</h1>
+
+        <p class="normalbefore"><code>Set[@@species]</code> is an accessor property whose set accessor function is <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Return the <b>this</b> value.</li>
+        </ol>
+
+        <p>The value of the <code>name</code> property of this function is <code>&quot;get [Symbol.species]&quot;</code>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> Methods that create derived collection objects should call @@species to determine the
+          constructor to use to create the derived objects. Subclass constructor may over-ride @@species to change the default
+          constructor assignment.</p>
+        </div>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-the-set-prototype-object">
+      <div class="front">
+        <h1><span class="secnum" id="sec-23.2.3"><a href="/sec/sec-properties-of-the-set-prototype-object.html" title="link to this section">23.2.3</a></span> Properties of the Set Prototype Object</h1>
+
+        <p>The Set prototype object is the intrinsic object %SetPrototype%. The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the Set prototype object is the intrinsic
+        object %ObjectPrototype% (<a href="/sec/sec-properties-of-the-object-prototype-object.html">19.1.3</a>). The Set prototype object
+        is an ordinary object. It does not have a [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+        slot</a>.</p>
+      </div>
+
+      <section id="sec-set.prototype.add">
+        <h1><span class="secnum" id="sec-23.2.3.1"><a href="/sec/sec-set.prototype.add.html" title="link to this section">23.2.3.1</a></span> Set.prototype.add ( value )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>S</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>S</i> does not have a [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>,
+              throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of
+              <i>S</i>&#x2019;s [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Repeat for each <i>e</i> that is an element of <i>entries,</i>
+            <ol class="block">
+              <li>If <i>e</i> is not <span style="font-family: sans-serif">empty</span> and <a href="/sec/sec-samevaluezero.html">SameValueZero</a>(<i>e</i>, <i>value</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li>Return <i>S</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>value</i> is &#x2212;0, let <i>value</i> be +0.</li>
+          <li>Append <i>value</i> as the last element of <i>entries</i>.</li>
+          <li>Return <i>S</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-set.prototype.clear">
+        <h1><span class="secnum" id="sec-23.2.3.2"><a href="/sec/sec-set.prototype.clear.html" title="link to this section">23.2.3.2</a></span> Set.prototype.clear ( )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>S</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>S</i> does not have a [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>,
+              throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of
+              <i>S</i>&#x2019;s [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Repeat for each <i>e</i> that is an element of <i>entries,</i>
+            <ol class="block">
+              <li>Replace the element of <i>entries</i> whose value is <i>e</i> with an element whose value is <span style="font-family: sans-serif">empty</span><i>.</i></li>
+            </ol>
+          </li>
+          <li>Return <b>undefined</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-set.prototype.constructor">
+        <h1><span class="secnum" id="sec-23.2.3.3"><a href="/sec/sec-set.prototype.constructor.html" title="link to this section">23.2.3.3</a></span> Set.prototype.constructor</h1>
+
+        <p>The initial value of <code>Set.prototype.constructor</code> is the intrinsic object %Set%.</p>
+      </section>
+
+      <section id="sec-set.prototype.delete">
+        <h1><span class="secnum" id="sec-23.2.3.4"><a href="/sec/sec-set.prototype.delete.html" title="link to this section">23.2.3.4</a></span> Set.prototype.delete ( value )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>S</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>S</i> does not have a [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>,
+              throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of
+              <i>S</i>&#x2019;s [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Repeat for each  <i>e</i> that is an element of <i>entries</i>,
+            <ol class="block">
+              <li>If <i>e</i> is not <span style="font-family: sans-serif">empty</span> and <a href="/sec/sec-samevaluezero.html">SameValueZero</a>(<i>e</i>, <i>value</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li>Replace the element of <i>entries</i> whose value is <i>e</i> with an element whose value is <span style="font-family: sans-serif">empty</span><i>.</i></li>
+                  <li>Return <b>true</b>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The value <b>empty</b> is used as a specification device to indicate that an entry has
+          been deleted. Actual implementations may take other actions such as physically removing the entry from internal data
+          structures.</p>
+        </div>
+      </section>
+
+      <section id="sec-set.prototype.entries">
+        <h1><span class="secnum" id="sec-23.2.3.5"><a href="/sec/sec-set.prototype.entries.html" title="link to this section">23.2.3.5</a></span> Set.prototype.entries ( )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-createsetiterator.html">CreateSetIterator</a>(<i>S</i>, <b>&quot;<code>key+value</code>&quot;</b>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> For iteration purposes, a Set appears similar to a Map where each entry has the same
+          value for its key and value.</p>
+        </div>
+      </section>
+
+      <section id="sec-set.prototype.foreach">
+        <h1><span class="secnum" id="sec-23.2.3.6"><a href="/sec/sec-set.prototype.foreach.html" title="link to this section">23.2.3.6</a></span> Set.prototype.forEach ( callbackfn [ , thisArg ] )</h1>
+
+        <p class="normalbefore">When the <code>forEach</code> method is called with one or two arguments, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>S</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>S</i> does not have a [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>,
+              throw a <b>TypeError</b> exception.</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>callbackfn</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>thisArg</i> was supplied, let <i>T</i> be <i>thisArg</i>; else let <i>T</i> be <b>undefined</b>.</li>
+          <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of
+              <i>S</i>&#x2019;s [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Repeat for each <i>e</i> that is an element of <i>entries,</i> in original insertion order
+            <ol class="block">
+              <li>If <i>e</i> is not <span style="font-family: sans-serif">empty</span>, then
+                <ol class="block">
+                  <li>Let <i>funcResult</i> be <a href="/sec/sec-call.html">Call</a>(<i>callbackfn</i>, <i>T</i>, &#xAB;<i>e</i>,
+                      <i>e</i>, <i>S</i>&#xBB;).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>funcResult</i>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Return <b>undefined</b>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>forEach</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> <var>callbackfn</var> should be a function that accepts three arguments.
+          <code>forEach</code> calls <var>callbackfn</var> once for each value present in the set object, in value insertion
+          order. <var>callbackfn</var> is called only for values of the Set which actually exist; it is not called for keys that
+          have been  deleted from the set.</p>
+
+          <p>If a <var>thisArg</var> parameter is provided, it will be used as the <b>this</b> value for each invocation of
+          <var>callbackfn</var>. If it is not provided, <b>undefined</b> is used instead.</p>
+
+          <p><var>callbackfn</var> is called with three arguments: the first two arguments are a value contained in the Set. The
+          same value is passed for both arguments. The Set object being traversed is passed as the third argument.</p>
+
+          <p>The <var>callbackfn</var> is called with three arguments to be consistent with the call back functions used by
+          <code>forEach</code> methods for Map and Array. For Sets, each item value is considered to be both the key and the
+          value.</p>
+
+          <p><code>forEach</code> does not directly mutate the object on which it is called but the object may be mutated by the
+          calls to <var>callbackfn</var>.</p>
+
+          <p>Each value is normally visited only once. However, a value will be revisited if it is deleted after it has been
+          visited and then re-added before the <code>forEach</code> call completes. Values that are deleted after the call to
+          <code>forEach</code> begins and before being visited are not visited unless the value is added again before the
+          <code>forEach</code> call completes. New values added after the call to <code>forEach</code> begins are visited.</p>
+        </div>
+      </section>
+
+      <section id="sec-set.prototype.has">
+        <h1><span class="secnum" id="sec-23.2.3.7"><a href="/sec/sec-set.prototype.has.html" title="link to this section">23.2.3.7</a></span> Set.prototype.has ( value )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>S</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>S</i> does not have a [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>,
+              throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of
+              <i>S</i>&#x2019;s [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Repeat for each <i>e</i> that is an element of <i>entries,</i>
+            <ol class="block">
+              <li>If <i>e</i> is not <span style="font-family: sans-serif">empty</span> and <a href="/sec/sec-samevaluezero.html">SameValueZero</a>(<i>e</i>, <i>value</i>) is <b>true</b>, return
+                  <b>true</b><i>.</i></li>
+            </ol>
+          </li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-set.prototype.keys">
+        <h1><span class="secnum" id="sec-23.2.3.8"><a href="/sec/sec-set.prototype.keys.html" title="link to this section">23.2.3.8</a></span> Set.prototype.keys ( )</h1>
+
+        <p>The initial value of the <code>keys</code> property is the same function object as the initial value of the
+        <code>values</code> property.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> For iteration purposes, a Set appears similar to a Map where each entry has the same
+          value for its key and value.</p>
+        </div>
+      </section>
+
+      <section id="sec-get-set.prototype.size">
+        <h1><span class="secnum" id="sec-23.2.3.9"><a href="/sec/sec-get-set.prototype.size.html" title="link to this section">23.2.3.9</a></span> get Set.prototype.size</h1>
+
+        <p class="normalbefore"><code>Set.prototype.size</code> is an accessor property whose set accessor function is <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>S</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>S</i> does not have a [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>,
+              throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of
+              <i>S</i>&#x2019;s [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>count</i> be 0.</li>
+          <li>For each <i>e</i> that is an element of <i>entries</i>
+            <ol class="block">
+              <li>If <i>e</i> is not <span style="font-family: sans-serif">empty</span>, set <i>count</i> to <i>count</i>+1.</li>
+            </ol>
+          </li>
+          <li>Return <i>count</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-set.prototype.values">
+        <h1><span class="secnum" id="sec-23.2.3.10"><a href="/sec/sec-set.prototype.values.html" title="link to this section">23.2.3.10</a></span> Set.prototype.values ( )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-createsetiterator.html">CreateSetIterator</a>(<i>S</i>, <b>&quot;<code>value</code>&quot;</b>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-set.prototype-@@iterator">
+        <h1><span class="secnum" id="sec-23.2.3.11"><a href="/sec/sec-set.prototype-@@iterator.html" title="link to this section">23.2.3.11</a></span> Set.prototype [ @@iterator ] ( )</h1>
+
+        <p>The initial value of the @@iterator property is the same function object as the initial value of the
+        <code>values</code> property.</p>
+      </section>
+
+      <section id="sec-set.prototype-@@tostringtag">
+        <h1><span class="secnum" id="sec-23.2.3.12"><a href="/sec/sec-set.prototype-@@tostringtag.html" title="link to this section">23.2.3.12</a></span> Set.prototype [ @@toStringTag ]</h1>
+
+        <p>The initial value of the @@toStringTag property is the String value <code>&quot;Set&quot;</code>.</p>
+
+        <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-set-instances">
+      <h1><span class="secnum" id="sec-23.2.4"><a href="/sec/sec-properties-of-set-instances.html" title="link to this section">23.2.4</a></span> Properties of Set Instances</h1>
+
+      <p>Set instances are ordinary objects that inherit properties from the Set prototype. Set instances also have a [[SetData]]
+      <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+    </section>
+
+    <section id="sec-set-iterator-objects">
+      <div class="front">
+        <h1><span class="secnum" id="sec-23.2.5"><a href="/sec/sec-set-iterator-objects.html" title="link to this section">23.2.5</a></span> Set Iterator Objects</h1>
+
+        <p>A Set Iterator is an ordinary object, with the structure defined below, that represents a specific iteration over some
+        specific Set instance object. There is not a named constructor for Set Iterator objects. Instead, set iterator objects are
+        created by calling certain methods of Set instance objects.</p>
+      </div>
+
+      <section id="sec-createsetiterator">
+        <h1><span class="secnum" id="sec-23.2.5.1"><a href="/sec/sec-createsetiterator.html" title="link to this section">23.2.5.1</a></span> CreateSetIterator Abstract Operation</h1>
+
+        <p class="normalbefore">Several methods of Set objects return Iterator objects. The abstract operation CreateSetIterator
+        with arguments <var>set</var> and <var>kind</var> is used to create such iterator objects. It performs the following
+        steps:</p>
+
+        <ol class="proc">
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>set</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>set</i> does not have a [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>iterator</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(%SetIteratorPrototype%,
+              &#xAB;&#x200D;[[IteratedSet]], [[SetNextIndex]], [[SetIterationKind]]&#xBB;).</li>
+          <li>Set <i>iterator&#x2019;s</i> [[IteratedSet]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to <i>set</i>.</li>
+          <li>Set <i>iterator&#x2019;s</i> [[SetNextIndex]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to 0.</li>
+          <li>Set <i>iterator&#x2019;s</i> [[SetIterationKind]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to <i>kind</i>.</li>
+          <li>Return <i>iterator</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-%setiteratorprototype%-object">
+        <div class="front">
+          <h1><span class="secnum" id="sec-23.2.5.2"><a href="/sec/sec-%setiteratorprototype%-object.html" title="link to this section">23.2.5.2</a></span> The %SetIteratorPrototype% Object</h1>
+
+          <p>All Set Iterator Objects inherit properties from the %SetIteratorPrototype% intrinsic object. The
+          %SetIteratorPrototype% intrinsic object is an ordinary object and its [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is the %IteratorPrototype% intrinsic object (<a href="/sec/sec-%iteratorprototype%-object.html">25.1.2</a>). In addition, %SetIteratorPrototype% has the following
+          properties:</p>
+        </div>
+
+        <section id="sec-%setiteratorprototype%.next">
+          <h1><span class="secnum" id="sec-23.2.5.2.1"><a href="/sec/sec-%setiteratorprototype%.next.html" title="link to this section">23.2.5.2.1</a></span> %SetIteratorPrototype%.next ( )</h1>
+          <ol class="proc">
+            <li>Let <i>O</i> be the <b>this</b> value.</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, throw a <b>TypeError</b>
+                exception.</li>
+            <li>If <i>O</i> does not have all of the internal slots of a Set Iterator Instance (<a href="/sec/sec-properties-of-set-iterator-instances.html">23.2.5.3</a>), throw a <b>TypeError</b> exception.</li>
+            <li>Let <i>s</i> be the value of the [[IteratedSet]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+            <li>Let <i>index</i> be the value of the [[SetNextIndex]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+            <li>Let <i>itemKind</i> be the value of the [[SetIterationKind]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+            <li>If <i>s</i> is <b>undefined</b>, return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<b>undefined</b>, <b>true</b>).</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>s</i> has a [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of the
+                [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>s</i>.</li>
+            <li>Repeat while <i>index</i> is less than the total number of elements of <i>entries</i>. The number of elements must
+                be redetermined each time this method is evaluated.
+              <ol class="block">
+                <li>Let <i>e</i> be <i>entries</i>[<i>index</i>].</li>
+                <li>Set <i>index</i> to <i>index</i>+1;</li>
+                <li>Set the [[SetNextIndex]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of
+                    <i>O</i> to <i>index</i>.</li>
+                <li>If <i>e</i> is not <span style="font-family: sans-serif">empty</span>, then
+                  <ol class="block">
+                    <li>If <i>itemKind</i> is <b>&quot;<code>key+value</code>&quot;</b>, then
+                      <ol class="block">
+                        <li>Return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<a href="/sec/sec-createarrayfromlist.html">CreateArrayFromList</a>(&#xAB;<i>e</i>, <i>e</i>&#xBB;),
+                            <b>false</b>).</li>
+                      </ol>
+                    </li>
+                    <li>Return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<i>e</i>, <b>false</b>).</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+            <li>Set the [[IteratedSet]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i> to
+                <b>undefined</b>.</li>
+            <li>Return <a href="/sec/sec-createiterresultobject.html">CreateIterResultObject</a>(<b>undefined</b>, <b>true</b>).</li>
+          </ol>
+        </section>
+
+        <section id="sec-%setiteratorprototype%-@@tostringtag">
+          <h1><span class="secnum" id="sec-23.2.5.2.2"><a href="/sec/sec-%setiteratorprototype%-@@tostringtag.html" title="link to this section">23.2.5.2.2</a></span> %SetIteratorPrototype% [ @@toStringTag ]</h1>
+
+          <p>The initial value of the @@toStringTag property is the String value <code>&quot;Set Iterator&quot;</code>.</p>
+
+          <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+        </section>
+      </section>
+
+      <section id="sec-properties-of-set-iterator-instances">
+        <h1><span class="secnum" id="sec-23.2.5.3"><a href="/sec/sec-properties-of-set-iterator-instances.html" title="link to this section">23.2.5.3</a></span> Properties of Set Iterator Instances</h1>
+
+        <p>Set Iterator instances are ordinary objects that inherit properties from the %SetIteratorPrototype% intrinsic  object.
+        Set Iterator instances are initially created with the internal slots specified in <a href="/sec/table-51.html">Table 51</a>.</p>
+
+        <figure>
+          <figcaption><span id="table-51">Table 51</span> &#x2014; Internal Slots of Set Iterator Instances</figcaption>
+          <table class="real-table">
+            <tr>
+              <th style="background-color: #BFBFBF">Internal Slot</th>
+              <th style="background-color: #BFBFBF">Description</th>
+            </tr>
+            <tr>
+              <td>[[IteratedSet]]</td>
+              <td>The Set object that is being iterated.</td>
+            </tr>
+            <tr>
+              <td>[[SetNextIndex]]</td>
+              <td>The integer index of the next Set data element to be examined by this iterator</td>
+            </tr>
+            <tr>
+              <td>[[SetIterationKind]]</td>
+              <td>A String value that identifies what is to be returned for each element of the iteration. The possible values are: <code>&quot;key&quot;</code>, <code>&quot;value&quot;</code>, <code>&quot;key+value&quot;</code>. <code>&quot;key&quot;</code> and <code>&quot;value&quot;</code> have the same meaning.</td>
+            </tr>
+          </table>
+        </figure>
+      </section>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

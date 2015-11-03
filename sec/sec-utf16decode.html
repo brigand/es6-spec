@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-10.1.2"><a href="/sec/sec-utf16decode.html" title="link to this section">10.1.2</a></span> Static
+          Semantics: UTF16Decode( lead, trail )</h1>
+
+      <p>Two code units, <var>lead</var> and <var>trail</var>, that form a UTF-16 surrogate pair are converted to a code point by
+      performing the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: 0xD800 &#x2264; <i>lead</i> &#x2264; 0xDBFF and 0xDC00 &#x2264; <i>trail</i> &#x2264;
+            0xDFFF.</li>
+        <li>Let <i>cp</i> be (<i>lead</i> &#x2013; 0xD800) &#xD7; 1024 + (<i>trail</i> &#x2013; 0xDC00) + 0x10000.</li>
+        <li>Return the code point <i>cp</i>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

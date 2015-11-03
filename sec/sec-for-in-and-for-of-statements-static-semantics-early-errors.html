@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-13.7.5.1"><a href="/sec/sec-for-in-and-for-of-statements-static-semantics-early-errors.html" title="link to this section">13.7.5.1</a></span> Static Semantics:  Early Errors</h1>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">IterationStatement</span> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">LeftHandSideExpression</span> <code class="t">in</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">LeftHandSideExpression</span> <code class="t">of</code> <span class="nt">AssignmentExpression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+        </div>
+
+        <ul>
+          <li>
+            <p>It is a Syntax Error if <span class="nt">LeftHandSideExpression</span> is either an <span class="nt">ObjectLiteral</span> or an <span class="nt">ArrayLiteral</span> and if the lexical token sequence matched
+            by <span class="nt">LeftHandSideExpression</span> cannot be parsed with no tokens left over using <span class="nt">AssignmentPattern</span> as the goal symbol.</p>
+          </li>
+        </ul>
+
+        <p>If <span class="nt">LeftHandSideExpression</span> is either an <span class="nt">ObjectLiteral</span> or an <span class="nt">ArrayLiteral</span> and if the lexical token sequence matched by <span class="nt">LeftHandSideExpression</span>
+        can be parsed with no tokens left over using <span class="nt">AssignmentPattern</span> as the goal symbol then the
+        following rules are not applied. Instead, the Early Error rules for <span class="nt">AssignmentPattern</span> are
+        used.</p>
+
+        <ul>
+          <li>
+            <p>It is a Syntax Error if <span style="font-family: Times New Roman">IsValidSimpleAssignmentTarget</span> of <span class="nt">LeftHandSideExpression</span> is <span class="value">false</span>.</p>
+          </li>
+
+          <li>
+            <p>It is a Syntax Error if the <span class="nt">LeftHandSideExpression</span> is                    <span class="prod"><span class="nt">CoverParenthesizedExpressionAndArrowParameterList</span> <span class="geq">:</span>
+            <code class="t">(</code> <span class="nt">Expression</span> <code class="t">)</code></span> and <span class="nt">Expression</span> derives a production that would produce a Syntax Error according to these rules if that
+            production is substituted for <span class="nt">LeftHandSideExpression</span>. This rule is recursively applied.</p>
+          </li>
+        </ul>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The last rule means that the other rules are applied even if parentheses surround <span class="nt">Expression</span>.</p>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">IterationStatement</span> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">ForDeclaration</span> <code class="t">in</code> <span class="nt">Expression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+          <div class="rhs"><code class="t">for</code> <code class="t">(</code> <span class="nt">ForDeclaration</span> <code class="t">of</code> <span class="nt">AssignmentExpression</span> <code class="t">)</code> <span class="nt">Statement</span></div>
+        </div>
+
+        <ul>
+          <li>
+            <p>It is a Syntax Error if the BoundNames of <span class="nt">ForDeclaration</span> contains <code>&quot;let&quot;</code>.</p>
+          </li>
+
+          <li>
+            <p>It is a Syntax Error if any element of the BoundNames of <span class="nt">ForDeclaration</span> also occurs in the
+            VarDeclaredNames of <span class="nt">Statement</span>.</p>
+          </li>
+
+          <li>
+            <p>It is a Syntax Error if the BoundNames of <span class="nt">ForDeclaration</span> contains any duplicate
+            entries.</p>
+          </li>
+        </ul>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-6.2.1"><a href="/sec/sec-list-and-record-specification-type.html" title="link to this section">6.2.1</a></span> The List and Record Specification Type</h1>
+
+      <p>The List type is used to explain the evaluation of argument lists (<a href="/sec/sec-argument-lists.html">see 12.3.6</a>) in
+      <code>new</code> expressions, in function calls, and in other algorithms where a simple ordered list of values is needed.
+      Values of the List type are simply ordered sequences of list elements containing the individual values. These sequences may
+      be of any length. The elements of a list may be randomly accessed using 0-origin indices. For notational convenience an
+      array-like syntax can be used to access List elements. For example, <i>arguments</i>[2] is shorthand for saying the
+      3<sup>rd</sup> element of the List <i>arguments</i>.</p>
+
+      <p>For notational convenience within this specification, a literal syntax can be used to express a new List value. For
+      example, &#xAB;1, 2&#xBB; defines a List value that has two elements each of which is initialized to a specific value. A
+      new empty List can be expressed as &#xAB;&#xBB;.</p>
+
+      <p>The Record type is used to describe data aggregations within the algorithms of this specification. A Record type value
+      consists of one or more named fields. The value of each field is either an ECMAScript value or an abstract value represented
+      by a name associated with the Record type. Field names are always enclosed in double brackets, for example [[value]].</p>
+
+      <p>For notational convenience within this specification, an object literal-like syntax can be used to express a Record
+      value. For example, {[[field1]]: 42, [[field2]]: <b>false</b>, [[field3]]: <b>empty</b>} defines a Record value that has
+      three fields, each of which is initialized to a specific value. Field name order is not significant. Any fields that are not
+      explicitly listed are considered to be absent.</p>
+
+      <p>In specification text and algorithms, dot notation may be used to refer to a specific field of a Record value. For
+      example, if R is the record shown in the previous paragraph then R.[[field2]] is shorthand for &#x201C;the field of R named
+      [[field2]]&#x201D;.</p>
+
+      <p>Schema for commonly used Record field combinations may be named, and that name may be used as a prefix to a literal
+      Record value to identify the specific kind of aggregations that is being described. For example:
+      PropertyDescriptor{[[Value]]: 42, [[Writable]]: <b>false</b>, [[Configurable]]: <b>true</b>}.</p>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

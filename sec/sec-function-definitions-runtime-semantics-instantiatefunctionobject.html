@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-14.1.19"><a href="/sec/sec-function-definitions-runtime-semantics-instantiatefunctionobject.html" title="link to this section">14.1.19</a></span> Runtime Semantics: InstantiateFunctionObject</h1>
+
+      <p>With parameter <var>scope</var>.</p>
+
+      <p>See also: <a href="/sec/sec-generator-function-definitions-runtime-semantics-instantiatefunctionobject.html">14.4.12</a>.</p>
+
+      <div class="gp prod"><span class="nt">FunctionDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>If the function code for <i>FunctionDeclaration</i> is <a href="/sec/sec-strict-mode-code.html">strict mode code</a>, let
+            <i>strict</i> be <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.</li>
+        <li>Let <i>name</i> be StringValue of <i>BindingIdentifier.</i></li>
+        <li>Let <i>F</i> be <a href="/sec/sec-functioncreate.html">FunctionCreate</a>(<span style="font-family: sans-serif">Normal</span>,
+            <i>FormalParameters</i>, <i>FunctionBody, scope</i>, <i>strict</i>).</li>
+        <li>Perform <a href="/sec/sec-makeconstructor.html">MakeConstructor</a>(<i>F</i>).</li>
+        <li>Perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>F</i>, <i>name</i>).</li>
+        <li>Return <i>F</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FunctionDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>If the function code for <i>FunctionDeclaration</i> is <a href="/sec/sec-strict-mode-code.html">strict mode code</a>, let
+            <i>strict</i> be <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.</li>
+        <li>Let <i>F</i> be <a href="/sec/sec-functioncreate.html">FunctionCreate</a>(<span style="font-family: sans-serif">Normal</span>,
+            <i>FormalParameters</i>, <i>FunctionBody, scope</i>, <i>strict</i>).</li>
+        <li>Perform <a href="/sec/sec-makeconstructor.html">MakeConstructor</a>(<i>F</i>).</li>
+        <li>Perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>F</i>, <code>&quot;default&quot;</code>).</li>
+        <li>Return <i>F</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> An anonymous <span class="nt">FunctionDeclaration</span> can only occur as part of an
+        <code>export default</code> declaration.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-12.7.3"><a href="/sec/sec-addition-operator-plus.html" title="link to this section">12.7.3</a></span> The Addition operator ( <code>+</code> )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The addition operator either performs string concatenation or numeric addition.</p>
+        </div>
+      </div>
+
+      <section id="sec-addition-operator-plus-runtime-semantics-evaluation">
+        <h1><span class="secnum" id="sec-12.7.3.1"><a href="/sec/sec-addition-operator-plus-runtime-semantics-evaluation.html" title="link to this section">12.7.3.1</a></span> Runtime Semantics: Evaluation</h1>
+        <div class="gp prod"><span class="nt">AdditiveExpression</span> <span class="geq">:</span> <span class="nt">AdditiveExpression</span> <code class="t">+</code> <span class="nt">MultiplicativeExpression</span></div>
+        <ol class="proc">
+          <li>Let <i>lref</i> be the result of evaluating <i>AdditiveExpression</i>.</li>
+          <li>Let <i>lval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>lref</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lval</i>).</li>
+          <li>Let <i>rref</i> be the result of evaluating <i>MultiplicativeExpression</i>.</li>
+          <li>Let <i>rval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rref</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rval</i>).</li>
+          <li>Let <i>lprim</i> be <a href="/sec/sec-toprimitive.html">ToPrimitive</a>(<i>lval</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lprim</i>).</li>
+          <li>Let <i>rprim</i> be <a href="/sec/sec-toprimitive.html">ToPrimitive</a>(<i>rval</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rprim</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>lprim</i>) is String or <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>rprim</i>) is String, then
+            <ol class="block">
+              <li>Let <i>lstr</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>lprim</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lstr</i>).</li>
+              <li>Let <i>rstr</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>rprim</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rstr</i>).</li>
+              <li>Return the String that is the result of concatenating <i>lstr</i> and <i>rstr.</i></li>
+            </ol>
+          </li>
+          <li>Let <i>lnum</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>lprim</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lnum</i>).</li>
+          <li>Let <i>rnum</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>rprim</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rnum</i>).</li>
+          <li>Return the result of applying the addition operation to <i>lnum</i> and <i>rnum</i>. See the Note below <a href="/sec/sec-applying-the-additive-operators-to-numbers.html">12.7.5</a>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> No hint is provided in the calls to <a href="/sec/sec-toprimitive.html">ToPrimitive</a> in
+          steps 7 and 9. All standard objects except Date objects handle the absence of a hint as if the hint Number were given;
+          Date objects handle the absence of a hint as if the hint String were given. Exotic objects may handle the absence of a
+          hint in some other manner.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> Step 11 differs from step 5 of the Abstract Relational Comparison algorithm (<a href="/sec/sec-abstract-relational-comparison.html">7.2.11</a>), by using the logical-or operation instead of the logical-and
+          operation.</p>
+        </div>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

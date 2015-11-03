@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-4.2.2"><a href="/sec/sec-strict-variant-of-ecmascript.html" title="link to this section">4.2.2</a></span> The Strict Variant of ECMAScript</h1>
+
+      <p>The ECMAScript Language recognizes the possibility that some users of the language may wish to restrict their usage of
+      some features available in the language. They might do so in the interests of security, to avoid what they consider to be
+      error-prone features, to get enhanced error checking, or for other reasons of their choosing. In support of this
+      possibility, ECMAScript defines a strict variant of the language. The strict variant of the language excludes some specific
+      syntactic and semantic features of the regular ECMAScript language and modifies the detailed semantics of some features. The
+      strict variant also specifies additional error conditions that must be reported by throwing error exceptions in situations
+      that are not specified as errors by the non-strict form of the language.</p>
+
+      <p>The strict variant of ECMAScript is commonly referred to as the <i>strict mode</i> of the language. Strict mode selection
+      and use of the strict mode syntax and semantics of ECMAScript is explicitly made at the level of individual ECMAScript
+      source text units. Because strict mode is selected at the level of a syntactic source text unit, strict mode only imposes
+      restrictions that have local effect within such a source text unit. Strict mode does not restrict or modify any aspect of
+      the ECMAScript semantics that must operate consistently across multiple source text units. A complete ECMAScript program may
+      be composed of both strict mode and non-strict mode ECMAScript source text units. In this case, strict mode only applies
+      when actually executing code that is defined within a strict mode source text unit.</p>
+
+      <p>In order to conform to this specification, an ECMAScript implementation must implement both the full unrestricted
+      ECMAScript language and the strict variant of the ECMAScript language as defined by this specification. In addition, an
+      implementation must support the combination of unrestricted and strict mode source text units into a single composite
+      program.</p>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

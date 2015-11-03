@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-8.1.1.3.4"><a href="/sec/sec-function-environment-records-getthisbinding.html" title="link to this section">8.1.1.3.4</a></span> GetThisBinding ()</h1>
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the function <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method
+                was invoked.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <i>envRec</i>.[[thisBindingStatus]] is not
+                <code>&quot;lexical&quot;</code>.</li>
+            <li>If <i>envRec</i>.[[thisBindingStatus]] is <code>&quot;uninitialized&quot;</code>, throw a <b>ReferenceError</b>
+                exception.</li>
+            <li>Return <i>envRec</i>.[[thisValue]].</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

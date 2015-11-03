@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.1.2.1"><a href="/sec/sec-string.fromcharcode.html" title="link to this section">21.1.2.1</a></span> String.fromCharCode ( ...codeUnits )</h1>
+
+        <p class="normalbefore">The <code>String.fromCharCode</code> function may be called with any number of arguments which
+        form the rest parameter <var>codeUnits</var>. The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>codeUnits</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the arguments passed
+              to this function.</li>
+          <li>Let <i>length</i> be the number of elements in <i>codeUnits</i><b>.</b></li>
+          <li>Let <i>elements</i> be  a new <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>Let <i>nextIndex</i> be 0.</li>
+          <li>Repeat while <i>nextIndex</i> &lt; <i>length</i>
+            <ol class="block">
+              <li>Let <i>next</i> be <i>codeUnits</i>[<i>nextIndex</i>].</li>
+              <li>Let <i>nextCU</i> be <a href="/sec/sec-touint16.html">ToUint16</a>(<i>next</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextCU</i>).</li>
+              <li>Append <i>nextCU</i> to the end of <i>elements</i>.</li>
+              <li>Let <i>nextIndex</i> be <i>nextIndex</i> + 1.</li>
+            </ol>
+          </li>
+          <li>Return the String value whose elements are, in order, the elements in the <a href="/sec/sec-list-and-record-specification-type.html">List</a> <i>elements</i>. If <i>length</i> is 0, the empty string is
+              returned.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>fromCharCode</code> function is <b>1</b>.</p>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

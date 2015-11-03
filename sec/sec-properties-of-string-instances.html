@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-21.1.4"><a href="/sec/sec-properties-of-string-instances.html" title="link to this section">21.1.4</a></span> Properties of String Instances</h1>
+
+        <p>String instances are String exotic objects and have the internal methods specified for such objects. String instances
+        inherit properties from the String prototype object. String instances also have a [[StringData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+        <p>String instances have a <code>length</code> property, and a set of enumerable properties with integer indexed
+        names.</p>
+      </div>
+
+      <section id="sec-properties-of-string-instances-length">
+        <h1><span class="secnum" id="sec-21.1.4.1"><a href="/sec/sec-properties-of-string-instances-length.html" title="link to this section">21.1.4.1</a></span> length</h1>
+
+        <p>The number of elements in the String value represented by this String object.</p>
+
+        <p>Once a String object is initialized, this property is unchanging. It has the attributes { [[Writable]]: <b>false</b>,
+        [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>false</b> }.</p>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

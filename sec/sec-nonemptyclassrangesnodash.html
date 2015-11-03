@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.2.2.16"><a href="/sec/sec-nonemptyclassrangesnodash.html" title="link to this section">21.2.2.16</a></span> NonemptyClassRangesNoDash</h1>
+
+        <p class="normalbefore">The production <span class="prod"><span class="nt">NonemptyClassRangesNoDash</span> <span class="geq">::</span> <span class="nt">ClassAtom</span></span> evaluates as follows:</p>
+
+        <ol class="proc">
+          <li>Return the CharSet that is the result of evaluating <i>ClassAtom</i>.</li>
+        </ol>
+
+        <p class="normalbefore">The production <span class="prod"><span class="nt">NonemptyClassRangesNoDash</span> <span class="geq">::</span> <span class="nt">ClassAtomNoDash</span> <span class="nt">NonemptyClassRangesNoDash</span></span>
+        evaluates as follows:</p>
+
+        <ol class="proc">
+          <li>Evaluate <i>ClassAtomNoDash</i> to obtain a CharSet <i>A</i>.</li>
+          <li>Evaluate <i>NonemptyClassRangesNoDash</i> to obtain a CharSet <i>B</i>.</li>
+          <li>Return the union of CharSets <i>A</i> and <i>B</i>.</li>
+        </ol>
+
+        <p class="normalbefore">The production <span class="prod"><span class="nt">NonemptyClassRangesNoDash</span> <span class="geq">::</span> <span class="nt">ClassAtomNoDash</span> <code class="t">-</code> <span class="nt">ClassAtom</span>
+        <span class="nt">ClassRanges</span></span> evaluates as follows:</p>
+
+        <ol class="proc">
+          <li>Evaluate <i>ClassAtomNoDash</i> to obtain a CharSet <i>A</i>.</li>
+          <li>Evaluate <i>ClassAtom</i> to obtain a CharSet <i>B</i>.</li>
+          <li>Evaluate <i>ClassRanges</i> to obtain a CharSet <i>C</i>.</li>
+          <li><a href="/sec/sec-call.html">Call</a> CharacterRange(<i>A</i>, <i>B</i>) and let <i>D</i> be the resulting CharSet.</li>
+          <li>Return the union of CharSets <i>D</i> and <i>C</i>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> <span class="nt">ClassRanges</span> can expand into a single <span class="nt">ClassAtom</span> and/or ranges of two <span class="nt">ClassAtom</span>
+          separated by dashes. In the latter case the <span class="nt">ClassRanges</span> includes all characters between the first <span class="nt">ClassAtom</span> and the
+          second <span class="nt">ClassAtom</span>, inclusive; an error occurs if either <span class="nt">ClassAtom</span> does not represent a single character (for example, if
+          one is \w) or if the first <span class="nt">ClassAtom</span>&apos;s character value is greater than the second <span class="nt">ClassAtom</span>&apos;s character value.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> Even if the pattern ignores case, the case of the two ends of a range is significant
+          in determining which characters belong to the range. Thus, for example, the pattern <code>/[E-F]/i</code> matches only
+          the letters <code>E</code>, <code>F</code>, <code>e</code>, and <code>f</code>, while the pattern <code>/[E-f]/i</code>
+          matches all upper and lower-case letters in the Unicode Basic Latin block as well as the symbols <code>[</code>,
+          <code>\</code>, <code>]</code>, <code>^</code>, <code>_</code>, and <code>`</code>.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 3</span> A <code>-</code> character can be treated literally or it can denote a range. It is
+          treated literally if it is the first or last character of <span class="nt">ClassRanges</span>, the beginning or end
+          limit of a range specification, or immediately follows a range specification.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

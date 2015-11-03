@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.2.3.1"><a href="/sec/sec-regexp-pattern-flags.html" title="link to this section">21.2.3.1</a></span> RegExp ( pattern, flags )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>patternIsRegExp</i> be <a href="/sec/sec-isregexp.html">IsRegExp</a>(<i>pattern</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>patternIsRegExp</i>).</li>
+          <li>If NewTarget is not <b>undefined</b>, let <i>newTarget</i> be NewTarget.</li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>newTarget</i> be the active function object.</li>
+              <li>If <i>patternIsRegExp</i> is <b>true</b> and <i>flags</i> is <b>undefined</b>, then
+                <ol class="block">
+                  <li>Let <i>patternConstructor</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>pattern</i>,
+                      <code>&quot;constructor&quot;</code>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>patternConstructor</i>).</li>
+                  <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>newTarget</i>, <i>patternConstructor</i>) is <b>true</b>,
+                      return <i>pattern</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>pattern</i>) is Object and <i>pattern</i> has a
+              [[RegExpMatcher]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, then
+            <ol class="block">
+              <li>Let <i>P</i> be the value of <i>pattern&#x2019;s</i> [[OriginalSource]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+              <li>If <i>flags</i> is <b>undefined</b>, let <i>F</i> be the value of <i>pattern&#x2019;s</i> [[OriginalFlags]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+              <li>Else, let <i>F</i> be <i>flags</i>.</li>
+            </ol>
+          </li>
+          <li>Else if <i>patternIsRegExp</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>P</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>pattern</i>, <code>&quot;source&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>P</i>).</li>
+              <li>If <i>flags</i> is <b>undefined</b>, then
+                <ol class="block">
+                  <li>Let <i>F</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>pattern</i>, <code>&quot;flags&quot;</code>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>F</i>).</li>
+                </ol>
+              </li>
+              <li>Else, let <i>F</i> be <i>flags</i>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>P</i> be <i>pattern</i>.</li>
+              <li>Let <i>F</i> be <i>flags</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>O</i> be <a href="/sec/sec-regexpalloc.html">RegExpAlloc</a>(<i>newTarget</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Return <a href="/sec/sec-regexpinitialize.html">RegExpInitialize</a>(<i>O,</i> <i>P</i>, <i>F</i>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> If pattern is supplied using a <span class="nt">StringLiteral</span>, the usual escape
+          sequence substitutions are performed before the String is processed by RegExp. If pattern must contain an escape
+          sequence to be recognized by RegExp, any U+005C (REVERSE SOLIDUS) code points must be escaped within the <span class="nt">StringLiteral</span> to prevent them being removed when the contents of the <span class="nt">StringLiteral</span> are formed.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

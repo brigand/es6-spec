@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-11.9"><a href="/sec/sec-automatic-semicolon-insertion.html" title="link to this section">11.9</a></span> Automatic Semicolon Insertion</h1>
+
+      <p>Certain ECMAScript statements (empty statement, <code>let</code>, <code>const</code>, <code>import</code>, and
+      <code>export</code> declarations, variable statement, expression statement, <code>debugger</code> statement,
+      <code>continue</code> statement, <code>break</code> statement, <code>return</code> statement, and <code>throw</code>
+      statement) must be terminated with semicolons. Such semicolons may always appear explicitly in the source text. For
+      convenience, however, such semicolons may be omitted from the source text in certain situations. These situations are
+      described by saying that semicolons are automatically inserted into the source code token stream in those situations.</p>
+    </div>
+
+    <section id="sec-rules-of-automatic-semicolon-insertion">
+      <h1><span class="secnum" id="sec-11.9.1"><a href="/sec/sec-rules-of-automatic-semicolon-insertion.html" title="link to this section">11.9.1</a></span> Rules of Automatic Semicolon Insertion</h1>
+
+      <p>In the following rules, &#x201C;token&#x201D; means the actual recognized lexical token determined using the current
+      lexical goal symbol as described in <a href="/sec/sec-ecmascript-language-lexical-grammar.html">clause 11</a>.</p>
+
+      <p>There are three basic rules of semicolon insertion:</p>
+
+      <ol class="proc">
+        <li>When, as a <span style="font-family: Times New Roman"><i>Script</i> or <i>Module</i></span> is parsed from left to
+            right, a token (called the <i>offending token</i>) is encountered that is not allowed by any production of the
+            grammar, then a semicolon is automatically inserted before the offending token if one or more of the following
+            conditions is true:
+          <ul>
+            <li>
+              <p>The offending token is separated from the previous token by at least one <span class="nt">LineTerminator</span>.</p>
+            </li>
+
+            <li>
+              <p>The offending token is <code>}</code>.</p>
+            </li>
+
+            <li>
+              <p>The previous token is <code>)</code> and the inserted semicolon would then be parsed as the terminating semicolon
+              of a do-while statement (<a href="/sec/sec-do-while-statement.html">13.7.2</a>).</p>
+            </li>
+          </ul>
+        </li>
+        <li>When, as the <span style="font-family: Times New Roman"><i>Script</i> or <i>Module</i></span> is parsed from left to
+            right, the end of the input stream of tokens is encountered and the parser is unable to parse the input token stream
+            as a single complete ECMAScript <span style="font-family: Times New Roman"><i>Script</i> or <i>Module</i></span>, then
+            a semicolon is automatically inserted at the end of the input stream.</li>
+        <li>When, as the <span style="font-family: Times New Roman"><i>Script</i> or <i>Module</i></span> is parsed from left to
+            right, a token is encountered that is allowed by some production of the grammar, but the production is a <i>restricted
+            production</i> and the token would be the first token for a terminal or nonterminal immediately following the
+            annotation <span style="font-family: Times New Roman">&#x201C;</span>[no<span style="font-family: Times New
+            Roman">&#xA0;<i>LineTerminator</i></span> here]&#x201D; within the restricted production (and therefore such a token is
+            called a restricted token), and the restricted token is separated from the previous token by at least one <span class="nt">LineTerminator</span>, then a semicolon is automatically inserted before the restricted token.</li>
+      </ol>
+
+      <p>However, there is an additional overriding condition on the preceding rules: a semicolon is never inserted automatically
+      if the semicolon would then be parsed as an empty statement or if that semicolon would become one of the two semicolons in
+      the header of a <code>for</code> statement (<a href="/sec/sec-for-statement.html">see 13.7.4</a>).</p>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The following are the only restricted productions in the grammar:</p>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">PostfixExpression</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">LeftHandSideExpression</span><sub class="g-params">[?Yield]</sub> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <code class="t">++</code></div>
+          <div class="rhs"><span class="nt">LeftHandSideExpression</span><sub class="g-params">[?Yield]</sub> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <code class="t">--</code></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">ContinueStatement</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">continue;</code></div>
+          <div class="rhs"><code class="t">continue</code> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <span class="nt">LabelIdentifier</span><sub class="g-params">[?Yield]</sub> <code class="t">;</code></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">BreakStatement</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">break</code> <code class="t">;</code></div>
+          <div class="rhs"><code class="t">break</code> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <span class="nt">LabelIdentifier</span><sub class="g-params">[?Yield]</sub> <code class="t">;</code></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">ReturnStatement</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">return</code> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <span class="nt">Expression</span> <code class="t">;</code></div>
+          <div class="rhs"><code class="t">return</code> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <span class="nt">Expression</span><sub class="g-params">[In, ?Yield]</sub> <code class="t">;</code></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">ThrowStatement</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">throw</code> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <span class="nt">Expression</span><sub class="g-params">[In, ?Yield]</sub> <code class="t">;</code></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">ArrowFunction</span><sub class="g-params">[In, Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">ArrowParameters</span><sub class="g-params">[?Yield]</sub> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <code class="t">=&gt;</code> <span class="nt">ConciseBody</span><sub class="g-params">[?In]</sub></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">YieldExpression</span><sub class="g-params">[In]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">yield</code> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <code class="t">*</code> <span class="nt">AssignmentExpression</span><sub class="g-params">[?In, Yield]</sub></div>
+          <div class="rhs"><code class="t">yield</code> <span class="grhsannot">[no <span class="nt">LineTerminator</span> here]</span> <span class="nt">AssignmentExpression</span><sub class="g-params">[?In, Yield]</sub></div>
+        </div>
+
+        <p>The practical effect of these restricted productions is as follows:</p>
+
+        <ul>
+          <li>
+            <p>When a <code>++</code> or <code>--</code> token is encountered where the parser would treat it as a postfix
+            operator, and at least one <span class="nt">LineTerminator</span> occurred between the preceding token and the
+            <code>++</code> or <code>--</code> token, then a semicolon is automatically inserted before the <code>++</code> or
+            <code>--</code> token.</p>
+          </li>
+
+          <li>
+            <p>When a <code>continue</code>, <code>break</code>, <code>return</code>, <code>throw</code>, or <code>yield</code>
+            token is encountered and a <span class="nt">LineTerminator</span> is encountered before the next token, a semicolon is
+            automatically inserted after the <code>continue</code>, <code>break</code>, <code>return</code>, <code>throw</code>,
+            or <code>yield</code>  token.</p>
+          </li>
+        </ul>
+
+        <p>The resulting practical advice to ECMAScript programmers is:</p>
+
+        <ul>
+          <li>
+            <p>A postfix <code>++</code> or <code>--</code> operator should appear on the same line as its operand.</p>
+          </li>
+
+          <li>
+            <p>An <span class="nt">Expression</span> in a <code>return</code> or <code>throw</code> statement or an <span class="nt">AssignmentExpression</span> in a <code>yield</code> expression should start on the same line as the
+            <code>return</code>, <code>throw</code>, or <code>yield</code> token.</p>
+          </li>
+
+          <li>
+            <p>An <span class="nt">IdentifierReference</span> in a <code>break</code> or <code>continue</code> statement should be
+            on the same line as the <code>break</code> or <code>continue</code> token.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="sec-examples-of-automatic-semicolon-insertion">
+      <h1><span class="secnum" id="sec-11.9.2"><a href="/sec/sec-examples-of-automatic-semicolon-insertion.html" title="link to this section">11.9.2</a></span> Examples of Automatic Semicolon Insertion</h1>
+
+      <p>The source</p>
+
+      <pre class="NoteCode">{ 1 2 } 3</pre>
+
+      <p>is not a valid sentence in the ECMAScript grammar, even with the <a href="/sec/sec-automatic-semicolon-insertion.html">automatic
+      semicolon insertion</a> rules. In contrast, the source</p>
+
+      <pre class="NoteCode">{ 1<br>2 } 3</pre>
+
+      <p>is also not a valid ECMAScript sentence, but is transformed by <a href="/sec/sec-automatic-semicolon-insertion.html">automatic
+      semicolon insertion</a> into the following:</p>
+
+      <pre class="NoteCode">{ 1<br>;2 ;} 3;</pre>
+
+      <p>which is a valid ECMAScript sentence.</p>
+
+      <p>The source</p>
+
+      <pre class="NoteCode">for (a; b<br>)</pre>
+
+      <p>is not a valid ECMAScript sentence and is not altered by <a href="/sec/sec-automatic-semicolon-insertion.html">automatic semicolon
+      insertion</a> because the semicolon is needed for the header of a <code>for</code> statement. Automatic semicolon insertion
+      never inserts one of the two semicolons in the header of a <code>for</code> statement.</p>
+
+      <p>The source</p>
+
+      <pre class="NoteCode">return<br>a + b</pre>
+
+      <p>is transformed by <a href="/sec/sec-automatic-semicolon-insertion.html">automatic semicolon insertion</a> into the following:</p>
+
+      <pre class="NoteCode">return;<br>a + b;</pre>
+
+      <div class="note">
+        <p><span class="nh">NOTE 1</span> The expression <code>a + b</code> is not treated as a value to be returned by the
+        <code>return</code> statement, because a <span class="nt">LineTerminator</span> separates it from the token
+        <code>return</code>.</p>
+      </div>
+
+      <p>The source</p>
+
+      <pre class="NoteCode">a = b<br>++c</pre>
+
+      <p>is transformed by <a href="/sec/sec-automatic-semicolon-insertion.html">automatic semicolon insertion</a> into the following:</p>
+
+      <pre class="NoteCode">a = b;<br>++c;</pre>
+
+      <div class="note">
+        <p><span class="nh">NOTE 2</span> The token <code>++</code> is not treated as a postfix operator applying to the variable
+        <code>b</code>, because a <span class="nt">LineTerminator</span> occurs between <code>b</code> and <code>++</code>.</p>
+      </div>
+
+      <p>The source</p>
+
+      <pre class="NoteCode">if (a &gt; b)<br>else c = d</pre>
+
+      <p>is not a valid ECMAScript sentence and is not altered by <a href="/sec/sec-automatic-semicolon-insertion.html">automatic semicolon
+      insertion</a> before the <code>else</code> token, even though no production of the grammar applies at that point, because an
+      automatically inserted semicolon would then be parsed as an empty statement.</p>
+
+      <p>The source</p>
+
+      <pre class="NoteCode">a = b + c<br>(d + e).print()</pre>
+
+      <p>is <i>not</i> transformed by <a href="/sec/sec-automatic-semicolon-insertion.html">automatic semicolon insertion</a>, because the
+      parenthesized expression that begins the second line can be interpreted as an argument list for a function call:</p>
+
+      <pre class="NoteCode">a = b + c(d + e).print()</pre>
+
+      <p>In the circumstance that an assignment statement must begin with a left parenthesis, it is a good idea for the programmer
+      to provide an explicit semicolon at the end of the preceding statement rather than to rely on <a href="/sec/sec-automatic-semicolon-insertion.html">automatic semicolon insertion</a>.</p>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

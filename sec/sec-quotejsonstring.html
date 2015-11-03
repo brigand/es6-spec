@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-24.3.2.2"><a href="/sec/sec-quotejsonstring.html" title="link to this section">24.3.2.2</a></span>
+            Runtime Semantics: QuoteJSONString ( value )</h1>
+
+        <p class="normalbefore">The abstract operation QuoteJSONString with argument <var>value</var> wraps a String value in
+        QUOTATION MARK code units and escapes certain other code units within it.</p>
+
+        <ol class="proc">
+          <li>Let <i>product</i> be code unit 0x0022 (QUOTATION MARK).</li>
+          <li>For each code unit <i>C</i> in <i>value</i>
+            <ol class="block">
+              <li>If <i>C</i> is 0x0022 (QUOTATION MARK) or 0x005C (REVERSE SOLIDUS), then
+                <ol class="block">
+                  <li>Let <i>product</i> be the concatenation of <i>product</i> and code unit 0x005C (REVERSE SOLIDUS).</li>
+                  <li>Let <i>product</i> be the concatenation of <i>product</i> and <i>C</i>.</li>
+                </ol>
+              </li>
+              <li>Else if <i>C</i> is 0x0008 (BACKSPACE), 0x000C (FORM FEED), 0x000A (LINE FEED), 0x000D (CARRIAGE RETURN), or
+                  0x000B (LINE TABULATION), then
+                <ol class="block">
+                  <li>Let <i>product</i> be the concatenation of <i>product</i> and code unit 0x005C (REVERSE SOLIDUS).</li>
+                  <li>Let <i>abbrev</i> be the String value corresponding to the value of <i>C</i> as follows:
+                    <table class="lightweight">
+                      <tr>
+                        <td>BACKSPACE</td>
+                        <td><span class="string value">&quot;b&quot;</span></td>
+                      </tr>
+                      <tr>
+                        <td>FORM FEED (FF)</td>
+                        <td><span class="string value">&quot;f&quot;</span></td>
+                      </tr>
+                      <tr>
+                        <td>LINE FEED (LF)</td>
+                        <td><span class="string value">&quot;n&quot;</span></td>
+                      </tr>
+                      <tr>
+                        <td>CARRIAGE RETURN (CR)</td>
+                        <td><span class="string value">&quot;r&quot;</span></td>
+                      </tr>
+                      <tr>
+                        <td>LINE TABULATION</td>
+                        <td><span class="string value">&quot;t&quot;</span></td>
+                      </tr>
+                    </table>
+                  </li>
+                  <li>Let <i>product</i> be the concatenation of <i>product</i> and <i>abbrev</i>.</li>
+                </ol>
+              </li>
+              <li>Else if <i>C</i> has a code unit value less than 0x0020 (SPACE), then
+                <ol class="block">
+                  <li>Let <i>product</i> be the concatenation of <i>product</i> and code unit 0x005C (REVERSE SOLIDUS).</li>
+                  <li>Let <i>product</i> be the concatenation of <i>product</i> and <code>&quot;u&quot;</code>.</li>
+                  <li>Let <i>hex</i> be the string result of converting the numeric code unit value of <i>C</i> to a String of
+                      four hexadecimal digits. Alphabetic hexadecimal digits are presented as lowercase Latin letters.</li>
+                  <li>Let <i>product</i> be the concatenation of <i>product</i> and <i>hex</i>.</li>
+                </ol>
+              </li>
+              <li>Else,
+                <ol class="block">
+                  <li>Let <i>product</i> be the concatenation of <i>product</i> and <i>C</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Let <i>product</i> be the concatenation of <i>product</i> and code unit 0x0022 (QUOTATION MARK).</li>
+          <li>Return <i>product</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

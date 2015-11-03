@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-10.1.1"><a href="/sec/sec-utf16encoding.html" title="link to this section">10.1.1</a></span> Static
+          Semantics:  <var>UTF16Encoding ( cp )</var></h1>
+
+      <p>The UTF16Encoding of a numeric code point value, <var>cp</var>, is determined as follows:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: 0 &#x2264; <i>cp</i> &#x2264; 0x10FFFF.</li>
+        <li>If <i>cp</i> &#x2264; 65535, return <i>cp</i>.</li>
+        <li>Let <i>cu1</i> be <a href="/sec/sec-algorithm-conventions.html">floor</a>((<i>cp</i> &#x2013; 65536) / 1024) + 0xD800.</li>
+        <li>Let <i>cu2</i> be ((<i>cp</i> &#x2013; 65536) <a href="/sec/sec-algorithm-conventions.html">modulo</a> 1024) + 0xDC00.</li>
+        <li>Return the code unit sequence consisting of <i>cu1</i> followed by <i>cu2</i>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

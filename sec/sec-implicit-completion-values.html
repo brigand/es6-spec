@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-6.2.2.2"><a href="/sec/sec-implicit-completion-values.html" title="link to this section">6.2.2.2</a></span> Implicit Completion Values</h1>
+
+        <p class="normalbefore">The algorithms of this specification often implicitly return <a href="/sec/sec-completion-record-specification-type.html">Completion</a> Records whose [[type]] is <b>normal</b>. Unless it is
+        otherwise obvious from the context, an algorithm statement that returns a value that is not a <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a>, such as:</p>
+
+        <ol class="proc">
+          <li>Return <code>&quot;Infinity&quot;</code>.</li>
+        </ol>
+
+        <p class="normalbefore">means the same thing as:</p>
+
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<code>&quot;Infinity&quot;</code>).</li>
+        </ol>
+
+        <p>However, if the value expression of a &#x201C;<span style="font-family: Times New Roman">return</span>&#x201D; statement
+        is a <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> construction literal, the resulting <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> is returned. If the value expression is a call to
+        an abstract operation, the &#x201C;<span style="font-family: Times New Roman">return</span>&#x201D; statement simply returns
+        the <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> produced by the abstract operation.</p>
+
+        <p class="normalbefore">The abstract operation <span style="font-family: Times New Roman"><a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>completionRecord</i>)</span> is used to emphasize that
+        a previously computed <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> is being returned. The <a href="/sec/sec-completion-record-specification-type.html">Completion</a> abstract operation takes a single argument,
+        <var>completionRecord</var>, and performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>completionRecord</i> is a <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a>.</li>
+          <li>Return <i>completionRecord</i>  as the <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> of
+              this abstract operation.</li>
+        </ol>
+
+        <p>A &#x201C;<span style="font-family: Times New Roman">return</span>&#x201D; statement without a value in an algorithm step
+        means the same thing as:</p>
+
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+        </ol>
+
+        <p>Any reference to a <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> value that is in a context
+        that does not explicitly require a complete <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a>
+        value is equivalent to an explicit reference to the [[value]] field of the <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> value unless the <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</p>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

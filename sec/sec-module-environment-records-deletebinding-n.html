@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-8.1.1.5.2"><a href="/sec/sec-module-environment-records-deletebinding-n.html" title="link to this section">8.1.1.5.2</a></span> DeleteBinding (N)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method DeleteBinding for
+          module Environment Records refuses to delete bindings.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the module <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li>If <i>envRec</i> does not have a binding for the name that is the value of <i>N</i>, return <b>true</b>.</li>
+            <li>Return <b>false</b>.</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> The bindings of a module <a href="/sec/sec-environment-records.html">Environment
+            Record</a> are not deletable.</p>
+          </div>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

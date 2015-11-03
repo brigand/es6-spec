@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-8.4.2"><a href="/sec/sec-nextjob-result.html" title="link to this section">8.4.2</a></span> NextJob
+          result</h1>
+
+      <p class="normalbefore">An algorithm step such as:</p>
+
+      <ol class="proc">
+        <li>NextJob <i>result</i>.</li>
+      </ol>
+
+      <p>is used in Job abstract operations in place of:</p>
+
+      <ol class="proc">
+        <li>Return <i>result</i>.</li>
+      </ol>
+
+      <p>Job abstract operations must not contain a Return step or a <a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a> step. The
+      NextJob <var>result</var> operation is equivalent to the following steps:</p>
+
+      <ol class="proc">
+        <li>If <i>result</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, perform
+            implementation defined unhandled exception processing.</li>
+        <li><a href="/sec/sec-execution-contexts.html">Suspend</a> <a href="/sec/sec-execution-contexts.html">the running execution context</a> and
+            remove it from <a href="/sec/sec-execution-contexts.html">the execution context stack</a>.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: The <a href="/sec/sec-execution-contexts.html">execution context stack</a> is
+            now empty.</li>
+        <li>Let <i>nextQueue</i> be a non-empty Job Queue chosen in an implementation defined manner. If all Job Queues are empty,
+            the result is implementation defined.</li>
+        <li>Let <i>nextPending</i> be the PendingJob record at the front of <i>nextQueue</i>. Remove that record from
+            <i>nextQueue</i>.</li>
+        <li>Let <i>newContext</i> be a new <a href="/sec/sec-execution-contexts.html">execution context</a>.</li>
+        <li>Set <i>newContext</i>&#x2019;s <a href="/sec/sec-code-realms.html">Realm</a> to <i>nextPending</i>.[[Realm]].</li>
+        <li>Push <i>newContext</i> onto <a href="/sec/sec-execution-contexts.html">the execution context stack</a>; <i>newContext</i> is
+            now <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>Perform any implementation or host environment defined job initialization using <i>nextPending</i>.</li>
+        <li>Perform the abstract operation named by <i>nextPending</i>.[[Job]] using the elements of
+            <i>nextPending</i>.[[Arguments]] as its arguments.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-22.1.5.3"><a href="/sec/sec-properties-of-array-iterator-instances.html" title="link to this section">22.1.5.3</a></span> Properties of Array Iterator Instances</h1>
+
+        <p>Array Iterator instances are ordinary objects that inherit properties from the %ArrayIteratorPrototype% intrinsic
+        object. Array Iterator instances are initially created with the internal slots listed in <a href="/sec/table-48.html">Table
+        48</a>.</p>
+
+        <figure>
+          <figcaption><span id="table-48">Table 48</span> &#x2014; Internal Slots of Array Iterator Instances</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Internal Slot</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>[[IteratedObject]]</td>
+              <td>The object whose array elements are being iterated.</td>
+            </tr>
+            <tr>
+              <td>[[ArrayIteratorNextIndex]]</td>
+              <td>The integer index of the next integer index to be examined by this iteration.</td>
+            </tr>
+            <tr>
+              <td>[[ArrayIterationKind]]</td>
+              <td>A String value that identifies what is returned for each element of the iteration. The possible values are: <code>&quot;key&quot;</code>, <code>&quot;value&quot;</code>, <code>&quot;key+value&quot;</code>.</td>
+            </tr>
+          </table>
+        </figure>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

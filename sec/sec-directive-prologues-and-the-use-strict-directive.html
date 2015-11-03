@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-14.1.1"><a href="/sec/sec-directive-prologues-and-the-use-strict-directive.html" title="link to this section">14.1.1</a></span> Directive Prologues and the Use Strict Directive</h1>
+
+      <p>A Directive Prologue is the longest sequence of <span class="nt">ExpressionStatement</span> productions occurring as the
+      initial <span class="nt">StatementListItem</span> or <span class="nt">ModuleItem</span> productions of a <span class="nt">FunctionBody</span>, a <span class="nt">ScriptBody</span>, or a <span class="nt">ModuleBody</span> and where each
+      <span class="nt">ExpressionStatement</span> in the sequence consists entirely of a <span class="nt">StringLiteral</span>
+      token followed by a semicolon<span style="font-family: Times New Roman">.</span> The semicolon may appear explicitly or may
+      be inserted by <a href="/sec/sec-automatic-semicolon-insertion.html">automatic semicolon insertion</a>. A Directive Prologue may be
+      an empty sequence.</p>
+
+      <p>A Use Strict Directive is an <span class="nt">ExpressionStatement</span> in a Directive Prologue whose <span class="nt">StringLiteral</span> is either the exact code unit sequences <code>&quot;use</code>&#xA0;<code>strict&quot;</code> or
+      <code>&apos;use</code>&#xA0;<code>strict&apos;</code>. A Use Strict Directive may not contain an <span class="nt">EscapeSequence</span> or <span class="nt">LineContinuation</span>.</p>
+
+      <p>A Directive Prologue may contain more than one Use Strict Directive. However, an implementation may issue a warning if
+      this occurs.</p>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The <span class="nt">ExpressionStatement</span> productions of a Directive Prologue are
+        evaluated normally during evaluation of the containing production. Implementations may define implementation specific
+        meanings for <span class="nt">ExpressionStatement</span> productions which are not a Use Strict Directive and which occur
+        in a Directive Prologue. If an appropriate notification mechanism exists, an implementation should issue a warning if it
+        encounters in a Directive Prologue an <span class="nt">ExpressionStatement</span> that is not a Use Strict Directive and
+        which does not have a meaning defined by the implementation.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

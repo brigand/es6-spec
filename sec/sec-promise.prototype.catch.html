@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-25.4.5.1"><a href="/sec/sec-promise.prototype.catch.html" title="link to this section">25.4.5.1</a></span> Promise.prototype.catch ( onRejected )</h1>
+
+        <p class="normalbefore">When the <code>catch</code> method is called with argument <var>onRejected</var> the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>promise</i> be the <b>this</b> value.</li>
+          <li>Return <a href="/sec/sec-invoke.html">Invoke</a>(<i>promise</i>, <code>&quot;then&quot;</code>, &#xAB;&#x200D;<b>undefined</b>,
+              <i>onRejected</i>&#xBB;).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

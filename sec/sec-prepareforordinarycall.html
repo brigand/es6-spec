@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-9.2.1.1"><a href="/sec/sec-prepareforordinarycall.html" title="link to this section">9.2.1.1</a></span> PrepareForOrdinaryCall( F, newTarget )</h1>
+
+        <p class="normalbefore">When the abstract operation PrepareForOrdinaryCall is called with function object <span style="font-family: Times New Roman"><i>F</i> and <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language value</a>
+        <i>newTarget</i></span>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>newTarget</i>) is Undefined or Object.</li>
+          <li>Let <i>callerContext</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+          <li>Let <i>calleeContext</i> be a new <a href="/sec/sec-execution-contexts.html">ECMAScript code execution context</a>.</li>
+          <li>Set the Function of <i>calleeContext</i> to <i>F</i>.</li>
+          <li>Let <i>calleeRealm</i> be the value of <i>F&#x2019;s</i> [[Realm]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Set the <a href="/sec/sec-code-realms.html">Realm</a> of <i>calleeContext</i> to <i>calleeRealm</i>.</li>
+          <li>Let <i>localEnv</i> be <a href="/sec/sec-newfunctionenvironment.html">NewFunctionEnvironment</a>(<i>F</i>,
+              <i>newTarget</i>).</li>
+          <li>Set the <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> of <i>calleeContext</i> to <i>localEnv</i>.</li>
+          <li>Set the <a href="/sec/sec-execution-contexts.html">VariableEnvironment</a> of <i>calleeContext</i> to <i>localEnv</i>.</li>
+          <li>If <i>callerContext</i> is not already <a href="/sec/sec-execution-contexts.html">suspended</a>, <a href="/sec/sec-execution-contexts.html">Suspend</a> <i>callerContext</i>.</li>
+          <li>Push <i>calleeContext</i> onto <a href="/sec/sec-execution-contexts.html">the execution context stack</a>;
+              <i>calleeContext</i> is now <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+          <li><span style="font-family: sans-serif">NOTE Any exception objects produced after this point are associated
+              with</span> <i>calleeRealm</i>.</li>
+          <li>Return <i>calleeContext</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

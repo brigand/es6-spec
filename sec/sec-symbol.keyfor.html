@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-19.4.2.5"><a href="/sec/sec-symbol.keyfor.html" title="link to this section">19.4.2.5</a></span>
+            Symbol.keyFor ( sym )</h1>
+
+        <p class="normalbefore">When <code>Symbol.keyFor</code> is called with argument <var>sym</var> it performs the following
+        steps:</p>
+
+        <ol class="proc">
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>sym</i>) is not Symbol, throw a <b>TypeError</b>
+              exception.</li>
+          <li>For each element <i>e</i> of the GlobalSymbolRegistry <a href="/sec/sec-list-and-record-specification-type.html">List</a> (<a href="/sec/sec-symbol.for.html">see 19.4.2.1</a>),
+            <ol class="block">
+              <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>e</i>.[[symbol]], <i>sym</i>) is <b>true</b>, return
+                  <i>e</i>.[[key]].</li>
+            </ol>
+          </li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: GlobalSymbolRegistry does not currently contain an entry for
+              <i>sym</i>.</li>
+          <li>Return <b>undefined</b>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

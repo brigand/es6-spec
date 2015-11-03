@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-22.1.3.6"><a href="/sec/sec-array.prototype.fill.html" title="link to this section">22.1.3.6</a></span> Array.prototype.fill (value [ , start [ , end ] ] )</h1>
+
+        <p class="normalbefore">The <code>fill</code> method takes up to three arguments <var>value</var>, <var>start</var> and
+        <var>end</var>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The <var>start</var> and <var>end</var> arguments are optional with default values of
+          0 and the length of the <b>this</b> object. If <var>start</var> is negative, it is treated as <span style="font-family:
+          Times New Roman"><i>length</i>+<i>start</i></span> where <var>length</var> is the length of the array. If <var>end</var>
+          is negative, it is treated as <span style="font-family: Times New Roman"><i>length</i>+<i>end</i></span>.</p>
+        </div>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>Let <i>relativeStart</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>start</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeStart</i>).</li>
+          <li>If <i>relativeStart</i> &lt; 0, let <i>k</i> be max((<i>len</i> + <i>relativeStart</i>),0); else let <i>k</i> be
+              min(<i>relativeStart</i>, <i>len</i>).</li>
+          <li>If <i>end</i> is <b>undefined</b>, let <i>relativeEnd</i> be <i>len</i>; else let <i>relativeEnd</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>end</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeEnd</i>).</li>
+          <li>If <i>relativeEnd</i> &lt; 0, let <i>final</i> be max((<i>len</i> + <i>relativeEnd</i>),0); else let <i>final</i> be
+              min(<i>relativeEnd</i>, <i>len</i>).</li>
+          <li>Repeat, while <i>k</i> &lt; <i>final</i>
+            <ol class="block">
+              <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+              <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <i>Pk</i>, <i>value</i>,
+                  <b>true</b>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>O</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>fill</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>fill</code> function is intentionally generic; it does not require that its
+          <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a method.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

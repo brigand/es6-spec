@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.2.5.9"><a href="/sec/sec-regexp.prototype-@@search.html" title="link to this section">21.2.5.9</a></span> RegExp.prototype [ @@search ] ( string )</h1>
+
+        <p class="normalbefore">When the @@search method is called with argument <var>string</var>, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>rx</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>rx</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>string</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>previousLastIndex</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>rx</i>, <code>&quot;lastIndex&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>previousLastIndex</i>).</li>
+          <li>Let <i>status</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>rx</i>, <code>&quot;lastIndex&quot;</code>, 0,
+              <b>true</b>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          <li>Let <i>result</i> be <a href="/sec/sec-regexpexec.html">RegExpExec</a>(<i>rx</i>, <i>S</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>result</i>).</li>
+          <li>Let <i>status</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>rx</i>, <code>&quot;lastIndex&quot;</code>,
+              <i>previousLastIndex</i>, <b>true</b>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          <li>If <i>result</i> is <b>null</b>, return &#x2013;1.</li>
+          <li>Return <a href="/sec/sec-get-o-p.html">Get</a>(<i>result</i>, <code>&quot;index&quot;</code>).</li>
+        </ol>
+
+        <p>The value of the <code>name</code> property of this function is <code>&quot;[Symbol.search]&quot;</code>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <code>lastIndex</code> and <code>global</code> properties of this RegExp object are
+          ignored when performing the search. The <code>lastIndex</code> property is left unchanged.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

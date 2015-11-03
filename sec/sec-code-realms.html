@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-8.2"><a href="/sec/sec-code-realms.html" title="link to this section">8.2</a></span> Code
+          Realms</h1>
+
+      <p>Before it is evaluated, all ECMAScript code must be associated with a <i>Realm</i>. Conceptually, a realm consists of a
+      set of intrinsic objects, an ECMAScript global environment, all of the ECMAScript code that is loaded within the scope of
+      that global environment, and other associated state and resources.</p>
+
+      <p>A Realm is specified as a Record with the fields specified in <a href="/sec/table-21.html">Table 21</a>:</p>
+
+      <figure>
+        <figcaption><span id="table-21">Table 21</span> &#x2014; Realm Record Fields</figcaption>
+        <table class="real-table">
+          <tr>
+            <th>Field Name</th>
+            <th>Value</th>
+            <th>Meaning</th>
+          </tr>
+          <tr>
+            <td>[[intrinsics]]</td>
+            <td>Record whose field names are intrinsic keys and whose values are objects</td>
+            <td>These are the intrinsic values used by code associated with this Realm</td>
+          </tr>
+          <tr>
+            <td>[[globalThis]]</td>
+            <td>Object</td>
+            <td>The global object for this Realm</td>
+          </tr>
+          <tr>
+            <td>[[globalEnv]]</td>
+            <td><a href="/sec/sec-lexical-environments.html">Lexical Environment</a></td>
+            <td>The global environment for this Realm</td>
+          </tr>
+          <tr>
+            <td>[[templateMap]]</td>
+            <td>A <a href="/sec/sec-list-and-record-specification-type.html">List</a> of Record { [[strings]]: <a href="/sec/sec-list-and-record-specification-type.html">List</a>, [[array]]: Object}.</td>
+            <td>Template objects are canonicalized separately for each Realm using its [[templateMap]]. Each [[strings]] value is a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing, in source text order, the raw String values of a <span class="nt">TemplateLiteral</span> that has been evaluated. The associated [[array]] value is the corresponding template object that is passed to a tag function.</td>
+          </tr>
+        </table>
+      </figure>
+
+      <p>An implementation may define other, implementation specific fields.</p>
+    </div>
+
+    <section id="sec-createrealm">
+      <h1><span class="secnum" id="sec-8.2.1"><a href="/sec/sec-createrealm.html" title="link to this section">8.2.1</a></span> CreateRealm
+          ( )</h1>
+
+      <p class="normalbefore">The abstract operation CreateRealm with no arguments performs the following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>realmRec</i> be a new Record.</li>
+        <li>Perform <a href="/sec/sec-createintrinsics.html">CreateIntrinsics</a>(<i>realmRec</i>).</li>
+        <li>Set <i>realmRec</i>.[[globalThis]] to <b>undefined</b>.</li>
+        <li>Set <i>realmRec</i>.[[globalEnv]] to <b>undefined</b>.</li>
+        <li>Set <i>realmRec</i>.[[templateMap]] to a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>Return <i>realmRec</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-createintrinsics">
+      <h1><span class="secnum" id="sec-8.2.2"><a href="/sec/sec-createintrinsics.html" title="link to this section">8.2.2</a></span>
+          CreateIntrinsics ( realmRec )</h1>
+
+      <p class="normalbefore">When the abstract operation CreateIntrinsics with argument <var>realmRec</var> performs the
+      following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>intrinsics</i> be a new Record.</li>
+        <li>Set <i>realmRec</i>.[[intrinsics]] to <i>intrinsics</i>.</li>
+        <li>Let <i>objProto</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<b>null</b>).</li>
+        <li>Set <i>intrinsics</i>.[[%ObjectPrototype%]] to <i>objProto</i>.</li>
+        <li>Let <i>throwerSteps</i> be the algorithm steps specified in <a href="/sec/sec-%throwtypeerror%.html">9.2.7.1</a> for the <a href="/sec/sec-%throwtypeerror%.html">%ThrowTypeError%</a> function.</li>
+        <li>Let <i>thrower</i> be <a href="/sec/sec-createbuiltinfunction.html">CreateBuiltinFunction</a>(<i>realmRec</i>,
+            <i>throwerSteps</i>, <b>null</b>).</li>
+        <li>Set <i>intrinsics</i>.[[<span style="font-family: sans-serif"><a href="/sec/sec-%throwtypeerror%.html">%ThrowTypeError%</a></span>]] to <i>thrower</i>.</li>
+        <li>Let <i>noSteps</i> be an empty sequence of algorithm steps.</li>
+        <li>Let <i>funcProto</i> be <a href="/sec/sec-createbuiltinfunction.html">CreateBuiltinFunction</a>(<i>realmRec</i>,
+            <i>noSteps</i>, <i>objProto</i>).</li>
+        <li>Set <i>intrinsics</i>.[[%FunctionPrototype%]] to <i>funcProto</i>.</li>
+        <li><a href="/sec/sec-call.html">Call</a> <i>thrower</i>.[[SetPrototypeOf]](<i>funcProto</i>).</li>
+        <li>Perform <a href="/sec/sec-addrestrictedfunctionproperties.html">AddRestrictedFunctionProperties</a>(<i>funcProto</i>,
+            <i>realmRec</i>).</li>
+        <li>Set fields of <i>intrinsics</i> with the values listed in <a href="/sec/table-7.html">Table 7</a> that have not already been
+            handled above. The field names are the names listed in column one of the table. The value of each field is a new
+            object value fully and recursively populated with property values as defined by the specification of each object in
+            clauses 18-26. All object property values are newly created object values. All values that are built-in function
+            objects are created by performing <a href="/sec/sec-createbuiltinfunction.html">CreateBuiltinFunction</a>(<i>realmRec</i>,
+            &lt;steps&gt;, &lt;prototype&gt;, &lt;slots&gt;) where &lt;steps&gt; is the definition of that function provided by
+            this specification, &lt;prototype&gt; is the specified value of the function&#x2019;s [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> and &lt;slots&gt; is a list of the names, if
+            any, of the functions specified internal slots. The creation of the intrinsics and their properties must be ordered to
+            avoid any dependencies upon objects that have not yet been created.</li>
+        <li>Return <i>intrinsics</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-setrealmglobalobject">
+      <h1><span class="secnum" id="sec-8.2.3"><a href="/sec/sec-setrealmglobalobject.html" title="link to this section">8.2.3</a></span>
+          SetRealmGlobalObject ( realmRec, globalObj )</h1>
+
+      <p class="normalbefore">The abstract operation SetRealmGlobalObject with arguments <var>realmRec</var> and
+      <var>globalObj</var> performs the following steps:</p>
+
+      <ol class="proc">
+        <li>If <i>globalObj</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Let <i>intrinsics</i> be <i>realmRec</i>.[[intrinsics]].</li>
+            <li>Let <i>globalObj</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<i>intrinsics</i>.[[%ObjectPrototype%]]).</li>
+          </ol>
+        </li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>globalObj</i>) is Object.</li>
+        <li>Set <i>realmRec</i>.[[globalThis]] to <i>globalObj</i>.</li>
+        <li>Let <i>newGlobalEnv</i> be <a href="/sec/sec-newglobalenvironment.html">NewGlobalEnvironment</a>(<i>globalObj</i>).</li>
+        <li>Set <i>realmRec</i>.[[globalEnv]] to <i>newGlobalEnv</i>.</li>
+        <li>Return <i>realmRec</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-setdefaultglobalbindings">
+      <h1><span class="secnum" id="sec-8.2.4"><a href="/sec/sec-setdefaultglobalbindings.html" title="link to this section">8.2.4</a></span> SetDefaultGlobalBindings ( realmRec )</h1>
+
+      <p class="normalbefore">The abstract operation SetDefaultGlobalBindings with argument <var>realmRec</var> performs the
+      following steps:</p>
+
+      <ol class="proc">
+        <li>Let <i>global</i> be <i>realmRec</i>.[[globalThis]].</li>
+        <li>For each property of the Global Object specified in <a href="/sec/sec-global-object.html">clause 18</a>, do
+          <ol class="block">
+            <li>Let <i>name</i> be the String value of the property name.</li>
+            <li>Let <i>desc</i> be the fully populated data property descriptor for the property containing the specified
+                attributes for the property. For properties listed in <a href="/sec/sec-function-properties-of-the-global-object.html">18.2</a>, <a href="/sec/sec-constructor-properties-of-the-global-object.html">18.3</a>, or <a href="/sec/sec-other-properties-of-the-global-object.html">18.4</a> the value of the [[Value]] attribute is the
+                corresponding intrinsic object from <i>realmRec</i>.</li>
+            <li>Let <i>status</i> be <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>global</i>, <i>name</i>,
+                <i>desc</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          </ol>
+        </li>
+        <li>Return <i>global</i>.</li>
+      </ol>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

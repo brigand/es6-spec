@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-15.1.9"><a href="/sec/sec-scriptevaluationjob.html" title="link to this section">15.1.9</a></span>
+          Runtime Semantics: ScriptEvaluationJob ( sourceText )</h1>
+
+      <p class="normalbefore">The job ScriptEvaluationJob with parameter <var>sourceText</var> parses, validates, and evaluates
+      <var>sourceText</var> as a <span class="nt">Script</span>.</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>sourceText</i> is an ECMAScript source text (see <a href="/sec/sec-ecmascript-language-source-code.html">clause 10</a>).</li>
+        <li>Parse <i>sourceText</i> using <i>Script</i> as the goal symbol and analyze the parse result for any Early Error
+            conditions. If the parse was successful and no early errors were found, let <i>code</i> be the resulting parse tree.
+            Otherwise, let <i>code</i> be an indication of one or more parsing errors and/or early errors. Parsing and early error
+            detection may be interweaved in an implementation dependent manner. If more than one parse or early error is present,
+            the number and ordering of reported errors is implementation dependent but at least one error must be reported.</li>
+        <li>If <i>code</i> is an error indication, then
+          <ol class="block">
+            <li>Report or log the error(s) in an implementation dependent manner.</li>
+            <li>Let <i>status</i> be <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+          </ol>
+        </li>
+        <li>Else,
+          <ol class="block">
+            <li>Let <i>realm</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-code-realms.html">Realm</a>.</li>
+            <li>Let <i>status</i> be the result of ScriptEvaluation of <i>code</i> with argument <i>realm</i>.</li>
+          </ol>
+        </li>
+        <li>NextJob <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>status</i>).</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> An implementation may parse a <var>sourceText</var> as a <span class="nt">Script</span>
+        and analyze it for Early Error conditions prior to the execution of the ScriptEvaluationJob for that
+        <var>sourceText</var>. However, the reporting of any errors must be deferred until the ScriptEvaluationJob is actually
+        executed.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

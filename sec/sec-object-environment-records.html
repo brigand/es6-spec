@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <div class="front">
+          <h1><span class="secnum" id="sec-8.1.1.2"><a href="/sec/sec-object-environment-records.html" title="link to this section">8.1.1.2</a></span> Object Environment Records</h1>
+
+          <p>Each object <a href="/sec/sec-environment-records.html">Environment Record</a> is associated with an object called its
+          <i>binding object</i>. An object <a href="/sec/sec-environment-records.html">Environment Record</a> binds the set of string
+          identifier names that directly correspond to the property names of its binding object. Property keys that are not
+          strings in the form of an <span class="nt">IdentifierName</span> are not included in the set of bound identifiers. Both
+          own and inherited properties are included in the set regardless of the setting of their [[Enumerable]] attribute.
+          Because properties can be dynamically added and deleted from objects, the set of identifiers bound by an object <a href="/sec/sec-environment-records.html">Environment Record</a> may potentially change as a side-effect of any operation that
+          adds or deletes properties. Any bindings that are created as a result of such a side-effect are considered to be a
+          mutable binding even if the Writable attribute of the corresponding property has the value <b>false</b>. Immutable
+          bindings do not exist for object Environment Records.</p>
+
+          <p>Object Environment Records created for <code>with</code> statements (<a href="/sec/sec-with-statement.html">13.11</a>) can
+          provide their binding object as an implicit <b>this</b> value for use in function calls. The capability is controlled by
+          a <var>withEnvironment</var> Boolean value that is associated with each object <a href="/sec/sec-environment-records.html">Environment Record</a>. By default, the value of <var>withEnvironment</var> is
+          <b>false</b> for any object <a href="/sec/sec-environment-records.html">Environment Record</a>.</p>
+
+          <p>The behaviour of the concrete specification methods for object Environment Records is defined by the following
+          algorithms.</p>
+        </div>
+
+        <section id="sec-object-environment-records-hasbinding-n">
+          <h1><span class="secnum" id="sec-8.1.1.2.1"><a href="/sec/sec-object-environment-records-hasbinding-n.html" title="link to this section">8.1.1.2.1</a></span> HasBinding(N)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method HasBinding for
+          object Environment Records determines if its associated binding object has a property whose name is the value of the
+          argument <var>N</var>:</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the object <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li>Let <i>bindings</i> be the binding object for <i>envRec</i>.</li>
+            <li>Let <i>foundBinding</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>bindings</i>, <i>N</i>)</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>foundBinding</i>).</li>
+            <li>If <i>foundBinding</i> is <b>false</b>, return <b>false</b>.</li>
+            <li>If the <i>withEnvironment</i> flag of <i>envRec</i> is <b>false</b>, return <b>true</b>.</li>
+            <li>Let <i>unscopables</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>bindings</i>, @@unscopables).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>unscopables</i>).</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>unscopables</i>) is Object, then
+              <ol class="block">
+                <li>Let <i>blocked</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>unscopables</i>, <i>N</i>)).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>blocked</i>).</li>
+                <li>If <i>blocked</i> is <b>true</b>, return <b>false</b>.</li>
+              </ol>
+            </li>
+            <li>Return <b>true</b>.</li>
+          </ol>
+        </section>
+
+        <section id="sec-object-environment-records-createmutablebinding-n-d">
+          <h1><span class="secnum" id="sec-8.1.1.2.2"><a href="/sec/sec-object-environment-records-createmutablebinding-n-d.html" title="link to this section">8.1.1.2.2</a></span> CreateMutableBinding (N, D)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method
+          CreateMutableBinding for object Environment Records creates in an Environment Record&#x2019;s associated binding object a
+          property whose name is the String value and initializes it to the value <b>undefined</b>. If Boolean argument
+          <var>D</var> is provided and has the value <b>true</b> the new property&#x2019;s [[Configurable]] attribute is set to
+          <b>true</b>, otherwise it is set to <b>false</b>.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the object <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li>Let <i>bindings</i> be the binding object for <i>envRec</i>.</li>
+            <li>If <i>D</i> is <b>true</b> then let <i>configValue</i> be <b>true</b> otherwise let <i>configValue</i> be
+                <b>false</b>.</li>
+            <li>Return <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>bindings</i>, <i>N</i>,
+                PropertyDescriptor{[[Value]]:<b>undefined</b>, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b> ,
+                [[Configurable]]: <i>configValue</i>}).</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> Normally <i>envRec</i> will not have a binding for <i>N</i> but if it does, the
+            semantics of <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a> may result in an existing binding being
+            replaced or shadowed or cause an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a> to be
+            returned.</p>
+          </div>
+        </section>
+
+        <section id="sec-object-environment-records-createimmutablebinding-n-s">
+          <h1><span class="secnum" id="sec-8.1.1.2.3"><a href="/sec/sec-object-environment-records-createimmutablebinding-n-s.html" title="link to this section">8.1.1.2.3</a></span> CreateImmutableBinding (N, S)</h1>
+
+          <p>The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method CreateImmutableBinding is never used
+          within this specification in association with Object Environment Records.</p>
+        </section>
+
+        <section id="sec-object-environment-records-initializebinding-n-v">
+          <h1><span class="secnum" id="sec-8.1.1.2.4"><a href="/sec/sec-object-environment-records-initializebinding-n-v.html" title="link to this section">8.1.1.2.4</a></span> InitializeBinding (N,V)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method InitializeBinding
+          for object Environment Records is used to set the bound value of the current binding of the identifier whose name is the
+          value of the argument <var>N</var> to the value of argument <var>V</var>. An uninitialized binding for <var>N</var> must
+          already exist.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the object <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>envRec</i> must have an uninitialized binding for
+                <i>N</i>.</li>
+            <li>Record that the binding for <i>N</i> in <i>envRec</i> has been initialized.</li>
+            <li>Return <i>envRec</i>.SetMutableBinding(<i>N</i>, <i>V</i>, <b>false</b>).</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> In this specification, all uses of CreateMutableBinding for object Environment Records
+            are immediately followed by a call to InitializeBinding for the same name. Hence, implementations do not need to
+            explicitly track the initialization state of individual object Environment Record bindings.</p>
+          </div>
+        </section>
+
+        <section id="sec-object-environment-records-setmutablebinding-n-v-s">
+          <h1><span class="secnum" id="sec-8.1.1.2.5"><a href="/sec/sec-object-environment-records-setmutablebinding-n-v-s.html" title="link to this section">8.1.1.2.5</a></span> SetMutableBinding (N,V,S)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method SetMutableBinding
+          for object Environment Records attempts to set the value of the Environment Record&#x2019;s associated binding
+          object&#x2019;s property whose name is the value of the argument <var>N</var> to the value of argument <var>V</var>. A
+          property named <var>N</var> normally already exists but if it does not or is not currently writable, error handling is
+          determined by the value of the Boolean argument <var>S</var>.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the object <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li>Let <i>bindings</i> be the binding object for <i>envRec</i>.</li>
+            <li>Return <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>bindings</i>, <i>N</i>, <i>V</i>, <i>S</i>).</li>
+          </ol>
+        </section>
+
+        <section id="sec-object-environment-records-getbindingvalue-n-s">
+          <h1><span class="secnum" id="sec-8.1.1.2.6"><a href="/sec/sec-object-environment-records-getbindingvalue-n-s.html" title="link to this section">8.1.1.2.6</a></span> GetBindingValue(N,S)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method GetBindingValue
+          for object Environment Records returns the value of its associated binding object&#x2019;s property whose name is the
+          String value of the argument identifier <var>N</var>. The property should already exist but if it does not the result
+          depends upon the value of the <var>S</var> argument:</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the object <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li>Let <i>bindings</i> be the binding object for <i>envRec</i>.</li>
+            <li>Let <i>value</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>bindings</i>, <i>N</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+            <li>If <i>value</i> is <b>false</b>, then
+              <ol class="block">
+                <li>If <i>S</i> is <b>false</b>, return the value <b>undefined</b>, otherwise throw a <b>ReferenceError</b>
+                    exception.</li>
+              </ol>
+            </li>
+            <li>Return <a href="/sec/sec-get-o-p.html">Get</a>(<i>bindings</i>, <i>N</i>).</li>
+          </ol>
+        </section>
+
+        <section id="sec-object-environment-records-deletebinding-n">
+          <h1><span class="secnum" id="sec-8.1.1.2.7"><a href="/sec/sec-object-environment-records-deletebinding-n.html" title="link to this section">8.1.1.2.7</a></span> DeleteBinding (N)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method DeleteBinding for
+          object Environment Records can only delete bindings that correspond to properties of the environment object whose
+          [[Configurable]] attribute have the value <b>true</b>.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the object <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li>Let <i>bindings</i> be the binding object for <i>envRec</i>.</li>
+            <li>Return <i>bindings</i>.[[Delete]](<i>N</i>).</li>
+          </ol>
+        </section>
+
+        <section id="sec-object-environment-records-hasthisbinding">
+          <h1><span class="secnum" id="sec-8.1.1.2.8"><a href="/sec/sec-object-environment-records-hasthisbinding.html" title="link to this section">8.1.1.2.8</a></span> HasThisBinding ()</h1>
+
+          <p class="normalbefore">Regular object Environment Records do not provide a <code>this</code> binding.</p>
+
+          <ol class="proc">
+            <li>Return <b>false</b>.</li>
+          </ol>
+        </section>
+
+        <section id="sec-object-environment-records-hassuperbinding">
+          <h1><span class="secnum" id="sec-8.1.1.2.9"><a href="/sec/sec-object-environment-records-hassuperbinding.html" title="link to this section">8.1.1.2.9</a></span> HasSuperBinding ()</h1>
+
+          <p class="normalbefore">Regular object Environment Records do not provide a <code>super</code> binding.</p>
+
+          <ol class="proc">
+            <li>Return <b>false</b>.</li>
+          </ol>
+        </section>
+
+        <section id="sec-object-environment-records-withbaseobject">
+          <h1><span class="secnum" id="sec-8.1.1.2.10"><a href="/sec/sec-object-environment-records-withbaseobject.html" title="link to this section">8.1.1.2.10</a></span> WithBaseObject()</h1>
+
+          <p class="normalbefore">Object Environment Records return <b>undefined</b> as their WithBaseObject unless their
+          <var>withEnvironment</var> flag is <b>true</b>.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the object <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li>If the <i>withEnvironment</i> flag of <i>envRec</i> is <b>true</b>, return the binding object for
+                <i>envRec</i>.</li>
+            <li>Otherwise, return <b>undefined</b>.</li>
+          </ol>
+        </section>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

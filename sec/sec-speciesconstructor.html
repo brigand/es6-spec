@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.3.20"><a href="/sec/sec-speciesconstructor.html" title="link to this section">7.3.20</a></span>
+          SpeciesConstructor ( O, defaultConstructor )</h1>
+
+      <p class="normalbefore">The abstract operation SpeciesConstructor is used to retrieve the constructor that should be used to
+      create new objects that are derived from the argument object <var>O</var>. The <var>defaultConstructor</var> argument is the
+      constructor to use if a constructor @@species property cannot be found starting from <var>O</var>. This abstract operation
+      performs the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is
+            Object.</li>
+        <li>Let <i>C</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <code>&quot;constructor&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>C</i>).</li>
+        <li>If <i>C</i> is <b>undefined</b>, return <i>defaultConstructor</i>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>C</i>) is not Object, throw a <b>TypeError</b>
+            exception.</li>
+        <li>Let <i>S</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>C</i>, @@species).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+        <li>If <i>S</i> is either <b>undefined</b> or <b>null</b>, return <i>defaultConstructor</i>.</li>
+        <li>If <a href="/sec/sec-isconstructor.html">IsConstructor</a>(<i>S</i>) is <b>true</b>, return <i>S.</i></li>
+        <li>Throw a <b>TypeError</b> exception.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

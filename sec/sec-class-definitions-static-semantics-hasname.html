@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-14.5.6"><a href="/sec/sec-class-definitions-static-semantics-hasname.html" title="link to this section">14.5.6</a></span> Static Semantics:  HasName</h1>
+
+      <p>See also: <a href="/sec/sec-semantics-static-semantics-hasname.html">12.2.1.2</a>, <a href="/sec/sec-function-definitions-static-semantics-hasname.html">14.1.8</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-hasname.html">14.2.7</a>, <a href="/sec/sec-generator-function-definitions-static-semantics-hasname.html">14.4.7</a>.</p>
+
+      <div class="gp prod"><span class="nt">ClassExpression</span> <span class="geq">:</span> <code class="t">class</code> <span class="nt">ClassTail</span></div>
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">ClassExpression</span> <span class="geq">:</span> <code class="t">class</code> <span class="nt">BindingIdentifier</span> <span class="nt">ClassTail</span></div>
+      <ol class="proc">
+        <li>Return <b>true</b>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

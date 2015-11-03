@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-22.1.3.3"><a href="/sec/sec-array.prototype.copywithin.html" title="link to this section">22.1.3.3</a></span> Array.prototype.copyWithin (target, start [ , end ] )</h1>
+
+        <p class="normalbefore">The <code>copyWithin</code> method takes up to three arguments <var>target</var>, <var>start</var>
+        and <var>end</var>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The <var>end</var> argument is optional with the length of the <b>this</b> object as
+          its default value. If <var>target</var> is negative, it is treated as <span style="font-family: Times New
+          Roman"><i>length</i>+<i>target</i></span> where <var>length</var> is the length of the array. If <var>start</var> is
+          negative, it is treated as <span style="font-family: Times New Roman"><i>length</i>+<i>start</i></span>. If
+          <var>end</var> is negative, it is treated as <span style="font-family: Times New
+          Roman"><i>length</i>+<i>end</i></span>.</p>
+        </div>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>Let <i>relativeTarget</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>target</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeTarget</i>).</li>
+          <li>If <i>relativeTarget</i> &lt; 0, let <i>to</i> be max((<i>len</i> + <i>relativeTarget</i>),0); else let <i>to</i> be
+              min(<i>relativeTarget</i>, <i>len</i>).</li>
+          <li>Let <i>relativeStart</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>start</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeStart</i>).</li>
+          <li>If <i>relativeStart</i> &lt; 0, let <i>from</i> be max((<i>len</i> + <i>relativeStart</i>),0); else let <i>from</i>
+              be min(<i>relativeStart</i>, <i>len</i>).</li>
+          <li>If <i>end</i> is <b>undefined</b>, let <i>relativeEnd</i> be <i>len</i>; else let <i>relativeEnd</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>end</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeEnd</i>).</li>
+          <li>If <i>relativeEnd</i> &lt; 0, let <i>final</i> be max((<i>len</i> + <i>relativeEnd</i>),0); else let <i>final</i> be
+              min(<i>relativeEnd</i>, <i>len</i>).</li>
+          <li>Let <i>count</i> be min(<i>final</i>-<i>from</i>, <i>len</i>-<i>to</i>).</li>
+          <li>If <i>from</i>&lt;<i>to</i> and <i>to</i>&lt;<i>from</i>+<i>count</i>
+            <ol class="block">
+              <li>Let <i>direction</i> be -1.</li>
+              <li>Let <i>from</i> be <i>from</i> + <i>count</i> -1.</li>
+              <li>Let <i>to</i> be <i>to</i> + <i>count</i> -1.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>direction</i> = 1.</li>
+            </ol>
+          </li>
+          <li>Repeat, while <i>count</i> &gt; 0
+            <ol class="block">
+              <li>Let <i>fromKey</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>from</i>).</li>
+              <li>Let <i>toKey</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>to</i>).</li>
+              <li>Let <i>fromPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>fromKey</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromPresent</i>).</li>
+              <li>If <i>fromPresent</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>fromVal</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>fromKey</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromVal</i>).</li>
+                  <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <i>toKey</i>, <i>fromVal</i>,
+                      <b>true</b>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                </ol>
+              </li>
+              <li>Else <i>fromPresent</i> is <b>false</b>,
+                <ol class="block">
+                  <li>Let <i>deleteStatus</i> be <a href="/sec/sec-deletepropertyorthrow.html">DeletePropertyOrThrow</a>(<i>O</i>,
+                      <i>toKey</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>deleteStatus</i>).</li>
+                </ol>
+              </li>
+              <li>Let <i>from</i> be <i>from</i> + <i>direction</i>.</li>
+              <li>Let <i>to</i> be <i>to</i> + <i>direction</i>.</li>
+              <li>Let <i>count</i> be <i>count</i> &#x2212; 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>O</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>copyWithin</code> method is <b>2</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>copyWithin</code> function is intentionally generic; it does not require
+          that its <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

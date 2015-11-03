@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-14.4.11"><a href="/sec/sec-generator-function-definitions-runtime-semantics-evaluatebody.html" title="link to this section">14.4.11</a></span> Runtime Semantics: EvaluateBody</h1>
+
+      <p>With parameter <var>functionObject</var>.</p>
+
+      <p>See also: <a href="/sec/sec-function-definitions-runtime-semantics-evaluatebody.html">14.1.17</a>, <a href="/sec/sec-arrow-function-definitions-runtime-semantics-evaluatebody.html">14.2.15</a>.</p>
+
+      <div class="gp prod"><span class="nt">GeneratorBody</span> <span class="geq">:</span> <span class="nt">FunctionBody</span></div>
+      <ol class="proc">
+        <li>Let <i>G</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(<i>functionObject</i>,
+            <code>&quot;%GeneratorPrototype%&quot;</code>, &#xAB;&#x200D;[[GeneratorState]], [[GeneratorContext]]&#xBB; ).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>G</i>).</li>
+        <li>Perform <a href="/sec/sec-generatorstart.html">GeneratorStart</a>(<i>G</i>, <i>FunctionBody</i>).</li>
+        <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <span style="font-family:
+            sans-serif">return</span>, [[value]]: <i>G</i>, [[target]]: <span style="font-family: sans-serif">empty</span>}.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> If the generator was invoked using [[Call]], the <code>this</code> binding will have
+        already been initialized in the normal manner. If the generator was invoked using [[Construct]], the <code>this</code>
+        bind is not initialized and any references to <code>this</code> within the <span class="nt">FunctionBody</span> will
+        produce a <span class="value">ReferenceError</span> exception.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

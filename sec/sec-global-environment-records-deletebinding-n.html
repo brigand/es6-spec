@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-8.1.1.4.7"><a href="/sec/sec-global-environment-records-deletebinding-n.html" title="link to this section">8.1.1.4.7</a></span> DeleteBinding (N)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method DeleteBinding for
+          global Environment Records can only delete bindings that have been explicitly designated as being subject to
+          deletion.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the global <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li>Let <i>DclRec</i> be <i>envRec</i>.[[DeclarativeRecord]].</li>
+            <li>If <i>DclRec.</i>HasBinding(<i>N</i>) is <b>true</b>, then
+              <ol class="block">
+                <li>Return <i>DclRec.</i>DeleteBinding(<i>N</i>).</li>
+              </ol>
+            </li>
+            <li>Let <i>ObjRec</i> be <i>envRec</i>.[[ObjectRecord]].</li>
+            <li>Let <i>globalObject</i> be the binding object for <i>ObjRec</i>.</li>
+            <li>Let <i>existingProp</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>globalObject</i>, <i>N</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>existingProp</i>).</li>
+            <li>If <i>existingProp</i> is <b>true</b>, then
+              <ol class="block">
+                <li>Let <i>status</i> be <i>ObjRec.</i>DeleteBinding(<i>N</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+                <li>If <i>status</i> is <b>true</b>, then
+                  <ol class="block">
+                    <li>Let <i>varNames</i> be <i>envRec</i>.[[VarNames]].</li>
+                    <li>If <i>N</i> is an element of <i>varNames</i>, remove that element from the <i>varNames</i>.</li>
+                  </ol>
+                </li>
+                <li>Return <i>status</i>.</li>
+              </ol>
+            </li>
+            <li>Return <b>true</b>.</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-19.2.4.2"><a href="/sec/sec-function-instances-name.html" title="link to this section">19.2.4.2</a></span> name</h1>
+
+        <p>The value of the <code>name</code> property is an String that is descriptive of the function. The name has no semantic
+        significance but is typically a variable or property name that is used to refer to the function at its point of definition
+        in ECMAScript code. This property has the attributes {&#xA0;[[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>,
+        [[Configurable]]: <b>true</b>&#xA0;}.</p>
+
+        <p>Anonymous functions objects that do not have a contextual name associated with them by this specification do not have a
+        <code>name</code> own property but inherit the <code>name</code> property of %FunctionPrototype%.</p>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

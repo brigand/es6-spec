@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-25.4.1.2"><a href="/sec/sec-promisereaction-records.html" title="link to this section">25.4.1.2</a></span> PromiseReaction Records</h1>
+
+        <p>The PromiseReaction is a Record value used to store information about how a promise should react when it becomes
+        resolved or rejected with a given value. PromiseReaction records are created by the <code>then</code> method of the
+        Promise prototype, and are used by a <a href="/sec/sec-promisereactionjob.html">PromiseReactionJob</a>.</p>
+
+        <p>PromiseReaction records have the fields listed in <a href="/sec/table-58.html">Table 58</a>.</p>
+
+        <figure>
+          <figcaption><span id="table-58">Table 58</span> &#x2014; PromiseReaction Record Fields</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Field Name</th>
+              <th>Value</th>
+              <th>Meaning</th>
+            </tr>
+            <tr>
+              <td>[[Capabilities]]</td>
+              <td>A PromiseCapability record</td>
+              <td>The capabilities of the promise for which this record provides a reaction handler.</td>
+            </tr>
+            <tr>
+              <td>[[Handler]]</td>
+              <td>A function object or a String</td>
+              <td>The function that should be applied to the incoming value, and whose return value will govern what happens to the derived promise. If [[Handler]] is <code>&quot;Identity&quot;</code> it is equivalent to a function that simply returns its first argument. If [[Handler]] is <code>&quot;Thrower&quot;</code> it is equivalent to a function that throws its first argument as an exception.</td>
+            </tr>
+          </table>
+        </figure>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

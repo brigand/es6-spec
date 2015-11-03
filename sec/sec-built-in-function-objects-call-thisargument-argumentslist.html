@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-9.3.1"><a href="/sec/sec-built-in-function-objects-call-thisargument-argumentslist.html" title="link to this section">9.3.1</a></span> [[Call]] ( thisArgument, argumentsList)</h1>
+
+      <p class="normalbefore">The [[Call]] internal method for a built-in function object <var>F</var> is called with parameters
+      <var>thisArgument</var> and <var>argumentsList</var>, a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language values</a>. The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>callerContext</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>If <i>callerContext</i> is not already <a href="/sec/sec-execution-contexts.html">suspended</a>, <a href="/sec/sec-execution-contexts.html">Suspend</a> <i>callerContext</i>.</li>
+        <li>Let <i>calleeContext</i> be a new <a href="/sec/sec-execution-contexts.html">ECMAScript code execution context</a>.</li>
+        <li>Set the Function of <i>calleeContext</i> to <i>F</i>.</li>
+        <li>Let <i>calleeRealm</i> be the value of <i>F&#x2019;s</i> [[Realm]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+        <li>Set the <a href="/sec/sec-code-realms.html">Realm</a> of <i>calleeContext</i> to <i>calleeRealm</i>.</li>
+        <li>Perform any necessary implementation defined initialization of <i>calleeContext</i>.</li>
+        <li>Push <i>calleeContext</i> onto <a href="/sec/sec-execution-contexts.html">the execution context stack</a>; <i>calleeContext</i>
+            is now <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>Let <i>result</i> be the <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> that is the result
+            of evaluating <i>F</i> in an implementation defined manner that conforms to the specification of <i>F</i>.
+            <i>thisArgument</i> is the <b>this</b> value, <i>argumentsList</i> provides the named parameters, and the NewTarget
+            value is <b>undefined</b>.</li>
+        <li>Remove <i>calleeContext</i> from <a href="/sec/sec-execution-contexts.html">the execution context stack</a> and restore
+            <i>callerContext</i> as <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>Return <i>result</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> When <var>calleeContext</var> is removed from <a href="/sec/sec-execution-contexts.html">the
+        execution context stack</a> it must not be destroyed if it has been <a href="/sec/sec-execution-contexts.html">suspended</a> and
+        retained by an accessible generator object for later resumption<i>.</i></p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

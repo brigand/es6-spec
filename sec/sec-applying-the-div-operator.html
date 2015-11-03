@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-12.6.3.2"><a href="/sec/sec-applying-the-div-operator.html" title="link to this section">12.6.3.2</a></span> Applying the <code>/</code> Operator</h1>
+
+        <p>The <code>/</code> <span class="nt">MultiplicativeOperator</span> performs division, producing the quotient of its
+        operands. The left operand is the dividend and the right operand is the divisor. ECMAScript does not perform integer
+        division. The operands and result of all division operations are double-precision floating-point numbers. The result of
+        division is determined by the specification of IEEE 754-2008 arithmetic:</p>
+
+        <ul>
+          <li>
+            <p>If either operand is <b>NaN</b>, the result is <b>NaN</b>.</p>
+          </li>
+
+          <li>
+            <p>The sign of the result is positive if both operands have the same sign, negative if the operands have different
+            signs.</p>
+          </li>
+
+          <li>
+            <p>Division of an infinity by an infinity results in <b>NaN</b>.</p>
+          </li>
+
+          <li>
+            <p>Division of an infinity by a zero results in an infinity. The sign is determined by the rule already stated
+            above.</p>
+          </li>
+
+          <li>
+            <p>Division of an infinity by a nonzero finite value results in a signed infinity. The sign is determined by the rule
+            already stated above.</p>
+          </li>
+
+          <li>
+            <p>Division of a finite value by an infinity results in zero. The sign is determined by the rule already stated
+            above.</p>
+          </li>
+
+          <li>
+            <p>Division of a zero by a zero results in <b>NaN</b>; division of zero by any other finite value results in zero,
+            with the sign determined by the rule already stated above.</p>
+          </li>
+
+          <li>
+            <p>Division of a nonzero finite value by a zero results in a signed infinity. The sign is determined by the rule
+            already stated above.</p>
+          </li>
+
+          <li>
+            <p>In the remaining cases, where neither an infinity, nor a zero, nor <b>NaN</b> is involved, the quotient is computed
+            and rounded to the nearest representable value using IEEE 754-2008 round-to-nearest mode. If the magnitude is too
+            large to represent, the operation overflows; the result is then an infinity of appropriate sign. If the magnitude is
+            too small to represent, the operation underflows and the result is a zero of the appropriate sign. The ECMAScript
+            language requires support of gradual underflow as defined by IEEE 754-2008.</p>
+          </li>
+        </ul>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

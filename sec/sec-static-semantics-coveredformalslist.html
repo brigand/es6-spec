@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-14.2.9"><a href="/sec/sec-static-semantics-coveredformalslist.html" title="link to this section">14.2.9</a></span> Static Semantics:  CoveredFormalsList</h1>
+      <div class="gp prod"><span class="nt">ArrowParameters</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span></div>
+      <ol class="proc">
+        <li>Return <i>BindingIdentifier</i>.</li>
+      </ol>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">CoverParenthesizedExpressionAndArrowParameterList</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">(</code> <span class="nt">Expression</span> <code class="t">)</code></div>
+        <div class="rhs"><code class="t">(</code> <code class="t">)</code></div>
+        <div class="rhs"><code class="t">(</code> <code class="t">...</code> <span class="nt">BindingIdentifier</span> <code class="t">)</code></div>
+        <div class="rhs"><code class="t">(</code> <span class="nt">Expression</span> <code class="t">,</code> <code class="t">...</code> <span class="nt">BindingIdentifier</span> <code class="t">)</code></div>
+      </div>
+
+      <ol class="proc">
+        <li>If the <sub>[Yield]</sub> grammar parameter is present for
+            <i>CoverParenthesizedExpressionAndArrowParameterList</i><sub>[Yield]</sub> return the result of parsing the lexical
+            token stream matched by <i>CoverParenthesizedExpressionAndArrowParameterList</i><sub>[Yield]</sub> using
+            <i>ArrowFormalParameters</i><sub>[Yield]</sub> as the goal symbol.</li>
+        <li>If the <sub>[Yield]</sub> grammar parameter is not present for
+            <i>CoverParenthesizedExpressionAndArrowParameterList</i><sub>[Yield]</sub> return the result of parsing the lexical
+            token stream matched by <i>CoverParenthesizedExpressionAndArrowParameterList</i> using <i>ArrowFormalParameters</i> as
+            the goal symbol.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

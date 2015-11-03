@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-19.1.1.1"><a href="/sec/sec-object-value.html" title="link to this section">19.1.1.1</a></span>
+            Object ( [ value ] )</h1>
+
+        <p class="normalbefore">When <code>Object</code> function is called with optional argument <var>value</var>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>If NewTarget is neither <b>undefined</b> nor the active function<i>,</i> then
+            <ol class="block">
+              <li>Return <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(NewTarget,
+                  <code>&quot;%ObjectPrototype%&quot;</code>).</li>
+            </ol>
+          </li>
+          <li>If <i>value</i> is <b>null</b>, <b>undefined</b> or not supplied, return <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(%ObjectPrototype%).</li>
+          <li>Return <a href="/sec/sec-toobject.html">ToObject</a>(<i>value</i>).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

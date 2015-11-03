@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-23.1.5.3"><a href="/sec/sec-properties-of-map-iterator-instances.html" title="link to this section">23.1.5.3</a></span> Properties of Map Iterator Instances</h1>
+
+        <p>Map Iterator instances are ordinary objects that inherit properties from the %MapIteratorPrototype% intrinsic  object.
+        Map Iterator instances are initially created with the internal slots described in <a href="/sec/table-50.html">Table 50</a>.</p>
+
+        <figure>
+          <figcaption><span id="table-50">Table 50</span> &#x2014; Internal Slots of Map Iterator Instances</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Internal Slot</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>[[Map]]</td>
+              <td>The Map object that is being iterated.</td>
+            </tr>
+            <tr>
+              <td>[[MapNextIndex]]</td>
+              <td>The integer index of the next Map data element to be examined by this iterator.</td>
+            </tr>
+            <tr>
+              <td>[[MapIterationKind]]</td>
+              <td>A String value that identifies what is to be returned for each element of the iteration. The possible values are: <code>&quot;key&quot;</code>, <code>&quot;value&quot;</code>, <code>&quot;key+value&quot;</code>.</td>
+            </tr>
+          </table>
+        </figure>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

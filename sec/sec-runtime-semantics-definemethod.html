@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-14.3.8"><a href="/sec/sec-runtime-semantics-definemethod.html" title="link to this section">14.3.8</a></span> Runtime Semantics: DefineMethod</h1>
+
+      <p>With parameters <var>object</var> and optional parameter <span style="font-family: Times New
+      Roman"><i>functionPrototype</i>.</span></p>
+
+      <div class="gp prod"><span class="nt">MethodDefinition</span> <span class="geq">:</span> <span class="nt">PropertyName</span> <code class="t">(</code> <span class="nt">StrictFormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Let <i>propKey</i> be the result of evaluating <i>PropertyName</i>.</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>propKey</i>).</li>
+        <li>If the function code for this <i>MethodDefinition</i> is <a href="/sec/sec-strict-mode-code.html">strict mode code</a>, let
+            <i>strict</i> be <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.</li>
+        <li>Let <i>scope</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a>.</li>
+        <li>If <i>functionPrototype</i> was passed as a parameter, let <i>kind</i> be <span style="font-family:
+            sans-serif">Normal</span>; otherwise let <i>kind</i> be <span style="font-family: sans-serif">Method</span>.</li>
+        <li>Let <i>closure</i> be <a href="/sec/sec-functioncreate.html">FunctionCreate</a>(<i>kind</i>, <i>StrictFormalParameters</i>,
+            <i>FunctionBody, scope</i>, <i>strict</i>). If <i>functionPrototype</i> was passed as a parameter then pass its value
+            as the <i>functionPrototype</i> optional argument of <a href="/sec/sec-functioncreate.html">FunctionCreate</a>.</li>
+        <li>Perform <a href="/sec/sec-makemethod.html">MakeMethod</a>(<i>closure</i>, <i>object</i>).</li>
+        <li>Return the Record{[[key]]: <i>propKey</i>, [[closure]]: <i>closure</i>}.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

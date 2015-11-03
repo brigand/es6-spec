@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.1.5.3"><a href="/sec/sec-properties-of-string-iterator-instances.html" title="link to this section">21.1.5.3</a></span> Properties of String Iterator Instances</h1>
+
+        <p>String Iterator instances are ordinary objects that inherit properties from the %StringIteratorPrototype% intrinsic
+        object. String Iterator instances are initially created with the internal slots listed in <a href="/sec/table-46.html">Table
+        46</a>.</p>
+
+        <figure>
+          <figcaption><span id="table-46">Table 46</span> &#x2014; Internal Slots of String Iterator Instances</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Internal Slot</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>[[IteratedString]]</td>
+              <td>The String value whose elements are being iterated.</td>
+            </tr>
+            <tr>
+              <td>[[StringIteratorNextIndex]]</td>
+              <td>The integer index of the next string index to be examined by this iteration.</td>
+            </tr>
+          </table>
+        </figure>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

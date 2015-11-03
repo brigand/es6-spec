@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-15.1"><a href="/sec/sec-scripts.html" title="link to this section">15.1</a></span> Scripts</h1>
+      <h2>Syntax</h2>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">Script</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">ScriptBody</span><sub class="g-opt">opt</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">ScriptBody</span> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">StatementList</span></div>
+      </div>
+    </div>
+
+    <section id="sec-scripts-static-semantics-early-errors">
+      <h1><span class="secnum" id="sec-15.1.1"><a href="/sec/sec-scripts-static-semantics-early-errors.html" title="link to this section">15.1.1</a></span> Static Semantics:  Early Errors</h1>
+      <div class="gp prod"><span class="nt">Script</span> <span class="geq">:</span> <span class="nt">ScriptBody</span></div>
+      <ul>
+        <li>
+          <p>It is a Syntax Error if the LexicallyDeclaredNames of <span class="nt">ScriptBody</span> contains any duplicate
+          entries.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if any element of the <span style="font-family: Times New Roman">LexicallyDeclaredNames</span>
+          of <span class="nt">ScriptBody</span> also occurs in the <span style="font-family: Times New
+          Roman">VarDeclaredNames</span> of <span class="nt">ScriptBody</span>.</p>
+        </li>
+      </ul>
+      <div class="gp prod"><span class="nt">ScriptBody</span> <span class="geq">:</span> <span class="nt">StatementList</span></div>
+      <ul>
+        <li>
+          <p>It is a Syntax Error if <span class="nt">StatementList</span> <span style="font-family: Times New
+          Roman">Contains</span> <code>super</code> unless the source code containing <code>super</code> is eval code that is
+          being processed by a direct <code>eval</code> that is contained in function code that is not the function code of an
+          <span class="nt">ArrowFunction</span>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if <span class="nt">StatementList</span> <span style="font-family: Times New
+          Roman">Contains</span> <span class="nt">NewTarget</span> unless the source code containing <span class="nt">NewTarget</span> is eval code that is being processed by a direct <code>eval</code> that is contained in
+          function code that is not the function code of an <span class="nt">ArrowFunction</span>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if ContainsDuplicateLabels of <span class="nt">StatementList</span> <span style="font-family:
+          Times New Roman">with argument &#xAB; &#xBB; is <b>true</b>.</span></p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if ContainsUndefinedBreakTarget of <span class="nt">StatementList</span> <span style="font-family: Times New Roman">with argument &#xAB; &#xBB; is <b>true</b>.</span></p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if ContainsUndefinedContinueTarget of <span style="font-family: Times New
+          Roman"><i>StatementList</i> with arguments &#xAB; &#xBB; and &#xAB; &#xBB; is <b>true</b>.</span></p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="sec-static-semantics-isstrict">
+      <h1><span class="secnum" id="sec-15.1.2"><a href="/sec/sec-static-semantics-isstrict.html" title="link to this section">15.1.2</a></span> Static Semantics:  IsStrict</h1>
+      <div class="gp prod"><span class="nt">ScriptBody</span> <span class="geq">:</span> <span class="nt">StatementList</span></div>
+      <ol class="proc">
+        <li>If the DirectivePrologue of <i>StatementList</i> contains a <a href="/sec/sec-directive-prologues-and-the-use-strict-directive.html">Use Strict Directive</a>, return <b>true</b>; otherwise,
+            return <b>false</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-scripts-static-semantics-lexicallydeclarednames">
+      <h1><span class="secnum" id="sec-15.1.3"><a href="/sec/sec-scripts-static-semantics-lexicallydeclarednames.html" title="link to this section">15.1.3</a></span> Static Semantics:  LexicallyDeclaredNames</h1>
+
+      <p>See also: <a href="/sec/sec-block-static-semantics-lexicallydeclarednames.html">13.2.5</a>, <a href="/sec/sec-switch-statement-static-semantics-lexicallydeclarednames.html">13.12.5</a>, <a href="/sec/sec-labelled-statements-static-semantics-lexicallydeclarednames.html">13.13.6</a>, <a href="/sec/sec-function-definitions-static-semantics-lexicallydeclarednames.html">14.1.13</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-lexicallydeclarednames.html">14.2.10</a>, <a href="/sec/sec-module-semantics-static-semantics-lexicallydeclarednames.html">15.2.1.11</a>.</p>
+
+      <div class="gp prod"><span class="nt">ScriptBody</span> <span class="geq">:</span> <span class="nt">StatementList</span></div>
+      <ol class="proc">
+        <li>Return TopLevelLexicallyDeclaredNames of <i>StatementList</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> At the top level of a <span class="nt">Script</span>, function declarations are treated
+        like var declarations rather than like lexical declarations.</p>
+      </div>
+    </section>
+
+    <section id="sec-scripts-static-semantics-lexicallyscopeddeclarations">
+      <h1><span class="secnum" id="sec-15.1.4"><a href="/sec/sec-scripts-static-semantics-lexicallyscopeddeclarations.html" title="link to this section">15.1.4</a></span> Static Semantics:  LexicallyScopedDeclarations</h1>
+
+      <p>See also: <a href="/sec/sec-block-static-semantics-lexicallyscopeddeclarations.html">13.2.6</a>, <a href="/sec/sec-switch-statement-static-semantics-lexicallyscopeddeclarations.html">13.12.6</a>, <a href="/sec/sec-labelled-statements-static-semantics-lexicallyscopeddeclarations.html">13.13.7</a>, <a href="/sec/sec-function-definitions-static-semantics-lexicallyscopeddeclarations.html">14.1.14</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-lexicallyscopeddeclarations.html">14.2.11</a>, <a href="/sec/sec-module-semantics-static-semantics-lexicallyscopeddeclarations.html">15.2.1.12</a>, <a href="/sec/sec-exports-static-semantics-lexicallyscopeddeclarations.html">15.2.3.8</a>.</p>
+
+      <div class="gp prod"><span class="nt">ScriptBody</span> <span class="geq">:</span> <span class="nt">StatementList</span></div>
+      <ol class="proc">
+        <li>Return TopLevelLexicallyScopedDeclarations of <i>StatementList</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-scripts-static-semantics-vardeclarednames">
+      <h1><span class="secnum" id="sec-15.1.5"><a href="/sec/sec-scripts-static-semantics-vardeclarednames.html" title="link to this section">15.1.5</a></span> Static Semantics:  VarDeclaredNames</h1>
+
+      <p>See also: <a href="/sec/sec-statement-semantics-static-semantics-vardeclarednames.html">13.1.5</a>, <a href="/sec/sec-block-static-semantics-vardeclarednames.html">13.2.11</a>, <a href="/sec/sec-variable-statement-static-semantics-vardeclarednames.html">13.3.2.2</a>, <a href="/sec/sec-if-statement-static-semantics-vardeclarednames.html">13.6.5</a>, <a href="/sec/sec-do-while-statement-static-semantics-vardeclarednames.html">13.7.2.4</a>, <a href="/sec/sec-while-statement-static-semantics-vardeclarednames.html">13.7.3.4</a>, <a href="/sec/sec-for-statement-static-semantics-vardeclarednames.html">13.7.4.5</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-vardeclarednames.html">13.7.5.7</a>, <a href="/sec/sec-with-statement-static-semantics-vardeclarednames.html">13.11.5</a>, <a href="/sec/sec-switch-statement-static-semantics-vardeclarednames.html">13.12.7</a>, <a href="/sec/sec-labelled-statements-static-semantics-vardeclarednames.html">13.13.12</a>, <a href="/sec/sec-try-statement-static-semantics-vardeclarednames.html">13.15.5</a>, <a href="/sec/sec-function-definitions-static-semantics-vardeclarednames.html">14.1.15</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-vardeclarednames.html">14.2.12</a>, <a href="/sec/sec-module-semantics-static-semantics-vardeclarednames.html">15.2.1.13</a>.</p>
+
+      <div class="gp prod"><span class="nt">ScriptBody</span> <span class="geq">:</span> <span class="nt">StatementList</span></div>
+      <ol class="proc">
+        <li>Return TopLevelVarDeclaredNames of <i>StatementList</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-scripts-static-semantics-varscopeddeclarations">
+      <h1><span class="secnum" id="sec-15.1.6"><a href="/sec/sec-scripts-static-semantics-varscopeddeclarations.html" title="link to this section">15.1.6</a></span> Static Semantics:  VarScopedDeclarations</h1>
+
+      <p>See also: <a href="/sec/sec-statement-semantics-static-semantics-varscopeddeclarations.html">13.1.6</a>, <a href="/sec/sec-block-static-semantics-varscopeddeclarations.html">13.2.12</a>, <a href="/sec/sec-variable-statement-static-semantics-varscopeddeclarations.html">13.3.2.3</a>, <a href="/sec/sec-if-statement-static-semantics-varscopeddeclarations.html">13.6.6</a>, <a href="/sec/sec-do-while-statement-static-semantics-varscopeddeclarations.html">13.7.2.5</a>, <a href="/sec/sec-while-statement-static-semantics-varscopeddeclarations.html">13.7.3.5</a>, <a href="/sec/sec-for-statement-static-semantics-varscopeddeclarations.html">13.7.4.6</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-varscopeddeclarations.html">13.7.5.8</a>, <a href="/sec/sec-with-statement-static-semantics-varscopeddeclarations.html">13.11.6</a>, <a href="/sec/sec-switch-statement-static-semantics-varscopeddeclarations.html">13.12.8</a>, <a href="/sec/sec-labelled-statements-static-semantics-varscopeddeclarations.html">13.13.13</a>, <a href="/sec/sec-try-statement-static-semantics-varscopeddeclarations.html">13.15.6</a>, <a href="/sec/sec-function-definitions-static-semantics-varscopeddeclarations.html">14.1.16</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-varscopeddeclarations.html">14.2.13</a>, <a href="/sec/sec-module-semantics-static-semantics-varscopeddeclarations.html">15.2.1.14</a>.</p>
+
+      <div class="gp prod"><span class="nt">ScriptBody</span> <span class="geq">:</span> <span class="nt">StatementList</span></div>
+      <ol class="proc">
+        <li>Return TopLevelVarScopedDeclarations of <i>StatementList</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-runtime-semantics-scriptevaluation">
+      <h1><span class="secnum" id="sec-15.1.7"><a href="/sec/sec-runtime-semantics-scriptevaluation.html" title="link to this section">15.1.7</a></span> Runtime Semantics: ScriptEvaluation</h1>
+
+      <p>With argument <var>realm</var>.</p>
+
+      <div class="gp prod"><span class="nt">Script</span> <span class="geq">:</span> <span class="nt">ScriptBody</span><sub class="g-opt">opt</sub></div>
+      <ol class="proc">
+        <li>If <i>ScriptBody</i> is not present, return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family: sans-serif">empty</span>).</li>
+        <li>Let <i>globalEnv</i> be <i>realm</i>.[[globalEnv]].</li>
+        <li>Let <i>scriptCxt</i> be a new <a href="/sec/sec-execution-contexts.html">ECMAScript code execution context</a>.</li>
+        <li>Set the Function of <i>scriptCxt</i> to <b>null</b>.</li>
+        <li>Set the <a href="/sec/sec-code-realms.html">Realm</a> of <i>scriptCxt</i> to <i>realm</i>.</li>
+        <li>Set the <a href="/sec/sec-execution-contexts.html">VariableEnvironment</a> of <i>scriptCxt</i> to <i>globalEnv</i>.</li>
+        <li>Set the <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> of <i>scriptCxt</i> to <i>globalEnv</i>.</li>
+        <li><a href="/sec/sec-execution-contexts.html">Suspend</a> <a href="/sec/sec-execution-contexts.html">the currently running execution
+            context</a>.</li>
+        <li>Push <i>scriptCxt</i> on to <a href="/sec/sec-execution-contexts.html">the execution context stack</a>; <i>scriptCxt</i> is now
+            <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>Let <i>result</i> be <a href="/sec/sec-globaldeclarationinstantiation.html">GlobalDeclarationInstantiation</a>(<i>ScriptBody</i>,
+            <i>globalEnv</i>).</li>
+        <li>If <i>result</i>.[[type]] is <span style="font-family: sans-serif">normal</span>, then
+          <ol class="block">
+            <li>Let <i>result</i> be the result of evaluating <i>ScriptBody</i>.</li>
+          </ol>
+        </li>
+        <li>If <i>result</i>.[[type]] is <span style="font-family: sans-serif">normal</span> and <i>result</i>.[[value]] is <span style="font-family: sans-serif">empty</span>, then
+          <ol class="block">
+            <li>Let <i>result</i> be <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+          </ol>
+        </li>
+        <li><a href="/sec/sec-execution-contexts.html">Suspend</a> <i>scriptCxt</i> and remove it from <a href="/sec/sec-execution-contexts.html">the execution context stack</a>.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-execution-contexts.html">the execution context stack</a> is
+            not empty.</li>
+        <li>Resume the context that is now on the top of <a href="/sec/sec-execution-contexts.html">the execution context stack</a> as <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>result</i>).</li>
+      </ol>
+    </section>
+
+    <section id="sec-globaldeclarationinstantiation">
+      <h1><span class="secnum" id="sec-15.1.8"><a href="/sec/sec-globaldeclarationinstantiation.html" title="link to this section">15.1.8</a></span> Runtime Semantics: GlobalDeclarationInstantiation (script, env)</h1>
+
+      <div class="note">
+        <p><span class="nh">NOTE 1</span> When an <a href="/sec/sec-execution-contexts.html">execution context</a> is established for
+        evaluating scripts, declarations are instantiated in the current global environment. Each global binding declared in the
+        code is instantiated.</p>
+      </div>
+
+      <p class="normalbefore">GlobalDeclarationInstantiation is performed as follows using arguments <var>script</var> and
+      <var>env</var>. <var>script</var> is the <span class="nt">ScriptBody</span> for which the <a href="/sec/sec-execution-contexts.html">execution context</a> is being established. <var>env</var> is the global <a href="/sec/sec-lexical-environments.html">lexical environment</a> in which bindings are to be created.</p>
+
+      <ol class="proc">
+        <li>Let <i>envRec</i> be <i>env</i>&#x2019;s <a href="/sec/sec-lexical-environments.html">EnvironmentRecord</a>.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>envRec</i> is a global <a href="/sec/sec-environment-records.html">Environment Record</a>.</li>
+        <li>Let <i>lexNames</i> be the LexicallyDeclaredNames of <i>script</i>.</li>
+        <li>Let <i>varNames</i> be the VarDeclaredNames of <i>script</i>.</li>
+        <li>For each <i>name</i> in <i>lexNames</i>, do
+          <ol class="block">
+            <li>If <i>envRec.</i><a href="/sec/sec-hasvardeclaration.html">HasVarDeclaration</a>(<i>name</i>) is <b>true</b>, throw a
+                <b>SyntaxError</b> exception.</li>
+            <li>If <i>envRec.</i><a href="/sec/sec-haslexicaldeclaration.html">HasLexicalDeclaration</a>(<i>name</i>) is <b>true</b>, throw
+                a <b>SyntaxError</b> exception.</li>
+            <li>Let <i>hasRestrictedGlobal</i> be <i>envRec.</i><a href="/sec/sec-hasrestrictedglobalproperty.html">HasRestrictedGlobalProperty</a>(<i>name</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasRestrictedGlobal</i>).</li>
+            <li>If <i>hasRestrictedGlobal</i> is <b>true</b>, throw a <b>SyntaxError</b> exception.</li>
+          </ol>
+        </li>
+        <li>For each <i>name</i> in <i>varNames</i>, do
+          <ol class="block">
+            <li>If <i>envRec.</i><a href="/sec/sec-haslexicaldeclaration.html">HasLexicalDeclaration</a>(<i>name</i>) is <b>true</b>, throw
+                a <b>SyntaxError</b> exception.</li>
+          </ol>
+        </li>
+        <li>Let <i>varDeclarations</i> be the VarScopedDeclarations of <i>script</i>.</li>
+        <li>Let <i>functionsToInitialize</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>Let <i>declaredFunctionNames</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>For each <i>d</i> in <i>varDeclarations</i>, in reverse list order do
+          <ol class="block">
+            <li>If <i>d</i> is neither a <i>VariableDeclaration</i> or a <i>ForBinding</i>, then
+              <ol class="block">
+                <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>d</i> is either a <i>FunctionDeclaration</i> or a
+                    <i>GeneratorDeclaration</i>.</li>
+                <li>NOTE	If there are multiple <span style="font-family: Times New Roman"><i>FunctionDeclarations</i></span>
+                    for the same name, the last declaration is used.</li>
+                <li>Let <i>fn</i> be the sole element of the BoundNames of <i>d.</i></li>
+                <li>If <i>fn</i> is not an element of <i>declaredFunctionNames</i>, then
+                  <ol class="block">
+                    <li>Let <i>fnDefinable</i> be <i>envRec.</i><a href="/sec/sec-candeclareglobalfunction.html">CanDeclareGlobalFunction</a>(<i>fn</i>).</li>
+                    <li>If <i>fnDefinable</i> is <b>false</b>, throw <b>TypeError</b> exception.</li>
+                    <li>Append <i>fn</i> to <i>declaredFunctionNames</i>.</li>
+                    <li>Insert <i>d</i> as the first element of <i>functionsToInitialize</i>.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>Let <i>declaredVarNames</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>For each <i>d</i> in <i>varDeclarations</i>, do
+          <ol class="block">
+            <li>If <i>d</i> is a <i>VariableDeclaration</i> or a <i>ForBinding</i>, then
+              <ol class="block">
+                <li>For each String <i>vn</i> in the BoundNames of <i>d</i>, do
+                  <ol class="block">
+                    <li>If <i>vn</i> is not an element of <i>declaredFunctionNames</i>, then
+                      <ol class="block">
+                        <li>Let <i>vnDefinable</i> be <i>envRec.</i><a href="/sec/sec-candeclareglobalvar.html">CanDeclareGlobalVar</a>(<i>vn</i>).</li>
+                        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>vnDefinable</i>).</li>
+                        <li>If <i>vnDefinable</i> is <b>false</b>, throw <b>TypeError</b> exception.</li>
+                        <li>If <i>vn</i> is not an element of <i>declaredVarNames</i>, then
+                          <ol class="block">
+                            <li>Append <i>vn</i> to <i>declaredVarNames</i>.</li>
+                          </ol>
+                        </li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>NOTE: No abnormal terminations occur after this algorithm step if the global object is an ordinary object. However, if
+            the global object is a Proxy exotic object it may exhibit behaviours that cause abnormal terminations in some of the
+            following steps.</li>
+        <li>Let <i>lexDeclarations</i> be the LexicallyScopedDeclarations of <i>script</i>.</li>
+        <li>For each element <i>d</i> in <i>lexDeclarations</i> do
+          <ol class="block">
+            <li>NOTE  Lexically declared names are only instantiated here but not initialized.</li>
+            <li>For each element <i>dn</i> of the BoundNames of <i>d</i> do
+              <ol class="block">
+                <li>If  IsConstantDeclaration of <i>d</i> is <b>true</b>, then
+                  <ol class="block">
+                    <li>Let <i>status</i> be <i>envRec</i>.CreateImmutableBinding(<i>dn</i>, <b>true</b>).</li>
+                  </ol>
+                </li>
+                <li>Else,
+                  <ol class="block">
+                    <li>Let <i>status</i> be <i>envRec</i>.CreateMutableBinding(<i>dn</i>, <b>false</b>).</li>
+                  </ol>
+                </li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>For each production <i>f</i> in <i>functionsToInitialize</i>, do
+          <ol class="block">
+            <li>Let <i>fn</i> be the sole element of the BoundNames of <i>f.</i></li>
+            <li>Let <i>fo</i> be the result of performing InstantiateFunctionObject  for <i>f</i> with argument <i>env</i>.</li>
+            <li>Let <i>status</i> be <i>envRec</i>.<a href="/sec/sec-createglobalfunctionbinding.html">CreateGlobalFunctionBinding</a>(<i>fn</i>, <i>fo</i>, <b>false</b>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          </ol>
+        </li>
+        <li>For each String <i>vn</i> in <i>declaredVarNames</i>, in list order do
+          <ol class="block">
+            <li>Let <i>status</i> be <i>envRec.</i><a href="/sec/sec-createglobalvarbinding.html">CreateGlobalVarBinding</a>(<i>vn</i>,
+                <b>false</b>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          </ol>
+        </li>
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family: sans-serif">empty</span>)</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE 2</span> Early errors specified in <a href="/sec/sec-scripts-static-semantics-early-errors.html">15.1.1</a>
+        prevent name conflicts between function/var declarations and let/const/class declarations as well as redeclaration of
+        let/const/class bindings for declaration contained within a single <span class="nt">Script</span>. However, such conflicts
+        and redeclarations that span more than one <span class="nt">Script</span> are detected as runtime errors during
+        GlobalDeclarationInstantiation. If any such errors are detected, no bindings are instantiated for the script. However, if
+        the global object is defined using Proxy exotic objects then the runtime tests for conflicting declarations may be
+        unreliable resulting in an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a> and some global
+        declarations not being instantiated. If this occurs, the code for the <span class="nt">Script</span> is not evaluated.</p>
+
+        <p>Unlike explicit var or function declarations, properties that are directly created on the global object result in
+        global bindings that may be shadowed by let/const/class declarations.</p>
+      </div>
+    </section>
+
+    <section id="sec-scriptevaluationjob">
+      <h1><span class="secnum" id="sec-15.1.9"><a href="/sec/sec-scriptevaluationjob.html" title="link to this section">15.1.9</a></span>
+          Runtime Semantics: ScriptEvaluationJob ( sourceText )</h1>
+
+      <p class="normalbefore">The job ScriptEvaluationJob with parameter <var>sourceText</var> parses, validates, and evaluates
+      <var>sourceText</var> as a <span class="nt">Script</span>.</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>sourceText</i> is an ECMAScript source text (see <a href="/sec/sec-ecmascript-language-source-code.html">clause 10</a>).</li>
+        <li>Parse <i>sourceText</i> using <i>Script</i> as the goal symbol and analyze the parse result for any Early Error
+            conditions. If the parse was successful and no early errors were found, let <i>code</i> be the resulting parse tree.
+            Otherwise, let <i>code</i> be an indication of one or more parsing errors and/or early errors. Parsing and early error
+            detection may be interweaved in an implementation dependent manner. If more than one parse or early error is present,
+            the number and ordering of reported errors is implementation dependent but at least one error must be reported.</li>
+        <li>If <i>code</i> is an error indication, then
+          <ol class="block">
+            <li>Report or log the error(s) in an implementation dependent manner.</li>
+            <li>Let <i>status</i> be <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+          </ol>
+        </li>
+        <li>Else,
+          <ol class="block">
+            <li>Let <i>realm</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-code-realms.html">Realm</a>.</li>
+            <li>Let <i>status</i> be the result of ScriptEvaluation of <i>code</i> with argument <i>realm</i>.</li>
+          </ol>
+        </li>
+        <li>NextJob <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>status</i>).</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> An implementation may parse a <var>sourceText</var> as a <span class="nt">Script</span>
+        and analyze it for Early Error conditions prior to the execution of the ScriptEvaluationJob for that
+        <var>sourceText</var>. However, the reporting of any errors must be deferred until the ScriptEvaluationJob is actually
+        executed.</p>
+      </div>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

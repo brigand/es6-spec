@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-11.6.1"><a href="/sec/sec-identifier-names.html" title="link to this section">11.6.1</a></span>
+            Identifier Names</h1>
+      </div>
+
+      <section id="sec-identifier-names-static-semantics-early-errors">
+        <h1><span class="secnum" id="sec-11.6.1.1"><a href="/sec/sec-identifier-names-static-semantics-early-errors.html" title="link to this section">11.6.1.1</a></span> Static Semantics: Early Errors</h1>
+        <div class="gp prod"><span class="nt">IdentifierStart</span> <span class="geq">::</span> <code class="t">\</code> <span class="nt">UnicodeEscapeSequence</span></div>
+        <ul>
+          <li>
+            <p>It is a Syntax Error if <span style="font-family: Times New Roman">SV(<i>UnicodeEscapeSequence</i>)</span> is none
+            of <code>&quot;$&quot;</code>, or <code>&quot;_&quot;</code>, or the <a href="/sec/sec-utf16encoding.html">UTF16Encoding</a> (<a href="/sec/sec-utf16encoding.html">10.1.1</a>) of a code point matched by the <span class="nt">UnicodeIDStart</span> lexical
+            grammar production.</p>
+          </li>
+        </ul>
+        <div class="gp prod"><span class="nt">IdentifierPart</span> <span class="geq">::</span> <code class="t">\</code> <span class="nt">UnicodeEscapeSequence</span></div>
+        <ul>
+          <li>
+            <p>It is a Syntax Error if <span style="font-family: Times New Roman">SV(<i>UnicodeEscapeSequence</i>)</span> is none
+            of <code>&quot;$&quot;</code>, or <code>&quot;_&quot;</code>, or the <a href="/sec/sec-utf16encoding.html">UTF16Encoding</a> (<a href="/sec/sec-utf16encoding.html">10.1.1</a>) of either &lt;ZWNJ&gt; or &lt;ZWJ&gt;, or the <a href="/sec/sec-utf16encoding.html">UTF16Encoding</a> of a Unicode code point that would be matched by the <span class="nt">UnicodeIDContinue</span> lexical grammar production.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="sec-identifier-names-static-semantics-stringvalue">
+        <h1><span class="secnum" id="sec-11.6.1.2"><a href="/sec/sec-identifier-names-static-semantics-stringvalue.html" title="link to this section">11.6.1.2</a></span> Static Semantics: <span class="nt">StringValue</span></h1>
+
+        <p>See also: <a href="/sec/sec-string-literals-static-semantics-stringvalue.html">11.8.4.2</a>, <a href="/sec/sec-identifiers-static-semantics-stringvalue.html">12.1.4</a>.</p>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">IdentifierName</span> <span class="geq">::</span></div>
+          <div class="rhs"><span class="nt">IdentifierStart</span></div>
+          <div class="rhs"><span class="nt">IdentifierName</span> <span class="nt">IdentifierPart</span></div>
+        </div>
+
+        <ol class="proc">
+          <li>Return the String value consisting of the sequence of code units corresponding to <i>IdentifierName</i>. In
+              determining the sequence any occurrences of <code>\</code> <i>UnicodeEscapeSequence</i> are first replaced with the
+              code point represented by the <i>UnicodeEscapeSequence</i> and then the code points of the entire
+              <i>IdentifierName</i> are converted to code units by <a href="/sec/sec-utf16encoding.html">UTF16Encoding</a> (<a href="/sec/sec-utf16encoding.html">10.1.1</a>) each code point.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

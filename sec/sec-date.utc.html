@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.3.3.4"><a href="/sec/sec-date.utc.html" title="link to this section">20.3.3.4</a></span>
+            Date.UTC ( year, month [ , date [ , hours [ , minutes [ , seconds [ , ms ] ] ] ] ] )</h1>
+
+        <p class="normalbefore">When the <code>UTC</code> function is called with fewer than two arguments, the behaviour is
+        implementation-dependent. When the <code>UTC</code> function is called with two to seven arguments, it computes the date
+        from <var>year</var>, <var>month</var> and (optionally) <var>date</var>, <var>hours</var>, <var>minutes</var>,
+        <var>seconds</var> and <var>ms</var>. The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>y</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>year</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>y</i>).</li>
+          <li>Let <i>m</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>month</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>m</i>).</li>
+          <li>If <i>date</i> is supplied, let <i>dt</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>date</i>); else let <i>dt</i>
+              be <b>1</b>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>dt</i>).</li>
+          <li>If <i>hours</i> is supplied, let <i>h</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>hours</i>); else let <i>h</i>
+              be <b>0</b>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>h</i>).</li>
+          <li>If <i>minutes</i> is supplied, let <i>min</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>minutes</i>); else let
+              <i>min</i> be <b>0</b>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>min</i>).</li>
+          <li>If <i>seconds</i> is supplied, let <i>s</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>seconds</i>); else let
+              <i>s</i> be <b>0</b>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>s</i>).</li>
+          <li>If <i>ms</i> is supplied, let <i>milli</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>ms</i>); else let <i>milli</i>
+              be <b>0</b>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>milli</i>).</li>
+          <li>If&#xA0;<i>y</i>&#xA0;is&#xA0;not&#xA0;<b>NaN</b>&#xA0;and&#xA0;0&#xA0;&#x2264;&#xA0;<a href="/sec/sec-tointeger.html">ToInteger</a>(<i>y</i>)&#xA0;&#x2264;&#xA0;99, let <i>yr</i> be&#xA0;1900+<a href="/sec/sec-tointeger.html">ToInteger</a>(<i>y</i>); otherwise, let <i>yr</i> be <i>y</i>.</li>
+          <li>Return <a href="/sec/sec-timeclip.html">TimeClip</a>(<a href="/sec/sec-makedate.html">MakeDate</a>(<a href="/sec/sec-makeday.html">MakeDay</a>(<i>yr</i>, <i>m</i>, <i>dt</i>), <a href="/sec/sec-maketime.html">MakeTime</a>(<i>h</i>,
+              <i>min</i>, <i>s</i>, <i>milli</i>))).</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>UTC</code> function is <b>7</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <code>UTC</code> function differs from the <code>Date</code> constructor in two
+          ways: it returns a <a href="/sec/sec-time-values-and-time-range.html">time value</a> as a Number, rather than creating a Date
+          object, and it interprets the arguments in UTC rather than as local time.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

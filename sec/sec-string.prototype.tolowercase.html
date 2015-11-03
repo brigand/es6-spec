@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.1.3.22"><a href="/sec/sec-string.prototype.tolowercase.html" title="link to this section">21.1.3.22</a></span> String.prototype.toLowerCase ( )</h1>
+
+        <p class="normalbefore">This function interprets a String value as a sequence of UTF-16 encoded code points, as described
+        in <a href="/sec/sec-ecmascript-language-types-string-type.html">6.1.4</a>. The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>cpList</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing in order the code
+              points as defined in <a href="/sec/sec-ecmascript-language-types-string-type.html">6.1.4</a> of <i>S</i>, starting at the
+              first element of <i>S</i>.</li>
+          <li>For each code point <i>c</i> in <i>cpList</i>, if the Unicode Character Database provides a language insensitive
+              lower case equivalent of <i>c</i> then replace <i>c</i> in <i>cpList</i> with that equivalent code point(s).</li>
+          <li>Let <i>cuList</i> be a new <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>For each code point <i>c</i> in <i>cpList</i>, in order, append to <i>cuList</i> the elements of the <a href="/sec/sec-utf16encoding.html">UTF16Encoding</a> (<a href="/sec/sec-utf16encoding.html">10.1.1</a>) of <i>c</i>.</li>
+          <li>Let <i>L</i> be a String whose elements are, in order, the elements of <i>cuList</i> .</li>
+          <li>Return <i>L</i>.</li>
+        </ol>
+
+        <p class="normalBullet">The result must be derived according to the locale-insensitive case mappings in the Unicode
+        Character Database (this explicitly includes not only the UnicodeData.txt file, but also all locale-insensitive mappings
+        in the SpecialCasings.txt file that accompanies it).</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The case mapping of some code points may produce multiple code points . In this case
+          the result String may not be the same length as the source String. Because both <code>toUpperCase</code> and
+          <code>toLowerCase</code> have context-sensitive behaviour, the functions are not symmetrical. In other words,
+          <code>s.toUpperCase().toLowerCase()</code> is not necessarily equal to <code>s.toLowerCase()</code>.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>toLowerCase</code> function is intentionally generic; it does not require
+          that its <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

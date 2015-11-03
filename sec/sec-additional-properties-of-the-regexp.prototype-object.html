@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-B.2.5"><a href="/sec/sec-additional-properties-of-the-regexp.prototype-object.html" title="link to this section">B.2.5</a></span> Additional Properties of the RegExp.prototype Object</h1>
+      </div>
+
+      <section id="sec-regexp.prototype.compile">
+        <h1><span class="secnum" id="sec-B.2.5.1"><a href="/sec/sec-regexp.prototype.compile.html" title="link to this section">B.2.5.1</a></span> RegExp.prototype.compile (pattern, flags )</h1>
+
+        <p class="normalbefore">When the <b>compile</b> method is called with arguments <i>pattern</i> and <i>flags</i>, the
+        following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object or <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is Object and <i>O</i> does not have a
+              [[RegExpMatcher]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, then
+            <ol class="block">
+              <li>Throw a <b>TypeError</b> exception.</li>
+            </ol>
+          </li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>pattern</i>) is Object and <i>pattern</i> has a
+              [[RegExpMatcher]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, then
+            <ol class="block">
+              <li>If <i>flags</i> is not <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+              <li>Let <i>P</i> be the value of <i>pattern&#x2019;s</i> [[OriginalSource]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+              <li>Let <i>F</i> be the value of <i>pattern&#x2019;s</i> [[OriginalFlags]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>P</i> be <i>pattern</i>.</li>
+              <li>Let <i>F</i> be <i>flags</i>.</li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-regexpinitialize.html">RegExpInitialize</a>(<i>O,</i> <i>P</i>, <i>F</i>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <code>compile</code> method completely reinitializes the <b>this</b> object RegExp
+          with a new pattern and flags. An implementation may interpret use of this method as an assertion that the resulting
+          RegExp object will be used multiple times and hence is a candidate for extra optimization.</p>
+        </div>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

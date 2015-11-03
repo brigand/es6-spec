@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.1.2.2"><a href="/sec/sec-string.fromcodepoint.html" title="link to this section">21.1.2.2</a></span> String.fromCodePoint ( ...codePoints )</h1>
+
+        <p class="normalbefore">The <code>String.fromCodePoint</code> function may be called with any number of arguments which
+        form the rest parameter <var>codePoints</var>. The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>codePoints</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the arguments
+              passed to this function.</li>
+          <li>Let <i>length</i> be the number of elements in <i>codePoints</i><code>.</code></li>
+          <li>Let <i>elements</i> be a new <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>Let <i>nextIndex</i> be 0.</li>
+          <li>Repeat while <i>nextIndex</i> &lt; <i>length</i>
+            <ol class="block">
+              <li>Let <i>next</i> be <i>codePoints</i>[<i>nextIndex</i>].</li>
+              <li>Let <i>nextCP</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>next</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextCP</i>).</li>
+              <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>nextCP</i>, <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>nextCP</i>))
+                  is <b>false</b>, throw a <b>RangeError</b> exception.</li>
+              <li>If  <i>nextCP</i> &lt; 0 or <i>nextCP</i> &gt; 0x10FFFF, throw a <b>RangeError</b> exception.</li>
+              <li>Append the elements of the <a href="/sec/sec-utf16encoding.html">UTF16Encoding</a> (<a href="/sec/sec-utf16encoding.html">10.1.1</a>) of <i>nextCP</i> to the end of <i>elements</i>.</li>
+              <li>Let <i>nextIndex</i> be <i>nextIndex</i> + 1.</li>
+            </ol>
+          </li>
+          <li>Return the String value whose elements are, in order, the elements in the <a href="/sec/sec-list-and-record-specification-type.html">List</a> <i>elements</i>. If <i>length</i> is 0, the empty string is
+              returned.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>fromCodePoint</code> function is <b>1</b>.</p>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

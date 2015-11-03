@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-22.1.4"><a href="/sec/sec-properties-of-array-instances.html" title="link to this section">22.1.4</a></span> Properties of Array Instances</h1>
+
+        <p>Array instances are Array exotic objects and have the internal methods specified for such objects. Array instances
+        inherit properties from the Array prototype object.</p>
+
+        <p>Array instances have a <code>length</code> property, and a set of enumerable properties with array index names.</p>
+      </div>
+
+      <section id="sec-properties-of-array-instances-length">
+        <h1><span class="secnum" id="sec-22.1.4.1"><a href="/sec/sec-properties-of-array-instances-length.html" title="link to this section">22.1.4.1</a></span> length</h1>
+
+        <p>The <code>length</code> property of an Array instance is a data property whose value is always numerically greater than
+        the name of every configurable own property whose name is an array index.</p>
+
+        <p>The <code>length</code> property initially has the attributes <span style="font-family: Times New Roman">{
+        [[Writable]]: <b>true</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>false</b> }</span>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> Reducing the value of the <code>length</code> property has the side-effect of deleting
+          own array elements whose array index is between the old and new length values. However, non-configurable properties can
+          not be deleted. Attempting to set the length property of an Array object to a value that is numerically less than or
+          equal to the largest numeric own property name of an existing non-configurable array indexed property of the array will
+          result in the length being set to a numeric value that is one greater than that non-configurable numeric own property
+          name. See <a href="/sec/sec-array-exotic-objects-defineownproperty-p-desc.html">9.4.2.1</a>.</p>
+        </div>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

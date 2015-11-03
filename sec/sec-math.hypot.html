@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.2.2.18"><a href="/sec/sec-math.hypot.html" title="link to this section">20.2.2.18</a></span>
+            Math.hypot ( value1 , value2 , &#x2026;values )</h1>
+
+        <p class="normalbefore"><code>Math.hypot</code> returns an implementation-dependent approximation of the square root of
+        the sum of squares of its arguments.</p>
+
+        <ul>
+          <li>If no arguments are passed, the result is +0.</li>
+          <li>If any argument is +&#x221E;, the result is +&#x221E;.</li>
+          <li>If any argument is &#x2212;&#x221E;, the result is +&#x221E;.</li>
+          <li>If no argument is +&#x221E; or &#x2212;&#x221E;, and any argument is NaN, the result is NaN.</li>
+          <li>If all arguments are either +0 or &#x2212;0, the result is +0.</li>
+        </ul>
+
+        <p>The length property of the <code>hypot</code> function is 2.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> Implementations should take care to avoid the loss of precision from overflows and
+          underflows that are prone to occur in naive implementations when this function is called with two or more arguments.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

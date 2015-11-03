@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-9.4.3.3"><a href="/sec/sec-string-exotic-objects-ownpropertykeys.html" title="link to this section">9.4.3.3</a></span> [[OwnPropertyKeys]] ( )</h1>
+
+        <p class="normalbefore">When the [[OwnPropertyKeys]] internal method of a <a href="/sec/sec-string-exotic-objects.html">String
+        exotic object</a> <var>O</var> is called the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>keys</i> be a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>Let <i>str</i> be the String value of the [[StringData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+          <li>Let <i>len</i> be the number of elements in <i>str</i>.</li>
+          <li>For each integer <i>i</i> starting with 0 such that <i>i</i> &lt; <i>len</i>, in ascending order,
+            <ol class="block">
+              <li>Add <a href="/sec/sec-tostring.html">ToString</a>(<i>i</i>) as the last element of <i>keys</i></li>
+            </ol>
+          </li>
+          <li>For each own <a href="/sec/sec-object-type.html">property key</a> <i>P</i> of <i>O</i> such that <i>P</i> is an integer index
+              and <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>P</i>) &#x2265; <i>len</i>, in ascending numeric index order,
+            <ol class="block">
+              <li>Add <i>P</i> as the last element of <i>keys</i>.</li>
+            </ol>
+          </li>
+          <li>For each own <a href="/sec/sec-object-type.html">property key</a> <i>P</i> of <i>O</i> such that <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>P</i>) is String and <i>P</i> is not an integer index, in
+              property creation order,
+            <ol class="block">
+              <li>Add <i>P</i> as the last element of <i>keys</i>.</li>
+            </ol>
+          </li>
+          <li>For each own <a href="/sec/sec-object-type.html">property key</a> <i>P</i> of <i>O</i> such that <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>P</i>) is Symbol, in property creation order,
+            <ol class="block">
+              <li>Add <i>P</i> as the last element of <i>keys</i>.</li>
+            </ol>
+          </li>
+          <li>Return <i>keys</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

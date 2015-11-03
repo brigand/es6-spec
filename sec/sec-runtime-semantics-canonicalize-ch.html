@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-21.2.2.8.2"><a href="/sec/sec-runtime-semantics-canonicalize-ch.html" title="link to this section">21.2.2.8.2</a></span> Runtime Semantics: Canonicalize ( ch )</h1>
+
+          <p class="normalbefore">The abstract operation Canonicalize takes a character parameter <var>ch</var> and performs the
+          following steps:</p>
+
+          <ol class="proc">
+            <li>If <i>IgnoreCase</i> is <b>false</b>, return <i>ch</i>.</li>
+            <li>If <i>Unicode</i> is <b>true</b>,
+              <ol class="block">
+                <li>If the file CaseFolding.txt of the Unicode Character Database provides a simple or common case folding mapping
+                    for <i>ch</i>, return the result of applying that mapping to <i>ch</i>.</li>
+                <li>Else, return <i>ch.</i></li>
+              </ol>
+            </li>
+            <li>Else,
+              <ol class="block">
+                <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>ch</i> is a UTF-16 code unit.</li>
+                <li>Let <i>s</i> be the ECMAScript String value consisting of the single code unit <i>ch</i>.</li>
+                <li>Let <i>u</i> be the same result produced as if by performing the algorithm for <code><a href="/sec/sec-string.prototype.touppercase.html">String.prototype.toUpperCase</a></code> using <i>s</i> as the
+                    <b>this</b> value.</li>
+                <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>u</i> is a String value.</li>
+                <li>If <i>u</i> does not consist of a single code unit, return <i>ch</i>.</li>
+                <li>Let <i>cu</i> be <i>u</i>&#x2019;s single code unit element.</li>
+                <li>If <i>ch</i>&apos;s code unit value &#x2265; 128 and <i>cu</i>&apos;s code unit value &lt; 128, return <i>ch</i>.</li>
+                <li>Return <i>cu</i>.</li>
+              </ol>
+            </li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE 1</span> Parentheses of the form <code>(</code> <span class="nt">Disjunction</span>
+            <code>)</code> serve both to group the components of the <span class="nt">Disjunction</span> pattern together and to
+            save the result of the match. The result can be used either in a backreference (<code>\</code> followed by a nonzero
+            decimal number), referenced in a replace String, or returned as part of an array from the regular expression matching
+            internal procedure. To inhibit the capturing behaviour of parentheses, use the form <code>(?:</code> <span class="nt">Disjunction</span> <code>)</code> instead.</p>
+          </div>
+
+          <div class="note">
+            <p><span class="nh">NOTE 2</span> The form <code>(?=</code> <span class="nt">Disjunction</span> <code>)</code>
+            specifies a zero-width positive lookahead. In order for it to succeed, the pattern inside <span class="nt">Disjunction</span> must match at the current position, but the current position is not advanced before
+            matching the sequel. If <span class="nt">Disjunction</span> can match at the current position in several ways, only
+            the first one is tried. Unlike other regular expression operators, there is no backtracking into a <code>(?=</code>
+            form (this unusual behaviour is inherited from Perl). This only matters when the <span class="nt">Disjunction</span>
+            contains capturing parentheses and the sequel of the pattern contains backreferences to those captures.</p>
+
+            <p>For example,</p>
+
+            <pre>/(?=(a+))/.exec(&quot;baaabac&quot;)</pre>
+
+            <p>matches the empty String immediately after the first <code>b</code> and therefore returns the array:</p>
+
+            <pre>[&quot;&quot;, &quot;aaa&quot;]</pre>
+
+            <p>To illustrate the lack of backtracking into the lookahead, consider:</p>
+
+            <pre>/(?=(a+))a*b\1/.exec(&quot;baaabac&quot;)</pre>
+
+            <p>This expression returns</p>
+
+            <pre>[&quot;aba&quot;, &quot;a&quot;]</pre>
+
+            <p>and not:</p>
+
+            <pre>[&quot;aaaba&quot;, &quot;a&quot;]</pre>
+
+            <p></p>
+          </div>
+
+          <div class="note">
+            <p><span class="nh">NOTE 3</span> The form <code>(?!</code> <span class="nt">Disjunction</span> <code>)</code>
+            specifies a zero-width negative lookahead. In order for it to succeed, the pattern inside <span class="nt">Disjunction</span> must fail to match at the current position. The current position is not advanced before
+            matching the sequel. <span class="nt">Disjunction</span> can contain capturing parentheses, but backreferences to them
+            only make sense from within <span class="nt">Disjunction</span> itself. Backreferences to these capturing parentheses
+            from elsewhere in the pattern always return <b>undefined</b> because the negative lookahead must fail for the pattern
+            to succeed. For example,</p>
+
+            <pre>/(.*?)a(?!(a+)b\2c)\2(.*)/.exec(&quot;baaabaac&quot;)</pre>
+
+            <p>looks for an <code>a</code> not immediately followed by some positive number n of <code>a</code>&apos;s, a
+            <code>b</code>, another n <code>a</code>&apos;s (specified by the first <code>\2</code>) and a <code>c</code>. The second
+            <code>\2</code> is outside the negative lookahead, so it matches against <b>undefined</b> and therefore always
+            succeeds. The whole expression returns the array:</p>
+
+            <pre>[&quot;baaabaac&quot;, &quot;ba&quot;, undefined, &quot;abaac&quot;]</pre>
+          </div>
+
+          <div class="note">
+            <p><span class="nh">NOTE 4</span> In case-insignificant matches when <span class="nt">Unicode</span> is <span class="value">true</span>, all characters are implicitly case-folded using the simple mapping provided by the Unicode
+            standard immediately before they are compared. The simple mapping always maps to a single code point, so it does not
+            map, for example, <code>&quot;&#xDF;&quot;</code> (U+00DF) to <code>&quot;SS&quot;</code>. It may however map a code point outside the
+            Basic Latin range to a character within, for example, <code>&quot;</code>&#x17F;<code>&quot;</code> (U+017F) to
+            <code>&quot;</code>s<code>&quot;</code>. Such characters are not mapped if <span class="nt">Unicode</span> is <span class="value">false</span>. This prevents Unicode code points such as U+017F and U+212A from matching regular
+            expressions such as <code>/[a&#x2011;z]/i</code>, but they will match <code>/[a&#x2011;z]/ui</code>.</p>
+          </div>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-5.1.4"><a href="/sec/sec-syntactic-grammar.html" title="link to this section">5.1.4</a></span> The
+          Syntactic Grammar</h1>
+
+      <p>The <i>syntactic grammar</i> for ECMAScript is given in clauses 11, 12, 13, 14, and 15. This grammar has ECMAScript
+      tokens defined by the lexical grammar as its terminal symbols (<a href="/sec/sec-lexical-and-regexp-grammars.html">5.1.2</a>). It
+      defines a set of productions, starting from two alternative goal symbols <span class="nt">Script</span> and <span class="nt">Module</span>, that describe how sequences of tokens form syntactically correct independent components of
+      ECMAScript programs.</p>
+
+      <p>When a stream of code points is to be parsed as an ECMAScript <span class="nt">Script</span> or <span class="nt">Module</span>, it is first converted to a stream of input elements by repeated application of the lexical
+      grammar; this stream of input elements is then parsed by a single application of the syntactic grammar. The input stream is
+      syntactically in error if the tokens in the stream of input elements cannot be parsed as a single instance of the goal
+      nonterminal (<span class="nt">Script</span> or <span class="nt">Module</span>), with no tokens left over.</p>
+
+      <p>Productions of the syntactic grammar are distinguished by having just one colon &#x201C;<b>:</b>&#x201D; as
+      punctuation.</p>
+
+      <p>The syntactic grammar as presented in clauses 12, 13, 14 and 15 is not a complete account of which token sequences are
+      accepted as a correct ECMAScript <span class="nt">Script</span> or <span class="nt">Module</span>. Certain additional token
+      sequences are also accepted, namely, those that would be described by the grammar if only semicolons were added to the
+      sequence in certain places (such as before line terminator characters). Furthermore, certain token sequences that are
+      described by the grammar are not considered acceptable if a line terminator character appears in certain
+      &#x201C;awkward&#x201D; places.</p>
+
+      <p>In certain cases in order to avoid ambiguities the syntactic grammar uses generalized productions that permit token
+      sequences that do not form a valid ECMAScript <span class="nt">Script</span> or <span class="nt">Module</span>. For example,
+      this technique is used for object literals and object destructuring patterns. In such cases a more restrictive
+      <i>supplemental grammar</i> is provided that further restricts the acceptable token sequences. In certain contexts, when
+      explicitly specified, the input elements corresponding to such a production are parsed again using a goal symbol of a
+      supplemental grammar. The input stream is syntactically in error if the tokens in the stream of input elements parsed by a
+      cover grammar cannot be parsed as a single instance of the corresponding supplemental goal symbol, with no tokens left
+      over.</p>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-25.2.1"><a href="/sec/sec-generatorfunction-constructor.html" title="link to this section">25.2.1</a></span> The GeneratorFunction Constructor</h1>
+
+        <p>The <code>GeneratorFunction</code> constructor is the %GeneratorFunction% intrinsic. When
+        <code>GeneratorFunction</code> is called as a function rather than as a constructor, it creates and initializes a new
+        GeneratorFunction object. Thus the function call <code>GeneratorFunction</code> <code><b>(</b>&#x2026;<b>)</b></code> is
+        equivalent to the object creation expression <code>new GeneratorFunction</code> <code><b>(</b>&#x2026;<b>)</b></code> with
+        the same arguments.</p>
+
+        <p><code>GeneratorFunction</code> is designed to be subclassable. It may be used as the value of an <code>extends</code>
+        clause of a class definition. Subclass constructors that intend to inherit the specified <code>GeneratorFunction</code>
+        behaviour must include a <code>super</code> call to the <code>GeneratorFunction</code> constructor to create and
+        initialize subclass instances with the internal slots necessary for built-in GeneratorFunction behaviour. All ECMAScript
+        syntactic forms for defining generator function objects create direct instances of <code>GeneratorFunction</code>. There
+        is no syntactic means to create instances of <code>GeneratorFunction</code> subclasses.</p>
+      </div>
+
+      <section id="sec-generatorfunction">
+        <h1><span class="secnum" id="sec-25.2.1.1"><a href="/sec/sec-generatorfunction.html" title="link to this section">25.2.1.1</a></span> GeneratorFunction (p1, p2, &#x2026; , pn, body)</h1>
+
+        <p>The last argument specifies the body (executable code) of a generator function; any preceding arguments specify formal
+        parameters.</p>
+
+        <p class="normalbefore">When the <code>GeneratorFunction</code> function is called with some arguments <var>p1</var>,
+        <var>p2</var>, &#x2026; , <var>pn</var>, <var>body</var> (where <var>n</var> might be <span style="font-family: Times New
+        Roman">0</span>, that is, there are no &#x201C;<var>p</var>&#x201D; arguments, and where <var>body</var> might also not be
+        provided), the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>C</i> be the active function object.</li>
+          <li>Let <i>args</i> be the <i>argumentsList</i> that was passed to this function by [[Call]] or [[Construct]].</li>
+          <li>Return <a href="/sec/sec-createdynamicfunction.html">CreateDynamicFunction</a>(<i>C</i>, NewTarget, <code>&quot;generator&quot;</code>,
+              <i>args</i>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> See NOTE for <a href="/sec/sec-function-p1-p2-pn-body.html">19.2.1.1</a>.</p>
+        </div>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

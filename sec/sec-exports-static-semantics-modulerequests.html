@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-15.2.3.9"><a href="/sec/sec-exports-static-semantics-modulerequests.html" title="link to this section">15.2.3.9</a></span> Static Semantics: ModuleRequests</h1>
+
+        <p>See also: <a href="/sec/sec-module-semantics-static-semantics-modulerequests.html">15.2.1.10</a>, <a href="/sec/sec-imports-static-semantics-modulerequests.html">15.2.2.5</a>.</p>
+
+        <p><span class="prod"><span class="nt">ExportDeclaration</span> <span class="geq">:</span> <code class="t">export</code>
+        <code class="t">*</code> <span class="nt">FromClause</span> <code class="t">;</code></span></p>
+
+        <div class="gp prod"><span class="nt">ExportDeclaration</span> <span class="geq">:</span> <code class="t">export</code> <span class="nt">ExportClause</span> <span class="nt">FromClause</span> <code class="t">;</code></div>
+        <ol class="proc">
+          <li>Return the ModuleRequests of <i>FromClause</i>.</li>
+        </ol>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">ExportDeclaration</span> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">export</code> <span class="nt">ExportClause</span> <code class="t">;</code></div>
+          <div class="rhs"><code class="t">export</code> <span class="nt">VariableStatement</span></div>
+          <div class="rhs"><code class="t">export</code> <span class="nt">Declaration</span></div>
+          <div class="rhs"><code class="t">export</code> <code class="t">default</code> <span class="nt">HoistableDeclaration</span></div>
+          <div class="rhs"><code class="t">export</code> <code class="t">default</code> <span class="nt">ClassDeclaration</span></div>
+          <div class="rhs"><code class="t">export</code> <code class="t">default</code> <span class="nt">AssignmentExpression</span> <code class="t">;</code></div>
+        </div>
+
+        <ol class="proc">
+          <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

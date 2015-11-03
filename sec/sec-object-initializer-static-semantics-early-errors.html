@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-12.2.6.1"><a href="/sec/sec-object-initializer-static-semantics-early-errors.html" title="link to this section">12.2.6.1</a></span> Static Semantics:  Early Errors</h1>
+        <div class="gp prod"><span class="nt">PropertyDefinition</span> <span class="geq">:</span> <span class="nt">MethodDefinition</span></div>
+        <ul>
+          <li>It is a Syntax Error if HasDirectSuper of <span class="nt">MethodDefinition</span> is <span style="font-family:
+              Times New Roman"><b><i>true</i></b></span>.</li>
+        </ul>
+
+        <p>In addition to describing an actual object initializer the <span class="nt">ObjectLiteral</span> productions are also
+        used as a cover grammar for <span class="nt">ObjectAssignmentPattern</span> (<a href="/sec/sec-destructuring-assignment.html">12.14.5</a>). and may be recognized as part of a <span class="nt">CoverParenthesizedExpressionAndArrowParameterList</span>. When <span class="nt">ObjectLiteral</span> appears in
+        a context where <span class="nt">ObjectAssignmentPattern</span> is required the following Early Error rules are <b>not</b>
+        applied. In addition, they are not applied when initially parsing a
+        <var>CoverParenthesizedExpressionAndArrowParameterList.</var></p>
+
+        <div class="gp prod"><span class="nt">PropertyDefinition</span> <span class="geq">:</span> <span class="nt">CoverInitializedName</span></div>
+        <ul>
+          <li>Always throw a Syntax Error if code matches <span style="font-family: Times New Roman">this production.</span></li>
+        </ul>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> This production exists so that <span class="nt">ObjectLiteral</span> can serve as a
+          cover grammar for <span class="nt">ObjectAssignmentPattern</span> (<a href="/sec/sec-destructuring-assignment.html">12.14.5</a>).
+          It cannot occur in an actual object initializer.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

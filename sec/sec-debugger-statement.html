@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-13.16"><a href="/sec/sec-debugger-statement.html" title="link to this section">13.16</a></span> The
+          <code>debugger</code> statement</h1>
+      <h2>Syntax</h2>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">DebuggerStatement</span> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">debugger</code> <code class="t">;</code></div>
+      </div>
+    </div>
+
+    <section id="sec-debugger-statement-runtime-semantics-evaluation">
+      <h1><span class="secnum" id="sec-13.16.1"><a href="/sec/sec-debugger-statement-runtime-semantics-evaluation.html" title="link to this section">13.16.1</a></span> Runtime Semantics: Evaluation</h1>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> Evaluating the <span class="nt">DebuggerStatement</span> production may allow an
+        implementation to cause a breakpoint when run under a debugger. If a debugger is not present or active this statement has
+        no observable effect.</p>
+      </div>
+
+      <div class="gp prod"><span class="nt">DebuggerStatement</span> <span class="geq">:</span> <code class="t">debugger</code> <code class="t">;</code></div>
+      <ol class="proc">
+        <li>If an implementation defined debugging facility is available and enabled, then
+          <ol class="block">
+            <li>Perform an implementation defined debugging action.</li>
+            <li>Let <i>result</i> be an implementation defined <a href="/sec/sec-completion-record-specification-type.html">Completion</a>
+                value.</li>
+          </ol>
+        </li>
+        <li>Else
+          <ol class="block">
+            <li>Let <i>result</i> be <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+                sans-serif">empty</span>).</li>
+          </ol>
+        </li>
+        <li>Return <i>result.</i></li>
+      </ol>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

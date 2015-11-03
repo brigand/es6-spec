@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-9.2.1"><a href="/sec/sec-ecmascript-function-objects-call-thisargument-argumentslist.html" title="link to this section">9.2.1</a></span> [[Call]] ( thisArgument, argumentsList)</h1>
+
+        <p class="normalbefore">The [[Call]] internal method for an <a href="/sec/sec-ecmascript-function-objects.html">ECMAScript function
+        object</a> <var>F</var> is called with parameters <var>thisArgument</var> and <var>argumentsList</var>, a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language
+        values</a>. The following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>F</i> is an <a href="/sec/sec-ecmascript-function-objects.html">ECMAScript function object</a>.</li>
+          <li>If <i>F</i>&#x2019;s [[FunctionKind]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is
+              <code>&quot;classConstructor&quot;</code>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>callerContext</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+          <li>Let <i>calleeContext</i> be <a href="/sec/sec-prepareforordinarycall.html">PrepareForOrdinaryCall</a>(<i>F</i>,
+              <b>undefined</b>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>calleeContext</i> is now <a href="/sec/sec-execution-contexts.html">the
+              running execution context</a>.</li>
+          <li>Perform <a href="/sec/sec-ordinarycallbindthis.html">OrdinaryCallBindThis</a>(<i>F</i>, <i>calleeContext</i>,
+              <i>thisArgument</i>).</li>
+          <li>Let <i>result</i> be <a href="/sec/sec-ordinarycallevaluatebody.html">OrdinaryCallEvaluateBody</a>(<i>F</i>,
+              <i>argumentsList</i>).</li>
+          <li>Remove <i>calleeContext</i> from <a href="/sec/sec-execution-contexts.html">the execution context stack</a> and restore
+              <i>callerContext</i> as <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+          <li>If <i>result</i>.[[type]] is <span style="font-family: sans-serif">return</span>, return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<i>result</i>.[[value]]).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>result</i>).</li>
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> When <var>calleeContext</var> is removed from <a href="/sec/sec-execution-contexts.html">the
+          execution context stack</a> in step 8 it must not be destroyed if it is <a href="/sec/sec-execution-contexts.html">suspended</a>
+          and retained for later resumption by an accessible generator object<i>.</i></p>
+        </div>
+      </div>
+
+      <section id="sec-prepareforordinarycall">
+        <h1><span class="secnum" id="sec-9.2.1.1"><a href="/sec/sec-prepareforordinarycall.html" title="link to this section">9.2.1.1</a></span> PrepareForOrdinaryCall( F, newTarget )</h1>
+
+        <p class="normalbefore">When the abstract operation PrepareForOrdinaryCall is called with function object <span style="font-family: Times New Roman"><i>F</i> and <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language value</a>
+        <i>newTarget</i></span>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>newTarget</i>) is Undefined or Object.</li>
+          <li>Let <i>callerContext</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+          <li>Let <i>calleeContext</i> be a new <a href="/sec/sec-execution-contexts.html">ECMAScript code execution context</a>.</li>
+          <li>Set the Function of <i>calleeContext</i> to <i>F</i>.</li>
+          <li>Let <i>calleeRealm</i> be the value of <i>F&#x2019;s</i> [[Realm]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Set the <a href="/sec/sec-code-realms.html">Realm</a> of <i>calleeContext</i> to <i>calleeRealm</i>.</li>
+          <li>Let <i>localEnv</i> be <a href="/sec/sec-newfunctionenvironment.html">NewFunctionEnvironment</a>(<i>F</i>,
+              <i>newTarget</i>).</li>
+          <li>Set the <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> of <i>calleeContext</i> to <i>localEnv</i>.</li>
+          <li>Set the <a href="/sec/sec-execution-contexts.html">VariableEnvironment</a> of <i>calleeContext</i> to <i>localEnv</i>.</li>
+          <li>If <i>callerContext</i> is not already <a href="/sec/sec-execution-contexts.html">suspended</a>, <a href="/sec/sec-execution-contexts.html">Suspend</a> <i>callerContext</i>.</li>
+          <li>Push <i>calleeContext</i> onto <a href="/sec/sec-execution-contexts.html">the execution context stack</a>;
+              <i>calleeContext</i> is now <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+          <li><span style="font-family: sans-serif">NOTE Any exception objects produced after this point are associated
+              with</span> <i>calleeRealm</i>.</li>
+          <li>Return <i>calleeContext</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-ordinarycallbindthis">
+        <h1><span class="secnum" id="sec-9.2.1.2"><a href="/sec/sec-ordinarycallbindthis.html" title="link to this section">9.2.1.2</a></span> OrdinaryCallBindThis ( F, calleeContext, thisArgument )</h1>
+
+        <p class="normalbefore">When the abstract operation OrdinaryCallBindThis is called with function object <var>F</var>, <a href="/sec/sec-execution-contexts.html">execution context</a> <var>calleeContext</var>, and ECMAScript value
+        <var>thisArgument</var> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>thisMode</i> be the value of <i>F</i>&#x2019;s [[ThisMode]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>thisMode</i> is <span style="font-family: sans-serif">lexical</span>, return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+          <li>Let <i>calleeRealm</i> be the value of <i>F&#x2019;s</i> [[Realm]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>localEnv</i> be the <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> of <i>calleeContext</i>.</li>
+          <li>If <i>thisMode</i> is <span style="font-family: sans-serif">strict</span>, let <i>thisValue</i> be
+              <i>thisArgument</i>.</li>
+          <li>Else
+            <ol class="block">
+              <li>if <i>thisArgument</i> is <b>null</b> or <b>undefined</b>, then
+                <ol class="block">
+                  <li>Let <i>thisValue</i> be <i>calleeRealm</i>.[[globalThis]].</li>
+                </ol>
+              </li>
+              <li>Else
+                <ol class="block">
+                  <li>Let <i>thisValue</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<i>thisArgument</i>).</li>
+                  <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>thisValue</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+                  <li><span style="font-family: sans-serif">NOTE <a href="/sec/sec-toobject.html">ToObject</a> produces wrapper objects
+                      using</span> <i>calleeRealm</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Let <i>envRec</i> be <i>localEnv</i>&#x2019;s <a href="/sec/sec-lexical-environments.html">EnvironmentRecord</a>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: The next step never returns an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a> because <i>envRec</i>.[[thisBindingStatus]]
+              is not <code>&quot;uninitialized&quot;</code>.</li>
+          <li>Return <i>envRec</i>.<a href="/sec/sec-bindthisvalue.html">BindThisValue</a>(<i>thisValue</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-ordinarycallevaluatebody">
+        <h1><span class="secnum" id="sec-9.2.1.3"><a href="/sec/sec-ordinarycallevaluatebody.html" title="link to this section">9.2.1.3</a></span> OrdinaryCallEvaluateBody ( F, argumentsList )</h1>
+
+        <p class="normalbefore">When the abstract operation OrdinaryCallEvaluateBody is called with function object <var>F</var>
+        and <a href="/sec/sec-list-and-record-specification-type.html">List</a> <var>argumentsList</var> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>status</i> be <a href="/sec/sec-functiondeclarationinstantiation.html">FunctionDeclarationInstantiation</a>(<i>F</i>,
+              <i>argumentsList</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>)</li>
+          <li>Return the result of EvaluateBody of the parsed code that is the value of <i>F</i>&apos;s [[ECMAScriptCode]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> passing <i>F</i> as the argument.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

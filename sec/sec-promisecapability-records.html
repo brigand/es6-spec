@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <div class="front">
+          <h1><span class="secnum" id="sec-25.4.1.1"><a href="/sec/sec-promisecapability-records.html" title="link to this section">25.4.1.1</a></span> PromiseCapability Records</h1>
+
+          <p>A PromiseCapability is a Record value used to encapsulate a promise object along with the functions that are capable
+          of resolving or rejecting that promise object. PromiseCapability records are produced by the <a href="/sec/sec-newpromisecapability.html">NewPromiseCapability</a> abstract operation.</p>
+
+          <p>PromiseCapability Records have the fields listed in <a href="/sec/table-57.html">Table 57</a>.</p>
+
+          <figure>
+            <figcaption><span id="table-57">Table 57</span> &#x2014; PromiseCapability Record Fields</figcaption>
+            <table class="real-table">
+              <tr>
+                <th>Field Name</th>
+                <th>Value</th>
+                <th>Meaning</th>
+              </tr>
+              <tr>
+                <td>[[Promise]]</td>
+                <td>An object</td>
+                <td>An object that is usable as a promise.</td>
+              </tr>
+              <tr>
+                <td>[[Resolve]]</td>
+                <td>A function object</td>
+                <td>The function that is used to resolve the given promise object.</td>
+              </tr>
+              <tr>
+                <td>[[Reject]]</td>
+                <td>A function object</td>
+                <td>The function that is used to reject the given promise object.</td>
+              </tr>
+            </table>
+          </figure>
+        </div>
+
+        <section id="sec-ifabruptrejectpromise">
+          <h1><span class="secnum" id="sec-25.4.1.1.1"><a href="/sec/sec-ifabruptrejectpromise.html" title="link to this section">25.4.1.1.1</a></span> IfAbruptRejectPromise ( value, capability )</h1>
+
+          <p class="normalbefore">IfAbruptRejectPromise is a short hand for a sequence of algorithm steps that use a
+          PromiseCapability record. An algorithm step of the form:</p>
+
+          <ol class="proc">
+            <li>IfAbruptRejectPromise(<i>value</i>, <i>capability</i>).</li>
+          </ol>
+
+          <p>means the same thing as:</p>
+
+          <ol class="proc">
+            <li>If <i>value</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>,
+              <ol class="block">
+                <li>Let <i>rejectResult</i> be <a href="/sec/sec-call.html">Call</a>(<i>capability</i>.[[Reject]], <b>undefined</b>,
+                    &#xAB;<i>value</i>.[[value]]&#xBB;).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rejectResult</i>).</li>
+                <li>Return <i>capability</i>.[[Promise]].</li>
+              </ol>
+            </li>
+            <li>Else if <i>value</i> is a <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a>, let
+                <i>value</i> be <i>value</i>.[[value]].</li>
+          </ol>
+        </section>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

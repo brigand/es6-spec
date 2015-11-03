@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-6.2.4"><a href="/sec/sec-property-descriptor-specification-type.html" title="link to this section">6.2.4</a></span> The Property Descriptor Specification Type</h1>
+
+        <p>The Property Descriptor type is used to explain the manipulation and reification of Object property attributes. Values
+        of the Property Descriptor type are Records. Each field&#x2019;s name is an attribute name and its value is a corresponding
+        attribute value as specified in <a href="/sec/sec-property-attributes.html">6.1.7.1</a>. In addition, any field may be present or
+        absent. The schema name used within this specification to tag literal descriptions of Property Descriptor records is
+        &#x201C;PropertyDescriptor&#x201D;.</p>
+
+        <p>Property Descriptor values may be further classified as data Property Descriptors and accessor Property Descriptors
+        based upon the existence or use of certain fields. A data Property Descriptor is one that includes any fields named either
+        [[Value]] or [[Writable]]. An accessor Property Descriptor is one that includes any fields named either [[Get]] or
+        [[Set]]. Any Property Descriptor may have fields named [[Enumerable]] and [[Configurable]]. A Property Descriptor value
+        may not be both a data Property Descriptor and an accessor Property Descriptor; however, it may be neither. A generic
+        Property Descriptor is a Property Descriptor value that is neither a data Property Descriptor nor an accessor Property
+        Descriptor. A fully populated Property Descriptor is one that is either an accessor Property Descriptor or a data Property
+        Descriptor and that has all of the fields that correspond to the property attributes defined in either  <a href="/sec/table-2.html">Table 2</a> or <a href="/sec/table-3.html">Table 3</a>.</p>
+
+        <p>The following abstract operations are used in this specification to operate upon Property Descriptor values:</p>
+      </div>
+
+      <section id="sec-isaccessordescriptor">
+        <h1><span class="secnum" id="sec-6.2.4.1"><a href="/sec/sec-isaccessordescriptor.html" title="link to this section">6.2.4.1</a></span> IsAccessorDescriptor ( Desc )</h1>
+
+        <p class="normalbefore">When the abstract operation IsAccessorDescriptor is called with <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>If <i>Desc</i> is <b>undefined</b>, return <b>false</b>.</li>
+          <li>If both <i>Desc</i>.[[Get]] and <i>Desc</i>.[[Set]] are absent, return <b>false</b>.</li>
+          <li>Return <b>true</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-isdatadescriptor">
+        <h1><span class="secnum" id="sec-6.2.4.2"><a href="/sec/sec-isdatadescriptor.html" title="link to this section">6.2.4.2</a></span>
+            IsDataDescriptor ( Desc )</h1>
+
+        <p class="normalbefore">When the abstract operation IsDataDescriptor is called with <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>If <i>Desc</i> is <b>undefined</b>, return <b>false</b>.</li>
+          <li>If both <i>Desc</i>.[[Value]] and <i>Desc</i>.[[Writable]] are absent, return <b>false</b>.</li>
+          <li>Return <b>true</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-isgenericdescriptor">
+        <h1><span class="secnum" id="sec-6.2.4.3"><a href="/sec/sec-isgenericdescriptor.html" title="link to this section">6.2.4.3</a></span> IsGenericDescriptor ( Desc )</h1>
+
+        <p class="normalbefore">When the abstract operation IsGenericDescriptor is called with <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>If <i>Desc</i> is <b>undefined</b>, return <b>false</b>.</li>
+          <li>If <a href="/sec/sec-isaccessordescriptor.html">IsAccessorDescriptor</a>(<i>Desc</i>) and <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>Desc</i>) are both <b>false</b>, return <b>true</b>.</li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-frompropertydescriptor">
+        <h1><span class="secnum" id="sec-6.2.4.4"><a href="/sec/sec-frompropertydescriptor.html" title="link to this section">6.2.4.4</a></span> FromPropertyDescriptor ( Desc )</h1>
+
+        <p class="normalbefore">When the abstract operation FromPropertyDescriptor is called with <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>If <i>Desc</i> is <b>undefined</b>, return <b>undefined</b>.</li>
+          <li>Let <i>obj</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<span style="font-family:
+              sans-serif">%ObjectPrototype%</span>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>obj</i> is an extensible ordinary object with no own
+              properties.</li>
+          <li>If <i>Desc</i> has a [[Value]] field, then
+            <ol class="block">
+              <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i>, <code>&quot;value&quot;</code>,
+                  <i>Desc</i>.[[Value]]).</li>
+            </ol>
+          </li>
+          <li>If <i>Desc</i> has a [[Writable]] field, then
+            <ol class="block">
+              <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i>, <code>&quot;writable&quot;</code>,
+                  <i>Desc</i>.[[Writable]]).</li>
+            </ol>
+          </li>
+          <li>If <i>Desc</i> has a [[Get]] field, then
+            <ol class="block">
+              <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i>, <code>&quot;get&quot;</code>,
+                  <i>Desc</i>.[[Get]]).</li>
+            </ol>
+          </li>
+          <li>If <i>Desc</i> has a [[Set]] field, then
+            <ol class="block">
+              <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i>, <code>&quot;set&quot;</code>,
+                  <i>Desc</i>.[[Set]])</li>
+            </ol>
+          </li>
+          <li>If <i>Desc</i> has an [[Enumerable]] field, then
+            <ol class="block">
+              <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i>, <code>&quot;enumerable&quot;</code>,
+                  <i>Desc</i>.[[Enumerable]]).</li>
+            </ol>
+          </li>
+          <li>If <i>Desc</i> has a [[Configurable]] field, then
+            <ol class="block">
+              <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i> , <code>&quot;configurable&quot;</code>,
+                  <i>Desc</i>.[[Configurable]]).</li>
+            </ol>
+          </li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: all of the above <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a> operations return <b>true</b>.</li>
+          <li>Return <i>obj</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-topropertydescriptor">
+        <h1><span class="secnum" id="sec-6.2.4.5"><a href="/sec/sec-topropertydescriptor.html" title="link to this section">6.2.4.5</a></span> ToPropertyDescriptor ( Obj )</h1>
+
+        <p class="normalbefore">When the abstract operation ToPropertyDescriptor is called with object <span class="nt">Obj</span>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>Obj</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>Obj</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>desc</i> be a new <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> that
+              initially has no fields.</li>
+          <li>Let <i>hasEnumerable</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>Obj</i>, <code>&quot;enumerable&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasEnumerable</i>).</li>
+          <li>If <i>hasEnumerable</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>enum</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>Obj</i>,
+                  <code>&quot;enumerable&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>enum</i>).</li>
+              <li>Set the [[Enumerable]] field of <i>desc</i> to <i>enum</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>hasConfigurable</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>Obj</i>,
+              <code>&quot;configurable&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasConfigurable</i>).</li>
+          <li>If <i>hasConfigurable</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>conf</i>  be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>Obj</i>,
+                  <code>&quot;configurable&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>conf</i>).</li>
+              <li>Set the [[Configurable]] field of <i>desc</i> to <i>conf</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>hasValue</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>Obj</i>, <code>&quot;value&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasValue</i>).</li>
+          <li>If <i>hasValue</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>value</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>Obj</i>, <code>&quot;value&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+              <li>Set the [[Value]] field of <i>desc</i> to <i>value</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>hasWritable</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>Obj</i>, <code>&quot;writable&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasWritable</i>).</li>
+          <li>If <i>hasWritable</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>writable</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>Obj</i>,
+                  <code>&quot;writable&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>writable</i>).</li>
+              <li>Set the [[Writable]] field of <i>desc</i> to <i>writable</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>hasGet</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>Obj</i>, <code>&quot;get&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasGet</i>).</li>
+          <li>If <i>hasGet</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>getter</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>Obj</i>, <code>&quot;get&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>getter</i>).</li>
+              <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>getter</i>) is <b>false</b> and <i>getter</i> is not
+                  <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+              <li>Set the [[Get]] field of <i>desc</i> to <i>getter</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>hasSet</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>Obj</i>, <code>&quot;set&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasSet</i>).</li>
+          <li>If <i>hasSet</i> is <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>setter</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>Obj</i>, <code>&quot;set&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setter</i>).</li>
+              <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>setter</i>) is <b>false</b> and <i>setter</i> is not
+                  <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+              <li>Set the [[Set]] field of <i>desc</i> to <i>setter</i>.</li>
+            </ol>
+          </li>
+          <li>If either <i>desc</i>.[[Get]] or <i>desc</i>.[[Set]] is present, then
+            <ol class="block">
+              <li>If either <i>desc</i>.[[Value]] or <i>desc</i>.[[Writable]] is present, throw a <b>TypeError</b> exception.</li>
+            </ol>
+          </li>
+          <li>Return <i>desc</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-completepropertydescriptor">
+        <h1><span class="secnum" id="sec-6.2.4.6"><a href="/sec/sec-completepropertydescriptor.html" title="link to this section">6.2.4.6</a></span> CompletePropertyDescriptor ( Desc  )</h1>
+
+        <p class="normalbefore">When the abstract operation CompletePropertyDescriptor is called with <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span> the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>Desc</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>Desc</i> is a <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a></li>
+          <li>Let <i>like</i> be Record{[[Value]]: <b>undefined</b>, [[Writable]]: <b>false</b>, [[Get]]: <b>undefined</b>,
+              [[Set]]: <b>undefined</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>false</b>}.</li>
+          <li>If either <a href="/sec/sec-isgenericdescriptor.html">IsGenericDescriptor</a>(<i>Desc</i>) or <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>Desc</i>) is <b>true</b>, then
+            <ol class="block">
+              <li>If <i>Desc</i> does not have a [[Value]] field, set <i>Desc</i>.[[Value]] to <i>like</i>.[[Value]].</li>
+              <li>If <i>Desc</i> does not have a [[Writable]] field, set <i>Desc</i>.[[Writable]] to
+                  <i>like</i>.[[Writable]].</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>If <i>Desc</i> does not have a [[Get]] field, set <i>Desc</i>.[[Get]] to <i>like</i>.[[Get]].</li>
+              <li>If <i>Desc</i> does not have a [[Set]] field, set <i>Desc</i>.[[Set]] to <i>like</i>.[[Set]].</li>
+            </ol>
+          </li>
+          <li>If <i>Desc</i> does not have an [[Enumerable]] field, set <i>Desc</i>.[[Enumerable]] to
+              <i>like</i>.[[Enumerable]].</li>
+          <li>If <i>Desc</i> does not have a [[Configurable]] field, set <i>Desc</i>.[[Configurable]] to
+              <i>like</i>.[[Configurable]].</li>
+          <li>Return <i>Desc</i>.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

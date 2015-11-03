@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-14.1"><a href="/sec/sec-function-definitions.html" title="link to this section">14.1</a></span>
+          Function Definitions</h1>
+      <h2>Syntax</h2>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">FunctionDeclaration</span><sub class="g-params">[Yield, Default]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">function</code> <span class="nt">BindingIdentifier</span><sub class="g-params">[?Yield]</sub> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></div>
+        <div class="rhs"><span class="grhsannot">[+Default]</span> <code class="t">function</code> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">FunctionExpression</span> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">function</code> <span class="nt">BindingIdentifier</span><sub class="g-opt">opt</sub> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">StrictFormalParameters</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">FormalParameters</span><sub class="g-params">[?Yield]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">FormalParameters</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="grhsannot">[empty]</span></div>
+        <div class="rhs"><span class="nt">FormalParameterList</span><sub class="g-params">[?Yield]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">FormalParameterList</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">FunctionRestParameter</span><sub class="g-params">[?Yield]</sub></div>
+        <div class="rhs"><span class="nt">FormalsList</span><sub class="g-params">[?Yield]</sub></div>
+        <div class="rhs"><span class="nt">FormalsList</span><sub class="g-params">[?Yield]</sub> <code class="t">,</code> <span class="nt">FunctionRestParameter</span><sub class="g-params">[?Yield]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">FormalsList</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">FormalParameter</span><sub class="g-params">[?Yield]</sub></div>
+        <div class="rhs"><span class="nt">FormalsList</span><sub class="g-params">[?Yield]</sub> <code class="t">,</code> <span class="nt">FormalParameter</span><sub class="g-params">[?Yield]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">FunctionRestParameter</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">BindingRestElement</span><sub class="g-params">[?Yield]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">FormalParameter</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">BindingElement</span><sub class="g-params">[?Yield]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">FunctionBody</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">FunctionStatementList</span><sub class="g-params">[?Yield]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">FunctionStatementList</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">StatementList</span><sub class="g-params">[?Yield, Return]</sub><sub class="g-opt">opt</sub></div>
+      </div>
+    </div>
+
+    <section id="sec-directive-prologues-and-the-use-strict-directive">
+      <h1><span class="secnum" id="sec-14.1.1"><a href="/sec/sec-directive-prologues-and-the-use-strict-directive.html" title="link to this section">14.1.1</a></span> Directive Prologues and the Use Strict Directive</h1>
+
+      <p>A Directive Prologue is the longest sequence of <span class="nt">ExpressionStatement</span> productions occurring as the
+      initial <span class="nt">StatementListItem</span> or <span class="nt">ModuleItem</span> productions of a <span class="nt">FunctionBody</span>, a <span class="nt">ScriptBody</span>, or a <span class="nt">ModuleBody</span> and where each
+      <span class="nt">ExpressionStatement</span> in the sequence consists entirely of a <span class="nt">StringLiteral</span>
+      token followed by a semicolon<span style="font-family: Times New Roman">.</span> The semicolon may appear explicitly or may
+      be inserted by <a href="/sec/sec-automatic-semicolon-insertion.html">automatic semicolon insertion</a>. A Directive Prologue may be
+      an empty sequence.</p>
+
+      <p>A Use Strict Directive is an <span class="nt">ExpressionStatement</span> in a Directive Prologue whose <span class="nt">StringLiteral</span> is either the exact code unit sequences <code>&quot;use</code>&#xA0;<code>strict&quot;</code> or
+      <code>&apos;use</code>&#xA0;<code>strict&apos;</code>. A Use Strict Directive may not contain an <span class="nt">EscapeSequence</span> or <span class="nt">LineContinuation</span>.</p>
+
+      <p>A Directive Prologue may contain more than one Use Strict Directive. However, an implementation may issue a warning if
+      this occurs.</p>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The <span class="nt">ExpressionStatement</span> productions of a Directive Prologue are
+        evaluated normally during evaluation of the containing production. Implementations may define implementation specific
+        meanings for <span class="nt">ExpressionStatement</span> productions which are not a Use Strict Directive and which occur
+        in a Directive Prologue. If an appropriate notification mechanism exists, an implementation should issue a warning if it
+        encounters in a Directive Prologue an <span class="nt">ExpressionStatement</span> that is not a Use Strict Directive and
+        which does not have a meaning defined by the implementation.</p>
+      </div>
+    </section>
+
+    <section id="sec-function-definitions-static-semantics-early-errors">
+      <h1><span class="secnum" id="sec-14.1.2"><a href="/sec/sec-function-definitions-static-semantics-early-errors.html" title="link to this section">14.1.2</a></span> Static Semantics:  Early Errors</h1>
+
+      <p><span class="prod"><span class="nt">FunctionDeclaration</span> <span class="geq">:</span> <code class="t">function</code>
+      <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></span><br><span class="prod"><span class="nt">FunctionDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></span><br><span class="prod"><span class="nt">FunctionExpression</span> <span class="geq">:</span> <code class="t">function</code> <span class="nt">BindingIdentifier</span><sub class="g-opt">opt</sub> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span>
+      <code class="t">}</code></span></p>
+
+      <ul>
+        <li>
+          <p>If the source code matching this production is <a href="/sec/sec-strict-mode-code.html">strict code</a>, the Early Error rules
+          for <span class="prod"><span class="nt">StrictFormalParameters</span> <span class="geq">:</span> <span class="nt">FormalParameters</span></span> are applied.</p>
+        </li>
+
+        <li>
+          <p>If the source code matching this production is <a href="/sec/sec-strict-mode-code.html">strict code</a>, it is a Syntax Error
+          if <span class="nt">BindingIdentifier</span> is the <span class="nt">IdentifierName</span> <code>eval</code> or the
+          <span class="nt">IdentifierName</span> <code>arguments</code>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if any element of the BoundNames of <span class="nt">FormalParameters</span> also occurs in the
+          LexicallyDeclaredNames of <span class="nt">FunctionBody</span>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if <span class="nt">FormalParameters</span> Contains <span class="nt">SuperProperty</span> is
+          <span style="font-family: Times New Roman"><b><i>true</i></b></span>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if <span class="nt">FunctionBody</span> Contains <span class="nt">SuperProperty</span> is <span style="font-family: Times New Roman"><b><i>true</i></b></span>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if <span class="nt">FormalParameters</span> Contains <span class="nt">SuperCall</span> is <span style="font-family: Times New Roman"><b><i>true</i></b></span>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if <span class="nt">FunctionBody</span> Contains <span class="nt">SuperCall</span> is <span style="font-family: Times New Roman"><b><i>true</i></b></span>.</p>
+        </li>
+      </ul>
+
+      <div class="note">
+        <p><span class="nh">NOTE 1</span> The <span style="font-family: Times New Roman">LexicallyDeclaredNames</span> of a <span class="nt">FunctionBody</span> does not include identifiers bound using var or function declarations.</p>
+      </div>
+
+      <div class="gp prod"><span class="nt">StrictFormalParameters</span> <span class="geq">:</span> <span class="nt">FormalParameters</span></div>
+      <ul>
+        <li>
+          <p>It is a Syntax Error if <span style="font-family: Times New Roman">BoundNames of <i>FormalParameters</i></span>
+          contains any duplicate elements.</p>
+        </li>
+      </ul>
+      <div class="gp prod"><span class="nt">FormalParameters</span> <span class="geq">:</span> <span class="nt">FormalParameterList</span></div>
+      <ul>
+        <li>
+          <p>It is a Syntax Error if IsSimpleParameterList of <span class="nt">FormalParameterList</span> is <span class="value">false</span> and <span style="font-family: Times New Roman">BoundNames of
+          <i>FormalParameterList</i></span> contains any duplicate elements.</p>
+        </li>
+      </ul>
+
+      <div class="note">
+        <p><span class="nh">NOTE 2</span> Multiple occurrences of the same <span class="nt">BindingIdentifier</span> in a <span class="nt">FormalParameterList</span> is only allowed for functions and generator functions which have simple parameter
+        lists  and which are not defined in <a href="/sec/sec-strict-mode-code.html">strict mode code</a>.</p>
+      </div>
+
+      <div class="gp prod"><span class="nt">FunctionBody</span> <span class="geq">:</span> <span class="nt">FunctionStatementList</span></div>
+      <ul>
+        <li>
+          <p>It is a Syntax Error if the LexicallyDeclaredNames of <span class="nt">FunctionStatementList</span> contains any
+          duplicate entries.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if any element of the LexicallyDeclaredNames of <span class="nt">FunctionStatementList</span>
+          also occurs in the VarDeclaredNames of <span class="nt">FunctionStatementList</span>.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if ContainsDuplicateLabels of <span style="font-family: Times New
+          Roman"><i>FunctionStatementList</i> with argument &#xAB; &#xBB; is <b>true</b>.</span></p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if ContainsUndefinedBreakTarget of <span style="font-family: Times New
+          Roman"><i>FunctionStatementList</i> with argument &#xAB; &#xBB; is <b>true</b>.</span></p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if ContainsUndefinedContinueTarget of <span style="font-family: Times New
+          Roman"><i>FunctionStatementList</i> with arguments &#xAB; &#xBB; and &#xAB; &#xBB; is <b>true</b>.</span></p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="sec-function-definitions-static-semantics-boundnames">
+      <h1><span class="secnum" id="sec-14.1.3"><a href="/sec/sec-function-definitions-static-semantics-boundnames.html" title="link to this section">14.1.3</a></span> Static Semantics:  BoundNames</h1>
+
+      <p>See also: <a href="/sec/sec-identifiers-static-semantics-boundnames.html">12.1.2</a>, <a href="/sec/sec-let-and-const-declarations-static-semantics-boundnames.html">13.3.1.2</a>, <a href="/sec/sec-variable-statement-static-semantics-boundnames.html">13.3.2.1</a>, <a href="/sec/sec-destructuring-binding-patterns-static-semantics-boundnames.html">13.3.3.1</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-boundnames.html">13.7.5.2</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-boundnames.html">14.2.2</a>, <a href="/sec/sec-generator-function-definitions-static-semantics-boundnames.html">14.4.2</a>, <a href="/sec/sec-class-definitions-static-semantics-boundnames.html">14.5.2</a>, <a href="/sec/sec-imports-static-semantics-boundnames.html">15.2.2.2</a>, <a href="/sec/sec-exports-static-semantics-boundnames.html">15.2.3.2</a>.</p>
+
+      <div class="gp prod"><span class="nt">FunctionDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return the BoundNames of <i>BindingIdentifier</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FunctionDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return &#xAB;<code>&quot;*default*&quot;</code>&#xBB;.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> <code>&quot;*default*&quot;</code> is used within this specification as a synthetic name for
+        hoistable anonymous functions that are defined using export declarations.</p>
+      </div>
+
+      <div class="gp prod"><span class="nt">FormalParameters</span> <span class="geq">:</span> <span class="grhsannot">[empty]</span></div>
+      <ol class="proc">
+        <li>Return an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalParameterList</span> <span class="geq">:</span> <span class="nt">FormalsList</span> <code class="t">,</code> <span class="nt">FunctionRestParameter</span></div>
+      <ol class="proc">
+        <li>Let <i>names</i> be BoundNames of <i>FormalsList</i>.</li>
+        <li>Append to <i>names</i> the BoundNames of <i>FunctionRestParameter.</i></li>
+        <li>Return <i>names</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalsList</span> <span class="geq">:</span> <span class="nt">FormalsList</span> <code class="t">,</code> <span class="nt">FormalParameter</span></div>
+      <ol class="proc">
+        <li>Let <i>names</i> be BoundNames of <i>FormalsList</i>.</li>
+        <li>Append to <i>names</i> the elements of BoundNames of <i>FormalParameter.</i></li>
+        <li>Return <i>names</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-function-definitions-static-semantics-contains">
+      <h1><span class="secnum" id="sec-14.1.4"><a href="/sec/sec-function-definitions-static-semantics-contains.html" title="link to this section">14.1.4</a></span> Static Semantics:  Contains</h1>
+
+      <p>With parameter <var>symbol</var>.</p>
+
+      <p>See also: <a href="/sec/sec-static-semantic-rules.html">5.3</a>, <a href="/sec/sec-object-initializer-static-semantics-contains.html">12.2.6.3</a>, <a href="/sec/sec-static-semantics-static-semantics-contains.html">12.3.1.1</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-contains.html">14.2.3</a>, <a href="/sec/sec-generator-function-definitions-static-semantics-contains.html">14.4.4</a>, <a href="/sec/sec-class-definitions-static-semantics-contains.html">14.5.4</a></p>
+
+      <div class="gp prod"><span class="nt">FunctionDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></div>
+
+      <p><span class="prod"><span class="nt">FunctionDeclaration</span> <span class="geq">:</span> <code class="t">function</code>
+      <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></span><br><span class="prod"><span class="nt">FunctionExpression</span> <span class="geq">:</span> <code class="t">function</code> <span class="nt">BindingIdentifier</span><sub class="g-opt">opt</sub> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span>
+      <code class="t">}</code></span></p>
+
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> Static semantic rules that depend upon substructure generally do not look into function
+        definitions.</p>
+      </div>
+    </section>
+
+    <section id="sec-function-definitions-static-semantics-containsexpression">
+      <h1><span class="secnum" id="sec-14.1.5"><a href="/sec/sec-function-definitions-static-semantics-containsexpression.html" title="link to this section">14.1.5</a></span> Static Semantics:  ContainsExpression</h1>
+
+      <p>See also: <a href="/sec/sec-destructuring-binding-patterns-static-semantics-containsexpression.html">13.3.3.2</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-containsexpression.html">14.2.4</a>.</p>
+
+      <div class="gp prod"><span class="nt">FormalParameters</span> <span class="geq">:</span> <span class="grhsannot">[empty]</span></div>
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalParameterList</span> <span class="geq">:</span> <span class="nt">FunctionRestParameter</span></div>
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalParameterList</span> <span class="geq">:</span> <span class="nt">FormalsList</span> <code class="t">,</code> <span class="nt">FunctionRestParameter</span></div>
+      <ol class="proc">
+        <li>Return ContainsExpression of <i>FormalsList</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalsList</span> <span class="geq">:</span> <span class="nt">FormalsList</span> <code class="t">,</code> <span class="nt">FormalParameter</span></div>
+      <ol class="proc">
+        <li>If ContainsExpression of <i>FormalsList</i> is <b>true</b>, return <b>true</b>.</li>
+        <li>Return ContainsExpression of <i>FormalParameter</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-function-definitions-static-semantics-expectedargumentcount">
+      <h1><span class="secnum" id="sec-14.1.6"><a href="/sec/sec-function-definitions-static-semantics-expectedargumentcount.html" title="link to this section">14.1.6</a></span> Static Semantics:  ExpectedArgumentCount</h1>
+
+      <p>See also: <a href="/sec/sec-arrow-function-definitions-static-semantics-expectedargumentcount.html">14.2.5</a>, <a href="/sec/sec-method-definitions-static-semantics-expectedargumentcount.html">14.3.3</a>.</p>
+
+      <div class="gp prod"><span class="nt">FormalParameters</span> <span class="geq">:</span> <span class="grhsannot">[empty]</span></div>
+      <ol class="proc">
+        <li>Return 0.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalParameterList</span> <span class="geq">:</span> <span class="nt">FunctionRestParameter</span></div>
+      <ol class="proc">
+        <li>Return 0.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalParameterList</span> <span class="geq">:</span> <span class="nt">FormalsList</span> <code class="t">,</code> <span class="nt">FunctionRestParameter</span></div>
+      <ol class="proc">
+        <li>Return the ExpectedArgumentCount of <i>FormalsList</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The <span style="font-family: Times New Roman">ExpectedArgumentCount</span> of a <span class="nt">FormalParameterList</span> is the number of <span class="nt">FormalParameters</span> to the left of either the
+        rest parameter or the first <span class="nt">FormalParameter</span> with an Initializer. A <span class="nt">FormalParameter</span> without an initializer is allowed after the first parameter with an initializer but such
+        parameters are considered to be optional with <span class="value">undefined</span> as their default value.</p>
+      </div>
+
+      <div class="gp prod"><span class="nt">FormalsList</span> <span class="geq">:</span> <span class="nt">FormalParameter</span></div>
+      <ol class="proc">
+        <li>If HasInitializer of <i>FormalParameter</i>  is <b>true</b> return 0</li>
+        <li>Return 1.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalsList</span> <span class="geq">:</span> <span class="nt">FormalsList</span> <code class="t">,</code> <span class="nt">FormalParameter</span></div>
+      <ol class="proc">
+        <li>Let <i>count</i> be the ExpectedArgumentCount of <i>FormalsList.</i></li>
+        <li>If HasInitializer of <i>FormalsList</i> is <b>true</b> or HasInitializer of <i>FormalParameter</i> is <b>true</b>,
+            return <i>count</i>.</li>
+        <li>Return <i>count</i>+1.</li>
+      </ol>
+    </section>
+
+    <section id="sec-function-definitions-static-semantics-hasinitializer">
+      <h1><span class="secnum" id="sec-14.1.7"><a href="/sec/sec-function-definitions-static-semantics-hasinitializer.html" title="link to this section">14.1.7</a></span> Static Semantics:  HasInitializer</h1>
+
+      <p>See also: <a href="/sec/sec-destructuring-binding-patterns-static-semantics-hasinitializer.html">13.3.3.3</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-hasinitializer.html">14.2.6</a>.</p>
+
+      <div class="gp prod"><span class="nt">FormalParameters</span> <span class="geq">:</span> <span class="grhsannot">[empty]</span></div>
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalParameterList</span> <span class="geq">:</span> <span class="nt">FunctionRestParameter</span></div>
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalParameterList</span> <span class="geq">:</span> <span class="nt">FormalsList</span> <code class="t">,</code> <span class="nt">FunctionRestParameter</span></div>
+      <ol class="proc">
+        <li>If HasInitializer of <i>FormalsList</i> is <b>true</b>, return <b>true</b>.</li>
+        <li>Return <b>false</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalsList</span> <span class="geq">:</span> <span class="nt">FormalsList</span> <code class="t">,</code> <span class="nt">FormalParameter</span></div>
+      <ol class="proc">
+        <li>If HasInitializer of <i>FormalsList</i> is <b>true</b>, return <b>true</b>.</li>
+        <li>Return HasInitializer of <i>FormalParameter</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-function-definitions-static-semantics-hasname">
+      <h1><span class="secnum" id="sec-14.1.8"><a href="/sec/sec-function-definitions-static-semantics-hasname.html" title="link to this section">14.1.8</a></span> Static Semantics:  HasName</h1>
+
+      <p>See also: <a href="/sec/sec-semantics-static-semantics-hasname.html">12.2.1.2</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-hasname.html">14.2.7</a>, <a href="/sec/sec-generator-function-definitions-static-semantics-hasname.html">14.4.7</a>, <a href="/sec/sec-class-definitions-static-semantics-hasname.html">14.5.6</a>.</p>
+
+      <div class="gp prod"><span class="nt">FunctionExpression</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FunctionExpression</span> <span class="geq">:</span> <code class="t">function</code> <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return <b>true</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-isanonymousfunctiondefinition">
+      <h1><span class="secnum" id="sec-14.1.9"><a href="/sec/sec-isanonymousfunctiondefinition.html" title="link to this section">14.1.9</a></span> Static Semantics:  IsAnonymousFunctionDefinition ( production )</h1>
+
+      <p class="normalbefore">The abstract operation IsAnonymousFunctionDefinition determines if its argument is a function
+      definition that does not bind a name. The argument <var>production</var> is the result of parsing an <span class="nt">AssignmentExpression</span> or <span class="nt">Initializer</span>. The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>If IsFunctionDefinition of <i>production</i> is <b>false</b>, return <b>false</b>.</li>
+        <li>Let <i>hasName</i> be the result of HasName of <i>production</i>.</li>
+        <li>If <i>hasName</i> is <b>true</b>, return <b>false</b>.</li>
+        <li>Return <b>true</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-function-definitions-static-semantics-isconstantdeclaration">
+      <h1><span class="secnum" id="sec-14.1.10"><a href="/sec/sec-function-definitions-static-semantics-isconstantdeclaration.html" title="link to this section">14.1.10</a></span> Static Semantics:  IsConstantDeclaration</h1>
+
+      <p>See also: <a href="/sec/sec-let-and-const-declarations-static-semantics-isconstantdeclaration.html">13.3.1.3</a>, <a href="/sec/sec-generator-function-definitions-static-semantics-isconstantdeclaration.html">14.4.8</a>, <a href="/sec/sec-class-definitions-static-semantics-isconstantdeclaration.html">14.5.7</a>, <a href="/sec/sec-exports-static-semantics-isconstantdeclaration.html">15.2.3.7</a>.</p>
+
+      <p><span class="prod"><span class="nt">FunctionDeclaration</span> <span class="geq">:</span> <code class="t">function</code>
+      <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></span><br><span class="prod"><span class="nt">FunctionDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></span></p>
+
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-function-definitions-static-semantics-isfunctiondefinition">
+      <h1><span class="secnum" id="sec-14.1.11"><a href="/sec/sec-function-definitions-static-semantics-isfunctiondefinition.html" title="link to this section">14.1.11</a></span> Static Semantics:  IsFunctionDefinition</h1>
+
+      <p>See also: <a href="/sec/sec-semantics-static-semantics-isfunctiondefinition.html">12.2.1.3</a>, <a href="/sec/sec-grouping-operator-static-semantics-isfunctiondefinition.html">12.2.10.2</a>, <a href="/sec/sec-static-semantics-static-semantics-isfunctiondefinition.html">12.3.1.2</a>, <a href="/sec/sec-postfix-expressions-static-semantics-isfunctiondefinition.html">12.4.2</a>, <a href="/sec/sec-unary-operators-static-semantics-isfunctiondefinition.html">12.5.2</a>, <a href="/sec/sec-multiplicative-operators-static-semantics-isfunctiondefinition.html">12.6.1</a>, <a href="/sec/sec-additive-operators-static-semantics-isfunctiondefinition.html">12.7.1</a>, <a href="/sec/sec-bitwise-shift-operators-static-semantics-isfunctiondefinition.html">12.8.1</a>, <a href="/sec/sec-relational-operators-static-semantics-isfunctiondefinition.html">12.9.1</a>, <a href="/sec/sec-equality-operators-static-semantics-isfunctiondefinition.html">12.10.1</a>, <a href="/sec/sec-binary-bitwise-operators-static-semantics-isfunctiondefinition.html">12.11.1</a>, <a href="/sec/sec-binary-logical-operators-static-semantics-isfunctiondefinition.html">12.12.1</a>, <a href="/sec/sec-conditional-operator-static-semantics-isfunctiondefinition.html">12.13.1</a>, <a href="/sec/sec-assignment-operators-static-semantics-isfunctiondefinition.html">12.14.2</a>, <a href="/sec/sec-comma-operator-static-semantics-isfunctiondefinition.html">12.15.1</a>, <a href="/sec/sec-generator-function-definitions-static-semantics-isfunctiondefinition.html">14.4.9</a>, <a href="/sec/sec-class-definitions-static-semantics-isfunctiondefinition.html">14.5.8</a>.</p>
+
+      <div class="gp prod"><span class="nt">FunctionExpression</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return <b>true</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FunctionExpression</span> <span class="geq">:</span> <code class="t">function</code> <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return <b>true</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-function-definitions-static-semantics-issimpleparameterlist">
+      <h1><span class="secnum" id="sec-14.1.12"><a href="/sec/sec-function-definitions-static-semantics-issimpleparameterlist.html" title="link to this section">14.1.12</a></span> Static Semantics:  IsSimpleParameterList</h1>
+
+      <p>See also: <a href="/sec/sec-destructuring-binding-patterns-static-semantics-issimpleparameterlist.html">13.3.3.4</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-issimpleparameterlist.html">14.2.8</a></p>
+
+      <div class="gp prod"><span class="nt">FormalParameters</span> <span class="geq">:</span> <span class="grhsannot">[empty]</span></div>
+      <ol class="proc">
+        <li>Return <b>true</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalParameterList</span> <span class="geq">:</span> <span class="nt">FunctionRestParameter</span></div>
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalParameterList</span> <span class="geq">:</span> <span class="nt">FormalsList</span> <code class="t">,</code> <span class="nt">FunctionRestParameter</span></div>
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalsList</span> <span class="geq">:</span> <span class="nt">FormalsList</span> <code class="t">,</code> <span class="nt">FormalParameter</span></div>
+      <ol class="proc">
+        <li>If IsSimpleParameterList of <i>FormalsList</i> is <b>false</b>, return <b>false</b>.</li>
+        <li>Return IsSimpleParameterList of <i>FormalParameter</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalParameter</span> <span class="geq">:</span> <span class="nt">BindingElement</span></div>
+      <ol class="proc">
+        <li>Return IsSimpleParameterList of <i>BindingElement</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-function-definitions-static-semantics-lexicallydeclarednames">
+      <h1><span class="secnum" id="sec-14.1.13"><a href="/sec/sec-function-definitions-static-semantics-lexicallydeclarednames.html" title="link to this section">14.1.13</a></span> Static Semantics:  LexicallyDeclaredNames</h1>
+
+      <p>See also: <a href="/sec/sec-block-static-semantics-lexicallydeclarednames.html">13.2.5</a>, <a href="/sec/sec-switch-statement-static-semantics-lexicallydeclarednames.html">13.12.5</a>, <a href="/sec/sec-labelled-statements-static-semantics-lexicallydeclarednames.html">13.13.6</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-lexicallydeclarednames.html">14.2.10</a>, <a href="/sec/sec-scripts-static-semantics-lexicallydeclarednames.html">15.1.3</a>, <a href="/sec/sec-module-semantics-static-semantics-lexicallydeclarednames.html">15.2.1.11</a>.</p>
+
+      <div class="gp prod"><span class="nt">FunctionStatementList</span> <span class="geq">:</span> <span class="grhsannot">[empty]</span></div>
+      <ol class="proc">
+        <li>Return an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FunctionStatementList</span> <span class="geq">:</span> <span class="nt">StatementList</span></div>
+      <ol class="proc">
+        <li>Return TopLevelLexicallyDeclaredNames of <i>StatementList</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-function-definitions-static-semantics-lexicallyscopeddeclarations">
+      <h1><span class="secnum" id="sec-14.1.14"><a href="/sec/sec-function-definitions-static-semantics-lexicallyscopeddeclarations.html" title="link to this section">14.1.14</a></span> Static Semantics:  LexicallyScopedDeclarations</h1>
+
+      <p>See also: <a href="/sec/sec-block-static-semantics-lexicallyscopeddeclarations.html">13.2.6</a>, <a href="/sec/sec-switch-statement-static-semantics-lexicallyscopeddeclarations.html">13.12.6</a>, <a href="/sec/sec-labelled-statements-static-semantics-lexicallyscopeddeclarations.html">13.13.7</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-lexicallyscopeddeclarations.html">14.2.11</a>, <a href="/sec/sec-scripts-static-semantics-lexicallyscopeddeclarations.html">15.1.4</a>, <a href="/sec/sec-module-semantics-static-semantics-lexicallyscopeddeclarations.html">15.2.1.12</a>, <a href="/sec/sec-exports-static-semantics-lexicallyscopeddeclarations.html">15.2.3.8</a>.</p>
+
+      <div class="gp prod"><span class="nt">FunctionStatementList</span> <span class="geq">:</span> <span class="grhsannot">[empty]</span></div>
+      <ol class="proc">
+        <li>Return an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FunctionStatementList</span> <span class="geq">:</span> <span class="nt">StatementList</span></div>
+      <ol class="proc">
+        <li>Return the TopLevelLexicallyScopedDeclarations of <i>StatementList</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-function-definitions-static-semantics-vardeclarednames">
+      <h1><span class="secnum" id="sec-14.1.15"><a href="/sec/sec-function-definitions-static-semantics-vardeclarednames.html" title="link to this section">14.1.15</a></span> Static Semantics:  VarDeclaredNames</h1>
+
+      <p>See also: <a href="/sec/sec-statement-semantics-static-semantics-vardeclarednames.html">13.1.5</a>, <a href="/sec/sec-block-static-semantics-vardeclarednames.html">13.2.11</a>, <a href="/sec/sec-variable-statement-static-semantics-vardeclarednames.html">13.3.2.2</a>, <a href="/sec/sec-if-statement-static-semantics-vardeclarednames.html">13.6.5</a>, <a href="/sec/sec-do-while-statement-static-semantics-vardeclarednames.html">13.7.2.4</a>, <a href="/sec/sec-while-statement-static-semantics-vardeclarednames.html">13.7.3.4</a>, <a href="/sec/sec-for-statement-static-semantics-vardeclarednames.html">13.7.4.5</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-vardeclarednames.html">13.7.5.7</a>, <a href="/sec/sec-with-statement-static-semantics-vardeclarednames.html">13.11.5</a>, <a href="/sec/sec-switch-statement-static-semantics-vardeclarednames.html">13.12.7</a>, <a href="/sec/sec-labelled-statements-static-semantics-vardeclarednames.html">13.13.12</a>, <a href="/sec/sec-try-statement-static-semantics-vardeclarednames.html">13.15.5</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-vardeclarednames.html">14.2.12</a>, <a href="/sec/sec-scripts-static-semantics-vardeclarednames.html">15.1.5</a>, <a href="/sec/sec-module-semantics-static-semantics-vardeclarednames.html">15.2.1.13</a>.</p>
+
+      <div class="gp prod"><span class="nt">FunctionStatementList</span> <span class="geq">:</span> <span class="grhsannot">[empty]</span></div>
+      <ol class="proc">
+        <li>Return an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FunctionStatementList</span> <span class="geq">:</span> <span class="nt">StatementList</span></div>
+      <ol class="proc">
+        <li>Return TopLevelVarDeclaredNames of <i>StatementList</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-function-definitions-static-semantics-varscopeddeclarations">
+      <h1><span class="secnum" id="sec-14.1.16"><a href="/sec/sec-function-definitions-static-semantics-varscopeddeclarations.html" title="link to this section">14.1.16</a></span> Static Semantics:  VarScopedDeclarations</h1>
+
+      <p>See also: <a href="/sec/sec-statement-semantics-static-semantics-varscopeddeclarations.html">13.1.6</a>, <a href="/sec/sec-block-static-semantics-varscopeddeclarations.html">13.2.12</a>, <a href="/sec/sec-variable-statement-static-semantics-varscopeddeclarations.html">13.3.2.3</a>, <a href="/sec/sec-if-statement-static-semantics-varscopeddeclarations.html">13.6.6</a>, <a href="/sec/sec-do-while-statement-static-semantics-varscopeddeclarations.html">13.7.2.5</a>, <a href="/sec/sec-while-statement-static-semantics-varscopeddeclarations.html">13.7.3.5</a>, <a href="/sec/sec-for-statement-static-semantics-varscopeddeclarations.html">13.7.4.6</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-varscopeddeclarations.html">13.7.5.8</a>, <a href="/sec/sec-with-statement-static-semantics-varscopeddeclarations.html">13.11.6</a>, <a href="/sec/sec-switch-statement-static-semantics-varscopeddeclarations.html">13.12.8</a>, <a href="/sec/sec-labelled-statements-static-semantics-varscopeddeclarations.html">13.13.13</a>, <a href="/sec/sec-try-statement-static-semantics-varscopeddeclarations.html">13.15.6</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-varscopeddeclarations.html">14.2.13</a>, <a href="/sec/sec-scripts-static-semantics-varscopeddeclarations.html">15.1.6</a>, <a href="/sec/sec-module-semantics-static-semantics-varscopeddeclarations.html">15.2.1.14</a>.</p>
+
+      <div class="gp prod"><span class="nt">FunctionStatementList</span> <span class="geq">:</span> <span class="grhsannot">[empty]</span></div>
+      <ol class="proc">
+        <li>Return an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FunctionStatementList</span> <span class="geq">:</span> <span class="nt">StatementList</span></div>
+      <ol class="proc">
+        <li>Return the TopLevelVarScopedDeclarations of <i>StatementList</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-function-definitions-runtime-semantics-evaluatebody">
+      <h1><span class="secnum" id="sec-14.1.17"><a href="/sec/sec-function-definitions-runtime-semantics-evaluatebody.html" title="link to this section">14.1.17</a></span> Runtime Semantics: EvaluateBody</h1>
+
+      <p>With parameter <var>functionObject</var>.</p>
+
+      <p>See also: <a href="/sec/sec-arrow-function-definitions-runtime-semantics-evaluatebody.html">14.2.15</a>, <a href="/sec/sec-generator-function-definitions-runtime-semantics-evaluatebody.html">14.4.11</a>.</p>
+
+      <div class="gp prod"><span class="nt">FunctionBody</span> <span class="geq">:</span> <span class="nt">FunctionStatementList</span></div>
+      <ol class="proc">
+        <li>Return the result of evaluating <i>FunctionStatementList</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-function-definitions-runtime-semantics-iteratorbindinginitialization">
+      <h1><span class="secnum" id="sec-14.1.18"><a href="/sec/sec-function-definitions-runtime-semantics-iteratorbindinginitialization.html" title="link to this section">14.1.18</a></span> Runtime Semantics: IteratorBindingInitialization</h1>
+
+      <p>With parameters <var>iteratorRecord</var> and  <var>environment</var>.</p>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> When <b>undefined</b> is passed for <var>environment</var> it indicates that a <a href="/sec/sec-putvalue.html">PutValue</a> operation should be used to assign the initialization value. This is the case for formal
+        parameter lists of non-strict functions. In that case the formal parameter bindings are preinitialized in order to deal
+        with the possibility of multiple parameters with the same name.</p>
+      </div>
+
+      <p>See also: <a href="/sec/sec-destructuring-binding-patterns-runtime-semantics-iteratorbindinginitialization.html">13.3.3.6</a>, <a href="/sec/sec-arrow-function-definitions-runtime-semantics-iteratorbindinginitialization.html">14.2.14</a>.</p>
+
+      <div class="gp prod"><span class="nt">FormalParameters</span> <span class="geq">:</span> <span class="grhsannot">[empty]</span></div>
+      <ol class="proc">
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family: sans-serif">empty</span>).</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalParameterList</span> <span class="geq">:</span> <span class="nt">FormalsList</span> <code class="t">,</code> <span class="nt">FunctionRestParameter</span></div>
+      <ol class="proc">
+        <li>Let <i>restIndex</i> be the result of performing IteratorBindingInitialization for <i>FormalsList</i> using
+            <i>iteratorRecord</i>, and <i>environment</i> as the arguments.</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>restIndex</i>).</li>
+        <li>Return the result of performing IteratorBindingInitialization for <i>FunctionRestParameter</i> using
+            <i>iteratorRecord</i> and <i>environment</i> as the arguments.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalsList</span> <span class="geq">:</span> <span class="nt">FormalsList</span> <code class="t">,</code> <span class="nt">FormalParameter</span></div>
+      <ol class="proc">
+        <li>Let <i>status</i> be the result of performing IteratorBindingInitialization for <i>FormalsList</i> using
+            <i>iteratorRecord</i> and <i>environment</i> as the arguments.</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+        <li>Return the result of performing IteratorBindingInitialization for <i>FormalParameter</i> using <i>iteratorRecord</i>
+            and <i>environment</i> as the arguments.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FormalParameter</span> <span class="geq">:</span> <span class="nt">BindingElement</span></div>
+      <ol class="proc">
+        <li>If HasInitializer of <i>BindingElement</i> is <b>false</b>, return the result of performing
+            IteratorBindingInitialization for <i>BindingElement</i> using <i>iteratorRecord</i> and <i>environment</i> as the
+            arguments.</li>
+        <li>Let <i>currentContext</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>Let <i>originalEnv</i> be the <a href="/sec/sec-execution-contexts.html">VariableEnvironment</a> of <i>currentContext</i>.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: The <a href="/sec/sec-execution-contexts.html">VariableEnvironment</a> and <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> of <i>currentContext</i> are the same.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>environment</i> and <i>originalEnv</i> are the same.</li>
+        <li>Let <i>paramVarEnv</i> be <a href="/sec/sec-newdeclarativeenvironment.html">NewDeclarativeEnvironment</a>(<i>originalEnv</i>).</li>
+        <li>Set the <a href="/sec/sec-execution-contexts.html">VariableEnvironment</a> of <i>currentContext</i> to <i>paramVarEnv</i>.</li>
+        <li>Set the <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> of <i>currentContext</i> to <i>paramVarEnv</i>.</li>
+        <li>Let <i>result</i> be the result of performing IteratorBindingInitialization for <i>BindingElement</i> using
+            <i>iteratorRecord</i> and <i>environment</i> as the arguments.</li>
+        <li>Set the <a href="/sec/sec-execution-contexts.html">VariableEnvironment</a> of <i>currentContext</i> to <i>originalEnv</i>.</li>
+        <li>Set the <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> of <i>currentContext</i> to <i>originalEnv</i>.</li>
+        <li>Return <i>result</i>.</li>
+      </ol>
+
+      <p>The new <a href="/sec/sec-environment-records.html">Environment Record</a> created in step 6 is only used if the <i><span style="font-family: Times New Roman">BindElement</span>&#x2019;</i>s <span class="nt">Initializer</span> contains a direct
+      eval.</p>
+    </section>
+
+    <section id="sec-function-definitions-runtime-semantics-instantiatefunctionobject">
+      <h1><span class="secnum" id="sec-14.1.19"><a href="/sec/sec-function-definitions-runtime-semantics-instantiatefunctionobject.html" title="link to this section">14.1.19</a></span> Runtime Semantics: InstantiateFunctionObject</h1>
+
+      <p>With parameter <var>scope</var>.</p>
+
+      <p>See also: <a href="/sec/sec-generator-function-definitions-runtime-semantics-instantiatefunctionobject.html">14.4.12</a>.</p>
+
+      <div class="gp prod"><span class="nt">FunctionDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>If the function code for <i>FunctionDeclaration</i> is <a href="/sec/sec-strict-mode-code.html">strict mode code</a>, let
+            <i>strict</i> be <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.</li>
+        <li>Let <i>name</i> be StringValue of <i>BindingIdentifier.</i></li>
+        <li>Let <i>F</i> be <a href="/sec/sec-functioncreate.html">FunctionCreate</a>(<span style="font-family: sans-serif">Normal</span>,
+            <i>FormalParameters</i>, <i>FunctionBody, scope</i>, <i>strict</i>).</li>
+        <li>Perform <a href="/sec/sec-makeconstructor.html">MakeConstructor</a>(<i>F</i>).</li>
+        <li>Perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>F</i>, <i>name</i>).</li>
+        <li>Return <i>F</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FunctionDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>If the function code for <i>FunctionDeclaration</i> is <a href="/sec/sec-strict-mode-code.html">strict mode code</a>, let
+            <i>strict</i> be <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.</li>
+        <li>Let <i>F</i> be <a href="/sec/sec-functioncreate.html">FunctionCreate</a>(<span style="font-family: sans-serif">Normal</span>,
+            <i>FormalParameters</i>, <i>FunctionBody, scope</i>, <i>strict</i>).</li>
+        <li>Perform <a href="/sec/sec-makeconstructor.html">MakeConstructor</a>(<i>F</i>).</li>
+        <li>Perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>F</i>, <code>&quot;default&quot;</code>).</li>
+        <li>Return <i>F</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> An anonymous <span class="nt">FunctionDeclaration</span> can only occur as part of an
+        <code>export default</code> declaration.</p>
+      </div>
+    </section>
+
+    <section id="sec-function-definitions-runtime-semantics-evaluation">
+      <h1><span class="secnum" id="sec-14.1.20"><a href="/sec/sec-function-definitions-runtime-semantics-evaluation.html" title="link to this section">14.1.20</a></span> Runtime Semantics: Evaluation</h1>
+      <div class="gp prod"><span class="nt">FunctionDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family: sans-serif">empty</span>).</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE 1</span> An alternative semantics is provided in <a href="/sec/sec-block-level-function-declarations-web-legacy-compatibility-semantics.html">B.3.3</a>.</p>
+      </div>
+
+      <div class="gp prod"><span class="nt">FunctionDeclaration</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family: sans-serif">empty</span>).</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FunctionExpression</span> <span class="geq">:</span> <code class="t">function</code> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>If the function code for <i>FunctionExpression</i> is <a href="/sec/sec-strict-mode-code.html">strict mode code</a>, let
+            <i>strict</i> be <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.</li>
+        <li>Let <i>scope</i> be the <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> of <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</li>
+        <li>Let <i>closure</i> be <a href="/sec/sec-functioncreate.html">FunctionCreate</a>(<span style="font-family:
+            sans-serif">Normal</span>, <i>FormalParameters</i>, <i>FunctionBody, scope</i>, <i>strict</i>).</li>
+        <li>Perform <a href="/sec/sec-makeconstructor.html">MakeConstructor</a>(<i>closure</i>).</li>
+        <li>Return <i>closure</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">FunctionExpression</span> <span class="geq">:</span> <code class="t">function</code> <span class="nt">BindingIdentifier</span> <code class="t">(</code> <span class="nt">FormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">FunctionBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>If the function code for <i>FunctionExpression</i> is <a href="/sec/sec-strict-mode-code.html">strict mode code</a>, let
+            <i>strict</i> be <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.</li>
+        <li>Let <i>runningContext</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-lexical-environments.html">Lexical Environment</a>.</li>
+        <li>Let <i>funcEnv</i> be <a href="/sec/sec-newdeclarativeenvironment.html">NewDeclarativeEnvironment</a>(<i>runningContext</i>
+            ).</li>
+        <li>Let <i>envRec</i> be <i>funcEnv&#x2019;s</i> <a href="/sec/sec-lexical-environments.html">EnvironmentRecord</a>.</li>
+        <li>Let <i>name</i> be StringValue of <i>BindingIdentifier</i>.</li>
+        <li>Perform <i>envRec.</i>CreateImmutableBinding(<i>name</i>).</li>
+        <li>Let <i>closure</i> be <a href="/sec/sec-functioncreate.html">FunctionCreate</a>(<span style="font-family:
+            sans-serif">Normal</span>, <i>FormalParameters</i>, <i>FunctionBody, funcEnv</i>, <i>strict</i>).</li>
+        <li>Perform <a href="/sec/sec-makeconstructor.html">MakeConstructor</a>(<i>closure</i>).</li>
+        <li>Perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>closure</i>, <i>name</i>).</li>
+        <li>Perform <i>envRec</i>.InitializeBinding(<i>name,</i> <i>closure</i>).</li>
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<i>closure</i>).</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE 2</span> The <span class="nt">BindingIdentifier</span> in a <span class="nt">FunctionExpression</span> can be referenced from inside the <var>FunctionExpression&apos;s</var> <span class="nt">FunctionBody</span> to allow the function to call itself recursively. However, unlike in a <span class="nt">FunctionDeclaration</span>, the <span class="nt">BindingIdentifier</span> in a <span class="nt">FunctionExpression</span> cannot be referenced from and does not affect the scope enclosing the <span class="nt">FunctionExpression</span>.</p>
+      </div>
+
+      <div class="note">
+        <p><span class="nh">NOTE 3</span> A <code>prototype</code> property is automatically created for every function defined
+        using a <span class="nt">FunctionDeclaration</span> or <span class="nt">FunctionExpression</span>, to allow for the
+        possibility that the function will be used as a constructor.</p>
+      </div>
+
+      <div class="gp prod"><span class="nt">FunctionStatementList</span> <span class="geq">:</span> <span class="grhsannot">[empty]</span></div>
+      <ol class="proc">
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+      </ol>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

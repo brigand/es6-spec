@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-18.2.6.5"><a href="/sec/sec-encodeuricomponent-uricomponent.html" title="link to this section">18.2.6.5</a></span> encodeURIComponent (uriComponent)</h1>
+
+        <p>The <code>encodeURIComponent</code> function computes a new version of a UTF-16 encoded (<a href="/sec/sec-ecmascript-language-types-string-type.html">6.1.4</a>) URI in which each instance of certain code points is replaced
+        by one, two, three, or four escape sequences representing the UTF-8 encoding of the code point.</p>
+
+        <p class="normalbefore">The <code>encodeURIComponent</code> function is the %encodeURIComponent% intrinsic object. When
+        the <code>encodeURIComponent</code> function is called with one argument <span class="nt">uriComponent</span>, the
+        following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>componentString</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>uriComponent</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>componentString</i>).</li>
+          <li>Let <i>unescapedURIComponentSet</i> be a String containing one instance of each code unit valid in
+              <i>uriUnescaped</i>.</li>
+          <li>Return <a href="/sec/sec-encode.html">Encode</a>(<i>componentString</i>, <i>unescapedURIComponentSet</i>).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

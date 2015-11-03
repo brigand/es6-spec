@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-12.2.9.1"><a href="/sec/sec-static-semantics-templatestrings.html" title="link to this section">12.2.9.1</a></span> Static Semantics:  TemplateStrings</h1>
+
+        <p>With parameter <var>raw</var>.</p>
+
+        <div class="gp prod"><span class="nt">TemplateLiteral</span> <span class="geq">:</span> <span class="nt">NoSubstitutionTemplate</span></div>
+        <ol class="proc">
+          <li>If <i>raw</i> is <b>false</b>, then
+            <ol class="block">
+              <li>Let <i>string</i> be the TV of <i>NoSubstitutionTemplate</i>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>string</i> be the TRV of <i>NoSubstitutionTemplate</i>.</li>
+            </ol>
+          </li>
+          <li>Return a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the single element,
+              <i>string</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">TemplateLiteral</span> <span class="geq">:</span> <span class="nt">TemplateHead</span> <span class="nt">Expression</span> <span class="nt">TemplateSpans</span></div>
+        <ol class="proc">
+          <li>If <i>raw</i> is <b>false</b>, then
+            <ol class="block">
+              <li>Let <i>head</i> be the TV of <i>TemplateHead</i>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>head</i> be the TRV of <i>TemplateHead</i>.</li>
+            </ol>
+          </li>
+          <li>Let <i>tail</i> be TemplateStrings of <i>TemplateSpans</i> with argument <i>raw</i>.</li>
+          <li>Return a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing <i>head</i> followed by the element,
+              in order of <i>tail</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">TemplateSpans</span> <span class="geq">:</span> <span class="nt">TemplateTail</span></div>
+        <ol class="proc">
+          <li>If <i>raw</i> is <b>false</b>, then
+            <ol class="block">
+              <li>Let <i>tail</i> be the TV of <i>TemplateTail</i>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>tail</i> be the TRV of <i>TemplateTail</i>.</li>
+            </ol>
+          </li>
+          <li>Return a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the single element, <i>tail</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">TemplateSpans</span> <span class="geq">:</span> <span class="nt">TemplateMiddleList</span> <span class="nt">TemplateTail</span></div>
+        <ol class="proc">
+          <li>Let <i>middle</i> be TemplateStrings of <i>TemplateMiddleList</i> with argument <i>raw</i>.</li>
+          <li>If <i>raw</i> is <b>false</b>, then
+            <ol class="block">
+              <li>Let <i>tail</i> be the TV of <i>TemplateTail</i>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>tail</i> be the TRV of <i>TemplateTail</i>.</li>
+            </ol>
+          </li>
+          <li>Return a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the elements, in order, of
+              <i>middle</i> followed by <i>tail</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">TemplateMiddleList</span> <span class="geq">:</span> <span class="nt">TemplateMiddle</span> <span class="nt">Expression</span></div>
+        <ol class="proc">
+          <li>If <i>raw</i> is <b>false</b>, then
+            <ol class="block">
+              <li>Let <i>string</i> be the TV of <i>TemplateMiddle</i>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>string</i> be the TRV of <i>TemplateMiddle</i>.</li>
+            </ol>
+          </li>
+          <li>Return a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the single element,
+              <i>string</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">TemplateMiddleList</span> <span class="geq">:</span> <span class="nt">TemplateMiddleList</span> <span class="nt">TemplateMiddle</span> <span class="nt">Expression</span></div>
+        <ol class="proc">
+          <li>Let <i>front</i> be TemplateStrings of <i>TemplateMiddleList</i> with argument <i>raw</i>.</li>
+          <li>If <i>raw</i> is <b>false</b>, then
+            <ol class="block">
+              <li>Let <i>last</i> be the TV of <i>TemplateMiddle</i>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>last</i> be the TRV of <i>TemplateMiddle</i>.</li>
+            </ol>
+          </li>
+          <li>Append <i>last</i> as the last element of the <a href="/sec/sec-list-and-record-specification-type.html">List</a>
+              <i>front</i>.</li>
+          <li>Return <i>front</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

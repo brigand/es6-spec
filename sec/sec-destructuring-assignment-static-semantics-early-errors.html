@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-12.14.5.1"><a href="/sec/sec-destructuring-assignment-static-semantics-early-errors.html" title="link to this section">12.14.5.1</a></span> Static Semantics:  Early Errors</h1>
+        <div class="gp prod"><span class="nt">AssignmentProperty</span> <span class="geq">:</span> <span class="nt">IdentifierReference</span> <span class="nt">Initializer</span><sub class="g-opt">opt</sub></div>
+        <ul>
+          <li>
+            <p>It is a Syntax Error if IsValidSimpleAssignmentTarget of <span class="nt">IdentifierReference</span> is <span class="value">false</span>.</p>
+          </li>
+        </ul>
+        <div class="gp prod"><span class="nt">DestructuringAssignmentTarget</span> <span class="geq">:</span> <span class="nt">LeftHandSideExpression</span></div>
+        <ul>
+          <li>
+            <p>It is a Syntax Error if <span class="nt">LeftHandSideExpression</span> is either an <span class="nt">ObjectLiteral</span> or an <span class="nt">ArrayLiteral</span> and if the lexical token sequence matched
+            by <span class="nt">LeftHandSideExpression</span> cannot be parsed with no tokens left over using <span class="nt">AssignmentPattern</span> as the goal symbol.</p>
+          </li>
+
+          <li>
+            <p>It is a Syntax Error if <span class="nt">LeftHandSideExpression</span> is neither an <span class="nt">ObjectLiteral</span> nor an <span class="nt">ArrayLiteral</span> and <span style="font-family: Times New
+            Roman">IsValidSimpleAssignmentTarget</span>(<span class="nt">LeftHandSideExpression</span>) is <span class="value">false</span>.</p>
+          </li>
+        </ul>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

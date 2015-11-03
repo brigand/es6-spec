@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.1.3.19"><a href="/sec/sec-string.prototype.substring.html" title="link to this section">21.1.3.19</a></span> String.prototype.substring ( start, end )</h1>
+
+        <p>The <b>substring</b> method takes two arguments, <var>start</var> and <var>end</var>, and returns a substring of the
+        result of converting this object to a String, starting from index <var>start</var> and running to, but not including,
+        index <var>end</var> of the String (or through the end of the String is <var>end</var> is <b>undefined</b>). The result is
+        a String value, not a String object.</p>
+
+        <p>If either argument is <b>NaN</b> or negative, it is replaced with zero; if either argument is larger than the length of
+        the String, it is replaced with the length of the String.</p>
+
+        <p>If <var>start</var> is larger than <var>end</var>, they are swapped.</p>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>len</i> be the number of elements in <i>S</i>.</li>
+          <li>Let <i>intStart</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>start</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>intStart</i>).</li>
+          <li>If <i>end</i> is <b>undefined</b>, let <i>intEnd</i> be <i>len</i>; else let <i>intEnd</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>end</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>intEnd</i>).</li>
+          <li>Let <i>finalStart</i> be min(max(<i>intStart</i>, 0), <i>len</i>).</li>
+          <li>Let <i>finalEnd</i> be min(max(<i>intEnd</i>, 0), <i>len</i>).</li>
+          <li>Let <i>from</i> be min(<i>finalStart</i>, <i>finalEnd</i>).</li>
+          <li>Let <i>to</i> be max(<i>finalStart</i>, <i>finalEnd</i>).</li>
+          <li>Return a String whose length is <i>to</i> - <i>from</i>, containing code units from <i>S</i>, namely the code units
+              with indices <i>from</i> through <i>to</i> &#x2212;1, in ascending order.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>substring</code> method is <b>2</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <code>substring</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

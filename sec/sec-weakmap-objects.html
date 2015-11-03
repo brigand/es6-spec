@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-23.3"><a href="/sec/sec-weakmap-objects.html" title="link to this section">23.3</a></span> WeakMap
+          Objects</h1>
+
+      <p>WeakMap objects are collections of key/value pairs where the keys are objects and values may be arbitrary <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language values</a>. A WeakMap may be queried to see if it contains a
+      key/value pair with a specific key, but no mechanism is provided for enumerating the objects it holds as keys. If an object
+      that is being used as the key of a WeakMap key/value pair is only reachable by following a chain of references that start
+      within that WeakMap, then that key/value pair is inaccessible and is automatically removed from the WeakMap. WeakMap
+      implementations must detect and remove such key/value pairs and any associated resources.</p>
+
+      <p>An implementation may impose an arbitrarily determined latency between the time a key/value pair of a WeakMap becomes
+      inaccessible and the time when the key/value pair is removed from the WeakMap. If this latency was observable to ECMAScript
+      program, it would be a source of indeterminacy that could impact program execution. For that reason, an ECMAScript
+      implementation must not provide any means to observe a key of a WeakMap that does not require the observer to present the
+      observed key.</p>
+
+      <p>WeakMap objects must be implemented using either hash tables or other mechanisms that, on average, provide access times
+      that are sublinear on the number of key/value pairs in the collection. The data structure used in this WeakMap objects
+      specification are only intended to describe the required observable semantics of WeakMap objects. It is not intended to be a
+      viable implementation model.</p>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> WeakMap and WeakSets are intended to provide mechanisms for dynamically associating state
+        with an object in a manner that does not &#x201C;leak&#x201D; memory resources if, in the absence of the WeakMap or WeakSet,
+        the object otherwise became inaccessible and subject to resource reclamation by the implementation&#x2019;s garbage
+        collection mechanisms. Achieving this characteristic can be achieved by using an inverted per-object mapping of weak map
+        instances to keys.  Alternatively each weak map may internally store its key to value mappings but this approach requires
+        coordination between the WeakMap or WeakSet implementation and the garbage collector. The following references describe
+        mechanism that may be useful to implementations of WeakMap and WeakSets:</p>
+
+        <p>Barry Hayes. 1997. Ephemerons: a new finalization mechanism. In <i>Proceedings of the 12th ACM SIGPLAN conference on
+        Object-oriented programming, systems, languages, and applications (OOPSLA &apos;97)</i>, A. Michael Berman (Ed.). ACM, New
+        York, NY, USA, 176-183, <a href="http://doi.acm.org/10.1145/263698.263733">http://doi.acm.org/10.1145/263698.263733</a>.</p>
+
+        <p>Alexandra Barros, Roberto Ierusalimschy, Eliminating Cycles in Weak Tables. Journal of Universal Computer Science -
+        J.UCS , vol. 14, no. 21, pp. 3481-3497, 2008, <a href="http://www.jucs.org/jucs_14_21/eliminating_cycles_in_weak">http://www.jucs.org/jucs_14_21/eliminating_cycles_in_weak</a></p>
+      </div>
+    </div>
+
+    <section id="sec-weakmap-constructor">
+      <div class="front">
+        <h1><span class="secnum" id="sec-23.3.1"><a href="/sec/sec-weakmap-constructor.html" title="link to this section">23.3.1</a></span>
+            The WeakMap Constructor</h1>
+
+        <p>The WeakMap constructor is the %WeakMap% intrinsic object and the initial value of the <code>WeakMap</code> property of
+        the global object. When called as a constructor it creates and initializes a new WeakMap object. <code>WeakMap</code> is
+        not intended to be called as a function and will throw an exception when called in that manner.</p>
+
+        <p>The <code>WeakMap</code> constructor is designed to be subclassable. It may be used as the value in an
+        <code>extends</code> clause of a class definition. Subclass constructors that intend to inherit the specified
+        <code>WeakMap</code> behaviour must include a <code>super</code> call to the <code>WeakMap</code> constructor to create
+        and initialize the subclass instance with the internal state necessary to support the <code><a href="/sec/sec-weakmap.prototype.html">WeakMap.prototype</a></code> built-in methods.</p>
+      </div>
+
+      <section id="sec-weakmap-iterable">
+        <h1><span class="secnum" id="sec-23.3.1.1"><a href="/sec/sec-weakmap-iterable.html" title="link to this section">23.3.1.1</a></span> WeakMap ( [ iterable ] )</h1>
+
+        <p class="normalbefore">When the <code>WeakMap</code> function is called with optional argument <var>iterable</var> the
+        following steps are taken:</p>
+
+        <ol class="proc">
+          <li>If NewTarget is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>map</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(NewTarget,
+              <code>&quot;%WeakMapPrototype%&quot;</code>, &#xAB;&#x200D;[[WeakMapData]]&#xBB; ).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>map</i>).</li>
+          <li>Set <i>map&#x2019;s</i> [[WeakMapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>
+              to a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>If <i>iterable</i> is not present, let <i>iterable</i> be <b>undefined</b>.</li>
+          <li>If <i>iterable</i> is either <b>undefined</b> or <b>null</b>, let <i>iter</i> be <b>undefined</b>.</li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>adder</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>map</i>, <code>&quot;set&quot;</code>)<b>.</b></li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>adder</i>).</li>
+              <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>adder</i>) is <b>false</b>, throw a <b>TypeError</b>
+                  exception.</li>
+              <li>Let <i>iter</i> be <a href="/sec/sec-getiterator.html">GetIterator</a>(<i>iterable</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>iter</i>).</li>
+            </ol>
+          </li>
+          <li>If <i>iter</i> is <b>undefined</b>, return <i>map</i>.</li>
+          <li>Repeat
+            <ol class="block">
+              <li>Let <i>next</i> be <a href="/sec/sec-iteratorstep.html">IteratorStep</a>(<i>iter</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+              <li>If <i>next</i> is <b>false</b>, return <i>map</i>.</li>
+              <li>Let <i>nextItem</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>next</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextItem</i>).</li>
+              <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>nextItem</i>) is not Object,
+                <ol class="block">
+                  <li>Let <i>error</i> be <a href="/sec/sec-completion-record-specification-type.html">Completion</a>{[[type]]: <span style="font-family: sans-serif">throw</span>, [[value]]: a newly created <b>TypeError</b> object,
+                      [[target]]:<span style="font-family: sans-serif">empty</span>}.</li>
+                  <li>Return <a href="/sec/sec-iteratorclose.html">IteratorClose</a>(<i>iter</i>, <i>error</i>).</li>
+                </ol>
+              </li>
+              <li>Let <i>k</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>nextItem</i>, <code>&quot;0&quot;</code>).</li>
+              <li>If <i>k</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, return <a href="/sec/sec-iteratorclose.html">IteratorClose</a>(<i>iter</i>, <i>k</i>).</li>
+              <li>Let <i>v</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>nextItem</i>, <code>&quot;1&quot;</code>).</li>
+              <li>If <i>v</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, return <a href="/sec/sec-iteratorclose.html">IteratorClose</a>(<i>iter</i>, <i>v</i>).</li>
+              <li>Let <i>status</i> be <a href="/sec/sec-call.html">Call</a>(<i>adder</i>, <i>map</i>, &#xAB;<i>k</i>.[[value]],
+                  <i>v</i>.[[value]]&#xBB;).</li>
+              <li>If <i>status</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, return <a href="/sec/sec-iteratorclose.html">IteratorClose</a>(<i>iter</i>, <i>status</i>).</li>
+            </ol>
+          </li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> If the parameter <var>iterable</var> is present, it is expected to be an object that
+          implements an <span style="font-family: Times New Roman">@@iterator</span> method that returns an iterator object that
+          produces a two element array-like object whose first element is a value that will be used as a WeakMap key and whose
+          second element is the value to associate with that key.</p>
+        </div>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-the-weakmap-constructor">
+      <div class="front">
+        <h1><span class="secnum" id="sec-23.3.2"><a href="/sec/sec-properties-of-the-weakmap-constructor.html" title="link to this section">23.3.2</a></span> Properties of the WeakMap Constructor</h1>
+
+        <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the
+        WeakMap constructor is the intrinsic object %FunctionPrototype% (<a href="/sec/sec-properties-of-the-function-prototype-object.html">19.2.3</a>).</p>
+
+        <p>Besides the <code>length</code> property (whose value is <b>0</b>), the WeakMap constructor has the following
+        properties:</p>
+      </div>
+
+      <section id="sec-weakmap.prototype">
+        <h1><span class="secnum" id="sec-23.3.2.1"><a href="/sec/sec-weakmap.prototype.html" title="link to this section">23.3.2.1</a></span> WeakMap.prototype</h1>
+
+        <p>The initial value of <code>WeakMap.prototype</code> is the intrinsic object %WeakMapPrototype% (<a href="/sec/sec-properties-of-the-weakmap-prototype-object.html">23.3.3</a>).</p>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <b>false</b> }.</p>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-the-weakmap-prototype-object">
+      <div class="front">
+        <h1><span class="secnum" id="sec-23.3.3"><a href="/sec/sec-properties-of-the-weakmap-prototype-object.html" title="link to this section">23.3.3</a></span> Properties of the WeakMap Prototype Object</h1>
+
+        <p>The WeakMap prototype object is the intrinsic object %WeakMapPrototype%. The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the WeakMap prototype object is the intrinsic
+        object %ObjectPrototype% (<a href="/sec/sec-properties-of-the-object-prototype-object.html">19.1.3</a>). The WeakMap prototype
+        object is an ordinary object. It does not have a [[WeakMapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+      </div>
+
+      <section id="sec-weakmap.prototype.constructor">
+        <h1><span class="secnum" id="sec-23.3.3.1"><a href="/sec/sec-weakmap.prototype.constructor.html" title="link to this section">23.3.3.1</a></span> WeakMap.prototype.constructor</h1>
+
+        <p>The initial value of <code>WeakMap.prototype.constructor</code> is the intrinsic object %WeakMap%.</p>
+      </section>
+
+      <section id="sec-weakmap.prototype.delete">
+        <h1><span class="secnum" id="sec-23.3.3.2"><a href="/sec/sec-weakmap.prototype.delete.html" title="link to this section">23.3.3.2</a></span> WeakMap.prototype.delete ( key )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>M</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>M</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>M</i> does not have a [[WeakMapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of
+              <i>M</i>&#x2019;s [[WeakMapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>key</i>) is not Object, return <b>false</b>.</li>
+          <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of <i>entries,</i>
+            <ol class="block">
+              <li>If <i>p</i>.[[key]] is not <span style="font-family: sans-serif">empty</span> and <a href="/sec/sec-samevalue.html">SameValue</a>(<i>p</i>.[[key]], <i>key</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li>Set <i>p</i>.[[key]] to <span style="font-family: sans-serif">empty</span><i>.</i></li>
+                  <li>Set <i>p</i>.[[value]] to <span style="font-family: sans-serif">empty</span><i>.</i></li>
+                  <li>Return <b>true</b>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The value <b>empty</b> is used as a specification device to indicate that an entry has
+          been deleted. Actual implementations may take other actions such as physically removing the entry from internal data
+          structures.</p>
+        </div>
+      </section>
+
+      <section id="sec-weakmap.prototype.get">
+        <h1><span class="secnum" id="sec-23.3.3.3"><a href="/sec/sec-weakmap.prototype.get.html" title="link to this section">23.3.3.3</a></span> WeakMap.prototype.get ( key )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>M</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>M</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>M</i> does not have a [[WeakMapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of
+              <i>M</i>&#x2019;s [[WeakMapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>key</i>) is not Object, return
+              <b>undefined</b>.</li>
+          <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of <i>entries,</i>
+            <ol class="block">
+              <li>If <i>p</i>.[[key]] is not <span style="font-family: sans-serif">empty</span> and <a href="/sec/sec-samevalue.html">SameValue</a>(<i>p</i>.[[key]], <i>key</i>) is <b>true</b>, return
+                  <i>p</i>.[[value]].</li>
+            </ol>
+          </li>
+          <li>Return  <b>undefined</b><i>.</i></li>
+        </ol>
+      </section>
+
+      <section id="sec-weakmap.prototype.has">
+        <h1><span class="secnum" id="sec-23.3.3.4"><a href="/sec/sec-weakmap.prototype.has.html" title="link to this section">23.3.3.4</a></span> WeakMap.prototype.has ( key )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>M</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>M</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>M</i> does not have a [[WeakMapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of
+              <i>M</i>&#x2019;s [[WeakMapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>key</i>) is not Object, return <b>false</b>.</li>
+          <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of <i>entries,</i>
+            <ol class="block">
+              <li>If <i>p</i>.[[key]] is not <span style="font-family: sans-serif">empty</span> and <a href="/sec/sec-samevalue.html">SameValue</a>(<i>p</i>.[[key]], <i>key</i>) is <b>true</b>, return
+                  <b>true</b><i>.</i></li>
+            </ol>
+          </li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-weakmap.prototype.set">
+        <h1><span class="secnum" id="sec-23.3.3.5"><a href="/sec/sec-weakmap.prototype.set.html" title="link to this section">23.3.3.5</a></span> WeakMap.prototype.set ( key , value )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>M</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>M</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>M</i> does not have a [[WeakMapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of
+              <i>M</i>&#x2019;s [[WeakMapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>key</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Repeat for each Record {[[key]], [[value]]} <i>p</i> that is an element of <i>entries,</i>
+            <ol class="block">
+              <li>If <i>p</i>.[[key]] is not <span style="font-family: sans-serif">empty</span> and <a href="/sec/sec-samevalue.html">SameValue</a>(<i>p</i>.[[key]], <i>key</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li>Set <i>p</i>.[[value]] to <i>value.</i></li>
+                  <li>Return <i>M</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Let <i>p</i> be the Record {[[key]]: <i>key</i>, [[value]]: <i>value</i>}.</li>
+          <li>Append <i>p</i> as the last element of <i>entries</i>.</li>
+          <li>Return <i>M</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-weakmap.prototype-@@tostringtag">
+        <h1><span class="secnum" id="sec-23.3.3.6"><a href="/sec/sec-weakmap.prototype-@@tostringtag.html" title="link to this section">23.3.3.6</a></span> WeakMap.prototype [ @@toStringTag ]</h1>
+
+        <p>The initial value of the @@toStringTag property is the String value <code>&quot;WeakMap&quot;</code>.</p>
+
+        <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-weakmap-instances">
+      <h1><span class="secnum" id="sec-23.3.4"><a href="/sec/sec-properties-of-weakmap-instances.html" title="link to this section">23.3.4</a></span> Properties of WeakMap Instances</h1>
+
+      <p>WeakMap instances are ordinary objects that inherit properties from the WeakMap prototype. WeakMap instances also have a
+      [[WeakMapData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

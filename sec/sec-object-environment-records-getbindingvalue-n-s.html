@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-8.1.1.2.6"><a href="/sec/sec-object-environment-records-getbindingvalue-n-s.html" title="link to this section">8.1.1.2.6</a></span> GetBindingValue(N,S)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method GetBindingValue
+          for object Environment Records returns the value of its associated binding object&#x2019;s property whose name is the
+          String value of the argument identifier <var>N</var>. The property should already exist but if it does not the result
+          depends upon the value of the <var>S</var> argument:</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the object <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li>Let <i>bindings</i> be the binding object for <i>envRec</i>.</li>
+            <li>Let <i>value</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>bindings</i>, <i>N</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+            <li>If <i>value</i> is <b>false</b>, then
+              <ol class="block">
+                <li>If <i>S</i> is <b>false</b>, return the value <b>undefined</b>, otherwise throw a <b>ReferenceError</b>
+                    exception.</li>
+              </ol>
+            </li>
+            <li>Return <a href="/sec/sec-get-o-p.html">Get</a>(<i>bindings</i>, <i>N</i>).</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

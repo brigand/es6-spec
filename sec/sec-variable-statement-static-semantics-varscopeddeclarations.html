@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-13.3.2.3"><a href="/sec/sec-variable-statement-static-semantics-varscopeddeclarations.html" title="link to this section">13.3.2.3</a></span> Static Semantics:  VarScopedDeclarations</h1>
+
+        <p>See also: <a href="/sec/sec-statement-semantics-static-semantics-varscopeddeclarations.html">13.1.6</a>, <a href="/sec/sec-block-static-semantics-varscopeddeclarations.html">13.2.12</a>, <a href="/sec/sec-if-statement-static-semantics-varscopeddeclarations.html">13.6.6</a>, <a href="/sec/sec-do-while-statement-static-semantics-varscopeddeclarations.html">13.7.2.5</a>, <a href="/sec/sec-while-statement-static-semantics-varscopeddeclarations.html">13.7.3.5</a>, <a href="/sec/sec-for-statement-static-semantics-varscopeddeclarations.html">13.7.4.6</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-varscopeddeclarations.html">13.7.5.8</a>, <a href="/sec/sec-with-statement-static-semantics-varscopeddeclarations.html">13.11.6</a>, <a href="/sec/sec-switch-statement-static-semantics-varscopeddeclarations.html">13.12.8</a>, <a href="/sec/sec-labelled-statements-static-semantics-varscopeddeclarations.html">13.13.13</a>, <a href="/sec/sec-try-statement-static-semantics-varscopeddeclarations.html">13.15.6</a>, <a href="/sec/sec-function-definitions-static-semantics-varscopeddeclarations.html">14.1.16</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-varscopeddeclarations.html">14.2.13</a>, <a href="/sec/sec-scripts-static-semantics-varscopeddeclarations.html">15.1.6</a>, <a href="/sec/sec-module-semantics-static-semantics-varscopeddeclarations.html">15.2.1.14</a>.</p>
+
+        <div class="gp prod"><span class="nt">VariableDeclarationList</span> <span class="geq">:</span> <span class="nt">VariableDeclaration</span></div>
+        <ol class="proc">
+          <li>Return a new <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing <i>VariableDeclaration.</i></li>
+        </ol>
+        <div class="gp prod"><span class="nt">VariableDeclarationList</span> <span class="geq">:</span> <span class="nt">VariableDeclarationList</span> <code class="t">,</code> <span class="nt">VariableDeclaration</span></div>
+        <ol class="proc">
+          <li>Let <i>declarations</i> be VarScopedDeclarations of <i>VariableDeclarationList</i>.</li>
+          <li>Append <i>VariableDeclaration</i> to <i>declarations.</i></li>
+          <li>Return <i>declarations</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

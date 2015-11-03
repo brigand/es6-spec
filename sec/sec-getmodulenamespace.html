@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-15.2.1.18"><a href="/sec/sec-getmodulenamespace.html" title="link to this section">15.2.1.18</a></span> Runtime Semantics: GetModuleNamespace( module )</h1>
+
+        <p>The abstract operation GetModuleNamespace called with argument <var>module</var> performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>module</i> is an instance of a concrete subclass of <a href="/sec/sec-abstract-module-records.html">Module Record</a>.</li>
+          <li>Let <i>namespace</i> be <i>module</i>.[[Namespace]].</li>
+          <li>If <i>namespace</i> is <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>exportedNames</i> be <i>module</i>.<a href="/sec/sec-getexportednames.html">GetExportedNames</a>(&#xAB;
+                  &#xBB;).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>exportedNames</i>).</li>
+              <li>Let <i>unambiguousNames</i> be a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+              <li>For each <i>name</i> that is an element of <i>exportedNames</i>,
+                <ol class="block">
+                  <li>Let <i>resolution</i> be <i>module</i>.<a href="/sec/sec-resolveexport.html">ResolveExport</a>(<i>name</i>, &#xAB;
+                      &#xBB;, &#xAB; &#xBB;).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>resolution</i>).</li>
+                  <li>If <i>resolution</i> is <b>null</b>, throw a <b>SyntaxError</b> exception.</li>
+                  <li>If <i>resolution</i> is not <code>&quot;ambiguous&quot;</code>, append <i>name</i> to <i>unambiguousNames</i>.</li>
+                </ol>
+              </li>
+              <li>Let <i>namespace</i> be <a href="/sec/sec-modulenamespacecreate.html">ModuleNamespaceCreate</a>(<i>module</i>,
+                  <i>unambiguousNames</i>).</li>
+            </ol>
+          </li>
+          <li>Return <i>namespace</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

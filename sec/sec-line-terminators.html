@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <h1><span class="secnum" id="sec-11.3"><a href="/sec/sec-line-terminators.html" title="link to this section">11.3</a></span> Line
+        Terminators</h1>
+
+    <p>Like white space code points, line terminator code points are used to improve source text readability and to separate
+    tokens (indivisible lexical units) from each other. However, unlike white space code points, line terminators have some
+    influence over the behaviour of the syntactic grammar. In general, line terminators may occur between any two tokens, but
+    there are a few places where they are forbidden by the syntactic grammar. Line terminators also affect the process of <a href="/sec/sec-automatic-semicolon-insertion.html">automatic semicolon insertion</a> (<a href="/sec/sec-automatic-semicolon-insertion.html">11.9</a>). A line terminator cannot occur within any token except a <span class="nt">StringLiteral</span>, <span class="nt">Template</span>, or <span class="nt">TemplateSubstitutionTail</span>. Line
+    terminators may only occur within a <span class="nt">StringLiteral</span> token as part of a <span class="nt">LineContinuation</span>.</p>
+
+    <p>A line terminator can occur within a <span class="nt">MultiLineComment</span> (<a href="/sec/sec-comments.html">11.4</a>) but cannot
+    occur within a <span class="nt">SingleLineComment</span>.</p>
+
+    <p>Line terminators are included in the set of white space code points that are matched by the <code>\s</code> class in
+    regular expressions.</p>
+
+    <p>The ECMAScript line terminator code points are listed in <a href="/sec/table-33.html">Table 33</a>.</p>
+
+    <figure>
+      <figcaption><span id="table-33">Table 33</span> &#x2014; Line Terminator Code Points</figcaption>
+      <table class="real-table">
+        <tr>
+          <th>Code Point</th>
+          <th>Unicode Name</th>
+          <th>Abbreviation</th>
+        </tr>
+        <tr>
+          <td><code>U+000A</code></td>
+          <td>LINE FEED (LF)</td>
+          <td>&lt;LF&gt;</td>
+        </tr>
+        <tr>
+          <td><code>U+000D</code></td>
+          <td>CARRIAGE RETURN (CR)</td>
+          <td>&lt;CR&gt;</td>
+        </tr>
+        <tr>
+          <td><code>U+2028</code></td>
+          <td>LINE SEPARATOR</td>
+          <td>&lt;LS&gt;</td>
+        </tr>
+        <tr>
+          <td><code>U+2029</code></td>
+          <td>PARAGRAPH SEPARATOR</td>
+          <td>&lt;PS&gt;</td>
+        </tr>
+      </table>
+    </figure>
+
+    <p>Only the Unicode code points in <a href="/sec/table-33.html">Table 33</a> are treated as line terminators. Other new line or line
+    breaking Unicode code points are not treated as line terminators but are treated as white space if they meet the requirements
+    listed in <a href="/sec/table-32.html">Table 32</a>. The sequence &lt;CR&gt;&lt;LF&gt; is commonly used as a line terminator. It should
+    be considered a single <span class="nt">SourceCharacter</span> for the purpose of reporting line numbers.</p>
+
+    <h2>Syntax</h2>
+
+    <div class="gp">
+      <div class="lhs"><span class="nt">LineTerminator</span> <span class="geq">::</span></div>
+      <div class="rhs">&lt;LF&gt;</div>
+      <div class="rhs">&lt;CR&gt;</div>
+      <div class="rhs">&lt;LS&gt;</div>
+      <div class="rhs">&lt;PS&gt;</div>
+    </div>
+
+    <div class="gp">
+      <div class="lhs"><span class="nt">LineTerminatorSequence</span> <span class="geq">::</span></div>
+      <div class="rhs">&lt;LF&gt;</div>
+      <div class="rhs">&lt;CR&gt; <span class="grhsannot">[lookahead &#x2260; &lt;LF&gt; ]</span></div>
+      <div class="rhs">&lt;LS&gt;</div>
+      <div class="rhs">&lt;PS&gt;</div>
+      <div class="rhs">&lt;CR&gt; &lt;LF&gt;</div>
+    </div>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

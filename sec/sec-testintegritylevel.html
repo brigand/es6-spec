@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.3.15"><a href="/sec/sec-testintegritylevel.html" title="link to this section">7.3.15</a></span>
+          TestIntegrityLevel (O, level)</h1>
+
+      <p class="normalbefore">The abstract operation <span style="font-family: Times New Roman">TestIntegrityLevel</span> is used
+      to determine if the set of own properties of an object are fixed. This abstract operation performs the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is
+            Object.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>level</i> is either <code>&quot;sealed&quot;</code> or
+            <code>&quot;frozen&quot;</code>.</li>
+        <li>Let <i>status</i> be <a href="/sec/sec-isextensible-o.html">IsExtensible</a>(<i>O</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+        <li>If <i>status</i> is <b>true</b>, return <b>false</b></li>
+        <li>NOTE  If the object is extensible, none of its properties are examined.</li>
+        <li>Let <i>keys</i> be <i>O</i>.[[OwnPropertyKeys]]().</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>keys</i>).</li>
+        <li>Repeat for each element <i>k</i> of <i>keys</i>,
+          <ol class="block">
+            <li>Let <i>currentDesc</i> be <i>O</i>.[[GetOwnProperty]](<i>k</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>currentDesc</i>).</li>
+            <li>If <i>currentDesc</i> is not <b>undefined</b>, then
+              <ol class="block">
+                <li>If <i>currentDesc</i>.[[Configurable]] is <b>true</b>, return <b>false</b>.</li>
+                <li>If <i>level</i> is <code>&quot;frozen&quot;</code> and  <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>currentDesc</i>) is <b>true</b>, then
+                  <ol class="block">
+                    <li>If <i>currentDesc</i>.[[Writable]] is <b>true</b>, return <b>false</b>.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>Return <b>true</b>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

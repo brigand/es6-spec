@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-13.7.4.8"><a href="/sec/sec-forbodyevaluation.html" title="link to this section">13.7.4.8</a></span> Runtime Semantics: ForBodyEvaluation( test, increment, stmt,
+            perIterationBindings, labelSet )</h1>
+
+        <p class="normalbefore">The abstract operation ForBodyEvaluation with arguments <var>test</var>, <var>increment</var>,
+        <var>stmt</var>, <var>perIterationBindings</var>, and <var>labelSet</var> is performed as follows:</p>
+
+        <ol class="proc">
+          <li>Let <i>V</i> = <b>undefined</b>.</li>
+          <li>Let <i>status</i> be <a href="/sec/sec-createperiterationenvironment.html">CreatePerIterationEnvironment</a>(<i>perIterationBindings</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          <li>Repeat
+            <ol class="block">
+              <li>If <i>test</i> is not <span style="font-family: sans-serif">[empty]</span>, then
+                <ol class="block">
+                  <li>Let <i>testRef</i> be the result of evaluating <i>test</i>.</li>
+                  <li>Let <i>testValue</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>testRef</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>testValue</i>).</li>
+                  <li>If <a href="/sec/sec-toboolean.html">ToBoolean</a>(<i>testValue</i>) is <b>false</b>, return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<i>V</i>).</li>
+                </ol>
+              </li>
+              <li>Let <i>result</i> be the result of evaluating <i>stmt</i>.</li>
+              <li>If <a href="/sec/sec-loopcontinues.html">LoopContinues</a>(<i>result</i>, <i>labelSet</i>) is <b>false</b>, return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<a href="/sec/sec-updateempty.html">UpdateEmpty</a>(<i>result</i>, <i>V</i>)).</li>
+              <li>If <i>result</i>.[[value]] is not <span style="font-family: sans-serif">empty</span>, let <i>V</i> =
+                  <i>result</i>.[[value]].</li>
+              <li>Let <i>status</i> be <a href="/sec/sec-createperiterationenvironment.html">CreatePerIterationEnvironment</a>(<i>perIterationBindings</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+              <li>If <i>increment</i> is not <span style="font-family: sans-serif">[empty]</span>, then
+                <ol class="block">
+                  <li>Let <i>incRef</i> be the result of evaluating <i>increment</i>.</li>
+                  <li>Let <i>incValue</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>incRef</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>incValue</i>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

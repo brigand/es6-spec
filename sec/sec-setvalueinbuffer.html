@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-24.1.1.6"><a href="/sec/sec-setvalueinbuffer.html" title="link to this section">24.1.1.6</a></span> SetValueInBuffer ( arrayBuffer, byteIndex, type, value,
+            isLittleEndian )</h1>
+
+        <p class="normalbefore">The abstract operation <span style="font-family: Times New Roman">SetValueInBuffer</span> takes
+        five parameters, an ArrayBuffer <var>arrayBuffer</var>, an integer <var>byteIndex</var>, a String <var>type</var>, a
+        Number <var>value</var>, and optionally a Boolean <var>isLittleEndian</var>. This operation performs the following
+        steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>arrayBuffer</i>) is <b>false</b>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: There are sufficient bytes in <i>arrayBuffer</i> starting at
+              <i>byteIndex</i> to represent a value of <i>type</i>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>byteIndex</i> is a positive integer.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is Number.</li>
+          <li>Let <i>block</i> be <i>arrayBuffer&#x2019;s</i> [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <i>block</i> is not <b>undefined</b>.</li>
+          <li>Let <i>elementSize</i> be the Number value of the Element Size value specified in <a href="/sec/table-49.html">Table 49</a>
+              for Element Type <i>type</i>.</li>
+          <li>If <i>isLittleEndian</i> is not present, set <i>isLittleEndian</i> to either <b>true</b> or <b>false</b>. The choice
+              is implementation dependent and should be the alternative that is most efficient for the implementation. An
+              implementation must use the same value each time this step is executed and the same value must be used for the
+              corresponding step in the <a href="/sec/sec-getvaluefrombuffer.html">GetValueFromBuffer</a> abstract operation.</li>
+          <li>If <i>type</i> is <code>&quot;Float32&quot;</code>, then
+            <ol class="block">
+              <li>Set <i>rawBytes</i> to a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the 4 bytes that
+                  are the result of converting <i>value</i> to IEEE 754-2008 binary32 format using &#x201C;Round to nearest, ties
+                  to even&#x201D; rounding mode. If <i>isLittleEndian</i> is <b>false</b>, the bytes are arranged in big endian
+                  order. Otherwise, the bytes are arranged in little endian order. If <i>value</i> is <b>NaN</b>, <i>rawValue</i>
+                  may be set to any implementation chosen IEEE 754-2008 binary64 format Not-a-Number encoding. An implementation
+                  must always choose the same encoding for each implementation distinguishable <b>NaN</b> value.</li>
+            </ol>
+          </li>
+          <li>Else, if <i>type</i> is <code>&quot;Float64&quot;</code>, then
+            <ol class="block">
+              <li>Set <i>rawBytes</i> to a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the 8 bytes that
+                  are the IEEE 754-2008 binary64 format encoding of <i>value</i>. If <i>isLittleEndian</i> is <b>false</b>, the
+                  bytes are arranged in big endian order. Otherwise, the bytes are arranged in little endian order. If
+                  <i>value</i> is <b>NaN</b>, <i>rawValue</i> may be set to any implementation chosen IEEE 754-2008 binary32
+                  format Not-a-Number encoding. An implementation must always choose the same encoding for each implementation
+                  distinguishable <b>NaN</b> value.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>n</i> be the Number value of the Element Size specified in <a href="/sec/table-49.html">Table 49</a> for Element
+                  Type <i>type</i>.</li>
+              <li>Let <i>convOp</i> be the abstract operation named in the Conversion Operation column in <a href="/sec/table-49.html">Table 49</a> for Element Type <i>type</i>.</li>
+              <li>Let <i>intValue</i> be <i>convOp</i>(<i>value</i>).</li>
+              <li>If <i>intValue</i> &#x2265; 0, then
+                <ol class="block">
+                  <li>Let <i>rawBytes</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the
+                      <i>n</i>-byte binary encoding of <i>intValue</i>. If <i>isLittleEndian</i> is <b>false</b>, the bytes are
+                      ordered in big endian order. Otherwise, the bytes are ordered in little endian order.</li>
+                </ol>
+              </li>
+              <li>Else,
+                <ol class="block">
+                  <li>Let <i>rawBytes</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the
+                      <i>n</i>-byte binary 2&#x2019;s complement encoding of <i>intValue</i>. If <i>isLittleEndian</i> is
+                      <b>false</b>, the bytes are ordered in big endian order. Otherwise, the bytes are ordered in little endian
+                      order.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Store the individual bytes of <i>rawBytes</i> into <i>block</i>, in order, starting at
+              <i>block</i>[<i>byteIndex</i>].</li>
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

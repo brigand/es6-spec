@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-22.1.3.24.1"><a href="/sec/sec-sortcompare.html" title="link to this section">22.1.3.24.1</a></span> Runtime Semantics: SortCompare( x, y )</h1>
+
+          <p class="normalbefore">The SortCompare abstract operation is called with two arguments <var>x</var> and <var>y</var>.
+          It also has access to the <var>comparefn</var> argument passed to the current invocation of the <code>sort</code>
+          method. The following steps are taken:</p>
+
+          <ol class="proc">
+            <li>If <i>x</i> and <i>y</i> are both <b>undefined</b>, return +0.</li>
+            <li>If <i>x</i> is <b>undefined</b>, return 1.</li>
+            <li>If <i>y</i> is <b>undefined</b>, return &#x2212;1.</li>
+            <li>If the argument <i>comparefn</i> is not <b>undefined</b>, then
+              <ol class="block">
+                <li>Let <i>v</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<a href="/sec/sec-call.html">Call</a>(<i>comparefn</i>,
+                    <b>undefined</b>, &#xAB;<i>x</i>, <i>y</i>&#xBB;)).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+                <li>If <i>v</i> is <b>NaN</b>, return +0.</li>
+                <li>Return <i>v</i>.</li>
+              </ol>
+            </li>
+            <li>Let <i>xString</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>x</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>xString</i>).</li>
+            <li>Let <i>yString</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>y</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>yString</i>).</li>
+            <li>If <i>xString</i> &lt; <i>yString</i>, return &#x2212;1.</li>
+            <li>If <i>xString</i> &gt; <i>yString</i>, return 1.</li>
+            <li>Return +0.</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE 1</span> Because non-existent property values always compare greater than <b>undefined</b>
+            property values, and <b>undefined</b> always compares greater than any other value, <b>undefined</b> property values
+            always sort to the end of the result, followed by non-existent property values.</p>
+          </div>
+
+          <div class="note">
+            <p><span class="nh">NOTE 2</span> Method calls performed by the <a href="/sec/sec-tostring.html">ToString</a> abstract
+            operations in steps 5 and 7 have the potential to cause SortCompare to not behave as a consistent comparison
+            function.</p>
+          </div>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

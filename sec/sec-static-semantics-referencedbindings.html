@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-15.2.3.10"><a href="/sec/sec-static-semantics-referencedbindings.html" title="link to this section">15.2.3.10</a></span> Static Semantics:  ReferencedBindings</h1>
+        <div class="gp prod"><span class="nt">ExportClause</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+        <ol class="proc">
+          <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ExportsList</span> <span class="geq">:</span> <span class="nt">ExportsList</span> <code class="t">,</code> <span class="nt">ExportSpecifier</span></div>
+        <ol class="proc">
+          <li>Let <i>names</i> be the ReferencedBindings of <i>ExportsList</i>.</li>
+          <li>Append to <i>names</i> the elements of the ReferencedBindings of <i>ExportSpecifier</i>.</li>
+          <li>Return <i>names</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ExportSpecifier</span> <span class="geq">:</span> <span class="nt">IdentifierName</span></div>
+        <ol class="proc">
+          <li>Return a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the <i>IdentifierName</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ExportSpecifier</span> <span class="geq">:</span> <span class="nt">IdentifierName</span> <code class="t">as</code> <span class="nt">IdentifierName</span></div>
+        <ol class="proc">
+          <li>Return a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the first <i>IdentifierName</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

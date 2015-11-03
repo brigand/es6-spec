@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.1.1"><a href="/sec/sec-toprimitive.html" title="link to this section">7.1.1</a></span> ToPrimitive
+          ( input [, PreferredType] )</h1>
+
+      <p>The abstract operation ToPrimitive takes an <var>input</var> argument and an optional argument <span class="nt">PreferredType</span>. The abstract operation ToPrimitive converts its <var>input</var> argument to a non-Object
+      type. If an object is capable of converting to more than one primitive type, it may use the optional hint <span class="nt">PreferredType</span> to favour that type. Conversion occurs according to <a href="/sec/table-9.html">Table 9</a>:</p>
+
+      <figure>
+        <figcaption><span id="table-9">Table 9</span> &#x2014; ToPrimitive Conversions</figcaption>
+        <table class="real-table">
+          <tr>
+            <th>Input Type</th>
+            <th>Result</th>
+          </tr>
+          <tr>
+            <td><a href="/sec/sec-completion-record-specification-type.html">Completion Record</a></td>
+            <td>If <var>input</var> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, return <var>input</var>. Otherwise return ToPrimitive(<var>input</var>.[[value]]) also passing the optional hint <span class="nt">PreferredType</span>.</td>
+          </tr>
+          <tr>
+            <td>Undefined</td>
+            <td>Return <var>input</var>.</td>
+          </tr>
+          <tr>
+            <td>Null</td>
+            <td>Return <var>input</var>.</td>
+          </tr>
+          <tr>
+            <td>Boolean</td>
+            <td>Return <var>input</var>.</td>
+          </tr>
+          <tr>
+            <td>Number</td>
+            <td>Return <var>input</var>.</td>
+          </tr>
+          <tr>
+            <td>String</td>
+            <td>Return <var>input</var>.</td>
+          </tr>
+          <tr>
+            <td>Symbol</td>
+            <td>Return <var>input</var>.</td>
+          </tr>
+          <tr>
+            <td>Object</td>
+            <td>Perform the steps following this table.</td>
+          </tr>
+        </table>
+      </figure>
+
+      <p class="normalbefore">When <span style="font-family: Times New Roman"><a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>input</i>)</span> is Object, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>If <i>PreferredType</i> was not passed, let <i>hint</i> be <code>&quot;default&quot;</code>.</li>
+        <li>Else if <i>PreferredType</i> is hint String, let <i>hint</i> be <code>&quot;string&quot;</code>.</li>
+        <li>Else <i>PreferredType</i> is hint Number, let <i>hint</i> be <code>&quot;number&quot;</code>.</li>
+        <li>Let <i>exoticToPrim</i>  be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>input</i>, @@toPrimitive).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>exoticToPrim</i>).</li>
+        <li>If <i>exoticToPrim</i> is not <b>undefined</b>, then
+          <ol class="block">
+            <li>Let <i>result</i> be <a href="/sec/sec-call.html">Call</a>(<i>exoticToPrim</i>, <i>input,</i>
+                &#xAB;<i>hint</i>&#xBB;).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>result</i>).</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>result</i>) is not Object, return
+                <i>result</i>.</li>
+            <li>Throw a <b>TypeError</b> exception.</li>
+          </ol>
+        </li>
+        <li>If <i>hint</i> is <code>&quot;default&quot;</code>, let <i>hint</i> be <code>&quot;number&quot;</code>.</li>
+        <li>Return OrdinaryToPrimitive(<i>input,hint</i>).</li>
+      </ol>
+
+      <p class="normalbefore">When the abstract operation OrdinaryToPrimitive is called with arguments <var>O</var> and
+      <var>hint</var>, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is
+            Object</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>hint</i>)
+            is String and its value is either <code>&quot;string&quot;</code> or <code>&quot;number&quot;</code>.</li>
+        <li>If <i>hint</i> is <code>&quot;string&quot;</code>, then
+          <ol class="block">
+            <li>Let <i>methodNames</i> be &#xAB;<code>&quot;toString&quot;</code>, <code>&quot;valueOf&quot;</code>&#xBB;.</li>
+          </ol>
+        </li>
+        <li>Else,
+          <ol class="block">
+            <li>Let <i>methodNames</i> be &#xAB;<code>&quot;valueOf&quot;</code>, <code>&quot;toString&quot;</code>&#xBB;.</li>
+          </ol>
+        </li>
+        <li>For each <i>name</i> in <i>methodNames</i> in <a href="/sec/sec-list-and-record-specification-type.html">List</a> order, do
+          <ol class="block">
+            <li>Let <i>method</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>name</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>method</i>).</li>
+            <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>method</i>) is <b>true</b>, then
+              <ol class="block">
+                <li>Let <i>result</i> be <a href="/sec/sec-call.html">Call</a>(<i>method</i>, <i>O</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>result</i>).</li>
+                <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>result</i>) is not Object, return
+                    <i>result</i>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>Throw a <b>TypeError</b> exception.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> When ToPrimitive is called with no hint, then it generally behaves as if the hint were
+        Number. However, objects may over-ride this behaviour by defining a @@toPrimitive method. Of the objects defined in this
+        specification only Date objects (<a href="/sec/sec-date.prototype-@@toprimitive.html">see 20.3.4.45</a>) and Symbol objects (<a href="/sec/sec-symbol.prototype-@@toprimitive.html">see 19.4.3.4</a>) over-ride the default ToPrimitive behaviour. Date objects
+        treat no hint as if the hint were String.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

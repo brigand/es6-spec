@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-14.5.4"><a href="/sec/sec-class-definitions-static-semantics-contains.html" title="link to this section">14.5.4</a></span> Static Semantics:  Contains</h1>
+
+      <p>With parameter <var>symbol</var>.</p>
+
+      <p>See also: <a href="/sec/sec-static-semantic-rules.html">5.3</a>, <a href="/sec/sec-object-initializer-static-semantics-contains.html">12.2.6.3</a>, <a href="/sec/sec-static-semantics-static-semantics-contains.html">12.3.1.1</a>, <a href="/sec/sec-function-definitions-static-semantics-contains.html">14.1.4</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-contains.html">14.2.3</a>, <a href="/sec/sec-generator-function-definitions-static-semantics-contains.html">14.4.4</a></p>
+
+      <div class="gp prod"><span class="nt">ClassTail</span> <span class="geq">:</span> <span class="nt">ClassHeritage</span><sub class="g-opt">opt</sub> <code class="t">{</code> <span class="nt">ClassBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>If <i>symbol</i> is <i>ClassBody</i>, return <b>true</b>.</li>
+        <li>If <i>symbol</i> is <i>ClassHeritage</i>, then
+          <ol class="block">
+            <li>If <i>ClassHeritage</i> is present, return <b>true</b> otherwise return <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>Let <i>inHeritage</i> be <i>ClassHeritage</i> Contains <i>symbol</i>.</li>
+        <li>If <i>inHeritage</i> is <b>true</b>, return <b>true</b>.</li>
+        <li>Return the result of ComputedPropertyContains for <i>ClassBody</i> with argument <i>symbol</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> Static semantic rules that depend upon substructure generally do not look into class
+        bodies except for <span class="nt">PropertyName</span> productions.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

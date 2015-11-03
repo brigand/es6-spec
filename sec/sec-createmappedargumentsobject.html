@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <div class="front">
+          <h1><span class="secnum" id="sec-9.4.4.7"><a href="/sec/sec-createmappedargumentsobject.html" title="link to this section">9.4.4.7</a></span> CreateMappedArgumentsObject ( func, formals, argumentsList, env
+              )</h1>
+
+          <p class="normalbefore">The abstract operation <span style="font-family: Times New
+          Roman">CreateMappedArgumentsObject</span> is called with object <var>func</var>, parsed grammar phrase
+          <var>formals</var>, <a href="/sec/sec-list-and-record-specification-type.html">List</a> <var>argumentsList</var>, and <a href="/sec/sec-environment-records.html">Environment Record</a> <span style="font-family: Times New Roman"><i>env</i>.</span> The
+          following steps are performed:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>formals</i> does not contain a rest parameter, any binding
+                patterns, or any initializers. It may contain duplicate identifiers.</li>
+            <li>Let <i>len</i> be the number of elements in <i>argumentsList</i>.</li>
+            <li>Let <i>obj</i> be a newly created arguments exotic object with a [[ParameterMap]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Set the [[GetOwnProperty]] internal method of <i>obj</i> as specified in <a href="/sec/sec-arguments-exotic-objects-getownproperty-p.html">9.4.4.1</a>.</li>
+            <li>Set the [[DefineOwnProperty]] internal method of <i>obj</i> as specified in <a href="/sec/sec-arguments-exotic-objects-defineownproperty-p-desc.html">9.4.4.2</a>.</li>
+            <li>Set the [[Get]] internal method of <i>obj</i> as specified in <a href="/sec/sec-arguments-exotic-objects-get-p-receiver.html">9.4.4.3</a>.</li>
+            <li>Set the [[Set]] internal method of <i>obj</i> as specified in <a href="/sec/sec-arguments-exotic-objects-set-p-v-receiver.html">9.4.4.4</a>.</li>
+            <li>Set the [[Delete]] internal method of <i>obj</i> as specified in <a href="/sec/sec-arguments-exotic-objects-delete-p.html">9.4.4.5</a>.</li>
+            <li>Set the remainder of <i>obj</i>&#x2019;s essential internal methods to the default ordinary object definitions
+                specified in <a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots.html">9.1</a>.</li>
+            <li>Set the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>obj</i> to
+                %ObjectPrototype%.</li>
+            <li>Set the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>obj</i>
+                to <b>true</b>.</li>
+            <li>Let <i>parameterNames</i> be the BoundNames of <i>formals</i>.</li>
+            <li>Let <i>numberOfParameters</i> be the number of elements in <i>parameterNames</i></li>
+            <li>Let <i>index</i> be 0.</li>
+            <li>Repeat while <i>index</i> &lt; <i>len</i> ,
+              <ol class="block">
+                <li>Let <i>val</i> be <i>argumentsList</i>[<i>index</i>].</li>
+                <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>obj</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>index</i>), <i>val</i>).</li>
+                <li>Let <i>index</i> be <i>index</i> + 1</li>
+              </ol>
+            </li>
+            <li>Perform <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>obj</i>, <code>&quot;length&quot;</code>,
+                PropertyDescriptor{[[Value]]: <i>len</i>, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>false</b>,
+                [[Configurable]]: <b>true</b>}).</li>
+            <li>Let <i>map</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<b>null</b>).</li>
+            <li>Let <i>mappedNames</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+            <li>Let <i>index</i> be <i>numberOfParameters</i> &#x2212; 1.</li>
+            <li>Repeat while <i>index</i> &#x2265; 0 ,
+              <ol class="block">
+                <li>Let <i>name</i> be <i>parameterNames</i>[<i>index</i>].</li>
+                <li>If <i>name</i> is not an element of <i>mappedNames</i>, then
+                  <ol class="block">
+                    <li>Add <i>name</i> as an element of the list <i>mappedNames</i>.</li>
+                    <li>If <i>index</i> &lt; <i>len</i>, then
+                      <ol class="block">
+                        <li>Let <i>g</i> be <a href="/sec/sec-makearggetter.html">MakeArgGetter</a>(<i>name</i>, <i>env</i>).</li>
+                        <li>Let <i>p</i> be <a href="/sec/sec-makeargsetter.html">MakeArgSetter</a>(<i>name</i>, <i>env</i>).</li>
+                        <li><a href="/sec/sec-call.html">Call</a> <i>map</i>.[[DefineOwnProperty]](<a href="/sec/sec-tostring.html">ToString</a>(<i>index</i>), PropertyDescriptor{[[Set]]: <i>p</i>, [[Get]]:
+                            <i>g,</i> [[Enumerable]]: <b>false</b>, [[Configurable]]: <b>true</b>}).</li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+                <li>Let <i>index</i> be <i>index</i> &#x2212; 1</li>
+              </ol>
+            </li>
+            <li>Set the [[ParameterMap]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>obj</i>
+                to <i>map</i>.</li>
+            <li>Perform <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>obj</i>, @@iterator, PropertyDescriptor
+                {[[Value]]:%ArrayProto_values%, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+                <b>true</b>}).</li>
+            <li>Perform <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>obj</i>, <code>&quot;callee&quot;</code>,
+                PropertyDescriptor {[[Value]]: <i>func</i>, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>false</b>,
+                [[Configurable]]: <b>true</b>}).</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: the above property definitions will not produce an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+            <li>Return <i>obj</i></li>
+          </ol>
+        </div>
+
+        <section id="sec-makearggetter">
+          <h1><span class="secnum" id="sec-9.4.4.7.1"><a href="/sec/sec-makearggetter.html" title="link to this section">9.4.4.7.1</a></span> MakeArgGetter ( name, env)</h1>
+
+          <p class="normalbefore">The abstract operation <span style="font-family: Times New Roman">MakeArgGetter</span> called
+          with String <var>name</var> and <a href="/sec/sec-environment-records.html">Environment Record</a> <var>env</var> creates a
+          built-in function object that when executed returns the value bound for <var>name</var> in <var>env</var>. It performs
+          the following steps:</p>
+
+          <ol class="proc">
+            <li>Let <i>realm</i> be <a href="/sec/sec-execution-contexts.html">the current Realm</a>.</li>
+            <li>Let <i>steps</i> be the steps of an ArgGetter function as specified below.</li>
+            <li>Let <i>getter</i> be <a href="/sec/sec-createbuiltinfunction.html">CreateBuiltinFunction</a>(<i>realm</i>, <i>steps</i>,
+                %FunctionPrototype%, &#xAB;&#x200D;[[name]], [[env]]&#xBB; ).</li>
+            <li>Set <i>getter&#x2019;s</i> [[name]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+                <i>name</i>.</li>
+            <li>Set <i>getter&#x2019;s</i> [[env]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+                <i>env</i>.</li>
+            <li>Return <i>getter</i>.</li>
+          </ol>
+
+          <p class="normalbefore">An ArgGetter function is an anonymous built-in function with [[name]] and [[env]] internal
+          slots. When an ArgGetter function <var>f</var> that expects no arguments is called it performs the following steps:</p>
+
+          <ol class="proc">
+            <li>Let <i>name</i> be the value of <i>f&#x2019;s</i> [[name]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>env</i> be the value of <i>f&#x2019;s</i> [[env]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a></li>
+            <li>Return <i>env</i>.GetBindingValue(<i>name</i>, <b>false</b>).</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> ArgGetter functions are never directly accessible to ECMAScript code.</p>
+          </div>
+        </section>
+
+        <section id="sec-makeargsetter">
+          <h1><span class="secnum" id="sec-9.4.4.7.2"><a href="/sec/sec-makeargsetter.html" title="link to this section">9.4.4.7.2</a></span> MakeArgSetter ( name, env)</h1>
+
+          <p class="normalbefore">The abstract operation <span style="font-family: Times New Roman">MakeArgSetter</span> called
+          with String <var>name</var> and <a href="/sec/sec-environment-records.html">Environment Record</a> <var>env</var> creates a
+          built-in function object that when executed sets the value bound for <var>name</var> in <var>env</var>. It performs the
+          following steps:</p>
+
+          <ol class="proc">
+            <li>Let <i>realm</i> be <a href="/sec/sec-execution-contexts.html">the current Realm</a>.</li>
+            <li>Let <i>steps</i> be the steps of an ArgSetter function as specified below.</li>
+            <li>Let <i>setter</i> be <a href="/sec/sec-createbuiltinfunction.html">CreateBuiltinFunction</a>(<i>realm</i>, <i>steps</i>,
+                %FunctionPrototype%, &#xAB;&#x200D;[[name]], [[env]]&#xBB; ).</li>
+            <li>Set <i>setter&#x2019;s</i> [[name]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+                <i>name</i>.</li>
+            <li>Set <i>setter&#x2019;s</i> [[env]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+                <i>env</i>.</li>
+            <li>Return <i>setter</i>.</li>
+          </ol>
+
+          <p>An ArgSetter function is an anonymous built-in function with [[name]] and [[env]] internal slots. When an ArgSetter
+          function <var>f</var> is called with argument <var>value</var> it performs the following steps:</p>
+
+          <ol class="proc">
+            <li>Let <i>name</i> be the value of <i>f&#x2019;s</i> [[name]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            <li>Let <i>env</i> be the value of <i>f&#x2019;s</i> [[env]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a></li>
+            <li>Return <i>env</i>.SetMutableBinding(<i>name</i>, <i>value</i>, <b>false</b>).</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> ArgSetter functions are never directly accessible to ECMAScript code.</p>
+          </div>
+        </section>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

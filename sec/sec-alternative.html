@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.2.2.4"><a href="/sec/sec-alternative.html" title="link to this section">21.2.2.4</a></span>
+            Alternative</h1>
+
+        <p>The production <span class="prod"><span class="nt">Alternative</span> <span class="geq">::</span> <span class="grhsannot">[empty]</span></span> evaluates by returning a Matcher that takes two arguments, a State <var>x</var>
+        and a Continuation <var>c</var>, and returns the result of calling <var>c</var>(<var>x</var>).</p>
+
+        <p class="normalbefore">The production <span class="prod"><span class="nt">Alternative</span> <span class="geq">::</span>
+        <span class="nt">Alternative</span> <span class="nt">Term</span></span> evaluates as follows:</p>
+
+        <ol class="proc">
+          <li>Evaluate <i>Alternative</i> to obtain a Matcher <i>m1</i>.</li>
+          <li>Evaluate <i>Term</i> to obtain a Matcher <i>m2</i>.</li>
+          <li>Return an internal Matcher closure that takes two arguments, a State <i>x</i> and a Continuation <i>c</i>, and
+              performs the following steps when evaluated:
+            <ol class="nested proc">
+              <li>Create a Continuation <i>d</i> that takes a State argument <i>y</i> and returns the result of calling
+                  <i>m2</i>(<i>y</i>, <i>c</i>).</li>
+              <li><a href="/sec/sec-call.html">Call</a> <i>m1</i>(<i>x</i>, <i>d</i>) and return its result.</li>
+            </ol>
+          </li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> Consecutive <span class="nt">Terms</span> try to simultaneously match consecutive
+          portions of <span class="nt">Input</span>. If the left <span class="nt">Alternative</span>, the right <span class="nt">Term</span>, and the sequel of the regular expression all have choice points, all choices in the sequel are
+          tried before moving on to the next choice in the right <span class="nt">Term</span>, and all choices in the right <span class="nt">Term</span> are tried before moving on to the next choice in the left <span class="nt">Alternative</span>.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

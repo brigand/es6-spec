@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-9.4.5.1"><a href="/sec/sec-integer-indexed-exotic-objects-getownproperty-p.html" title="link to this section">9.4.5.1</a></span> [[GetOwnProperty]] ( P )</h1>
+
+        <p class="normalbefore">When the [[GetOwnProperty]] internal method of an Integer Indexed exotic object <var>O</var> is
+        called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+              <b>true</b>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>O</i> is an Object that has a [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>P</i>) is String, then
+            <ol class="block">
+              <li>Let <i>numericIndex</i> be <a href="/sec/sec-canonicalnumericindexstring.html">CanonicalNumericIndexString</a>(<i>P</i>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>numericIndex</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+              <li>If <i>numericIndex</i> is not <b>undefined</b>, then
+                <ol class="block">
+                  <li>Let <i>value</i> be <a href="/sec/sec-integerindexedelementget.html">IntegerIndexedElementGet</a> (<i>O</i>,
+                      <i>numericIndex</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+                  <li>If <i>value</i> is <b>undefined</b>, return <b>undefined</b>.</li>
+                  <li>Return a PropertyDescriptor{ [[Value]]: <i>value</i>, [[Enumerable]]: <b>true</b>, [[Writable]]:
+                      <b>true</b>, [[Configurable]]: <b>false</b> }.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-ordinarygetownproperty.html">OrdinaryGetOwnProperty</a>(<i>O</i>, <i>P</i>).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

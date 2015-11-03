@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.2.2.11"><a href="/sec/sec-math.clz32.html" title="link to this section">20.2.2.11</a></span>
+            Math.clz32 ( x )</h1>
+
+        <p class="normalbefore">When <code>Math.clz32</code> is called with one argument <var>x</var>, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>n</i> be <a href="/sec/sec-touint32.html">ToUint32</a>(<i>x</i>).</li>
+          <li>Let <i>p</i> be the number of leading zero bits in the 32-bit binary representation of <i>n</i>.</li>
+          <li>Return <i>p</i>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> If <var>n</var> is 0, <var>p</var> will be 32. If the most significant bit of the 32-bit
+          binary encoding of <var>n</var> is 1, <var>p</var> will be 0.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

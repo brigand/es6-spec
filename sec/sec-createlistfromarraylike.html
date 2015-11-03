@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.3.17"><a href="/sec/sec-createlistfromarraylike.html" title="link to this section">7.3.17</a></span> CreateListFromArrayLike (obj [, elementTypes] )</h1>
+
+      <p class="normalbefore">The abstract operation CreateListFromArrayLike is used to create a List value whose elements are
+      provided by the indexed properties of an array-like object, <var>obj</var>. The optional argument <var>elementTypes</var> is
+      a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the names of ECMAScript Language Types that are
+      allowed for element values of the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is created. This abstract
+      operation performs the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>obj</i>).</li>
+        <li>If <i>elementTypes</i> was not passed, let <i>elementTypes</i> be (Undefined, Null, Boolean, String, Symbol, Number,
+            Object).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>obj</i>) is not Object, throw a <b>TypeError</b>
+            exception.</li>
+        <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>obj</i>,
+            <code>&quot;length&quot;</code>)).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+        <li>Let <i>list</i>  be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>Let <i>index</i> be 0.</li>
+        <li>Repeat while <i>index</i> &lt; <i>len</i>
+          <ol class="block">
+            <li>Let <i>indexName</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>index</i>).</li>
+            <li>Let <i>next</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>obj</i>, <i>indexName</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>next</i>) is not an element of <i>elementTypes</i>,
+                throw a <b>TypeError</b> exception.</li>
+            <li>Append <i>next</i> as the last element of <i>list</i>.</li>
+            <li>Set <i>index</i> to <i>index</i> + 1.</li>
+          </ol>
+        </li>
+        <li>Return <i>list</i>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

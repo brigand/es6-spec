@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-8.1.1.4.12"><a href="/sec/sec-hasvardeclaration.html" title="link to this section">8.1.1.4.12</a></span> HasVarDeclaration (N)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method HasVarDeclaration
+          for global Environment Records determines if the argument identifier has a binding in this record that was created using
+          a <span class="nt">VariableStatement</span> or a <span class="prod"><span class="nt">FunctionDeclaration</span> <span class="geq">:</span></span></p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the global <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li>Let <i>varDeclaredNames</i> be <i>envRec</i>.[[VarNames]].</li>
+            <li>If <i>varDeclaredNames</i> contains the value of <i>N</i>, return <b>true</b>.</li>
+            <li>Return <b>false</b>.</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

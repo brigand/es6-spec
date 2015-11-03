@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-14.1.9"><a href="/sec/sec-isanonymousfunctiondefinition.html" title="link to this section">14.1.9</a></span> Static Semantics:  IsAnonymousFunctionDefinition ( production )</h1>
+
+      <p class="normalbefore">The abstract operation IsAnonymousFunctionDefinition determines if its argument is a function
+      definition that does not bind a name. The argument <var>production</var> is the result of parsing an <span class="nt">AssignmentExpression</span> or <span class="nt">Initializer</span>. The following steps are taken:</p>
+
+      <ol class="proc">
+        <li>If IsFunctionDefinition of <i>production</i> is <b>false</b>, return <b>false</b>.</li>
+        <li>Let <i>hasName</i> be the result of HasName of <i>production</i>.</li>
+        <li>If <i>hasName</i> is <b>true</b>, return <b>false</b>.</li>
+        <li>Return <b>true</b>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

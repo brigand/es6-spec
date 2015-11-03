@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-25.4.4.1.1"><a href="/sec/sec-performpromiseall.html" title="link to this section">25.4.4.1.1</a></span> Runtime Semantics: PerformPromiseAll( iteratorRecord,
+              constructor, resultCapability)</h1>
+
+          <p class="normalbefore">When the PerformPromiseAll abstract operation is called with arguments <var>iteratorRecord,
+          constructor,</var> and <var>resultCapability</var> the following steps are taken:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>constructor</i> is a constructor function.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>resultCapability</i> is a PromiseCapability record.</li>
+            <li>Let <i>values</i> be a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+            <li>Let <i>remainingElementsCount</i> be a new Record { [[value]]: 1 }.</li>
+            <li>Let <i>index</i> be 0.</li>
+            <li>Repeat
+              <ol class="block">
+                <li>Let <i>next</i> be <a href="/sec/sec-iteratorstep.html">IteratorStep</a>(<i>iteratorRecord</i>.[[iterator]]).</li>
+                <li>If <i>next</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+                    <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+                <li>If <i>next</i> is <b>false</b>,
+                  <ol class="block">
+                    <li>Set <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+                    <li>Set <i>remainingElementsCount</i>.[[value]] to <i>remainingElementsCount</i>.[[value]] &#x2212; 1.</li>
+                    <li>If <i>remainingElementsCount</i>.[[value]] is 0,
+                      <ol class="block">
+                        <li>Let <i>valuesArray</i> be <a href="/sec/sec-createarrayfromlist.html">CreateArrayFromList</a>(<i>values</i>).</li>
+                        <li>Let <i>resolveResult</i> be <a href="/sec/sec-call.html">Call</a>(<i>resultCapability</i>.[[Resolve]],
+                            <b>undefined</b>, &#xAB;<i>valuesArray</i>&#xBB;).</li>
+                        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>resolveResult</i>)</li>
+                      </ol>
+                    </li>
+                    <li>Return <i>resultCapability</i>.[[Promise]].</li>
+                  </ol>
+                </li>
+                <li>Let <i>nextValue</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>next</i>).</li>
+                <li>If <i>nextValue</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+                    <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextValue</i>).</li>
+                <li>Append <b>undefined</b> to <i>values</i>.</li>
+                <li>Let <i>nextPromise</i> be <a href="/sec/sec-invoke.html">Invoke</a>(<i>constructor</i>, <code>&quot;resolve&quot;</code>,
+                    &#xAB;&#x200D;<i>nextValue</i>&#xBB;).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextPromise</i> ).</li>
+                <li>Let <i>resolveElement</i> be a new built-in function object as defined in <a href="/sec/sec-promise.all.html">Promise.all</a> Resolve Element Functions.</li>
+                <li>Set the [[AlreadyCalled]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of
+                    <i>resolveElement</i> to a new Record {[[value]]: <b>false</b> }.</li>
+                <li>Set the [[Index]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of
+                    <i>resolveElement</i> to <i>index</i>.</li>
+                <li>Set the [[Values]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of
+                    <i>resolveElement</i> to <i>values</i>.</li>
+                <li>Set the [[Capabilities]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of
+                    <i>resolveElement</i> to <i>resultCapability</i>.</li>
+                <li>Set the [[RemainingElements]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of
+                    <i>resolveElement</i> to <i>remainingElementsCount</i>.</li>
+                <li>Set <i>remainingElementsCount</i>.[[value]] to <i>remainingElementsCount</i>.[[value]] + 1.</li>
+                <li>Let <i>result</i> be <a href="/sec/sec-invoke.html">Invoke</a>(<i>nextPromise</i>, <code>&quot;then&quot;</code>,
+                    &#xAB;&#x200D;<i>resolveElement</i>, <i>resultCapability</i>.[[Reject]]&#xBB;).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>result</i>).</li>
+                <li>Set <i>index</i> to <i>index</i> + 1.</li>
+              </ol>
+            </li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

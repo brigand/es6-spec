@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-19.5.6.1.1"><a href="/sec/sec-nativeerror.html" title="link to this section">19.5.6.1.1</a></span> NativeError ( message )</h1>
+
+          <p class="normalbefore">When a <i>NativeError</i> function is called with argument <i>message</i> the following steps
+          are taken:</p>
+
+          <ol class="proc">
+            <li>If NewTarget is <b>undefined</b><i>,</i> let <i>newTarget</i> be the active function object, else let
+                <i>newTarget</i> be NewTarget.</li>
+            <li>Let <i>O</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(<i>newTarget</i>,
+                <code>&quot;%<i>NativeError</i>Prototype%&quot;</code>, &#xAB;[[ErrorData]]&#xBB; ).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+            <li>If <i>message</i> is not <b>undefined</b>, then
+              <ol class="block">
+                <li>Let <i>msg</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>message</i>).</li>
+                <li>Let <i>msgDesc</i> be the PropertyDescriptor{[[Value]]: <i>msg</i>, [[Writable]]: <b>true</b>, [[Enumerable]]:
+                    <b>false</b>, [[Configurable]]: <b>true</b>}.</li>
+                <li>Let <i>status</i> be <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>O</i>,
+                    &quot;<code>message</code>&quot;, <i>msgDesc</i>).</li>
+                <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+              </ol>
+            </li>
+            <li>Return <i>O</i>.</li>
+          </ol>
+
+          <p>The actual value of the string passed in step 2 is either <code>&quot;%EvalErrorPrototype%&quot;</code>,
+          <code>&quot;%RangeErrorPrototype%&quot;</code>, <code>&quot;%ReferenceErrorPrototype%&quot;</code>, <code>&quot;%SyntaxErrorPrototype%&quot;</code>,
+          <code>&quot;%TypeErrorPrototype%&quot;</code>, or <code>&quot;%URIErrorPrototype%&quot;</code> corresponding to which <i>NativeError</i>
+          constructor is being defined.</p>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

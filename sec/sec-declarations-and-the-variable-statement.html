@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-13.3"><a href="/sec/sec-declarations-and-the-variable-statement.html" title="link to this section">13.3</a></span> Declarations and the Variable Statement</h1>
+    </div>
+
+    <section id="sec-let-and-const-declarations">
+      <div class="front">
+        <h1><span class="secnum" id="sec-13.3.1"><a href="/sec/sec-let-and-const-declarations.html" title="link to this section">13.3.1</a></span> Let and Const Declarations</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> <code>let</code> and <code>const</code> declarations define variables that are scoped to
+          <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a>. The variables are created when their containing <a href="/sec/sec-lexical-environments.html">Lexical Environment</a> is instantiated but may not be accessed in any way until the
+          variable&#x2019;s <span class="nt">LexicalBinding</span> is evaluated. A variable defined by a <span class="nt">LexicalBinding</span> with an <span class="nt">Initializer</span> is assigned the value of its <span style="font-family: Times New Roman"><i>Initializer</i>&#x2019;s</span> <span class="nt">AssignmentExpression</span> when
+          the <span class="nt">LexicalBinding</span> is evaluated, not when the variable is created. If a <span class="nt">LexicalBinding</span> in a <code>let</code> declaration does not have an <span class="nt">Initializer</span>
+          the variable is assigned the value <b>undefined</b> when the <span class="nt">LexicalBinding</span> is evaluated.</p>
+        </div>
+
+        <h2>Syntax</h2>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">LexicalDeclaration</span><sub class="g-params">[In, Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">LetOrConst</span> <span class="nt">BindingList</span><sub class="g-params">[?In, ?Yield]</sub> <code class="t">;</code></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">LetOrConst</span> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">let</code></div>
+          <div class="rhs"><code class="t">const</code></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">BindingList</span><sub class="g-params">[In, Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">LexicalBinding</span><sub class="g-params">[?In, ?Yield]</sub></div>
+          <div class="rhs"><span class="nt">BindingList</span><sub class="g-params">[?In, ?Yield]</sub> <code class="t">,</code> <span class="nt">LexicalBinding</span><sub class="g-params">[?In, ?Yield]</sub></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">LexicalBinding</span><sub class="g-params">[In, Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">BindingIdentifier</span><sub class="g-params">[?Yield]</sub> <span class="nt">Initializer</span><sub class="g-params">[?In, ?Yield]</sub><sub class="g-opt">opt</sub></div>
+          <div class="rhs"><span class="nt">BindingPattern</span><sub class="g-params">[?Yield]</sub> <span class="nt">Initializer</span><sub class="g-params">[?In, ?Yield]</sub></div>
+        </div>
+      </div>
+
+      <section id="sec-let-and-const-declarations-static-semantics-early-errors">
+        <h1><span class="secnum" id="sec-13.3.1.1"><a href="/sec/sec-let-and-const-declarations-static-semantics-early-errors.html" title="link to this section">13.3.1.1</a></span> Static Semantics:  Early Errors</h1>
+        <div class="gp prod"><span class="nt">LexicalDeclaration</span> <span class="geq">:</span> <span class="nt">LetOrConst</span> <span class="nt">BindingList</span> <code class="t">;</code></div>
+        <ul>
+          <li>It is a Syntax Error if the BoundNames of <span class="nt">BindingList</span> contains <code>&quot;let&quot;</code>.</li>
+          <li>It is a Syntax Error if the BoundNames of <span class="nt">BindingList</span> contains any duplicate entries.</li>
+        </ul>
+        <div class="gp prod"><span class="nt">LexicalBinding</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span> <span class="nt">Initializer</span><sub class="g-opt">opt</sub></div>
+        <ul>
+          <li>
+            <p>It is a Syntax Error if <span class="nt">Initializer</span> is not present and IsConstantDeclaration of the <span class="nt">LexicalDeclaration</span> containing this production is <span class="value">true</span>.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="sec-let-and-const-declarations-static-semantics-boundnames">
+        <h1><span class="secnum" id="sec-13.3.1.2"><a href="/sec/sec-let-and-const-declarations-static-semantics-boundnames.html" title="link to this section">13.3.1.2</a></span> Static Semantics:  BoundNames</h1>
+
+        <p>See also: <a href="/sec/sec-identifiers-static-semantics-boundnames.html">12.1.2</a>, <a href="/sec/sec-variable-statement-static-semantics-boundnames.html">13.3.2.1</a>, <a href="/sec/sec-destructuring-binding-patterns-static-semantics-boundnames.html">13.3.3.1</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-boundnames.html">13.7.5.2</a>, <a href="/sec/sec-function-definitions-static-semantics-boundnames.html">14.1.3</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-boundnames.html">14.2.2</a>, <a href="/sec/sec-generator-function-definitions-static-semantics-boundnames.html">14.4.2</a>, <a href="/sec/sec-class-definitions-static-semantics-boundnames.html">14.5.2</a>, <a href="/sec/sec-imports-static-semantics-boundnames.html">15.2.2.2</a>, <a href="/sec/sec-exports-static-semantics-boundnames.html">15.2.3.2</a>.</p>
+
+        <div class="gp prod"><span class="nt">LexicalDeclaration</span> <span class="geq">:</span> <span class="nt">LetOrConst</span> <span class="nt">BindingList</span> <code class="t">;</code></div>
+        <ol class="proc">
+          <li>Return the BoundNames of <i>BindingList</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingList</span> <span class="geq">:</span> <span class="nt">BindingList</span> <code class="t">,</code> <span class="nt">LexicalBinding</span></div>
+        <ol class="proc">
+          <li>Let <i>names</i> be the BoundNames of <i>BindingList</i>.</li>
+          <li>Append to <i>names</i> the elements of the BoundNames of <i>LexicalBinding.</i></li>
+          <li>Return <i>names</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">LexicalBinding</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span> <span class="nt">Initializer</span><sub class="g-opt">opt</sub></div>
+        <ol class="proc">
+          <li>Return the BoundNames of <i>BindingIdentifier</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">LexicalBinding</span> <span class="geq">:</span> <span class="nt">BindingPattern</span> <span class="nt">Initializer</span></div>
+        <ol class="proc">
+          <li>Return the BoundNames of <i>BindingPattern</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-let-and-const-declarations-static-semantics-isconstantdeclaration">
+        <h1><span class="secnum" id="sec-13.3.1.3"><a href="/sec/sec-let-and-const-declarations-static-semantics-isconstantdeclaration.html" title="link to this section">13.3.1.3</a></span> Static Semantics:  IsConstantDeclaration</h1>
+
+        <p>See also: <a href="/sec/sec-function-definitions-static-semantics-isconstantdeclaration.html">14.1.10</a>, <a href="/sec/sec-generator-function-definitions-static-semantics-isconstantdeclaration.html">14.4.8</a>, <a href="/sec/sec-class-definitions-static-semantics-isconstantdeclaration.html">14.5.7</a>, <a href="/sec/sec-exports-static-semantics-isconstantdeclaration.html">15.2.3.7</a>.</p>
+
+        <div class="gp prod"><span class="nt">LexicalDeclaration</span> <span class="geq">:</span> <span class="nt">LetOrConst</span> <span class="nt">BindingList</span> <code class="t">;</code></div>
+        <ol class="proc">
+          <li>Return IsConstantDeclaration of <i>LetOrConst</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">LetOrConst</span> <span class="geq">:</span> <code class="t">let</code></div>
+        <ol class="proc">
+          <li>Return <b>false</b>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">LetOrConst</span> <span class="geq">:</span> <code class="t">const</code></div>
+        <ol class="proc">
+          <li>Return <b>true</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-let-and-const-declarations-runtime-semantics-evaluation">
+        <h1><span class="secnum" id="sec-13.3.1.4"><a href="/sec/sec-let-and-const-declarations-runtime-semantics-evaluation.html" title="link to this section">13.3.1.4</a></span> Runtime Semantics: Evaluation</h1>
+        <div class="gp prod"><span class="nt">LexicalDeclaration</span> <span class="geq">:</span> <span class="nt">LetOrConst</span> <span class="nt">BindingList</span> <code class="t">;</code></div>
+        <ol class="proc">
+          <li>Let <i>next</i> be the result of evaluating <i>BindingList</i>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+              sans-serif">empty</span>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingList</span> <span class="geq">:</span> <span class="nt">BindingList</span> <code class="t">,</code> <span class="nt">LexicalBinding</span></div>
+        <ol class="proc">
+          <li>Let <i>next</i> be the result of evaluating <i>BindingList</i>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+          <li>Return the result of evaluating <i>LexicalBinding</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">LexicalBinding</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span></div>
+        <ol class="proc">
+          <li>Let <i>lhs</i> be <a href="/sec/sec-resolvebinding.html">ResolveBinding</a>(StringValue of <i>BindingIdentifier</i>).</li>
+          <li>Return <a href="/sec/sec-initializereferencedbinding.html">InitializeReferencedBinding</a>(<i>lhs</i>,
+              <b>undefined</b>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> A static semantics rule ensures that this form of <span class="nt">LexicalBinding</span>
+          never occurs in a <code>const</code> declaration.</p>
+        </div>
+
+        <div class="gp prod"><span class="nt">LexicalBinding</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span> <span class="nt">Initializer</span></div>
+        <ol class="proc">
+          <li>Let <i>bindingId</i> be StringValue of <i>BindingIdentifier.</i></li>
+          <li>Let <i>lhs</i> be <a href="/sec/sec-resolvebinding.html">ResolveBinding</a>(<i>bindingId</i>).</li>
+          <li>Let <i>rhs</i> be the result of evaluating <i>Initializer</i>.</li>
+          <li>Let <i>value</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rhs</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+          <li>If <a href="/sec/sec-isanonymousfunctiondefinition.html">IsAnonymousFunctionDefinition</a>(<i>Initializer)</i> is
+              <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>hasNameProperty</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>value</i>,
+                  <code>&quot;name&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasNameProperty</i>).</li>
+              <li>If <i>hasNameProperty</i> is <b>false</b>, perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>value</i>, <i>bindingId</i>).</li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-initializereferencedbinding.html">InitializeReferencedBinding</a>(<i>lhs</i>, <i>value</i>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">LexicalBinding</span> <span class="geq">:</span> <span class="nt">BindingPattern</span> <span class="nt">Initializer</span></div>
+        <ol class="proc">
+          <li>Let <i>rhs</i> be the result of evaluating <i>Initializer</i>.</li>
+          <li>Let <i>value</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rhs</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+          <li>Let <i>env</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a>.</li>
+          <li>Return the result of performing BindingInitialization for <i>BindingPattern</i> using <i>value</i> and <i>env</i> as
+              the <i>arguments</i>.</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-variable-statement">
+      <div class="front">
+        <h1><span class="secnum" id="sec-13.3.2"><a href="/sec/sec-variable-statement.html" title="link to this section">13.3.2</a></span>
+            Variable Statement</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> A <code>var</code> statement declares variables that are scoped to <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">VariableEnvironment</a>. Var variables are created when their containing <a href="/sec/sec-lexical-environments.html">Lexical Environment</a> is instantiated and are initialized to <b>undefined</b> when
+          created. Within the scope of any <a href="/sec/sec-execution-contexts.html">VariableEnvironment</a> a common <span class="nt">BindingIdentifier</span> may appear in more than one <span class="nt">VariableDeclaration</span> but those
+          declarations collective define only one variable. A variable defined by a <span class="nt">VariableDeclaration</span>
+          with an <span class="nt">Initializer</span> is assigned the value of its <span style="font-family: Times New
+          Roman"><i>Initializer</i>&#x2019;s</span> <span class="nt">AssignmentExpression</span> when the <span class="nt">VariableDeclaration</span> is executed, not when the variable is created.</p>
+        </div>
+
+        <h2>Syntax</h2>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">VariableStatement</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">var</code> <span class="nt">VariableDeclarationList</span><sub class="g-params">[In, ?Yield]</sub> <code class="t">;</code></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">VariableDeclarationList</span><sub class="g-params">[In, Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">VariableDeclaration</span><sub class="g-params">[?In, ?Yield]</sub></div>
+          <div class="rhs"><span class="nt">VariableDeclarationList</span><sub class="g-params">[?In, ?Yield]</sub> <code class="t">,</code> <span class="nt">VariableDeclaration</span><sub class="g-params">[?In, ?Yield]</sub></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">VariableDeclaration</span><sub class="g-params">[In, Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">BindingIdentifier</span><sub class="g-params">[?Yield]</sub> <span class="nt">Initializer</span><sub class="g-params">[?In, ?Yield]</sub><sub class="g-opt">opt</sub></div>
+          <div class="rhs"><span class="nt">BindingPattern</span><sub class="g-params">[?Yield]</sub> <span class="nt">Initializer</span><sub class="g-params">[?In, ?Yield]</sub></div>
+        </div>
+      </div>
+
+      <section id="sec-variable-statement-static-semantics-boundnames">
+        <h1><span class="secnum" id="sec-13.3.2.1"><a href="/sec/sec-variable-statement-static-semantics-boundnames.html" title="link to this section">13.3.2.1</a></span> Static Semantics:  BoundNames</h1>
+
+        <p>See also: <a href="/sec/sec-identifiers-static-semantics-boundnames.html">12.1.2</a>, <a href="/sec/sec-let-and-const-declarations-static-semantics-boundnames.html">13.3.1.2</a>, <a href="/sec/sec-destructuring-binding-patterns-static-semantics-boundnames.html">13.3.3.1</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-boundnames.html">13.7.5.2</a>, <a href="/sec/sec-function-definitions-static-semantics-boundnames.html">14.1.3</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-boundnames.html">14.2.2</a>, <a href="/sec/sec-generator-function-definitions-static-semantics-boundnames.html">14.4.2</a>, <a href="/sec/sec-class-definitions-static-semantics-boundnames.html">14.5.2</a>, <a href="/sec/sec-imports-static-semantics-boundnames.html">15.2.2.2</a>, <a href="/sec/sec-exports-static-semantics-boundnames.html">15.2.3.2</a>.</p>
+
+        <div class="gp prod"><span class="nt">VariableDeclarationList</span> <span class="geq">:</span> <span class="nt">VariableDeclarationList</span> <code class="t">,</code> <span class="nt">VariableDeclaration</span></div>
+        <ol class="proc">
+          <li>Let <i>names</i> be BoundNames of <i>VariableDeclarationList</i>.</li>
+          <li>Append to <i>names</i> the elements of BoundNames of <i>VariableDeclaration.</i></li>
+          <li>Return <i>names</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">VariableDeclaration</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span> <span class="nt">Initializer</span><sub class="g-opt">opt</sub></div>
+        <ol class="proc">
+          <li>Return the BoundNames of <i>BindingIdentifier</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">VariableDeclaration</span> <span class="geq">:</span> <span class="nt">BindingPattern</span> <span class="nt">Initializer</span></div>
+        <ol class="proc">
+          <li>Return the BoundNames of <i>BindingPattern</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-variable-statement-static-semantics-vardeclarednames">
+        <h1><span class="secnum" id="sec-13.3.2.2"><a href="/sec/sec-variable-statement-static-semantics-vardeclarednames.html" title="link to this section">13.3.2.2</a></span> Static Semantics:  VarDeclaredNames</h1>
+
+        <p>See also: <a href="/sec/sec-statement-semantics-static-semantics-vardeclarednames.html">13.1.5</a>, <a href="/sec/sec-block-static-semantics-vardeclarednames.html">13.2.11</a>, <a href="/sec/sec-if-statement-static-semantics-vardeclarednames.html">13.6.5</a>, <a href="/sec/sec-do-while-statement-static-semantics-vardeclarednames.html">13.7.2.4</a>, <a href="/sec/sec-while-statement-static-semantics-vardeclarednames.html">13.7.3.4</a>, <a href="/sec/sec-for-statement-static-semantics-vardeclarednames.html">13.7.4.5</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-vardeclarednames.html">13.7.5.7</a>, <a href="/sec/sec-with-statement-static-semantics-vardeclarednames.html">13.11.5</a>, <a href="/sec/sec-switch-statement-static-semantics-vardeclarednames.html">13.12.7</a>, <a href="/sec/sec-labelled-statements-static-semantics-vardeclarednames.html">13.13.12</a>, <a href="/sec/sec-try-statement-static-semantics-vardeclarednames.html">13.15.5</a>, <a href="/sec/sec-function-definitions-static-semantics-vardeclarednames.html">14.1.15</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-vardeclarednames.html">14.2.12</a>, <a href="/sec/sec-scripts-static-semantics-vardeclarednames.html">15.1.5</a>, <a href="/sec/sec-module-semantics-static-semantics-vardeclarednames.html">15.2.1.13</a>.</p>
+
+        <div class="gp prod"><span class="nt">VariableStatement</span> <span class="geq">:</span> <code class="t">var</code> <span class="nt">VariableDeclarationList</span> <code class="t">;</code></div>
+        <ol class="proc">
+          <li>Return BoundNames of <i>VariableDeclarationList.</i></li>
+        </ol>
+      </section>
+
+      <section id="sec-variable-statement-static-semantics-varscopeddeclarations">
+        <h1><span class="secnum" id="sec-13.3.2.3"><a href="/sec/sec-variable-statement-static-semantics-varscopeddeclarations.html" title="link to this section">13.3.2.3</a></span> Static Semantics:  VarScopedDeclarations</h1>
+
+        <p>See also: <a href="/sec/sec-statement-semantics-static-semantics-varscopeddeclarations.html">13.1.6</a>, <a href="/sec/sec-block-static-semantics-varscopeddeclarations.html">13.2.12</a>, <a href="/sec/sec-if-statement-static-semantics-varscopeddeclarations.html">13.6.6</a>, <a href="/sec/sec-do-while-statement-static-semantics-varscopeddeclarations.html">13.7.2.5</a>, <a href="/sec/sec-while-statement-static-semantics-varscopeddeclarations.html">13.7.3.5</a>, <a href="/sec/sec-for-statement-static-semantics-varscopeddeclarations.html">13.7.4.6</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-varscopeddeclarations.html">13.7.5.8</a>, <a href="/sec/sec-with-statement-static-semantics-varscopeddeclarations.html">13.11.6</a>, <a href="/sec/sec-switch-statement-static-semantics-varscopeddeclarations.html">13.12.8</a>, <a href="/sec/sec-labelled-statements-static-semantics-varscopeddeclarations.html">13.13.13</a>, <a href="/sec/sec-try-statement-static-semantics-varscopeddeclarations.html">13.15.6</a>, <a href="/sec/sec-function-definitions-static-semantics-varscopeddeclarations.html">14.1.16</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-varscopeddeclarations.html">14.2.13</a>, <a href="/sec/sec-scripts-static-semantics-varscopeddeclarations.html">15.1.6</a>, <a href="/sec/sec-module-semantics-static-semantics-varscopeddeclarations.html">15.2.1.14</a>.</p>
+
+        <div class="gp prod"><span class="nt">VariableDeclarationList</span> <span class="geq">:</span> <span class="nt">VariableDeclaration</span></div>
+        <ol class="proc">
+          <li>Return a new <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing <i>VariableDeclaration.</i></li>
+        </ol>
+        <div class="gp prod"><span class="nt">VariableDeclarationList</span> <span class="geq">:</span> <span class="nt">VariableDeclarationList</span> <code class="t">,</code> <span class="nt">VariableDeclaration</span></div>
+        <ol class="proc">
+          <li>Let <i>declarations</i> be VarScopedDeclarations of <i>VariableDeclarationList</i>.</li>
+          <li>Append <i>VariableDeclaration</i> to <i>declarations.</i></li>
+          <li>Return <i>declarations</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-variable-statement-runtime-semantics-evaluation">
+        <h1><span class="secnum" id="sec-13.3.2.4"><a href="/sec/sec-variable-statement-runtime-semantics-evaluation.html" title="link to this section">13.3.2.4</a></span> Runtime Semantics: Evaluation</h1>
+        <div class="gp prod"><span class="nt">VariableStatement</span> <span class="geq">:</span> <code class="t">var</code> <span class="nt">VariableDeclarationList</span> <code class="t">;</code></div>
+        <ol class="proc">
+          <li>Let <i>next</i> be the result of evaluating <i>VariableDeclarationList</i>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>( <span style="font-family:
+              sans-serif">empty</span>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">VariableDeclarationList</span> <span class="geq">:</span> <span class="nt">VariableDeclarationList</span> <code class="t">,</code> <span class="nt">VariableDeclaration</span></div>
+        <ol class="proc">
+          <li>Let <i>next</i> be the result of evaluating <i>VariableDeclarationList</i>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+          <li>Return the result of evaluating <i>VariableDeclaration</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">VariableDeclaration</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span></div>
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+              sans-serif">empty</span>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">VariableDeclaration</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span> <span class="nt">Initializer</span></div>
+        <ol class="proc">
+          <li>Let <i>bindingId</i> be StringValue of <i>BindingIdentifier.</i></li>
+          <li>Let <i>lhs</i> be <a href="/sec/sec-resolvebinding.html">ResolveBinding</a>(<i>bindingId</i>)</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lhs</i>).</li>
+          <li>Let <i>rhs</i> be the result of evaluating <i>Initializer</i>.</li>
+          <li>Let <i>value</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rhs</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+          <li>If <a href="/sec/sec-isanonymousfunctiondefinition.html">IsAnonymousFunctionDefinition</a>(<i>Initializer)</i> is
+              <b>true</b>, then
+            <ol class="block">
+              <li>Let <i>hasNameProperty</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>value</i>,
+                  <code>&quot;name&quot;</code>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasNameProperty</i>).</li>
+              <li>If <i>hasNameProperty</i> is <b>false</b>, perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>value</i>, <i>bindingId</i>).</li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-putvalue.html">PutValue</a>(<i>lhs</i>, <i>value</i>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> If a <span class="nt">VariableDeclaration</span> is nested within a with statement and
+          the <span class="nt">BindingIdentifier</span> in the <span class="nt">VariableDeclaration</span> is the same as a
+          property name of the binding object of the with statement&#x2019;s object <a href="/sec/sec-environment-records.html">Environment
+          Record</a>, then step 7 will assign <var>value</var> to the property instead of assigning to the <a href="/sec/sec-execution-contexts.html">VariableEnvironment</a> binding of the <span class="nt">Identifier</span>.</p>
+        </div>
+
+        <div class="gp prod"><span class="nt">VariableDeclaration</span> <span class="geq">:</span> <span class="nt">BindingPattern</span> <span class="nt">Initializer</span></div>
+        <ol class="proc">
+          <li>Let <i>rhs</i> be the result of evaluating <i>Initializer</i>.</li>
+          <li>Let <i>rval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rhs</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rval</i>).</li>
+          <li>Return the result of performing BindingInitialization for <i>BindingPattern</i> passing <i>rval</i> and
+              <b>undefined</b> as arguments.</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-destructuring-binding-patterns">
+      <div class="front">
+        <h1><span class="secnum" id="sec-13.3.3"><a href="/sec/sec-destructuring-binding-patterns.html" title="link to this section">13.3.3</a></span> Destructuring Binding Patterns</h1>
+        <h2>Syntax</h2>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">BindingPattern</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">ObjectBindingPattern</span><sub class="g-params">[?Yield]</sub></div>
+          <div class="rhs"><span class="nt">ArrayBindingPattern</span><sub class="g-params">[?Yield]</sub></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">ObjectBindingPattern</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">{</code> <code class="t">}</code></div>
+          <div class="rhs"><code class="t">{</code> <span class="nt">BindingPropertyList</span><sub class="g-params">[?Yield]</sub> <code class="t">}</code></div>
+          <div class="rhs"><code class="t">{</code> <span class="nt">BindingPropertyList</span><sub class="g-params">[?Yield]</sub> <code class="t">,</code> <code class="t">}</code></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">ArrayBindingPattern</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">[</code> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <span class="nt">BindingRestElement</span><sub class="g-params">[?Yield]</sub><sub class="g-opt">opt</sub> <code class="t">]</code></div>
+          <div class="rhs"><code class="t">[</code> <span class="nt">BindingElementList</span><sub class="g-params">[?Yield]</sub> <code class="t">]</code></div>
+          <div class="rhs"><code class="t">[</code> <span class="nt">BindingElementList</span><sub class="g-params">[?Yield]</sub> <code class="t">,</code> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <span class="nt">BindingRestElement</span><sub class="g-params">[?Yield]</sub><sub class="g-opt">opt</sub> <code class="t">]</code></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">BindingPropertyList</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">BindingProperty</span><sub class="g-params">[?Yield]</sub></div>
+          <div class="rhs"><span class="nt">BindingPropertyList</span><sub class="g-params">[?Yield]</sub> <code class="t">,</code> <span class="nt">BindingProperty</span><sub class="g-params">[?Yield]</sub></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">BindingElementList</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">BindingElisionElement</span><sub class="g-params">[?Yield]</sub></div>
+          <div class="rhs"><span class="nt">BindingElementList</span><sub class="g-params">[?Yield]</sub> <code class="t">,</code> <span class="nt">BindingElisionElement</span><sub class="g-params">[?Yield]</sub></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">BindingElisionElement</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">Elision</span><sub class="g-opt">opt</sub> <span class="nt">BindingElement</span><sub class="g-params">[?Yield]</sub></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">BindingProperty</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">SingleNameBinding</span><sub class="g-params">[?Yield]</sub></div>
+          <div class="rhs"><span class="nt">PropertyName</span><sub class="g-params">[?Yield]</sub> <code class="t">:</code> <span class="nt">BindingElement</span><sub class="g-params">[?Yield]</sub></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">BindingElement</span><sub class="g-params">[Yield ]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">SingleNameBinding</span><sub class="g-params">[?Yield]</sub></div>
+          <div class="rhs"><span class="nt">BindingPattern</span><sub class="g-params">[?Yield]</sub> <span class="nt">Initializer</span><sub class="g-params">[In, ?Yield]</sub><sub class="g-opt">opt</sub></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">SingleNameBinding</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">BindingIdentifier</span><sub class="g-params">[?Yield]</sub> <span class="nt">Initializer</span><sub class="g-params">[In, ?Yield]</sub><sub class="g-opt">opt</sub></div>
+        </div>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">BindingRestElement</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+          <div class="rhs"><code class="t">...</code> <span class="nt">BindingIdentifier</span><sub class="g-params">[?Yield]</sub></div>
+        </div>
+      </div>
+
+      <section id="sec-destructuring-binding-patterns-static-semantics-boundnames">
+        <h1><span class="secnum" id="sec-13.3.3.1"><a href="/sec/sec-destructuring-binding-patterns-static-semantics-boundnames.html" title="link to this section">13.3.3.1</a></span> Static Semantics:  BoundNames</h1>
+
+        <p>See also: <a href="/sec/sec-identifiers-static-semantics-boundnames.html">12.1.2</a>, <a href="/sec/sec-let-and-const-declarations-static-semantics-boundnames.html">13.3.1.2</a>, <a href="/sec/sec-variable-statement-static-semantics-boundnames.html">13.3.2.1</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-boundnames.html">13.7.5.2</a>, <a href="/sec/sec-function-definitions-static-semantics-boundnames.html">14.1.3</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-boundnames.html">14.2.2</a>, <a href="/sec/sec-generator-function-definitions-static-semantics-boundnames.html">14.4.2</a>, <a href="/sec/sec-class-definitions-static-semantics-boundnames.html">14.5.2</a>, <a href="/sec/sec-imports-static-semantics-boundnames.html">15.2.2.2</a>, <a href="/sec/sec-exports-static-semantics-boundnames.html">15.2.3.2</a>.</p>
+
+        <div class="gp prod"><span class="nt">ObjectBindingPattern</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+        <ol class="proc">
+          <li>Return an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Return an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <span class="nt">BindingRestElement</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Return the BoundNames of <i>BindingRestElement</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">BindingElementList</span> <code class="t">,</code> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Return the BoundNames of <i>BindingElementList</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">BindingElementList</span> <code class="t">,</code> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <span class="nt">BindingRestElement</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Let <i>names</i> be BoundNames of <i>BindingElementList</i>.</li>
+          <li>Append to <i>names</i> the elements of BoundNames of <i>BindingRestElement.</i></li>
+          <li>Return <i>names</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingPropertyList</span> <span class="geq">:</span> <span class="nt">BindingPropertyList</span> <code class="t">,</code> <span class="nt">BindingProperty</span></div>
+        <ol class="proc">
+          <li>Let <i>names</i> be BoundNames of <i>BindingPropertyList</i>.</li>
+          <li>Append to <i>names</i> the elements of BoundNames of <i>BindingProperty.</i></li>
+          <li>Return <i>names</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElementList</span> <span class="geq">:</span> <span class="nt">BindingElementList</span> <code class="t">,</code> <span class="nt">BindingElisionElement</span></div>
+        <ol class="proc">
+          <li>Let <i>names</i> be BoundNames of <i>BindingElementList</i>.</li>
+          <li>Append to <i>names</i> the elements of BoundNames of <i>BindingElisionElement.</i></li>
+          <li>Return <i>names</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElisionElement</span> <span class="geq">:</span> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <span class="nt">BindingElement</span></div>
+        <ol class="proc">
+          <li>Return BoundNames of <i>BindingElement</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingProperty</span> <span class="geq">:</span> <span class="nt">PropertyName</span> <code class="t">:</code> <span class="nt">BindingElement</span></div>
+        <ol class="proc">
+          <li>Return the BoundNames of <i>BindingElement</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">SingleNameBinding</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span> <span class="nt">Initializer</span><sub class="g-opt">opt</sub></div>
+        <ol class="proc">
+          <li>Return the BoundNames of <i>BindingIdentifier</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElement</span> <span class="geq">:</span> <span class="nt">BindingPattern</span> <span class="nt">Initializer</span><sub class="g-opt">opt</sub></div>
+        <ol class="proc">
+          <li>Return the BoundNames of <i>BindingPattern</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-destructuring-binding-patterns-static-semantics-containsexpression">
+        <h1><span class="secnum" id="sec-13.3.3.2"><a href="/sec/sec-destructuring-binding-patterns-static-semantics-containsexpression.html" title="link to this section">13.3.3.2</a></span> Static Semantics:  ContainsExpression</h1>
+
+        <p>See also: <a href="/sec/sec-function-definitions-static-semantics-containsexpression.html">14.1.5</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-containsexpression.html">14.2.4</a>.</p>
+
+        <div class="gp prod"><span class="nt">ObjectBindingPattern</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+        <ol class="proc">
+          <li>Return <b>false</b>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Return <b>false</b>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <span class="nt">BindingRestElement</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Return <b>false</b>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">BindingElementList</span> <code class="t">,</code> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Return ContainsExpression of <i>BindingElementList</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">BindingElementList</span> <code class="t">,</code> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <span class="nt">BindingRestElement</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Return ContainsExpression of <i>BindingElementList</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingPropertyList</span> <span class="geq">:</span> <span class="nt">BindingPropertyList</span> <code class="t">,</code> <span class="nt">BindingProperty</span></div>
+        <ol class="proc">
+          <li>Let <i>has</i> be ContainsExpression of <i>BindingPropertyList</i>.</li>
+          <li>If <i>has</i> is <b>true</b>, return <b>true</b><i>.</i></li>
+          <li>Return ContainsExpression of <i>BindingProperty</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElementList</span> <span class="geq">:</span> <span class="nt">BindingElementList</span> <code class="t">,</code> <span class="nt">BindingElisionElement</span></div>
+        <ol class="proc">
+          <li>Let <i>has</i> be ContainsExpression of <i>BindingElementList</i>.</li>
+          <li>If <i>has</i> is <b>true</b>, return <b>true</b><i>.</i></li>
+          <li>Return ContainsExpression of <i>BindingElisionElement</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElisionElement</span> <span class="geq">:</span> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <span class="nt">BindingElement</span></div>
+        <ol class="proc">
+          <li>Return ContainsExpression of <i>BindingElement</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingProperty</span> <span class="geq">:</span> <span class="nt">PropertyName</span> <code class="t">:</code> <span class="nt">BindingElement</span></div>
+        <ol class="proc">
+          <li>Let <i>has</i> be IsComputedPropertyKey of <i>PropertyName</i>.</li>
+          <li>If <i>has</i> is <b>true</b>, return <b>true</b><i>.</i></li>
+          <li>Return the ContainsExpression of <i>BindingElement</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElement</span> <span class="geq">:</span> <span class="nt">BindingPattern</span> <span class="nt">Initializer</span></div>
+        <ol class="proc">
+          <li>Return <b>true</b>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">SingleNameBinding</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span></div>
+        <ol class="proc">
+          <li>Return <b>false</b>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">SingleNameBinding</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span> <span class="nt">Initializer</span></div>
+        <ol class="proc">
+          <li>Return <b>true</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-destructuring-binding-patterns-static-semantics-hasinitializer">
+        <h1><span class="secnum" id="sec-13.3.3.3"><a href="/sec/sec-destructuring-binding-patterns-static-semantics-hasinitializer.html" title="link to this section">13.3.3.3</a></span> Static Semantics:  HasInitializer</h1>
+
+        <p>See also: <a href="/sec/sec-function-definitions-static-semantics-hasinitializer.html">14.1.7</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-hasinitializer.html">14.2.6</a>.</p>
+
+        <div class="gp prod"><span class="nt">BindingElement</span> <span class="geq">:</span> <span class="nt">BindingPattern</span></div>
+        <ol class="proc">
+          <li>Return <b>false</b>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElement</span> <span class="geq">:</span> <span class="nt">BindingPattern</span> <span class="nt">Initializer</span></div>
+        <ol class="proc">
+          <li>Return <b>true</b>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">SingleNameBinding</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span></div>
+        <ol class="proc">
+          <li>Return <b>false</b>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">SingleNameBinding</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span> <span class="nt">Initializer</span></div>
+        <ol class="proc">
+          <li>Return <b>true</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-destructuring-binding-patterns-static-semantics-issimpleparameterlist">
+        <h1><span class="secnum" id="sec-13.3.3.4"><a href="/sec/sec-destructuring-binding-patterns-static-semantics-issimpleparameterlist.html" title="link to this section">13.3.3.4</a></span> Static Semantics:  IsSimpleParameterList</h1>
+
+        <p>See also: <a href="/sec/sec-function-definitions-static-semantics-issimpleparameterlist.html">14.1.12</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-issimpleparameterlist.html">14.2.8</a>.</p>
+
+        <div class="gp prod"><span class="nt">BindingElement</span> <span class="geq">:</span> <span class="nt">BindingPattern</span></div>
+        <ol class="proc">
+          <li>Return <b>false</b>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElement</span> <span class="geq">:</span> <span class="nt">BindingPattern</span> <span class="nt">Initializer</span></div>
+        <ol class="proc">
+          <li>Return <b>false</b>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">SingleNameBinding</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span></div>
+        <ol class="proc">
+          <li>Return <b>true</b>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">SingleNameBinding</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span> <span class="nt">Initializer</span></div>
+        <ol class="proc">
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-destructuring-binding-patterns-runtime-semantics-bindinginitialization">
+        <h1><span class="secnum" id="sec-13.3.3.5"><a href="/sec/sec-destructuring-binding-patterns-runtime-semantics-bindinginitialization.html" title="link to this section">13.3.3.5</a></span> Runtime Semantics: BindingInitialization</h1>
+
+        <p>With parameters <var>value</var> and <var>environment</var>.</p>
+
+        <p>See also: <a href="/sec/sec-identifiers-runtime-semantics-bindinginitialization.html">12.1.5</a>, <a href="/sec/sec-for-in-and-for-of-statements-runtime-semantics-bindinginitialization.html">13.7.5.9</a>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> When <b>undefined</b> is passed for <var>environment</var> it indicates that a <a href="/sec/sec-putvalue.html">PutValue</a> operation should be used to assign the initialization value. This is the case for
+          formal parameter lists of non-strict functions. In that case the formal parameter bindings are preinitialized in order
+          to deal with the possibility of multiple parameters with the same name.</p>
+        </div>
+
+        <div class="gp prod"><span class="nt">BindingPattern</span> <span class="geq">:</span> <span class="nt">ObjectBindingPattern</span></div>
+        <ol class="proc">
+          <li>Let  <i>valid</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<i>value</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>valid</i>).</li>
+          <li>Return the result of performing BindingInitialization for <i>ObjectBindingPattern</i> using <i>value</i> and
+              <i>environment</i> as arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingPattern</span> <span class="geq">:</span> <span class="nt">ArrayBindingPattern</span></div>
+        <ol class="proc">
+          <li>Let <i>iterator</i> be <a href="/sec/sec-getiterator.html">GetIterator</a>(<i>value</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>iterator</i>).</li>
+          <li>Let <i>iteratorRecord</i> be Record {[[iterator]]: <i>iterator</i>, [[done]]: <b>false</b>}.</li>
+          <li>Let <i>result</i> be IteratorBindingInitialization for <i>ArrayBindingPattern</i> using <i>iteratorRecord</i>, and
+              <i>environment</i> as arguments.</li>
+          <li>If <i>iteratorRecord</i>.[[done]] is <b>false</b>, return <a href="/sec/sec-iteratorclose.html">IteratorClose</a>(<i>iterator</i>, <i>result</i>).</li>
+          <li>Return <i>result</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ObjectBindingPattern</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+              sans-serif">empty</span>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingPropertyList</span> <span class="geq">:</span> <span class="nt">BindingPropertyList</span> <code class="t">,</code> <span class="nt">BindingProperty</span></div>
+        <ol class="proc">
+          <li>Let <i>status</i> be the result of performing BindingInitialization for <i>BindingPropertyList</i> using
+              <i>value</i> and <i>environment</i> as arguments.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          <li>Return the result of performing BindingInitialization for <i>BindingProperty</i> using <i>value</i> and
+              <i>environment</i> as arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingProperty</span> <span class="geq">:</span> <span class="nt">SingleNameBinding</span></div>
+        <ol class="proc">
+          <li>Let <i>name</i> be the string that is the only element of BoundNames of <i>SingleNameBinding</i>.</li>
+          <li>Return the result of performing KeyedBindingInitialization for <i>SingleNameBinding</i> using  <i>value</i>,
+              <i>environment</i>, and <i>name</i> as the arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingProperty</span> <span class="geq">:</span> <span class="nt">PropertyName</span> <code class="t">:</code> <span class="nt">BindingElement</span></div>
+        <ol class="proc">
+          <li>Let <i>P</i> be the result of evaluating <i>PropertyName</i></li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>P</i>).</li>
+          <li>Return the result of performing KeyedBindingInitialization for <i>BindingElement</i> using <i>value</i>,
+              <i>environment</i>, and <i>P</i> as arguments.</li>
+        </ol>
+      </section>
+
+      <section id="sec-destructuring-binding-patterns-runtime-semantics-iteratorbindinginitialization">
+        <h1><span class="secnum" id="sec-13.3.3.6"><a href="/sec/sec-destructuring-binding-patterns-runtime-semantics-iteratorbindinginitialization.html" title="link to this section">13.3.3.6</a></span> Runtime Semantics: IteratorBindingInitialization</h1>
+
+        <p>With parameters <var>iteratorRecord,</var> and  <var>environment</var>.</p>
+
+        <p>See also: <a href="/sec/sec-function-definitions-runtime-semantics-iteratorbindinginitialization.html">14.1.18</a>, <a href="/sec/sec-arrow-function-definitions-runtime-semantics-iteratorbindinginitialization.html">14.2.14</a>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> When <b>undefined</b> is passed for <var>environment</var> it indicates that a <a href="/sec/sec-putvalue.html">PutValue</a> operation should be used to assign the initialization value. This is the case for
+          formal parameter lists of non-strict functions. In that case the formal parameter bindings are preinitialized in order
+          to deal with the possibility of multiple parameters with the same name.</p>
+        </div>
+
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+              sans-serif">empty</span>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">Elision</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Return the result of performing IteratorDestructuringAssignmentEvaluation of <i>Elision</i> with
+              <i>iteratorRecord</i> as the argument.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <span class="nt">BindingRestElement</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>If <i>Elision</i> is present, then
+            <ol class="block">
+              <li>Let <i>status</i> be the result of performing IteratorDestructuringAssignmentEvaluation of <i>Elision</i> with
+                  <i>iteratorRecord</i> as the argument.</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+            </ol>
+          </li>
+          <li>Return the result of performing IteratorBindingInitialization for <i>BindingRestElement</i>  with
+              <i>iteratorRecord</i> and <i>environment</i> as arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">BindingElementList</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Return the result of performing IteratorBindingInitialization for <i>BindingElementList</i> with
+              <i>iteratorRecord</i> and <i>environment</i> as arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">BindingElementList</span> <code class="t">,</code> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Return the result of performing IteratorBindingInitialization for <i>BindingElementList</i> with
+              <i>iteratorRecord</i> and <i>environment</i> as arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">BindingElementList</span> <code class="t">,</code> <span class="nt">Elision</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Let <i>status</i> be the result of performing IteratorBindingInitialization for <i>BindingElementList</i> with
+              <i>iteratorRecord</i> and <i>environment</i> as arguments.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          <li>Return the result of performing IteratorDestructuringAssignmentEvaluation of <i>Elision</i> with
+              <i>iteratorRecord</i> as the argument.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayBindingPattern</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">BindingElementList</span> <code class="t">,</code> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <span class="nt">BindingRestElement</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Let <i>status</i> be the result of performing IteratorBindingInitialization for <i>BindingElementList</i> with
+              <i>iteratorRecord</i> and <i>environment</i> as arguments.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          <li>If <i>Elision</i> is present, then
+            <ol class="block">
+              <li>Let <i>status</i> be the result of performing IteratorDestructuringAssignmentEvaluation of <i>Elision</i> with
+                  <i>iteratorRecord</i> as the argument.</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+            </ol>
+          </li>
+          <li>Return the result of performing IteratorBindingInitialization for <i>BindingRestElement</i>  with
+              <i>iteratorRecord</i> and <i>environment</i> as arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElementList</span> <span class="geq">:</span> <span class="nt">BindingElisionElement</span></div>
+        <ol class="proc">
+          <li>Return the result of performing IteratorBindingInitialization for <i>BindingElisionElement</i>  with
+              <i>iteratorRecord</i> and <i>environment</i> as arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElementList</span> <span class="geq">:</span> <span class="nt">BindingElementList</span> <code class="t">,</code> <span class="nt">BindingElisionElement</span></div>
+        <ol class="proc">
+          <li>Let <i>status</i> be the result of performing IteratorBindingInitialization for <i>BindingElementList</i>
+              <i>with</i> <i>iteratorRecord</i> and <i>environment</i> as arguments.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          <li>Return the result of performing IteratorBindingInitialization for <i>BindingElisionElement</i> using
+              <i>iteratorRecord</i> and <i>environment</i> as arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElisionElement</span> <span class="geq">:</span> <span class="nt">BindingElement</span></div>
+        <ol class="proc">
+          <li>Return the result of performing IteratorBindingInitialization of <i>BindingElement</i> with <i>iteratorRecord</i>
+              and <i>environment</i> as the arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElisionElement</span> <span class="geq">:</span> <span class="nt">Elision</span> <span class="nt">BindingElement</span></div>
+        <ol class="proc">
+          <li>Let <i>status</i> be the result of performing IteratorDestructuringAssignmentEvaluation of <i>Elision</i> with
+              <i>iteratorRecord</i> as the argument.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+          <li>Return the result of performing IteratorBindingInitialization of <i>BindingElement</i> with <i>iteratorRecord</i>
+              and <i>environment</i> as the arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElement</span> <span class="geq">:</span> <span class="nt">SingleNameBinding</span></div>
+        <ol class="proc">
+          <li>Return the result of performing IteratorBindingInitialization for <i>SingleNameBinding</i> with <i>iteratorRecord
+              and</i> <i>environment</i> as the arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">SingleNameBinding</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span> <span class="nt">Initializer</span><sub class="g-opt">opt</sub></div>
+        <ol class="proc">
+          <li>Let <i>bindingId</i> be StringValue of <i>BindingIdentifier.</i></li>
+          <li>Let <i>lhs</i> be <a href="/sec/sec-resolvebinding.html">ResolveBinding</a>(<i>bindingId</i>, <i>environment</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lhs</i>).</li>
+          <li>If <i>iteratorRecord</i>.[[done]] is <b>false</b>, then
+            <ol class="block">
+              <li>Let <i>next</i> be <a href="/sec/sec-iteratorstep.html">IteratorStep</a>(<i>iteratorRecord</i>.[[iterator]]).</li>
+              <li>If <i>next</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+                  <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+              <li>If <i>next</i> is <b>false</b>, set <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+              <li>Else,
+                <ol class="block">
+                  <li>Let <i>v</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>next</i>).</li>
+                  <li>If <i>v</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+                      <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>iteratorRecord</i>.[[done]] is <b>true</b>, let <i>v</i> be <b>undefined</b>.</li>
+          <li>If <i>Initializer</i> is present and <i>v</i> is <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>defaultValue</i> be the result of evaluating <i>Initializer</i>.</li>
+              <li>Let <i>v</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>defaultValue</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+              <li>If <a href="/sec/sec-isanonymousfunctiondefinition.html">IsAnonymousFunctionDefinition</a>(<i>Initializer)</i> is
+                  <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>hasNameProperty</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>v</i>,
+                      <code>&quot;name&quot;</code>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasNameProperty</i>).</li>
+                  <li>If <i>hasNameProperty</i> is <b>false</b>, perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>v</i>, <i>bindingId</i>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>environment</i> is <b>undefined</b>, return <a href="/sec/sec-putvalue.html">PutValue</a>(<i>lhs</i>, <i>v</i>).</li>
+          <li>Return <a href="/sec/sec-initializereferencedbinding.html">InitializeReferencedBinding</a>(<i>lhs</i>, <i>v</i>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingElement</span> <span class="geq">:</span> <span class="nt">BindingPattern</span> <span class="nt">Initializer</span><sub class="g-opt">opt</sub></div>
+        <ol class="proc">
+          <li>If <i>iteratorRecord</i>.[[done]] is <b>false</b>, then
+            <ol class="block">
+              <li>Let <i>next</i> be <a href="/sec/sec-iteratorstep.html">IteratorStep</a>(<i>iteratorRecord</i>.[[iterator]]).</li>
+              <li>If <i>next</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+                  <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+              <li>If <i>next</i> is <b>false</b>, set <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+              <li>Else
+                <ol class="block">
+                  <li>Let <i>v</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>next</i>).</li>
+                  <li>If <i>v</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+                      <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>iteratorRecord</i>.[[done]] is <b>true</b>, let <i>v</i> be <b>undefined</b>.</li>
+          <li>If <i>Initializer</i> is present and <i>v</i> is <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>defaultValue</i> be the result of evaluating <i>Initializer</i>.</li>
+              <li>Let <i>v</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>defaultValue</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+            </ol>
+          </li>
+          <li>Return the result of performing BindingInitialization of <i>BindingPattern</i> with <i>v</i> and <i>environment</i>
+              as the arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">BindingRestElement</span> <span class="geq">:</span> <code class="t">...</code> <span class="nt">BindingIdentifier</span></div>
+        <ol class="proc">
+          <li>Let <i>lhs</i> be <a href="/sec/sec-resolvebinding.html">ResolveBinding</a>(StringValue of <i>BindingIdentifier,
+              environment</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lhs</i>).</li>
+          <li>Let <i>A</i> be <a href="/sec/sec-arraycreate.html">ArrayCreate</a>(0).</li>
+          <li>Let <i>n</i>=0.</li>
+          <li>Repeat<b>,</b>
+            <ol class="block">
+              <li>If <i>iteratorRecord</i>.[[done]] is <b>false</b>,
+                <ol class="block">
+                  <li>Let <i>next</i> be <a href="/sec/sec-iteratorstep.html">IteratorStep</a>(<i>iteratorRecord</i>.[[iterator]]).</li>
+                  <li>If <i>next</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+                      <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+                  <li>If <i>next</i> is <b>false</b>, set <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+                </ol>
+              </li>
+              <li>If <i>iteratorRecord</i>.[[done]] is <b>true</b>, then
+                <ol class="block">
+                  <li>If <i>environment</i> is <b>undefined</b>, return <a href="/sec/sec-putvalue.html">PutValue</a>(<i>lhs</i>,
+                      <i>A</i>).</li>
+                  <li>Return <a href="/sec/sec-initializereferencedbinding.html">InitializeReferencedBinding</a>(<i>lhs</i>,
+                      <i>A</i>).</li>
+                </ol>
+              </li>
+              <li>Let <i>nextValue</i> be <a href="/sec/sec-iteratorvalue.html">IteratorValue</a>(<i>next</i>).</li>
+              <li>If <i>nextValue</i> is an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>, set
+                  <i>iteratorRecord</i>.[[done]] to <b>true</b>.</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextValue</i>).</li>
+              <li>Let <i>status</i> be <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>A</i>, <a href="/sec/sec-tostring.html">ToString</a> (<i>n</i>), <i>nextValue</i>).</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is <b>true</b>.</li>
+              <li>Increment <i>n</i> by 1.</li>
+            </ol>
+          </li>
+        </ol>
+      </section>
+
+      <section id="sec-runtime-semantics-keyedbindinginitialization">
+        <h1><span class="secnum" id="sec-13.3.3.7"><a href="/sec/sec-runtime-semantics-keyedbindinginitialization.html" title="link to this section">13.3.3.7</a></span> Runtime Semantics: KeyedBindingInitialization</h1>
+
+        <p>With parameters <var>value</var>, <var>environment,</var> and  <var>propertyName</var>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> When <b>undefined</b> is passed for <var>environment</var> it indicates that a <a href="/sec/sec-putvalue.html">PutValue</a> operation should be used to assign the initialization value. This is the case for
+          formal parameter lists of non-strict functions. In that case the formal parameter bindings are preinitialized in order
+          to deal with the possibility of multiple parameters with the same name.</p>
+        </div>
+
+        <div class="gp prod"><span class="nt">BindingElement</span> <span class="geq">:</span> <span class="nt">BindingPattern</span> <span class="nt">Initializer</span><sub class="g-opt">opt</sub></div>
+        <ol class="proc">
+          <li>Let <i>v</i> be <a href="/sec/sec-getv.html">GetV</a>(<i>value</i>, <i>propertyName</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+          <li>If <i>Initializer</i> is present and <i>v</i> is <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>defaultValue</i> be the result of evaluating <i>Initializer</i>.</li>
+              <li>Let <i>v</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>defaultValue</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+            </ol>
+          </li>
+          <li>Return the result of performing BindingInitialization for <i>BindingPattern</i> passing <i>v</i> and
+              <i>environment</i> as arguments.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">SingleNameBinding</span> <span class="geq">:</span> <span class="nt">BindingIdentifier</span> <span class="nt">Initializer</span><sub class="g-opt">opt</sub></div>
+        <ol class="proc">
+          <li>Let <i>bindingId</i> be StringValue of <i>BindingIdentifier.</i></li>
+          <li>Let <i>lhs</i> be <a href="/sec/sec-resolvebinding.html">ResolveBinding</a>(<i>bindingId, environment</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lhs</i>).</li>
+          <li>Let <i>v</i> be <a href="/sec/sec-getv.html">GetV</a>(<i>value</i>, <i>propertyName</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+          <li>If <i>Initializer</i> is present and <i>v</i> is <b>undefined</b>, then
+            <ol class="block">
+              <li>Let <i>defaultValue</i> be the result of evaluating <i>Initializer</i>.</li>
+              <li>Let <i>v</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>defaultValue</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+              <li>If <a href="/sec/sec-isanonymousfunctiondefinition.html">IsAnonymousFunctionDefinition</a>(<i>Initializer</i>) is
+                  <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>hasNameProperty</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>v</i>,
+                      <code>&quot;name&quot;</code>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasNameProperty</i>).</li>
+                  <li>If <i>hasNameProperty</i> is <b>false</b>, perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>v</i>, <i>bindingId</i>).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>environment</i> is <b>undefined</b>, return <a href="/sec/sec-putvalue.html">PutValue</a>(<i>lhs</i>, <i>v</i>).</li>
+          <li>Return <a href="/sec/sec-initializereferencedbinding.html">InitializeReferencedBinding</a>(<i>lhs</i>, <i>v</i>).</li>
+        </ol>
+      </section>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

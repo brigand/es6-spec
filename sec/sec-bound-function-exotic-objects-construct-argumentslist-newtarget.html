@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-9.4.1.2"><a href="/sec/sec-bound-function-exotic-objects-construct-argumentslist-newtarget.html" title="link to this section">9.4.1.2</a></span> [[Construct]] (argumentsList, newTarget)</h1>
+
+        <p class="normalbefore">When the [[Construct]] internal method of an exotic <a href="/sec/sec-bound-function-exotic-objects.html">bound function</a> object, <var>F</var> that was created using the bind function
+        is called with a list of arguments <span style="font-family: Times New Roman"><i>argumentsList</i> and
+        <i>newTarget</i></span>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>target</i> be the value of <i>F&#x2019;s</i> <a href="/sec/sec-bound-function-exotic-objects.html">[[BoundTargetFunction]]</a> <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>target</i> has a [[Construct]] internal method.</li>
+          <li>Let <i>boundArgs</i> be the value of <i>F&#x2019;s</i> <a href="/sec/sec-bound-function-exotic-objects.html">[[BoundArguments]]</a> <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>args</i> be a new list containing the same values as the list <i>boundArgs</i> in the same order followed by
+              the same values as the list <i>argumentsList</i> in the same order.</li>
+          <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>F</i>, <i>newTarget</i>) is <b>true</b>, let <i>newTarget</i> be
+              <i>target</i>.</li>
+          <li>Return <a href="/sec/sec-construct.html">Construct</a>(<i>target</i>, <i>args</i>, <i>newTarget</i>).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

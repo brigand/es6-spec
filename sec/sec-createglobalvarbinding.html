@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-8.1.1.4.17"><a href="/sec/sec-createglobalvarbinding.html" title="link to this section">8.1.1.4.17</a></span> CreateGlobalVarBinding (N, D)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method
+          CreateGlobalVarBinding for global Environment Records creates and initializes a mutable binding in the associated object
+          Environment Record and records the bound name in the associated [[VarNames]] <a href="/sec/sec-list-and-record-specification-type.html">List</a>. If a binding already exists, it is reused and assumed to be
+          initialized.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the global <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li>Let <i>ObjRec</i> be <i>envRec</i>.[[ObjectRecord]].</li>
+            <li>Let <i>globalObject</i> be the binding object for <i>ObjRec</i>.</li>
+            <li>Let <i>hasProperty</i> be <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>(<i>globalObject, N</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>hasProperty</i>).</li>
+            <li>Let <i>extensible</i> be <a href="/sec/sec-isextensible-o.html">IsExtensible</a>(<i>globalObject</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>extensible</i>).</li>
+            <li>If <i>hasProperty</i> is <b>false</b> and <i>extensible</i> is <b>true</b>, then
+              <ol class="block">
+                <li>Let <i>status</i> be <i>ObjRec.</i>CreateMutableBinding(<i>N</i>, <i>D</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+                <li>Let <i>status</i> be <i>ObjRec.</i>InitializeBinding(<i>N</i>, <b>undefined</b>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+              </ol>
+            </li>
+            <li>Let <i>varDeclaredNames</i> be <i>envRec</i>.[[VarNames]].</li>
+            <li>If <i>varDeclaredNames</i> does not contain the value of <i>N</i>, then
+              <ol class="block">
+                <li>Append <i>N</i> to <i>varDeclaredNames</i>.</li>
+              </ol>
+            </li>
+            <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+                sans-serif">empty</span>).</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

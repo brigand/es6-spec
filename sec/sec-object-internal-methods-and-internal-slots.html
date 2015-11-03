@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-6.1.7.2"><a href="/sec/sec-object-internal-methods-and-internal-slots.html" title="link to this section">6.1.7.2</a></span> Object Internal Methods and Internal Slots</h1>
+
+        <p>The actual semantics of objects, in ECMAScript, are specified via algorithms called <i>internal methods</i>. Each
+        object in an ECMAScript engine is associated with a set of internal methods that defines its runtime behaviour. These
+        internal methods are not part of the ECMAScript language. They are defined by this specification purely for expository
+        purposes. However, each object within an implementation of ECMAScript must behave as specified by the internal methods
+        associated with it. The exact manner in which this is accomplished is determined by the implementation.</p>
+
+        <p>Internal method names are polymorphic. This means that different object values may perform different algorithms when a
+        common internal method name is invoked upon them. That actual object upon which an internal method is invoked is the
+        &#x201C;target&#x201D; of the invocation. If, at runtime, the implementation of an algorithm attempts to use an internal
+        method of an object that the object does not support, a <b>TypeError</b> exception is thrown.</p>
+
+        <p>Internal slots correspond to internal state that is associated with objects and used by various ECMAScript
+        specification algorithms. Internal slots are not object properties and they are not inherited. Depending upon the specific
+        internal slot specification, such state may consist of values of any <a href="/sec/sec-ecmascript-language-types.html">ECMAScript
+        language type</a> or of specific ECMAScript specification type values. Unless explicitly specified otherwise, internal
+        slots are allocated as part of the process of creating an object and may not be dynamically added to an object. Unless
+        specified otherwise, the initial value of an internal slot is the value <span class="value">undefined</span>. Various
+        algorithms within this specification create objects that have internal slots. However, the ECMAScript language provides no
+        direct way to associate internal slots with an object.</p>
+
+        <p>Internal methods and internal slots are identified within this specification using names enclosed in double square
+        brackets [[ ]].</p>
+
+        <p><a href="/sec/table-5.html">Table 5</a> summarizes the <i>essential internal methods</i> used by this specification that are
+        applicable to all objects created or manipulated by ECMAScript code. Every object must have algorithms for all of the
+        essential internal methods. However, all objects do not necessarily use the same algorithms for those methods.</p>
+
+        <p>The &#x201C;Signature&#x201D; column of <a href="/sec/table-5.html">Table 5</a> and other similar tables describes the invocation
+        pattern for each internal method. The invocation pattern always includes a parenthesized list of descriptive parameter
+        names. If a parameter name is the same as an ECMAScript type name then the name describes the required type of the
+        parameter value. If an internal method  explicitly returns a value, its parameter list is followed by the symbol
+        &#x201C;&#x2192;&#x201D; and the type name of the returned value. The type names used in signatures refer to the types defined
+        in <a href="/sec/sec-ecmascript-data-types-and-values.html">clause 6</a> augmented by the following additional names.
+        &#x201C;<i>any</i>&#x201D; means the value may be any <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language type</a>.
+        An internal method implicitly returns a <a href="/sec/sec-completion-record-specification-type.html">Completion Record</a> as
+        described in <a href="/sec/sec-completion-record-specification-type.html">6.2.2</a>. In addition to its parameters, an internal
+        method always has access to the object that is the target of the method invocation.</p>
+
+        <figure>
+          <figcaption><span id="table-5">Table 5</span> &#x2014; Essential Internal Methods</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Internal Method</th>
+              <th>Signature</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>[[GetPrototypeOf]]</td>
+              <td>() <b>&#x2192;</b> Object | Null</td>
+              <td>Determine the object that provides inherited properties for this object. A <b>null</b> value indicates that there are no inherited properties.</td>
+            </tr>
+            <tr>
+              <td>[[SetPrototypeOf]]</td>
+              <td>(<i>Object</i> | Null) <b>&#x2192;</b> Boolean</td>
+              <td>Associate this object with another object that provides inherited properties. Passing <b>null</b> indicates that there are no inherited properties. Returns <b>true</b> indicating that the operation was completed successfully or <b>false</b> indicating that the operation was not successful.</td>
+            </tr>
+            <tr>
+              <td>[[IsExtensible]]</td>
+              <td>( ) <b>&#x2192;</b> Boolean</td>
+              <td>Determine whether it is permitted to add additional properties to this object.</td>
+            </tr>
+            <tr>
+              <td>[[PreventExtensions]]</td>
+              <td>( ) <b>&#x2192;</b> Boolean</td>
+              <td>Control whether new properties may be added to this object. Returns <b>true</b> if the operation was successful or <b>false</b> if the operation was unsuccessful.</td>
+            </tr>
+            <tr>
+              <td>[[GetOwnProperty]]</td>
+              <td>(<i>propertyKey</i>) <b>&#x2192;</b> Undefined | <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a></td>
+              <td>Return a <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> for the own property of this object whose key is <i>propertyKey</i>, or <b>undefined</b> if no such property exists.</td>
+            </tr>
+            <tr>
+              <td>[[HasProperty]]</td>
+              <td>(<i>propertyKey</i>) <b>&#x2192;</b> Boolean</td>
+              <td>Return a Boolean value indicating whether this object already has either an own or inherited property whose key is <i>propertyKey</i>.</td>
+            </tr>
+            <tr>
+              <td>[[Get]]</td>
+              <td>(<i>propertyKey</i>, <i>Receiver</i>)<br><b>&#x2192;</b> <i>any</i></td>
+              <td>Return the value of the property whose key is <i>propertyKey</i> from this object. If any ECMAScript code must be executed to retrieve the property value, <i>Receiver</i> is used as the <b>this</b> value when evaluating the code.</td>
+            </tr>
+            <tr>
+              <td>[[Set]]</td>
+              <td>(<i>propertyKey</i>,<i>value</i>, <i>Receiver</i>) <br><b>&#x2192;</b> <i>Boolean</i></td>
+              <td>Set the value of the property whose key is <i>propertyKey</i> to <i>value</i>. If any ECMAScript code must be executed to set the property value, <i>Receiver</i> is used as the <b>this</b> value when evaluating the code. Returns <b>true</b> if the property value was set or <b>false</b> if it could not be set.</td>
+            </tr>
+            <tr>
+              <td>[[Delete]]</td>
+              <td>(<i>propertyKey</i>) <b>&#x2192;</b> Boolean</td>
+              <td>Remove the own property whose key is <i>propertyKey</i> from this object . Return <b>false</b> if the property was not deleted and is still present. Return <b>true</b> if the property was deleted or is not present.</td>
+            </tr>
+            <tr>
+              <td>[[DefineOwnProperty]]</td>
+              <td>(<i>propertyKey</i>, <i>PropertyDescriptor</i>)<br><b>&#x2192;</b> Boolean</td>
+              <td>Create or alter the own property, whose key is <i>propertyKey</i>, to have the state described by <i>PropertyDescriptor</i>. Return <b>true</b> if that property was successfully created/updated or <b>false</b> if the property could not be created or updated.</td>
+            </tr>
+            <tr>
+              <td>[[Enumerate]]</td>
+              <td>()<b><i>&#x2192;</i></b>Object</td>
+              <td>Return an iterator object that produces the keys of the string-keyed enumerable properties of the object.</td>
+            </tr>
+            <tr>
+              <td>[[OwnPropertyKeys]]</td>
+              <td>()<b>&#x2192;</b><a href="/sec/sec-list-and-record-specification-type.html">List</a> of propertyKey</td>
+              <td>Return a <a href="/sec/sec-list-and-record-specification-type.html">List</a> whose elements are all of the own property keys for the object.</td>
+            </tr>
+          </table>
+        </figure>
+
+        <p><a href="/sec/table-6.html">Table 6</a> summarizes additional essential internal methods that are supported by objects that may
+        be called as functions. A <i>function object</i> is an object that supports the [[Call]] internal methods. A
+        <i>constructor</i> (also referred to as a <i>constructor function</i>) is a function object that supports the
+        [[Construct]] internal method.</p>
+
+        <figure>
+          <figcaption><span id="table-6">Table 6</span> &#x2014; Additional Essential Internal Methods of Function Objects</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Internal Method</th>
+              <th>Signature</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>[[Call]]</td>
+              <td>(<i>any</i>, a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of <i>any</i>)<br><span class="value">&#x2192;</span> <i>any</i></td>
+              <td>Executes code associated with this object. Invoked via a function call expression. The arguments to the internal method are a <b>this</b> value and a list containing the arguments passed to the function by a call expression. Objects that implement this internal method are <i>callable</i>.</td>
+            </tr>
+            <tr>
+              <td>[[Construct]]</td>
+              <td>(a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of <i>any</i>, Object)<br><span class="value">&#x2192;</span> Object</td>
+              <td>Creates an object. Invoked via the <code>new</code> or <code>super</code> operators. The first argument to the internal method is a list containing the arguments of the operator. The second argument is the object to which the <code>new</code> operator was initially applied. Objects that implement this internal method are called <i>constructors</i>. A function object is not necessarily a constructor and such non-constructor function objects do not have a [[Construct]] internal method.</td>
+            </tr>
+          </table>
+        </figure>
+
+        <p>The semantics of the essential internal methods for ordinary objects and standard exotic objects are specified in <a href="/sec/sec-ordinary-and-exotic-objects-behaviours.html">clause 9</a>. If any specified use of an internal method of an exotic
+        object is not supported by an implementation, that usage must throw a <b>TypeError</b> exception when attempted.</p>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

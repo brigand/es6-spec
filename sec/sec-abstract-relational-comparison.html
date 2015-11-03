@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.2.11"><a href="/sec/sec-abstract-relational-comparison.html" title="link to this section">7.2.11</a></span> Abstract Relational Comparison</h1>
+
+      <p class="normalbefore">The comparison <var>x</var> &lt; <var>y</var>, where <var>x</var> and <var>y</var> are values,
+      produces <b>true</b>, <b>false</b>, or <b>undefined</b> (which indicates that at least one operand is <b>NaN</b>). In
+      addition to <var>x</var> and <var>y</var> the algorithm takes a Boolean flag named <span class="nt">LeftFirst</span> as a
+      parameter. The flag is used to control the order in which operations with potentially visible side-effects are performed
+      upon <var>x</var> and <var>y</var>. It is necessary because ECMAScript specifies left to right evaluation of expressions.
+      The default value of <span class="nt">LeftFirst</span> is <b>true</b> and indicates that the <var>x</var> parameter
+      corresponds to an expression that occurs to the left of the <var>y</var> parameter&#x2019;s corresponding expression. If
+      <span class="nt">LeftFirst</span> is <b>false</b>, the reverse is the case and operations must be performed upon
+      <var>y</var> before <var>x</var>. Such a comparison is performed as follows:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>x</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>y</i>).</li>
+        <li>If the <i>LeftFirst</i> flag is <b>true</b>, then
+          <ol class="block">
+            <li>Let <i>px</i> be <a href="/sec/sec-toprimitive.html">ToPrimitive</a>(<i>x</i>, hint Number).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>px</i>).</li>
+            <li>Let <i>py</i> be <a href="/sec/sec-toprimitive.html">ToPrimitive</a>(<i>y</i>, hint Number).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>py</i>).</li>
+          </ol>
+        </li>
+        <li>Else the order of evaluation needs to be reversed to preserve left to right evaluation
+          <ol class="block">
+            <li>Let <i>py</i> be <a href="/sec/sec-toprimitive.html">ToPrimitive</a>(<i>y</i>, hint Number).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>py</i>).</li>
+            <li>Let <i>px</i> be <a href="/sec/sec-toprimitive.html">ToPrimitive</a>(<i>x</i>, hint Number).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>px</i>).</li>
+          </ol>
+        </li>
+        <li>If both <i>px</i> and <i>py</i> are Strings, then
+          <ol class="block">
+            <li>If <i>py</i> is a prefix of <i>px</i>, return <b>false</b>. (A String value <i>p</i> is a prefix of String value
+                <i>q</i> if <i>q</i> can be the result of concatenating <i>p</i> and some other String <i>r</i>. Note that any
+                String is a prefix of itself, because <i>r</i> may be the empty String.)</li>
+            <li>If <i>px</i> is a prefix of <i>py</i>, return <b>true</b>.</li>
+            <li>Let <i>k</i> be the smallest nonnegative integer such that the code unit at index <i>k</i> within <i>px</i> is
+                different from the code unit at index <i>k</i> within <i>py</i>. (There must be such a <i>k</i>, for neither
+                String is a prefix of the other.)</li>
+            <li>Let <i>m</i> be the integer that is the code unit value at index <i>k</i> within <i>px</i>.</li>
+            <li>Let <i>n</i> be the integer that is the code unit value at index <i>k</i> within <i>py</i>.</li>
+            <li>If <i>m</i> &lt; <i>n</i>, return <b>true</b>. Otherwise, return <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>Else,
+          <ol class="block">
+            <li>Let <i>nx</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>px</i>). Because <i>px</i> and <i>py</i> are primitive
+                values evaluation order is not important.</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nx</i>).</li>
+            <li>Let <i>ny</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>py</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>ny</i>).</li>
+            <li>If <i>nx</i> is <b>NaN</b>, return <b>undefined</b>.</li>
+            <li>If <i>ny</i> is <b>NaN</b>, return <b>undefined</b>.</li>
+            <li>If <i>nx</i> and <i>ny</i> are the same Number value, return <b>false</b>.</li>
+            <li>If <i>nx</i> is <b>+0</b> and <i>ny</i> is <b>&#x2212;0</b>, return <b>false</b>.</li>
+            <li>If <i>nx</i> is <b>&#x2212;0</b> and <i>ny</i> is <b>+0</b>, return <b>false</b>.</li>
+            <li>If <i>nx</i> is <b>+&#x221E;</b>, return <b>false</b>.</li>
+            <li>If <i>ny</i> is <b>+&#x221E;</b>, return <b>true</b>.</li>
+            <li>If <i>ny</i> is <b>&#x2212;&#x221E;</b>, return <b>false</b>.</li>
+            <li>If <i>nx</i> is <b>&#x2212;&#x221E;</b>, return <b>true</b>.</li>
+            <li>If the mathematical value of <i>nx</i> is less than the mathematical value of <i>ny</i> &#x2014;note that these
+                mathematical values are both finite and not both zero&#x2014;return <b>true</b>. Otherwise, return
+                <b>false</b>.</li>
+          </ol>
+        </li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE 1</span> Step 5 differs from step 11 in the algorithm for the addition operator <code>+</code>
+        (<a href="/sec/sec-addition-operator-plus.html">12.7.3</a>) in using &#x201C;and&#x201D; instead of &#x201C;or&#x201D;.</p>
+      </div>
+
+      <div class="note">
+        <p><span class="nh">NOTE 2</span> The comparison of Strings uses a simple lexicographic ordering on sequences of code unit
+        values. There is no attempt to use the more complex, semantically oriented definitions of character or string equality and
+        collating order defined in the Unicode specification. Therefore String values that are canonically equal according to the
+        Unicode standard could test as unequal. In effect this algorithm assumes that both Strings are already in normalized form.
+        Also, note that for strings containing supplementary characters, lexicographic ordering on sequences of UTF-16 code unit
+        values differs from that on sequences of code point values.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

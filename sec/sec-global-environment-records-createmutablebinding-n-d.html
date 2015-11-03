@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-8.1.1.4.2"><a href="/sec/sec-global-environment-records-createmutablebinding-n-d.html" title="link to this section">8.1.1.4.2</a></span> CreateMutableBinding (N, D)</h1>
+
+          <p class="normalbefore">The concrete <a href="/sec/sec-environment-records.html">Environment Record</a> method
+          CreateMutableBinding for global Environment Records creates a new mutable binding for the name <var>N</var> that is
+          uninitialized. The binding is created in the associated DeclarativeRecord. A binding for <var>N</var> must not already
+          exist in the DeclarativeRecord. If Boolean argument <var>D</var> is provided and has the value <b>true</b> the new
+          binding is marked as being subject to deletion.</p>
+
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the global <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method was
+                invoked.</li>
+            <li>Let <i>DclRec</i> be <i>envRec</i>.[[DeclarativeRecord]].</li>
+            <li>If <i>DclRec</i>.HasBinding(<i>N</i>) is <b>true</b>, throw a <b>TypeError</b> exception.</li>
+            <li>Return <i>DclRec</i>.CreateMutableBinding(<i>N</i>, <i>D</i>).</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

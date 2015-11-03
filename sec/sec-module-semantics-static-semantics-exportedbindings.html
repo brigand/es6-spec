@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-15.2.1.5"><a href="/sec/sec-module-semantics-static-semantics-exportedbindings.html" title="link to this section">15.2.1.5</a></span> Static Semantics:  ExportedBindings</h1>
+
+        <p>See also: <a href="/sec/sec-exports-static-semantics-exportedbindings.html">15.2.3.3</a>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> ExportedBindings are the locally bound names that are explicitly associated with a <span style="font-family: Times New Roman"><i>Module</i>&#x2019;s</span> ExportedNames.</p>
+        </div>
+
+        <div class="gp prod"><span class="nt">ModuleItemList</span> <span class="geq">:</span> <span class="nt">ModuleItemList</span> <span class="nt">ModuleItem</span></div>
+        <ol class="proc">
+          <li>Let <i>names</i> be ExportedBindings of <i>ModuleItemList</i>.</li>
+          <li>Append to <i>names</i> the elements of the ExportedBindings of <i>ModuleItem.</i></li>
+          <li>Return <i>names</i>.</li>
+        </ol>
+
+        <div class="gp">
+          <div class="lhs"><span class="nt">ModuleItem</span> <span class="geq">:</span></div>
+          <div class="rhs"><span class="nt">ImportDeclaration</span></div>
+          <div class="rhs"><span class="nt">StatementListItem</span></div>
+        </div>
+
+        <ol class="proc">
+          <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

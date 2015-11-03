@@ -1,0 +1,1159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-21.1.3"><a href="/sec/sec-properties-of-the-string-prototype-object.html" title="link to this section">21.1.3</a></span> Properties of the String Prototype Object</h1>
+
+        <p>The String prototype object is the intrinsic object %StringPrototype%. The String prototype object is itself an
+        ordinary object. It is not a String instance and does not have a [[StringData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+        <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the
+        String prototype object is the intrinsic object %ObjectPrototype% (<a href="/sec/sec-properties-of-the-object-prototype-object.html">19.1.3</a>).</p>
+
+        <p>Unless explicitly stated otherwise, the methods of the String prototype object defined below are not generic and the
+        <b>this</b> value passed to them must be either a String value or an object that has a [[StringData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> that has been initialized to a String value.</p>
+
+        <p class="normalbefore">The abstract operation <span style="font-family: Times New
+        Roman">thisStringValue(<i>value</i>)</span> performs the following steps:</p>
+
+        <ol class="proc">
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is String, return <i>value</i>.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is Object and <i>value</i> has a
+              [[StringData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, then
+            <ol class="block">
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>value</i>&#x2019;s [[StringData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is a String value.</li>
+              <li>Return the value of <i>value&#x2019;s</i> [[StringData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+            </ol>
+          </li>
+          <li>Throw a <b>TypeError</b> exception.</li>
+        </ol>
+
+        <p>The phrase &#x201C;this String value&#x201D; within the specification of a method refers to the result returned  by
+        calling the abstract operation <span style="font-family: Times New Roman">thisStringValue</span> with the <b>this</b>
+        value of the method invocation passed as the argument.</p>
+      </div>
+
+      <section id="sec-string.prototype.charat">
+        <h1><span class="secnum" id="sec-21.1.3.1"><a href="/sec/sec-string.prototype.charat.html" title="link to this section">21.1.3.1</a></span> String.prototype.charAt ( pos )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> Returns a single element String containing the code unit at index <var>pos</var> in
+          the String value resulting from converting this object to a String. If there is no element at that index, the result is
+          the empty String. The result is a String value, not a String object.</p>
+        </div>
+
+        <p class="NoteMore">If <var>pos</var> is a value of Number type that is an integer, then the result of
+        <code>x.charAt(</code><var>pos</var><code>)</code> is equal to the result of
+        <code>x.substring(</code><var>pos</var><code>,</code> <var>pos</var><code>+1)</code>.</p>
+
+        <p class="normalbefore">When the <code>charAt</code> method is called with one argument <var>pos</var>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>position</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>pos</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>position</i>).</li>
+          <li>Let <i>size</i> be the number of elements in <i>S</i>.</li>
+          <li>If <i>position</i> &lt; 0 or <i>position</i> &#x2265; <i>size</i>, return the empty String.</li>
+          <li>Return a String of length 1, containing one code unit from <i>S</i>, namely the code unit at index
+              <i>position</i>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>charAt</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.charcodeat">
+        <h1><span class="secnum" id="sec-21.1.3.2"><a href="/sec/sec-string.prototype.charcodeat.html" title="link to this section">21.1.3.2</a></span> String.prototype.charCodeAt ( pos )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> Returns a Number (a nonnegative integer less than <span style="font-family: Times New
+          Roman">2<sup>16</sup></span>) that is the code unit value of the string element at index <var>pos</var> in the String
+          resulting from converting this object to a String. If there is no element at that index, the result is <b>NaN</b>.</p>
+        </div>
+
+        <p class="normalbefore">When the <code>charCodeAt</code> method is called with one argument <var>pos</var>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>position</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>pos</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>position</i>).</li>
+          <li>Let <i>size</i> be the number of elements in <i>S</i>.</li>
+          <li>If <i>position</i> &lt; 0 or <i>position</i> &#x2265; <i>size</i>, return <b>NaN</b>.</li>
+          <li>Return a value of Number type, whose value is the code unit value of the element at index <i>position</i> in the
+              String <i>S</i>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>charCodeAt</code> function is intentionally generic; it does not require
+          that its <b>this</b> value be a String object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.codepointat">
+        <h1><span class="secnum" id="sec-21.1.3.3"><a href="/sec/sec-string.prototype.codepointat.html" title="link to this section">21.1.3.3</a></span> String.prototype.codePointAt ( pos )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> Returns a nonnegative integer Number less than <span style="font-family: Times New
+          Roman">1114112 (0x110000</span>) that is the code point value of the UTF-16 encoded code point (<a href="/sec/sec-ecmascript-language-types-string-type.html">6.1.4</a>) starting at the string element at index <var>pos</var> in
+          the String resulting from converting this object to a String. If there is no element at that index, the result is <span class="value">undefined</span>. If a valid UTF-16 surrogate pair does not begin at <var>pos</var>, the result is the
+          code unit at <var>pos</var>.</p>
+        </div>
+
+        <p class="normalbefore">When the <code>codePointAt</code> method is called with one argument <var>pos</var>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>position</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>pos</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>position</i>).</li>
+          <li>Let <i>size</i> be the number of elements in <i>S</i>.</li>
+          <li>If <i>position</i> &lt; 0 or <i>position</i> &#x2265; <i>size</i>, return <b>undefined</b>.</li>
+          <li>Let <i>first</i> be the code unit value of the element at index <i>position</i> in the String <i>S</i>.</li>
+          <li>If <i>first</i> &lt; 0xD800 or <i>first</i> &gt; 0xDBFF or <i>position</i>+1 = <i>size</i>, return
+              <i>first</i>.</li>
+          <li>Let <i>second</i> be the code unit value of the element at index <i>position</i>+1 in the String <i>S</i>.</li>
+          <li>If <i>second</i> &lt; 0xDC00 or <i>second</i> &gt; 0xDFFF, return <i>first</i>.</li>
+          <li>Return <a href="/sec/sec-utf16decode.html">UTF16Decode</a>(<i>first</i>, <i>second</i>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>codePointAt</code> function is intentionally generic; it does not require
+          that its <b>this</b> value be a String object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.concat">
+        <h1><span class="secnum" id="sec-21.1.3.4"><a href="/sec/sec-string.prototype.concat.html" title="link to this section">21.1.3.4</a></span> String.prototype.concat ( ...args )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> When the <code>concat</code> method is called it returns a String consisting of the
+          code units of the <code>this</code> object (converted to a String) followed by the code units of each of the arguments
+          converted to a String. The result is a String value, not a String object.</p>
+        </div>
+
+        <p class="normalbefore">When the <code>concat</code> method is called with zero or more arguments the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>args</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> whose elements are the arguments
+              passed to this function.</li>
+          <li>Let <i>R</i> be <i>S</i>.</li>
+          <li>Repeat, while <i>args</i> is not empty
+            <ol class="block">
+              <li>Remove the first element from <i>args</i> and let <i>next</i> be the value of that element.</li>
+              <li>Let <i>nextString</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>next</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextString</i>).</li>
+              <li>Let <i>R</i> be the String value consisting of the code units of the previous value of <i>R</i> followed by the
+                  code units of <i>nextString</i>.</li>
+            </ol>
+          </li>
+          <li>Return <i>R</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>concat</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>concat</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be a String object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.constructor">
+        <h1><span class="secnum" id="sec-21.1.3.5"><a href="/sec/sec-string.prototype.constructor.html" title="link to this section">21.1.3.5</a></span> String.prototype.constructor</h1>
+
+        <p>The initial value of <code>String.prototype.constructor</code> is the intrinsic object %String%.</p>
+      </section>
+
+      <section id="sec-string.prototype.endswith">
+        <h1><span class="secnum" id="sec-21.1.3.6"><a href="/sec/sec-string.prototype.endswith.html" title="link to this section">21.1.3.6</a></span> String.prototype.endsWith ( searchString [ , endPosition] )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>isRegExp</i> be <a href="/sec/sec-isregexp.html">IsRegExp</a>(<i>searchString</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>isRegExp</i>).</li>
+          <li>If <i>isRegExp</i> is <b>true</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>searchStr</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>searchString</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>searchStr</i>).</li>
+          <li>Let <i>len</i> be the number of elements in <i>S</i>.</li>
+          <li>If <i>endPosition</i> is <b>undefined</b>, let <i>pos</i> be <i>len</i>, else let <i>pos</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>endPosition</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>pos</i>).</li>
+          <li>Let <i>end</i> be min(max(<i>pos</i>, 0), <i>len</i>).</li>
+          <li>Let <i>searchLength</i> be the number of elements in <i>searchStr</i>.</li>
+          <li>Let <i>start</i> be <i>end</i> - <i>searchLength</i>.</li>
+          <li>If <i>start</i> is less than 0, return <b>false</b><i>.</i></li>
+          <li>If the sequence of elements of <i>S</i> starting at <i>start</i> of length <i>searchLength</i> is the same as the
+              full element sequence of <i>searchStr</i>, return <b>true</b>.</li>
+          <li>Otherwise, return <b>false</b>.</li>
+        </ol>
+
+        <p>The <b>length</b> property of the <b>endsWith</b> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> Returns <b>true</b> if the sequence of elements of <i>searchString</i> converted to a
+          String is the same as the corresponding elements of this object (converted to a String) starting at <i>endPosition</i>
+          &#x2013; length(this). Otherwise returns <b>false</b>.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> Throwing an exception if the first argument is a RegExp is specified in order to allow
+          future editions to define extensions that allow such argument values.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 3</span> The <b>endsWith</b> function is intentionally generic; it does not require that its
+          <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.includes">
+        <h1><span class="secnum" id="sec-21.1.3.7"><a href="/sec/sec-string.prototype.includes.html" title="link to this section">21.1.3.7</a></span> String.prototype.includes ( searchString [ , position ] )</h1>
+
+        <p class="normalbefore">The <code>includes</code> method takes two arguments, <i>searchString</i> and <i>position</i>, and
+        performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>isRegExp</i> be  <a href="/sec/sec-isregexp.html">IsRegExp</a>(<i>searchString</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>isRegExp</i>).</li>
+          <li>If <i>isRegExp</i> is <b>true</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>searchStr</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>searchString</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>searchStr</i>).</li>
+          <li>Let <i>pos</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>position</i>). (If <i>position</i> is <b>undefined</b>,
+              this step produces the value <b>0</b>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>pos</i>).</li>
+          <li>Let <i>len</i> be the number of elements in <i>S</i>.</li>
+          <li>Let <i>start</i> be min(max(<i>pos</i>, 0), <i>len</i>).</li>
+          <li>Let <i>searchLen</i> be the number of elements in <i>searchStr</i>.</li>
+          <li>If there exists any integer <i>k</i> not smaller than <i>start</i> such that <i>k</i> + <i>searchLen</i> is not
+              greater than <i>len</i>, and for all nonnegative integers <i>j</i> less than <i>searchLen</i>, the code unit at
+              index <i>k</i>+<i>j</i> of <i>S</i> is the same as the code unit at index <i>j</i> of <i>searchStr,</i> return
+              <b>true</b>; but if there is no such integer <i>k</i>, return <b>false</b>.</li>
+        </ol>
+
+        <p>The <b>length</b> property of the <code>includes</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> If <var>searchString</var> appears as a substring of the result of converting this
+          object to a String, at one or more indices that are greater than or equal to <i>position</i>, return <span class="value">true</span>; otherwise, returns <span class="value">false</span>. If <i>position</i> is <span class="value">undefined</span>, 0 is assumed, so as to search all of the String.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> Throwing an exception if the first argument is a RegExp is specified in order to allow
+          future editions to define extensions that allow such argument values.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 3</span> The <code>includes</code> function is intentionally generic; it does not require that
+          its <span class="value">this</span> value be a String object. Therefore, it can be transferred to other kinds of objects
+          for use as a method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.indexof">
+        <h1><span class="secnum" id="sec-21.1.3.8"><a href="/sec/sec-string.prototype.indexof.html" title="link to this section">21.1.3.8</a></span> String.prototype.indexOf ( searchString [ , position ] )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> If <var>searchString</var> appears as a substring of the result of converting this
+          object to a String, at one or more indices that are greater than or equal to <var>position</var>, then the smallest such
+          index is returned; otherwise, <code>&#x2011;1</code> is returned. If <var>position</var> is <b>undefined</b>, 0 is
+          assumed, so as to search all of the String.</p>
+        </div>
+
+        <p class="normalbefore">The <code>indexOf</code> method takes two arguments, <var>searchString</var> and
+        <var>position</var>, and performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>searchStr</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>searchString</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>searchStr</i>).</li>
+          <li>Let <i>pos</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>position</i>). (If <i>position</i> is <b>undefined</b>,
+              this step produces the value <code>0</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>pos</i>).</li>
+          <li>Let <i>len</i> be the number of elements in <i>S</i>.</li>
+          <li>Let <i>start</i> be min(max(<i>pos</i>, 0), <i>len</i>).</li>
+          <li>Let <i>searchLen</i> be the number of elements in <i>searchStr</i>.</li>
+          <li>Return the smallest possible integer <i>k</i> not smaller than <i>start</i> such that <i>k</i>+ <i>searchLen</i> is
+              not greater than <i>len</i>, and for all nonnegative integers <i>j</i> less than <i>searchLen</i>, the code unit at
+              index <i>k</i>+<i>j</i> of <i>S</i> is the same as the code unit at index <i>j</i> of <i>searchStr</i>; but if there
+              is no such integer <i>k</i>, return the value <code>-1</code><span style="font-family: sans-serif">.</span></li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>indexOf</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>indexOf</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.lastindexof">
+        <h1><span class="secnum" id="sec-21.1.3.9"><a href="/sec/sec-string.prototype.lastindexof.html" title="link to this section">21.1.3.9</a></span> String.prototype.lastIndexOf ( searchString [ , position ] )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> If <var>searchString</var> appears as a substring of the result of converting this
+          object to a String at one or more indices that are smaller than or equal to <var>position</var>, then the greatest such
+          index is returned; otherwise, <code>&#x2011;1</code> is returned. If <var>position</var> is <b>undefined</b>, the length
+          of the String value is assumed, so as to search all of the String.</p>
+        </div>
+
+        <p class="normalbefore">The <code>lastIndexOf</code> method takes two arguments, <var>searchString</var> and
+        <var>position</var>, and performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>searchStr</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>searchString</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>searchString</i>).</li>
+          <li>Let <i>numPos</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>position</i>). (If <i>position</i> is <b>undefined</b>,
+              this step produces the value <b>NaN</b>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>numPos</i>).</li>
+          <li>If <i>numPos</i> is <b>NaN</b>, let <i>pos</i> be <b>+&#x221E;</b>; otherwise, let <i>pos</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>numPos</i>).</li>
+          <li>Let <i>len</i> be the number of elements in <i>S</i>.</li>
+          <li>Let <i>start</i> be min(max(<i>pos</i>, 0), <i>len</i>).</li>
+          <li>Let <i>searchLen</i> be the number of elements in <i>searchStr</i>.</li>
+          <li>Return the largest possible nonnegative integer <i>k</i> not larger than <i>start</i> such that <i>k</i>+
+              <i>searchLen</i> is not greater than <i>len</i>, and for all nonnegative integers <i>j</i> less than
+              <i>searchLen</i>, the code unit at index <i>k</i>+<i>j</i> of <i>S</i> is the same as the code unit at index
+              <i>j</i> of <i>searchStr</i>; but if there is no such integer <i>k</i>, return the value <code>-1</code>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>lastIndexOf</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>lastIndexOf</code> function is intentionally generic; it does not require
+          that its <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.localecompare">
+        <h1><span class="secnum" id="sec-21.1.3.10"><a href="/sec/sec-string.prototype.localecompare.html" title="link to this section">21.1.3.10</a></span> String.prototype.localeCompare ( that [, reserved1 [ , reserved2 ] ]
+            )</h1>
+
+        <p>An ECMAScript implementation that includes the ECMA-402 Internationalization API must implement the
+        <code>localeCompare</code> method as specified in the ECMA-402 specification. If an ECMAScript implementation does not
+        include the ECMA-402 API the following  specification of the <code>localeCompare</code> method is used.</p>
+
+        <p>When the <code>localeCompare</code> method is called with argument <var>that</var>, it returns a Number other than
+        <b>NaN</b> that represents the result of a locale-sensitive String comparison of the <b>this</b> value (converted to a
+        String) with <var>that</var> (converted to a String). The two Strings are <var>S</var> and <span class="nt">That</span>.
+        The two Strings are compared in an implementation-defined fashion. The result is intended to order String values in the
+        sort order specified by a host default locale, and will be negative, zero, or positive, depending on whether <var>S</var>
+        comes before <span class="nt">That</span> in the sort order, the Strings are equal, or <var>S</var> comes after <span class="nt">That</span> in the sort order, respectively.</p>
+
+        <p class="normalbefore">Before performing the comparisons, the following steps are performed to prepare the Strings:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>That</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>that</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>That</i>).</li>
+        </ol>
+
+        <p>The meaning of the optional second and third parameters to this method are defined in the ECMA-402 specification;
+        implementations that do not include ECMA-402 support must not assign any other interpretation to those parameter
+        positions.</p>
+
+        <p>The <code>localeCompare</code> method, if considered as a function of two arguments <b>this</b> and <var>that</var>, is
+        a consistent comparison function (as defined in <a href="/sec/sec-array.prototype.sort.html">22.1.3.24</a>) on the set of all
+        Strings.</p>
+
+        <p>The actual return values are implementation-defined to permit implementers to encode additional information in the
+        value, but the function is required to define a total ordering on all Strings. This function must treat Strings that are
+        canonically equivalent according to the Unicode standard as identical and must return <code>0</code> when comparing
+        Strings that are considered canonically equivalent.</p>
+
+        <p>The <code>length</code> property of the <code>localeCompare</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The <code>localeCompare</code> method itself is not directly suitable as an argument
+          to <code><a href="/sec/sec-array.prototype.sort.html">Array.prototype.sort</a></code> because the latter requires a function of
+          two arguments.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> This function is intended to rely on whatever language-sensitive comparison
+          functionality is available to the ECMAScript environment from the host environment, and to compare according to the
+          rules of the host environment&#x2019;s current locale. However, regardless of the host provided comparison capabilities,
+          this function must treat Strings that are canonically equivalent according to the Unicode standard as identical. It is
+          recommended that this function should not honour Unicode compatibility equivalences or decompositions. For a definition
+          and discussion of canonical equivalence see the Unicode Standard, chapters 2 and 3, as well as Unicode Standard Annex
+          #15, Unicode Normalization Forms (<a href="http://www.unicode.org/reports/tr15/">http://www.unicode.org/reports/tr15/</a>) and Unicode Technical Note #5,
+          Canonical Equivalence in Applications (<a href="http://www.unicode.org/notes/tn5/">http://www.unicode.org/notes/tn5/</a>). Also see Unicode Technical Standard
+          #10,  Unicode Collation Algorithm (<a href="http://www.unicode.org/reports/tr10/">http://www.unicode.org/reports/tr10/</a>).</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 3</span> The <code>localeCompare</code> function is intentionally generic; it does not require
+          that its <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.match">
+        <h1><span class="secnum" id="sec-21.1.3.11"><a href="/sec/sec-string.prototype.match.html" title="link to this section">21.1.3.11</a></span> String.prototype.match ( regexp )</h1>
+
+        <p class="normalbefore">When the <code>match</code> method is called with argument <var>regexp</var>, the following steps
+        are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>If <i>regexp</i> is neither <b>undefined</b> nor <b>null<i>,</i></b> then
+            <ol class="block">
+              <li>Let <i>matcher</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>regexp</i>, @@match).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>matcher</i>).</li>
+              <li>If <i>matcher</i> is not <b>undefined</b>, then
+                <ol class="block">
+                  <li>Return  <a href="/sec/sec-call.html">Call</a>(<i>matcher</i>, <i>regexp</i>, &#xAB;&#x200D;<i>O</i>&#xBB;).</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>rx</i> be <a href="/sec/sec-regexpcreate.html">RegExpCreate</a>(<i>regexp</i>, <b>undefined</b>) (<a href="/sec/sec-regexpcreate.html">see 21.2.3.2.3</a>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rx</i>).</li>
+          <li>Return <a href="/sec/sec-invoke.html">Invoke</a>(<i>rx</i>, @@match, &#xAB;&#x200D;<i>S</i>&#xBB;).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <code>match</code> function is intentionally generic; it does not require that its
+          <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.normalize">
+        <h1><span class="secnum" id="sec-21.1.3.12"><a href="/sec/sec-string.prototype.normalize.html" title="link to this section">21.1.3.12</a></span> String.prototype.normalize ( [ form ] )</h1>
+
+        <p class="normalbefore">When the <code>normalize</code> method is called with one argument <var>form</var>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>If <i>form</i> is not provided or <i>form</i> is <b>undefined</b>, let <i>form</i> be
+              <code><b>&quot;</b>NFC<b>&quot;</b></code>.</li>
+          <li>Let <i>f</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>form</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>f</i>).</li>
+          <li>If <i>f</i> is not one of <code><b>&quot;</b>NFC<b>&quot;</b></code>, <code><b>&quot;</b>NFD<b>&quot;</b></code>,
+              <code><b>&quot;</b>NFKC<b>&quot;</b></code>, or <code><b>&quot;</b>NFKD<b>&quot;</b></code>, throw a <b>RangeError</b> exception.</li>
+          <li>Let <i>ns</i> be the String value that is the result of normalizing <i>S</i> into the normalization form named by
+              <i>f</i> as specified in <a href="http://www.unicode.org/reports/tr15/tr15-29.html">http://www.unicode.org/reports/tr15/tr15-29.html</a>.</li>
+          <li>Return <i>ns</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>normalize</code> method is <b>0</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <code>normalize</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be a String object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.repeat">
+        <h1><span class="secnum" id="sec-21.1.3.13"><a href="/sec/sec-string.prototype.repeat.html" title="link to this section">21.1.3.13</a></span> String.prototype.repeat ( count )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>n</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>count</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>n</i>).</li>
+          <li>If <i>n</i> &lt; 0, throw a <b>RangeError</b> exception.</li>
+          <li>If <i>n</i> is  +&#x221E;, throw a <b>RangeError</b> exception.</li>
+          <li>Let <i>T</i> be a String value that is made from <i>n</i> copies of <i>S</i> appended together. If <i>n</i> is 0,
+              <i>T</i> is the empty String.</li>
+          <li>Return <i>T</i>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> This method creates a String consisting of the code units of the <code>this</code>
+          object (converted to String) repeated <var>count</var> times.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>repeat</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.replace">
+        <div class="front">
+          <h1><span class="secnum" id="sec-21.1.3.14"><a href="/sec/sec-string.prototype.replace.html" title="link to this section">21.1.3.14</a></span> String.prototype.replace (searchValue, replaceValue )</h1>
+
+          <p class="normalbefore">When the <code>replace</code> method is called with arguments <var>searchValue</var> and
+          <var>replaceValue</var> the following steps are taken:</p>
+
+          <ol class="proc">
+            <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+            <li>If <i>searchValue</i> is neither <b>undefined</b> nor <b>null<i>,</i></b> then
+              <ol class="block">
+                <li>Let <i>replacer</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>searchValue</i>, @@replace).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>replacer</i>).</li>
+                <li>If <i>replacer</i> is not <b>undefined</b>, then
+                  <ol class="block">
+                    <li>Return <a href="/sec/sec-call.html">Call</a>(<i>replacer</i>, <i>searchValue</i>, &#xAB;<i>O</i>,
+                        <i>replaceValue</i>&#xBB;).</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+            <li>Let <i>string</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>string</i>).</li>
+            <li>Let <i>searchString</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>searchValue</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>searchString</i>).</li>
+            <li>Let <i>functionalReplace</i> be <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>replaceValue</i>).</li>
+            <li>If <i>functionalReplace</i> is <b>false</b>, then
+              <ol class="block">
+                <li>Let <i>replaceValue</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>replaceValue</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>replaceValue</i>).</li>
+              </ol>
+            </li>
+            <li>Search <i>string</i> for the first occurrence of <i>searchString</i> and let <i>pos</i> be the index within
+                <i>string</i> of the first code unit of the matched substring and let <i>matched</i> be <i>searchString</i>. If no
+                occurrences of <i>searchString</i> were found, return <i>string</i>.</li>
+            <li>If <i>functionalReplace</i> is <b>true</b>, then
+              <ol class="block">
+                <li>Let <i>replValue</i> be <a href="/sec/sec-call.html">Call</a>(<i>replaceValue</i>,
+                    <b>undefined</b>,&#xAB;<i>matched</i>, <i>pos</i>, and <i>string</i>&#xBB;).</li>
+                <li>Let <i>replStr</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>replValue</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>replStr</i>).</li>
+              </ol>
+            </li>
+            <li>Else,
+              <ol class="block">
+                <li>Let <i>captures</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+                <li>Let <i>replStr</i> be <a href="/sec/sec-getsubstitution.html">GetSubstitution</a>(<i>matched</i>, <i>string</i>,
+                    <i>pos</i>, <i>captures</i>, <i>replaceValue</i>).</li>
+              </ol>
+            </li>
+            <li>Let <i>tailPos</i> be <i>pos</i> + the number of code units in <i>matched</i>.</li>
+            <li>Let <i>newString</i> be the String formed by concatenating the first <i>pos</i> code units of <i>string</i>,
+                <i>replStr</i>, and the trailing substring of <i>string</i> starting at index <i>tailPos</i>. If <i>pos</i> is 0,
+                the first element of the concatenation will be the empty String.</li>
+            <li>Return  <i>newString</i>.</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> The <code>replace</code> function is intentionally generic; it does not require that
+            its <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for use as a
+            method.</p>
+          </div>
+        </div>
+
+        <section id="sec-getsubstitution">
+          <h1><span class="secnum" id="sec-21.1.3.14.1"><a href="/sec/sec-getsubstitution.html" title="link to this section">21.1.3.14.1</a></span> Runtime Semantics: GetSubstitution(matched, str, position,
+              captures, replacement)</h1>
+
+          <p class="normalbefore">The abstract operation GetSubstitution performs the following steps:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>matched</i>) is String.</li>
+            <li>Let <i>matchLength</i> be the number of code units in <i>matched</i>.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>str</i>) is String.</li>
+            <li>Let <i>stringLength</i> be the number of code units in <i>str</i>.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>position</i> is a nonnegative integer.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>position</i> &#x2264; <i>stringLength</i>.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>captures</i> is a possibly empty <a href="/sec/sec-list-and-record-specification-type.html">List</a> of Strings.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(
+                <i>replacement</i>) is String</li>
+            <li>Let <i>tailPos</i> be <i>position</i> + <i>matchLength</i>.</li>
+            <li>Let <i>m</i> be the number of elements in <i>captures</i>.</li>
+            <li>Let <i>result</i> be a String value derived from <i>replacement</i> by copying code unit elements from
+                <i>replacement</i> to <i>result</i> while performing replacements as specified in <a href="/sec/table-45.html">Table
+                45</a>. These <code>$</code> replacements are done left-to-right, and, once such a replacement is performed, the
+                new replacement text is not subject to further replacements.</li>
+            <li>Return <i>result</i>.</li>
+          </ol>
+
+          <figure>
+            <figcaption><span id="table-45">Table 45</span> &#x2014; Replacement Text Symbol Substitutions</figcaption>
+            <table class="real-table">
+              <tr>
+                <th>Code units</th>
+                <th>Unicode Characters</th>
+                <th>Replacement text</th>
+              </tr>
+              <tr>
+                <td>0x0024, 0x0024</td>
+                <td><code>$$</code></td>
+                <td><code>$</code></td>
+              </tr>
+              <tr>
+                <td>0x0024, 0x0026</td>
+                <td><code>$&amp;</code></td>
+                <td><i>matched</i></td>
+              </tr>
+              <tr>
+                <td>0x0024, 0x0060</td>
+                <td><code>$`</code></td>
+                <td>If <i>position</i> is 0, the replacement is the empty String. Otherwise  the replacement is the substring of <i>str</i> that starts at index 0 and whose last code unit is at index <i>position</i> -1.</td>
+              </tr>
+              <tr>
+                <td>0x0024, 0x0027</td>
+                <td><code>$&apos;</code></td>
+                <td>If <i>tailPos</i> &#x2265; <i>stringLength</i>, the replacement is the empty String. Otherwise  the replacement is the substring of <i>str</i> that starts at index <i>tailPos</i> and continues to the end of <i>str</i>.</td>
+              </tr>
+              <tr>
+                <td>0x0024, N<br>Where<br>0x0031 &#x2264; N &#x2264; 0x0039</td>
+                <td><code>$n</code> <span style="font-family: Times New Roman">where</span> <code><br>n</code> <span style="font-family: Times New Roman">is one of</span> <code>1 2 3 4 5 6 7 8 9</code> <span style="font-family: Times New Roman">and</span> <code>$n</code> <span style="font-family: Times New Roman">is not followed by a decimal digit</span></td>
+                <td>The <i>n</i><sup>th</sup> element of <i>captures</i>, where <i>n</i> is a single digit in the range 1 to 9. If <i>n</i>&#x2264;<i>m</i> and the <i>n</i><sup>th</sup> element of <i>captures</i> is <b>undefined</b>, use the empty String instead. If <i>n</i>&gt;<i>m</i>, the result is implementation-defined.</td>
+              </tr>
+              <tr>
+                <td>0x0024, N, N<br>Where<br>0x0030 &#x2264; N &#x2264; 0x0039</td>
+                <td><code>$nn</code> <span style="font-family: Times New Roman">where</span> <code><br>n</code> <span style="font-family: Times New Roman">is one of</span> <code>0 1 2 3 4 5 6 7 8 9</code></td>
+                <td>The <i>nn</i><sup>th</sup> element of <i>captures</i>, where <i>nn</i> is a two-digit decimal number in the range 01 to 99. If <i>nn</i>&#x2264;<i>m</i> and the <i>nn</i><sup>th</sup> element of <i>captures</i> is <b>undefined</b>, use the empty String instead. If <i>nn</i> is 00 or <i>nn</i>&gt;<i>m</i>, the result is implementation-defined.</td>
+              </tr>
+              <tr>
+                <td>0x0024</td>
+                <td><code>$</code> <span style="font-family: Times New Roman">in any context that does not match any of the above.</span></td>
+                <td><code>$</code></td>
+              </tr>
+            </table>
+          </figure>
+        </section>
+      </section>
+
+      <section id="sec-string.prototype.search">
+        <h1><span class="secnum" id="sec-21.1.3.15"><a href="/sec/sec-string.prototype.search.html" title="link to this section">21.1.3.15</a></span> String.prototype.search ( regexp )</h1>
+
+        <p class="normalbefore">When the search method is called with argument <var>regexp</var>, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>If <i>regexp</i> is neither <b>undefined</b> nor <b>null<i>,</i></b> then
+            <ol class="block">
+              <li>Let <i>searcher</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>regexp</i>, @@search).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>searcher</i>).</li>
+              <li>If <i>searcher</i> is not <b>undefined</b> , then
+                <ol class="block">
+                  <li>Return <a href="/sec/sec-call.html">Call</a>(<i>searcher</i>, <i>regexp</i>, &#xAB;<i>O</i>&#xBB;)</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Let <i>string</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>string</i>).</li>
+          <li>Let <i>rx</i> be <a href="/sec/sec-regexpcreate.html">RegExpCreate</a>(<i>regexp</i>, <b>undefined</b>) (<a href="/sec/sec-regexpcreate.html">see 21.2.3.2.3</a>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rx</i>).</li>
+          <li>Return <a href="/sec/sec-invoke.html">Invoke</a>(<i>rx</i>, @@search, &#xAB;&#x200D;<i>string</i>&#xBB;).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <code>search</code> function is intentionally generic; it does not require that its
+          <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.slice">
+        <h1><span class="secnum" id="sec-21.1.3.16"><a href="/sec/sec-string.prototype.slice.html" title="link to this section">21.1.3.16</a></span> String.prototype.slice ( start, end )</h1>
+
+        <p class="normalbefore">The <code>slice</code> method takes two arguments, <var>start</var> and <var>end</var>, and
+        returns a substring of the result of converting this object to a String, starting from index <var>start</var> and running
+        to, but not including, index <var>end</var> (or through the end of the String if <var>end</var> is <b>undefined</b>). If
+        <var>start</var> is negative, it is treated as <span style="font-family: Times New
+        Roman"><i>sourceLength</i>+<i>start</i></span> where <var>sourceLength</var> is the length of the String. If
+        <var>end</var> is negative, it is treated as <span style="font-family: Times New
+        Roman"><i>sourceLength</i>+<i>end</i></span> where <var>sourceLength</var> is the length of the String. The result is a
+        String value, not a String object. The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>len</i> be the number of elements in <i>S</i>.</li>
+          <li>Let <i>intStart</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>start</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>intStart</i>).</li>
+          <li>If <i>end</i> is <b>undefined</b>, let <i>intEnd</i> be <i>len</i>; else let <i>intEnd</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>end</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>intEnd</i>).</li>
+          <li>If  <i>intStart</i> &lt; 0, let <i>from</i> be max(<i>len</i> + <i>intStart</i>,0); otherwise let <i>from</i> be
+              min(<i>intStart</i>, <i>len</i>).</li>
+          <li>If <i>intEnd</i> &lt; 0, let <i>to</i> be max(<i>len</i> + <i>intEnd</i>,0); otherwise let <i>to</i> be
+              min(<i>intEnd</i>, <i>len</i>).</li>
+          <li>Let <i>span</i> be max(<i>to</i> &#x2013; <i>from</i>,0).</li>
+          <li>Return a String value containing <i>span</i> consecutive elements from <i>S</i> beginning with the element at index
+              <i>from</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>slice</code> method is <b>2</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <code>slice</code> function is intentionally generic; it does not require that its
+          <b>this</b> value be a String object. Therefore it can be transferred to other kinds of objects for use as a method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.split">
+        <div class="front">
+          <h1><span class="secnum" id="sec-21.1.3.17"><a href="/sec/sec-string.prototype.split.html" title="link to this section">21.1.3.17</a></span> String.prototype.split ( separator, limit )</h1>
+
+          <p>Returns an Array object into which substrings of the result of converting this object to a String have been stored.
+          The substrings are determined by searching from left to right for occurrences of <var>separator</var>; these occurrences
+          are not part of any substring in the returned array, but serve to divide up the String value. The value of
+          <var>separator</var> may be a String of any length or it may be an object, such as an RegExp, that has a @@split
+          method.</p>
+
+          <p>When the <code>split</code> method is called, the following steps are taken:</p>
+
+          <ol class="proc">
+            <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+            <li>If <i>separator</i> is neither <b>undefined</b> nor <b>null</b>, then
+              <ol class="block">
+                <li>Let <i>splitter</i> be <a href="/sec/sec-getmethod.html">GetMethod</a>(<i>separator</i>, @@split).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>splitter</i>).</li>
+                <li>If <i>splitter</i> is not <b>undefined</b> , then
+                  <ol class="block">
+                    <li>Return <a href="/sec/sec-call.html">Call</a>(<i>splitter</i>, <i>separator</i>, &#xAB;&#x200D;<i>O</i>,
+                        <i>limit</i>&#xBB;).</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+            <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+            <li>Let <i>A</i> be <a href="/sec/sec-arraycreate.html">ArrayCreate</a>(0).</li>
+            <li>Let <i>lengthA</i> be 0.</li>
+            <li>If <i>limit</i> is <b>undefined</b>, let <i>lim</i> = 2<sup>53</sup>&#x2013;1; else let <i>lim</i> = <a href="/sec/sec-tolength.html">ToLength</a>(<i>limit</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lim</i>).</li>
+            <li>Let <i>s</i> be the number of elements in <i>S</i>.</li>
+            <li>Let <i>p</i> = 0.</li>
+            <li>Let <i>R</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>separator</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>R</i>).</li>
+            <li>If <i>lim</i> = 0, return <i>A</i>.</li>
+            <li>If <i>separator</i> is <b>undefined</b>, then
+              <ol class="block">
+                <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>A</i>, <code>&quot;<b>0</b>&quot;</code>,
+                    <i>S</i>).</li>
+                <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: The above call will never result in an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+                <li>Return <i>A</i>.</li>
+              </ol>
+            </li>
+            <li>If <i>s</i> = 0, then
+              <ol class="block">
+                <li>Let <i>z</i> be <a href="/sec/sec-splitmatch.html">SplitMatch</a>(<i>S</i>, 0, <i>R</i>).</li>
+                <li>If <i>z</i> is not <b>false</b>, return <i>A</i>.</li>
+                <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>A</i>, <code>&quot;<b>0</b>&quot;</code>,
+                    <i>S</i>).</li>
+                <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: The above call will never result in an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+                <li>Return <i>A</i>.</li>
+              </ol>
+            </li>
+            <li>Let <i>q</i> = <i>p</i>.</li>
+            <li>Repeat, while <i>q</i> &#x2260; <i>s</i>
+              <ol class="block">
+                <li>Let <i>e</i> be <a href="/sec/sec-splitmatch.html">SplitMatch</a>(<i>S, q, R</i>).</li>
+                <li>If <i>e</i> is <b>false</b>, let <i>q</i> = <i>q</i>+1.</li>
+                <li>Else  <i>e</i> is an integer index into <i>S</i>,
+                  <ol class="block">
+                    <li>If <i>e</i> = <i>p</i>, let <i>q</i> = <i>q</i>+1.</li>
+                    <li>Else <i>e</i> &#x2260; <i>p</i>,
+                      <ol class="block">
+                        <li>Let <i>T</i> be a String value equal to the substring of <i>S</i> consisting of the code units at
+                            indices <i>p</i> (inclusive) through <i>q</i> (exclusive).</li>
+                        <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>A</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>lengthA</i>), <i>T</i>).</li>
+                        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: The above call will never result in an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+                        <li>Increment <i>lengthA</i> by 1.</li>
+                        <li>If <i>lengthA</i> = <i>lim</i>, return <i>A</i>.</li>
+                        <li>Let <i>p</i> = <i>e</i>.</li>
+                        <li>Let <i>q</i> = <i>p</i>.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+            <li>Let <i>T</i> be a String value equal to the substring of <i>S</i> consisting of the code units at indices <i>p</i>
+                (inclusive) through <i>s</i> (exclusive).</li>
+            <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>A</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>lengthA</i>), <i>T</i>).</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: The above call will never result in an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+            <li>Return <i>A</i>.</li>
+          </ol>
+
+          <p>The <code>length</code> property of the <code>split</code> method is <b>2</b>.</p>
+
+          <div class="note">
+            <p><span class="nh">NOTE 1</span> The value of <var>separator</var> may be an empty String, an empty regular
+            expression, or a regular expression that can match an empty String. In this case, <var>separator</var> does not match
+            the empty substring at the beginning or end of the input String, nor does it match the empty substring at the end of
+            the previous separator match. (For example, if <var>separator</var> is the empty String, the String is split up into
+            individual code unit elements; the length of the result array equals the length of the String, and each substring
+            contains one code unit.) If <var>separator</var> is a regular expression, only the first match at a given index of the
+            <b>this</b> String is considered, even if backtracking could yield a non-empty-substring match at that index. (For
+            example, <code>&quot;ab&quot;.split(/a*?/)</code> evaluates to the array <code>[&quot;a&quot;,&quot;b&quot;]</code>, while
+            <code>&quot;ab&quot;.split(/a*/)</code> evaluates to the array<code>[&quot;&quot;,&quot;b&quot;]</code>.)</p>
+
+            <p>If the <b>this</b> object is (or converts to) the empty String, the result depends on whether <var>separator</var>
+            can match the empty String. If it can, the result array contains no elements. Otherwise, the result array contains one
+            element, which is the empty String.</p>
+
+            <p>If <var>separator</var> is a regular expression that contains capturing parentheses, then each time
+            <var>separator</var> is matched the results (including any <b>undefined</b> results) of the capturing parentheses are
+            spliced into the output array. For&#xA0;example,</p>
+
+            <p>&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<code>&quot;A&lt;B&gt;bold&lt;/B&gt;and&lt;CODE&gt;coded&lt;/CODE&gt;&quot;.split(/&lt;(\/)?([^&lt;&gt;]+)&gt;/)</code></p>
+
+            <p>evaluates to the array:</p>
+
+            <p>&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<code>[&quot;A&quot;, undefined, &quot;B&quot;, &quot;bold&quot;, &quot;/&quot;, &quot;B&quot;, &quot;and&quot;,
+            undefined,<br></code>&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<code>&quot;CODE&quot;, &quot;coded&quot;, &quot;/&quot;, &quot;CODE&quot;, &quot;&quot;]</code></p>
+
+            <p>If <var>separator</var> is <span class="value">undefined</span>, then the result array contains just one String,
+            which is the <b>this</b> value (converted to a String). If <var>limit</var> is not <span class="value">undefined</span>, then the output array is truncated so that it contains no more than <var>limit</var>
+            elements.</p>
+          </div>
+
+          <div class="note">
+            <p><span class="nh">NOTE 2</span> The <code>split</code> function is intentionally generic; it does not require that
+            its <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for use as a
+            method.</p>
+          </div>
+        </div>
+
+        <section id="sec-splitmatch">
+          <h1><span class="secnum" id="sec-21.1.3.17.1"><a href="/sec/sec-splitmatch.html" title="link to this section">21.1.3.17.1</a></span> Runtime Semantics: SplitMatch ( S, q, R )</h1>
+
+          <p class="normalbefore">The abstract operation SplitMatch takes three parameters, a String <var>S</var>, an integer
+          <var>q</var>, and a String <var>R</var>, and performs the following steps in order to return either <b>false</b> or the
+          end index of a match:</p>
+
+          <ol class="proc">
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>R</i>) is String.</li>
+            <li>Let <i>r</i> be the number of code units in <i>R</i>.</li>
+            <li>Let <i>s</i> be the number of code units in <i>S</i>.</li>
+            <li>If <i>q</i>+<i>r</i> &gt; <i>s</i>, return <b>false</b>.</li>
+            <li>If there exists an integer <i>i</i> between 0 (inclusive) and <i>r</i> (exclusive) such that the code unit at
+                index <i>q</i>+<i>i</i> of <i>S</i> is different from the code unit at index <i>i</i> of <i>R</i>, return
+                <b>false</b>.</li>
+            <li>Return <i>q</i>+<i>r</i>.</li>
+          </ol>
+        </section>
+      </section>
+
+      <section id="sec-string.prototype.startswith">
+        <h1><span class="secnum" id="sec-21.1.3.18"><a href="/sec/sec-string.prototype.startswith.html" title="link to this section">21.1.3.18</a></span> String.prototype.startsWith ( searchString [, position ] )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>isRegExp</i> be  <a href="/sec/sec-isregexp.html">IsRegExp</a>(<i>searchString</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>isRegExp</i>).</li>
+          <li>If <i>isRegExp</i> is <b>true</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>searchStr</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>searchString</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>searchString</i>).</li>
+          <li>Let <i>pos</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>position</i>). (If <i>position</i> is <b>undefined</b>,
+              this step produces the value <b>0</b>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>pos</i>).</li>
+          <li>Let <i>len</i> be the number of elements in <i>S</i>.</li>
+          <li>Let <i>start</i> be min(max(<i>pos</i>, 0), <i>len</i>).</li>
+          <li>Let <i>searchLength</i> be the number of elements in <i>searchStr</i>.</li>
+          <li>If <i>searchLength+start</i> is greater than <i>len</i>, return <b>false</b><i>.</i></li>
+          <li>If the sequence of elements of <i>S</i> starting at <i>start</i> of length <i>searchLength</i> is the same as the
+              full element sequence of <i>searchStr</i>, return <b>true</b>.</li>
+          <li>Otherwise, return <b>false</b>.</li>
+        </ol>
+
+        <p>The <b>length</b> property of the <b>startsWith</b> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> This method returns <b>true</b> if the sequence of elements of <i>searchString</i>
+          converted to a String is the same as the corresponding elements of this object (converted to a String) starting at index
+          <i>position</i>. Otherwise returns <b>false</b>.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> Throwing an exception if the first argument is a RegExp is specified in order to allow
+          future editions to define extensions that allow such argument values.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 3</span> The <b>startsWith</b> function is intentionally generic; it does not require that its
+          <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.substring">
+        <h1><span class="secnum" id="sec-21.1.3.19"><a href="/sec/sec-string.prototype.substring.html" title="link to this section">21.1.3.19</a></span> String.prototype.substring ( start, end )</h1>
+
+        <p>The <b>substring</b> method takes two arguments, <var>start</var> and <var>end</var>, and returns a substring of the
+        result of converting this object to a String, starting from index <var>start</var> and running to, but not including,
+        index <var>end</var> of the String (or through the end of the String is <var>end</var> is <b>undefined</b>). The result is
+        a String value, not a String object.</p>
+
+        <p>If either argument is <b>NaN</b> or negative, it is replaced with zero; if either argument is larger than the length of
+        the String, it is replaced with the length of the String.</p>
+
+        <p>If <var>start</var> is larger than <var>end</var>, they are swapped.</p>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>len</i> be the number of elements in <i>S</i>.</li>
+          <li>Let <i>intStart</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>start</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>intStart</i>).</li>
+          <li>If <i>end</i> is <b>undefined</b>, let <i>intEnd</i> be <i>len</i>; else let <i>intEnd</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>end</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>intEnd</i>).</li>
+          <li>Let <i>finalStart</i> be min(max(<i>intStart</i>, 0), <i>len</i>).</li>
+          <li>Let <i>finalEnd</i> be min(max(<i>intEnd</i>, 0), <i>len</i>).</li>
+          <li>Let <i>from</i> be min(<i>finalStart</i>, <i>finalEnd</i>).</li>
+          <li>Let <i>to</i> be max(<i>finalStart</i>, <i>finalEnd</i>).</li>
+          <li>Return a String whose length is <i>to</i> - <i>from</i>, containing code units from <i>S</i>, namely the code units
+              with indices <i>from</i> through <i>to</i> &#x2212;1, in ascending order.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>substring</code> method is <b>2</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <code>substring</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.tolocalelowercase">
+        <h1><span class="secnum" id="sec-21.1.3.20"><a href="/sec/sec-string.prototype.tolocalelowercase.html" title="link to this section">21.1.3.20</a></span> String.prototype.toLocaleLowerCase ( [ reserved1 [ , reserved2 ] ]
+            )</h1>
+
+        <p>An ECMAScript implementation that includes the ECMA-402 Internationalization API must implement the
+        <code>toLocaleLowerCase</code> method as specified in the ECMA-402 specification. If an ECMAScript implementation does not
+        include the ECMA-402 API the following  specification of the <code>toLocaleLowerCase</code> method is used.</p>
+
+        <p>This function interprets a String value as a sequence of UTF-16 encoded code points, as described in <a href="/sec/sec-ecmascript-language-types-string-type.html">6.1.4</a>.</p>
+
+        <p>This function works exactly the same as <code>toLowerCase</code> except that its result is intended to yield the
+        correct result for the host environment&#x2019;s current locale, rather than a locale-independent result. There will only
+        be a difference in the few cases (such as Turkish) where the rules for that language conflict with the regular Unicode
+        case mappings.</p>
+
+        <p>The <b>length</b> property of the <b>toLocaleLowerCase</b> method is <b>0</b>.</p>
+
+        <p>The meaning of the optional parameters to this method are defined in the ECMA-402 specification; implementations that
+        do not include ECMA-402 support must not use those parameter positions for anything else.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <code>toLocaleLowerCase</code> function is intentionally generic; it does not
+          require that its <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for
+          use as a method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.tolocaleuppercase">
+        <h1><span class="secnum" id="sec-21.1.3.21"><a href="/sec/sec-string.prototype.tolocaleuppercase.html" title="link to this section">21.1.3.21</a></span> String.prototype.toLocaleUpperCase ([ reserved1 [ , reserved2 ] ]
+            )</h1>
+
+        <p>An ECMAScript implementation that includes the ECMA-402 Internationalization API must implement the
+        <code>toLocaleUpperCase</code> method as specified in the ECMA-402 specification. If an ECMAScript implementation does not
+        include the ECMA-402 API the following  specification of the <code>toLocaleUpperCase</code> method is used.</p>
+
+        <p>This function interprets a String value as a sequence of UTF-16 encoded code points, as described in <a href="/sec/sec-ecmascript-language-types-string-type.html">6.1.4</a>.</p>
+
+        <p>This function works exactly the same as <code>toUpperCase</code> except that its result is intended to yield the
+        correct result for the host environment&#x2019;s current locale, rather than a locale-independent result. There will only
+        be a difference in the few cases (such as Turkish) where the rules for that language conflict with the regular Unicode
+        case mappings.</p>
+
+        <p>The <b>length</b> property of the <b>toLocaleUpperCase</b> method is <b>0</b>.</p>
+
+        <p>The meaning of the optional parameters to this method are defined in the ECMA-402 specification; implementations that
+        do not include ECMA-402 support must not use those parameter positions for anything else.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <code>toLocaleUpperCase</code> function is intentionally generic; it does not
+          require that its <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for
+          use as a method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.tolowercase">
+        <h1><span class="secnum" id="sec-21.1.3.22"><a href="/sec/sec-string.prototype.tolowercase.html" title="link to this section">21.1.3.22</a></span> String.prototype.toLowerCase ( )</h1>
+
+        <p class="normalbefore">This function interprets a String value as a sequence of UTF-16 encoded code points, as described
+        in <a href="/sec/sec-ecmascript-language-types-string-type.html">6.1.4</a>. The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>cpList</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing in order the code
+              points as defined in <a href="/sec/sec-ecmascript-language-types-string-type.html">6.1.4</a> of <i>S</i>, starting at the
+              first element of <i>S</i>.</li>
+          <li>For each code point <i>c</i> in <i>cpList</i>, if the Unicode Character Database provides a language insensitive
+              lower case equivalent of <i>c</i> then replace <i>c</i> in <i>cpList</i> with that equivalent code point(s).</li>
+          <li>Let <i>cuList</i> be a new <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+          <li>For each code point <i>c</i> in <i>cpList</i>, in order, append to <i>cuList</i> the elements of the <a href="/sec/sec-utf16encoding.html">UTF16Encoding</a> (<a href="/sec/sec-utf16encoding.html">10.1.1</a>) of <i>c</i>.</li>
+          <li>Let <i>L</i> be a String whose elements are, in order, the elements of <i>cuList</i> .</li>
+          <li>Return <i>L</i>.</li>
+        </ol>
+
+        <p class="normalBullet">The result must be derived according to the locale-insensitive case mappings in the Unicode
+        Character Database (this explicitly includes not only the UnicodeData.txt file, but also all locale-insensitive mappings
+        in the SpecialCasings.txt file that accompanies it).</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The case mapping of some code points may produce multiple code points . In this case
+          the result String may not be the same length as the source String. Because both <code>toUpperCase</code> and
+          <code>toLowerCase</code> have context-sensitive behaviour, the functions are not symmetrical. In other words,
+          <code>s.toUpperCase().toLowerCase()</code> is not necessarily equal to <code>s.toLowerCase()</code>.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>toLowerCase</code> function is intentionally generic; it does not require
+          that its <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.tostring">
+        <h1><span class="secnum" id="sec-21.1.3.23"><a href="/sec/sec-string.prototype.tostring.html" title="link to this section">21.1.3.23</a></span> String.prototype.toString ( )</h1>
+
+        <p class="normalbefore">When the <code>toString</code> method is called, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>s</i> be thisStringValue(<b>this</b> value).</li>
+          <li>Return  <i>s</i>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> For a String object, the <code>toString</code> method happens to return the same thing
+          as the <code>valueOf</code> method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.touppercase">
+        <h1><span class="secnum" id="sec-21.1.3.24"><a href="/sec/sec-string.prototype.touppercase.html" title="link to this section">21.1.3.24</a></span> String.prototype.toUpperCase ( )</h1>
+
+        <p>This function interprets a String value as a sequence of UTF-16 encoded code points, as described in <a href="/sec/sec-ecmascript-language-types-string-type.html">6.1.4</a>.</p>
+
+        <p>This function behaves in exactly the same way as <code><a href="/sec/sec-string.prototype.tolowercase.html">String.prototype.toLowerCase</a></code>, except that code points are mapped to
+        their <var>uppercase</var> equivalents as specified in the Unicode Character Database.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <code>toUpperCase</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.trim">
+        <h1><span class="secnum" id="sec-21.1.3.25"><a href="/sec/sec-string.prototype.trim.html" title="link to this section">21.1.3.25</a></span> String.prototype.trim ( )</h1>
+
+        <p>This function interprets a String value as a sequence of UTF-16 encoded code points, as described in <a href="/sec/sec-ecmascript-language-types-string-type.html">6.1.4</a>.</p>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>T</i> be a String value that is a copy of <i>S</i> with both leading and trailing white space removed. The
+              definition of white space is the union of <i>WhiteSpace</i> and <i>LineTerminator</i>. When determining whether a
+              Unicode code point is in Unicode general category &#x201C;Zs&#x201D;, code unit sequences are interpreted as UTF-16
+              encoded code point sequences as specified in <a href="/sec/sec-ecmascript-language-types-string-type.html">6.1.4</a>.</li>
+          <li>Return <i>T</i>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <code>trim</code> function is intentionally generic; it does not require that its
+          <b>this</b> value be a String object. Therefore, it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-string.prototype.valueof">
+        <h1><span class="secnum" id="sec-21.1.3.26"><a href="/sec/sec-string.prototype.valueof.html" title="link to this section">21.1.3.26</a></span> String.prototype.valueOf ( )</h1>
+
+        <p class="normalbefore">When the <code>valueOf</code> method is called, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>s</i> be thisStringValue(<b>this</b> value).</li>
+          <li>Return  <i>s</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-string.prototype-@@iterator">
+        <h1><span class="secnum" id="sec-21.1.3.27"><a href="/sec/sec-string.prototype-@@iterator.html" title="link to this section">21.1.3.27</a></span> String.prototype [ @@iterator ]( )</h1>
+
+        <p class="normalbefore">When the @@iterator method is called it returns an Iterator object (<a href="/sec/sec-iterator-interface.html">25.1.1.2</a>) that iterates over the code points of a String value, returning each code
+        point as a String value. The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Return <a href="/sec/sec-createstringiterator.html">CreateStringIterator</a>(<i>S</i>).</li>
+        </ol>
+
+        <p>The value of the <code>name</code> property of this function is <code>&quot;[Symbol.iterator]&quot;</code>.</p>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+          <h1><span class="secnum" id="sec-21.2.3.2.1"><a href="/sec/sec-regexpalloc.html" title="link to this section">21.2.3.2.1</a></span> Runtime Semantics: RegExpAlloc ( newTarget )</h1>
+
+          <p class="normalbefore">When the abstract operation RegExpAlloc with argument <var>newTarget</var> is called, the
+          following steps are taken:</p>
+
+          <ol class="proc">
+            <li>Let <i>obj</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(<i>newTarget</i>,
+                <code>&quot;%RegExpPrototype%&quot;</code>, &#xAB;&#x200D;[[RegExpMatcher]], [[OriginalSource]],
+                [[OriginalFlags]]&#xBB;).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>obj</i>).</li>
+            <li>Let <i>status</i> be <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>obj</i>,
+                <code>&quot;lastIndex&quot;</code>, PropertyDescriptor {[[Writable]]: <b>true</b>, [[Enumerable]]: <b>false</b>,
+                [[Configurable]]: <b>false</b>}).</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is not an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+            <li>Return <i>obj</i>.</li>
+          </ol>
+        
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

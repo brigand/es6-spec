@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-12.3.4.1"><a href="/sec/sec-function-calls-runtime-semantics-evaluation.html" title="link to this section">12.3.4.1</a></span> Runtime Semantics: Evaluation</h1>
+        <div class="gp prod"><span class="nt">CallExpression</span> <span class="geq">:</span> <span class="nt">MemberExpression</span> <span class="nt">Arguments</span></div>
+        <ol class="proc">
+          <li>Let <i>ref</i> be the result of evaluating <i>MemberExpression</i>.</li>
+          <li>Let <i>func</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>ref</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>func</i>).</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>ref</i>) is <a href="/sec/sec-reference-specification-type.html">Reference</a> and <a href="/sec/sec-reference-specification-type.html">IsPropertyReference</a>(<i>ref</i>) is <b>false</b> and <a href="/sec/sec-reference-specification-type.html">GetReferencedName</a>(<i>ref</i>) <i>is</i> <code>&quot;eval&quot;</code>, then
+            <ol class="block">
+              <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>func</i>, %eval%) is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>argList</i> be ArgumentListEvaluation(<i>Arguments</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>argList</i>).</li>
+                  <li>If <i>argList</i> has no elements, return <b>undefined.</b></li>
+                  <li>Let <i>evalText</i> be the first element of <i>argList</i>.</li>
+                  <li>If the source code matching this <i>CallExpression</i> is <a href="/sec/sec-strict-mode-code.html">strict code</a>,
+                      let <i>strictCaller</i> be <b>true.</b> Otherwise let <i>strictCaller</i> be <b>false.</b></li>
+                  <li>Let <i>evalRealm</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-code-realms.html">Realm</a>.</li>
+                  <li>Return <a href="/sec/sec-performeval.html">PerformEval</a>(<i>evalText</i>, <i>evalRealm</i>, <i>strictCaller</i>,
+                      <b>true</b>). .</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>ref</i>) is <a href="/sec/sec-reference-specification-type.html">Reference</a>, then
+            <ol class="block">
+              <li>If <a href="/sec/sec-reference-specification-type.html">IsPropertyReference</a>(<i>ref</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>thisValue</i> be <a href="/sec/sec-getthisvalue.html">GetThisValue</a>(<i>ref</i>).</li>
+                </ol>
+              </li>
+              <li>Else, the base of <i>ref</i> is an <a href="/sec/sec-environment-records.html">Environment Record</a>
+                <ol class="block">
+                  <li>Let <i>refEnv</i> be <a href="/sec/sec-reference-specification-type.html">GetBase</a>(<i>ref</i>).</li>
+                  <li>Let <i>thisValue</i> be <i>refEnv</i>.WithBaseObject().</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Else <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>ref</i>) is not <a href="/sec/sec-reference-specification-type.html">Reference</a>,
+            <ol class="block">
+              <li>Let <i>thisValue</i> be <b>undefined</b>.</li>
+            </ol>
+          </li>
+          <li>Let <i>thisCall</i> be this <i>CallExpression</i>.</li>
+          <li>Let <i>tailCall</i> be <a href="/sec/sec-isintailposition.html">IsInTailPosition</a>(<i>thisCall</i>). (See <a href="/sec/sec-isintailposition.html">14.6.1</a>)</li>
+          <li>Return <a href="/sec/sec-evaluatedirectcall.html">EvaluateDirectCall</a>(<i>func</i>, <i>thisValue</i>, <i>Arguments</i>,
+              <i>tailCall</i>).</li>
+        </ol>
+
+        <p>A <span class="nt">CallExpression</span> evaluation that executes step 4.a.vii is a <i>direct eval</i>.</p>
+
+        <div class="gp prod"><span class="nt">CallExpression</span> <span class="geq">:</span> <span class="nt">CallExpression</span> <span class="nt">Arguments</span></div>
+        <ol class="proc">
+          <li>Let <i>ref</i> be the result of evaluating <i>CallExpression</i>.</li>
+          <li>Let <i>thisCall</i> be this <i>CallExpression</i></li>
+          <li>Let <i>tailCall</i> be <a href="/sec/sec-isintailposition.html">IsInTailPosition</a>(<i>thisCall</i>). (See <a href="/sec/sec-isintailposition.html">14.6.1</a>)</li>
+          <li>Return <a href="/sec/sec-evaluatecall.html">EvaluateCall</a>(<i>ref</i>, <i>Arguments</i>, <i>tailCall</i>).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

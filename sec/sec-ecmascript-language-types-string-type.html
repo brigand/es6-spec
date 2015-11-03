@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-6.1.4"><a href="/sec/sec-ecmascript-language-types-string-type.html" title="link to this section">6.1.4</a></span> The String Type</h1>
+
+      <p>The String type is the set of all ordered sequences of zero or more 16-bit unsigned integer values
+      (&#x201C;elements&#x201D;) up to a maximum length of 2<sup>53</sup>-1 elements. The String type is generally used to represent
+      textual data in a running ECMAScript program, in which case each element in the String is treated as a UTF-16 code unit
+      value. Each element is regarded as occupying a position within the sequence. These positions are indexed with nonnegative
+      integers. The first element (if any) is at index 0, the next element (if any) at index 1, and so on. The length of a String
+      is the number of elements (i.e., 16-bit values) within it. The empty String has length zero and therefore contains no
+      elements.</p>
+
+      <p>Where ECMAScript operations interpret String values, each element is interpreted as a single UTF-16 code unit. However,
+      ECMAScript does not place any restrictions or requirements on the sequence of code units in a String value, so they may be
+      ill-formed when interpreted as UTF-16 code unit sequences. Operations that do not interpret String contents treat them as
+      sequences of undifferentiated 16-bit unsigned integers. The function <code><a href="/sec/sec-string.prototype.normalize.html">String.prototype.normalize</a></code> (<a href="/sec/sec-string.prototype.normalize.html">see
+      21.1.3.12</a>) can be used to explicitly normalize a String value. <code><a href="/sec/sec-string.prototype.localecompare.html">String.prototype.localeCompare</a></code> (<a href="/sec/sec-string.prototype.localecompare.html">see 21.1.3.10</a>) internally normalizes String values, but no other operations
+      implicitly normalize the strings upon which they operate. Only operations that are explicitly specified to be language or
+      locale sensitive produce language-sensitive results.</p>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The rationale behind this design was to keep the implementation of Strings as simple and
+        high-performing as possible. If ECMAScript source text is in Normalized Form C, string literals are guaranteed to also be
+        normalized, as long as they do not contain any Unicode escape sequences.</p>
+      </div>
+
+      <p>Some operations interpret String contents as UTF-16 encoded Unicode code points. In that case the interpretation is:</p>
+
+      <ul>
+        <li>
+          <p>A code unit in the range <span style="font-family: Times New Roman">0</span> to <span style="font-family: Times New
+          Roman">0xD7FF</span> or in the range <span style="font-family: Times New Roman">0xE000</span> to <span style="font-family: Times New Roman">0xFFFF</span> is interpreted as a code point with the same value.</p>
+        </li>
+
+        <li>
+          <p>A sequence of two code units, where the first code unit <var>c1</var> is in the range <span style="font-family: Times
+          New Roman">0xD800</span> to <span style="font-family: Times New Roman">0xDBFF</span> and the second code unit
+          <var>c2</var> is in the range <span style="font-family: Times New Roman">0xDC00</span> to <span style="font-family:
+          Times New Roman">0xDFFF</span>, is a surrogate pair and is interpreted as a code point with the value (<var>c1</var> -
+          <span style="font-family: Times New Roman">0xD800</span>) &#xD7; <span style="font-family: Times New
+          Roman">0x400</span> + (<var>c2</var> &#x2013; <span style="font-family: Times New Roman">0xDC00</span>) + <span style="font-family: Times New Roman">0x10000</span>. (See <a href="/sec/sec-utf16decode.html">10.1.2</a>)</p>
+        </li>
+
+        <li>
+          <p>A code unit that is in the range <span style="font-family: Times New Roman">0xD800</span> to <span style="font-family: Times New Roman">0xDFFF</span>, but is not part of a surrogate pair, is interpreted as a code point
+          with the same value.</p>
+        </li>
+      </ul>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

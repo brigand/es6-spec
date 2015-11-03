@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-13.7.4.9"><a href="/sec/sec-createperiterationenvironment.html" title="link to this section">13.7.4.9</a></span> Runtime Semantics: CreatePerIterationEnvironment(
+            perIterationBindings )</h1>
+
+        <p class="normalbefore">The abstract operation CreatePerIterationEnvironment with argument <var>perIterationBindings</var>
+        is performed as follows:</p>
+
+        <ol class="proc">
+          <li>If <i>perIterationBindings</i> has any elements, then
+            <ol class="block">
+              <li>Let <i>lastIterationEnv</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a>.</li>
+              <li>Let <i>outer</i> be <i>lastIterationEnv</i>&#x2019;s <a href="/sec/sec-lexical-environments.html">outer environment
+                  reference</a>.</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>outer</i> is not <b>null</b>.</li>
+              <li>Let <i>thisIterationEnv</i> be <a href="/sec/sec-newdeclarativeenvironment.html">NewDeclarativeEnvironment</a>(<i>outer</i>).</li>
+              <li>For each element <i>bn</i> of <i>perIterationBindings</i> do,
+                <ol class="block">
+                  <li>Let <i>status</i> be <i>thisIterationEnv</i>.CreateMutableBinding(<i>bn</i>, <b>false</b>).</li>
+                  <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is never an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+                  <li>Let <i>lastValue</i> be <i>lastIterationEnv</i>.GetBindingValue(<i>bn</i>, <b>true</b>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lastValue</i>).</li>
+                  <li>Perform <i>thisIterationEnv</i>.InitializeBinding(<i>bn</i>, <i>lastValue</i>).</li>
+                </ol>
+              </li>
+              <li>Set <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> to <i>thisIterationEnv.</i></li>
+            </ol>
+          </li>
+          <li>Return <b>undefined</b></li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

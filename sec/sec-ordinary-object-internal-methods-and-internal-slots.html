@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-9.1"><a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots.html" title="link to this section">9.1</a></span> Ordinary Object Internal Methods and Internal Slots</h1>
+
+      <p>All ordinary objects have an <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> called
+      [[Prototype]]. The value of this <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> is either
+      <b>null</b> or an object and is used for implementing inheritance. Data properties of the [[Prototype]] object are inherited
+      (are visible as properties of the child object) for the purposes of get access, but not for set access. Accessor properties
+      are inherited for both get access and set access.</p>
+
+      <p>Every ordinary object has a Boolean-valued [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> that controls whether or not properties may be
+      added to the object. If the value of the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+      slot</a> is <b>false</b> then additional properties may not be added to the object. In addition, if [[Extensible]] is
+      <b>false</b> the value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of
+      the object may not be modified. Once the value of an object&#x2019;s [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> has been set to <b>false</b> it may not be
+      subsequently changed to <b>true</b>.</p>
+
+      <p>In the following algorithm descriptions, assume <var>O</var> is an ordinary object, <var>P</var> is a <a href="/sec/sec-object-type.html">property key value</a>, <var>V</var> is any <a href="/sec/sec-ecmascript-language-types.html">ECMAScript
+      language value</a>, and <span class="nt">Desc</span> is a <a href="/sec/sec-property-descriptor-specification-type.html">Property
+      Descriptor</a> record.</p>
+    </div>
+
+    <section id="sec-ordinary-object-internal-methods-and-internal-slots-getprototypeof">
+      <h1><span class="secnum" id="sec-9.1.1"><a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-getprototypeof.html" title="link to this section">9.1.1</a></span> [[GetPrototypeOf]] ( )</h1>
+
+      <p class="normalbefore">When the [[GetPrototypeOf]] internal method of <var>O</var> is called the following steps are
+      taken:</p>
+
+      <ol class="proc">
+        <li>Return the value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of
+            <i>O</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-ordinary-object-internal-methods-and-internal-slots-setprototypeof-v">
+      <h1><span class="secnum" id="sec-9.1.2"><a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-setprototypeof-v.html" title="link to this section">9.1.2</a></span> [[SetPrototypeOf]] (V)</h1>
+
+      <p class="normalbefore">When the [[SetPrototypeOf]] internal method of <var>O</var> is called with argument <var>V</var> the
+      following steps are taken:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: Either <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>V</i>) is Object or <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>V</i>) is Null.</li>
+        <li>Let <i>extensible</i> be the value of the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>Let <i>current</i> be the value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+        <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>V</i>, <i>current</i>), return <b>true.</b></li>
+        <li>If <i>extensible</i> is <b>false</b>, return <b>false</b>.</li>
+        <li>Let <i>p</i> be <i>V</i>.</li>
+        <li>Let <i>done</i> be <b>false</b>.</li>
+        <li>Repeat while <i>done</i> is <b>false</b>,
+          <ol class="block">
+            <li>If <i>p</i> is <b>null</b>, let <i>done</i> be <b>true</b>.</li>
+            <li>Else, if <a href="/sec/sec-samevalue.html">SameValue</a>(<i>p</i>, <i>O</i>) is <b>true</b>, return <b>false</b>.</li>
+            <li>Else,
+              <ol class="block">
+                <li>If the [[GetPrototypeOf]] internal method of <i>p</i> is not the ordinary object internal method defined in <a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-getprototypeof.html">9.1.1</a>, let <i>done</i> be
+                    <b>true</b>.</li>
+                <li>Else, let <i>p</i> be the value of <i>p</i>&#x2019;s [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>Set the value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of
+            <i>O</i> to <i>V</i>.</li>
+        <li>Return <b>true</b>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The loop in step 8 guarantees that there will be no circularities in any prototype chain
+        that only includes objects that use the ordinary object definitions for  [[GetPrototypeOf]] and [[SetPrototypeOf]].</p>
+      </div>
+    </section>
+
+    <section id="sec-ordinary-object-internal-methods-and-internal-slots-isextensible">
+      <h1><span class="secnum" id="sec-9.1.3"><a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-isextensible.html" title="link to this section">9.1.3</a></span> [[IsExtensible]] ( )</h1>
+
+      <p class="normalbefore">When the [[IsExtensible]] internal method of <var>O</var> is called the following steps are
+      taken:</p>
+
+      <ol class="proc">
+        <li>Return the value of the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of
+            <i>O</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-ordinary-object-internal-methods-and-internal-slots-preventextensions">
+      <h1><span class="secnum" id="sec-9.1.4"><a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-preventextensions.html" title="link to this section">9.1.4</a></span> [[PreventExtensions]] ( )</h1>
+
+      <p class="normalbefore">When the [[PreventExtensions]] internal method of <var>O</var> is called the following steps are
+      taken:</p>
+
+      <ol class="proc">
+        <li>Set the value of the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of
+            <i>O</i> to <b>false</b>.</li>
+        <li>Return <b>true.</b></li>
+      </ol>
+    </section>
+
+    <section id="sec-ordinary-object-internal-methods-and-internal-slots-getownproperty-p">
+      <div class="front">
+        <h1><span class="secnum" id="sec-9.1.5"><a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-getownproperty-p.html" title="link to this section">9.1.5</a></span> [[GetOwnProperty]] (P)</h1>
+
+        <p class="normalbefore">When the [[GetOwnProperty]] internal method of <var>O</var> is called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-ordinarygetownproperty.html">OrdinaryGetOwnProperty</a>(<i>O</i>, <i>P</i>).</li>
+        </ol>
+      </div>
+
+      <section id="sec-ordinarygetownproperty">
+        <h1><span class="secnum" id="sec-9.1.5.1"><a href="/sec/sec-ordinarygetownproperty.html" title="link to this section">9.1.5.1</a></span> OrdinaryGetOwnProperty (O, P)</h1>
+
+        <p class="normalbefore">When the abstract operation OrdinaryGetOwnProperty is called with Object <var>O</var> and with <a href="/sec/sec-object-type.html">property key</a> <var>P</var>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+              <b>true</b>.</li>
+          <li>If <i>O</i> does not have an own property with key <i>P</i>, return <b>undefined</b>.</li>
+          <li>Let <i>D</i> be a newly created <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> with
+              no fields.</li>
+          <li>Let <i>X</i> be <i>O</i>&#x2019;s own property whose key is <i>P</i>.</li>
+          <li>If <i>X</i> is a data property, then
+            <ol class="block">
+              <li>Set <i>D</i>.[[Value]] to the value of <i>X</i>&#x2019;s [[Value]] attribute.</li>
+              <li>Set <i>D</i>.[[Writable]] to the value of <i>X</i>&#x2019;s [[Writable]] attribute</li>
+            </ol>
+          </li>
+          <li>Else <i>X</i> is an accessor property, so
+            <ol class="block">
+              <li>Set <i>D</i>.[[Get]] to the value of <i>X</i>&#x2019;s [[Get]] attribute.</li>
+              <li>Set <i>D</i>.[[Set]] to the value of <i>X</i>&#x2019;s [[Set]] attribute.</li>
+            </ol>
+          </li>
+          <li>Set <i>D</i>.[[Enumerable]] to the value of <i>X</i>&#x2019;s [[Enumerable]] attribute.</li>
+          <li>Set <i>D</i>.[[Configurable]] to the value of <i>X</i>&#x2019;s [[Configurable]] attribute.</li>
+          <li>Return <i>D</i>.</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-ordinary-object-internal-methods-and-internal-slots-defineownproperty-p-desc">
+      <div class="front">
+        <h1><span class="secnum" id="sec-9.1.6"><a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-defineownproperty-p-desc.html" title="link to this section">9.1.6</a></span> [[DefineOwnProperty]] (P, Desc)</h1>
+
+        <p class="normalbefore">When the [[DefineOwnProperty]] internal method of <var>O</var> is called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var> and <a href="/sec/sec-property-descriptor-specification-type.html">Property
+        Descriptor</a> <span class="nt">Desc</span>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-ordinarydefineownproperty.html">OrdinaryDefineOwnProperty</a>(<i>O</i>, <i>P</i>, <i>Desc</i>).</li>
+        </ol>
+      </div>
+
+      <section id="sec-ordinarydefineownproperty">
+        <h1><span class="secnum" id="sec-9.1.6.1"><a href="/sec/sec-ordinarydefineownproperty.html" title="link to this section">9.1.6.1</a></span> OrdinaryDefineOwnProperty (O, P, Desc)</h1>
+
+        <p class="normalbefore">When the abstract operation <span style="font-family: Times New
+        Roman">OrdinaryDefineOwnProperty</span> is called with Object <var>O</var>, <a href="/sec/sec-object-type.html">property key</a>
+        <span style="font-family: Times New Roman"><i>P</i>,</span> and <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span> the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>current</i> be <i>O</i>.[[GetOwnProperty]](<i>P</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>current</i>).</li>
+          <li>Let <i>extensible</i> be the value of the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>O</i>.</li>
+          <li>Return <a href="/sec/sec-validateandapplypropertydescriptor.html">ValidateAndApplyPropertyDescriptor</a>(<i>O</i>, <i>P</i>,
+              <i>extensible</i>, <i>Desc</i>, <i>current</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-iscompatiblepropertydescriptor">
+        <h1><span class="secnum" id="sec-9.1.6.2"><a href="/sec/sec-iscompatiblepropertydescriptor.html" title="link to this section">9.1.6.2</a></span> IsCompatiblePropertyDescriptor (Extensible, Desc, Current)</h1>
+
+        <p class="normalbefore">When the abstract operation <span style="font-family: Times New
+        Roman">IsCompatiblePropertyDescriptor</span> is called with Boolean value <span class="nt">Extensible</span>, and Property
+        Descriptors <span class="nt">Desc</span>, and <span class="nt">Current</span> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-validateandapplypropertydescriptor.html">ValidateAndApplyPropertyDescriptor</a>(<b>undefined</b>,
+              <b>undefined</b>, <i>Extensible</i>, <i>Desc</i>, <i>Current</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-validateandapplypropertydescriptor">
+        <h1><span class="secnum" id="sec-9.1.6.3"><a href="/sec/sec-validateandapplypropertydescriptor.html" title="link to this section">9.1.6.3</a></span> ValidateAndApplyPropertyDescriptor (O, P, extensible, Desc,
+            current)</h1>
+
+        <p>When the abstract operation <span style="font-family: Times New Roman">ValidateAndApplyPropertyDescriptor</span> is
+        called with Object <var>O</var>, <a href="/sec/sec-object-type.html">property key</a> <span style="font-family: Times New
+        Roman"><i>P</i>,</span> Boolean value <var>extensible</var>, and Property Descriptors <span class="nt">Desc</span>, and
+        <var>current</var> the following steps are taken:</p>
+
+        <p>This algorithm contains steps that test various fields of the <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span> for specific
+        values. The fields that are tested in this manner need not actually exist in <span class="nt">Desc</span>. If a field is
+        absent then its value is considered to be <b>false</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> If <span class="value">undefined</span> is passed as the <var>O</var> argument only
+          validation is performed and no object updates are performed.</p>
+        </div>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: If <i>O</i> is not <b>undefined</b> then <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is <b>true</b>.</li>
+          <li>If <i>current</i> is <b>undefined</b>, then
+            <ol class="block">
+              <li>If <i>extensible</i> is <b>false</b>, return <b>false</b>.</li>
+              <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>extensible</i> is <b>true</b>.</li>
+              <li>If <a href="/sec/sec-isgenericdescriptor.html">IsGenericDescriptor</a>(<i>Desc</i>) or <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>Desc</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li>If <i>O</i> is not <b>undefined</b>, create an own data property named <i>P</i> of object <i>O</i> whose
+                      [[Value]], [[Writable]], [[Enumerable]] and [[Configurable]] attribute values are described by <i>Desc</i>.
+                      If the value of an attribute field of <i>Desc</i> is absent, the attribute of the newly created property is
+                      set to its default value.</li>
+                </ol>
+              </li>
+              <li>Else <i>Desc</i> must be an accessor <a href="/sec/sec-property-descriptor-specification-type.html">Property
+                  Descriptor</a>,
+                <ol class="block">
+                  <li>If <i>O</i> is not <b>undefined</b>, create an own accessor property named <i>P</i> of object <i>O</i> whose
+                      [[Get]], [[Set]], [[Enumerable]] and [[Configurable]] attribute values are described by <i>Desc</i>. If the
+                      value of an attribute field of <i>Desc</i> is absent, the attribute of the newly created property is set to
+                      its default value.</li>
+                </ol>
+              </li>
+              <li>Return <b>true</b>.</li>
+            </ol>
+          </li>
+          <li>Return <b>true</b>, if every field in <i>Desc</i> is absent.</li>
+          <li>Return <b>true</b>, if every field in <i>Desc</i> also occurs in <i>current</i> and the value of every field in
+              <i>Desc</i> is the same value as the corresponding field in <i>current</i> when compared using <a href="/sec/sec-samevalue.html">the SameValue algorithm</a>.</li>
+          <li>If the [[Configurable]] field of <i>current</i> is <b>false</b>, then
+            <ol class="block">
+              <li>Return <b>false</b>, if the [[Configurable]] field of <i>Desc</i> is <b>true</b>.</li>
+              <li>Return <b>false</b>, if the [[Enumerable]] field of <i>Desc</i> is present and the [[Enumerable]] fields of
+                  <i>current</i> and <i>Desc</i> are the Boolean negation of each other.</li>
+            </ol>
+          </li>
+          <li>If <a href="/sec/sec-isgenericdescriptor.html">IsGenericDescriptor</a>(<i>Desc</i>) is <b>true</b>, no further validation is
+              required.</li>
+          <li>Else if <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>current</i>) and <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>Desc</i>) have different results, then
+            <ol class="block">
+              <li>Return <b>false</b>, if the [[Configurable]] field of <i>current</i> is <b>false</b>.</li>
+              <li>If <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>current</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li>If <i>O</i> is not <b>undefined</b>, convert the property named <i>P</i> of object <i>O</i> from a data
+                      property to an accessor property. Preserve the existing values of the converted property&#x2019;s
+                      [[Configurable]] and [[Enumerable]] attributes and set the rest of the property&#x2019;s attributes to their
+                      default values.</li>
+                </ol>
+              </li>
+              <li>Else,
+                <ol class="block">
+                  <li>If <i>O</i> is not <b>undefined</b>, convert the property named <i>P</i> of object <i>O</i> from an accessor
+                      property to a data property. Preserve the existing values of the converted property&#x2019;s [[Configurable]]
+                      and [[Enumerable]] attributes and set the rest of the property&#x2019;s attributes to their default
+                      values.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Else if <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>current</i>) and <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>Desc</i>) are both <b>true</b>, then
+            <ol class="block">
+              <li>If the [[Configurable]] field of <i>current</i> is <b>false</b>, then
+                <ol class="block">
+                  <li>Return <b>false</b>, if the [[Writable]] field of <i>current</i> is <b>false</b> and the [[Writable]] field
+                      of <i>Desc</i> is <b>true</b>.</li>
+                  <li>If the [[Writable]] field of <i>current</i> is <b>false</b>, then
+                    <ol class="block">
+                      <li>Return <b>false</b>, if the [[Value]] field of <i>Desc</i> is present and <a href="/sec/sec-samevalue.html">SameValue</a>(<i>Desc</i>.[[Value]], <i>current</i>.[[Value]]) is
+                          <b>false</b>.</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>Else the [[Configurable]] field of <i>current</i> is <b>true</b>, so any change is acceptable.</li>
+            </ol>
+          </li>
+          <li>Else <a href="/sec/sec-isaccessordescriptor.html">IsAccessorDescriptor</a>(<i>current</i>) and <a href="/sec/sec-isaccessordescriptor.html">IsAccessorDescriptor</a>(<i>Desc</i>) are both <b>true</b>,
+            <ol class="block">
+              <li>If the [[Configurable]] field of <i>current</i> is <b>false</b>, then
+                <ol class="block">
+                  <li>Return <b>false</b>, if the [[Set]] field of <i>Desc</i> is present and <a href="/sec/sec-samevalue.html">SameValue</a>(<i>Desc</i>.[[Set]], <i>current</i>.[[Set]]) is <b>false</b>.</li>
+                  <li>Return <b>false</b>, if the [[Get]] field of <i>Desc</i> is present and <a href="/sec/sec-samevalue.html">SameValue</a>(<i>Desc</i>.[[Get]], <i>current</i>.[[Get]]) is <b>false</b>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>O</i> is not <b>undefined</b>, then
+            <ol class="block">
+              <li>For each field of <i>Desc</i> that is present, set the corresponding attribute of the property named <i>P</i> of
+                  object <i>O</i> to the value of the field.</li>
+            </ol>
+          </li>
+          <li>Return <b>true</b>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> Step 8.b allows any field of <span style="font-family: Times New Roman">Desc</span> to
+          be different from the corresponding field of <span style="font-family: Times New Roman">current</span> if <span style="font-family: Times New Roman">current&#x2019;s</span> [[Configurable]] field is <span class="value">true</span>.
+          This even permits changing the [[Value]] of a property whose [[Writable]] attribute is <span class="value">false</span>.
+          This is allowed because a <span class="value">true</span> [[Configurable]] attribute would permit an equivalent sequence
+          of calls where [[Writable]] is first set to <span class="value">true</span>, a new [[Value]] is set, and then
+          [[Writable]] is set to <span class="value">false</span>.</p>
+        </div>
+      </section>
+    </section>
+
+    <section id="sec-ordinary-object-internal-methods-and-internal-slots-hasproperty-p">
+      <div class="front">
+        <h1><span class="secnum" id="sec-9.1.7"><a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-hasproperty-p.html" title="link to this section">9.1.7</a></span> [[HasProperty]](P)</h1>
+
+        <p class="normalbefore">When the [[HasProperty]] internal method of <var>O</var> is called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-ordinaryhasproperty.html">OrdinaryHasProperty</a>(<i>O</i>, <i>P</i>).</li>
+        </ol>
+      </div>
+
+      <section id="sec-ordinaryhasproperty">
+        <h1><span class="secnum" id="sec-9.1.7.1"><a href="/sec/sec-ordinaryhasproperty.html" title="link to this section">9.1.7.1</a></span> OrdinaryHasProperty (O, P)</h1>
+
+        <p class="normalbefore">When the abstract operation OrdinaryHasProperty is called with Object <var>O</var> and with <a href="/sec/sec-object-type.html">property key</a> <var>P</var>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+              <b>true</b>.</li>
+          <li>Let <i>hasOwn</i> be <a href="/sec/sec-ordinarygetownproperty.html">OrdinaryGetOwnProperty</a>(<i>O</i>, <i>P</i>).</li>
+          <li>If <i>hasOwn</i> is not <b>undefined</b>, return <b>true</b>.</li>
+          <li>Let <i>parent</i> be <i>O</i>.[[GetPrototypeOf]]().</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>parent</i>).</li>
+          <li>If <i>parent</i> is not <b>null</b>, then
+            <ol class="block">
+              <li>Return <i>parent</i>.[[HasProperty]](<i>P</i>).</li>
+            </ol>
+          </li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-ordinary-object-internal-methods-and-internal-slots-get-p-receiver">
+      <h1><span class="secnum" id="sec-9.1.8"><a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-get-p-receiver.html" title="link to this section">9.1.8</a></span> [[Get]] (P, Receiver)</h1>
+
+      <p class="normalbefore">When the [[Get]] internal method of <var>O</var> is called with <a href="/sec/sec-object-type.html">property
+      key</a> <var>P</var> and <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language value</a> <span class="nt">Receiver</span> the following steps are taken:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+            <b>true</b>.</li>
+        <li>Let <i>desc</i> be <i>O</i>.[[GetOwnProperty]](<i>P</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>desc</i>).</li>
+        <li>If <i>desc</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Let <i>parent</i> be <i>O</i>.[[GetPrototypeOf]]().</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>parent</i>).</li>
+            <li>If <i>parent</i> is <b>null</b>, return <b>undefined.</b></li>
+            <li>Return <i>parent</i>.[[Get]](<i>P</i>, <i>Receiver</i>).</li>
+          </ol>
+        </li>
+        <li>If <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>desc</i>) is <b>true</b>, return
+            <i>desc</i>.[[Value]].</li>
+        <li>Otherwise, <a href="/sec/sec-isaccessordescriptor.html">IsAccessorDescriptor</a>(<i>desc</i>) must be <b>true</b> so, let
+            <i>getter</i> be <i>desc</i>.[[Get]].</li>
+        <li>If <i>getter</i> is <b>undefined</b>, return <b>undefined</b>.</li>
+        <li>Return <a href="/sec/sec-call.html">Call</a>(<i>getter,</i>  <i>Receiver</i>).</li>
+      </ol>
+    </section>
+
+    <section id="sec-ordinary-object-internal-methods-and-internal-slots-set-p-v-receiver">
+      <h1><span class="secnum" id="sec-9.1.9"><a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-set-p-v-receiver.html" title="link to this section">9.1.9</a></span> [[Set]] ( P, V, Receiver)</h1>
+
+      <p class="normalbefore">When the [[Set]] internal method of <var>O</var> is called with <a href="/sec/sec-object-type.html">property
+      key</a> <var>P</var>, value <var>V</var>, and <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language value</a> <span class="nt">Receiver</span>, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+            <b>true</b>.</li>
+        <li>Let <i>ownDesc</i> be <i>O</i>.[[GetOwnProperty]](<i>P</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>ownDesc</i>).</li>
+        <li>If <i>ownDesc</i> is <b>undefined</b>, then
+          <ol class="block">
+            <li>Let <i>parent</i> be <i>O</i>.[[GetPrototypeOf]]().</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>parent</i>).</li>
+            <li>If <i>parent</i> is not <b>null</b>, then
+              <ol class="block">
+                <li>Return <i>parent</i>.[[Set]](<i>P</i>, <i>V</i>, <i>Receiver</i>).</li>
+              </ol>
+            </li>
+            <li>Else,
+              <ol class="block">
+                <li>Let <i>ownDesc</i> be the PropertyDescriptor{[[Value]]: <b>undefined</b>, [[Writable]]: <b>true</b>,
+                    [[Enumerable]]: <b>true</b>, [[Configurable]]: <b>true</b>}.</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>If <a href="/sec/sec-isdatadescriptor.html">IsDataDescriptor</a>(<i>ownDesc</i>) is <b>true</b>, then
+          <ol class="block">
+            <li>If <i>ownDesc</i>.[[Writable]] is <b>false</b>, return <b>false</b>.</li>
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>Receiver</i>) is not Object, return
+                <b>false</b>.</li>
+            <li>Let <i>existingDescriptor</i> be <i>Receiver</i>.[[GetOwnProperty]](<i>P</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>existingDescriptor</i>).</li>
+            <li>If <i>existingDescriptor</i> is not <b>undefined</b>, then
+              <ol class="block">
+                <li>If <a href="/sec/sec-isaccessordescriptor.html">IsAccessorDescriptor</a>(<i>existingDescriptor</i>) is <b>true</b>,
+                    return <b>false</b>.</li>
+                <li>If <i>existingDescriptor</i>.[[Writable]] is <b>false</b>, return <b>false</b>.</li>
+                <li>Let <i>valueDesc</i> be the PropertyDescriptor{[[Value]]: <i>V</i>}.</li>
+                <li>Return <i>Receiver</i>.[[DefineOwnProperty]](<i>P</i>, <i>valueDesc</i>).</li>
+              </ol>
+            </li>
+            <li>Else <i>Receiver</i> does not currently have a property <i>P</i>,
+              <ol class="block">
+                <li>Return <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>Receiver</i>, <i>P</i>, <i>V</i>).</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-isaccessordescriptor.html">IsAccessorDescriptor</a>(<i>ownDesc</i>) is <b>true</b>.</li>
+        <li>Let <i>setter</i> be <i>ownDesc</i>.[[Set]].</li>
+        <li>If <i>setter</i> is <b>undefined</b>, return <b>false</b>.</li>
+        <li>Let <i>setterResult</i> be <a href="/sec/sec-call.html">Call</a>(<i>setter</i>, <i>Receiver</i>, &#xAB;<i>V</i>&#xBB;).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setterResult</i>).</li>
+        <li>Return <b>true</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-ordinary-object-internal-methods-and-internal-slots-delete-p">
+      <h1><span class="secnum" id="sec-9.1.10"><a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-delete-p.html" title="link to this section">9.1.10</a></span> [[Delete]] (P)</h1>
+
+      <p class="normalbefore">When the [[Delete]] internal method of <var>O</var> is called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var> the following steps are taken:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+            <b>true</b>.</li>
+        <li>Let <i>desc</i> be <i>O</i>.[[GetOwnProperty]](<i>P</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>desc</i>).</li>
+        <li>If <i>desc</i> is <b>undefined</b>, return <b>true</b>.</li>
+        <li>If <i>desc</i>.[[Configurable]] is <b>true</b>, then
+          <ol class="block">
+            <li>Remove the own property with name <i>P</i> from <i>O</i>.</li>
+            <li>Return <b>true</b>.</li>
+          </ol>
+        </li>
+        <li>Return <b>false</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-ordinary-object-internal-methods-and-internal-slots-enumerate">
+      <h1><span class="secnum" id="sec-9.1.11"><a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-enumerate.html" title="link to this section">9.1.11</a></span> [[Enumerate]] ()</h1>
+
+      <p class="normalbefore">When the [[Enumerate]] internal method of <var>O</var> is called the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Return an Iterator object (<a href="/sec/sec-iterator-interface.html">25.1.1.2</a>) whose <code>next</code> method iterates
+            over all the String-valued keys of enumerable properties of <i>O</i>. The Iterator object must inherit from
+            %IteratorPrototype% (<a href="/sec/sec-%iteratorprototype%-object.html">25.1.2</a>). The mechanics and order of enumerating the
+            properties is not specified but must conform to the rules specified below.</li>
+      </ol>
+
+      <p>The iterator&#x2019;s <code>next</code> method processes object properties to determine whether the <a href="/sec/sec-object-type.html">property key</a> should be returned as an iterator value. Returned property keys do not include keys
+      that are Symbols. Properties of the target object may be deleted during enumeration. A property that is deleted before it is
+      processed by the iterator&#x2019;s <code>next</code> method is ignored. If new properties are added to the target object
+      during enumeration, the newly added properties are not guaranteed to be processed in the active enumeration. A property name
+      will be returned by the iterator&#x2019;s <code>next</code> method at most once in any enumeration.</p>
+
+      <p>Enumerating the properties of the target object includes enumerating properties of its prototype, and the prototype of
+      the prototype, and so on, recursively; but a property of a prototype is not processed if it has the same name as a property
+      that has already been processed by the iterator&#x2019;s <code>next</code> method. The values of [[Enumerable]] attributes
+      are not considered when determining if a property of a prototype object has already been processed. The enumerable property
+      names of prototype objects must be obtained as if by invoking the prototype object&#x2019;s [[Enumerate]] internal method.
+      [[Enumerate]] must obtain the own property keys of the target object as if by calling its [[OwnPropertyKeys]] internal
+      method. Property attributes of the target object must be obtained as if by calling its [[GetOwnProperty]] internal
+      method.</p>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> The following is an informative definition of an ECMAScript generator function that
+        conforms to these rules:</p>
+
+        <pre class="NoteCode">function* enumerate(obj) {</pre>
+        <pre class="NoteCode">&#xA0;&#xA0;let visited=new Set;</pre>
+        <pre class="NoteCode">&#xA0;&#xA0;for (let key of <a href="/sec/sec-reflect.ownkeys.html">Reflect.ownKeys</a>(obj)) {</pre>
+        <pre class="NoteCode">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;if (typeof key === &quot;string&quot;) {</pre>
+        <pre class="NoteCode">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;let desc = <a href="/sec/sec-reflect.getownpropertydescriptor.html">Reflect.getOwnPropertyDescriptor</a>(obj,key);</pre>
+        <pre class="NoteCode">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;if (desc) {</pre>
+        <pre class="NoteCode">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;visited.add(key);</pre>
+        <pre class="NoteCode">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;if (desc.enumerable) yield key;</pre>
+        <pre class="NoteCode">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;}</pre>
+        <pre class="NoteCode">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;}</pre>
+        <pre class="NoteCode">&#xA0;&#xA0;}</pre>
+        <pre class="NoteCode">&#xA0;&#xA0;let proto = <a href="/sec/sec-reflect.getprototypeof.html">Reflect.getPrototypeOf</a>(obj)</pre>
+        <pre class="NoteCode">&#xA0;&#xA0;if (proto === null) return;</pre>
+        <pre class="NoteCode">&#xA0;&#xA0;for (let protoName of <a href="/sec/sec-reflect.enumerate.html">Reflect.enumerate</a>(proto)) {</pre>
+        <pre class="NoteCode">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;if (!visited.has(protoName)) yield protoName;</pre>
+        <pre class="NoteCode">&#xA0;&#xA0;}</pre>
+        <pre class="NoteCode">}</pre>
+      </div>
+    </section>
+
+    <section id="sec-ordinary-object-internal-methods-and-internal-slots-ownpropertykeys">
+      <h1><span class="secnum" id="sec-9.1.12"><a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-ownpropertykeys.html" title="link to this section">9.1.12</a></span> [[OwnPropertyKeys]] ( )</h1>
+
+      <p class="normalbefore">When the [[OwnPropertyKeys]] internal method of <var>O</var> is called the following steps are
+      taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>keys</i> be a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>For each own <a href="/sec/sec-object-type.html">property key</a> <i>P</i> of <i>O</i> that is an integer index, in ascending
+            numeric index order
+          <ol class="block">
+            <li>Add <i>P</i> as the last element of <i>keys</i>.</li>
+          </ol>
+        </li>
+        <li>For each own <a href="/sec/sec-object-type.html">property key</a> <i>P</i> of <i>O</i> that is a String but is not an integer
+            index, in property creation order
+          <ol class="block">
+            <li>Add <i>P</i> as the last element of <i>keys</i>.</li>
+          </ol>
+        </li>
+        <li>For each own <a href="/sec/sec-object-type.html">property key</a> <i>P</i> of <i>O</i> that is a Symbol, in property creation
+            order
+          <ol class="block">
+            <li>Add <i>P</i> as the last element of <i>keys</i>.</li>
+          </ol>
+        </li>
+        <li>Return <i>keys</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-objectcreate">
+      <h1><span class="secnum" id="sec-9.1.13"><a href="/sec/sec-objectcreate.html" title="link to this section">9.1.13</a></span>
+          ObjectCreate(proto, internalSlotsList)</h1>
+
+      <p class="normalbefore">The abstract operation ObjectCreate with argument <var>proto</var> (an object or null) is used to
+      specify the runtime creation of new ordinary objects. The optional argument <var>internalSlotsList</var> is a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of the names of additional internal slots that must be defined as
+      part of the object. If the list is not provided, an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a> is
+      used. This abstract operation performs the following steps:</p>
+
+      <ol class="proc">
+        <li>If <i>internalSlotsList</i> was not provided, let <i>internalSlotsList</i> be an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+        <li>Let <i>obj</i> be a newly created object with an <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+            slot</a> for each name in <i>internalSlotsList</i>.</li>
+        <li>Set <i>obj</i>&#x2019;s essential internal methods to the default ordinary object definitions specified in <a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots.html">9.1</a>.</li>
+        <li>Set the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>obj</i> to
+            <i>proto</i>.</li>
+        <li>Set the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of <i>obj</i> to
+            <b>true</b>.</li>
+        <li>Return <i>obj</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-ordinarycreatefromconstructor">
+      <h1><span class="secnum" id="sec-9.1.14"><a href="/sec/sec-ordinarycreatefromconstructor.html" title="link to this section">9.1.14</a></span> OrdinaryCreateFromConstructor ( constructor,  intrinsicDefaultProto,
+          internalSlotsList )</h1>
+
+      <p class="normalbefore">The abstract operation OrdinaryCreateFromConstructor creates an ordinary object whose [[Prototype]]
+      value is retrieved from a constructor&#x2019;s <code>prototype</code> property, if it exists. Otherwise the intrinsic named
+      by <var>intrinsicDefaultProto</var> is used for [[Prototype]]. The optional <var>internalSlotsList</var> is a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of the names of additional internal slots that must be defined as
+      part of the object. If the list is not provided, an empty <a href="/sec/sec-list-and-record-specification-type.html">List</a> is
+      used. This abstract operation performs the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>intrinsicDefaultProto</i> is a String value that is this
+            specification&#x2019;s name of an intrinsic object. The corresponding object must be an intrinsic that is intended to
+            be used as the [[Prototype]] value of an object.</li>
+        <li>Let <i>proto</i> be <a href="/sec/sec-getprototypefromconstructor.html">GetPrototypeFromConstructor</a>(<i>constructor</i>,
+            <i>intrinsicDefaultProto</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>proto</i>).</li>
+        <li>Return <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<i>proto</i>, <i>internalSlotsList</i>).</li>
+      </ol>
+    </section>
+
+    <section id="sec-getprototypefromconstructor">
+      <h1><span class="secnum" id="sec-9.1.15"><a href="/sec/sec-getprototypefromconstructor.html" title="link to this section">9.1.15</a></span> GetPrototypeFromConstructor ( constructor, intrinsicDefaultProto )</h1>
+
+      <p class="normalbefore">The abstract operation GetPrototypeFromConstructor determines the [[Prototype]] value that should be
+      used to create an object corresponding to a specific constructor. The value is retrieved from the constructor&#x2019;s
+      <code>prototype</code> property, if it exists. Otherwise the intrinsic named by <var>intrinsicDefaultProto</var> is used for
+      [[Prototype]]. This abstract operation performs the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>intrinsicDefaultProto</i> is a String value that is this
+            specification&#x2019;s name of an intrinsic object. The corresponding object must be an intrinsic that is intended to
+            be used as the [[Prototype]] value of an object.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-isconstructor.html">IsConstructor</a> (<i>constructor</i>)
+            is <b>true</b>.</li>
+        <li>Let <i>proto</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>constructor</i>, <code>&quot;prototype&quot;</code>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>proto</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>proto</i>) is not Object, then
+          <ol class="block">
+            <li>Let <i>realm</i> be <a href="/sec/sec-getfunctionrealm.html">GetFunctionRealm</a>(<i>constructor</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>realm</i>).</li>
+            <li>Let <i>proto</i> be <i>realm&#x2019;s</i> intrinsic object named <i>intrinsicDefaultProto</i>.</li>
+          </ol>
+        </li>
+        <li>Return <i>proto</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> If <i>constructor</i> does not supply a [[Prototype]] value, the default value that is
+        used is obtained from the <a href="/sec/sec-code-realms.html">Code Realm</a> of the <i>constructor</i> function rather than from <a href="/sec/sec-execution-contexts.html">the running execution context</a>.</p>
+      </div>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

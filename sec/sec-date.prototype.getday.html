@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.3.4.3"><a href="/sec/sec-date.prototype.getday.html" title="link to this section">20.3.4.3</a></span> Date.prototype.getDay ( )</h1>
+
+        <p class="normalbefore">The following steps are performed:</p>
+
+        <ol class="proc">
+          <li>Let <i>t</i> be <a href="/sec/sec-properties-of-the-date-prototype-object.html">this time value</a>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>t</i>).</li>
+          <li>If <i>t</i> is <b>NaN</b>, return <b>NaN</b>.</li>
+          <li>Return <a href="/sec/sec-week-day.html">WeekDay</a>(<a href="/sec/sec-localtime.html">LocalTime</a>(<i>t</i>)).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

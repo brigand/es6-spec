@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-20.3.4.30"><a href="/sec/sec-date.prototype.setutchours.html" title="link to this section">20.3.4.30</a></span> Date.prototype.setUTCHours ( hour [ , min [ , sec [ , ms ] ] ]
+            )</h1>
+
+        <p class="normalbefore">The following steps are performed:</p>
+
+        <ol class="proc">
+          <li>Let <i>t</i> be <a href="/sec/sec-properties-of-the-date-prototype-object.html">this time value</a>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>t</i>).</li>
+          <li>Let <i>h</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>hour</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>h</i>).</li>
+          <li>If <i>min</i> is not specified, let <i>m</i> be <a href="/sec/sec-hours-minutes-second-and-milliseconds.html">MinFromTime</a>(<i>t</i>); otherwise, let <i>m</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>min</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>m</i>).</li>
+          <li>If <i>sec</i> is not specified, let <i>s</i> be <a href="/sec/sec-hours-minutes-second-and-milliseconds.html">SecFromTime</a>(<i>t</i>); otherwise, let <i>s</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>sec</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>s</i>).</li>
+          <li>If <i>ms</i> is not specified, let <i>milli</i> be <a href="/sec/sec-hours-minutes-second-and-milliseconds.html">msFromTime</a>(<i>t</i>); otherwise, let <i>milli</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>ms</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>milli</i>).</li>
+          <li>Let <i>newDate</i> be <a href="/sec/sec-makedate.html">MakeDate</a>(<a href="/sec/sec-day-number-and-time-within-day.html">Day</a>(<i>t</i>), <a href="/sec/sec-maketime.html">MakeTime</a>(<i>h</i>,
+              <i>m</i>, <i>s</i>, <i>milli</i>)).</li>
+          <li>Let <i>v</i> be <a href="/sec/sec-timeclip.html">TimeClip</a>(<i>newDate</i>).</li>
+          <li>Set the [[DateValue]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of this Date
+              object to <i>v</i>.</li>
+          <li>Return <i>v</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>setUTCHours</code> method is <b>4</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> If <var>min</var> is not specified, this method behaves as if <var>min</var> were
+          specified with the value <code>getUTCMinutes()</code>. If <var>sec</var> is not specified, it behaves as if
+          <var>sec</var> were specified with the value <code>getUTCSeconds()</code>. If <var>ms</var> is not specified, it behaves
+          as if <var>ms</var> were specified with the value <code>getUTCMilliseconds()</code>.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

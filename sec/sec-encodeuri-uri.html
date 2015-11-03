@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-18.2.6.4"><a href="/sec/sec-encodeuri-uri.html" title="link to this section">18.2.6.4</a></span>
+            encodeURI (uri)</h1>
+
+        <p>The <code>encodeURI</code> function computes a new version of a UTF-16 encoded (<a href="/sec/sec-ecmascript-language-types-string-type.html">6.1.4</a>) URI in which each instance of certain code points is replaced
+        by one, two, three, or four escape sequences representing the UTF-8 encoding of the code points.</p>
+
+        <p class="normalbefore">The <code>encodeURI</code> function is the %encodeURI% intrinsic object. When the
+        <code>encodeURI</code> function is called with one argument <span class="nt">uri</span>, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>uriString</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>uri</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>uriString</i>).</li>
+          <li>Let <i>unescapedURISet</i> be a String containing one instance of each code unit valid in <i>uriReserved</i> and
+              <i>uriUnescaped</i> plus &quot;<code>#</code>&quot;.</li>
+          <li>Return <a href="/sec/sec-encode.html">Encode</a>(<i>uriString</i>, <i>unescapedURISet</i>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The code unit <code>&quot;#&quot;</code> is not encoded to an escape sequence even though it is
+          not a reserved or unescaped URI code point.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

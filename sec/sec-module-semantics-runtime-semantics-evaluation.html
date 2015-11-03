@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-15.2.1.20"><a href="/sec/sec-module-semantics-runtime-semantics-evaluation.html" title="link to this section">15.2.1.20</a></span> Runtime Semantics: Evaluation</h1>
+        <div class="gp prod"><span class="nt">Module</span> <span class="geq">:</span> <span class="grhsannot">[empty]</span></div>
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ModuleBody</span> <span class="geq">:</span> <span class="nt">ModuleItemList</span></div>
+        <ol class="proc">
+          <li>Let <i>result</i> be the result of evaluating <i>ModuleItemList</i>.</li>
+          <li>If <i>result</i>.[[type]] is <span style="font-family: sans-serif">normal</span> and <i>result</i>.[[value]] is
+              <span style="font-family: sans-serif">empty</span>, then
+            <ol class="block">
+              <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<i>result</i>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ModuleItemList</span> <span class="geq">:</span> <span class="nt">ModuleItemList</span> <span class="nt">ModuleItem</span></div>
+        <ol class="proc">
+          <li>Let <i>sl</i> be the result of evaluating <i>ModuleItemList</i>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>sl</i>).</li>
+          <li>Let <i>s</i> be the result of evaluating <i>ModuleItem</i>.</li>
+          <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<a href="/sec/sec-updateempty.html">UpdateEmpty</a>(<i>s</i>, <i>sl</i>.[[value]])).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The value of a <span class="nt">ModuleItemList</span> is the value of the last value
+          producing item in the <span class="nt">ModuleItemList</span>.</p>
+        </div>
+
+        <div class="gp prod"><span class="nt">ModuleItem</span> <span class="geq">:</span> <span class="nt">ImportDeclaration</span></div>
+        <ol class="proc">
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family:
+              sans-serif">empty</span>).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

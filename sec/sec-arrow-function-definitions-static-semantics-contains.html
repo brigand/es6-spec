@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-14.2.3"><a href="/sec/sec-arrow-function-definitions-static-semantics-contains.html" title="link to this section">14.2.3</a></span> Static Semantics:  Contains</h1>
+
+      <p>With parameter <var>symbol</var>.</p>
+
+      <p>See also: <a href="/sec/sec-static-semantic-rules.html">5.3</a>, <a href="/sec/sec-object-initializer-static-semantics-contains.html">12.2.6.3</a>, <a href="/sec/sec-static-semantics-static-semantics-contains.html">12.3.1.1</a>, <a href="/sec/sec-function-definitions-static-semantics-contains.html">14.1.4</a>, <a href="/sec/sec-generator-function-definitions-static-semantics-contains.html">14.4.4</a>, <a href="/sec/sec-class-definitions-static-semantics-contains.html">14.5.4</a></p>
+
+      <div class="gp prod"><span class="nt">ArrowFunction</span> <span class="geq">:</span> <span class="nt">ArrowParameters</span> <code class="t">=&gt;</code> <span class="nt">ConciseBody</span></div>
+      <ol class="proc">
+        <li>If <i>symbol</i> is not one of <i>NewTarget</i>, <i>SuperProperty, SuperCall,</i> <code>super</code> or
+            <code>this</code>, return <b>false</b>.</li>
+        <li>If <i>ArrowParameters</i> Contains <i>symbol</i> is <b>true</b>, return <b>true</b>;</li>
+        <li>Return <i>ConciseBody</i> Contains <i>symbol</i> .</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> Normally, <span style="font-family: Times New Roman">Contains</span> does not look inside
+        most function forms  However, <span style="font-family: Times New Roman">Contains</span> is used to detect
+        <code>new.target</code>, <code>this</code>, and <code>super</code> usage within an <span class="nt">ArrowFunction</span>.</p>
+      </div>
+
+      <div class="gp prod"><span class="nt">ArrowParameters</span> <span class="geq">:</span> <span class="nt">CoverParenthesizedExpressionAndArrowParameterList</span></div>
+      <ol class="proc">
+        <li>Let <i>formals</i> be CoveredFormalsList of <i>CoverParenthesizedExpressionAndArrowParameterList</i>.</li>
+        <li>Return <i>formals</i> Contains <i>symbol</i>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

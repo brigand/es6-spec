@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-18.2.4"><a href="/sec/sec-parsefloat-string.html" title="link to this section">18.2.4</a></span>
+          parseFloat (string)</h1>
+
+      <p>The <code>parseFloat</code> function produces a Number value dictated by interpretation of the contents of the
+      <var>string</var> argument as a decimal literal.</p>
+
+      <p class="normalbefore">The <code>parseFloat</code> function is the %parseFloat% intrinsic object. When the
+      <code>parseFloat</code> function is called with one argument <var>string</var>, the following steps are taken:</p>
+
+      <ol class="proc">
+        <li>Let <i>inputString</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>string</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>inputString</i>).</li>
+        <li>Let <i>trimmedString</i> be a substring of <i>inputString</i> consisting of the leftmost code unit that is not a
+            <i>StrWhiteSpaceChar</i> and all code units to the right of that code unit. (In other words, remove leading white
+            space.) If <i>inputString</i> does not contain any such code units, let <i>trimmedString</i> be the empty string.</li>
+        <li>If neither <i>trimmedString</i> nor any prefix of <i>trimmedString</i> satisfies the syntax of a
+            <i>StrDecimalLiteral</i> (<a href="/sec/sec-tonumber-applied-to-the-string-type.html">see 7.1.3.1</a>), return <b>NaN</b>.</li>
+        <li>Let <i>numberString</i> be the longest prefix of <i>trimmedString</i>, which might be <i>trimmedString</i> itself,
+            that satisfies the syntax of a <i>StrDecimalLiteral</i>.</li>
+        <li>Let <i>mathFloat</i> be MV of <i>numberString</i>.</li>
+        <li>If <i>mathFloat</i>=0, then
+          <ol class="block">
+            <li>If the first code unit of <i>trimmedString</i> is <code>&quot;-&quot;</code>, return &#x2212;0.</li>
+            <li>Return +0.</li>
+          </ol>
+        </li>
+        <li>Return the Number value for <i>mathFloat</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> <code>parseFloat</code> may interpret only a leading portion of <var>string</var> as a
+        Number value; it ignores any code units that cannot be interpreted as part of the notation of an decimal literal, and no
+        indication is given that any such code units were ignored.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

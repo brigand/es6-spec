@@ -1,0 +1,1 @@
+{"id":"sec-set.prototype.constructor","html":"\n        <h1><span class=\"secnum\" id=\"sec-23.2.3.3\"><a href=\"/sec/sec-set.prototype.constructor.html\" title=\"link to this section\">23.2.3.3</a></span> Set.prototype.constructor</h1>\n\n        <p>The initial value of <code>Set.prototype.constructor</code> is the intrinsic object %Set%.</p>\n      "}

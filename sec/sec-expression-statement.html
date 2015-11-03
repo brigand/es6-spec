@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-13.5"><a href="/sec/sec-expression-statement.html" title="link to this section">13.5</a></span>
+          Expression Statement</h1>
+      <h2>Syntax</h2>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">ExpressionStatement</span><sub class="g-params">[Yield]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="grhsannot">[lookahead &#x2209; {<code class="t">{</code>, <code class="t">function</code>, <code class="t">class</code>, <code class="t">let [</code>}]</span> <span class="nt">Expression</span><sub class="g-params">[In, ?Yield]</sub> <code class="t">;</code></div>
+      </div>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> An <span class="nt">ExpressionStatement</span> cannot start with a U+007B (LEFT CURLY
+        BRACKET) because that might make it ambiguous with a <span class="nt">Block</span>. Also, an <span class="nt">ExpressionStatement</span> cannot start with the <code>function</code> or <code>class</code> keywords because
+        that would make it ambiguous with a <span class="nt">FunctionDeclaration</span>, a <span class="nt">GeneratorDeclaration</span>, or a <span class="nt">ClassDeclaration</span>. An <span class="nt">ExpressionStatement</span> cannot start with the two token sequence <code>let [</code> because that would make
+        it ambiguous with a <code>let</code> <span class="nt">LexicalDeclaration</span> whose first <span class="nt">LexicalBinding</span> was an <span class="nt">ArrayBindingPattern</span>.</p>
+      </div>
+    </div>
+
+    <section id="sec-expression-statement-runtime-semantics-evaluation">
+      <h1><span class="secnum" id="sec-13.5.1"><a href="/sec/sec-expression-statement-runtime-semantics-evaluation.html" title="link to this section">13.5.1</a></span> Runtime Semantics: Evaluation</h1>
+      <div class="gp prod"><span class="nt">ExpressionStatement</span> <span class="geq">:</span> <span class="nt">Expression</span> <code class="t">;</code></div>
+      <ol class="proc">
+        <li>Let <i>exprRef</i> be the result of evaluating <i>Expression</i>.</li>
+        <li>Return <a href="/sec/sec-getvalue.html">GetValue</a>(<i>exprRef</i>).</li>
+      </ol>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

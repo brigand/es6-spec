@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-14.4.13"><a href="/sec/sec-generator-function-definitions-runtime-semantics-propertydefinitionevaluation.html" title="link to this section">14.4.13</a></span> Runtime Semantics: PropertyDefinitionEvaluation</h1>
+
+      <p>With parameter <var>object</var> and <span style="font-family: Times New Roman"><i>enumerable</i>.</span></p>
+
+      <p>See also: <a href="/sec/sec-object-initializer-runtime-semantics-propertydefinitionevaluation.html">12.2.6.9</a>, <a href="/sec/sec-method-definitions-runtime-semantics-propertydefinitionevaluation.html">14.3.9</a>, B.3.1</p>
+
+      <div class="gp prod"><span class="nt">GeneratorMethod</span> <span class="geq">:</span> <code class="t">*</code> <span class="nt">PropertyName</span> <code class="t">(</code> <span class="nt">StrictFormalParameters</span> <code class="t">)</code> <code class="t">{</code> <span class="nt">GeneratorBody</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Let <i>propKey</i> be the result of evaluating <i>PropertyName</i>.</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>propKey</i>).</li>
+        <li>If the function code for this <i>GeneratorMethod</i> is <a href="/sec/sec-strict-mode-code.html">strict mode code</a>, let
+            <i>strict</i> be <b>true</b>. Otherwise let <i>strict</i> be <b>false</b>.</li>
+        <li>Let <i>scope</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a>.</li>
+        <li>Let <i>closure</i> be <a href="/sec/sec-generatorfunctioncreate.html">GeneratorFunctionCreate</a>(<span style="font-family:
+            sans-serif">Method</span>, <i>StrictFormalParameters</i>, <i>GeneratorBody, scope</i>, <i>strict</i>).</li>
+        <li>Perform <a href="/sec/sec-makemethod.html">MakeMethod</a>(<i>closure</i>, <i>object</i>).</li>
+        <li>Let <i>prototype</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<span style="font-family:
+            sans-serif">%GeneratorPrototype</span>%).</li>
+        <li>Perform <a href="/sec/sec-makeconstructor.html">MakeConstructor</a>(<i>closure</i>, <b>true</b>, <i>prototype</i>).</li>
+        <li>Perform <a href="/sec/sec-setfunctionname.html">SetFunctionName</a>(<i>closure</i>, <i>propKey</i>).</li>
+        <li>Let <i>desc</i> be the <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a>{[[Value]]:
+            <i>closure</i>, [[Writable]]: <b>true</b>, [[Enumerable]]: <i>enumerable</i>, [[Configurable]]: <b>true</b>}.</li>
+        <li>Return <a href="/sec/sec-definepropertyorthrow.html">DefinePropertyOrThrow</a>(<i>object</i>, <i>propKey</i>,
+            <i>desc</i>).</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

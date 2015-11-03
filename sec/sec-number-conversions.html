@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <h1><span class="secnum" id="sec-A.6"><a href="/sec/sec-number-conversions.html" title="link to this section">A.6</a></span> Number
+        Conversions</h1>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-tonumber-applied-to-the-string-type.html">See 7.1.3.1</a></div>
+      <div class="lhs"><span class="nt">StringNumericLiteral</span> <span class="geq">:::</span> </div>
+      <div class="rhs"><span class="nt">StrWhiteSpace</span><sub class="g-opt">opt</sub></div>
+      <div class="rhs"><span class="nt">StrWhiteSpace</span><sub class="g-opt">opt</sub> <span class="nt">StrNumericLiteral</span> <span class="nt">StrWhiteSpace</span><sub class="g-opt">opt</sub></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-tonumber-applied-to-the-string-type.html">See 7.1.3.1</a></div>
+      <div class="lhs"><span class="nt">StrWhiteSpace</span> <span class="geq">:::</span> </div>
+      <div class="rhs"><span class="nt">StrWhiteSpaceChar</span> <span class="nt">StrWhiteSpace</span><sub class="g-opt">opt</sub></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-tonumber-applied-to-the-string-type.html">See 7.1.3.1</a></div>
+      <div class="lhs"><span class="nt">StrWhiteSpaceChar</span> <span class="geq">:::</span> </div>
+      <div class="rhs"><span class="nt">WhiteSpace</span></div>
+      <div class="rhs"><span class="nt">LineTerminator</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-tonumber-applied-to-the-string-type.html">See 7.1.3.1</a></div>
+      <div class="lhs"><span class="nt">StrNumericLiteral</span> <span class="geq">:::</span> </div>
+      <div class="rhs"><span class="nt">StrDecimalLiteral</span></div>
+      <div class="rhs"><span class="nt">BinaryIntegerLiteral</span></div>
+      <div class="rhs"><span class="nt">OctalIntegerLiteral</span></div>
+      <div class="rhs"><span class="nt">HexIntegerLiteral</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-tonumber-applied-to-the-string-type.html">See 7.1.3.1</a></div>
+      <div class="lhs"><span class="nt">StrDecimalLiteral</span> <span class="geq">:::</span> </div>
+      <div class="rhs"><span class="nt">StrUnsignedDecimalLiteral</span></div>
+      <div class="rhs"><code class="t">+</code> <span class="nt">StrUnsignedDecimalLiteral</span></div>
+      <div class="rhs"><code class="t">-</code> <span class="nt">StrUnsignedDecimalLiteral</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-tonumber-applied-to-the-string-type.html">See 7.1.3.1</a></div>
+      <div class="lhs"><span class="nt">StrUnsignedDecimalLiteral</span> <span class="geq">:::</span> </div>
+      <div class="rhs"><span class="nt">Infinity</span></div>
+      <div class="rhs"><span class="nt">DecimalDigits</span> <code class="t">.</code> <span class="nt">DecimalDigits</span><sub class="g-opt">opt</sub> <span class="nt">ExponentPart</span><sub class="g-opt">opt</sub></div>
+      <div class="rhs"><code class="t">.</code> <span class="nt">DecimalDigits</span> <span class="nt">ExponentPart</span><sub class="g-opt">opt</sub></div>
+      <div class="rhs"><span class="nt">DecimalDigits</span> <span class="nt">ExponentPart</span><sub class="g-opt">opt</sub></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-tonumber-applied-to-the-string-type.html">See 7.1.3.1</a></div>
+      <div class="lhs"><span class="nt">DecimalDigits</span> <span class="geq">:::</span> </div>
+      <div class="rhs"><span class="nt">DecimalDigit</span></div>
+      <div class="rhs"><span class="nt">DecimalDigits</span> <span class="nt">DecimalDigit</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-tonumber-applied-to-the-string-type.html">See 7.1.3.1</a></div>
+      <div class="lhs"><span class="nt">DecimalDigit</span> <span class="geq">:::</span> <span class="grhsmod">one of</span> </div>
+      <div class="rhs"><code class="t">0</code> <code class="t">1</code> <code class="t">2</code> <code class="t">3</code> <code class="t">4</code> <code class="t">5</code> <code class="t">6</code> <code class="t">7</code> <code class="t">8</code> <code class="t">9</code></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-tonumber-applied-to-the-string-type.html">See 7.1.3.1</a></div>
+      <div class="lhs"><span class="nt">ExponentPart</span> <span class="geq">:::</span> </div>
+      <div class="rhs"><span class="nt">ExponentIndicator</span> <span class="nt">SignedInteger</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-tonumber-applied-to-the-string-type.html">See 7.1.3.1</a></div>
+      <div class="lhs"><span class="nt">ExponentIndicator</span> <span class="geq">:::</span> <span class="grhsmod">one of</span> </div>
+      <div class="rhs"><code class="t">e</code> <code class="t">E</code></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-tonumber-applied-to-the-string-type.html">See 7.1.3.1</a></div>
+      <div class="lhs"><span class="nt">SignedInteger</span> <span class="geq">:::</span> </div>
+      <div class="rhs"><span class="nt">DecimalDigits</span></div>
+      <div class="rhs"><code class="t">+</code> <span class="nt">DecimalDigits</span></div>
+      <div class="rhs"><code class="t">-</code> <span class="nt">DecimalDigits</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-tonumber-applied-to-the-string-type.html">See 7.1.3.1</a></div>
+      <div class="lhs"><span class="nt">HexIntegerLiteral</span> <span class="geq">:::</span> </div>
+      <div class="rhs"><code class="t">0x</code> <span class="nt">HexDigit</span></div>
+      <div class="rhs"><code class="t">0X</code> <span class="nt">HexDigit</span></div>
+      <div class="rhs"><span class="nt">HexIntegerLiteral</span> <span class="nt">HexDigit</span></div>
+    </div>
+
+    <div class="gp">
+      <div class="gsumxref"><a href="/sec/sec-tonumber-applied-to-the-string-type.html">See 7.1.3.1</a></div>
+      <div class="lhs"><span class="nt">HexDigit</span> <span class="geq">:::</span> <span class="grhsmod">one of</span> </div>
+      <div class="rhs"><code class="t">0</code> <code class="t">1</code> <code class="t">2</code> <code class="t">3</code> <code class="t">4</code> <code class="t">5</code> <code class="t">6</code> <code class="t">7</code> <code class="t">8</code> <code class="t">9</code> <code class="t">a</code> <code class="t">b</code> <code class="t">c</code> <code class="t">d</code> <code class="t">e</code> <code class="t">f</code> <code class="t">A</code> <code class="t">B</code> <code class="t">C</code> <code class="t">D</code> <code class="t">E</code> <code class="t">F</code></div>
+    </div>
+
+    <p>All grammar symbols not explicitly defined by the <span class="nt">StringNumericLiteral</span> grammar have the definitions
+    used in the Lexical Grammar for numeric literals (<a href="/sec/sec-literals-numeric-literals.html">11.8.3</a>)</p>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

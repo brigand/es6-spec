@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.2.12"><a href="/sec/sec-abstract-equality-comparison.html" title="link to this section">7.2.12</a></span> Abstract Equality Comparison</h1>
+
+      <p class="normalbefore">The comparison <var>x</var> == <var>y</var>, where <var>x</var> and <var>y</var> are values,
+      produces <b>true</b> or <b>false</b>. Such a comparison is performed as follows:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>x</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>y</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is the same as <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>y</i>), then
+          <ol class="block">
+            <li>Return the result of performing Strict Equality Comparison <i>x</i> === <i>y</i>.</li>
+          </ol>
+        </li>
+        <li>If <i>x</i> is <b>null</b> and <i>y</i> is <b>undefined</b>, return <b>true</b>.</li>
+        <li>If <i>x</i> is <b>undefined</b> and <i>y</i> is <b>null</b>, return <b>true</b>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Number and <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>y</i>) is String,<br>return the result of the comparison
+            <i>x</i> == <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>y</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is String and <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>y</i>) is Number,<br>return the result of the comparison <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>x</i>) == <i>y</i>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Boolean, return the result of the comparison
+            <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>x</i>) == <i>y</i>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>y</i>) is Boolean, return the result of the comparison
+            <i>x</i> == <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>y</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is either String, Number, or Symbol and <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>y</i>) is Object, then<br>return the result of the comparison
+            <i>x</i> == <a href="/sec/sec-toprimitive.html">ToPrimitive</a>(<i>y</i>).</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Object and <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>y</i>) is either String, Number, or Symbol, then<br>return
+            the result of the comparison <a href="/sec/sec-toprimitive.html">ToPrimitive</a>(<i>x</i>) == <i>y</i>.</li>
+        <li>Return <b>false</b>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

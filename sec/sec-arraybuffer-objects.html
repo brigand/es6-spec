@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-24.1"><a href="/sec/sec-arraybuffer-objects.html" title="link to this section">24.1</a></span>
+          ArrayBuffer Objects</h1>
+    </div>
+
+    <section id="sec-abstract-operations-for-arraybuffer-objects">
+      <div class="front">
+        <h1><span class="secnum" id="sec-24.1.1"><a href="/sec/sec-abstract-operations-for-arraybuffer-objects.html" title="link to this section">24.1.1</a></span> Abstract Operations For ArrayBuffer Objects</h1>
+      </div>
+
+      <section id="sec-allocatearraybuffer">
+        <h1><span class="secnum" id="sec-24.1.1.1"><a href="/sec/sec-allocatearraybuffer.html" title="link to this section">24.1.1.1</a></span> AllocateArrayBuffer( constructor, byteLength )</h1>
+
+        <p class="normalbefore">The abstract operation AllocateArrayBuffer with arguments <var>constructor</var> and
+        <var>byteLength</var> is used to create an ArrayBuffer object. It performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>obj</i> be <a href="/sec/sec-ordinarycreatefromconstructor.html">OrdinaryCreateFromConstructor</a>(<i>constructor</i>,
+              <code>&quot;%ArrayBufferPrototype%&quot;</code>, &#xAB;&#x200D;[[ArrayBufferData]], [[ArrayBufferByteLength]]&#xBB; ).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>obj</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>byteLength</i> is a positive integer.</li>
+          <li>Let <i>block</i> be <a href="/sec/sec-createbytedatablock.html">CreateByteDataBlock</a>(<i>byteLength</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>block</i>).</li>
+          <li>Set <i>obj&#x2019;s</i> [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to <i>block</i>.</li>
+          <li>Set <i>obj</i>&#x2019;s [[ArrayBufferByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to <i>byteLength</i>.</li>
+          <li>Return <i>obj</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-isdetachedbuffer">
+        <h1><span class="secnum" id="sec-24.1.1.2"><a href="/sec/sec-isdetachedbuffer.html" title="link to this section">24.1.1.2</a></span> IsDetachedBuffer( arrayBuffer )</h1>
+
+        <p class="normalbefore">The abstract operation IsDetachedBuffer with argument  <var>arrayBuffer</var> performs the
+        following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>arrayBuffer</i>) is Object and it has an
+              [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>arrayBuffer&#x2019;s</i> [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> is <b>null</b>, return <b>true</b>.</li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-detacharraybuffer">
+        <h1><span class="secnum" id="sec-24.1.1.3"><a href="/sec/sec-detacharraybuffer.html" title="link to this section">24.1.1.3</a></span> DetachArrayBuffer( arrayBuffer )</h1>
+
+        <p class="normalbefore">The abstract operation DetachArrayBuffer with argument  <var>arrayBuffer</var> performs the
+        following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>arrayBuffer</i>) is Object and it has [[ArrayBufferData]]
+              and [[ArrayBufferByteLength]] internal slots.</li>
+          <li>Set <i>arrayBuffer&#x2019;s</i> [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to <b>null</b>.</li>
+          <li>Set <i>arrayBuffer</i>&#x2019;s [[ArrayBufferByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to 0.</li>
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>null</b>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> Detaching an ArrayBuffer instance disassociates the <a href="/sec/sec-data-blocks.html">Data
+          Block</a> used as its backing store from the instance and sets the byte length of the buffer to 0. No operations defined
+          by this specification use the DetachArrayBuffer abstract operation. However, an ECMAScript implementation or host
+          environment may define such operations.</p>
+        </div>
+      </section>
+
+      <section id="sec-clonearraybuffer">
+        <h1><span class="secnum" id="sec-24.1.1.4"><a href="/sec/sec-clonearraybuffer.html" title="link to this section">24.1.1.4</a></span> CloneArrayBuffer( srcBuffer, srcByteOffset [, cloneConstructor]
+            )</h1>
+
+        <p class="normalbefore">The abstract operation CloneArrayBuffer takes three parameters, an ArrayBuffer
+        <var>srcBuffer</var>, an integer <var>srcByteOffset</var> and optionally a constructor function
+        <var>cloneConstructor</var>. It creates a new ArrayBuffer whose data is a copy of <var>srcBuffer&#x2019;s</var> data
+        starting at <var>srcByteOffset</var>. This operation performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>srcBuffer</i>) is Object and it has an [[ArrayBufferData]]
+              <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>cloneConstructor</i> is not present, then
+            <ol class="block">
+              <li>Let <i>cloneConstructor</i> be <a href="/sec/sec-speciesconstructor.html">SpeciesConstructor</a>(<i>srcBuffer</i>,
+                  %ArrayBuffer%).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>cloneConstructor</i>).</li>
+              <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>srcBuffer</i>) is <b>true</b>, throw a
+                  <b>TypeError</b> exception.</li>
+            </ol>
+          </li>
+          <li>Else, <a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-isconstructor.html">IsConstructor</a>(<i>cloneConstructor</i>) is <b>true</b>.</li>
+          <li>Let <i>srcLength</i> be the value of <i>srcBuffer</i>&#x2019;s [[ArrayBufferByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>srcByteOffset</i> &#x2264; <i>srcLength</i>.</li>
+          <li>Let <i>cloneLength</i> be <i>srcLength</i> &#x2013; <i>srcByteOffset.</i></li>
+          <li>Let <i>srcBlock</i> be the value of <i>srcBuffer&#x2019;s</i> [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>targetBuffer</i> be <a href="/sec/sec-allocatearraybuffer.html">AllocateArrayBuffer</a>(<i>cloneConstructor</i>,
+              <i>cloneLength</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>targetBuffer</i>).</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>srcBuffer</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>targetBlock</i> be the value of <i>targetBuffer&#x2019;s</i> [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Perform <a href="/sec/sec-copydatablockbytes.html">CopyDataBlockBytes</a>(<i>targetBlock</i>, 0, <i>srcBlock</i>,
+              <i>srcByteOffset</i>, <i>cloneLength</i>).</li>
+          <li>Return <i>targetBuffer</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-getvaluefrombuffer">
+        <h1><span class="secnum" id="sec-24.1.1.5"><a href="/sec/sec-getvaluefrombuffer.html" title="link to this section">24.1.1.5</a></span> GetValueFromBuffer ( arrayBuffer, byteIndex, type, isLittleEndian
+            )</h1>
+
+        <p class="normalbefore">The abstract operation GetValueFromBuffer takes four parameters, an ArrayBuffer
+        <var>arrayBuffer</var>, an integer <var>byteIndex</var>, a String <var>type</var>, and optionally a Boolean
+        <var>isLittleEndian</var>. This operation performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>arrayBuffer</i>) is <b>false</b>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: There are sufficient bytes in <i>arrayBuffer</i> starting at
+              <i>byteIndex</i> to represent a value of <i>type</i>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>byteIndex</i> is a positive integer.</li>
+          <li>Let <i>block</i> be <i>arrayBuffer&#x2019;s</i> [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>elementSize</i> be the Number value of the Element Size value specified in <a href="/sec/table-49.html">Table 49</a>
+              for Element Type <i>type</i>.</li>
+          <li>Let <i>rawValue</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of <i>elementSize</i>
+              containing, in order<i>,</i> the <i>elementSize</i> sequence of bytes starting with
+              <i>block</i>[<i>byteIndex</i>].</li>
+          <li>If <i>isLittleEndian</i> is not present, set <i>isLittleEndian</i> to either <b>true</b> or <b>false</b>. The choice
+              is implementation dependent and should be the alternative that is most efficient for the implementation. An
+              implementation must use the same value each time this step is executed and the same value must be used for the
+              corresponding step in the <a href="/sec/sec-setvalueinbuffer.html">SetValueInBuffer</a> abstract operation.</li>
+          <li>If <i>isLittleEndian</i> is <b>false</b>, reverse the order of the elements of <i>rawValue</i>.</li>
+          <li>If <i>type</i> is <code>&quot;Float32&quot;</code>, then
+            <ol class="block">
+              <li>Let <i>value</i> be the byte elements of <i>rawValue</i> concatenated and interpreted as a little-endian bit
+                  string encoding of an IEEE 754-2008 binary32 value.</li>
+              <li>If <i>value</i> is an IEEE 754-2008 binary32 NaN value, return the <b>NaN</b> Number value.</li>
+              <li>Return the Number value that corresponds to <i>value</i>.</li>
+            </ol>
+          </li>
+          <li>If <i>type</i> is <code>&quot;Float64&quot;</code>, then
+            <ol class="block">
+              <li>Let <i>value</i> be the byte elements of <i>rawValue</i> concatenated and interpreted as a little-endian bit
+                  string encoding of an IEEE 754-2008 binary64 value.</li>
+              <li>If <i>value</i> is an IEEE 754-2008 binary64 NaN value, return the <b>NaN</b> Number value.</li>
+              <li>Return the Number value that corresponds to <i>value</i>.</li>
+            </ol>
+          </li>
+          <li>If the first code unit of <i>type</i> is <code>&quot;U&quot;</code>, then
+            <ol class="block">
+              <li>Let <i>intValue</i> be the byte elements of <i>rawValue</i> concatenated and interpreted as a bit string
+                  encoding of an unsigned little-endian binary number.</li>
+            </ol>
+          </li>
+          <li>Else
+            <ol class="block">
+              <li>Let <i>intValue</i> be the byte elements of <i>rawValue</i> concatenated and interpreted as a bit string
+                  encoding of a binary little-endian 2&#x2019;s complement number of bit length <i>elementSize</i> &#xD7; 8.</li>
+            </ol>
+          </li>
+          <li>Return the Number value that corresponds to <i>intValue</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-setvalueinbuffer">
+        <h1><span class="secnum" id="sec-24.1.1.6"><a href="/sec/sec-setvalueinbuffer.html" title="link to this section">24.1.1.6</a></span> SetValueInBuffer ( arrayBuffer, byteIndex, type, value,
+            isLittleEndian )</h1>
+
+        <p class="normalbefore">The abstract operation <span style="font-family: Times New Roman">SetValueInBuffer</span> takes
+        five parameters, an ArrayBuffer <var>arrayBuffer</var>, an integer <var>byteIndex</var>, a String <var>type</var>, a
+        Number <var>value</var>, and optionally a Boolean <var>isLittleEndian</var>. This operation performs the following
+        steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>arrayBuffer</i>) is <b>false</b>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: There are sufficient bytes in <i>arrayBuffer</i> starting at
+              <i>byteIndex</i> to represent a value of <i>type</i>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>byteIndex</i> is a positive integer.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>value</i>) is Number.</li>
+          <li>Let <i>block</i> be <i>arrayBuffer&#x2019;s</i> [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <i>block</i> is not <b>undefined</b>.</li>
+          <li>Let <i>elementSize</i> be the Number value of the Element Size value specified in <a href="/sec/table-49.html">Table 49</a>
+              for Element Type <i>type</i>.</li>
+          <li>If <i>isLittleEndian</i> is not present, set <i>isLittleEndian</i> to either <b>true</b> or <b>false</b>. The choice
+              is implementation dependent and should be the alternative that is most efficient for the implementation. An
+              implementation must use the same value each time this step is executed and the same value must be used for the
+              corresponding step in the <a href="/sec/sec-getvaluefrombuffer.html">GetValueFromBuffer</a> abstract operation.</li>
+          <li>If <i>type</i> is <code>&quot;Float32&quot;</code>, then
+            <ol class="block">
+              <li>Set <i>rawBytes</i> to a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the 4 bytes that
+                  are the result of converting <i>value</i> to IEEE 754-2008 binary32 format using &#x201C;Round to nearest, ties
+                  to even&#x201D; rounding mode. If <i>isLittleEndian</i> is <b>false</b>, the bytes are arranged in big endian
+                  order. Otherwise, the bytes are arranged in little endian order. If <i>value</i> is <b>NaN</b>, <i>rawValue</i>
+                  may be set to any implementation chosen IEEE 754-2008 binary64 format Not-a-Number encoding. An implementation
+                  must always choose the same encoding for each implementation distinguishable <b>NaN</b> value.</li>
+            </ol>
+          </li>
+          <li>Else, if <i>type</i> is <code>&quot;Float64&quot;</code>, then
+            <ol class="block">
+              <li>Set <i>rawBytes</i> to a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the 8 bytes that
+                  are the IEEE 754-2008 binary64 format encoding of <i>value</i>. If <i>isLittleEndian</i> is <b>false</b>, the
+                  bytes are arranged in big endian order. Otherwise, the bytes are arranged in little endian order. If
+                  <i>value</i> is <b>NaN</b>, <i>rawValue</i> may be set to any implementation chosen IEEE 754-2008 binary32
+                  format Not-a-Number encoding. An implementation must always choose the same encoding for each implementation
+                  distinguishable <b>NaN</b> value.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>n</i> be the Number value of the Element Size specified in <a href="/sec/table-49.html">Table 49</a> for Element
+                  Type <i>type</i>.</li>
+              <li>Let <i>convOp</i> be the abstract operation named in the Conversion Operation column in <a href="/sec/table-49.html">Table 49</a> for Element Type <i>type</i>.</li>
+              <li>Let <i>intValue</i> be <i>convOp</i>(<i>value</i>).</li>
+              <li>If <i>intValue</i> &#x2265; 0, then
+                <ol class="block">
+                  <li>Let <i>rawBytes</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the
+                      <i>n</i>-byte binary encoding of <i>intValue</i>. If <i>isLittleEndian</i> is <b>false</b>, the bytes are
+                      ordered in big endian order. Otherwise, the bytes are ordered in little endian order.</li>
+                </ol>
+              </li>
+              <li>Else,
+                <ol class="block">
+                  <li>Let <i>rawBytes</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the
+                      <i>n</i>-byte binary 2&#x2019;s complement encoding of <i>intValue</i>. If <i>isLittleEndian</i> is
+                      <b>false</b>, the bytes are ordered in big endian order. Otherwise, the bytes are ordered in little endian
+                      order.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Store the individual bytes of <i>rawBytes</i> into <i>block</i>, in order, starting at
+              <i>block</i>[<i>byteIndex</i>].</li>
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<b>undefined</b>).</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-arraybuffer-constructor">
+      <div class="front">
+        <h1><span class="secnum" id="sec-24.1.2"><a href="/sec/sec-arraybuffer-constructor.html" title="link to this section">24.1.2</a></span> The ArrayBuffer Constructor</h1>
+
+        <p>The ArrayBuffer constructor is the %ArrayBuffer% intrinsic object and the initial value of the <code>ArrayBuffer</code>
+        property of the global object. When called as a constructor it creates and initializes a new ArrayBuffer object.
+        <code>ArrayBuffer</code> is not intended to be called as a function and will throw an exception when called in that
+        manner.</p>
+
+        <p>The <code>ArrayBuffer</code> constructor is designed to be subclassable. It may be used as the value of an
+        <code>extends</code> clause of a class definition. Subclass constructors that intend to inherit the specified
+        <code>ArrayBuffer</code> behaviour must include a <code>super</code> call to the <code>ArrayBuffer</code> constructor to
+        create and initialize subclass instances with the internal state necessary to support the <code><a href="/sec/sec-arraybuffer.prototype.html">ArrayBuffer.prototype</a></code> built-in methods.</p>
+      </div>
+
+      <section id="sec-arraybuffer-length">
+        <h1><span class="secnum" id="sec-24.1.2.1"><a href="/sec/sec-arraybuffer-length.html" title="link to this section">24.1.2.1</a></span> ArrayBuffer( length )</h1>
+
+        <p class="normalbefore">ArrayBuffer called with argument <var>length</var> performs the following steps:</p>
+
+        <ol class="proc">
+          <li>If NewTarget is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>numberLength</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<i>length</i>).</li>
+          <li>Let <i>byteLength</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<i>numberLength</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>byteLength</i>).</li>
+          <li>If <a href="/sec/sec-samevaluezero.html">SameValueZero</a>(<i>numberLength</i>, <i>byteLength</i>) is <b>false</b>, throw a
+              <b>RangeError</b> exception.</li>
+          <li>Return <a href="/sec/sec-allocatearraybuffer.html">AllocateArrayBuffer</a>(NewTarget, <i>byteLength</i>).</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-the-arraybuffer-constructor">
+      <div class="front">
+        <h1><span class="secnum" id="sec-24.1.3"><a href="/sec/sec-properties-of-the-arraybuffer-constructor.html" title="link to this section">24.1.3</a></span> Properties of the ArrayBuffer Constructor</h1>
+
+        <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the
+        ArrayBuffer constructor is the intrinsic object %FunctionPrototype% (<a href="/sec/sec-properties-of-the-function-prototype-object.html">19.2.3</a>).</p>
+
+        <p>Besides its <code>length</code> property (whose value is 1), the ArrayBuffer constructor has the following
+        properties:</p>
+      </div>
+
+      <section id="sec-arraybuffer.isview">
+        <h1><span class="secnum" id="sec-24.1.3.1"><a href="/sec/sec-arraybuffer.isview.html" title="link to this section">24.1.3.1</a></span> ArrayBuffer.isView ( arg )</h1>
+
+        <p class="normalbefore">The isView function takes one argument <var>arg</var>, and performs the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>arg</i>) is not Object, return <b>false</b>.</li>
+          <li>If <i>arg</i> has a [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, return <b>true</b>.</li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-arraybuffer.prototype">
+        <h1><span class="secnum" id="sec-24.1.3.2"><a href="/sec/sec-arraybuffer.prototype.html" title="link to this section">24.1.3.2</a></span> ArrayBuffer.prototype</h1>
+
+        <p>The initial value of ArrayBuffer.prototype is the intrinsic object %ArrayBufferPrototype% (<a href="/sec/sec-properties-of-the-arraybuffer-prototype-object.html">24.1.4</a>).</p>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <b>false</b> }.</p>
+      </section>
+
+      <section id="sec-get-arraybuffer-@@species">
+        <h1><span class="secnum" id="sec-24.1.3.3"><a href="/sec/sec-get-arraybuffer-@@species.html" title="link to this section">24.1.3.3</a></span> get ArrayBuffer [ @@species ]</h1>
+
+        <p class="normalbefore"><code>ArrayBuffer[@@species]</code> is an accessor property whose set accessor function is <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Return the <b>this</b> value.</li>
+        </ol>
+
+        <p>The value of the <code>name</code> property of this function is <code>&quot;get [Symbol.species]&quot;</code>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> ArrayBuffer prototype methods normally use their <code>this</code> object&#x2019;s
+          constructor to create a derived object. However, a subclass constructor may over-ride that default behaviour by
+          redefining its @@species property.</p>
+        </div>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-the-arraybuffer-prototype-object">
+      <div class="front">
+        <h1><span class="secnum" id="sec-24.1.4"><a href="/sec/sec-properties-of-the-arraybuffer-prototype-object.html" title="link to this section">24.1.4</a></span> Properties of the ArrayBuffer Prototype Object</h1>
+
+        <p>The ArrayBuffer prototype object is the intrinsic object %ArrayBufferPrototype%. The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the ArrayBuffer prototype object is the
+        intrinsic object %ObjectPrototype% (<a href="/sec/sec-properties-of-the-object-prototype-object.html">19.1.3</a>). The ArrayBuffer
+        prototype object is an ordinary object. It does not have an [[ArrayBufferData]] or [[ArrayBufferByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+      </div>
+
+      <section id="sec-get-arraybuffer.prototype.bytelength">
+        <h1><span class="secnum" id="sec-24.1.4.1"><a href="/sec/sec-get-arraybuffer.prototype.bytelength.html" title="link to this section">24.1.4.1</a></span> get ArrayBuffer.prototype.byteLength</h1>
+
+        <p class="normalbefore"><code>ArrayBuffer.prototype.byteLength</code> is an accessor property whose set accessor function
+        is <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>O</i> does not have an [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>O</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>length</i> be the value of <i>O</i>&#x2019;s [[ArrayBufferByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Return <i>length</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-arraybuffer.prototype.constructor">
+        <h1><span class="secnum" id="sec-24.1.4.2"><a href="/sec/sec-arraybuffer.prototype.constructor.html" title="link to this section">24.1.4.2</a></span> ArrayBuffer.prototype.constructor</h1>
+
+        <p>The initial value of <code>ArrayBuffer.prototype.constructor</code> is the intrinsic object %ArrayBuffer%.</p>
+      </section>
+
+      <section id="sec-arraybuffer.prototype.slice">
+        <h1><span class="secnum" id="sec-24.1.4.3"><a href="/sec/sec-arraybuffer.prototype.slice.html" title="link to this section">24.1.4.3</a></span> ArrayBuffer.prototype.slice ( start, end )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>O</i> does not have an [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>O</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>len</i> be the value of <i>O</i>&#x2019;s [[ArrayBufferByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>relativeStart</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>start</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeStart</i>).</li>
+          <li>If <i>relativeStart</i> &lt; 0, let <i>first</i> be max((<i>len</i> + <i>relativeStart</i>),0); else let
+              <i>first</i> be min(<i>relativeStart</i>, <i>len</i>).</li>
+          <li>If <i>end</i> is <b>undefined</b>, let <i>relativeEnd</i> be <i>len</i>; else let <i>relativeEnd</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>end</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeEnd</i>).</li>
+          <li>If <i>relativeEnd</i> &lt; 0, let <i>final</i> be max((<i>len</i> + <i>relativeEnd</i>),0); else let <i>final</i> be
+              min(<i>relativeEnd</i>, <i>len</i>).</li>
+          <li>Let <i>newLen</i> be max(<i>final</i>-<i>first</i>,0).</li>
+          <li>Let <i>ctor</i> be <a href="/sec/sec-speciesconstructor.html">SpeciesConstructor</a>(<i>O</i>, %ArrayBuffer%).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>ctor</i>).</li>
+          <li>Let <i>new</i> be <a href="/sec/sec-construct.html">Construct</a>(<i>ctor</i>, &#xAB;<i>newLen</i>&#xBB;).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>new</i>).</li>
+          <li>If <i>new</i> does not have an [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>, throw a <b>TypeError</b> exception.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>new</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <a href="/sec/sec-samevalue.html">SameValue</a>(<i>new</i>, <i>O</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If the value of <i>new</i>&#x2019;s [[ArrayBufferByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> &lt; <i>newLen</i>, throw a
+              <b>TypeError</b> exception.</li>
+          <li>NOTE: Side-effects of the above steps may have <span style="font-family: Times New Roman">detached</span>
+              <i>O</i>.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>O</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>fromBuf</i> be the value of <i>O</i>&#x2019;s [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>toBuf</i> be the value of <i>new</i>&#x2019;s [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Perform <a href="/sec/sec-copydatablockbytes.html">CopyDataBlockBytes</a>(<i>toBuf</i>, 0, <i>fromBuf</i>, <i>first</i>,
+              <i>newLen</i>).</li>
+          <li>Return <i>new</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-arraybuffer.prototype-@@tostringtag">
+        <h1><span class="secnum" id="sec-24.1.4.4"><a href="/sec/sec-arraybuffer.prototype-@@tostringtag.html" title="link to this section">24.1.4.4</a></span> ArrayBuffer.prototype [ @@toStringTag ]</h1>
+
+        <p>The initial value of the @@toStringTag property is the String value <code>&quot;ArrayBuffer&quot;</code>.</p>
+
+        <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+      </section>
+    </section>
+
+    <section id="sec-properties-of-the-arraybuffer-instances">
+      <h1><span class="secnum" id="sec-24.1.5"><a href="/sec/sec-properties-of-the-arraybuffer-instances.html" title="link to this section">24.1.5</a></span> Properties of the ArrayBuffer Instances</h1>
+
+      <p>ArrayBuffer instances inherit properties from the ArrayBuffer prototype object. ArrayBuffer instances each have an
+      [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> and an
+      [[ArrayBufferByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+      <p>ArrayBuffer instances whose [[ArrayBufferData]] is <b>null</b> are considered to be detached and all operators to access
+      or modify data contained in the ArrayBuffer instance will fail.</p>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

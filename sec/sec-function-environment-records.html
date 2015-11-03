@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <div class="front">
+          <h1><span class="secnum" id="sec-8.1.1.3"><a href="/sec/sec-function-environment-records.html" title="link to this section">8.1.1.3</a></span> Function Environment Records</h1>
+
+          <p>A function <a href="/sec/sec-environment-records.html">Environment Record</a> is a declarative <a href="/sec/sec-environment-records.html">Environment Record</a> that is used to represent the top-level scope of a function and,
+          if the function is not an <span class="nt">ArrowFunction</span>, provides a <code>this</code> binding. If a function is
+          not an <span class="nt">ArrowFunction</span> function and references <code>super</code>, its function <a href="/sec/sec-environment-records.html">Environment Record</a> also contains the state that is used to perform
+          <code>super</code> method invocations from within the function.</p>
+
+          <p>Function Environment Records have the additional state fields listed in <a href="/sec/table-16.html">Table 16</a>.</p>
+
+          <figure>
+            <figcaption><span id="table-16">Table 16</span> &#x2014; Additional Fields of Function Environment Records</figcaption>
+            <table class="real-table">
+              <tr>
+                <th>Field Name</th>
+                <th>Value</th>
+                <th>Meaning</th>
+              </tr>
+              <tr>
+                <td>[[thisValue]]</td>
+                <td>Any</td>
+                <td>This is the <span class="value">this</span> value used for this invocation of the function.</td>
+              </tr>
+              <tr>
+                <td>[[thisBindingStatus]]</td>
+                <td><code>&quot;lexical&quot;</code> | <code>&quot;initialized&quot;</code> | <code>&quot;uninitialized&quot;</code></td>
+                <td>If the value is <code>&quot;lexical&quot;</code>, this is an <span class="nt">ArrowFunction</span> and does not have a local this value.</td>
+              </tr>
+              <tr>
+                <td>[[FunctionObject]]</td>
+                <td>Object</td>
+                <td>The function Object whose invocation caused this <a href="/sec/sec-environment-records.html">Environment Record</a> to be created.</td>
+              </tr>
+              <tr>
+                <td>[[HomeObject]]</td>
+                <td>Object | <b>undefined</b></td>
+                <td>If the associated function has <code>super</code> property accesses and is not an <span class="nt">ArrowFunction</span>, [[HomeObject]] is the object that the function is bound to as a method. The default value for [[HomeObject]] is <span class="value">undefined</span>.</td>
+              </tr>
+              <tr>
+                <td>[[NewTarget]]</td>
+                <td>Object | <b>undefined</b></td>
+                <td>If this <a href="/sec/sec-environment-records.html">Environment Record</a> was created by the [[Construct]] internal method, [[NewTarget]] is the value of the [[Construct]] <var>newTarget</var> parameter. Otherwise, its value is <span class="value">undefined</span>.</td>
+              </tr>
+            </table>
+          </figure>
+
+          <p>Function Environment Records support all of the declarative Environment Record methods listed in <a href="/sec/table-15.html">Table 15</a> and share the same specifications for all of those methods except for HasThisBinding and
+          HasSuperBinding. In addition, function Environment Records support the methods listed in <a href="/sec/table-17.html">Table
+          17</a>:</p>
+
+          <figure>
+            <figcaption><span id="table-17">Table 17</span> &#x2014; Additional Methods of Function Environment Records</figcaption>
+            <table class="real-table">
+              <tr>
+                <th>Method</th>
+                <th>Purpose</th>
+              </tr>
+              <tr>
+                <td><a href="/sec/sec-bindthisvalue.html">BindThisValue</a>(V)</td>
+                <td>Set the [[thisValue]] and record that it has been initialized.</td>
+              </tr>
+              <tr>
+                <td>GetThisBinding()</td>
+                <td>Return the value of this <a href="/sec/sec-environment-records.html">Environment Record</a>&#x2019;s <code>this</code> binding. Throws a <span class="value">ReferenceError</span> if the <code>this</code> binding has not been initialized.</td>
+              </tr>
+              <tr>
+                <td><a href="/sec/sec-getsuperbase.html">GetSuperBase</a>()</td>
+                <td>Return the object that is the base for <code>super</code> property accesses bound in this <a href="/sec/sec-environment-records.html">Environment Record</a>. The object is derived from this <a href="/sec/sec-environment-records.html">Environment Record</a>&#x2019;s [[HomeObject]] field. The value <span class="value">undefined</span> indicates that <code>super</code> property accesses will produce runtime errors.</td>
+              </tr>
+            </table>
+          </figure>
+
+          <p>The behaviour of the additional concrete specification methods for function Environment Records is defined by the
+          following algorithms:</p>
+        </div>
+
+        <section id="sec-bindthisvalue">
+          <h1><span class="secnum" id="sec-8.1.1.3.1"><a href="/sec/sec-bindthisvalue.html" title="link to this section">8.1.1.3.1</a></span> BindThisValue(V)</h1>
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the function <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method
+                was invoked.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <i>envRec</i>.[[thisBindingStatus]] is not
+                <code>&quot;lexical&quot;</code>.</li>
+            <li>If <i>envRec</i>.[[thisBindingStatus]] is <code>&quot;initialized&quot;</code>, throw a <b>ReferenceError</b>
+                exception.</li>
+            <li>Set <i>envRec</i>.[[thisValue]] to <i>V</i>.</li>
+            <li>Set <i>envRec</i>.[[thisBindingStatus]] to <code>&quot;initialized&quot;</code>.</li>
+            <li>Return <i>V</i>.</li>
+          </ol>
+        </section>
+
+        <section id="sec-function-environment-records-hasthisbinding">
+          <h1><span class="secnum" id="sec-8.1.1.3.2"><a href="/sec/sec-function-environment-records-hasthisbinding.html" title="link to this section">8.1.1.3.2</a></span> HasThisBinding ()</h1>
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the function <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method
+                was invoked.</li>
+            <li>If <i>envRec</i>.[[thisBindingStatus]] is <code>&quot;lexical&quot;</code>, return <b>false</b>; otherwise, return
+                <b>true</b>.</li>
+          </ol>
+        </section>
+
+        <section id="sec-function-environment-records-hassuperbinding">
+          <h1><span class="secnum" id="sec-8.1.1.3.3"><a href="/sec/sec-function-environment-records-hassuperbinding.html" title="link to this section">8.1.1.3.3</a></span> HasSuperBinding ()</h1>
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the function <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method
+                was invoked.</li>
+            <li>If <i>envRec</i>.[[thisBindingStatus]] is <code>&quot;lexical&quot;</code>, return <b>false</b>.</li>
+            <li>If <i>envRec</i>.[[HomeObject]] has the value <b>undefined</b>, return <b>false</b>, otherwise, return
+                <b>true</b>.</li>
+          </ol>
+        </section>
+
+        <section id="sec-function-environment-records-getthisbinding">
+          <h1><span class="secnum" id="sec-8.1.1.3.4"><a href="/sec/sec-function-environment-records-getthisbinding.html" title="link to this section">8.1.1.3.4</a></span> GetThisBinding ()</h1>
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the function <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method
+                was invoked.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <i>envRec</i>.[[thisBindingStatus]] is not
+                <code>&quot;lexical&quot;</code>.</li>
+            <li>If <i>envRec</i>.[[thisBindingStatus]] is <code>&quot;uninitialized&quot;</code>, throw a <b>ReferenceError</b>
+                exception.</li>
+            <li>Return <i>envRec</i>.[[thisValue]].</li>
+          </ol>
+        </section>
+
+        <section id="sec-getsuperbase">
+          <h1><span class="secnum" id="sec-8.1.1.3.5"><a href="/sec/sec-getsuperbase.html" title="link to this section">8.1.1.3.5</a></span> GetSuperBase ()</h1>
+          <ol class="proc">
+            <li>Let <i>envRec</i> be the function <a href="/sec/sec-environment-records.html">Environment Record</a> for which the method
+                was invoked.</li>
+            <li>Let <i>home</i> be the value of <i>envRec</i>.[[HomeObject]].</li>
+            <li>If <i>home</i> has the value <b>undefined</b>, return <b>undefined</b>.</li>
+            <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>home</i>) is Object.</li>
+            <li>Return <i>home.</i>[[GetPrototypeOf]]().</li>
+          </ol>
+        </section>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

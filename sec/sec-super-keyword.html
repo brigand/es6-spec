@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-12.3.5"><a href="/sec/sec-super-keyword.html" title="link to this section">12.3.5</a></span> The
+            <code>super</code> Keyword</h1>
+      </div>
+
+      <section id="sec-super-keyword-runtime-semantics-evaluation">
+        <h1><span class="secnum" id="sec-12.3.5.1"><a href="/sec/sec-super-keyword-runtime-semantics-evaluation.html" title="link to this section">12.3.5.1</a></span> Runtime Semantics: Evaluation</h1>
+        <div class="gp prod"><span class="nt">SuperProperty</span> <span class="geq">:</span> <code class="t">super</code> <code class="t">[</code> <span class="nt">Expression</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Let <i>propertyNameReference</i> be the result of evaluating <i>Expression</i>.</li>
+          <li>Let <i>propertyNameValue</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>propertyNameReference</i>).</li>
+          <li>Let <i>propertyKey</i> be <a href="/sec/sec-topropertykey.html">ToPropertyKey</a>(<i>propertyNameValue</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>propertyKey</i>).</li>
+          <li>If the code matched by the syntactic production that is being evaluated is <a href="/sec/sec-strict-mode-code.html">strict
+              mode code</a>, let <i>strict</i> be <b>true</b>, else let <i>strict</i> be <b>false</b>.</li>
+          <li>Return <a href="/sec/sec-makesuperpropertyreference.html">MakeSuperPropertyReference</a>(<i>propertyKey</i>,
+              <i>strict</i>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">SuperProperty</span> <span class="geq">:</span> <code class="t">super</code> <code class="t">.</code> <span class="nt">IdentifierName</span></div>
+        <ol class="proc">
+          <li>Let <i>propertyKey</i> be StringValue of <i>IdentifierName</i>.</li>
+          <li>If the code matched by the syntactic production that is being evaluated is <a href="/sec/sec-strict-mode-code.html">strict
+              mode code</a>, let <i>strict</i> be <b>true</b>, else let <i>strict</i> be <b>false</b>.</li>
+          <li>Return <a href="/sec/sec-makesuperpropertyreference.html">MakeSuperPropertyReference</a>(<i>propertyKey</i>,
+              <i>strict</i>).</li>
+        </ol>
+        <div class="gp prod"><span class="nt">SuperCall</span> <span class="geq">:</span> <code class="t">super</code> <span class="nt">Arguments</span></div>
+        <ol class="proc">
+          <li>Let <i>newTarget</i> be <a href="/sec/sec-getnewtarget.html">GetNewTarget</a>().</li>
+          <li>If <i>newTarget</i> is <b>undefined</b>, throw a <b>ReferenceError</b> exception.</li>
+          <li>Let <i>func</i> be <a href="/sec/sec-getsuperconstructor.html">GetSuperConstructor</a>().</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>func</i>).</li>
+          <li>Let <i>argList</i> be ArgumentListEvaluation of <i>Arguments</i>.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>argList</i>).</li>
+          <li>Let <i>result</i> be <a href="/sec/sec-construct.html">Construct</a>(<i>func</i>, <i>argList</i>, <i>newTarget</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>result</i>).</li>
+          <li>Let <i>thisER</i> be <a href="/sec/sec-getthisenvironment.html">GetThisEnvironment</a>( ).</li>
+          <li>Return <i>thisER</i>.<a href="/sec/sec-bindthisvalue.html">BindThisValue</a>(<i>result</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-getsuperconstructor">
+        <h1><span class="secnum" id="sec-12.3.5.2"><a href="/sec/sec-getsuperconstructor.html" title="link to this section">12.3.5.2</a></span> Runtime Semantics: GetSuperConstructor ( )</h1>
+
+        <p class="normalbefore">The abstract operation GetSuperConstructor performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>envRec</i> be <a href="/sec/sec-getthisenvironment.html">GetThisEnvironment</a>( ).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>envRec</i> is a function <a href="/sec/sec-environment-records.html">Environment Record</a>.</li>
+          <li>Let <i>activeFunction</i> be <i>envRec</i>.[[FunctionObject]].</li>
+          <li>Let <i>superConstructor</i> be <i>activeFunction</i>.[[GetPrototypeOf]]().</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>superConstructor</i>).</li>
+          <li>If <a href="/sec/sec-isconstructor.html">IsConstructor</a>(<i>superConstructor</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Return <i>superConstructor</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-makesuperpropertyreference">
+        <h1><span class="secnum" id="sec-12.3.5.3"><a href="/sec/sec-makesuperpropertyreference.html" title="link to this section">12.3.5.3</a></span> Runtime Semantics: MakeSuperPropertyReference(propertyKey,
+            strict)</h1>
+
+        <p class="normalbefore">The abstract operation MakeSuperPropertyReference with arguments <var>propertyKey</var> and
+        <var>strict</var> performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>env</i> be <a href="/sec/sec-getthisenvironment.html">GetThisEnvironment</a>( ).</li>
+          <li>If <i>env</i>.HasSuperBinding() is <b>false</b>, throw a <b>ReferenceError</b> exception.</li>
+          <li>Let <i>actualThis</i> be <i>env</i>.GetThisBinding().</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>actualThis</i>).</li>
+          <li>Let <i>baseValue</i> be <i>env</i>.<a href="/sec/sec-getsuperbase.html">GetSuperBase</a>().</li>
+          <li>Let <i>bv</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<i>baseValue</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>bv</i>).</li>
+          <li>Return a value of type <a href="/sec/sec-reference-specification-type.html">Reference</a> that is a Super <a href="/sec/sec-reference-specification-type.html">Reference</a> whose base value is <i>bv</i>, whose referenced name is
+              <i>propertyKey</i>, whose thisValue is <i>actualThis</i>, and whose strict reference flag is <i>strict</i>.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

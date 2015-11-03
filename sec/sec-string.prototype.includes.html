@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.1.3.7"><a href="/sec/sec-string.prototype.includes.html" title="link to this section">21.1.3.7</a></span> String.prototype.includes ( searchString [ , position ] )</h1>
+
+        <p class="normalbefore">The <code>includes</code> method takes two arguments, <i>searchString</i> and <i>position</i>, and
+        performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<b>this</b> value).</li>
+          <li>Let <i>S</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>S</i>).</li>
+          <li>Let <i>isRegExp</i> be  <a href="/sec/sec-isregexp.html">IsRegExp</a>(<i>searchString</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>isRegExp</i>).</li>
+          <li>If <i>isRegExp</i> is <b>true</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>searchStr</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>searchString</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>searchStr</i>).</li>
+          <li>Let <i>pos</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>position</i>). (If <i>position</i> is <b>undefined</b>,
+              this step produces the value <b>0</b>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>pos</i>).</li>
+          <li>Let <i>len</i> be the number of elements in <i>S</i>.</li>
+          <li>Let <i>start</i> be min(max(<i>pos</i>, 0), <i>len</i>).</li>
+          <li>Let <i>searchLen</i> be the number of elements in <i>searchStr</i>.</li>
+          <li>If there exists any integer <i>k</i> not smaller than <i>start</i> such that <i>k</i> + <i>searchLen</i> is not
+              greater than <i>len</i>, and for all nonnegative integers <i>j</i> less than <i>searchLen</i>, the code unit at
+              index <i>k</i>+<i>j</i> of <i>S</i> is the same as the code unit at index <i>j</i> of <i>searchStr,</i> return
+              <b>true</b>; but if there is no such integer <i>k</i>, return <b>false</b>.</li>
+        </ol>
+
+        <p>The <b>length</b> property of the <code>includes</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> If <var>searchString</var> appears as a substring of the result of converting this
+          object to a String, at one or more indices that are greater than or equal to <i>position</i>, return <span class="value">true</span>; otherwise, returns <span class="value">false</span>. If <i>position</i> is <span class="value">undefined</span>, 0 is assumed, so as to search all of the String.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> Throwing an exception if the first argument is a RegExp is specified in order to allow
+          future editions to define extensions that allow such argument values.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 3</span> The <code>includes</code> function is intentionally generic; it does not require that
+          its <span class="value">this</span> value be a String object. Therefore, it can be transferred to other kinds of objects
+          for use as a method.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-22.2.1.4"><a href="/sec/sec-%typedarray%-object.html" title="link to this section">22.2.1.4</a></span> %TypedArray% ( object )</h1>
+
+        <p>This description applies only if the %TypedArray% function is called with at least one argument and the Type of the
+        first argument is Object and that object does not have either a [[TypedArrayName]] or an [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+        <p class="normalbefore">%TypedArray% called with argument <var>object</var> performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>object</i>) is Object and <i>object</i> does not have
+              either a [[TypedArrayName]] or an [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If NewTarget is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Return <a href="/sec/sec-typedarrayfrom.html">TypedArrayFrom</a>(NewTarget, <i>object</i>, <b>undefined</b>,
+              <b>undefined</b>).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

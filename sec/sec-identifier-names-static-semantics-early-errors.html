@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-11.6.1.1"><a href="/sec/sec-identifier-names-static-semantics-early-errors.html" title="link to this section">11.6.1.1</a></span> Static Semantics: Early Errors</h1>
+        <div class="gp prod"><span class="nt">IdentifierStart</span> <span class="geq">::</span> <code class="t">\</code> <span class="nt">UnicodeEscapeSequence</span></div>
+        <ul>
+          <li>
+            <p>It is a Syntax Error if <span style="font-family: Times New Roman">SV(<i>UnicodeEscapeSequence</i>)</span> is none
+            of <code>&quot;$&quot;</code>, or <code>&quot;_&quot;</code>, or the <a href="/sec/sec-utf16encoding.html">UTF16Encoding</a> (<a href="/sec/sec-utf16encoding.html">10.1.1</a>) of a code point matched by the <span class="nt">UnicodeIDStart</span> lexical
+            grammar production.</p>
+          </li>
+        </ul>
+        <div class="gp prod"><span class="nt">IdentifierPart</span> <span class="geq">::</span> <code class="t">\</code> <span class="nt">UnicodeEscapeSequence</span></div>
+        <ul>
+          <li>
+            <p>It is a Syntax Error if <span style="font-family: Times New Roman">SV(<i>UnicodeEscapeSequence</i>)</span> is none
+            of <code>&quot;$&quot;</code>, or <code>&quot;_&quot;</code>, or the <a href="/sec/sec-utf16encoding.html">UTF16Encoding</a> (<a href="/sec/sec-utf16encoding.html">10.1.1</a>) of either &lt;ZWNJ&gt; or &lt;ZWJ&gt;, or the <a href="/sec/sec-utf16encoding.html">UTF16Encoding</a> of a Unicode code point that would be matched by the <span class="nt">UnicodeIDContinue</span> lexical grammar production.</p>
+          </li>
+        </ul>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

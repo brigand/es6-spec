@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-21.2.2.11"><a href="/sec/sec-decimalescape.html" title="link to this section">21.2.2.11</a></span>
+            DecimalEscape</h1>
+
+        <p class="normalbefore">The production <span class="prod"><span class="nt">DecimalEscape</span> <span class="geq">::</span> <span class="nt">DecimalIntegerLiteral</span></span>  evaluates as follows:</p>
+
+        <ol class="proc">
+          <li>Let <i>i</i> be the MV of <i>DecimalIntegerLiteral</i>.</li>
+          <li>If <i>i</i> is zero, return the EscapeValue consisting of the character U+0000 (NULL).</li>
+          <li>Return the EscapeValue consisting of the integer <i>i</i>.</li>
+        </ol>
+
+        <p>The definition of &#x201C;the MV of <span class="nt">DecimalIntegerLiteral</span>&#x201D; is in <a href="/sec/sec-literals-numeric-literals.html">11.8.3</a>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> If <code>\</code> is followed by a decimal number <var>n</var> whose first digit is not
+          <code>0</code>, then the escape sequence is considered to be a backreference. It is an error if <var>n</var> is greater
+          than the total number of left capturing parentheses in the entire regular expression. <code>\0</code> represents the
+          &lt;NUL&gt; character and cannot be followed by a decimal digit.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-12.3.5.3"><a href="/sec/sec-makesuperpropertyreference.html" title="link to this section">12.3.5.3</a></span> Runtime Semantics: MakeSuperPropertyReference(propertyKey,
+            strict)</h1>
+
+        <p class="normalbefore">The abstract operation MakeSuperPropertyReference with arguments <var>propertyKey</var> and
+        <var>strict</var> performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>env</i> be <a href="/sec/sec-getthisenvironment.html">GetThisEnvironment</a>( ).</li>
+          <li>If <i>env</i>.HasSuperBinding() is <b>false</b>, throw a <b>ReferenceError</b> exception.</li>
+          <li>Let <i>actualThis</i> be <i>env</i>.GetThisBinding().</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>actualThis</i>).</li>
+          <li>Let <i>baseValue</i> be <i>env</i>.<a href="/sec/sec-getsuperbase.html">GetSuperBase</a>().</li>
+          <li>Let <i>bv</i> be <a href="/sec/sec-requireobjectcoercible.html">RequireObjectCoercible</a>(<i>baseValue</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>bv</i>).</li>
+          <li>Return a value of type <a href="/sec/sec-reference-specification-type.html">Reference</a> that is a Super <a href="/sec/sec-reference-specification-type.html">Reference</a> whose base value is <i>bv</i>, whose referenced name is
+              <i>propertyKey</i>, whose thisValue is <i>actualThis</i>, and whose strict reference flag is <i>strict</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-6.2.6"><a href="/sec/sec-data-blocks.html" title="link to this section">6.2.6</a></span> Data
+            Blocks</h1>
+
+        <p>The Data Block specification type is used to describe a distinct and mutable sequence of byte-sized (8 bit)  numeric
+        values. A Data Block value is created with a fixed number of bytes that each have the initial value 0.</p>
+
+        <p>For notational convenience within this specification, an array-like syntax can be used to access the individual bytes
+        of a Data Block value. This notation presents a Data Block value as a 0-origined integer indexed sequence of bytes. For
+        example, if <var>db</var> is a 5 byte Data Block value then <var>db</var>[2] can be used to access its 3<sup>rd</sup>
+        byte.</p>
+
+        <p>The following abstract operations are used in this specification to operate upon Data Block values:</p>
+      </div>
+
+      <section id="sec-createbytedatablock">
+        <h1><span class="secnum" id="sec-6.2.6.1"><a href="/sec/sec-createbytedatablock.html" title="link to this section">6.2.6.1</a></span> CreateByteDataBlock(size)</h1>
+
+        <p class="normalbefore">When the abstract operation CreateByteDataBlock is called with integer argument <var>size</var>,
+        the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>size</i>&#x2265;0.</li>
+          <li>Let <i>db</i> be a new <a href="/sec/sec-data-blocks.html">Data Block</a> value consisting of <i>size</i> bytes. If it is
+              impossible to create such a <a href="/sec/sec-data-blocks.html">Data Block</a>, throw a <b>RangeError</b> exception.</li>
+          <li>Set all of the bytes of <i>db</i> to 0.</li>
+          <li>Return <i>db</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-copydatablockbytes">
+        <h1><span class="secnum" id="sec-6.2.6.2"><a href="/sec/sec-copydatablockbytes.html" title="link to this section">6.2.6.2</a></span> CopyDataBlockBytes(toBlock, toIndex, fromBlock, fromIndex, count)</h1>
+
+        <p class="normalbefore">When the abstract operation CopyDataBlockBytes is called the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>fromBlock</i> and <i>toBlock</i> are distinct <a href="/sec/sec-data-blocks.html">Data Block</a> values.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>fromIndex</i>, <i>toIndex</i>, and <i>count</i> are positive
+              integer values.</li>
+          <li>Let <i>fromSize</i> be the number of bytes in <i>fromBlock</i>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>fromIndex</i>+<i>count</i> &#x2264; <i>fromSize</i>.</li>
+          <li>Let <i>toSize</i> be the number of bytes in <i>toBlock</i>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>toIndex</i>+<i>count</i> &#x2264; <i>toSize</i>.</li>
+          <li>Repeat, while <i>count</i>&gt;0
+            <ol class="block">
+              <li>Set <i>toBlock</i>[<i>toIndex</i>] to the value of <i>fromBlock</i>[<i>fromIndex</i>].</li>
+              <li>Increment <i>toIndex</i> and <i>fromIndex</i> each by 1.</li>
+              <li>Decrement <i>count</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family: sans-serif">empty</span>)</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

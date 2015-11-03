@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-25.2.3"><a href="/sec/sec-properties-of-the-generatorfunction-prototype-object.html" title="link to this section">25.2.3</a></span> Properties of the GeneratorFunction Prototype Object</h1>
+
+        <p>The GeneratorFunction prototype object is an ordinary object. It is not a function object and does not have an
+        [[ECMAScriptCode]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> or any other of the
+        internal slots listed in <a href="/sec/table-27.html">Table 27</a> or <a href="/sec/table-56.html">Table 56</a>. In addition to being the
+        value of the prototype property of the %GeneratorFunction% intrinsic, it is the %Generator% intrinsic (see Figure 2).</p>
+
+        <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the
+        GeneratorFunction prototype object is the %FunctionPrototype% intrinsic object. The initial value of the [[Extensible]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the GeneratorFunction prototype object is
+        <b>true</b>.</p>
+      </div>
+
+      <section id="sec-generatorfunction.prototype.constructor">
+        <h1><span class="secnum" id="sec-25.2.3.1"><a href="/sec/sec-generatorfunction.prototype.constructor.html" title="link to this section">25.2.3.1</a></span> GeneratorFunction.prototype.constructor</h1>
+
+        <p>The initial value of <code>GeneratorFunction.prototype.constructor</code> is the intrinsic object
+        %GeneratorFunction%.</p>
+
+        <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+      </section>
+
+      <section id="sec-generatorfunction.prototype.prototype">
+        <h1><span class="secnum" id="sec-25.2.3.2"><a href="/sec/sec-generatorfunction.prototype.prototype.html" title="link to this section">25.2.3.2</a></span> GeneratorFunction.prototype.prototype</h1>
+
+        <p>The value of <code>GeneratorFunction.prototype.prototype</code> is the %GeneratorPrototype% intrinsic object.</p>
+
+        <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+      </section>
+
+      <section id="sec-generatorfunction.prototype-@@tostringtag">
+        <h1><span class="secnum" id="sec-25.2.3.3"><a href="/sec/sec-generatorfunction.prototype-@@tostringtag.html" title="link to this section">25.2.3.3</a></span> GeneratorFunction.prototype [ @@toStringTag ]</h1>
+
+        <p>The initial value of the @@toStringTag property is the String value <code>&quot;GeneratorFunction&quot;</code>.</p>
+
+        <p>This property has the attributes { [[Writable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">true</span> }.</p>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

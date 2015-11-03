@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-26.2.1"><a href="/sec/sec-proxy-constructor.html" title="link to this section">26.2.1</a></span>
+            The Proxy Constructor</h1>
+
+        <p>The Proxy constructor is the %Proxy% intrinsic object and the initial value of the <code>Proxy</code> property of the
+        global object. When called as a constructor it creates and initializes a new proxy exotic object. <code>Proxy</code> is
+        not intended to be called as a function and will throw an exception when called in that manner.</p>
+      </div>
+
+      <section id="sec-proxy-target-handler">
+        <h1><span class="secnum" id="sec-26.2.1.1"><a href="/sec/sec-proxy-target-handler.html" title="link to this section">26.2.1.1</a></span> Proxy ( target, handler )</h1>
+
+        <p class="normalbefore">When <code>Proxy</code> is called with arguments <var>target</var> and <var>handler</var> performs
+        the following steps:</p>
+
+        <ol class="proc">
+          <li>If NewTarget is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Return <a href="/sec/sec-proxycreate.html">ProxyCreate</a>(<i>target</i>, <i>handler</i>).</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

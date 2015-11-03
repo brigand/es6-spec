@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-22.2.1.5"><a href="/sec/sec-%typedarray%-buffer-byteoffset-length.html" title="link to this section">22.2.1.5</a></span> %TypedArray% ( buffer [ , byteOffset [ , length ] ] )</h1>
+
+        <p>This description applies only if the %TypedArray% function is called with at least one argument and the Type of the
+        first argument is Object and that object has an [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</p>
+
+        <p class="normalbefore">%TypedArray% called with arguments <span style="font-family: Times New Roman"><i>buffer</i>,
+        <i>byteOffset</i>, and <i>length</i></span> performs the following steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>buffer</i>) is Object and <i>buffer</i> has an
+              [[ArrayBufferData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If NewTarget is <b>undefined</b>, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>O</i> be <a href="/sec/sec-allocatetypedarray.html">AllocateTypedArray</a>(NewTarget).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>constructorName</i> be the String value of <i>O</i>&#x2019;s [[TypedArrayName]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>elementSize</i> be the Number value of the Element Size value in <a href="/sec/table-49.html">Table 49</a> for
+              <i>constructorName</i>.</li>
+          <li>Let <i>offset</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>byteOffset</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>offset</i>).</li>
+          <li>If <i>offset</i> &lt; 0, throw a <b>RangeError</b> exception.</li>
+          <li>If <i>offset</i> <a href="/sec/sec-algorithm-conventions.html">modulo</a> <i>elementSize</i> &#x2260; 0, throw a
+              <b>RangeError</b> exception.</li>
+          <li>If <a href="/sec/sec-isdetachedbuffer.html">IsDetachedBuffer</a>(<i>buffer</i>) is <b>true</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>bufferByteLength</i> be the value of <i>buffer&#x2019;s</i> [[ArrayBufferByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>length</i> is <b>undefined</b>, then
+            <ol class="block">
+              <li>If <i>bufferByteLength</i> <a href="/sec/sec-algorithm-conventions.html">modulo</a> <i>elementSize</i> &#x2260; 0, throw a
+                  <b>RangeError</b> exception.</li>
+              <li>Let <i>newByteLength</i> be <i>bufferByteLength</i> &#x2013; <i>offset</i>.</li>
+              <li>If <i>newByteLength</i> &lt; 0, throw a <b>RangeError</b> exception.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>newLength</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<i>length</i>)<i>.</i></li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>newLength</i>).</li>
+              <li>Let <i>newByteLength</i> be <i>newLength</i> &#xD7; <i>elementSize</i>.</li>
+              <li>If <i>offset</i>+<i>newByteLength</i> &gt; <i>bufferByteLength</i>, throw a <b>RangeError</b> exception.</li>
+            </ol>
+          </li>
+          <li>Set <i>O&#x2019;s</i> [[ViewedArrayBuffer]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal
+              slot</a> to <i>buffer</i>.</li>
+          <li>Set <i>O</i>&#x2019;s [[ByteLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <i>newByteLength</i>.</li>
+          <li>Set <i>O</i>&#x2019;s [[ByteOffset]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <i>offset</i>.</li>
+          <li>Set <i>O</i>&#x2019;s [[ArrayLength]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <i>newByteLength /</i> <i>elementSize</i> .</li>
+          <li>Return <i>O</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

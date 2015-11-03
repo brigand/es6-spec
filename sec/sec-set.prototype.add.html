@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-23.2.3.1"><a href="/sec/sec-set.prototype.add.html" title="link to this section">23.2.3.1</a></span> Set.prototype.add ( value )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>S</i> be the <b>this</b> value.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>S</i>) is not Object, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>S</i> does not have a [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>,
+              throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>entries</i> be the <a href="/sec/sec-list-and-record-specification-type.html">List</a> that is the value of
+              <i>S</i>&#x2019;s [[SetData]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Repeat for each <i>e</i> that is an element of <i>entries,</i>
+            <ol class="block">
+              <li>If <i>e</i> is not <span style="font-family: sans-serif">empty</span> and <a href="/sec/sec-samevaluezero.html">SameValueZero</a>(<i>e</i>, <i>value</i>) is <b>true</b>, then
+                <ol class="block">
+                  <li>Return <i>S</i>.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>If <i>value</i> is &#x2212;0, let <i>value</i> be +0.</li>
+          <li>Append <i>value</i> as the last element of <i>entries</i>.</li>
+          <li>Return <i>S</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

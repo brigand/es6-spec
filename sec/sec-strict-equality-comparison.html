@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.2.13"><a href="/sec/sec-strict-equality-comparison.html" title="link to this section">7.2.13</a></span> Strict Equality Comparison</h1>
+
+      <p class="normalbefore">The comparison <var>x</var> === <var>y</var>, where <var>x</var> and <var>y</var> are values,
+      produces <b>true</b> or <b>false</b>. Such a comparison is performed as follows:</p>
+
+      <ol class="proc">
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is different from <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>y</i>), return <b>false</b>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Undefined, return <b>true</b>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Null, return <b>true</b>.</li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Number, then
+          <ol class="block">
+            <li>If <i>x</i> is <b>NaN</b>, return <b>false</b>.</li>
+            <li>If <i>y</i> is <b>NaN</b>, return <b>false</b>.</li>
+            <li>If <i>x</i> is the same Number value as <i>y</i>, return <b>true</b>.</li>
+            <li>If <i>x</i> is <b>+0</b> and <i>y</i> is <b>&#x2212;0</b>, return <b>true</b>.</li>
+            <li>If <i>x</i> is <b>&#x2212;0</b> and <i>y</i> is <b>+0</b>, return <b>true</b>.</li>
+            <li>Return <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is String, then
+          <ol class="block">
+            <li>If <i>x</i> and <i>y</i> are exactly the same sequence of code units (same length and same code units at
+                corresponding indices), return <b>true</b>.</li>
+            <li>Else, return <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>x</i>) is Boolean, then
+          <ol class="block">
+            <li>If <i>x</i> and <i>y</i> are both <b>true</b> or both <b>false</b>, return <b>true</b>.</li>
+            <li>Else, return <b>false</b>.</li>
+          </ol>
+        </li>
+        <li>If <i>x</i> and <i>y</i> are the same Symbol value, return <b>true</b>.</li>
+        <li>If <i>x</i> and <i>y</i> are the same Object value, return <b>true</b>.</li>
+        <li>Return <b>false</b>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> This algorithm differs from <a href="/sec/sec-samevalue.html">the SameValue Algorithm</a> (<a href="/sec/sec-samevalue.html">7.2.9</a>) in its treatment of signed zeroes and NaNs.</p>
+      </div>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

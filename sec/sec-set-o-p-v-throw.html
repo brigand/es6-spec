@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-7.3.3"><a href="/sec/sec-set-o-p-v-throw.html" title="link to this section">7.3.3</a></span> Set (O,
+          P, V, Throw)</h1>
+
+      <p class="normalbefore">The abstract operation <span style="font-family: Times New Roman">Set</span> is used to set the
+      value of a specific property of an object. The operation is called with arguments  <var>O</var>, <var>P</var>, <var>V</var>,
+      and <span class="nt">Throw</span> where <var>O</var> is the object, <var>P</var> is the <a href="/sec/sec-object-type.html">property
+      key</a>, <var>V</var> is the new value for the property and <span class="nt">Throw</span> is a Boolean flag. This abstract
+      operation performs the following steps:</p>
+
+      <ol class="proc">
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is
+            Object.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>:  <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+            <b>true</b>.</li>
+        <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>Throw</i>) is Boolean.</li>
+        <li>Let  <i>success</i> be <i>O</i>.[[Set]](<i>P</i>, <i>V</i>, <i>O</i>).</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>success</i>).</li>
+        <li>If <i>success</i> is <b>false</b> and <i>Throw</i> is <b>true</b>, throw a <b>TypeError</b> exception.</li>
+        <li>Return <i>success</i>.</li>
+      </ol>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

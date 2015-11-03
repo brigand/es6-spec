@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-18.2.6.3"><a href="/sec/sec-decodeuricomponent-encodeduricomponent.html" title="link to this section">18.2.6.3</a></span> decodeURIComponent (encodedURIComponent)</h1>
+
+        <p>The <code>decodeURIComponent</code> function computes a new version of a URI in which each escape sequence and UTF-8
+        encoding of the sort that might be introduced by the <code>encodeURIComponent</code> function is replaced with the UTF-16
+        encoding of the code points that it represents.</p>
+
+        <p class="normalbefore">The <code>decodeURIComponent</code> function is the %decodeURIComponent% intrinsic object. When
+        the <code>decodeURIComponent</code> function is called with one argument <var>encodedURIComponent</var>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>componentString</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>encodedURIComponent</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>componentString</i>).</li>
+          <li>Let <i>reservedURIComponentSet</i> be the empty String.</li>
+          <li>Return <a href="/sec/sec-decode.html">Decode</a>(<i>componentString</i>, <i>reservedURIComponentSet</i>).</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

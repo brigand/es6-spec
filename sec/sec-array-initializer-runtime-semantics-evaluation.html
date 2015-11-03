@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-12.2.5.3"><a href="/sec/sec-array-initializer-runtime-semantics-evaluation.html" title="link to this section">12.2.5.3</a></span> Runtime Semantics: Evaluation</h1>
+        <div class="gp prod"><span class="nt">ArrayLiteral</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Let <i>array</i> be <a href="/sec/sec-arraycreate.html">ArrayCreate</a>(0).</li>
+          <li>Let <i>pad</i> be the ElisionWidth of <i>Elision</i>; if <i>Elision</i> is not present, use the numeric value
+              zero.</li>
+          <li>Perform <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>array</i>, <code>&quot;length&quot;</code>, <i>pad</i>, <b>false</b>).</li>
+          <li>NOTE:  The above Set cannot fail because of the nature of the object returned by <a href="/sec/sec-arraycreate.html">ArrayCreate</a>.</li>
+          <li>Return <i>array</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayLiteral</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">ElementList</span> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Let <i>array</i> be <a href="/sec/sec-arraycreate.html">ArrayCreate</a>(0).</li>
+          <li>Let <i>len</i> be the result of performing ArrayAccumulation for <i>ElementList</i> with arguments <i>array</i> and
+              0.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>Perform <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>array</i>, <code>&quot;length&quot;</code>, <i>len</i>, <b>false</b>).</li>
+          <li>NOTE:  The above Set cannot fail because of the nature of the object returned by <a href="/sec/sec-arraycreate.html">ArrayCreate</a>.</li>
+          <li>Return <i>array</i>.</li>
+        </ol>
+        <div class="gp prod"><span class="nt">ArrayLiteral</span> <span class="geq">:</span> <code class="t">[</code> <span class="nt">ElementList</span> <code class="t">,</code> <span class="nt">Elision</span><sub class="g-opt">opt</sub> <code class="t">]</code></div>
+        <ol class="proc">
+          <li>Let <i>array</i> be <a href="/sec/sec-arraycreate.html">ArrayCreate</a>(0).</li>
+          <li>Let <i>len</i> be the result of performing ArrayAccumulation for <i>ElementList</i> with arguments <i>array</i> and
+              0.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>Let <i>padding</i> be the ElisionWidth of <i>Elision</i>; if <i>Elision</i> is not present, use the numeric value
+              zero.</li>
+          <li>Perform <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>array</i>, <code>&quot;length&quot;</code>, <a href="/sec/sec-touint32.html">ToUint32</a>(<i>padding</i>+<i>len</i>), <b>false</b>).</li>
+          <li>NOTE:  The above Set cannot fail because of the nature of the object returned by <a href="/sec/sec-arraycreate.html">ArrayCreate</a>.</li>
+          <li>Return <i>array</i>.</li>
+        </ol>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

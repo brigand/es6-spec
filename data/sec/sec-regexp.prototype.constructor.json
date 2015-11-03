@@ -1,0 +1,1 @@
+{"id":"sec-regexp.prototype.constructor","html":"\n        <h1><span class=\"secnum\" id=\"sec-21.2.5.1\"><a href=\"/sec/sec-regexp.prototype.constructor.html\" title=\"link to this section\">21.2.5.1</a></span> RegExp.prototype.constructor</h1>\n\n        <p>The initial value of <code>RegExp.prototype.constructor</code> is the intrinsic object %RegExp%.</p>\n      "}

@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <h1><span class="secnum" id="sec-5.2"><a href="/sec/sec-algorithm-conventions.html" title="link to this section">5.2</a></span>
+        Algorithm Conventions</h1>
+
+    <p>The specification often uses a numbered list to specify steps in an algorithm. These algorithms are used to precisely
+    specify the required semantics of ECMAScript language constructs. The algorithms are not intended to imply the use of any
+    specific implementation technique. In practice, there may be more efficient algorithms available to implement a given
+    feature.</p>
+
+    <p>Algorithms may be explicitly parameterized, in which case the names and usage of the parameters must be provided as part of
+    the algorithm&#x2019;s definition. In order to facilitate their use in multiple parts of this specification, some algorithms,
+    called <i>abstract</i> <i>operations</i>, are named and written in parameterized functional form so that they may be
+    referenced by name from within other algorithms. Abstract operations are typically referenced using a functional application
+    style such as <span style="font-family: Times New Roman">operationName(<i>arg1</i>, <i>arg2</i>)</span>. Some abstract
+    operations are treated as polymorphically dispatched methods of class-like specification abstractions. Such method-like
+    abstract operations are typically referenced using a method application style such as <span style="font-family: Times New
+    Roman"><i>someValue</i>.operationName(<i>arg1</i>, <i>arg2</i>)</span>.</p>
+
+    <p>Algorithms may be associated with productions of one of the ECMAScript grammars. A production that has multiple alternative
+    definitions will typically have a distinct algorithm for each alternative. When an algorithm is associated with a grammar
+    production, it may reference the terminal and nonterminal symbols of the production alternative as if they were parameters of
+    the algorithm. When used in this manner, nonterminal symbols refer to the actual alternative definition that is matched when
+    parsing the source text.</p>
+
+    <p>When an algorithm is associated with a production alternative, the alternative is typically shown without any &#x201C;[
+    ]&#x201D; grammar annotations. Such annotations should only affect the syntactic recognition of the alternative and have no
+    effect on the associated semantics for the alternative.</p>
+
+    <p>Unless explicitly specified otherwise, all <a href="/sec/sec-context-free-grammars.html">chain productions</a> have an implicit
+    definition for every algorithm that might be applied to that production&#x2019;s left-hand side nonterminal. The implicit
+    definition simply reapplies the same algorithm name with the same parameters, if any, to the <a href="/sec/sec-context-free-grammars.html">chain production</a>&#x2019;s sole right-hand side nonterminal and then returns the result.
+    For example, assume there is a production:</p>
+
+    <div class="gp">
+      <div class="lhs"><span class="nt">Block</span> <span class="geq">:</span></div>
+      <div class="rhs"><code class="t">{</code> <span class="nt">StatementList</span> <code class="t">}</code></div>
+    </div>
+
+    <p>but there is no corresponding Evaluation algorithm that is explicitly specified for that production. If in some algorithm
+    there is a statement of the form: &#x201C;<span style="font-family: Times New Roman">Return the result of evaluating
+    <i>Block</i></span>&#x201D; it is implicit that an Evaluation algorithm exists of the form:</p>
+
+    <p><b>Runtime Semantics: Evaluation</b></p>
+
+    <div class="gp prod"><span class="nt">Block</span> <span class="geq">:</span> <code class="t">{</code> <span class="nt">StatementList</span> <code class="t">}</code></div>
+    <ol class="proc">
+      <li>Return the result of evaluating <i>StatementList</i>.</li>
+    </ol>
+
+    <p class="normalbefore">For clarity of expression, algorithm steps may be subdivided into sequential substeps. Substeps are
+    indented and may themselves be further divided into indented substeps. Outline numbering conventions are used to identify
+    substeps with the first level of substeps labelled with lower case alphabetic characters and the second level of substeps
+    labelled with lower case roman numerals. If more than three levels are required these rules repeat with the fourth level using
+    numeric labels. For example:</p>
+
+    <ol class="proc">
+      <li>Top-level step
+        <ol class="block">
+          <li>Substep.</li>
+          <li>Substep.
+            <ol class="block">
+              <li>Subsubstep.
+                <ol class="block">
+                  <li>Subsubsubstep
+                    <ol class="block">
+                      <li>Subsubsubsubstep
+                        <ol class="block">
+                          <li>Subsubsubsubsubstep</li>
+                        </ol>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+    </ol>
+
+    <p>A step or substep may be written as an &#x201C;if&#x201D; predicate that conditions its substeps. In this case, the substeps
+    are only applied if the predicate is true. If a step or substep begins with the word &#x201C;else&#x201D;, it is a predicate
+    that is the negation of the preceding &#x201C;if&#x201D; predicate step at the same level.</p>
+
+    <p>A step may specify the iterative application of its substeps.</p>
+
+    <p>A step that begins with &#x201C;Assert:&#x201D; asserts an invariant condition of its algorithm. Such assertions are used to
+    make explicit algorithmic invariants that would otherwise be implicit. Such assertions add no additional semantic requirements
+    and hence need not be checked by an implementation. They are used simply to clarify algorithms.</p>
+
+    <p>Mathematical operations such as addition, subtraction, negation, multiplication, division, and the mathematical functions
+    defined later in this clause should always be understood as computing exact mathematical results on mathematical real numbers,
+    which unless otherwise noted do not include infinities and do not include a negative zero that is distinguished from positive
+    zero. Algorithms in this standard that model floating-point arithmetic include explicit steps, where necessary, to handle
+    infinities and signed zero and to perform rounding. If a mathematical operation or function is applied to a floating-point
+    number, it should be understood as being applied to the exact mathematical value represented by that floating-point number;
+    such a floating-point number must be finite, and if it is <span class="value">+0</span> or <span class="value">&#x2212;0</span>
+    then the corresponding mathematical value is simply <span class="value">0</span>.</p>
+
+    <p>The mathematical function <span style="font-family: Times New Roman">abs(<i>x</i>)</span> produces the absolute value of
+    <var>x</var>, which is <span style="font-family: Times New Roman">&#x2212;<i>x</i></span> if <var>x</var> is negative (less
+    than zero) and otherwise is <var>x</var> itself.</p>
+
+    <p>The mathematical function <span style="font-family: Times New Roman">sign(<i>x</i>)</span> produces <span style="font-family: Times New Roman">1</span> if <var>x</var> is positive and <span style="font-family: Times New
+    Roman">&#x2212;1</span> if <var>x</var> is negative. The sign function is not used in this standard for cases when <var>x</var>
+    is zero.</p>
+
+    <p>The mathematical function <span style="font-family: Times New Roman">min(<i>x</i><sub>1</sub>,</span> <span style="font-family: Times New Roman"><i>x</i><sub>2</sub>, ..., <i>x</i><sub>n</sub>)</span> produces the mathematically
+    smallest of <span style="font-family: Times New Roman"><i>x</i><sub>1</sub></span> through <span style="font-family: Times New
+    Roman"><i>x</i><sub>n</sub></span>. The mathematical function <span style="font-family: Times New
+    Roman">max(<i>x</i><sub>1</sub>,</span> <span style="font-family: Times New Roman"><i>x</i><sub>2</sub>, ...,
+    <i>x</i><sub>n</sub>)</span> produces the mathematically largest of <span style="font-family: Times New
+    Roman"><i>x</i><sub>1</sub></span> through <span style="font-family: Times New Roman"><i>x</i><sub>n</sub></span>. The domain
+    and range of these mathematical functions include +<b>&#x221E;</b> and <b>&#x2212;&#x221E;</b>.</p>
+
+    <p>The notation &#x201C;<span style="font-family: Times New Roman"><i>x</i> modulo <i>y</i></span>&#x201D; (<var>y</var> must be
+    finite and nonzero) computes a value <var>k</var> of the same sign as <var>y</var> (or zero) such that <span style="font-family: Times New Roman">abs(<i>k</i>) &lt; abs(<i>y</i>) and <i>x</i>&#x2212;<i>k</i> = <i>q</i></span> <span style="font-family: Times New Roman">&#xD7;</span> <var>y</var> for some integer <var>q</var>.</p>
+
+    <p>The mathematical function <span style="font-family: Times New Roman">floor(<i>x</i>)</span> produces the largest integer
+    (closest to positive infinity) that is not larger than <var>x</var>.</p>
+
+    <div class="note">
+      <p><span class="nh">NOTE</span> <span style="font-family: Times New Roman">floor(<i>x</i>) = <i>x</i>&#x2212;(<i>x</i> modulo
+      1)</span>.</p>
+    </div>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

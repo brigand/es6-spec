@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <h1><span class="secnum" id="sec-B.1.2"><a href="/sec/sec-additional-syntax-string-literals.html" title="link to this section">B.1.2</a></span> String Literals</h1>
+
+      <p>The syntax and semantics of <a href="/sec/sec-literals-string-literals.html">11.8.4</a> is extended as follows except that this
+      extension is not allowed for <a href="/sec/sec-strict-mode-code.html">strict mode code</a>:</p>
+
+      <h2>Syntax</h2>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">EscapeSequence</span> <span class="geq">::</span></div>
+        <div class="rhs"><span class="nt">CharacterEscapeSequence</span></div>
+        <div class="rhs"><span class="nt">LegacyOctalEscapeSequence</span></div>
+        <div class="rhs"><span class="nt">HexEscapeSequence</span></div>
+        <div class="rhs"><span class="nt">UnicodeEscapeSequence</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">LegacyOctalEscapeSequence</span> <span class="geq">::</span></div>
+        <div class="rhs"><span class="nt">OctalDigit</span> <span class="grhsannot">[lookahead &#x2209; <span class="nt">OctalDigit</span>]</span></div>
+        <div class="rhs"><span class="nt">ZeroToThree</span> <span class="nt">OctalDigit</span> <span class="grhsannot">[lookahead &#x2209; <span class="nt">OctalDigit</span>]</span></div>
+        <div class="rhs"><span class="nt">FourToSeven</span> <span class="nt">OctalDigit</span></div>
+        <div class="rhs"><span class="nt">ZeroToThree</span> <span class="nt">OctalDigit</span> <span class="nt">OctalDigit</span></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">ZeroToThree</span> <span class="geq">::</span> <span class="grhsmod">one of</span></div>
+        <div class="rhs"><code class="t">0</code> <code class="t">1</code> <code class="t">2</code> <code class="t">3</code></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">FourToSeven</span> <span class="geq">::</span> <span class="grhsmod">one of</span></div>
+        <div class="rhs"><code class="t">4</code> <code class="t">5</code> <code class="t">6</code> <code class="t">7</code></div>
+      </div>
+
+      <p>This definition of <span class="nt">EscapeSequence</span> is not used in strict mode or when parsing <span class="nt">TemplateCharacter</span> (<a href="/sec/sec-template-literal-lexical-components.html">11.8.6</a>).</p>
+
+      <p><b>B.1.2.1</b>	<b>Static Semantics</b></p>
+
+      <ul>
+        <li>The SV of <span class="prod"><span class="nt">EscapeSequence</span> <span class="geq">::</span> <span class="nt">LegacyOctalEscapeSequence</span></span> is the SV of the <i>LegacyOctalEscapeSequence</i>.</li>
+        <li>The SV of <span class="prod"><span class="nt">LegacyOctalEscapeSequence</span> <span class="geq">::</span> <span class="nt">OctalDigit</span></span> is the code unit whose value is the MV of the <i>OctalDigit</i>.</li>
+        <li>The SV of <span class="prod"><span class="nt">LegacyOctalEscapeSequence</span> <span class="geq">::</span> <span class="nt">ZeroToThree</span> <span class="nt">OctalDigit</span></span> is the code unit whose value is (8 times the
+            MV of the <i>ZeroToThree</i>) plus the MV of the <i>OctalDigit</i>.</li>
+        <li>The SV of <span class="prod"><span class="nt">LegacyOctalEscapeSequence</span> <span class="geq">::</span> <span class="nt">FourToSeven</span> <span class="nt">OctalDigit</span></span> is the code unit whose value is (8 times the
+            MV of the <i>FourToSeven</i>) plus the MV of the <i>OctalDigit</i>.</li>
+        <li>The SV of <span class="prod"><span class="nt">LegacyOctalEscapeSequence</span> <span class="geq">::</span> <span class="nt">ZeroToThree</span> <span class="nt">OctalDigit</span> <span class="nt">OctalDigit</span></span> is the code
+            unit whose value is (64 (that is, 8<sup>2</sup>) times the MV of the <i>ZeroToThree</i>) plus (8 times the MV of the
+            first <i>OctalDigit</i>) plus the MV of the second <i>OctalDigit</i>.</li>
+        <li>The MV of <span class="prod"><span class="nt">ZeroToThree</span> <span class="geq">::</span> <code class="t">0</code></span> is 0.</li>
+        <li>The MV of <span class="prod"><span class="nt">ZeroToThree</span> <span class="geq">::</span> <code class="t">1</code></span> is 1.</li>
+        <li>The MV of <span class="prod"><span class="nt">ZeroToThree</span> <span class="geq">::</span> <code class="t">2</code></span> is 2.</li>
+        <li>The MV of <span class="prod"><span class="nt">ZeroToThree</span> <span class="geq">::</span> <code class="t">3</code></span> is 3.</li>
+        <li>The MV of <span class="prod"><span class="nt">FourToSeven</span> <span class="geq">::</span> <code class="t">4</code></span> is 4.</li>
+        <li>The MV of <span class="prod"><span class="nt">FourToSeven</span> <span class="geq">::</span> <code class="t">5</code></span> is 5.</li>
+        <li>The MV of <span class="prod"><span class="nt">FourToSeven</span> <span class="geq">::</span> <code class="t">6</code></span> is 6.</li>
+        <li>The MV of <span class="prod"><span class="nt">FourToSeven</span> <span class="geq">::</span> <code class="t">7</code></span> is 7.</li>
+      </ul>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

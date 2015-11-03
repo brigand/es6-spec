@@ -1,0 +1,6714 @@
+[
+    {
+        "text": "Scope",
+        "id": "sec-scope"
+    },
+    {
+        "text": "Conformance",
+        "id": "sec-conformance"
+    },
+    {
+        "text": "references",
+        "id": "sec-normative-references"
+    },
+    {
+        "text": "Overview",
+        "id": "sec-overview"
+    },
+    {
+        "text": "Scripting",
+        "id": "sec-web-scripting"
+    },
+    {
+        "text": "ECMAScript Overview",
+        "id": "sec-ecmascript-overview"
+    },
+    {
+        "text": "Objects",
+        "id": "sec-objects"
+    },
+    {
+        "text": "The Strict Variant of ECMAScript",
+        "id": "sec-strict-variant-of-ecmascript"
+    },
+    {
+        "text": "and definitions",
+        "id": "sec-terms-and-definitions"
+    },
+    {
+        "text": "type",
+        "id": "sec-type"
+    },
+    {
+        "text": "primitive value",
+        "id": "sec-primitive-value"
+    },
+    {
+        "text": "object",
+        "id": "sec-terms-and-definitions-object"
+    },
+    {
+        "text": "constructor",
+        "id": "sec-constructor"
+    },
+    {
+        "text": "prototype",
+        "id": "sec-terms-and-definitions-prototype"
+    },
+    {
+        "text": "ordinary object",
+        "id": "sec-ordinary-object"
+    },
+    {
+        "text": "object",
+        "id": "sec-exotic-object"
+    },
+    {
+        "text": "standard object",
+        "id": "sec-standard-object"
+    },
+    {
+        "text": "built-in object",
+        "id": "sec-built-in-object"
+    },
+    {
+        "text": "undefined value",
+        "id": "sec-undefined-value"
+    },
+    {
+        "text": "Undefined type",
+        "id": "sec-terms-and-definitions-undefined-type"
+    },
+    {
+        "text": "value",
+        "id": "sec-null-value"
+    },
+    {
+        "text": "Null type",
+        "id": "sec-terms-and-definitions-null-type"
+    },
+    {
+        "text": "Boolean value",
+        "id": "sec-terms-and-definitions-boolean-value"
+    },
+    {
+        "text": "Boolean type",
+        "id": "sec-terms-and-definitions-boolean-type"
+    },
+    {
+        "text": "Boolean object",
+        "id": "sec-boolean-object"
+    },
+    {
+        "text": "String value",
+        "id": "sec-terms-and-definitions-string-value"
+    },
+    {
+        "text": "String type",
+        "id": "sec-terms-and-definitions-string-type"
+    },
+    {
+        "text": "object",
+        "id": "sec-string-object"
+    },
+    {
+        "text": "Number value",
+        "id": "sec-terms-and-definitions-number-value"
+    },
+    {
+        "text": "Number type",
+        "id": "sec-terms-and-definitions-number-type"
+    },
+    {
+        "text": "object",
+        "id": "sec-number-object"
+    },
+    {
+        "text": "Infinity",
+        "id": "sec-terms-and-definitions-infinity"
+    },
+    {
+        "text": "NaN",
+        "id": "sec-terms-and-definitions-nan"
+    },
+    {
+        "text": "value",
+        "id": "sec-symbol-value"
+    },
+    {
+        "text": "Symbol type",
+        "id": "sec-terms-and-definitions-symbol-type"
+    },
+    {
+        "text": "object",
+        "id": "sec-symbol-object"
+    },
+    {
+        "text": "function",
+        "id": "sec-terms-and-definitions-function"
+    },
+    {
+        "text": "built-in function",
+        "id": "sec-built-in-function"
+    },
+    {
+        "text": "property",
+        "id": "sec-property"
+    },
+    {
+        "text": "method",
+        "id": "sec-method"
+    },
+    {
+        "text": "built-in method",
+        "id": "sec-built-in-method"
+    },
+    {
+        "text": "attribute",
+        "id": "sec-attribute"
+    },
+    {
+        "text": "property",
+        "id": "sec-own-property"
+    },
+    {
+        "text": "inherited property",
+        "id": "sec-inherited-property"
+    },
+    {
+        "text": "Organization of This Specification",
+        "id": "sec-organization-of-this-specification"
+    },
+    {
+        "text": "Conventions",
+        "id": "sec-notational-conventions"
+    },
+    {
+        "text": "Syntactic and Lexical Grammars",
+        "id": "sec-syntactic-and-lexical-grammars"
+    },
+    {
+        "text": "Context-Free Grammars",
+        "id": "sec-context-free-grammars"
+    },
+    {
+        "text": "The Lexical and RegExp Grammars",
+        "id": "sec-lexical-and-regexp-grammars"
+    },
+    {
+        "text": "The Numeric String Grammar",
+        "id": "sec-numeric-string-grammar"
+    },
+    {
+        "text": "Syntactic Grammar",
+        "id": "sec-syntactic-grammar"
+    },
+    {
+        "text": "Grammar Notation",
+        "id": "sec-grammar-notation"
+    },
+    {
+        "text": "Algorithm Conventions",
+        "id": "sec-algorithm-conventions"
+    },
+    {
+        "text": "Semantic Rules",
+        "id": "sec-static-semantic-rules"
+    },
+    {
+        "text": "ECMAScript Data Types and Values",
+        "id": "sec-ecmascript-data-types-and-values"
+    },
+    {
+        "text": "ECMAScript Language Types",
+        "id": "sec-ecmascript-language-types"
+    },
+    {
+        "text": "The Undefined Type",
+        "id": "sec-ecmascript-language-types-undefined-type"
+    },
+    {
+        "text": "The Null Type",
+        "id": "sec-ecmascript-language-types-null-type"
+    },
+    {
+        "text": "The Boolean Type",
+        "id": "sec-ecmascript-language-types-boolean-type"
+    },
+    {
+        "text": "The String Type",
+        "id": "sec-ecmascript-language-types-string-type"
+    },
+    {
+        "text": "The Symbol Type",
+        "id": "sec-ecmascript-language-types-symbol-type"
+    },
+    {
+        "text": "Well-Known Symbols",
+        "id": "sec-well-known-symbols"
+    },
+    {
+        "text": "The Number Type",
+        "id": "sec-ecmascript-language-types-number-type"
+    },
+    {
+        "text": "Object Type",
+        "id": "sec-object-type"
+    },
+    {
+        "text": "Property Attributes",
+        "id": "sec-property-attributes"
+    },
+    {
+        "text": "Object Internal Methods and Internal Slots",
+        "id": "sec-object-internal-methods-and-internal-slots"
+    },
+    {
+        "text": "Invariants of the Essential Internal Methods",
+        "id": "sec-invariants-of-the-essential-internal-methods"
+    },
+    {
+        "text": "Well-Known Intrinsic Objects",
+        "id": "sec-well-known-intrinsic-objects"
+    },
+    {
+        "text": "ECMAScript Specification Types",
+        "id": "sec-ecmascript-specification-types"
+    },
+    {
+        "text": "The List and Record Specification Type",
+        "id": "sec-list-and-record-specification-type"
+    },
+    {
+        "text": "The Completion Record Specification Type",
+        "id": "sec-completion-record-specification-type"
+    },
+    {
+        "text": "NormalCompletion",
+        "id": "sec-normalcompletion"
+    },
+    {
+        "text": "Implicit Completion Values",
+        "id": "sec-implicit-completion-values"
+    },
+    {
+        "text": "Throw an Exception",
+        "id": "sec-throw-an-exception"
+    },
+    {
+        "text": "ReturnIfAbrupt",
+        "id": "sec-returnifabrupt"
+    },
+    {
+        "text": "UpdateEmpty ( completionRecord, value)",
+        "id": "sec-updateempty"
+    },
+    {
+        "text": "The Reference Specification Type",
+        "id": "sec-reference-specification-type"
+    },
+    {
+        "text": "(V)",
+        "id": "sec-getvalue"
+    },
+    {
+        "text": "(V, W)",
+        "id": "sec-putvalue"
+    },
+    {
+        "text": "GetThisValue (V)",
+        "id": "sec-getthisvalue"
+    },
+    {
+        "text": "InitializeReferencedBinding (V, W)",
+        "id": "sec-initializereferencedbinding"
+    },
+    {
+        "text": "The Property Descriptor Specification Type",
+        "id": "sec-property-descriptor-specification-type"
+    },
+    {
+        "text": "IsAccessorDescriptor ( Desc )",
+        "id": "sec-isaccessordescriptor"
+    },
+    {
+        "text": "IsDataDescriptor ( Desc )",
+        "id": "sec-isdatadescriptor"
+    },
+    {
+        "text": "IsGenericDescriptor ( Desc )",
+        "id": "sec-isgenericdescriptor"
+    },
+    {
+        "text": "FromPropertyDescriptor ( Desc )",
+        "id": "sec-frompropertydescriptor"
+    },
+    {
+        "text": "ToPropertyDescriptor ( Obj )",
+        "id": "sec-topropertydescriptor"
+    },
+    {
+        "text": "CompletePropertyDescriptor ( Desc  )",
+        "id": "sec-completepropertydescriptor"
+    },
+    {
+        "text": "The Lexical Environment and Environment Record Specification Types",
+        "id": "sec-lexical-environment-and-environment-record-specification-types"
+    },
+    {
+        "text": "Blocks",
+        "id": "sec-data-blocks"
+    },
+    {
+        "text": "CreateByteDataBlock(size)",
+        "id": "sec-createbytedatablock"
+    },
+    {
+        "text": "CopyDataBlockBytes(toBlock, toIndex, fromBlock, fromIndex, count)",
+        "id": "sec-copydatablockbytes"
+    },
+    {
+        "text": "Operations",
+        "id": "sec-abstract-operations"
+    },
+    {
+        "text": "Conversion",
+        "id": "sec-type-conversion"
+    },
+    {
+        "text": "( input [, PreferredType] )",
+        "id": "sec-toprimitive"
+    },
+    {
+        "text": "argument )",
+        "id": "sec-toboolean"
+    },
+    {
+        "text": "argument )",
+        "id": "sec-tonumber"
+    },
+    {
+        "text": "ToNumber Applied to the String Type",
+        "id": "sec-tonumber-applied-to-the-string-type"
+    },
+    {
+        "text": "Runtime Semantics: MV’s",
+        "id": "sec-runtime-semantics-mv-s"
+    },
+    {
+        "text": "argument )",
+        "id": "sec-tointeger"
+    },
+    {
+        "text": "argument )",
+        "id": "sec-toint32"
+    },
+    {
+        "text": "argument )",
+        "id": "sec-touint32"
+    },
+    {
+        "text": "argument )",
+        "id": "sec-toint16"
+    },
+    {
+        "text": "argument )",
+        "id": "sec-touint16"
+    },
+    {
+        "text": "argument )",
+        "id": "sec-toint8"
+    },
+    {
+        "text": "argument )",
+        "id": "sec-touint8"
+    },
+    {
+        "text": "ToUint8Clamp ( argument )",
+        "id": "sec-touint8clamp"
+    },
+    {
+        "text": "argument )",
+        "id": "sec-tostring"
+    },
+    {
+        "text": "ToString Applied to the Number Type",
+        "id": "sec-tostring-applied-to-the-number-type"
+    },
+    {
+        "text": "argument )",
+        "id": "sec-toobject"
+    },
+    {
+        "text": "ToPropertyKey ( argument )",
+        "id": "sec-topropertykey"
+    },
+    {
+        "text": "argument )",
+        "id": "sec-tolength"
+    },
+    {
+        "text": "CanonicalNumericIndexString ( argument )",
+        "id": "sec-canonicalnumericindexstring"
+    },
+    {
+        "text": "Testing and Comparison Operations",
+        "id": "sec-testing-and-comparison-operations"
+    },
+    {
+        "text": "RequireObjectCoercible ( argument )",
+        "id": "sec-requireobjectcoercible"
+    },
+    {
+        "text": "argument )",
+        "id": "sec-isarray"
+    },
+    {
+        "text": "argument )",
+        "id": "sec-iscallable"
+    },
+    {
+        "text": "IsConstructor ( argument )",
+        "id": "sec-isconstructor"
+    },
+    {
+        "text": "IsExtensible (O)",
+        "id": "sec-isextensible-o"
+    },
+    {
+        "text": "argument )",
+        "id": "sec-isinteger"
+    },
+    {
+        "text": "IsPropertyKey ( argument )",
+        "id": "sec-ispropertykey"
+    },
+    {
+        "text": "argument )",
+        "id": "sec-isregexp"
+    },
+    {
+        "text": "y)",
+        "id": "sec-samevalue"
+    },
+    {
+        "text": "SameValueZero(x, y)",
+        "id": "sec-samevaluezero"
+    },
+    {
+        "text": "Abstract Relational Comparison",
+        "id": "sec-abstract-relational-comparison"
+    },
+    {
+        "text": "Abstract Equality Comparison",
+        "id": "sec-abstract-equality-comparison"
+    },
+    {
+        "text": "Strict Equality Comparison",
+        "id": "sec-strict-equality-comparison"
+    },
+    {
+        "text": "Operations on Objects",
+        "id": "sec-operations-on-objects"
+    },
+    {
+        "text": "Get (O, P)",
+        "id": "sec-get-o-p"
+    },
+    {
+        "text": "GetV (V, P)",
+        "id": "sec-getv"
+    },
+    {
+        "text": "P, V, Throw)",
+        "id": "sec-set-o-p-v-throw"
+    },
+    {
+        "text": "CreateDataProperty (O, P, V)",
+        "id": "sec-createdataproperty"
+    },
+    {
+        "text": "CreateMethodProperty (O, P, V)",
+        "id": "sec-createmethodproperty"
+    },
+    {
+        "text": "CreateDataPropertyOrThrow (O, P, V)",
+        "id": "sec-createdatapropertyorthrow"
+    },
+    {
+        "text": "DefinePropertyOrThrow (O, P, desc)",
+        "id": "sec-definepropertyorthrow"
+    },
+    {
+        "text": "DeletePropertyOrThrow (O, P)",
+        "id": "sec-deletepropertyorthrow"
+    },
+    {
+        "text": "P)",
+        "id": "sec-getmethod"
+    },
+    {
+        "text": "HasProperty (O, P)",
+        "id": "sec-hasproperty"
+    },
+    {
+        "text": "HasOwnProperty (O, P)",
+        "id": "sec-hasownproperty"
+    },
+    {
+        "text": "[argumentsList])",
+        "id": "sec-call"
+    },
+    {
+        "text": "(F, [argumentsList], [newTarget])",
+        "id": "sec-construct"
+    },
+    {
+        "text": "SetIntegrityLevel (O, level)",
+        "id": "sec-setintegritylevel"
+    },
+    {
+        "text": "TestIntegrityLevel (O, level)",
+        "id": "sec-testintegritylevel"
+    },
+    {
+        "text": "CreateArrayFromList (elements)",
+        "id": "sec-createarrayfromlist"
+    },
+    {
+        "text": "CreateListFromArrayLike (obj [, elementTypes] )",
+        "id": "sec-createlistfromarraylike"
+    },
+    {
+        "text": "[argumentsList])",
+        "id": "sec-invoke"
+    },
+    {
+        "text": "OrdinaryHasInstance (C, O)",
+        "id": "sec-ordinaryhasinstance"
+    },
+    {
+        "text": "SpeciesConstructor ( O, defaultConstructor )",
+        "id": "sec-speciesconstructor"
+    },
+    {
+        "text": "EnumerableOwnNames (O)",
+        "id": "sec-enumerableownnames"
+    },
+    {
+        "text": "GetFunctionRealm ( obj )",
+        "id": "sec-getfunctionrealm"
+    },
+    {
+        "text": "Operations on Iterator Objects",
+        "id": "sec-operations-on-iterator-objects"
+    },
+    {
+        "text": "( obj, method )",
+        "id": "sec-getiterator"
+    },
+    {
+        "text": "IteratorNext ( iterator, value )",
+        "id": "sec-iteratornext"
+    },
+    {
+        "text": "IteratorComplete ( iterResult )",
+        "id": "sec-iteratorcomplete"
+    },
+    {
+        "text": "IteratorValue ( iterResult )",
+        "id": "sec-iteratorvalue"
+    },
+    {
+        "text": "IteratorStep ( iterator )",
+        "id": "sec-iteratorstep"
+    },
+    {
+        "text": "IteratorClose( iterator, completion )",
+        "id": "sec-iteratorclose"
+    },
+    {
+        "text": "CreateIterResultObject ( value, done )",
+        "id": "sec-createiterresultobject"
+    },
+    {
+        "text": "CreateListIterator ( list )",
+        "id": "sec-createlistiterator"
+    },
+    {
+        "text": "ListIterator next( )",
+        "id": "sec-listiterator-next"
+    },
+    {
+        "text": "Executable Code and Execution Contexts",
+        "id": "sec-executable-code-and-execution-contexts"
+    },
+    {
+        "text": "Lexical Environments",
+        "id": "sec-lexical-environments"
+    },
+    {
+        "text": "Environment Records",
+        "id": "sec-environment-records"
+    },
+    {
+        "text": "Declarative Environment Records",
+        "id": "sec-declarative-environment-records"
+    },
+    {
+        "text": "HasBinding(N)",
+        "id": "sec-declarative-environment-records-hasbinding-n"
+    },
+    {
+        "text": "CreateMutableBinding (N, D)",
+        "id": "sec-declarative-environment-records-createmutablebinding-n-d"
+    },
+    {
+        "text": "CreateImmutableBinding (N, S)",
+        "id": "sec-declarative-environment-records-createimmutablebinding-n-s"
+    },
+    {
+        "text": "InitializeBinding (N,V)",
+        "id": "sec-declarative-environment-records-initializebinding-n-v"
+    },
+    {
+        "text": "SetMutableBinding (N,V,S)",
+        "id": "sec-declarative-environment-records-setmutablebinding-n-v-s"
+    },
+    {
+        "text": "GetBindingValue(N,S)",
+        "id": "sec-declarative-environment-records-getbindingvalue-n-s"
+    },
+    {
+        "text": "DeleteBinding (N)",
+        "id": "sec-declarative-environment-records-deletebinding-n"
+    },
+    {
+        "text": "HasThisBinding ()",
+        "id": "sec-declarative-environment-records-hasthisbinding"
+    },
+    {
+        "text": "HasSuperBinding ()",
+        "id": "sec-declarative-environment-records-hassuperbinding"
+    },
+    {
+        "text": "WithBaseObject()",
+        "id": "sec-declarative-environment-records-withbaseobject"
+    },
+    {
+        "text": "Object Environment Records",
+        "id": "sec-object-environment-records"
+    },
+    {
+        "text": "HasBinding(N)",
+        "id": "sec-object-environment-records-hasbinding-n"
+    },
+    {
+        "text": "CreateMutableBinding (N, D)",
+        "id": "sec-object-environment-records-createmutablebinding-n-d"
+    },
+    {
+        "text": "CreateImmutableBinding (N, S)",
+        "id": "sec-object-environment-records-createimmutablebinding-n-s"
+    },
+    {
+        "text": "InitializeBinding (N,V)",
+        "id": "sec-object-environment-records-initializebinding-n-v"
+    },
+    {
+        "text": "SetMutableBinding (N,V,S)",
+        "id": "sec-object-environment-records-setmutablebinding-n-v-s"
+    },
+    {
+        "text": "GetBindingValue(N,S)",
+        "id": "sec-object-environment-records-getbindingvalue-n-s"
+    },
+    {
+        "text": "DeleteBinding (N)",
+        "id": "sec-object-environment-records-deletebinding-n"
+    },
+    {
+        "text": "HasThisBinding ()",
+        "id": "sec-object-environment-records-hasthisbinding"
+    },
+    {
+        "text": "HasSuperBinding ()",
+        "id": "sec-object-environment-records-hassuperbinding"
+    },
+    {
+        "text": "WithBaseObject()",
+        "id": "sec-object-environment-records-withbaseobject"
+    },
+    {
+        "text": "Function Environment Records",
+        "id": "sec-function-environment-records"
+    },
+    {
+        "text": "BindThisValue(V)",
+        "id": "sec-bindthisvalue"
+    },
+    {
+        "text": "HasThisBinding ()",
+        "id": "sec-function-environment-records-hasthisbinding"
+    },
+    {
+        "text": "HasSuperBinding ()",
+        "id": "sec-function-environment-records-hassuperbinding"
+    },
+    {
+        "text": "GetThisBinding ()",
+        "id": "sec-function-environment-records-getthisbinding"
+    },
+    {
+        "text": "GetSuperBase ()",
+        "id": "sec-getsuperbase"
+    },
+    {
+        "text": "Global Environment Records",
+        "id": "sec-global-environment-records"
+    },
+    {
+        "text": "HasBinding(N)",
+        "id": "sec-global-environment-records-hasbinding-n"
+    },
+    {
+        "text": "CreateMutableBinding (N, D)",
+        "id": "sec-global-environment-records-createmutablebinding-n-d"
+    },
+    {
+        "text": "CreateImmutableBinding (N, S)",
+        "id": "sec-global-environment-records-createimmutablebinding-n-s"
+    },
+    {
+        "text": "InitializeBinding (N,V)",
+        "id": "sec-global-environment-records-initializebinding-n-v"
+    },
+    {
+        "text": "SetMutableBinding (N,V,S)",
+        "id": "sec-global-environment-records-setmutablebinding-n-v-s"
+    },
+    {
+        "text": "GetBindingValue(N,S)",
+        "id": "sec-global-environment-records-getbindingvalue-n-s"
+    },
+    {
+        "text": "DeleteBinding (N)",
+        "id": "sec-global-environment-records-deletebinding-n"
+    },
+    {
+        "text": "HasThisBinding ()",
+        "id": "sec-global-environment-records-hasthisbinding"
+    },
+    {
+        "text": "HasSuperBinding ()",
+        "id": "sec-global-environment-records-hassuperbinding"
+    },
+    {
+        "text": "WithBaseObject()",
+        "id": "sec-global-environment-records-withbaseobject"
+    },
+    {
+        "text": "GetThisBinding ()",
+        "id": "sec-global-environment-records-getthisbinding"
+    },
+    {
+        "text": "HasVarDeclaration (N)",
+        "id": "sec-hasvardeclaration"
+    },
+    {
+        "text": "HasLexicalDeclaration (N)",
+        "id": "sec-haslexicaldeclaration"
+    },
+    {
+        "text": "HasRestrictedGlobalProperty (N)",
+        "id": "sec-hasrestrictedglobalproperty"
+    },
+    {
+        "text": "CanDeclareGlobalVar (N)",
+        "id": "sec-candeclareglobalvar"
+    },
+    {
+        "text": "CanDeclareGlobalFunction (N)",
+        "id": "sec-candeclareglobalfunction"
+    },
+    {
+        "text": "CreateGlobalVarBinding (N, D)",
+        "id": "sec-createglobalvarbinding"
+    },
+    {
+        "text": "CreateGlobalFunctionBinding (N, V, D)",
+        "id": "sec-createglobalfunctionbinding"
+    },
+    {
+        "text": "Module Environment Records",
+        "id": "sec-module-environment-records"
+    },
+    {
+        "text": "GetBindingValue(N,S)",
+        "id": "sec-module-environment-records-getbindingvalue-n-s"
+    },
+    {
+        "text": "DeleteBinding (N)",
+        "id": "sec-module-environment-records-deletebinding-n"
+    },
+    {
+        "text": "HasThisBinding ()",
+        "id": "sec-module-environment-records-hasthisbinding"
+    },
+    {
+        "text": "GetThisBinding ()",
+        "id": "sec-module-environment-records-getthisbinding"
+    },
+    {
+        "text": "CreateImportBinding (N, M, N2)",
+        "id": "sec-createimportbinding"
+    },
+    {
+        "text": "Lexical Environment Operations",
+        "id": "sec-lexical-environment-operations"
+    },
+    {
+        "text": "GetIdentifierReference (lex, name, strict)",
+        "id": "sec-getidentifierreference"
+    },
+    {
+        "text": "NewDeclarativeEnvironment (E)",
+        "id": "sec-newdeclarativeenvironment"
+    },
+    {
+        "text": "NewObjectEnvironment (O, E)",
+        "id": "sec-newobjectenvironment"
+    },
+    {
+        "text": "NewFunctionEnvironment ( F, newTarget )",
+        "id": "sec-newfunctionenvironment"
+    },
+    {
+        "text": "NewGlobalEnvironment ( G )",
+        "id": "sec-newglobalenvironment"
+    },
+    {
+        "text": "NewModuleEnvironment (E)",
+        "id": "sec-newmoduleenvironment"
+    },
+    {
+        "text": "Realms",
+        "id": "sec-code-realms"
+    },
+    {
+        "text": "( )",
+        "id": "sec-createrealm"
+    },
+    {
+        "text": "CreateIntrinsics ( realmRec )",
+        "id": "sec-createintrinsics"
+    },
+    {
+        "text": "SetRealmGlobalObject ( realmRec, globalObj )",
+        "id": "sec-setrealmglobalobject"
+    },
+    {
+        "text": "SetDefaultGlobalBindings ( realmRec )",
+        "id": "sec-setdefaultglobalbindings"
+    },
+    {
+        "text": "Execution Contexts",
+        "id": "sec-execution-contexts"
+    },
+    {
+        "text": "ResolveBinding ( name, [env] )",
+        "id": "sec-resolvebinding"
+    },
+    {
+        "text": "GetThisEnvironment ( )",
+        "id": "sec-getthisenvironment"
+    },
+    {
+        "text": "ResolveThisBinding ( )",
+        "id": "sec-resolvethisbinding"
+    },
+    {
+        "text": "GetNewTarget ( )",
+        "id": "sec-getnewtarget"
+    },
+    {
+        "text": "GetGlobalObject ( )",
+        "id": "sec-getglobalobject"
+    },
+    {
+        "text": "and Job Queues",
+        "id": "sec-jobs-and-job-queues"
+    },
+    {
+        "text": "(queueName, job, arguments)",
+        "id": "sec-enqueuejob"
+    },
+    {
+        "text": "result",
+        "id": "sec-nextjob-result"
+    },
+    {
+        "text": "ECMAScript Initialization()",
+        "id": "sec-ecmascript-initialization"
+    },
+    {
+        "text": "InitializeHostDefinedRealm ( realm )",
+        "id": "sec-initializehostdefinedrealm"
+    },
+    {
+        "text": "Ordinary and Exotic Objects Behaviours",
+        "id": "sec-ordinary-and-exotic-objects-behaviours"
+    },
+    {
+        "text": "Ordinary Object Internal Methods and Internal Slots",
+        "id": "sec-ordinary-object-internal-methods-and-internal-slots"
+    },
+    {
+        "text": "[[GetPrototypeOf]] ( )",
+        "id": "sec-ordinary-object-internal-methods-and-internal-slots-getprototypeof"
+    },
+    {
+        "text": "[[SetPrototypeOf]] (V)",
+        "id": "sec-ordinary-object-internal-methods-and-internal-slots-setprototypeof-v"
+    },
+    {
+        "text": "[[IsExtensible]] ( )",
+        "id": "sec-ordinary-object-internal-methods-and-internal-slots-isextensible"
+    },
+    {
+        "text": "[[PreventExtensions]] ( )",
+        "id": "sec-ordinary-object-internal-methods-and-internal-slots-preventextensions"
+    },
+    {
+        "text": "[[GetOwnProperty]] (P)",
+        "id": "sec-ordinary-object-internal-methods-and-internal-slots-getownproperty-p"
+    },
+    {
+        "text": "OrdinaryGetOwnProperty (O, P)",
+        "id": "sec-ordinarygetownproperty"
+    },
+    {
+        "text": "[[DefineOwnProperty]] (P, Desc)",
+        "id": "sec-ordinary-object-internal-methods-and-internal-slots-defineownproperty-p-desc"
+    },
+    {
+        "text": "OrdinaryDefineOwnProperty (O, P, Desc)",
+        "id": "sec-ordinarydefineownproperty"
+    },
+    {
+        "text": "IsCompatiblePropertyDescriptor (Extensible, Desc, Current)",
+        "id": "sec-iscompatiblepropertydescriptor"
+    },
+    {
+        "text": "current)",
+        "id": "sec-validateandapplypropertydescriptor"
+    },
+    {
+        "text": "[[HasProperty]](P)",
+        "id": "sec-ordinary-object-internal-methods-and-internal-slots-hasproperty-p"
+    },
+    {
+        "text": "OrdinaryHasProperty (O, P)",
+        "id": "sec-ordinaryhasproperty"
+    },
+    {
+        "text": "[[Get]] (P, Receiver)",
+        "id": "sec-ordinary-object-internal-methods-and-internal-slots-get-p-receiver"
+    },
+    {
+        "text": "[[Set]] ( P, V, Receiver)",
+        "id": "sec-ordinary-object-internal-methods-and-internal-slots-set-p-v-receiver"
+    },
+    {
+        "text": "[[Delete]] (P)",
+        "id": "sec-ordinary-object-internal-methods-and-internal-slots-delete-p"
+    },
+    {
+        "text": "[[Enumerate]] ()",
+        "id": "sec-ordinary-object-internal-methods-and-internal-slots-enumerate"
+    },
+    {
+        "text": "[[OwnPropertyKeys]] ( )",
+        "id": "sec-ordinary-object-internal-methods-and-internal-slots-ownpropertykeys"
+    },
+    {
+        "text": "ObjectCreate(proto, internalSlotsList)",
+        "id": "sec-objectcreate"
+    },
+    {
+        "text": "internalSlotsList )",
+        "id": "sec-ordinarycreatefromconstructor"
+    },
+    {
+        "text": "GetPrototypeFromConstructor ( constructor, intrinsicDefaultProto )",
+        "id": "sec-getprototypefromconstructor"
+    },
+    {
+        "text": "ECMAScript Function Objects",
+        "id": "sec-ecmascript-function-objects"
+    },
+    {
+        "text": "[[Call]] ( thisArgument, argumentsList)",
+        "id": "sec-ecmascript-function-objects-call-thisargument-argumentslist"
+    },
+    {
+        "text": "PrepareForOrdinaryCall( F, newTarget )",
+        "id": "sec-prepareforordinarycall"
+    },
+    {
+        "text": "OrdinaryCallBindThis ( F, calleeContext, thisArgument )",
+        "id": "sec-ordinarycallbindthis"
+    },
+    {
+        "text": "OrdinaryCallEvaluateBody ( F, argumentsList )",
+        "id": "sec-ordinarycallevaluatebody"
+    },
+    {
+        "text": "[[Construct]] ( argumentsList, newTarget)",
+        "id": "sec-ecmascript-function-objects-construct-argumentslist-newtarget"
+    },
+    {
+        "text": "FunctionAllocate (functionPrototype, strict [,functionKind] )",
+        "id": "sec-functionallocate"
+    },
+    {
+        "text": "FunctionInitialize (F, kind, ParameterList, Body, Scope)",
+        "id": "sec-functioninitialize"
+    },
+    {
+        "text": "FunctionCreate (kind, ParameterList, Body, Scope, Strict, prototype)",
+        "id": "sec-functioncreate"
+    },
+    {
+        "text": "GeneratorFunctionCreate (kind, ParameterList, Body, Scope, Strict)",
+        "id": "sec-generatorfunctioncreate"
+    },
+    {
+        "text": "AddRestrictedFunctionProperties ( F, realm )",
+        "id": "sec-addrestrictedfunctionproperties"
+    },
+    {
+        "text": "%ThrowTypeError% ( )",
+        "id": "sec-%throwtypeerror%"
+    },
+    {
+        "text": "MakeConstructor (F, writablePrototype, prototype)",
+        "id": "sec-makeconstructor"
+    },
+    {
+        "text": "MakeClassConstructor ( F)",
+        "id": "sec-makeclassconstructor"
+    },
+    {
+        "text": "( F, homeObject)",
+        "id": "sec-makemethod"
+    },
+    {
+        "text": "SetFunctionName (F, name, prefix)",
+        "id": "sec-setfunctionname"
+    },
+    {
+        "text": "FunctionDeclarationInstantiation(func, argumentsList)",
+        "id": "sec-functiondeclarationinstantiation"
+    },
+    {
+        "text": "Built-in Function Objects",
+        "id": "sec-built-in-function-objects"
+    },
+    {
+        "text": "[[Call]] ( thisArgument, argumentsList)",
+        "id": "sec-built-in-function-objects-call-thisargument-argumentslist"
+    },
+    {
+        "text": "[[Construct]] (argumentsList, newTarget)",
+        "id": "sec-built-in-function-objects-construct-argumentslist-newtarget"
+    },
+    {
+        "text": "CreateBuiltinFunction(realm, steps, prototype, internalSlotsList)",
+        "id": "sec-createbuiltinfunction"
+    },
+    {
+        "text": "Built-in Exotic Object Internal Methods and Slots",
+        "id": "sec-built-in-exotic-object-internal-methods-and-slots"
+    },
+    {
+        "text": "Bound Function Exotic Objects",
+        "id": "sec-bound-function-exotic-objects"
+    },
+    {
+        "text": "[[Call]] ( thisArgument, argumentsList)",
+        "id": "sec-bound-function-exotic-objects-call-thisargument-argumentslist"
+    },
+    {
+        "text": "[[Construct]] (argumentsList, newTarget)",
+        "id": "sec-bound-function-exotic-objects-construct-argumentslist-newtarget"
+    },
+    {
+        "text": "BoundFunctionCreate (targetFunction, boundThis, boundArgs)",
+        "id": "sec-boundfunctioncreate"
+    },
+    {
+        "text": "Array Exotic Objects",
+        "id": "sec-array-exotic-objects"
+    },
+    {
+        "text": "[[DefineOwnProperty]] ( P, Desc)",
+        "id": "sec-array-exotic-objects-defineownproperty-p-desc"
+    },
+    {
+        "text": "ArrayCreate(length, proto)",
+        "id": "sec-arraycreate"
+    },
+    {
+        "text": "ArraySpeciesCreate(originalArray, length)",
+        "id": "sec-arrayspeciescreate"
+    },
+    {
+        "text": "ArraySetLength(A, Desc)",
+        "id": "sec-arraysetlength"
+    },
+    {
+        "text": "String Exotic Objects",
+        "id": "sec-string-exotic-objects"
+    },
+    {
+        "text": "[[GetOwnProperty]] ( P )",
+        "id": "sec-string-exotic-objects-getownproperty-p"
+    },
+    {
+        "text": "StringGetIndexProperty (S, P)",
+        "id": "sec-stringgetindexproperty"
+    },
+    {
+        "text": "[[HasProperty]](P)",
+        "id": "sec-string-exotic-objects-hasproperty-p"
+    },
+    {
+        "text": "[[OwnPropertyKeys]] ( )",
+        "id": "sec-string-exotic-objects-ownpropertykeys"
+    },
+    {
+        "text": "StringCreate( value, prototype)",
+        "id": "sec-stringcreate"
+    },
+    {
+        "text": "Arguments Exotic Objects",
+        "id": "sec-arguments-exotic-objects"
+    },
+    {
+        "text": "[[GetOwnProperty]] (P)",
+        "id": "sec-arguments-exotic-objects-getownproperty-p"
+    },
+    {
+        "text": "[[DefineOwnProperty]] (P, Desc)",
+        "id": "sec-arguments-exotic-objects-defineownproperty-p-desc"
+    },
+    {
+        "text": "[[Get]] (P, Receiver)",
+        "id": "sec-arguments-exotic-objects-get-p-receiver"
+    },
+    {
+        "text": "[[Set]] ( P, V, Receiver)",
+        "id": "sec-arguments-exotic-objects-set-p-v-receiver"
+    },
+    {
+        "text": "[[Delete]] (P)",
+        "id": "sec-arguments-exotic-objects-delete-p"
+    },
+    {
+        "text": "CreateUnmappedArgumentsObject(argumentsList)",
+        "id": "sec-createunmappedargumentsobject"
+    },
+    {
+        "text": ")",
+        "id": "sec-createmappedargumentsobject"
+    },
+    {
+        "text": "MakeArgGetter ( name, env)",
+        "id": "sec-makearggetter"
+    },
+    {
+        "text": "MakeArgSetter ( name, env)",
+        "id": "sec-makeargsetter"
+    },
+    {
+        "text": "Integer Indexed Exotic Objects",
+        "id": "sec-integer-indexed-exotic-objects"
+    },
+    {
+        "text": "[[GetOwnProperty]] ( P )",
+        "id": "sec-integer-indexed-exotic-objects-getownproperty-p"
+    },
+    {
+        "text": "[[HasProperty]](P)",
+        "id": "sec-integer-indexed-exotic-objects-hasproperty-p"
+    },
+    {
+        "text": "[[DefineOwnProperty]] ( P, Desc)",
+        "id": "sec-integer-indexed-exotic-objects-defineownproperty-p-desc"
+    },
+    {
+        "text": "[[Get]] (P, Receiver)",
+        "id": "sec-integer-indexed-exotic-objects-get-p-receiver"
+    },
+    {
+        "text": "[[Set]] ( P, V, Receiver)",
+        "id": "sec-integer-indexed-exotic-objects-set-p-v-receiver"
+    },
+    {
+        "text": "[[OwnPropertyKeys]] ()",
+        "id": "sec-integer-indexed-exotic-objects-ownpropertykeys"
+    },
+    {
+        "text": "IntegerIndexedObjectCreate (prototype, internalSlotsList)",
+        "id": "sec-integerindexedobjectcreate"
+    },
+    {
+        "text": "IntegerIndexedElementGet ( O, index )",
+        "id": "sec-integerindexedelementget"
+    },
+    {
+        "text": "IntegerIndexedElementSet ( O, index, value )",
+        "id": "sec-integerindexedelementset"
+    },
+    {
+        "text": "Module Namespace Exotic Objects",
+        "id": "sec-module-namespace-exotic-objects"
+    },
+    {
+        "text": "[[GetPrototypeOf]] ( )",
+        "id": "sec-module-namespace-exotic-objects-getprototypeof"
+    },
+    {
+        "text": "[[SetPrototypeOf]] (V)",
+        "id": "sec-module-namespace-exotic-objects-setprototypeof-v"
+    },
+    {
+        "text": "[[IsExtensible]] ( )",
+        "id": "sec-module-namespace-exotic-objects-isextensible"
+    },
+    {
+        "text": "[[PreventExtensions]] ( )",
+        "id": "sec-module-namespace-exotic-objects-preventextensions"
+    },
+    {
+        "text": "[[GetOwnProperty]] (P)",
+        "id": "sec-module-namespace-exotic-objects-getownproperty-p"
+    },
+    {
+        "text": "[[DefineOwnProperty]] (P, Desc)",
+        "id": "sec-module-namespace-exotic-objects-defineownproperty-p-desc"
+    },
+    {
+        "text": "[[HasProperty]] (P)",
+        "id": "sec-module-namespace-exotic-objects-hasproperty-p"
+    },
+    {
+        "text": "[[Get]] (P, Receiver)",
+        "id": "sec-module-namespace-exotic-objects-get-p-receiver"
+    },
+    {
+        "text": "[[Set]] ( P, V, Receiver)",
+        "id": "sec-module-namespace-exotic-objects-set-p-v-receiver"
+    },
+    {
+        "text": "[[Delete]] (P)",
+        "id": "sec-module-namespace-exotic-objects-delete-p"
+    },
+    {
+        "text": "[[Enumerate]] ()",
+        "id": "sec-module-namespace-exotic-objects-enumerate"
+    },
+    {
+        "text": "[[OwnPropertyKeys]] ( )",
+        "id": "sec-module-namespace-exotic-objects-ownpropertykeys"
+    },
+    {
+        "text": "ModuleNamespaceCreate (module, exports)",
+        "id": "sec-modulenamespacecreate"
+    },
+    {
+        "text": "Proxy Object Internal Methods and Internal Slots",
+        "id": "sec-proxy-object-internal-methods-and-internal-slots"
+    },
+    {
+        "text": "[[GetPrototypeOf]] ( )",
+        "id": "sec-proxy-object-internal-methods-and-internal-slots-getprototypeof"
+    },
+    {
+        "text": "[[SetPrototypeOf]] (V)",
+        "id": "sec-proxy-object-internal-methods-and-internal-slots-setprototypeof-v"
+    },
+    {
+        "text": "[[IsExtensible]] ( )",
+        "id": "sec-proxy-object-internal-methods-and-internal-slots-isextensible"
+    },
+    {
+        "text": "[[PreventExtensions]] ( )",
+        "id": "sec-proxy-object-internal-methods-and-internal-slots-preventextensions"
+    },
+    {
+        "text": "[[GetOwnProperty]] (P)",
+        "id": "sec-proxy-object-internal-methods-and-internal-slots-getownproperty-p"
+    },
+    {
+        "text": "[[DefineOwnProperty]] (P, Desc)",
+        "id": "sec-proxy-object-internal-methods-and-internal-slots-defineownproperty-p-desc"
+    },
+    {
+        "text": "[[HasProperty]] (P)",
+        "id": "sec-proxy-object-internal-methods-and-internal-slots-hasproperty-p"
+    },
+    {
+        "text": "[[Get]] (P, Receiver)",
+        "id": "sec-proxy-object-internal-methods-and-internal-slots-get-p-receiver"
+    },
+    {
+        "text": "[[Set]] ( P, V, Receiver)",
+        "id": "sec-proxy-object-internal-methods-and-internal-slots-set-p-v-receiver"
+    },
+    {
+        "text": "[[Delete]] (P)",
+        "id": "sec-proxy-object-internal-methods-and-internal-slots-delete-p"
+    },
+    {
+        "text": "[[Enumerate]] ()",
+        "id": "sec-proxy-object-internal-methods-and-internal-slots-enumerate"
+    },
+    {
+        "text": "[[OwnPropertyKeys]] ( )",
+        "id": "sec-proxy-object-internal-methods-and-internal-slots-ownpropertykeys"
+    },
+    {
+        "text": "[[Call]] (thisArgument, argumentsList)",
+        "id": "sec-proxy-object-internal-methods-and-internal-slots-call-thisargument-argumentslist"
+    },
+    {
+        "text": "[[Construct]] ( argumentsList, newTarget)",
+        "id": "sec-proxy-object-internal-methods-and-internal-slots-construct-argumentslist-newtarget"
+    },
+    {
+        "text": "ProxyCreate(target, handler)",
+        "id": "sec-proxycreate"
+    },
+    {
+        "text": "ECMAScript Language: Source Code",
+        "id": "sec-ecmascript-language-source-code"
+    },
+    {
+        "text": "Text",
+        "id": "sec-source-text"
+    },
+    {
+        "text": "Semantics:",
+        "id": "sec-utf16encoding"
+    },
+    {
+        "text": "Semantics: UTF16Decode( lead, trail )",
+        "id": "sec-utf16decode"
+    },
+    {
+        "text": "Types of Source Code",
+        "id": "sec-types-of-source-code"
+    },
+    {
+        "text": "Strict Mode Code",
+        "id": "sec-strict-mode-code"
+    },
+    {
+        "text": "Non-ECMAScript Functions",
+        "id": "sec-non-ecmascript-functions"
+    },
+    {
+        "text": "ECMAScript Language: Lexical Grammar",
+        "id": "sec-ecmascript-language-lexical-grammar"
+    },
+    {
+        "text": "Unicode Format-Control Characters",
+        "id": "sec-unicode-format-control-characters"
+    },
+    {
+        "text": "Space",
+        "id": "sec-white-space"
+    },
+    {
+        "text": "Terminators",
+        "id": "sec-line-terminators"
+    },
+    {
+        "text": "Comments",
+        "id": "sec-comments"
+    },
+    {
+        "text": "Tokens",
+        "id": "sec-tokens"
+    },
+    {
+        "text": "and Keywords",
+        "id": "sec-names-and-keywords"
+    },
+    {
+        "text": "Identifier Names",
+        "id": "sec-identifier-names"
+    },
+    {
+        "text": "Static Semantics: Early Errors",
+        "id": "sec-identifier-names-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics:",
+        "id": "sec-identifier-names-static-semantics-stringvalue"
+    },
+    {
+        "text": "Reserved Words",
+        "id": "sec-reserved-words"
+    },
+    {
+        "text": "Keywords",
+        "id": "sec-keywords"
+    },
+    {
+        "text": "Future Reserved Words",
+        "id": "sec-future-reserved-words"
+    },
+    {
+        "text": "Punctuators",
+        "id": "sec-punctuators"
+    },
+    {
+        "text": "Literals",
+        "id": "sec-ecmascript-language-lexical-grammar-literals"
+    },
+    {
+        "text": "Literals",
+        "id": "sec-null-literals"
+    },
+    {
+        "text": "Boolean Literals",
+        "id": "sec-boolean-literals"
+    },
+    {
+        "text": "Numeric Literals",
+        "id": "sec-literals-numeric-literals"
+    },
+    {
+        "text": "Static Semantics: MV",
+        "id": "sec-static-semantics-mv"
+    },
+    {
+        "text": "String Literals",
+        "id": "sec-literals-string-literals"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-string-literals-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics:",
+        "id": "sec-string-literals-static-semantics-stringvalue"
+    },
+    {
+        "text": "Static Semantics:",
+        "id": "sec-static-semantics-sv"
+    },
+    {
+        "text": "Regular Expression Literals",
+        "id": "sec-literals-regular-expression-literals"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-literals-regular-expression-literals-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics:",
+        "id": "sec-static-semantics-bodytext"
+    },
+    {
+        "text": "Static Semantics:",
+        "id": "sec-static-semantics-flagtext"
+    },
+    {
+        "text": "Template Literal Lexical Components",
+        "id": "sec-template-literal-lexical-components"
+    },
+    {
+        "text": "Static Semantics:",
+        "id": "sec-static-semantics-tv-and-trv"
+    },
+    {
+        "text": "Automatic Semicolon Insertion",
+        "id": "sec-automatic-semicolon-insertion"
+    },
+    {
+        "text": "Rules of Automatic Semicolon Insertion",
+        "id": "sec-rules-of-automatic-semicolon-insertion"
+    },
+    {
+        "text": "Examples of Automatic Semicolon Insertion",
+        "id": "sec-examples-of-automatic-semicolon-insertion"
+    },
+    {
+        "text": "ECMAScript Language: Expressions",
+        "id": "sec-ecmascript-language-expressions"
+    },
+    {
+        "text": "Identifiers",
+        "id": "sec-identifiers"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-identifiers-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics: BoundNames",
+        "id": "sec-identifiers-static-semantics-boundnames"
+    },
+    {
+        "text": "Static Semantics:  IsValidSimpleAssignmentTarget",
+        "id": "sec-identifiers-static-semantics-isvalidsimpleassignmenttarget"
+    },
+    {
+        "text": "Static Semantics:",
+        "id": "sec-identifiers-static-semantics-stringvalue"
+    },
+    {
+        "text": "Runtime Semantics: BindingInitialization",
+        "id": "sec-identifiers-runtime-semantics-bindinginitialization"
+    },
+    {
+        "text": "Runtime Semantics: InitializeBoundName(name, value, environment)",
+        "id": "sec-initializeboundname"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-identifiers-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Primary Expression",
+        "id": "sec-primary-expression"
+    },
+    {
+        "text": "Semantics",
+        "id": "sec-primary-expression-semantics"
+    },
+    {
+        "text": "Static Semantics:  CoveredParenthesizedExpression",
+        "id": "sec-static-semantics-coveredparenthesizedexpression"
+    },
+    {
+        "text": "Static Semantics:  HasName",
+        "id": "sec-semantics-static-semantics-hasname"
+    },
+    {
+        "text": "Static Semantics:  IsFunctionDefinition",
+        "id": "sec-semantics-static-semantics-isfunctiondefinition"
+    },
+    {
+        "text": "Static Semantics:  IsIdentifierRef",
+        "id": "sec-semantics-static-semantics-isidentifierref"
+    },
+    {
+        "text": "Static Semantics:  IsValidSimpleAssignmentTarget",
+        "id": "sec-semantics-static-semantics-isvalidsimpleassignmenttarget"
+    },
+    {
+        "text": "The",
+        "id": "sec-this-keyword"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-this-keyword-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Identifier Reference",
+        "id": "sec-identifier-reference"
+    },
+    {
+        "text": "Literals",
+        "id": "sec-primary-expression-literals"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-literals-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Array Initializer",
+        "id": "sec-array-initializer"
+    },
+    {
+        "text": "Static Semantics:  ElisionWidth",
+        "id": "sec-static-semantics-elisionwidth"
+    },
+    {
+        "text": "Runtime Semantics: ArrayAccumulation",
+        "id": "sec-runtime-semantics-arrayaccumulation"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-array-initializer-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Object Initializer",
+        "id": "sec-object-initializer"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-object-initializer-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics:  ComputedPropertyContains",
+        "id": "sec-object-initializer-static-semantics-computedpropertycontains"
+    },
+    {
+        "text": "Static Semantics:  Contains",
+        "id": "sec-object-initializer-static-semantics-contains"
+    },
+    {
+        "text": "Static Semantics: HasComputedPropertyKey",
+        "id": "sec-object-initializer-static-semantics-hascomputedpropertykey"
+    },
+    {
+        "text": "Static Semantics:  IsComputedPropertyKey",
+        "id": "sec-static-semantics-iscomputedpropertykey"
+    },
+    {
+        "text": "Static Semantics:",
+        "id": "sec-object-initializer-static-semantics-propname"
+    },
+    {
+        "text": "Static Semantics:  PropertyNameList",
+        "id": "sec-static-semantics-propertynamelist"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-object-initializer-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Runtime Semantics: PropertyDefinitionEvaluation",
+        "id": "sec-object-initializer-runtime-semantics-propertydefinitionevaluation"
+    },
+    {
+        "text": "Function Defining Expressions",
+        "id": "sec-function-defining-expressions"
+    },
+    {
+        "text": "Regular Expression Literals",
+        "id": "sec-primary-expression-regular-expression-literals"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-primary-expression-regular-expression-literals-static-semantics-early-errors"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-regular-expression-literals-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Template Literals",
+        "id": "sec-template-literals"
+    },
+    {
+        "text": "Static Semantics:  TemplateStrings",
+        "id": "sec-static-semantics-templatestrings"
+    },
+    {
+        "text": "Runtime Semantics: ArgumentListEvaluation",
+        "id": "sec-template-literals-runtime-semantics-argumentlistevaluation"
+    },
+    {
+        "text": "Runtime Semantics: GetTemplateObject ( templateLiteral )",
+        "id": "sec-gettemplateobject"
+    },
+    {
+        "text": "Runtime Semantics: SubstitutionEvaluation",
+        "id": "sec-runtime-semantics-substitutionevaluation"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-template-literals-runtime-semantics-evaluation"
+    },
+    {
+        "text": "The Grouping Operator",
+        "id": "sec-grouping-operator"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-grouping-operator-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics:  IsFunctionDefinition",
+        "id": "sec-grouping-operator-static-semantics-isfunctiondefinition"
+    },
+    {
+        "text": "Static Semantics:  IsValidSimpleAssignmentTarget",
+        "id": "sec-grouping-operator-static-semantics-isvalidsimpleassignmenttarget"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-grouping-operator-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Left-Hand-Side Expressions",
+        "id": "sec-left-hand-side-expressions"
+    },
+    {
+        "text": "Static Semantics",
+        "id": "sec-static-semantics"
+    },
+    {
+        "text": "Static Semantics:  Contains",
+        "id": "sec-static-semantics-static-semantics-contains"
+    },
+    {
+        "text": "Static Semantics:  IsFunctionDefinition",
+        "id": "sec-static-semantics-static-semantics-isfunctiondefinition"
+    },
+    {
+        "text": "Static Semantics:  IsDestructuring",
+        "id": "sec-static-semantics-static-semantics-isdestructuring"
+    },
+    {
+        "text": "Static Semantics:  IsIdentifierRef",
+        "id": "sec-static-semantics-static-semantics-isidentifierref"
+    },
+    {
+        "text": "Static Semantics:  IsValidSimpleAssignmentTarget",
+        "id": "sec-static-semantics-static-semantics-isvalidsimpleassignmenttarget"
+    },
+    {
+        "text": "Property Accessors",
+        "id": "sec-property-accessors"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-property-accessors-runtime-semantics-evaluation"
+    },
+    {
+        "text": "The",
+        "id": "sec-new-operator"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-new-operator-runtime-semantics-evaluation"
+    },
+    {
+        "text": "arguments)",
+        "id": "sec-evaluatenew"
+    },
+    {
+        "text": "Function Calls",
+        "id": "sec-function-calls"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-function-calls-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Runtime Semantics: EvaluateCall( ref, arguments, tailPosition )",
+        "id": "sec-evaluatecall"
+    },
+    {
+        "text": "tailPosition )",
+        "id": "sec-evaluatedirectcall"
+    },
+    {
+        "text": "The",
+        "id": "sec-super-keyword"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-super-keyword-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Runtime Semantics: GetSuperConstructor ( )",
+        "id": "sec-getsuperconstructor"
+    },
+    {
+        "text": "strict)",
+        "id": "sec-makesuperpropertyreference"
+    },
+    {
+        "text": "Argument Lists",
+        "id": "sec-argument-lists"
+    },
+    {
+        "text": "Runtime Semantics: ArgumentListEvaluation",
+        "id": "sec-argument-lists-runtime-semantics-argumentlistevaluation"
+    },
+    {
+        "text": "Tagged Templates",
+        "id": "sec-tagged-templates"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-tagged-templates-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Meta Properties",
+        "id": "sec-meta-properties"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-meta-properties-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Postfix Expressions",
+        "id": "sec-postfix-expressions"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-postfix-expressions-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics:  IsFunctionDefinition",
+        "id": "sec-postfix-expressions-static-semantics-isfunctiondefinition"
+    },
+    {
+        "text": "Static Semantics:  IsValidSimpleAssignmentTarget",
+        "id": "sec-postfix-expressions-static-semantics-isvalidsimpleassignmenttarget"
+    },
+    {
+        "text": "Postfix Increment Operator",
+        "id": "sec-postfix-increment-operator"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-postfix-increment-operator-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Postfix Decrement Operator",
+        "id": "sec-postfix-decrement-operator"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-postfix-decrement-operator-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Operators",
+        "id": "sec-unary-operators"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-unary-operators-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics:  IsFunctionDefinition",
+        "id": "sec-unary-operators-static-semantics-isfunctiondefinition"
+    },
+    {
+        "text": "Static Semantics:  IsValidSimpleAssignmentTarget",
+        "id": "sec-unary-operators-static-semantics-isvalidsimpleassignmenttarget"
+    },
+    {
+        "text": "The",
+        "id": "sec-delete-operator"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-delete-operator-static-semantics-early-errors"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-delete-operator-runtime-semantics-evaluation"
+    },
+    {
+        "text": "The",
+        "id": "sec-void-operator"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-void-operator-runtime-semantics-evaluation"
+    },
+    {
+        "text": "The",
+        "id": "sec-typeof-operator"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-typeof-operator-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Prefix Increment Operator",
+        "id": "sec-prefix-increment-operator"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-prefix-increment-operator-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Prefix Decrement Operator",
+        "id": "sec-prefix-decrement-operator"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-prefix-decrement-operator-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Unary",
+        "id": "sec-unary-plus-operator"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-unary-plus-operator-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Unary",
+        "id": "sec-unary-minus-operator"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-unary-minus-operator-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Bitwise NOT Operator (",
+        "id": "sec-bitwise-not-operator"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-bitwise-not-operator-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Logical NOT Operator (",
+        "id": "sec-logical-not-operator"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-logical-not-operator-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Multiplicative Operators",
+        "id": "sec-multiplicative-operators"
+    },
+    {
+        "text": "Static Semantics:  IsFunctionDefinition",
+        "id": "sec-multiplicative-operators-static-semantics-isfunctiondefinition"
+    },
+    {
+        "text": "Static Semantics:  IsValidSimpleAssignmentTarget",
+        "id": "sec-multiplicative-operators-static-semantics-isvalidsimpleassignmenttarget"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-multiplicative-operators-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Applying the",
+        "id": "sec-applying-the-mul-operator"
+    },
+    {
+        "text": "Applying the",
+        "id": "sec-applying-the-div-operator"
+    },
+    {
+        "text": "Applying the",
+        "id": "sec-applying-the-mod-operator"
+    },
+    {
+        "text": "Additive Operators",
+        "id": "sec-additive-operators"
+    },
+    {
+        "text": "Static Semantics:  IsFunctionDefinition",
+        "id": "sec-additive-operators-static-semantics-isfunctiondefinition"
+    },
+    {
+        "text": "Static Semantics:  IsValidSimpleAssignmentTarget",
+        "id": "sec-additive-operators-static-semantics-isvalidsimpleassignmenttarget"
+    },
+    {
+        "text": "The Addition operator (",
+        "id": "sec-addition-operator-plus"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-addition-operator-plus-runtime-semantics-evaluation"
+    },
+    {
+        "text": "The Subtraction Operator (",
+        "id": "sec-subtraction-operator-minus"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-subtraction-operator-minus-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Applying the Additive Operators to Numbers",
+        "id": "sec-applying-the-additive-operators-to-numbers"
+    },
+    {
+        "text": "Bitwise Shift Operators",
+        "id": "sec-bitwise-shift-operators"
+    },
+    {
+        "text": "Static Semantics:  IsFunctionDefinition",
+        "id": "sec-bitwise-shift-operators-static-semantics-isfunctiondefinition"
+    },
+    {
+        "text": "Static Semantics:  IsValidSimpleAssignmentTarget",
+        "id": "sec-bitwise-shift-operators-static-semantics-isvalidsimpleassignmenttarget"
+    },
+    {
+        "text": "The Left Shift Operator (",
+        "id": "sec-left-shift-operator"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-left-shift-operator-runtime-semantics-evaluation"
+    },
+    {
+        "text": "The Signed Right Shift Operator (",
+        "id": "sec-signed-right-shift-operator"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-signed-right-shift-operator-runtime-semantics-evaluation"
+    },
+    {
+        "text": "The Unsigned Right Shift Operator (",
+        "id": "sec-unsigned-right-shift-operator"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-unsigned-right-shift-operator-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Relational Operators",
+        "id": "sec-relational-operators"
+    },
+    {
+        "text": "Static Semantics:  IsFunctionDefinition",
+        "id": "sec-relational-operators-static-semantics-isfunctiondefinition"
+    },
+    {
+        "text": "Static Semantics:  IsValidSimpleAssignmentTarget",
+        "id": "sec-relational-operators-static-semantics-isvalidsimpleassignmenttarget"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-relational-operators-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Runtime Semantics: InstanceofOperator(O, C)",
+        "id": "sec-instanceofoperator"
+    },
+    {
+        "text": "Equality Operators",
+        "id": "sec-equality-operators"
+    },
+    {
+        "text": "Static Semantics:  IsFunctionDefinition",
+        "id": "sec-equality-operators-static-semantics-isfunctiondefinition"
+    },
+    {
+        "text": "Static Semantics:  IsValidSimpleAssignmentTarget",
+        "id": "sec-equality-operators-static-semantics-isvalidsimpleassignmenttarget"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-equality-operators-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Binary Bitwise Operators",
+        "id": "sec-binary-bitwise-operators"
+    },
+    {
+        "text": "Static Semantics:  IsFunctionDefinition",
+        "id": "sec-binary-bitwise-operators-static-semantics-isfunctiondefinition"
+    },
+    {
+        "text": "Static Semantics:  IsValidSimpleAssignmentTarget",
+        "id": "sec-binary-bitwise-operators-static-semantics-isvalidsimpleassignmenttarget"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-binary-bitwise-operators-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Binary Logical Operators",
+        "id": "sec-binary-logical-operators"
+    },
+    {
+        "text": "Static Semantics:  IsFunctionDefinition",
+        "id": "sec-binary-logical-operators-static-semantics-isfunctiondefinition"
+    },
+    {
+        "text": "Static Semantics:  IsValidSimpleAssignmentTarget",
+        "id": "sec-binary-logical-operators-static-semantics-isvalidsimpleassignmenttarget"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-binary-logical-operators-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Conditional Operator (",
+        "id": "sec-conditional-operator"
+    },
+    {
+        "text": "Static Semantics:  IsFunctionDefinition",
+        "id": "sec-conditional-operator-static-semantics-isfunctiondefinition"
+    },
+    {
+        "text": "Static Semantics:  IsValidSimpleAssignmentTarget",
+        "id": "sec-conditional-operator-static-semantics-isvalidsimpleassignmenttarget"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-conditional-operator-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Assignment Operators",
+        "id": "sec-assignment-operators"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-assignment-operators-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics:  IsFunctionDefinition",
+        "id": "sec-assignment-operators-static-semantics-isfunctiondefinition"
+    },
+    {
+        "text": "Static Semantics:  IsValidSimpleAssignmentTarget",
+        "id": "sec-assignment-operators-static-semantics-isvalidsimpleassignmenttarget"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-assignment-operators-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Destructuring Assignment",
+        "id": "sec-destructuring-assignment"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-destructuring-assignment-static-semantics-early-errors"
+    },
+    {
+        "text": "Runtime Semantics: DestructuringAssignmentEvaluation",
+        "id": "sec-runtime-semantics-destructuringassignmentevaluation"
+    },
+    {
+        "text": "Runtime Semantics: IteratorDestructuringAssignmentEvaluation",
+        "id": "sec-runtime-semantics-iteratordestructuringassignmentevaluation"
+    },
+    {
+        "text": "Runtime Semantics: KeyedDestructuringAssignmentEvaluation",
+        "id": "sec-runtime-semantics-keyeddestructuringassignmentevaluation"
+    },
+    {
+        "text": "Operator (",
+        "id": "sec-comma-operator"
+    },
+    {
+        "text": "Static Semantics:  IsFunctionDefinition",
+        "id": "sec-comma-operator-static-semantics-isfunctiondefinition"
+    },
+    {
+        "text": "Static Semantics:  IsValidSimpleAssignmentTarget",
+        "id": "sec-comma-operator-static-semantics-isvalidsimpleassignmenttarget"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-comma-operator-runtime-semantics-evaluation"
+    },
+    {
+        "text": "ECMAScript Language: Statements and Declarations",
+        "id": "sec-ecmascript-language-statements-and-declarations"
+    },
+    {
+        "text": "Statement Semantics",
+        "id": "sec-statement-semantics"
+    },
+    {
+        "text": "Static Semantics: ContainsDuplicateLabels",
+        "id": "sec-statement-semantics-static-semantics-containsduplicatelabels"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedBreakTarget",
+        "id": "sec-statement-semantics-static-semantics-containsundefinedbreaktarget"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedContinueTarget",
+        "id": "sec-statement-semantics-static-semantics-containsundefinedcontinuetarget"
+    },
+    {
+        "text": "Static Semantics:  DeclarationPart",
+        "id": "sec-static-semantics-declarationpart"
+    },
+    {
+        "text": "Static Semantics:  VarDeclaredNames",
+        "id": "sec-statement-semantics-static-semantics-vardeclarednames"
+    },
+    {
+        "text": "Static Semantics:  VarScopedDeclarations",
+        "id": "sec-statement-semantics-static-semantics-varscopeddeclarations"
+    },
+    {
+        "text": "Runtime Semantics: LabelledEvaluation",
+        "id": "sec-statement-semantics-runtime-semantics-labelledevaluation"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-statement-semantics-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Block",
+        "id": "sec-block"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-block-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics: ContainsDuplicateLabels",
+        "id": "sec-block-static-semantics-containsduplicatelabels"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedBreakTarget",
+        "id": "sec-block-static-semantics-containsundefinedbreaktarget"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedContinueTarget",
+        "id": "sec-block-static-semantics-containsundefinedcontinuetarget"
+    },
+    {
+        "text": "Static Semantics:  LexicallyDeclaredNames",
+        "id": "sec-block-static-semantics-lexicallydeclarednames"
+    },
+    {
+        "text": "Static Semantics:  LexicallyScopedDeclarations",
+        "id": "sec-block-static-semantics-lexicallyscopeddeclarations"
+    },
+    {
+        "text": "Static Semantics:  TopLevelLexicallyDeclaredNames",
+        "id": "sec-block-static-semantics-toplevellexicallydeclarednames"
+    },
+    {
+        "text": "Static Semantics:  TopLevelLexicallyScopedDeclarations",
+        "id": "sec-block-static-semantics-toplevellexicallyscopeddeclarations"
+    },
+    {
+        "text": "Static Semantics:  TopLevelVarDeclaredNames",
+        "id": "sec-block-static-semantics-toplevelvardeclarednames"
+    },
+    {
+        "text": "Static Semantics:  TopLevelVarScopedDeclarations",
+        "id": "sec-block-static-semantics-toplevelvarscopeddeclarations"
+    },
+    {
+        "text": "Static Semantics:  VarDeclaredNames",
+        "id": "sec-block-static-semantics-vardeclarednames"
+    },
+    {
+        "text": "Static Semantics:  VarScopedDeclarations",
+        "id": "sec-block-static-semantics-varscopeddeclarations"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-block-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Runtime Semantics: BlockDeclarationInstantiation( code, env )",
+        "id": "sec-blockdeclarationinstantiation"
+    },
+    {
+        "text": "Declarations and the Variable Statement",
+        "id": "sec-declarations-and-the-variable-statement"
+    },
+    {
+        "text": "Let and Const Declarations",
+        "id": "sec-let-and-const-declarations"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-let-and-const-declarations-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics:  BoundNames",
+        "id": "sec-let-and-const-declarations-static-semantics-boundnames"
+    },
+    {
+        "text": "Static Semantics:  IsConstantDeclaration",
+        "id": "sec-let-and-const-declarations-static-semantics-isconstantdeclaration"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-let-and-const-declarations-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Variable Statement",
+        "id": "sec-variable-statement"
+    },
+    {
+        "text": "Static Semantics:  BoundNames",
+        "id": "sec-variable-statement-static-semantics-boundnames"
+    },
+    {
+        "text": "Static Semantics:  VarDeclaredNames",
+        "id": "sec-variable-statement-static-semantics-vardeclarednames"
+    },
+    {
+        "text": "Static Semantics:  VarScopedDeclarations",
+        "id": "sec-variable-statement-static-semantics-varscopeddeclarations"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-variable-statement-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Destructuring Binding Patterns",
+        "id": "sec-destructuring-binding-patterns"
+    },
+    {
+        "text": "Static Semantics:  BoundNames",
+        "id": "sec-destructuring-binding-patterns-static-semantics-boundnames"
+    },
+    {
+        "text": "Static Semantics:  ContainsExpression",
+        "id": "sec-destructuring-binding-patterns-static-semantics-containsexpression"
+    },
+    {
+        "text": "Static Semantics:  HasInitializer",
+        "id": "sec-destructuring-binding-patterns-static-semantics-hasinitializer"
+    },
+    {
+        "text": "Static Semantics:  IsSimpleParameterList",
+        "id": "sec-destructuring-binding-patterns-static-semantics-issimpleparameterlist"
+    },
+    {
+        "text": "Runtime Semantics: BindingInitialization",
+        "id": "sec-destructuring-binding-patterns-runtime-semantics-bindinginitialization"
+    },
+    {
+        "text": "Runtime Semantics: IteratorBindingInitialization",
+        "id": "sec-destructuring-binding-patterns-runtime-semantics-iteratorbindinginitialization"
+    },
+    {
+        "text": "Runtime Semantics: KeyedBindingInitialization",
+        "id": "sec-runtime-semantics-keyedbindinginitialization"
+    },
+    {
+        "text": "Statement",
+        "id": "sec-empty-statement"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-empty-statement-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Expression Statement",
+        "id": "sec-expression-statement"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-expression-statement-runtime-semantics-evaluation"
+    },
+    {
+        "text": "The",
+        "id": "sec-if-statement"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-if-statement-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics: ContainsDuplicateLabels",
+        "id": "sec-if-statement-static-semantics-containsduplicatelabels"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedBreakTarget",
+        "id": "sec-if-statement-static-semantics-containsundefinedbreaktarget"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedContinueTarget",
+        "id": "sec-if-statement-static-semantics-containsundefinedcontinuetarget"
+    },
+    {
+        "text": "Static Semantics:  VarDeclaredNames",
+        "id": "sec-if-statement-static-semantics-vardeclarednames"
+    },
+    {
+        "text": "Static Semantics:  VarScopedDeclarations",
+        "id": "sec-if-statement-static-semantics-varscopeddeclarations"
+    },
+    {
+        "text": "Runtime Semantics:  Evaluation",
+        "id": "sec-if-statement-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Iteration Statements",
+        "id": "sec-iteration-statements"
+    },
+    {
+        "text": "Semantics",
+        "id": "sec-iteration-statements-semantics"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-semantics-static-semantics-early-errors"
+    },
+    {
+        "text": "Runtime Semantics: LoopContinues(completion, labelSet)",
+        "id": "sec-loopcontinues"
+    },
+    {
+        "text": "The",
+        "id": "sec-do-while-statement"
+    },
+    {
+        "text": "Static Semantics: ContainsDuplicateLabels",
+        "id": "sec-do-while-statement-static-semantics-containsduplicatelabels"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedBreakTarget",
+        "id": "sec-do-while-statement-static-semantics-containsundefinedbreaktarget"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedContinueTarget",
+        "id": "sec-do-while-statement-static-semantics-containsundefinedcontinuetarget"
+    },
+    {
+        "text": "Static Semantics:  VarDeclaredNames",
+        "id": "sec-do-while-statement-static-semantics-vardeclarednames"
+    },
+    {
+        "text": "Static Semantics:  VarScopedDeclarations",
+        "id": "sec-do-while-statement-static-semantics-varscopeddeclarations"
+    },
+    {
+        "text": "Runtime Semantics: LabelledEvaluation",
+        "id": "sec-do-while-statement-runtime-semantics-labelledevaluation"
+    },
+    {
+        "text": "The",
+        "id": "sec-while-statement"
+    },
+    {
+        "text": "Static Semantics: ContainsDuplicateLabels",
+        "id": "sec-while-statement-static-semantics-containsduplicatelabels"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedBreakTarget",
+        "id": "sec-while-statement-static-semantics-containsundefinedbreaktarget"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedContinueTarget",
+        "id": "sec-while-statement-static-semantics-containsundefinedcontinuetarget"
+    },
+    {
+        "text": "Static Semantics:  VarDeclaredNames",
+        "id": "sec-while-statement-static-semantics-vardeclarednames"
+    },
+    {
+        "text": "Static Semantics:  VarScopedDeclarations",
+        "id": "sec-while-statement-static-semantics-varscopeddeclarations"
+    },
+    {
+        "text": "Runtime Semantics: LabelledEvaluation",
+        "id": "sec-while-statement-runtime-semantics-labelledevaluation"
+    },
+    {
+        "text": "The",
+        "id": "sec-for-statement"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-for-statement-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics: ContainsDuplicateLabels",
+        "id": "sec-for-statement-static-semantics-containsduplicatelabels"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedBreakTarget",
+        "id": "sec-for-statement-static-semantics-containsundefinedbreaktarget"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedContinueTarget",
+        "id": "sec-for-statement-static-semantics-containsundefinedcontinuetarget"
+    },
+    {
+        "text": "Static Semantics:  VarDeclaredNames",
+        "id": "sec-for-statement-static-semantics-vardeclarednames"
+    },
+    {
+        "text": "Static Semantics:  VarScopedDeclarations",
+        "id": "sec-for-statement-static-semantics-varscopeddeclarations"
+    },
+    {
+        "text": "Runtime Semantics: LabelledEvaluation",
+        "id": "sec-for-statement-runtime-semantics-labelledevaluation"
+    },
+    {
+        "text": "perIterationBindings, labelSet )",
+        "id": "sec-forbodyevaluation"
+    },
+    {
+        "text": "perIterationBindings )",
+        "id": "sec-createperiterationenvironment"
+    },
+    {
+        "text": "The",
+        "id": "sec-for-in-and-for-of-statements"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-for-in-and-for-of-statements-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics:  BoundNames",
+        "id": "sec-for-in-and-for-of-statements-static-semantics-boundnames"
+    },
+    {
+        "text": "Static Semantics: ContainsDuplicateLabels",
+        "id": "sec-for-in-and-for-of-statements-static-semantics-containsduplicatelabels"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedBreakTarget",
+        "id": "sec-for-in-and-for-of-statements-static-semantics-containsundefinedbreaktarget"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedContinueTarget",
+        "id": "sec-for-in-and-for-of-statements-static-semantics-containsundefinedcontinuetarget"
+    },
+    {
+        "text": "Static Semantics:  IsDestructuring",
+        "id": "sec-for-in-and-for-of-statements-static-semantics-isdestructuring"
+    },
+    {
+        "text": "Static Semantics:  VarDeclaredNames",
+        "id": "sec-for-in-and-for-of-statements-static-semantics-vardeclarednames"
+    },
+    {
+        "text": "Static Semantics:  VarScopedDeclarations",
+        "id": "sec-for-in-and-for-of-statements-static-semantics-varscopeddeclarations"
+    },
+    {
+        "text": "Runtime Semantics: BindingInitialization",
+        "id": "sec-for-in-and-for-of-statements-runtime-semantics-bindinginitialization"
+    },
+    {
+        "text": "Runtime Semantics: BindingInstantiation",
+        "id": "sec-runtime-semantics-bindinginstantiation"
+    },
+    {
+        "text": "Runtime Semantics: LabelledEvaluation",
+        "id": "sec-for-in-and-for-of-statements-runtime-semantics-labelledevaluation"
+    },
+    {
+        "text": "iterationKind)",
+        "id": "sec-runtime-semantics-forin-div-ofheadevaluation-tdznames-expr-iterationkind"
+    },
+    {
+        "text": "lhsKind, labelSet )",
+        "id": "sec-runtime-semantics-forin-div-ofbodyevaluation-lhs-stmt-iterator-lhskind-labelset"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-for-in-and-for-of-statements-runtime-semantics-evaluation"
+    },
+    {
+        "text": "The",
+        "id": "sec-continue-statement"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-continue-statement-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedContinueTarget",
+        "id": "sec-continue-statement-static-semantics-containsundefinedcontinuetarget"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-continue-statement-runtime-semantics-evaluation"
+    },
+    {
+        "text": "The",
+        "id": "sec-break-statement"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-break-statement-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedBreakTarget",
+        "id": "sec-break-statement-static-semantics-containsundefinedbreaktarget"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-break-statement-runtime-semantics-evaluation"
+    },
+    {
+        "text": "The",
+        "id": "sec-return-statement"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-return-statement-runtime-semantics-evaluation"
+    },
+    {
+        "text": "The",
+        "id": "sec-with-statement"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-with-statement-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics: ContainsDuplicateLabels",
+        "id": "sec-with-statement-static-semantics-containsduplicatelabels"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedBreakTarget",
+        "id": "sec-with-statement-static-semantics-containsundefinedbreaktarget"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedContinueTarget",
+        "id": "sec-with-statement-static-semantics-containsundefinedcontinuetarget"
+    },
+    {
+        "text": "Static Semantics:  VarDeclaredNames",
+        "id": "sec-with-statement-static-semantics-vardeclarednames"
+    },
+    {
+        "text": "Static Semantics:  VarScopedDeclarations",
+        "id": "sec-with-statement-static-semantics-varscopeddeclarations"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-with-statement-runtime-semantics-evaluation"
+    },
+    {
+        "text": "The",
+        "id": "sec-switch-statement"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-switch-statement-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics: ContainsDuplicateLabels",
+        "id": "sec-switch-statement-static-semantics-containsduplicatelabels"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedBreakTarget",
+        "id": "sec-switch-statement-static-semantics-containsundefinedbreaktarget"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedContinueTarget",
+        "id": "sec-switch-statement-static-semantics-containsundefinedcontinuetarget"
+    },
+    {
+        "text": "Static Semantics:  LexicallyDeclaredNames",
+        "id": "sec-switch-statement-static-semantics-lexicallydeclarednames"
+    },
+    {
+        "text": "Static Semantics:  LexicallyScopedDeclarations",
+        "id": "sec-switch-statement-static-semantics-lexicallyscopeddeclarations"
+    },
+    {
+        "text": "Static Semantics:  VarDeclaredNames",
+        "id": "sec-switch-statement-static-semantics-vardeclarednames"
+    },
+    {
+        "text": "Static Semantics:  VarScopedDeclarations",
+        "id": "sec-switch-statement-static-semantics-varscopeddeclarations"
+    },
+    {
+        "text": "Runtime Semantics: CaseBlockEvaluation",
+        "id": "sec-runtime-semantics-caseblockevaluation"
+    },
+    {
+        "text": "Runtime Semantics: CaseSelectorEvaluation",
+        "id": "sec-runtime-semantics-caseselectorevaluation"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-switch-statement-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Labelled Statements",
+        "id": "sec-labelled-statements"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-labelled-statements-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics: ContainsDuplicateLabels",
+        "id": "sec-labelled-statements-static-semantics-containsduplicatelabels"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedBreakTarget",
+        "id": "sec-labelled-statements-static-semantics-containsundefinedbreaktarget"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedContinueTarget",
+        "id": "sec-labelled-statements-static-semantics-containsundefinedcontinuetarget"
+    },
+    {
+        "text": "Static Semantics:  IsLabelledFunction ( stmt )",
+        "id": "sec-islabelledfunction"
+    },
+    {
+        "text": "Static Semantics:  LexicallyDeclaredNames",
+        "id": "sec-labelled-statements-static-semantics-lexicallydeclarednames"
+    },
+    {
+        "text": "Static Semantics:  LexicallyScopedDeclarations",
+        "id": "sec-labelled-statements-static-semantics-lexicallyscopeddeclarations"
+    },
+    {
+        "text": "Static Semantics:  TopLevelLexicallyDeclaredNames",
+        "id": "sec-labelled-statements-static-semantics-toplevellexicallydeclarednames"
+    },
+    {
+        "text": "Static Semantics:  TopLevelLexicallyScopedDeclarations",
+        "id": "sec-labelled-statements-static-semantics-toplevellexicallyscopeddeclarations"
+    },
+    {
+        "text": "Static Semantics:  TopLevelVarDeclaredNames",
+        "id": "sec-labelled-statements-static-semantics-toplevelvardeclarednames"
+    },
+    {
+        "text": "Static Semantics:  TopLevelVarScopedDeclarations",
+        "id": "sec-labelled-statements-static-semantics-toplevelvarscopeddeclarations"
+    },
+    {
+        "text": "Static Semantics:  VarDeclaredNames",
+        "id": "sec-labelled-statements-static-semantics-vardeclarednames"
+    },
+    {
+        "text": "Static Semantics:  VarScopedDeclarations",
+        "id": "sec-labelled-statements-static-semantics-varscopeddeclarations"
+    },
+    {
+        "text": "Runtime Semantics: LabelledEvaluation",
+        "id": "sec-labelled-statements-runtime-semantics-labelledevaluation"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-labelled-statements-runtime-semantics-evaluation"
+    },
+    {
+        "text": "The",
+        "id": "sec-throw-statement"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-throw-statement-runtime-semantics-evaluation"
+    },
+    {
+        "text": "The",
+        "id": "sec-try-statement"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-try-statement-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics: ContainsDuplicateLabels",
+        "id": "sec-try-statement-static-semantics-containsduplicatelabels"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedBreakTarget",
+        "id": "sec-try-statement-static-semantics-containsundefinedbreaktarget"
+    },
+    {
+        "text": "Static Semantics: ContainsUndefinedContinueTarget",
+        "id": "sec-try-statement-static-semantics-containsundefinedcontinuetarget"
+    },
+    {
+        "text": "Static Semantics:  VarDeclaredNames",
+        "id": "sec-try-statement-static-semantics-vardeclarednames"
+    },
+    {
+        "text": "Static Semantics:  VarScopedDeclarations",
+        "id": "sec-try-statement-static-semantics-varscopeddeclarations"
+    },
+    {
+        "text": "Runtime Semantics: CatchClauseEvaluation",
+        "id": "sec-runtime-semantics-catchclauseevaluation"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-try-statement-runtime-semantics-evaluation"
+    },
+    {
+        "text": "The",
+        "id": "sec-debugger-statement"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-debugger-statement-runtime-semantics-evaluation"
+    },
+    {
+        "text": "ECMAScript Language: Functions and Classes",
+        "id": "sec-ecmascript-language-functions-and-classes"
+    },
+    {
+        "text": "Function Definitions",
+        "id": "sec-function-definitions"
+    },
+    {
+        "text": "Directive Prologues and the Use Strict Directive",
+        "id": "sec-directive-prologues-and-the-use-strict-directive"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-function-definitions-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics:  BoundNames",
+        "id": "sec-function-definitions-static-semantics-boundnames"
+    },
+    {
+        "text": "Static Semantics:  Contains",
+        "id": "sec-function-definitions-static-semantics-contains"
+    },
+    {
+        "text": "Static Semantics:  ContainsExpression",
+        "id": "sec-function-definitions-static-semantics-containsexpression"
+    },
+    {
+        "text": "Static Semantics:  ExpectedArgumentCount",
+        "id": "sec-function-definitions-static-semantics-expectedargumentcount"
+    },
+    {
+        "text": "Static Semantics:  HasInitializer",
+        "id": "sec-function-definitions-static-semantics-hasinitializer"
+    },
+    {
+        "text": "Static Semantics:  HasName",
+        "id": "sec-function-definitions-static-semantics-hasname"
+    },
+    {
+        "text": "Static Semantics:  IsAnonymousFunctionDefinition ( production )",
+        "id": "sec-isanonymousfunctiondefinition"
+    },
+    {
+        "text": "Static Semantics:  IsConstantDeclaration",
+        "id": "sec-function-definitions-static-semantics-isconstantdeclaration"
+    },
+    {
+        "text": "Static Semantics:  IsFunctionDefinition",
+        "id": "sec-function-definitions-static-semantics-isfunctiondefinition"
+    },
+    {
+        "text": "Static Semantics:  IsSimpleParameterList",
+        "id": "sec-function-definitions-static-semantics-issimpleparameterlist"
+    },
+    {
+        "text": "Static Semantics:  LexicallyDeclaredNames",
+        "id": "sec-function-definitions-static-semantics-lexicallydeclarednames"
+    },
+    {
+        "text": "Static Semantics:  LexicallyScopedDeclarations",
+        "id": "sec-function-definitions-static-semantics-lexicallyscopeddeclarations"
+    },
+    {
+        "text": "Static Semantics:  VarDeclaredNames",
+        "id": "sec-function-definitions-static-semantics-vardeclarednames"
+    },
+    {
+        "text": "Static Semantics:  VarScopedDeclarations",
+        "id": "sec-function-definitions-static-semantics-varscopeddeclarations"
+    },
+    {
+        "text": "Runtime Semantics: EvaluateBody",
+        "id": "sec-function-definitions-runtime-semantics-evaluatebody"
+    },
+    {
+        "text": "Runtime Semantics: IteratorBindingInitialization",
+        "id": "sec-function-definitions-runtime-semantics-iteratorbindinginitialization"
+    },
+    {
+        "text": "Runtime Semantics: InstantiateFunctionObject",
+        "id": "sec-function-definitions-runtime-semantics-instantiatefunctionobject"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-function-definitions-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Arrow Function Definitions",
+        "id": "sec-arrow-function-definitions"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-arrow-function-definitions-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics:  BoundNames",
+        "id": "sec-arrow-function-definitions-static-semantics-boundnames"
+    },
+    {
+        "text": "Static Semantics:  Contains",
+        "id": "sec-arrow-function-definitions-static-semantics-contains"
+    },
+    {
+        "text": "Static Semantics:  ContainsExpression",
+        "id": "sec-arrow-function-definitions-static-semantics-containsexpression"
+    },
+    {
+        "text": "Static Semantics:  ExpectedArgumentCount",
+        "id": "sec-arrow-function-definitions-static-semantics-expectedargumentcount"
+    },
+    {
+        "text": "Static Semantics:  HasInitializer",
+        "id": "sec-arrow-function-definitions-static-semantics-hasinitializer"
+    },
+    {
+        "text": "Static Semantics:  HasName",
+        "id": "sec-arrow-function-definitions-static-semantics-hasname"
+    },
+    {
+        "text": "Static Semantics:  IsSimpleParameterList",
+        "id": "sec-arrow-function-definitions-static-semantics-issimpleparameterlist"
+    },
+    {
+        "text": "Static Semantics:  CoveredFormalsList",
+        "id": "sec-static-semantics-coveredformalslist"
+    },
+    {
+        "text": "Static Semantics:  LexicallyDeclaredNames",
+        "id": "sec-arrow-function-definitions-static-semantics-lexicallydeclarednames"
+    },
+    {
+        "text": "Static Semantics:  LexicallyScopedDeclarations",
+        "id": "sec-arrow-function-definitions-static-semantics-lexicallyscopeddeclarations"
+    },
+    {
+        "text": "Static Semantics:  VarDeclaredNames",
+        "id": "sec-arrow-function-definitions-static-semantics-vardeclarednames"
+    },
+    {
+        "text": "Static Semantics:  VarScopedDeclarations",
+        "id": "sec-arrow-function-definitions-static-semantics-varscopeddeclarations"
+    },
+    {
+        "text": "Runtime Semantics: IteratorBindingInitialization",
+        "id": "sec-arrow-function-definitions-runtime-semantics-iteratorbindinginitialization"
+    },
+    {
+        "text": "Runtime Semantics: EvaluateBody",
+        "id": "sec-arrow-function-definitions-runtime-semantics-evaluatebody"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-arrow-function-definitions-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Definitions",
+        "id": "sec-method-definitions"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-method-definitions-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics:  ComputedPropertyContains",
+        "id": "sec-method-definitions-static-semantics-computedpropertycontains"
+    },
+    {
+        "text": "Static Semantics:  ExpectedArgumentCount",
+        "id": "sec-method-definitions-static-semantics-expectedargumentcount"
+    },
+    {
+        "text": "Static Semantics:  HasComputedPropertyKey",
+        "id": "sec-method-definitions-static-semantics-hascomputedpropertykey"
+    },
+    {
+        "text": "Static Semantics:  HasDirectSuper",
+        "id": "sec-method-definitions-static-semantics-hasdirectsuper"
+    },
+    {
+        "text": "Static Semantics:  PropName",
+        "id": "sec-method-definitions-static-semantics-propname"
+    },
+    {
+        "text": "Static Semantics:  SpecialMethod",
+        "id": "sec-static-semantics-specialmethod"
+    },
+    {
+        "text": "Runtime Semantics: DefineMethod",
+        "id": "sec-runtime-semantics-definemethod"
+    },
+    {
+        "text": "Runtime Semantics: PropertyDefinitionEvaluation",
+        "id": "sec-method-definitions-runtime-semantics-propertydefinitionevaluation"
+    },
+    {
+        "text": "Generator Function Definitions",
+        "id": "sec-generator-function-definitions"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-generator-function-definitions-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics:  BoundNames",
+        "id": "sec-generator-function-definitions-static-semantics-boundnames"
+    },
+    {
+        "text": "Static Semantics:  ComputedPropertyContains",
+        "id": "sec-generator-function-definitions-static-semantics-computedpropertycontains"
+    },
+    {
+        "text": "Static Semantics:  Contains",
+        "id": "sec-generator-function-definitions-static-semantics-contains"
+    },
+    {
+        "text": "Static Semantics:  HasComputedPropertyKey",
+        "id": "sec-generator-function-definitions-static-semantics-hascomputedpropertykey"
+    },
+    {
+        "text": "Static Semantics:  HasDirectSuper",
+        "id": "sec-generator-function-definitions-static-semantics-hasdirectsuper"
+    },
+    {
+        "text": "Static Semantics:  HasName",
+        "id": "sec-generator-function-definitions-static-semantics-hasname"
+    },
+    {
+        "text": "Static Semantics:  IsConstantDeclaration",
+        "id": "sec-generator-function-definitions-static-semantics-isconstantdeclaration"
+    },
+    {
+        "text": "Static Semantics:  IsFunctionDefinition",
+        "id": "sec-generator-function-definitions-static-semantics-isfunctiondefinition"
+    },
+    {
+        "text": "Static Semantics:  PropName",
+        "id": "sec-generator-function-definitions-static-semantics-propname"
+    },
+    {
+        "text": "Runtime Semantics: EvaluateBody",
+        "id": "sec-generator-function-definitions-runtime-semantics-evaluatebody"
+    },
+    {
+        "text": "Runtime Semantics: InstantiateFunctionObject",
+        "id": "sec-generator-function-definitions-runtime-semantics-instantiatefunctionobject"
+    },
+    {
+        "text": "Runtime Semantics: PropertyDefinitionEvaluation",
+        "id": "sec-generator-function-definitions-runtime-semantics-propertydefinitionevaluation"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-generator-function-definitions-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Definitions",
+        "id": "sec-class-definitions"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-class-definitions-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics:  BoundNames",
+        "id": "sec-class-definitions-static-semantics-boundnames"
+    },
+    {
+        "text": "Static Semantics:  ConstructorMethod",
+        "id": "sec-static-semantics-constructormethod"
+    },
+    {
+        "text": "Static Semantics:  Contains",
+        "id": "sec-class-definitions-static-semantics-contains"
+    },
+    {
+        "text": "Static Semantics:  ComputedPropertyContains",
+        "id": "sec-class-definitions-static-semantics-computedpropertycontains"
+    },
+    {
+        "text": "Static Semantics:  HasName",
+        "id": "sec-class-definitions-static-semantics-hasname"
+    },
+    {
+        "text": "Static Semantics:  IsConstantDeclaration",
+        "id": "sec-class-definitions-static-semantics-isconstantdeclaration"
+    },
+    {
+        "text": "Static Semantics:  IsFunctionDefinition",
+        "id": "sec-class-definitions-static-semantics-isfunctiondefinition"
+    },
+    {
+        "text": "Static Semantics:  IsStatic",
+        "id": "sec-static-semantics-isstatic"
+    },
+    {
+        "text": "Static Semantics:  NonConstructorMethodDefinitions",
+        "id": "sec-static-semantics-nonconstructormethoddefinitions"
+    },
+    {
+        "text": "Static Semantics:  PrototypePropertyNameList",
+        "id": "sec-static-semantics-prototypepropertynamelist"
+    },
+    {
+        "text": "Static Semantics:  PropName",
+        "id": "sec-class-definitions-static-semantics-propname"
+    },
+    {
+        "text": "Static Semantics:  StaticPropertyNameList",
+        "id": "sec-static-semantics-staticpropertynamelist"
+    },
+    {
+        "text": "Runtime Semantics: ClassDefinitionEvaluation",
+        "id": "sec-runtime-semantics-classdefinitionevaluation"
+    },
+    {
+        "text": "Runtime Semantics: BindingClassDeclarationEvaluation",
+        "id": "sec-runtime-semantics-bindingclassdeclarationevaluation"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-class-definitions-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Position Calls",
+        "id": "sec-tail-position-calls"
+    },
+    {
+        "text": "Static Semantics: IsInTailPosition(nonterminal)",
+        "id": "sec-isintailposition"
+    },
+    {
+        "text": "Static Semantics: HasProductionInTailPosition",
+        "id": "sec-static-semantics-hasproductionintailposition"
+    },
+    {
+        "text": "Statement Rules",
+        "id": "sec-statement-rules"
+    },
+    {
+        "text": "Expression Rules",
+        "id": "sec-expression-rules"
+    },
+    {
+        "text": "Runtime Semantics: PrepareForTailCall ( )",
+        "id": "sec-preparefortailcall"
+    },
+    {
+        "text": "ECMAScript Language: Scripts and Modules",
+        "id": "sec-ecmascript-language-scripts-and-modules"
+    },
+    {
+        "text": "Scripts",
+        "id": "sec-scripts"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-scripts-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics:  IsStrict",
+        "id": "sec-static-semantics-isstrict"
+    },
+    {
+        "text": "Static Semantics:  LexicallyDeclaredNames",
+        "id": "sec-scripts-static-semantics-lexicallydeclarednames"
+    },
+    {
+        "text": "Static Semantics:  LexicallyScopedDeclarations",
+        "id": "sec-scripts-static-semantics-lexicallyscopeddeclarations"
+    },
+    {
+        "text": "Static Semantics:  VarDeclaredNames",
+        "id": "sec-scripts-static-semantics-vardeclarednames"
+    },
+    {
+        "text": "Static Semantics:  VarScopedDeclarations",
+        "id": "sec-scripts-static-semantics-varscopeddeclarations"
+    },
+    {
+        "text": "Runtime Semantics: ScriptEvaluation",
+        "id": "sec-runtime-semantics-scriptevaluation"
+    },
+    {
+        "text": "Runtime Semantics: GlobalDeclarationInstantiation (script, env)",
+        "id": "sec-globaldeclarationinstantiation"
+    },
+    {
+        "text": "Runtime Semantics: ScriptEvaluationJob ( sourceText )",
+        "id": "sec-scriptevaluationjob"
+    },
+    {
+        "text": "Modules",
+        "id": "sec-modules"
+    },
+    {
+        "text": "Module Semantics",
+        "id": "sec-module-semantics"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-module-semantics-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics:  ContainsDuplicateLabels",
+        "id": "sec-module-semantics-static-semantics-containsduplicatelabels"
+    },
+    {
+        "text": "Static Semantics:  ContainsUndefinedBreakTarget",
+        "id": "sec-module-semantics-static-semantics-containsundefinedbreaktarget"
+    },
+    {
+        "text": "Static Semantics:  ContainsUndefinedContinueTarget",
+        "id": "sec-module-semantics-static-semantics-containsundefinedcontinuetarget"
+    },
+    {
+        "text": "Static Semantics:  ExportedBindings",
+        "id": "sec-module-semantics-static-semantics-exportedbindings"
+    },
+    {
+        "text": "Static Semantics:  ExportedNames",
+        "id": "sec-module-semantics-static-semantics-exportednames"
+    },
+    {
+        "text": "Static Semantics:  ExportEntries",
+        "id": "sec-module-semantics-static-semantics-exportentries"
+    },
+    {
+        "text": "Static Semantics:  ImportEntries",
+        "id": "sec-module-semantics-static-semantics-importentries"
+    },
+    {
+        "text": "Static Semantics:  ImportedLocalNames ( importEntries )",
+        "id": "sec-importedlocalnames"
+    },
+    {
+        "text": "Static Semantics:  ModuleRequests",
+        "id": "sec-module-semantics-static-semantics-modulerequests"
+    },
+    {
+        "text": "Static Semantics:  LexicallyDeclaredNames",
+        "id": "sec-module-semantics-static-semantics-lexicallydeclarednames"
+    },
+    {
+        "text": "Static Semantics:  LexicallyScopedDeclarations",
+        "id": "sec-module-semantics-static-semantics-lexicallyscopeddeclarations"
+    },
+    {
+        "text": "Static Semantics:  VarDeclaredNames",
+        "id": "sec-module-semantics-static-semantics-vardeclarednames"
+    },
+    {
+        "text": "Static Semantics:  VarScopedDeclarations",
+        "id": "sec-module-semantics-static-semantics-varscopeddeclarations"
+    },
+    {
+        "text": "Abstract Module Records",
+        "id": "sec-abstract-module-records"
+    },
+    {
+        "text": "Source Text Module Records",
+        "id": "sec-source-text-module-records"
+    },
+    {
+        "text": "Runtime Semantics: ParseModule ( sourceText )",
+        "id": "sec-parsemodule"
+    },
+    {
+        "text": "GetExportedNames( exportStarSet ) Concrete Method",
+        "id": "sec-getexportednames"
+    },
+    {
+        "text": "Method",
+        "id": "sec-resolveexport"
+    },
+    {
+        "text": "ModuleDeclarationInstantiation( ) Concrete Method",
+        "id": "sec-moduledeclarationinstantiation"
+    },
+    {
+        "text": "ModuleEvaluation() Concrete Method",
+        "id": "sec-moduleevaluation"
+    },
+    {
+        "text": "specifier )",
+        "id": "sec-hostresolveimportedmodule"
+    },
+    {
+        "text": "Runtime Semantics: GetModuleNamespace( module )",
+        "id": "sec-getmodulenamespace"
+    },
+    {
+        "text": "Runtime Semantics: TopLevelModuleEvaluationJob ( sourceText)",
+        "id": "sec-toplevelmoduleevaluationjob"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-module-semantics-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Imports",
+        "id": "sec-imports"
+    },
+    {
+        "text": "Static Semantics: Early Errors",
+        "id": "sec-imports-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics: BoundNames",
+        "id": "sec-imports-static-semantics-boundnames"
+    },
+    {
+        "text": "Static Semantics: ImportEntries",
+        "id": "sec-imports-static-semantics-importentries"
+    },
+    {
+        "text": "Static Semantics: ImportEntriesForModule",
+        "id": "sec-static-semantics-importentriesformodule"
+    },
+    {
+        "text": "Static Semantics: ModuleRequests",
+        "id": "sec-imports-static-semantics-modulerequests"
+    },
+    {
+        "text": "Exports",
+        "id": "sec-exports"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-exports-static-semantics-early-errors"
+    },
+    {
+        "text": "Static Semantics: BoundNames",
+        "id": "sec-exports-static-semantics-boundnames"
+    },
+    {
+        "text": "Static Semantics:  ExportedBindings",
+        "id": "sec-exports-static-semantics-exportedbindings"
+    },
+    {
+        "text": "Static Semantics:  ExportedNames",
+        "id": "sec-exports-static-semantics-exportednames"
+    },
+    {
+        "text": "Static Semantics:  ExportEntries",
+        "id": "sec-exports-static-semantics-exportentries"
+    },
+    {
+        "text": "Static Semantics: ExportEntriesForModule",
+        "id": "sec-static-semantics-exportentriesformodule"
+    },
+    {
+        "text": "Static Semantics:  IsConstantDeclaration",
+        "id": "sec-exports-static-semantics-isconstantdeclaration"
+    },
+    {
+        "text": "Static Semantics:  LexicallyScopedDeclarations",
+        "id": "sec-exports-static-semantics-lexicallyscopeddeclarations"
+    },
+    {
+        "text": "Static Semantics: ModuleRequests",
+        "id": "sec-exports-static-semantics-modulerequests"
+    },
+    {
+        "text": "Static Semantics:  ReferencedBindings",
+        "id": "sec-static-semantics-referencedbindings"
+    },
+    {
+        "text": "Runtime Semantics: Evaluation",
+        "id": "sec-exports-runtime-semantics-evaluation"
+    },
+    {
+        "text": "Error Handling and Language Extensions",
+        "id": "sec-error-handling-and-language-extensions"
+    },
+    {
+        "text": "Forbidden Extensions",
+        "id": "sec-forbidden-extensions"
+    },
+    {
+        "text": "ECMAScript Standard Built-in Objects",
+        "id": "sec-ecmascript-standard-built-in-objects"
+    },
+    {
+        "text": "Object",
+        "id": "sec-global-object"
+    },
+    {
+        "text": "Value Properties of the Global Object",
+        "id": "sec-value-properties-of-the-global-object"
+    },
+    {
+        "text": "Infinity",
+        "id": "sec-value-properties-of-the-global-object-infinity"
+    },
+    {
+        "text": "NaN",
+        "id": "sec-value-properties-of-the-global-object-nan"
+    },
+    {
+        "text": "undefined",
+        "id": "sec-undefined"
+    },
+    {
+        "text": "Function Properties of the Global Object",
+        "id": "sec-function-properties-of-the-global-object"
+    },
+    {
+        "text": "(x)",
+        "id": "sec-eval-x"
+    },
+    {
+        "text": "Runtime Semantics: PerformEval( x, evalRealm, strictCaller, direct)",
+        "id": "sec-performeval"
+    },
+    {
+        "text": "lexEnv, strict)",
+        "id": "sec-evaldeclarationinstantiation"
+    },
+    {
+        "text": "isFinite (number)",
+        "id": "sec-isfinite-number"
+    },
+    {
+        "text": "(number)",
+        "id": "sec-isnan-number"
+    },
+    {
+        "text": "parseFloat (string)",
+        "id": "sec-parsefloat-string"
+    },
+    {
+        "text": "parseInt (string , radix)",
+        "id": "sec-parseint-string-radix"
+    },
+    {
+        "text": "URI Handling Functions",
+        "id": "sec-uri-handling-functions"
+    },
+    {
+        "text": "URI Syntax and Semantics",
+        "id": "sec-uri-syntax-and-semantics"
+    },
+    {
+        "text": "Runtime Semantics: Encode ( string, unescapedSet )",
+        "id": "sec-encode"
+    },
+    {
+        "text": "Runtime Semantics: Decode ( string, reservedSet )",
+        "id": "sec-decode"
+    },
+    {
+        "text": "decodeURI (encodedURI)",
+        "id": "sec-decodeuri-encodeduri"
+    },
+    {
+        "text": "decodeURIComponent (encodedURIComponent)",
+        "id": "sec-decodeuricomponent-encodeduricomponent"
+    },
+    {
+        "text": "encodeURI (uri)",
+        "id": "sec-encodeuri-uri"
+    },
+    {
+        "text": "encodeURIComponent (uriComponent)",
+        "id": "sec-encodeuricomponent-uricomponent"
+    },
+    {
+        "text": "Constructor Properties of the Global Object",
+        "id": "sec-constructor-properties-of-the-global-object"
+    },
+    {
+        "text": "Array ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-array"
+    },
+    {
+        "text": "ArrayBuffer ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-arraybuffer"
+    },
+    {
+        "text": "Boolean ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-boolean"
+    },
+    {
+        "text": "DataView ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-dataview"
+    },
+    {
+        "text": "Date ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-date"
+    },
+    {
+        "text": "Error ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-error"
+    },
+    {
+        "text": "EvalError ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-evalerror"
+    },
+    {
+        "text": "Float32Array ( . . . )",
+        "id": "sec-float32array"
+    },
+    {
+        "text": "Float64Array ( . . . )",
+        "id": "sec-float64array"
+    },
+    {
+        "text": "Function ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-function"
+    },
+    {
+        "text": "( . . . )",
+        "id": "sec-int8array"
+    },
+    {
+        "text": "Int16Array ( . . . )",
+        "id": "sec-int16array"
+    },
+    {
+        "text": "Int32Array ( . . . )",
+        "id": "sec-int32array"
+    },
+    {
+        "text": ")",
+        "id": "sec-map"
+    },
+    {
+        "text": "Number ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-number"
+    },
+    {
+        "text": "Object ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-object"
+    },
+    {
+        "text": "Proxy ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-proxy"
+    },
+    {
+        "text": "Promise ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-promise"
+    },
+    {
+        "text": "RangeError ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-rangeerror"
+    },
+    {
+        "text": "ReferenceError ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-referenceerror"
+    },
+    {
+        "text": "RegExp ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-regexp"
+    },
+    {
+        "text": ")",
+        "id": "sec-set"
+    },
+    {
+        "text": "String ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-string"
+    },
+    {
+        "text": "Symbol ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-symbol"
+    },
+    {
+        "text": "SyntaxError ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-syntaxerror"
+    },
+    {
+        "text": "TypeError ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-typeerror"
+    },
+    {
+        "text": "Uint8Array ( . . . )",
+        "id": "sec-uint8array"
+    },
+    {
+        "text": "Uint8ClampedArray ( . . . )",
+        "id": "sec-uint8clampedarray"
+    },
+    {
+        "text": "Uint16Array ( . . . )",
+        "id": "sec-uint16array"
+    },
+    {
+        "text": "Uint32Array ( . . . )",
+        "id": "sec-uint32array"
+    },
+    {
+        "text": "URIError ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-urierror"
+    },
+    {
+        "text": "WeakMap ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-weakmap"
+    },
+    {
+        "text": "WeakSet ( . . . )",
+        "id": "sec-constructor-properties-of-the-global-object-weakset"
+    },
+    {
+        "text": "Other Properties of the Global Object",
+        "id": "sec-other-properties-of-the-global-object"
+    },
+    {
+        "text": "JSON",
+        "id": "sec-json"
+    },
+    {
+        "text": "Math",
+        "id": "sec-math"
+    },
+    {
+        "text": "Reflect",
+        "id": "sec-reflect"
+    },
+    {
+        "text": "Objects",
+        "id": "sec-fundamental-objects"
+    },
+    {
+        "text": "Objects",
+        "id": "sec-object-objects"
+    },
+    {
+        "text": "The Object Constructor",
+        "id": "sec-object-constructor"
+    },
+    {
+        "text": "Object ( [ value ] )",
+        "id": "sec-object-value"
+    },
+    {
+        "text": "Properties of the Object Constructor",
+        "id": "sec-properties-of-the-object-constructor"
+    },
+    {
+        "text": "Object.assign ( target, ...sources )",
+        "id": "sec-object.assign"
+    },
+    {
+        "text": "Object.create ( O [ , Properties ] )",
+        "id": "sec-object.create"
+    },
+    {
+        "text": "Object.defineProperties ( O, Properties )",
+        "id": "sec-object.defineproperties"
+    },
+    {
+        "text": "Runtime Semantics: ObjectDefineProperties ( O, Properties )",
+        "id": "sec-objectdefineproperties"
+    },
+    {
+        "text": "Object.defineProperty ( O, P, Attributes )",
+        "id": "sec-object.defineproperty"
+    },
+    {
+        "text": "Object.freeze ( O )",
+        "id": "sec-object.freeze"
+    },
+    {
+        "text": "Object.getOwnPropertyDescriptor ( O, P )",
+        "id": "sec-object.getownpropertydescriptor"
+    },
+    {
+        "text": "Object.getOwnPropertyNames ( O )",
+        "id": "sec-object.getownpropertynames"
+    },
+    {
+        "text": "Object.getOwnPropertySymbols ( O )",
+        "id": "sec-object.getownpropertysymbols"
+    },
+    {
+        "text": "Runtime Semantics:  GetOwnPropertyKeys ( O, Type )",
+        "id": "sec-getownpropertykeys"
+    },
+    {
+        "text": "Object.getPrototypeOf ( O )",
+        "id": "sec-object.getprototypeof"
+    },
+    {
+        "text": "Object.is ( value1, value2 )",
+        "id": "sec-object.is"
+    },
+    {
+        "text": "Object.isExtensible ( O )",
+        "id": "sec-object.isextensible"
+    },
+    {
+        "text": "Object.isFrozen ( O )",
+        "id": "sec-object.isfrozen"
+    },
+    {
+        "text": "Object.isSealed ( O )",
+        "id": "sec-object.issealed"
+    },
+    {
+        "text": "Object.keys ( O )",
+        "id": "sec-object.keys"
+    },
+    {
+        "text": "Object.preventExtensions ( O )",
+        "id": "sec-object.preventextensions"
+    },
+    {
+        "text": "Object.prototype",
+        "id": "sec-object.prototype"
+    },
+    {
+        "text": "Object.seal ( O )",
+        "id": "sec-object.seal"
+    },
+    {
+        "text": "Object.setPrototypeOf ( O, proto )",
+        "id": "sec-object.setprototypeof"
+    },
+    {
+        "text": "Properties of the Object Prototype Object",
+        "id": "sec-properties-of-the-object-prototype-object"
+    },
+    {
+        "text": "Object.prototype.constructor",
+        "id": "sec-object.prototype.constructor"
+    },
+    {
+        "text": "Object.prototype.hasOwnProperty ( V )",
+        "id": "sec-object.prototype.hasownproperty"
+    },
+    {
+        "text": "Object.prototype.isPrototypeOf ( V )",
+        "id": "sec-object.prototype.isprototypeof"
+    },
+    {
+        "text": "Object.prototype.propertyIsEnumerable ( V )",
+        "id": "sec-object.prototype.propertyisenumerable"
+    },
+    {
+        "text": ")",
+        "id": "sec-object.prototype.tolocalestring"
+    },
+    {
+        "text": "Object.prototype.toString ( )",
+        "id": "sec-object.prototype.tostring"
+    },
+    {
+        "text": "Object.prototype.valueOf ( )",
+        "id": "sec-object.prototype.valueof"
+    },
+    {
+        "text": "Properties of Object Instances",
+        "id": "sec-properties-of-object-instances"
+    },
+    {
+        "text": "Objects",
+        "id": "sec-function-objects"
+    },
+    {
+        "text": "The Function Constructor",
+        "id": "sec-function-constructor"
+    },
+    {
+        "text": "Function ( p1, p2, … , pn, body )",
+        "id": "sec-function-p1-p2-pn-body"
+    },
+    {
+        "text": "kind, args)",
+        "id": "sec-createdynamicfunction"
+    },
+    {
+        "text": "Properties of the Function Constructor",
+        "id": "sec-properties-of-the-function-constructor"
+    },
+    {
+        "text": "Function.length",
+        "id": "sec-function.length"
+    },
+    {
+        "text": "Function.prototype",
+        "id": "sec-function.prototype"
+    },
+    {
+        "text": "Properties of the Function Prototype Object",
+        "id": "sec-properties-of-the-function-prototype-object"
+    },
+    {
+        "text": "Function.prototype.apply ( thisArg, argArray )",
+        "id": "sec-function.prototype.apply"
+    },
+    {
+        "text": "Function.prototype.bind ( thisArg , ...args)",
+        "id": "sec-function.prototype.bind"
+    },
+    {
+        "text": "Function.prototype.call (thisArg , ...args)",
+        "id": "sec-function.prototype.call"
+    },
+    {
+        "text": "Function.prototype.constructor",
+        "id": "sec-function.prototype.constructor"
+    },
+    {
+        "text": "Function.prototype.toString ( )",
+        "id": "sec-function.prototype.tostring"
+    },
+    {
+        "text": "Function.prototype[@@hasInstance] ( V )",
+        "id": "sec-function.prototype-@@hasinstance"
+    },
+    {
+        "text": "Function Instances",
+        "id": "sec-function-instances"
+    },
+    {
+        "text": "length",
+        "id": "sec-function-instances-length"
+    },
+    {
+        "text": "name",
+        "id": "sec-function-instances-name"
+    },
+    {
+        "text": "prototype",
+        "id": "sec-function-instances-prototype"
+    },
+    {
+        "text": "Objects",
+        "id": "sec-boolean-objects"
+    },
+    {
+        "text": "The Boolean Constructor",
+        "id": "sec-boolean-constructor"
+    },
+    {
+        "text": "Boolean ( value )",
+        "id": "sec-boolean-constructor-boolean-value"
+    },
+    {
+        "text": "Properties of the Boolean Constructor",
+        "id": "sec-properties-of-the-boolean-constructor"
+    },
+    {
+        "text": "Boolean.prototype",
+        "id": "sec-boolean.prototype"
+    },
+    {
+        "text": "Properties of the Boolean Prototype Object",
+        "id": "sec-properties-of-the-boolean-prototype-object"
+    },
+    {
+        "text": "Boolean.prototype.constructor",
+        "id": "sec-boolean.prototype.constructor"
+    },
+    {
+        "text": "Boolean.prototype.toString ( )",
+        "id": "sec-boolean.prototype.tostring"
+    },
+    {
+        "text": "Boolean.prototype.valueOf ( )",
+        "id": "sec-boolean.prototype.valueof"
+    },
+    {
+        "text": "Properties of Boolean Instances",
+        "id": "sec-properties-of-boolean-instances"
+    },
+    {
+        "text": "Objects",
+        "id": "sec-symbol-objects"
+    },
+    {
+        "text": "The Symbol Constructor",
+        "id": "sec-symbol-constructor"
+    },
+    {
+        "text": "Symbol ( [ description ] )",
+        "id": "sec-symbol-description"
+    },
+    {
+        "text": "Properties of the Symbol Constructor",
+        "id": "sec-properties-of-the-symbol-constructor"
+    },
+    {
+        "text": "Symbol.for ( key )",
+        "id": "sec-symbol.for"
+    },
+    {
+        "text": "Symbol.hasInstance",
+        "id": "sec-symbol.hasinstance"
+    },
+    {
+        "text": "Symbol.isConcatSpreadable",
+        "id": "sec-symbol.isconcatspreadable"
+    },
+    {
+        "text": "Symbol.iterator",
+        "id": "sec-symbol.iterator"
+    },
+    {
+        "text": "Symbol.keyFor ( sym )",
+        "id": "sec-symbol.keyfor"
+    },
+    {
+        "text": "Symbol.match",
+        "id": "sec-symbol.match"
+    },
+    {
+        "text": "Symbol.prototype",
+        "id": "sec-symbol.prototype"
+    },
+    {
+        "text": "Symbol.replace",
+        "id": "sec-symbol.replace"
+    },
+    {
+        "text": "Symbol.search",
+        "id": "sec-symbol.search"
+    },
+    {
+        "text": "Symbol.species",
+        "id": "sec-symbol.species"
+    },
+    {
+        "text": "Symbol.split",
+        "id": "sec-symbol.split"
+    },
+    {
+        "text": "Symbol.toPrimitive",
+        "id": "sec-symbol.toprimitive"
+    },
+    {
+        "text": "Symbol.toStringTag",
+        "id": "sec-symbol.tostringtag"
+    },
+    {
+        "text": "Symbol.unscopables",
+        "id": "sec-symbol.unscopables"
+    },
+    {
+        "text": "Properties of the Symbol Prototype Object",
+        "id": "sec-properties-of-the-symbol-prototype-object"
+    },
+    {
+        "text": "Symbol.prototype.constructor",
+        "id": "sec-symbol.prototype.constructor"
+    },
+    {
+        "text": "Symbol.prototype.toString ( )",
+        "id": "sec-symbol.prototype.tostring"
+    },
+    {
+        "text": "Runtime Semantics:  SymbolDescriptiveString ( sym )",
+        "id": "sec-symboldescriptivestring"
+    },
+    {
+        "text": "Symbol.prototype.valueOf ( )",
+        "id": "sec-symbol.prototype.valueof"
+    },
+    {
+        "text": "Symbol.prototype [ @@toPrimitive ] ( hint )",
+        "id": "sec-symbol.prototype-@@toprimitive"
+    },
+    {
+        "text": "Symbol.prototype [ @@toStringTag ]",
+        "id": "sec-symbol.prototype-@@tostringtag"
+    },
+    {
+        "text": "Properties of Symbol Instances",
+        "id": "sec-properties-of-symbol-instances"
+    },
+    {
+        "text": "Objects",
+        "id": "sec-error-objects"
+    },
+    {
+        "text": "The Error Constructor",
+        "id": "sec-error-constructor"
+    },
+    {
+        "text": "Error ( message )",
+        "id": "sec-error-message"
+    },
+    {
+        "text": "Properties of the Error Constructor",
+        "id": "sec-properties-of-the-error-constructor"
+    },
+    {
+        "text": "Error.prototype",
+        "id": "sec-error.prototype"
+    },
+    {
+        "text": "Properties of the Error Prototype Object",
+        "id": "sec-properties-of-the-error-prototype-object"
+    },
+    {
+        "text": "Error.prototype.constructor",
+        "id": "sec-error.prototype.constructor"
+    },
+    {
+        "text": "Error.prototype.message",
+        "id": "sec-error.prototype.message"
+    },
+    {
+        "text": "Error.prototype.name",
+        "id": "sec-error.prototype.name"
+    },
+    {
+        "text": "Error.prototype.toString ( )",
+        "id": "sec-error.prototype.tostring"
+    },
+    {
+        "text": "Properties of Error Instances",
+        "id": "sec-properties-of-error-instances"
+    },
+    {
+        "text": "Native Error Types Used in This Standard",
+        "id": "sec-native-error-types-used-in-this-standard"
+    },
+    {
+        "text": "EvalError",
+        "id": "sec-native-error-types-used-in-this-standard-evalerror"
+    },
+    {
+        "text": "RangeError",
+        "id": "sec-native-error-types-used-in-this-standard-rangeerror"
+    },
+    {
+        "text": "ReferenceError",
+        "id": "sec-native-error-types-used-in-this-standard-referenceerror"
+    },
+    {
+        "text": "SyntaxError",
+        "id": "sec-native-error-types-used-in-this-standard-syntaxerror"
+    },
+    {
+        "text": "TypeError",
+        "id": "sec-native-error-types-used-in-this-standard-typeerror"
+    },
+    {
+        "text": "URIError",
+        "id": "sec-native-error-types-used-in-this-standard-urierror"
+    },
+    {
+        "text": "NativeError ( message )",
+        "id": "sec-nativeerror"
+    },
+    {
+        "text": "Properties of the",
+        "id": "sec-properties-of-the-nativeerror-constructors"
+    },
+    {
+        "text": "NativeError.prototype",
+        "id": "sec-nativeerror.prototype"
+    },
+    {
+        "text": "Properties of the",
+        "id": "sec-properties-of-the-nativeerror-prototype-objects"
+    },
+    {
+        "text": "Properties of",
+        "id": "sec-properties-of-nativeerror-instances"
+    },
+    {
+        "text": "Dates",
+        "id": "sec-numbers-and-dates"
+    },
+    {
+        "text": "Objects",
+        "id": "sec-number-objects"
+    },
+    {
+        "text": "The Number Constructor",
+        "id": "sec-number-constructor"
+    },
+    {
+        "text": "Number ( [ value ] )",
+        "id": "sec-number-constructor-number-value"
+    },
+    {
+        "text": "Properties of the Number Constructor",
+        "id": "sec-properties-of-the-number-constructor"
+    },
+    {
+        "text": "Number.EPSILON",
+        "id": "sec-number.epsilon"
+    },
+    {
+        "text": "Number.isFinite ( number )",
+        "id": "sec-number.isfinite"
+    },
+    {
+        "text": "Number.isInteger ( number )",
+        "id": "sec-number.isinteger"
+    },
+    {
+        "text": "Number.isNaN ( number )",
+        "id": "sec-number.isnan"
+    },
+    {
+        "text": "Number.isSafeInteger ( number )",
+        "id": "sec-number.issafeinteger"
+    },
+    {
+        "text": "Number.MAX_SAFE_INTEGER",
+        "id": "sec-number.max_safe_integer"
+    },
+    {
+        "text": "Number.MAX_VALUE",
+        "id": "sec-number.max_value"
+    },
+    {
+        "text": "Number.MIN_SAFE_INTEGER",
+        "id": "sec-number.min_safe_integer"
+    },
+    {
+        "text": "Number.MIN_VALUE",
+        "id": "sec-number.min_value"
+    },
+    {
+        "text": "Number.NaN",
+        "id": "sec-number.nan"
+    },
+    {
+        "text": "Number.NEGATIVE_INFINITY",
+        "id": "sec-number.negative_infinity"
+    },
+    {
+        "text": "Number.parseFloat ( string )",
+        "id": "sec-number.parsefloat"
+    },
+    {
+        "text": "Number.parseInt ( string, radix )",
+        "id": "sec-number.parseint"
+    },
+    {
+        "text": "Number.POSITIVE_INFINITY",
+        "id": "sec-number.positive_infinity"
+    },
+    {
+        "text": "Number.prototype",
+        "id": "sec-number.prototype"
+    },
+    {
+        "text": "Properties of the Number Prototype Object",
+        "id": "sec-properties-of-the-number-prototype-object"
+    },
+    {
+        "text": "Number.prototype.constructor",
+        "id": "sec-number.prototype.constructor"
+    },
+    {
+        "text": "Number.prototype.toExponential ( fractionDigits )",
+        "id": "sec-number.prototype.toexponential"
+    },
+    {
+        "text": "Number.prototype.toFixed ( fractionDigits )",
+        "id": "sec-number.prototype.tofixed"
+    },
+    {
+        "text": "Number.prototype.toLocaleString( [ reserved1 [ , reserved2 ] ])",
+        "id": "sec-number.prototype.tolocalestring"
+    },
+    {
+        "text": "Number.prototype.toPrecision ( precision )",
+        "id": "sec-number.prototype.toprecision"
+    },
+    {
+        "text": "Number.prototype.toString ( [ radix ] )",
+        "id": "sec-number.prototype.tostring"
+    },
+    {
+        "text": "Number.prototype.valueOf ( )",
+        "id": "sec-number.prototype.valueof"
+    },
+    {
+        "text": "Properties of Number Instances",
+        "id": "sec-properties-of-number-instances"
+    },
+    {
+        "text": "Object",
+        "id": "sec-math-object"
+    },
+    {
+        "text": "Value Properties of the Math Object",
+        "id": "sec-value-properties-of-the-math-object"
+    },
+    {
+        "text": "Math.E",
+        "id": "sec-math.e"
+    },
+    {
+        "text": "Math.LN10",
+        "id": "sec-math.ln10"
+    },
+    {
+        "text": "Math.LN2",
+        "id": "sec-math.ln2"
+    },
+    {
+        "text": "Math.LOG10E",
+        "id": "sec-math.log10e"
+    },
+    {
+        "text": "Math.LOG2E",
+        "id": "sec-math.log2e"
+    },
+    {
+        "text": "Math.PI",
+        "id": "sec-math.pi"
+    },
+    {
+        "text": "Math.SQRT1_2",
+        "id": "sec-math.sqrt1_2"
+    },
+    {
+        "text": "Math.SQRT2",
+        "id": "sec-math.sqrt2"
+    },
+    {
+        "text": "Math [ @@toStringTag ]",
+        "id": "sec-math-@@tostringtag"
+    },
+    {
+        "text": "Function Properties of the Math Object",
+        "id": "sec-function-properties-of-the-math-object"
+    },
+    {
+        "text": "Math.abs ( x )",
+        "id": "sec-math.abs"
+    },
+    {
+        "text": "Math.acos ( x )",
+        "id": "sec-math.acos"
+    },
+    {
+        "text": "Math.acosh( x )",
+        "id": "sec-math.acosh"
+    },
+    {
+        "text": "Math.asin ( x )",
+        "id": "sec-math.asin"
+    },
+    {
+        "text": "Math.asinh( x )",
+        "id": "sec-math.asinh"
+    },
+    {
+        "text": "Math.atan ( x )",
+        "id": "sec-math.atan"
+    },
+    {
+        "text": "Math.atanh( x )",
+        "id": "sec-math.atanh"
+    },
+    {
+        "text": "Math.atan2 ( y, x )",
+        "id": "sec-math.atan2"
+    },
+    {
+        "text": "Math.cbrt ( x )",
+        "id": "sec-math.cbrt"
+    },
+    {
+        "text": "Math.ceil ( x )",
+        "id": "sec-math.ceil"
+    },
+    {
+        "text": "Math.clz32 ( x )",
+        "id": "sec-math.clz32"
+    },
+    {
+        "text": "Math.cos ( x )",
+        "id": "sec-math.cos"
+    },
+    {
+        "text": "Math.cosh ( x )",
+        "id": "sec-math.cosh"
+    },
+    {
+        "text": "Math.exp ( x )",
+        "id": "sec-math.exp"
+    },
+    {
+        "text": "Math.expm1 ( x )",
+        "id": "sec-math.expm1"
+    },
+    {
+        "text": "Math.floor ( x )",
+        "id": "sec-math.floor"
+    },
+    {
+        "text": "Math.fround ( x )",
+        "id": "sec-math.fround"
+    },
+    {
+        "text": "Math.hypot ( value1 , value2 , …values )",
+        "id": "sec-math.hypot"
+    },
+    {
+        "text": "Math.imul ( x, y )",
+        "id": "sec-math.imul"
+    },
+    {
+        "text": "Math.log ( x )",
+        "id": "sec-math.log"
+    },
+    {
+        "text": "Math.log1p ( x )",
+        "id": "sec-math.log1p"
+    },
+    {
+        "text": "Math.log10 ( x )",
+        "id": "sec-math.log10"
+    },
+    {
+        "text": "Math.log2 ( x )",
+        "id": "sec-math.log2"
+    },
+    {
+        "text": "Math.max ( value1, value2  , …values  )",
+        "id": "sec-math.max"
+    },
+    {
+        "text": "Math.min ( value1, value2  , …values  )",
+        "id": "sec-math.min"
+    },
+    {
+        "text": "Math.pow ( x, y )",
+        "id": "sec-math.pow"
+    },
+    {
+        "text": "Math.random ( )",
+        "id": "sec-math.random"
+    },
+    {
+        "text": "Math.round ( x )",
+        "id": "sec-math.round"
+    },
+    {
+        "text": "Math.sign(x)",
+        "id": "sec-math.sign"
+    },
+    {
+        "text": "Math.sin ( x )",
+        "id": "sec-math.sin"
+    },
+    {
+        "text": "Math.sinh( x )",
+        "id": "sec-math.sinh"
+    },
+    {
+        "text": "Math.sqrt ( x )",
+        "id": "sec-math.sqrt"
+    },
+    {
+        "text": "Math.tan ( x )",
+        "id": "sec-math.tan"
+    },
+    {
+        "text": "Math.tanh ( x )",
+        "id": "sec-math.tanh"
+    },
+    {
+        "text": "Math.trunc ( x )",
+        "id": "sec-math.trunc"
+    },
+    {
+        "text": "Objects",
+        "id": "sec-date-objects"
+    },
+    {
+        "text": "Overview of Date Objects and Definitions of Abstract Operations",
+        "id": "sec-overview-of-date-objects-and-definitions-of-abstract-operations"
+    },
+    {
+        "text": "Time Values and Time Range",
+        "id": "sec-time-values-and-time-range"
+    },
+    {
+        "text": "Day Number and Time within Day",
+        "id": "sec-day-number-and-time-within-day"
+    },
+    {
+        "text": "Year Number",
+        "id": "sec-year-number"
+    },
+    {
+        "text": "Month Number",
+        "id": "sec-month-number"
+    },
+    {
+        "text": "Date Number",
+        "id": "sec-date-number"
+    },
+    {
+        "text": "Day",
+        "id": "sec-week-day"
+    },
+    {
+        "text": "Local Time Zone Adjustment",
+        "id": "sec-local-time-zone-adjustment"
+    },
+    {
+        "text": "Daylight Saving Time Adjustment",
+        "id": "sec-daylight-saving-time-adjustment"
+    },
+    {
+        "text": "LocalTime ( t )",
+        "id": "sec-localtime"
+    },
+    {
+        "text": ")",
+        "id": "sec-utc-t"
+    },
+    {
+        "text": "Hours, Minutes, Second, and Milliseconds",
+        "id": "sec-hours-minutes-second-and-milliseconds"
+    },
+    {
+        "text": "MakeTime (hour, min, sec, ms)",
+        "id": "sec-maketime"
+    },
+    {
+        "text": "MakeDay (year, month, date)",
+        "id": "sec-makeday"
+    },
+    {
+        "text": "MakeDate (day, time)",
+        "id": "sec-makedate"
+    },
+    {
+        "text": "TimeClip (time)",
+        "id": "sec-timeclip"
+    },
+    {
+        "text": "Date Time String Format",
+        "id": "sec-date-time-string-format"
+    },
+    {
+        "text": "Extended years",
+        "id": "sec-extended-years"
+    },
+    {
+        "text": "The Date Constructor",
+        "id": "sec-date-constructor"
+    },
+    {
+        "text": "] ] ] ] )",
+        "id": "sec-date-year-month-date-hours-minutes-seconds-ms"
+    },
+    {
+        "text": "( value )",
+        "id": "sec-date-value"
+    },
+    {
+        "text": "Date ( )",
+        "id": "sec-date-constructor-date"
+    },
+    {
+        "text": "Properties of the Date Constructor",
+        "id": "sec-properties-of-the-date-constructor"
+    },
+    {
+        "text": "Date.now ( )",
+        "id": "sec-date.now"
+    },
+    {
+        "text": "Date.parse ( string )",
+        "id": "sec-date.parse"
+    },
+    {
+        "text": "Date.prototype",
+        "id": "sec-date.prototype"
+    },
+    {
+        "text": "Date.UTC ( year, month [ , date [ , hours [ , minutes [ , seconds [ , ms ] ] ] ] ] )",
+        "id": "sec-date.utc"
+    },
+    {
+        "text": "Properties of the Date Prototype Object",
+        "id": "sec-properties-of-the-date-prototype-object"
+    },
+    {
+        "text": "Date.prototype.constructor",
+        "id": "sec-date.prototype.constructor"
+    },
+    {
+        "text": "Date.prototype.getDate ( )",
+        "id": "sec-date.prototype.getdate"
+    },
+    {
+        "text": "Date.prototype.getDay ( )",
+        "id": "sec-date.prototype.getday"
+    },
+    {
+        "text": "Date.prototype.getFullYear ( )",
+        "id": "sec-date.prototype.getfullyear"
+    },
+    {
+        "text": "Date.prototype.getHours ( )",
+        "id": "sec-date.prototype.gethours"
+    },
+    {
+        "text": "Date.prototype.getMilliseconds ( )",
+        "id": "sec-date.prototype.getmilliseconds"
+    },
+    {
+        "text": "Date.prototype.getMinutes ( )",
+        "id": "sec-date.prototype.getminutes"
+    },
+    {
+        "text": "Date.prototype.getMonth ( )",
+        "id": "sec-date.prototype.getmonth"
+    },
+    {
+        "text": "Date.prototype.getSeconds ( )",
+        "id": "sec-date.prototype.getseconds"
+    },
+    {
+        "text": "Date.prototype.getTime ( )",
+        "id": "sec-date.prototype.gettime"
+    },
+    {
+        "text": "Date.prototype.getTimezoneOffset ( )",
+        "id": "sec-date.prototype.gettimezoneoffset"
+    },
+    {
+        "text": "Date.prototype.getUTCDate ( )",
+        "id": "sec-date.prototype.getutcdate"
+    },
+    {
+        "text": "Date.prototype.getUTCDay ( )",
+        "id": "sec-date.prototype.getutcday"
+    },
+    {
+        "text": "Date.prototype.getUTCFullYear ( )",
+        "id": "sec-date.prototype.getutcfullyear"
+    },
+    {
+        "text": "Date.prototype.getUTCHours ( )",
+        "id": "sec-date.prototype.getutchours"
+    },
+    {
+        "text": "Date.prototype.getUTCMilliseconds ( )",
+        "id": "sec-date.prototype.getutcmilliseconds"
+    },
+    {
+        "text": "Date.prototype.getUTCMinutes ( )",
+        "id": "sec-date.prototype.getutcminutes"
+    },
+    {
+        "text": "Date.prototype.getUTCMonth ( )",
+        "id": "sec-date.prototype.getutcmonth"
+    },
+    {
+        "text": "Date.prototype.getUTCSeconds ( )",
+        "id": "sec-date.prototype.getutcseconds"
+    },
+    {
+        "text": "Date.prototype.setDate ( date )",
+        "id": "sec-date.prototype.setdate"
+    },
+    {
+        "text": "Date.prototype.setFullYear ( year [ , month [ , date ] ] )",
+        "id": "sec-date.prototype.setfullyear"
+    },
+    {
+        "text": "Date.prototype.setHours ( hour [ , min [ , sec [ , ms ] ] ] )",
+        "id": "sec-date.prototype.sethours"
+    },
+    {
+        "text": "Date.prototype.setMilliseconds ( ms )",
+        "id": "sec-date.prototype.setmilliseconds"
+    },
+    {
+        "text": "Date.prototype.setMinutes ( min [ , sec [ , ms ] ] )",
+        "id": "sec-date.prototype.setminutes"
+    },
+    {
+        "text": "Date.prototype.setMonth ( month [ , date ] )",
+        "id": "sec-date.prototype.setmonth"
+    },
+    {
+        "text": "Date.prototype.setSeconds ( sec [ , ms ] )",
+        "id": "sec-date.prototype.setseconds"
+    },
+    {
+        "text": "Date.prototype.setTime ( time )",
+        "id": "sec-date.prototype.settime"
+    },
+    {
+        "text": "Date.prototype.setUTCDate ( date )",
+        "id": "sec-date.prototype.setutcdate"
+    },
+    {
+        "text": "Date.prototype.setUTCFullYear ( year [ , month [ , date ] ] )",
+        "id": "sec-date.prototype.setutcfullyear"
+    },
+    {
+        "text": ")",
+        "id": "sec-date.prototype.setutchours"
+    },
+    {
+        "text": "Date.prototype.setUTCMilliseconds ( ms )",
+        "id": "sec-date.prototype.setutcmilliseconds"
+    },
+    {
+        "text": "Date.prototype.setUTCMinutes ( min [ , sec [, ms ] ] )",
+        "id": "sec-date.prototype.setutcminutes"
+    },
+    {
+        "text": "Date.prototype.setUTCMonth ( month [ , date ] )",
+        "id": "sec-date.prototype.setutcmonth"
+    },
+    {
+        "text": "Date.prototype.setUTCSeconds ( sec [ , ms ] )",
+        "id": "sec-date.prototype.setutcseconds"
+    },
+    {
+        "text": "Date.prototype.toDateString ( )",
+        "id": "sec-date.prototype.todatestring"
+    },
+    {
+        "text": "Date.prototype.toISOString ( )",
+        "id": "sec-date.prototype.toisostring"
+    },
+    {
+        "text": "Date.prototype.toJSON ( key )",
+        "id": "sec-date.prototype.tojson"
+    },
+    {
+        "text": ")",
+        "id": "sec-date.prototype.tolocaledatestring"
+    },
+    {
+        "text": "Date.prototype.toLocaleString ( [ reserved1 [ , reserved2 ] ] )",
+        "id": "sec-date.prototype.tolocalestring"
+    },
+    {
+        "text": ")",
+        "id": "sec-date.prototype.tolocaletimestring"
+    },
+    {
+        "text": "Date.prototype.toString ( )",
+        "id": "sec-date.prototype.tostring"
+    },
+    {
+        "text": "Runtime Semantics: ToDateString(tv)",
+        "id": "sec-todatestring"
+    },
+    {
+        "text": "Date.prototype.toTimeString ( )",
+        "id": "sec-date.prototype.totimestring"
+    },
+    {
+        "text": "Date.prototype.toUTCString ( )",
+        "id": "sec-date.prototype.toutcstring"
+    },
+    {
+        "text": "Date.prototype.valueOf ( )",
+        "id": "sec-date.prototype.valueof"
+    },
+    {
+        "text": "Date.prototype [ @@toPrimitive ] ( hint )",
+        "id": "sec-date.prototype-@@toprimitive"
+    },
+    {
+        "text": "Properties of Date Instances",
+        "id": "sec-properties-of-date-instances"
+    },
+    {
+        "text": "Processing",
+        "id": "sec-text-processing"
+    },
+    {
+        "text": "Objects",
+        "id": "sec-string-objects"
+    },
+    {
+        "text": "The String Constructor",
+        "id": "sec-string-constructor"
+    },
+    {
+        "text": "String ( value )",
+        "id": "sec-string-constructor-string-value"
+    },
+    {
+        "text": "Properties of the String Constructor",
+        "id": "sec-properties-of-the-string-constructor"
+    },
+    {
+        "text": "String.fromCharCode ( ...codeUnits )",
+        "id": "sec-string.fromcharcode"
+    },
+    {
+        "text": "String.fromCodePoint ( ...codePoints )",
+        "id": "sec-string.fromcodepoint"
+    },
+    {
+        "text": "String.prototype",
+        "id": "sec-string.prototype"
+    },
+    {
+        "text": "String.raw ( template , ...substitutions  )",
+        "id": "sec-string.raw"
+    },
+    {
+        "text": "Properties of the String Prototype Object",
+        "id": "sec-properties-of-the-string-prototype-object"
+    },
+    {
+        "text": "String.prototype.charAt ( pos )",
+        "id": "sec-string.prototype.charat"
+    },
+    {
+        "text": "String.prototype.charCodeAt ( pos )",
+        "id": "sec-string.prototype.charcodeat"
+    },
+    {
+        "text": "String.prototype.codePointAt ( pos )",
+        "id": "sec-string.prototype.codepointat"
+    },
+    {
+        "text": "String.prototype.concat ( ...args )",
+        "id": "sec-string.prototype.concat"
+    },
+    {
+        "text": "String.prototype.constructor",
+        "id": "sec-string.prototype.constructor"
+    },
+    {
+        "text": "String.prototype.endsWith ( searchString [ , endPosition] )",
+        "id": "sec-string.prototype.endswith"
+    },
+    {
+        "text": "String.prototype.includes ( searchString [ , position ] )",
+        "id": "sec-string.prototype.includes"
+    },
+    {
+        "text": "String.prototype.indexOf ( searchString [ , position ] )",
+        "id": "sec-string.prototype.indexof"
+    },
+    {
+        "text": "String.prototype.lastIndexOf ( searchString [ , position ] )",
+        "id": "sec-string.prototype.lastindexof"
+    },
+    {
+        "text": ")",
+        "id": "sec-string.prototype.localecompare"
+    },
+    {
+        "text": "String.prototype.match ( regexp )",
+        "id": "sec-string.prototype.match"
+    },
+    {
+        "text": "String.prototype.normalize ( [ form ] )",
+        "id": "sec-string.prototype.normalize"
+    },
+    {
+        "text": "String.prototype.repeat ( count )",
+        "id": "sec-string.prototype.repeat"
+    },
+    {
+        "text": "String.prototype.replace (searchValue, replaceValue )",
+        "id": "sec-string.prototype.replace"
+    },
+    {
+        "text": "captures, replacement)",
+        "id": "sec-getsubstitution"
+    },
+    {
+        "text": "String.prototype.search ( regexp )",
+        "id": "sec-string.prototype.search"
+    },
+    {
+        "text": "String.prototype.slice ( start, end )",
+        "id": "sec-string.prototype.slice"
+    },
+    {
+        "text": "String.prototype.split ( separator, limit )",
+        "id": "sec-string.prototype.split"
+    },
+    {
+        "text": "Runtime Semantics: SplitMatch ( S, q, R )",
+        "id": "sec-splitmatch"
+    },
+    {
+        "text": "String.prototype.startsWith ( searchString [, position ] )",
+        "id": "sec-string.prototype.startswith"
+    },
+    {
+        "text": "String.prototype.substring ( start, end )",
+        "id": "sec-string.prototype.substring"
+    },
+    {
+        "text": ")",
+        "id": "sec-string.prototype.tolocalelowercase"
+    },
+    {
+        "text": ")",
+        "id": "sec-string.prototype.tolocaleuppercase"
+    },
+    {
+        "text": "String.prototype.toLowerCase ( )",
+        "id": "sec-string.prototype.tolowercase"
+    },
+    {
+        "text": "String.prototype.toString ( )",
+        "id": "sec-string.prototype.tostring"
+    },
+    {
+        "text": "String.prototype.toUpperCase ( )",
+        "id": "sec-string.prototype.touppercase"
+    },
+    {
+        "text": "String.prototype.trim ( )",
+        "id": "sec-string.prototype.trim"
+    },
+    {
+        "text": "String.prototype.valueOf ( )",
+        "id": "sec-string.prototype.valueof"
+    },
+    {
+        "text": "String.prototype [ @@iterator ]( )",
+        "id": "sec-string.prototype-@@iterator"
+    },
+    {
+        "text": "Properties of String Instances",
+        "id": "sec-properties-of-string-instances"
+    },
+    {
+        "text": "length",
+        "id": "sec-properties-of-string-instances-length"
+    },
+    {
+        "text": "String Iterator Objects",
+        "id": "sec-string-iterator-objects"
+    },
+    {
+        "text": "CreateStringIterator Abstract Operation",
+        "id": "sec-createstringiterator"
+    },
+    {
+        "text": "The %StringIteratorPrototype% Object",
+        "id": "sec-%stringiteratorprototype%-object"
+    },
+    {
+        "text": "%StringIteratorPrototype%.next ( )",
+        "id": "sec-%stringiteratorprototype%.next"
+    },
+    {
+        "text": "%StringIteratorPrototype% [ @@toStringTag ]",
+        "id": "sec-%stringiteratorprototype%-@@tostringtag"
+    },
+    {
+        "text": "Properties of String Iterator Instances",
+        "id": "sec-properties-of-string-iterator-instances"
+    },
+    {
+        "text": "RegExp (Regular Expression) Objects",
+        "id": "sec-regexp-regular-expression-objects"
+    },
+    {
+        "text": "Patterns",
+        "id": "sec-patterns"
+    },
+    {
+        "text": "Static Semantics:  Early Errors",
+        "id": "sec-patterns-static-semantics-early-errors"
+    },
+    {
+        "text": "Pattern Semantics",
+        "id": "sec-pattern-semantics"
+    },
+    {
+        "text": "Notation",
+        "id": "sec-notation"
+    },
+    {
+        "text": "Pattern",
+        "id": "sec-pattern"
+    },
+    {
+        "text": "Disjunction",
+        "id": "sec-disjunction"
+    },
+    {
+        "text": "Alternative",
+        "id": "sec-alternative"
+    },
+    {
+        "text": "Term",
+        "id": "sec-term"
+    },
+    {
+        "text": "Runtime Semantics: RepeatMatcher Abstract Operation",
+        "id": "sec-runtime-semantics-repeatmatcher-abstract-operation"
+    },
+    {
+        "text": "Assertion",
+        "id": "sec-assertion"
+    },
+    {
+        "text": "Runtime Semantics: IsWordChar Abstract Operation",
+        "id": "sec-runtime-semantics-iswordchar-abstract-operation"
+    },
+    {
+        "text": "Quantifier",
+        "id": "sec-quantifier"
+    },
+    {
+        "text": "Atom",
+        "id": "sec-atom"
+    },
+    {
+        "text": "Runtime Semantics: CharacterSetMatcher Abstract Operation",
+        "id": "sec-runtime-semantics-charactersetmatcher-abstract-operation"
+    },
+    {
+        "text": "Runtime Semantics: Canonicalize ( ch )",
+        "id": "sec-runtime-semantics-canonicalize-ch"
+    },
+    {
+        "text": "AtomEscape",
+        "id": "sec-atomescape"
+    },
+    {
+        "text": "CharacterEscape",
+        "id": "sec-characterescape"
+    },
+    {
+        "text": "DecimalEscape",
+        "id": "sec-decimalescape"
+    },
+    {
+        "text": "CharacterClassEscape",
+        "id": "sec-characterclassescape"
+    },
+    {
+        "text": "CharacterClass",
+        "id": "sec-characterclass"
+    },
+    {
+        "text": "ClassRanges",
+        "id": "sec-classranges"
+    },
+    {
+        "text": "NonemptyClassRanges",
+        "id": "sec-nonemptyclassranges"
+    },
+    {
+        "text": "Runtime Semantics: CharacterRange Abstract Operation",
+        "id": "sec-runtime-semantics-characterrange-abstract-operation"
+    },
+    {
+        "text": "NonemptyClassRangesNoDash",
+        "id": "sec-nonemptyclassrangesnodash"
+    },
+    {
+        "text": "ClassAtom",
+        "id": "sec-classatom"
+    },
+    {
+        "text": "ClassAtomNoDash",
+        "id": "sec-classatomnodash"
+    },
+    {
+        "text": "ClassEscape",
+        "id": "sec-classescape"
+    },
+    {
+        "text": "The RegExp Constructor",
+        "id": "sec-regexp-constructor"
+    },
+    {
+        "text": "RegExp ( pattern, flags )",
+        "id": "sec-regexp-pattern-flags"
+    },
+    {
+        "text": "Abstract Operations for the RegExp Constructor",
+        "id": "sec-abstract-operations-for-the-regexp-constructor"
+    },
+    {
+        "text": "Runtime Semantics: RegExpAlloc ( newTarget )",
+        "id": "sec-regexpalloc"
+    },
+    {
+        "text": "Runtime Semantics: RegExpInitialize ( obj, pattern, flags )",
+        "id": "sec-regexpinitialize"
+    },
+    {
+        "text": "Runtime Semantics: RegExpCreate ( P, F )",
+        "id": "sec-regexpcreate"
+    },
+    {
+        "text": "Runtime Semantics: EscapeRegExpPattern ( P, F )",
+        "id": "sec-escaperegexppattern"
+    },
+    {
+        "text": "Properties of the RegExp Constructor",
+        "id": "sec-properties-of-the-regexp-constructor"
+    },
+    {
+        "text": "RegExp.prototype",
+        "id": "sec-regexp.prototype"
+    },
+    {
+        "text": "get RegExp [ @@species ]",
+        "id": "sec-get-regexp-@@species"
+    },
+    {
+        "text": "Properties of the RegExp Prototype Object",
+        "id": "sec-properties-of-the-regexp-prototype-object"
+    },
+    {
+        "text": "RegExp.prototype.constructor",
+        "id": "sec-regexp.prototype.constructor"
+    },
+    {
+        "text": "RegExp.prototype.exec ( string )",
+        "id": "sec-regexp.prototype.exec"
+    },
+    {
+        "text": "Runtime Semantics: RegExpExec ( R, S )",
+        "id": "sec-regexpexec"
+    },
+    {
+        "text": "Runtime Semantics: RegExpBuiltinExec ( R, S )",
+        "id": "sec-regexpbuiltinexec"
+    },
+    {
+        "text": "AdvanceStringIndex ( S, index, unicode )",
+        "id": "sec-advancestringindex"
+    },
+    {
+        "text": "get RegExp.prototype.flags",
+        "id": "sec-get-regexp.prototype.flags"
+    },
+    {
+        "text": "get RegExp.prototype.global",
+        "id": "sec-get-regexp.prototype.global"
+    },
+    {
+        "text": "get RegExp.prototype.ignoreCase",
+        "id": "sec-get-regexp.prototype.ignorecase"
+    },
+    {
+        "text": "RegExp.prototype [ @@match ] ( string )",
+        "id": "sec-regexp.prototype-@@match"
+    },
+    {
+        "text": "get RegExp.prototype.multiline",
+        "id": "sec-get-regexp.prototype.multiline"
+    },
+    {
+        "text": "RegExp.prototype [ @@replace ] ( string, replaceValue )",
+        "id": "sec-regexp.prototype-@@replace"
+    },
+    {
+        "text": "RegExp.prototype [ @@search ] ( string )",
+        "id": "sec-regexp.prototype-@@search"
+    },
+    {
+        "text": "get RegExp.prototype.source",
+        "id": "sec-get-regexp.prototype.source"
+    },
+    {
+        "text": "RegExp.prototype [ @@split ] ( string, limit )",
+        "id": "sec-regexp.prototype-@@split"
+    },
+    {
+        "text": "get RegExp.prototype.sticky",
+        "id": "sec-get-regexp.prototype.sticky"
+    },
+    {
+        "text": "RegExp.prototype.test( S )",
+        "id": "sec-regexp.prototype.test"
+    },
+    {
+        "text": "RegExp.prototype.toString ( )",
+        "id": "sec-regexp.prototype.tostring"
+    },
+    {
+        "text": "get RegExp.prototype.unicode",
+        "id": "sec-get-regexp.prototype.unicode"
+    },
+    {
+        "text": "Properties of RegExp Instances",
+        "id": "sec-properties-of-regexp-instances"
+    },
+    {
+        "text": "lastIndex",
+        "id": "sec-lastindex"
+    },
+    {
+        "text": "Collections",
+        "id": "sec-indexed-collections"
+    },
+    {
+        "text": "Objects",
+        "id": "sec-array-objects"
+    },
+    {
+        "text": "The Array Constructor",
+        "id": "sec-array-constructor"
+    },
+    {
+        "text": "Array ( )",
+        "id": "sec-array-constructor-array"
+    },
+    {
+        "text": "(len)",
+        "id": "sec-array-len"
+    },
+    {
+        "text": "Array (...items )",
+        "id": "sec-array-items"
+    },
+    {
+        "text": "Properties of the Array Constructor",
+        "id": "sec-properties-of-the-array-constructor"
+    },
+    {
+        "text": "Array.from ( items [ , mapfn [ , thisArg ] ] )",
+        "id": "sec-array.from"
+    },
+    {
+        "text": "Array.isArray ( arg )",
+        "id": "sec-array.isarray"
+    },
+    {
+        "text": "Array.of ( ...items )",
+        "id": "sec-array.of"
+    },
+    {
+        "text": "Array.prototype",
+        "id": "sec-array.prototype"
+    },
+    {
+        "text": "get Array [ @@species ]",
+        "id": "sec-get-array-@@species"
+    },
+    {
+        "text": "Properties of the Array Prototype Object",
+        "id": "sec-properties-of-the-array-prototype-object"
+    },
+    {
+        "text": "Array.prototype.concat ( ...arguments )",
+        "id": "sec-array.prototype.concat"
+    },
+    {
+        "text": "Runtime Semantics: IsConcatSpreadable ( O )",
+        "id": "sec-isconcatspreadable"
+    },
+    {
+        "text": "Array.prototype.constructor",
+        "id": "sec-array.prototype.constructor"
+    },
+    {
+        "text": "Array.prototype.copyWithin (target, start [ , end ] )",
+        "id": "sec-array.prototype.copywithin"
+    },
+    {
+        "text": "Array.prototype.entries ( )",
+        "id": "sec-array.prototype.entries"
+    },
+    {
+        "text": "Array.prototype.every ( callbackfn [ , thisArg] )",
+        "id": "sec-array.prototype.every"
+    },
+    {
+        "text": "Array.prototype.fill (value [ , start [ , end ] ] )",
+        "id": "sec-array.prototype.fill"
+    },
+    {
+        "text": "Array.prototype.filter ( callbackfn [ , thisArg ] )",
+        "id": "sec-array.prototype.filter"
+    },
+    {
+        "text": "Array.prototype.find ( predicate [ , thisArg ] )",
+        "id": "sec-array.prototype.find"
+    },
+    {
+        "text": "Array.prototype.findIndex ( predicate [ , thisArg ] )",
+        "id": "sec-array.prototype.findindex"
+    },
+    {
+        "text": "Array.prototype.forEach ( callbackfn [ , thisArg ] )",
+        "id": "sec-array.prototype.foreach"
+    },
+    {
+        "text": "Array.prototype.indexOf ( searchElement [ , fromIndex ] )",
+        "id": "sec-array.prototype.indexof"
+    },
+    {
+        "text": "Array.prototype.join (separator)",
+        "id": "sec-array.prototype.join"
+    },
+    {
+        "text": "Array.prototype.keys ( )",
+        "id": "sec-array.prototype.keys"
+    },
+    {
+        "text": "Array.prototype.lastIndexOf ( searchElement [ , fromIndex ] )",
+        "id": "sec-array.prototype.lastindexof"
+    },
+    {
+        "text": "Array.prototype.map ( callbackfn [ , thisArg ] )",
+        "id": "sec-array.prototype.map"
+    },
+    {
+        "text": "Array.prototype.pop ( )",
+        "id": "sec-array.prototype.pop"
+    },
+    {
+        "text": "Array.prototype.push ( ...items )",
+        "id": "sec-array.prototype.push"
+    },
+    {
+        "text": "Array.prototype.reduce ( callbackfn [ , initialValue ] )",
+        "id": "sec-array.prototype.reduce"
+    },
+    {
+        "text": "Array.prototype.reduceRight ( callbackfn [ , initialValue ] )",
+        "id": "sec-array.prototype.reduceright"
+    },
+    {
+        "text": "Array.prototype.reverse ( )",
+        "id": "sec-array.prototype.reverse"
+    },
+    {
+        "text": "Array.prototype.shift ( )",
+        "id": "sec-array.prototype.shift"
+    },
+    {
+        "text": "Array.prototype.slice (start, end)",
+        "id": "sec-array.prototype.slice"
+    },
+    {
+        "text": "Array.prototype.some ( callbackfn [ , thisArg ] )",
+        "id": "sec-array.prototype.some"
+    },
+    {
+        "text": "Array.prototype.sort (comparefn)",
+        "id": "sec-array.prototype.sort"
+    },
+    {
+        "text": "Runtime Semantics: SortCompare( x, y )",
+        "id": "sec-sortcompare"
+    },
+    {
+        "text": "Array.prototype.splice (start, deleteCount , ...items  )",
+        "id": "sec-array.prototype.splice"
+    },
+    {
+        "text": ")",
+        "id": "sec-array.prototype.tolocalestring"
+    },
+    {
+        "text": "Array.prototype.toString ( )",
+        "id": "sec-array.prototype.tostring"
+    },
+    {
+        "text": "Array.prototype.unshift ( ...items )",
+        "id": "sec-array.prototype.unshift"
+    },
+    {
+        "text": "Array.prototype.values ( )",
+        "id": "sec-array.prototype.values"
+    },
+    {
+        "text": "Array.prototype [ @@iterator ]  ( )",
+        "id": "sec-array.prototype-@@iterator"
+    },
+    {
+        "text": "Array.prototype [ @@unscopables ]",
+        "id": "sec-array.prototype-@@unscopables"
+    },
+    {
+        "text": "Properties of Array Instances",
+        "id": "sec-properties-of-array-instances"
+    },
+    {
+        "text": "length",
+        "id": "sec-properties-of-array-instances-length"
+    },
+    {
+        "text": "Array Iterator Objects",
+        "id": "sec-array-iterator-objects"
+    },
+    {
+        "text": "CreateArrayIterator Abstract Operation",
+        "id": "sec-createarrayiterator"
+    },
+    {
+        "text": "The %ArrayIteratorPrototype% Object",
+        "id": "sec-%arrayiteratorprototype%-object"
+    },
+    {
+        "text": "%ArrayIteratorPrototype%.next( )",
+        "id": "sec-%arrayiteratorprototype%.next"
+    },
+    {
+        "text": "%ArrayIteratorPrototype% [ @@toStringTag ]",
+        "id": "sec-%arrayiteratorprototype%-@@tostringtag"
+    },
+    {
+        "text": "Properties of Array Iterator Instances",
+        "id": "sec-properties-of-array-iterator-instances"
+    },
+    {
+        "text": "TypedArray Objects",
+        "id": "sec-typedarray-objects"
+    },
+    {
+        "text": "The %TypedArray% Intrinsic Object",
+        "id": "sec-%typedarray%-intrinsic-object"
+    },
+    {
+        "text": "%TypedArray% ( )",
+        "id": "sec-%typedarray%-intrinsic-object-%typedarray%"
+    },
+    {
+        "text": "%TypedArray% ( length )",
+        "id": "sec-%typedarray%-length"
+    },
+    {
+        "text": "Runtime Semantics: AllocateTypedArray (newTarget, length )",
+        "id": "sec-allocatetypedarray"
+    },
+    {
+        "text": "%TypedArray% ( typedArray )",
+        "id": "sec-%typedarray%-typedarray"
+    },
+    {
+        "text": "%TypedArray% ( object )",
+        "id": "sec-%typedarray%-object"
+    },
+    {
+        "text": "%TypedArray% ( buffer [ , byteOffset [ , length ] ] )",
+        "id": "sec-%typedarray%-buffer-byteoffset-length"
+    },
+    {
+        "text": "Properties of the %TypedArray% Intrinsic Object",
+        "id": "sec-properties-of-the-%typedarray%-intrinsic-object"
+    },
+    {
+        "text": "%TypedArray%.from ( source [ , mapfn [ , thisArg ] ] )",
+        "id": "sec-%typedarray%.from"
+    },
+    {
+        "text": "thisArg )",
+        "id": "sec-typedarrayfrom"
+    },
+    {
+        "text": "%TypedArray%.of ( ...items )",
+        "id": "sec-%typedarray%.of"
+    },
+    {
+        "text": "%TypedArray%.prototype",
+        "id": "sec-%typedarray%.prototype"
+    },
+    {
+        "text": "get %TypedArray% [ @@species ]",
+        "id": "sec-get-%typedarray%-@@species"
+    },
+    {
+        "text": "Properties of the %TypedArrayPrototype% Object",
+        "id": "sec-properties-of-the-%typedarrayprototype%-object"
+    },
+    {
+        "text": "get  %TypedArray%.prototype.buffer",
+        "id": "sec-get-%typedarray%.prototype.buffer"
+    },
+    {
+        "text": "get  %TypedArray%.prototype.byteLength",
+        "id": "sec-get-%typedarray%.prototype.bytelength"
+    },
+    {
+        "text": "get  %TypedArray%.prototype.byteOffset",
+        "id": "sec-get-%typedarray%.prototype.byteoffset"
+    },
+    {
+        "text": "%TypedArray%.prototype.constructor",
+        "id": "sec-%typedarray%.prototype.constructor"
+    },
+    {
+        "text": "%TypedArray%.prototype.copyWithin (target, start [, end ] )",
+        "id": "sec-%typedarray%.prototype.copywithin"
+    },
+    {
+        "text": "Runtime Semantics:  ValidateTypedArray ( O )",
+        "id": "sec-validatetypedarray"
+    },
+    {
+        "text": "%TypedArray%.prototype.entries ( )",
+        "id": "sec-%typedarray%.prototype.entries"
+    },
+    {
+        "text": "%TypedArray%.prototype.every ( callbackfn [ , thisArg ] )",
+        "id": "sec-%typedarray%.prototype.every"
+    },
+    {
+        "text": "%TypedArray%.prototype.fill (value [ , start [ , end ] ] )",
+        "id": "sec-%typedarray%.prototype.fill"
+    },
+    {
+        "text": "%TypedArray%.prototype.filter ( callbackfn [ , thisArg ] )",
+        "id": "sec-%typedarray%.prototype.filter"
+    },
+    {
+        "text": "%TypedArray%.prototype.find (predicate [ , thisArg ] )",
+        "id": "sec-%typedarray%.prototype.find"
+    },
+    {
+        "text": "%TypedArray%.prototype.findIndex ( predicate [ , thisArg ] )",
+        "id": "sec-%typedarray%.prototype.findindex"
+    },
+    {
+        "text": "%TypedArray%.prototype.forEach ( callbackfn [ , thisArg ] )",
+        "id": "sec-%typedarray%.prototype.foreach"
+    },
+    {
+        "text": "%TypedArray%.prototype.indexOf (searchElement [ , fromIndex ] )",
+        "id": "sec-%typedarray%.prototype.indexof"
+    },
+    {
+        "text": "%TypedArray%.prototype.join ( separator )",
+        "id": "sec-%typedarray%.prototype.join"
+    },
+    {
+        "text": "%TypedArray%.prototype.keys ( )",
+        "id": "sec-%typedarray%.prototype.keys"
+    },
+    {
+        "text": ")",
+        "id": "sec-%typedarray%.prototype.lastindexof"
+    },
+    {
+        "text": "get  %TypedArray%.prototype.length",
+        "id": "sec-get-%typedarray%.prototype.length"
+    },
+    {
+        "text": "%TypedArray%.prototype.map ( callbackfn [ , thisArg ] )",
+        "id": "sec-%typedarray%.prototype.map"
+    },
+    {
+        "text": "%TypedArray%.prototype.reduce ( callbackfn [ , initialValue ] )",
+        "id": "sec-%typedarray%.prototype.reduce"
+    },
+    {
+        "text": ")",
+        "id": "sec-%typedarray%.prototype.reduceright"
+    },
+    {
+        "text": "%TypedArray%.prototype.reverse ( )",
+        "id": "sec-%typedarray%.prototype.reverse"
+    },
+    {
+        "text": "%TypedArray%.prototype.set ( overloaded [ , offset ])",
+        "id": "sec-%typedarray%.prototype.set-overloaded-offset"
+    },
+    {
+        "text": "%TypedArray%.prototype.set (array [ , offset ] )",
+        "id": "sec-%typedarray%.prototype.set-array-offset"
+    },
+    {
+        "text": "%TypedArray%.prototype.set(typedArray [, offset ] )",
+        "id": "sec-%typedarray%.prototype.set-typedarray-offset"
+    },
+    {
+        "text": "%TypedArray%.prototype.slice ( start, end )",
+        "id": "sec-%typedarray%.prototype.slice"
+    },
+    {
+        "text": "%TypedArray%.prototype.some ( callbackfn [ , thisArg ] )",
+        "id": "sec-%typedarray%.prototype.some"
+    },
+    {
+        "text": "%TypedArray%.prototype.sort ( comparefn )",
+        "id": "sec-%typedarray%.prototype.sort"
+    },
+    {
+        "text": "%TypedArray%.prototype.subarray( [ begin [ , end ] ] )",
+        "id": "sec-%typedarray%.prototype.subarray"
+    },
+    {
+        "text": "])",
+        "id": "sec-%typedarray%.prototype.tolocalestring"
+    },
+    {
+        "text": "%TypedArray%.prototype.toString ( )",
+        "id": "sec-%typedarray%.prototype.tostring"
+    },
+    {
+        "text": "%TypedArray%.prototype.values ( )",
+        "id": "sec-%typedarray%.prototype.values"
+    },
+    {
+        "text": "%TypedArray%.prototype [ @@iterator ]  ( )",
+        "id": "sec-%typedarray%.prototype-@@iterator"
+    },
+    {
+        "text": "get %TypedArray%.prototype [ @@toStringTag ]",
+        "id": "sec-get-%typedarray%.prototype-@@tostringtag"
+    },
+    {
+        "text": "The",
+        "id": "sec-typedarray-constructors"
+    },
+    {
+        "text": "Properties of the",
+        "id": "sec-properties-of-the-typedarray-constructors"
+    },
+    {
+        "text": "Properties of",
+        "id": "sec-properties-of-typedarray-prototype-objects"
+    },
+    {
+        "text": "Properties of",
+        "id": "sec-properties-of-typedarray-instances"
+    },
+    {
+        "text": "Collection",
+        "id": "sec-keyed-collection"
+    },
+    {
+        "text": "Objects",
+        "id": "sec-map-objects"
+    },
+    {
+        "text": "Map Constructor",
+        "id": "sec-map-constructor"
+    },
+    {
+        "text": "Map ( [ iterable ] )",
+        "id": "sec-map-iterable"
+    },
+    {
+        "text": "Properties of the Map Constructor",
+        "id": "sec-properties-of-the-map-constructor"
+    },
+    {
+        "text": "Map.prototype",
+        "id": "sec-map.prototype"
+    },
+    {
+        "text": "get Map [ @@species ]",
+        "id": "sec-get-map-@@species"
+    },
+    {
+        "text": "Properties of the Map Prototype Object",
+        "id": "sec-properties-of-the-map-prototype-object"
+    },
+    {
+        "text": "Map.prototype.clear ( )",
+        "id": "sec-map.prototype.clear"
+    },
+    {
+        "text": "Map.prototype.constructor",
+        "id": "sec-map.prototype.constructor"
+    },
+    {
+        "text": "Map.prototype.delete ( key )",
+        "id": "sec-map.prototype.delete"
+    },
+    {
+        "text": "Map.prototype.entries ( )",
+        "id": "sec-map.prototype.entries"
+    },
+    {
+        "text": "Map.prototype.forEach ( callbackfn [ , thisArg ] )",
+        "id": "sec-map.prototype.foreach"
+    },
+    {
+        "text": "Map.prototype.get ( key )",
+        "id": "sec-map.prototype.get"
+    },
+    {
+        "text": "Map.prototype.has ( key )",
+        "id": "sec-map.prototype.has"
+    },
+    {
+        "text": "Map.prototype.keys ( )",
+        "id": "sec-map.prototype.keys"
+    },
+    {
+        "text": "Map.prototype.set ( key , value )",
+        "id": "sec-map.prototype.set"
+    },
+    {
+        "text": "get Map.prototype.size",
+        "id": "sec-get-map.prototype.size"
+    },
+    {
+        "text": "Map.prototype.values ( )",
+        "id": "sec-map.prototype.values"
+    },
+    {
+        "text": "Map.prototype [ @@iterator ]( )",
+        "id": "sec-map.prototype-@@iterator"
+    },
+    {
+        "text": "Map.prototype [ @@toStringTag ]",
+        "id": "sec-map.prototype-@@tostringtag"
+    },
+    {
+        "text": "Properties of Map Instances",
+        "id": "sec-properties-of-map-instances"
+    },
+    {
+        "text": "Map Iterator Objects",
+        "id": "sec-map-iterator-objects"
+    },
+    {
+        "text": "CreateMapIterator Abstract Operation",
+        "id": "sec-createmapiterator"
+    },
+    {
+        "text": "The %MapIteratorPrototype% Object",
+        "id": "sec-%mapiteratorprototype%-object"
+    },
+    {
+        "text": "%MapIteratorPrototype%.next ( )",
+        "id": "sec-%mapiteratorprototype%.next"
+    },
+    {
+        "text": "%MapIteratorPrototype% [ @@toStringTag ]",
+        "id": "sec-%mapiteratorprototype%-@@tostringtag"
+    },
+    {
+        "text": "Properties of Map Iterator Instances",
+        "id": "sec-properties-of-map-iterator-instances"
+    },
+    {
+        "text": "Objects",
+        "id": "sec-set-objects"
+    },
+    {
+        "text": "Set Constructor",
+        "id": "sec-set-constructor"
+    },
+    {
+        "text": "Set ( [ iterable ] )",
+        "id": "sec-set-iterable"
+    },
+    {
+        "text": "Properties of the Set Constructor",
+        "id": "sec-properties-of-the-set-constructor"
+    },
+    {
+        "text": "Set.prototype",
+        "id": "sec-set.prototype"
+    },
+    {
+        "text": "get Set [ @@species ]",
+        "id": "sec-get-set-@@species"
+    },
+    {
+        "text": "Properties of the Set Prototype Object",
+        "id": "sec-properties-of-the-set-prototype-object"
+    },
+    {
+        "text": "Set.prototype.add ( value )",
+        "id": "sec-set.prototype.add"
+    },
+    {
+        "text": "Set.prototype.clear ( )",
+        "id": "sec-set.prototype.clear"
+    },
+    {
+        "text": "Set.prototype.constructor",
+        "id": "sec-set.prototype.constructor"
+    },
+    {
+        "text": "Set.prototype.delete ( value )",
+        "id": "sec-set.prototype.delete"
+    },
+    {
+        "text": "Set.prototype.entries ( )",
+        "id": "sec-set.prototype.entries"
+    },
+    {
+        "text": "Set.prototype.forEach ( callbackfn [ , thisArg ] )",
+        "id": "sec-set.prototype.foreach"
+    },
+    {
+        "text": "Set.prototype.has ( value )",
+        "id": "sec-set.prototype.has"
+    },
+    {
+        "text": "Set.prototype.keys ( )",
+        "id": "sec-set.prototype.keys"
+    },
+    {
+        "text": "get Set.prototype.size",
+        "id": "sec-get-set.prototype.size"
+    },
+    {
+        "text": "Set.prototype.values ( )",
+        "id": "sec-set.prototype.values"
+    },
+    {
+        "text": "Set.prototype [ @@iterator ] ( )",
+        "id": "sec-set.prototype-@@iterator"
+    },
+    {
+        "text": "Set.prototype [ @@toStringTag ]",
+        "id": "sec-set.prototype-@@tostringtag"
+    },
+    {
+        "text": "Properties of Set Instances",
+        "id": "sec-properties-of-set-instances"
+    },
+    {
+        "text": "Set Iterator Objects",
+        "id": "sec-set-iterator-objects"
+    },
+    {
+        "text": "CreateSetIterator Abstract Operation",
+        "id": "sec-createsetiterator"
+    },
+    {
+        "text": "The %SetIteratorPrototype% Object",
+        "id": "sec-%setiteratorprototype%-object"
+    },
+    {
+        "text": "%SetIteratorPrototype%.next ( )",
+        "id": "sec-%setiteratorprototype%.next"
+    },
+    {
+        "text": "%SetIteratorPrototype% [ @@toStringTag ]",
+        "id": "sec-%setiteratorprototype%-@@tostringtag"
+    },
+    {
+        "text": "Properties of Set Iterator Instances",
+        "id": "sec-properties-of-set-iterator-instances"
+    },
+    {
+        "text": "Objects",
+        "id": "sec-weakmap-objects"
+    },
+    {
+        "text": "The WeakMap Constructor",
+        "id": "sec-weakmap-constructor"
+    },
+    {
+        "text": "WeakMap ( [ iterable ] )",
+        "id": "sec-weakmap-iterable"
+    },
+    {
+        "text": "Properties of the WeakMap Constructor",
+        "id": "sec-properties-of-the-weakmap-constructor"
+    },
+    {
+        "text": "WeakMap.prototype",
+        "id": "sec-weakmap.prototype"
+    },
+    {
+        "text": "Properties of the WeakMap Prototype Object",
+        "id": "sec-properties-of-the-weakmap-prototype-object"
+    },
+    {
+        "text": "WeakMap.prototype.constructor",
+        "id": "sec-weakmap.prototype.constructor"
+    },
+    {
+        "text": "WeakMap.prototype.delete ( key )",
+        "id": "sec-weakmap.prototype.delete"
+    },
+    {
+        "text": "WeakMap.prototype.get ( key )",
+        "id": "sec-weakmap.prototype.get"
+    },
+    {
+        "text": "WeakMap.prototype.has ( key )",
+        "id": "sec-weakmap.prototype.has"
+    },
+    {
+        "text": "WeakMap.prototype.set ( key , value )",
+        "id": "sec-weakmap.prototype.set"
+    },
+    {
+        "text": "WeakMap.prototype [ @@toStringTag ]",
+        "id": "sec-weakmap.prototype-@@tostringtag"
+    },
+    {
+        "text": "Properties of WeakMap Instances",
+        "id": "sec-properties-of-weakmap-instances"
+    },
+    {
+        "text": "Objects",
+        "id": "sec-weakset-objects"
+    },
+    {
+        "text": "The WeakSet Constructor",
+        "id": "sec-weakset-constructor"
+    },
+    {
+        "text": "WeakSet ( [ iterable ] )",
+        "id": "sec-weakset-iterable"
+    },
+    {
+        "text": "Properties of the WeakSet Constructor",
+        "id": "sec-properties-of-the-weakset-constructor"
+    },
+    {
+        "text": "WeakSet.prototype",
+        "id": "sec-weakset.prototype"
+    },
+    {
+        "text": "Properties of the WeakSet Prototype Object",
+        "id": "sec-properties-of-the-weakset-prototype-object"
+    },
+    {
+        "text": "WeakSet.prototype.add ( value )",
+        "id": "sec-weakset.prototype.add"
+    },
+    {
+        "text": "WeakSet.prototype.constructor",
+        "id": "sec-weakset.prototype.constructor"
+    },
+    {
+        "text": "WeakSet.prototype.delete ( value )",
+        "id": "sec-weakset.prototype.delete"
+    },
+    {
+        "text": "WeakSet.prototype.has ( value )",
+        "id": "sec-weakset.prototype.has"
+    },
+    {
+        "text": "WeakSet.prototype [ @@toStringTag ]",
+        "id": "sec-weakset.prototype-@@tostringtag"
+    },
+    {
+        "text": "Properties of WeakSet Instances",
+        "id": "sec-properties-of-weakset-instances"
+    },
+    {
+        "text": "Data",
+        "id": "sec-structured-data"
+    },
+    {
+        "text": "ArrayBuffer Objects",
+        "id": "sec-arraybuffer-objects"
+    },
+    {
+        "text": "Abstract Operations For ArrayBuffer Objects",
+        "id": "sec-abstract-operations-for-arraybuffer-objects"
+    },
+    {
+        "text": "AllocateArrayBuffer( constructor, byteLength )",
+        "id": "sec-allocatearraybuffer"
+    },
+    {
+        "text": "IsDetachedBuffer( arrayBuffer )",
+        "id": "sec-isdetachedbuffer"
+    },
+    {
+        "text": "DetachArrayBuffer( arrayBuffer )",
+        "id": "sec-detacharraybuffer"
+    },
+    {
+        "text": ")",
+        "id": "sec-clonearraybuffer"
+    },
+    {
+        "text": ")",
+        "id": "sec-getvaluefrombuffer"
+    },
+    {
+        "text": "isLittleEndian )",
+        "id": "sec-setvalueinbuffer"
+    },
+    {
+        "text": "The ArrayBuffer Constructor",
+        "id": "sec-arraybuffer-constructor"
+    },
+    {
+        "text": "ArrayBuffer( length )",
+        "id": "sec-arraybuffer-length"
+    },
+    {
+        "text": "Properties of the ArrayBuffer Constructor",
+        "id": "sec-properties-of-the-arraybuffer-constructor"
+    },
+    {
+        "text": "ArrayBuffer.isView ( arg )",
+        "id": "sec-arraybuffer.isview"
+    },
+    {
+        "text": "ArrayBuffer.prototype",
+        "id": "sec-arraybuffer.prototype"
+    },
+    {
+        "text": "get ArrayBuffer [ @@species ]",
+        "id": "sec-get-arraybuffer-@@species"
+    },
+    {
+        "text": "Properties of the ArrayBuffer Prototype Object",
+        "id": "sec-properties-of-the-arraybuffer-prototype-object"
+    },
+    {
+        "text": "get ArrayBuffer.prototype.byteLength",
+        "id": "sec-get-arraybuffer.prototype.bytelength"
+    },
+    {
+        "text": "ArrayBuffer.prototype.constructor",
+        "id": "sec-arraybuffer.prototype.constructor"
+    },
+    {
+        "text": "ArrayBuffer.prototype.slice ( start, end )",
+        "id": "sec-arraybuffer.prototype.slice"
+    },
+    {
+        "text": "ArrayBuffer.prototype [ @@toStringTag ]",
+        "id": "sec-arraybuffer.prototype-@@tostringtag"
+    },
+    {
+        "text": "Properties of the ArrayBuffer Instances",
+        "id": "sec-properties-of-the-arraybuffer-instances"
+    },
+    {
+        "text": "Objects",
+        "id": "sec-dataview-objects"
+    },
+    {
+        "text": "Abstract Operations For DataView Objects",
+        "id": "sec-abstract-operations-for-dataview-objects"
+    },
+    {
+        "text": "GetViewValue ( view, requestIndex, isLittleEndian, type )",
+        "id": "sec-getviewvalue"
+    },
+    {
+        "text": "SetViewValue ( view, requestIndex, isLittleEndian, type, value )",
+        "id": "sec-setviewvalue"
+    },
+    {
+        "text": "The DataView Constructor",
+        "id": "sec-dataview-constructor"
+    },
+    {
+        "text": "DataView (buffer [ , byteOffset [ , byteLength ] ] )",
+        "id": "sec-dataview-buffer-byteoffset-bytelength"
+    },
+    {
+        "text": "Properties of the DataView Constructor",
+        "id": "sec-properties-of-the-dataview-constructor"
+    },
+    {
+        "text": "DataView.prototype",
+        "id": "sec-dataview.prototype"
+    },
+    {
+        "text": "Properties of the DataView Prototype Object",
+        "id": "sec-properties-of-the-dataview-prototype-object"
+    },
+    {
+        "text": "get DataView.prototype.buffer",
+        "id": "sec-get-dataview.prototype.buffer"
+    },
+    {
+        "text": "get DataView.prototype.byteLength",
+        "id": "sec-get-dataview.prototype.bytelength"
+    },
+    {
+        "text": "get DataView.prototype.byteOffset",
+        "id": "sec-get-dataview.prototype.byteoffset"
+    },
+    {
+        "text": "DataView.prototype.constructor",
+        "id": "sec-dataview.prototype.constructor"
+    },
+    {
+        "text": "DataView.prototype.getFloat32 ( byteOffset [ , littleEndian ] )",
+        "id": "sec-dataview.prototype.getfloat32"
+    },
+    {
+        "text": "DataView.prototype.getFloat64 ( byteOffset [ , littleEndian ] )",
+        "id": "sec-dataview.prototype.getfloat64"
+    },
+    {
+        "text": "DataView.prototype.getInt8 ( byteOffset )",
+        "id": "sec-dataview.prototype.getint8"
+    },
+    {
+        "text": "DataView.prototype.getInt16 ( byteOffset [ , littleEndian ] )",
+        "id": "sec-dataview.prototype.getint16"
+    },
+    {
+        "text": "DataView.prototype.getInt32 ( byteOffset [ , littleEndian ] )",
+        "id": "sec-dataview.prototype.getint32"
+    },
+    {
+        "text": "DataView.prototype.getUint8 ( byteOffset )",
+        "id": "sec-dataview.prototype.getuint8"
+    },
+    {
+        "text": "DataView.prototype.getUint16 ( byteOffset [ , littleEndian ] )",
+        "id": "sec-dataview.prototype.getuint16"
+    },
+    {
+        "text": "DataView.prototype.getUint32 ( byteOffset [ , littleEndian ] )",
+        "id": "sec-dataview.prototype.getuint32"
+    },
+    {
+        "text": ")",
+        "id": "sec-dataview.prototype.setfloat32"
+    },
+    {
+        "text": ")",
+        "id": "sec-dataview.prototype.setfloat64"
+    },
+    {
+        "text": "DataView.prototype.setInt8 ( byteOffset, value )",
+        "id": "sec-dataview.prototype.setint8"
+    },
+    {
+        "text": ")",
+        "id": "sec-dataview.prototype.setint16"
+    },
+    {
+        "text": ")",
+        "id": "sec-dataview.prototype.setint32"
+    },
+    {
+        "text": "DataView.prototype.setUint8 ( byteOffset, value )",
+        "id": "sec-dataview.prototype.setuint8"
+    },
+    {
+        "text": ")",
+        "id": "sec-dataview.prototype.setuint16"
+    },
+    {
+        "text": ")",
+        "id": "sec-dataview.prototype.setuint32"
+    },
+    {
+        "text": "DataView.prototype[ @@toStringTag ]",
+        "id": "sec-dataview.prototype-@@tostringtag"
+    },
+    {
+        "text": "Properties of DataView Instances",
+        "id": "sec-properties-of-dataview-instances"
+    },
+    {
+        "text": "Object",
+        "id": "sec-json-object"
+    },
+    {
+        "text": "JSON.parse ( text [ , reviver ] )",
+        "id": "sec-json.parse"
+    },
+    {
+        "text": "Runtime Semantics: InternalizeJSONProperty( holder, name)",
+        "id": "sec-internalizejsonproperty"
+    },
+    {
+        "text": "JSON.stringify ( value [ , replacer [ , space ] ] )",
+        "id": "sec-json.stringify"
+    },
+    {
+        "text": "Runtime Semantics: SerializeJSONProperty ( key, holder )",
+        "id": "sec-serializejsonproperty"
+    },
+    {
+        "text": "Runtime Semantics: QuoteJSONString ( value )",
+        "id": "sec-quotejsonstring"
+    },
+    {
+        "text": "Runtime Semantics: SerializeJSONObject ( value )",
+        "id": "sec-serializejsonobject"
+    },
+    {
+        "text": "Runtime Semantics: SerializeJSONArray ( value )",
+        "id": "sec-serializejsonarray"
+    },
+    {
+        "text": "JSON [ @@toStringTag ]",
+        "id": "sec-json-@@tostringtag"
+    },
+    {
+        "text": "Control Abstraction Objects",
+        "id": "sec-control-abstraction-objects"
+    },
+    {
+        "text": "Iteration",
+        "id": "sec-iteration"
+    },
+    {
+        "text": "Common Iteration Interfaces",
+        "id": "sec-common-iteration-interfaces"
+    },
+    {
+        "text": "The",
+        "id": "sec-iterable-interface"
+    },
+    {
+        "text": "The",
+        "id": "sec-iterator-interface"
+    },
+    {
+        "text": "The IteratorResult  Interface",
+        "id": "sec-iteratorresult-interface"
+    },
+    {
+        "text": "The %IteratorPrototype% Object",
+        "id": "sec-%iteratorprototype%-object"
+    },
+    {
+        "text": "%IteratorPrototype% [ @@iterator ] (   )",
+        "id": "sec-%iteratorprototype%-@@iterator"
+    },
+    {
+        "text": "GeneratorFunction Objects",
+        "id": "sec-generatorfunction-objects"
+    },
+    {
+        "text": "The GeneratorFunction Constructor",
+        "id": "sec-generatorfunction-constructor"
+    },
+    {
+        "text": "GeneratorFunction (p1, p2, … , pn, body)",
+        "id": "sec-generatorfunction"
+    },
+    {
+        "text": "Properties of the GeneratorFunction Constructor",
+        "id": "sec-properties-of-the-generatorfunction-constructor"
+    },
+    {
+        "text": "GeneratorFunction.length",
+        "id": "sec-generatorfunction.length"
+    },
+    {
+        "text": "GeneratorFunction.prototype",
+        "id": "sec-generatorfunction.prototype"
+    },
+    {
+        "text": "Properties of the GeneratorFunction Prototype Object",
+        "id": "sec-properties-of-the-generatorfunction-prototype-object"
+    },
+    {
+        "text": "GeneratorFunction.prototype.constructor",
+        "id": "sec-generatorfunction.prototype.constructor"
+    },
+    {
+        "text": "GeneratorFunction.prototype.prototype",
+        "id": "sec-generatorfunction.prototype.prototype"
+    },
+    {
+        "text": "GeneratorFunction.prototype [ @@toStringTag ]",
+        "id": "sec-generatorfunction.prototype-@@tostringtag"
+    },
+    {
+        "text": "GeneratorFunction Instances",
+        "id": "sec-generatorfunction-instances"
+    },
+    {
+        "text": "length",
+        "id": "sec-generatorfunction-instances-length"
+    },
+    {
+        "text": "name",
+        "id": "sec-generatorfunction-instances-name"
+    },
+    {
+        "text": "prototype",
+        "id": "sec-generatorfunction-instances-prototype"
+    },
+    {
+        "text": "Generator Objects",
+        "id": "sec-generator-objects"
+    },
+    {
+        "text": "Properties of Generator Prototype",
+        "id": "sec-properties-of-generator-prototype"
+    },
+    {
+        "text": "Generator.prototype.constructor",
+        "id": "sec-generator.prototype.constructor"
+    },
+    {
+        "text": "Generator.prototype.next ( value )",
+        "id": "sec-generator.prototype.next"
+    },
+    {
+        "text": "Generator.prototype.return ( value )",
+        "id": "sec-generator.prototype.return"
+    },
+    {
+        "text": "Generator.prototype.throw ( exception )",
+        "id": "sec-generator.prototype.throw"
+    },
+    {
+        "text": "Generator.prototype [ @@toStringTag ]",
+        "id": "sec-generator.prototype-@@tostringtag"
+    },
+    {
+        "text": "Properties of Generator Instances",
+        "id": "sec-properties-of-generator-instances"
+    },
+    {
+        "text": "Generator Abstract Operations",
+        "id": "sec-generator-abstract-operations"
+    },
+    {
+        "text": "GeneratorStart (generator, generatorBody)",
+        "id": "sec-generatorstart"
+    },
+    {
+        "text": "GeneratorValidate ( generator )",
+        "id": "sec-generatorvalidate"
+    },
+    {
+        "text": "GeneratorResume ( generator, value )",
+        "id": "sec-generatorresume"
+    },
+    {
+        "text": "GeneratorResumeAbrupt(generator, abruptCompletion)",
+        "id": "sec-generatorresumeabrupt"
+    },
+    {
+        "text": "GeneratorYield ( iterNextObj )",
+        "id": "sec-generatoryield"
+    },
+    {
+        "text": "Objects",
+        "id": "sec-promise-objects"
+    },
+    {
+        "text": "Promise Abstract Operations",
+        "id": "sec-promise-abstract-operations"
+    },
+    {
+        "text": "PromiseCapability Records",
+        "id": "sec-promisecapability-records"
+    },
+    {
+        "text": "IfAbruptRejectPromise ( value, capability )",
+        "id": "sec-ifabruptrejectpromise"
+    },
+    {
+        "text": "PromiseReaction Records",
+        "id": "sec-promisereaction-records"
+    },
+    {
+        "text": "CreateResolvingFunctions ( promise )",
+        "id": "sec-createresolvingfunctions"
+    },
+    {
+        "text": "Promise Reject Functions",
+        "id": "sec-promise-reject-functions"
+    },
+    {
+        "text": "Promise Resolve Functions",
+        "id": "sec-promise-resolve-functions"
+    },
+    {
+        "text": "FulfillPromise ( promise, value)",
+        "id": "sec-fulfillpromise"
+    },
+    {
+        "text": "NewPromiseCapability ( C )",
+        "id": "sec-newpromisecapability"
+    },
+    {
+        "text": "GetCapabilitiesExecutor Functions",
+        "id": "sec-getcapabilitiesexecutor-functions"
+    },
+    {
+        "text": "IsPromise ( x )",
+        "id": "sec-ispromise"
+    },
+    {
+        "text": "RejectPromise ( promise, reason)",
+        "id": "sec-rejectpromise"
+    },
+    {
+        "text": "TriggerPromiseReactions ( reactions, argument )",
+        "id": "sec-triggerpromisereactions"
+    },
+    {
+        "text": "Promise Jobs",
+        "id": "sec-promise-jobs"
+    },
+    {
+        "text": "PromiseReactionJob ( reaction, argument )",
+        "id": "sec-promisereactionjob"
+    },
+    {
+        "text": "PromiseResolveThenableJob ( promiseToResolve, thenable, then)",
+        "id": "sec-promiseresolvethenablejob"
+    },
+    {
+        "text": "The Promise Constructor",
+        "id": "sec-promise-constructor"
+    },
+    {
+        "text": "Promise ( executor )",
+        "id": "sec-promise-executor"
+    },
+    {
+        "text": "Properties of the Promise Constructor",
+        "id": "sec-properties-of-the-promise-constructor"
+    },
+    {
+        "text": "Promise.all ( iterable )",
+        "id": "sec-promise.all"
+    },
+    {
+        "text": "constructor, resultCapability)",
+        "id": "sec-performpromiseall"
+    },
+    {
+        "text": "Promise.all Resolve Element Functions",
+        "id": "sec-promise.all-resolve-element-functions"
+    },
+    {
+        "text": "Promise.prototype",
+        "id": "sec-promise.prototype"
+    },
+    {
+        "text": "Promise.race ( iterable )",
+        "id": "sec-promise.race"
+    },
+    {
+        "text": "promiseCapability, C )",
+        "id": "sec-performpromiserace"
+    },
+    {
+        "text": "Promise.reject ( r )",
+        "id": "sec-promise.reject"
+    },
+    {
+        "text": "Promise.resolve ( x )",
+        "id": "sec-promise.resolve"
+    },
+    {
+        "text": "get Promise [ @@species ]",
+        "id": "sec-get-promise-@@species"
+    },
+    {
+        "text": "Properties of the Promise Prototype Object",
+        "id": "sec-properties-of-the-promise-prototype-object"
+    },
+    {
+        "text": "Promise.prototype.catch ( onRejected )",
+        "id": "sec-promise.prototype.catch"
+    },
+    {
+        "text": "Promise.prototype.constructor",
+        "id": "sec-promise.prototype.constructor"
+    },
+    {
+        "text": "Promise.prototype.then ( onFulfilled , onRejected )",
+        "id": "sec-promise.prototype.then"
+    },
+    {
+        "text": "resultCapability )",
+        "id": "sec-performpromisethen"
+    },
+    {
+        "text": "Promise.prototype [ @@toStringTag ]",
+        "id": "sec-promise.prototype-@@tostringtag"
+    },
+    {
+        "text": "Properties of Promise Instances",
+        "id": "sec-properties-of-promise-instances"
+    },
+    {
+        "text": "Reflection",
+        "id": "sec-reflection"
+    },
+    {
+        "text": "Reflect Object",
+        "id": "sec-reflect-object"
+    },
+    {
+        "text": "Reflect.apply ( target, thisArgument, argumentsList )",
+        "id": "sec-reflect.apply"
+    },
+    {
+        "text": "Reflect.construct ( target, argumentsList [, newTarget] )",
+        "id": "sec-reflect.construct"
+    },
+    {
+        "text": "Reflect.defineProperty ( target, propertyKey, attributes )",
+        "id": "sec-reflect.defineproperty"
+    },
+    {
+        "text": "Reflect.deleteProperty ( target, propertyKey )",
+        "id": "sec-reflect.deleteproperty"
+    },
+    {
+        "text": "Reflect.enumerate ( target )",
+        "id": "sec-reflect.enumerate"
+    },
+    {
+        "text": "Reflect.get ( target, propertyKey [ , receiver ])",
+        "id": "sec-reflect.get"
+    },
+    {
+        "text": "Reflect.getOwnPropertyDescriptor ( target, propertyKey )",
+        "id": "sec-reflect.getownpropertydescriptor"
+    },
+    {
+        "text": "Reflect.getPrototypeOf ( target )",
+        "id": "sec-reflect.getprototypeof"
+    },
+    {
+        "text": "Reflect.has ( target, propertyKey )",
+        "id": "sec-reflect.has"
+    },
+    {
+        "text": "Reflect.isExtensible (target)",
+        "id": "sec-reflect.isextensible"
+    },
+    {
+        "text": "Reflect.ownKeys ( target )",
+        "id": "sec-reflect.ownkeys"
+    },
+    {
+        "text": "Reflect.preventExtensions ( target )",
+        "id": "sec-reflect.preventextensions"
+    },
+    {
+        "text": "Reflect.set ( target, propertyKey, V [ , receiver ] )",
+        "id": "sec-reflect.set"
+    },
+    {
+        "text": "Reflect.setPrototypeOf ( target, proto )",
+        "id": "sec-reflect.setprototypeof"
+    },
+    {
+        "text": "Objects",
+        "id": "sec-proxy-objects"
+    },
+    {
+        "text": "The Proxy Constructor",
+        "id": "sec-proxy-constructor"
+    },
+    {
+        "text": "Proxy ( target, handler )",
+        "id": "sec-proxy-target-handler"
+    },
+    {
+        "text": "Properties of the Proxy Constructor",
+        "id": "sec-properties-of-the-proxy-constructor"
+    },
+    {
+        "text": "Proxy.revocable ( target, handler )",
+        "id": "sec-proxy.revocable"
+    },
+    {
+        "text": "Proxy Revocation Functions",
+        "id": "sec-proxy-revocation-functions"
+    },
+    {
+        "text": "Module Namespace Objects",
+        "id": "sec-module-namespace-objects"
+    },
+    {
+        "text": "@@toStringTag",
+        "id": "sec-@@tostringtag"
+    },
+    {
+        "text": "@@iterator ] (   )",
+        "id": "sec-@@iterator"
+    },
+    {
+        "text": "Grammar",
+        "id": "sec-lexical-grammar"
+    },
+    {
+        "text": "Expressions",
+        "id": "sec-expressions"
+    },
+    {
+        "text": "Statements",
+        "id": "sec-statements"
+    },
+    {
+        "text": "Functions and Classes",
+        "id": "sec-functions-and-classes"
+    },
+    {
+        "text": "and Modules",
+        "id": "sec-scripts-and-modules"
+    },
+    {
+        "text": "Conversions",
+        "id": "sec-number-conversions"
+    },
+    {
+        "text": "Universal Resource Identifier Character Classes",
+        "id": "sec-universal-resource-identifier-character-classes"
+    },
+    {
+        "text": "Expressions",
+        "id": "sec-regular-expressions"
+    },
+    {
+        "text": "Additional Syntax",
+        "id": "sec-additional-syntax"
+    },
+    {
+        "text": "Numeric Literals",
+        "id": "sec-additional-syntax-numeric-literals"
+    },
+    {
+        "text": "String Literals",
+        "id": "sec-additional-syntax-string-literals"
+    },
+    {
+        "text": "HTML-like Comments",
+        "id": "sec-html-like-comments"
+    },
+    {
+        "text": "Regular Expressions Patterns",
+        "id": "sec-regular-expressions-patterns"
+    },
+    {
+        "text": "Additional Built-in Properties",
+        "id": "sec-additional-built-in-properties"
+    },
+    {
+        "text": "Additional Properties of the Global Object",
+        "id": "sec-additional-properties-of-the-global-object"
+    },
+    {
+        "text": "escape (string)",
+        "id": "sec-escape-string"
+    },
+    {
+        "text": "unescape (string)",
+        "id": "sec-unescape-string"
+    },
+    {
+        "text": "Additional Properties of the Object.prototype Object",
+        "id": "sec-additional-properties-of-the-object.prototype-object"
+    },
+    {
+        "text": "Object.prototype.__proto__",
+        "id": "sec-object.prototype.__proto__"
+    },
+    {
+        "text": "get Object.prototype.__proto__",
+        "id": "sec-get-object.prototype.__proto__"
+    },
+    {
+        "text": "set Object.prototype.__proto__",
+        "id": "sec-set-object.prototype.__proto__"
+    },
+    {
+        "text": "Additional Properties of the String.prototype Object",
+        "id": "sec-additional-properties-of-the-string.prototype-object"
+    },
+    {
+        "text": "String.prototype.substr (start, length)",
+        "id": "sec-string.prototype.substr"
+    },
+    {
+        "text": "String.prototype.anchor ( name )",
+        "id": "sec-string.prototype.anchor"
+    },
+    {
+        "text": "Runtime Semantics: CreateHTML ( string, tag, attribute, value )",
+        "id": "sec-createhtml"
+    },
+    {
+        "text": "String.prototype.big ()",
+        "id": "sec-string.prototype.big"
+    },
+    {
+        "text": "String.prototype.blink ()",
+        "id": "sec-string.prototype.blink"
+    },
+    {
+        "text": "String.prototype.bold ()",
+        "id": "sec-string.prototype.bold"
+    },
+    {
+        "text": "String.prototype.fixed ()",
+        "id": "sec-string.prototype.fixed"
+    },
+    {
+        "text": "String.prototype.fontcolor ( color )",
+        "id": "sec-string.prototype.fontcolor"
+    },
+    {
+        "text": "String.prototype.fontsize ( size )",
+        "id": "sec-string.prototype.fontsize"
+    },
+    {
+        "text": "String.prototype.italics ()",
+        "id": "sec-string.prototype.italics"
+    },
+    {
+        "text": "String.prototype.link ( url )",
+        "id": "sec-string.prototype.link"
+    },
+    {
+        "text": "String.prototype.small ()",
+        "id": "sec-string.prototype.small"
+    },
+    {
+        "text": "String.prototype.strike ()",
+        "id": "sec-string.prototype.strike"
+    },
+    {
+        "text": "String.prototype.sub ()",
+        "id": "sec-string.prototype.sub"
+    },
+    {
+        "text": "String.prototype.sup ()",
+        "id": "sec-string.prototype.sup"
+    },
+    {
+        "text": "Additional Properties of the Date.prototype Object",
+        "id": "sec-additional-properties-of-the-date.prototype-object"
+    },
+    {
+        "text": "Date.prototype.getYear ( )",
+        "id": "sec-date.prototype.getyear"
+    },
+    {
+        "text": "Date.prototype.setYear (year)",
+        "id": "sec-date.prototype.setyear"
+    },
+    {
+        "text": "Date.prototype.toGMTString ( )",
+        "id": "sec-date.prototype.togmtstring"
+    },
+    {
+        "text": "Additional Properties of the RegExp.prototype Object",
+        "id": "sec-additional-properties-of-the-regexp.prototype-object"
+    },
+    {
+        "text": "RegExp.prototype.compile (pattern, flags )",
+        "id": "sec-regexp.prototype.compile"
+    },
+    {
+        "text": "Other Additional Features",
+        "id": "sec-other-additional-features"
+    },
+    {
+        "text": "__proto__ Property Names in Object Initializers",
+        "id": "sec-__proto__-property-names-in-object-initializers"
+    },
+    {
+        "text": "Labelled Function Declarations",
+        "id": "sec-labelled-function-declarations"
+    },
+    {
+        "text": "Block-Level Function Declarations Web Legacy Compatibility Semantics",
+        "id": "sec-block-level-function-declarations-web-legacy-compatibility-semantics"
+    },
+    {
+        "text": "FunctionDeclarations in IfStatement Statement Clauses",
+        "id": "sec-functiondeclarations-in-ifstatement-statement-clauses"
+    },
+    {
+        "text": "VariableStatements in Catch blocks",
+        "id": "sec-variablestatements-in-catch-blocks"
+    }
+]

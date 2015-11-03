@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-23.2.2"><a href="/sec/sec-properties-of-the-set-constructor.html" title="link to this section">23.2.2</a></span> Properties of the Set Constructor</h1>
+
+        <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the Set
+        constructor is the intrinsic object %FunctionPrototype% (<a href="/sec/sec-properties-of-the-function-prototype-object.html">19.2.3</a>).</p>
+
+        <p>Besides the <code>length</code> property (whose value is <b>0</b>), the Set constructor has the following
+        properties:</p>
+      </div>
+
+      <section id="sec-set.prototype">
+        <h1><span class="secnum" id="sec-23.2.2.1"><a href="/sec/sec-set.prototype.html" title="link to this section">23.2.2.1</a></span>
+            Set.prototype</h1>
+
+        <p>The initial value of <code>Set.prototype</code> is the intrinsic %SetPrototype% object (<a href="/sec/sec-properties-of-the-set-prototype-object.html">23.2.3</a>).</p>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <b>false</b>, [[Configurable]]:
+        <b>false</b> }.</p>
+      </section>
+
+      <section id="sec-get-set-@@species">
+        <h1><span class="secnum" id="sec-23.2.2.2"><a href="/sec/sec-get-set-@@species.html" title="link to this section">23.2.2.2</a></span> get Set [ @@species ]</h1>
+
+        <p class="normalbefore"><code>Set[@@species]</code> is an accessor property whose set accessor function is <span class="value">undefined</span>. Its get accessor function performs the following steps:</p>
+
+        <ol class="proc">
+          <li>Return the <b>this</b> value.</li>
+        </ol>
+
+        <p>The value of the <code>name</code> property of this function is <code>&quot;get [Symbol.species]&quot;</code>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> Methods that create derived collection objects should call @@species to determine the
+          constructor to use to create the derived objects. Subclass constructor may over-ride @@species to change the default
+          constructor assignment.</p>
+        </div>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

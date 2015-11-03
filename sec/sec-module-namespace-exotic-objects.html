@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-9.4.6"><a href="/sec/sec-module-namespace-exotic-objects.html" title="link to this section">9.4.6</a></span> Module Namespace Exotic Objects</h1>
+
+        <p>A <i>module namespace object</i> is an exotic object that exposes the bindings exported from an ECMAScript <span class="nt">Module</span> <var>(See <a href="/sec/sec-exports.html">15.2.3</a>)</var>. There is a one-to-one correspondence between
+        the String-keyed own properties of a module namespace exotic object and the binding names exported by the <span class="nt">Module</span>. The exported bindings include any bindings that are indirectly exported using <code>export
+        *</code> export items. Each String-valued own <a href="/sec/sec-object-type.html">property key</a> is the StringValue of the
+        corresponding exported binding name. These are the only String-keyed properties of a module namespace exotic object. Each
+        such property has the attributes {[[Configurable]]: <span class="value">false</span>, [[Enumerable]]: <span class="value">true</span>}. Module namespace objects are not extensible.</p>
+
+        <p>Module namespace objects have the internal slots defined in <a href="/sec/table-29.html">Table 29</a>.</p>
+
+        <figure>
+          <figcaption><span id="table-29">Table 29</span> &#x2014; Internal Slots of Module Namespace Exotic Objects</figcaption>
+          <table class="real-table">
+            <tr>
+              <th>Internal Slot</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>[[Module]]</td>
+              <td><a href="/sec/sec-abstract-module-records.html">Module Record</a></td>
+              <td>The <a href="/sec/sec-abstract-module-records.html">Module Record</a> whose exports this namespace exposes.</td>
+            </tr>
+            <tr>
+              <td>[[Exports]]</td>
+              <td><a href="/sec/sec-list-and-record-specification-type.html">List</a> of String</td>
+              <td>A <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing the String values of the exported names exposed as own properties of this object. The list is ordered as if an Array of those String values had been sorted using <code><a href="/sec/sec-array.prototype.sort.html">Array.prototype.sort</a></code> using <a href="/sec/sec-sortcompare.html">SortCompare</a> as <i><span style="font-family: Times New Roman">comparefn</span>.</i></td>
+            </tr>
+          </table>
+        </figure>
+
+        <p>Module namespace exotic objects provide alternative definitions for all of the internal methods.</p>
+      </div>
+
+      <section id="sec-module-namespace-exotic-objects-getprototypeof">
+        <h1><span class="secnum" id="sec-9.4.6.1"><a href="/sec/sec-module-namespace-exotic-objects-getprototypeof.html" title="link to this section">9.4.6.1</a></span> [[GetPrototypeOf]] ( )</h1>
+
+        <p class="normalbefore">When the [[GetPrototypeOf]] internal method of a module namespace exotic object <var>O</var> is
+        called the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Return <b>null</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-module-namespace-exotic-objects-setprototypeof-v">
+        <h1><span class="secnum" id="sec-9.4.6.2"><a href="/sec/sec-module-namespace-exotic-objects-setprototypeof-v.html" title="link to this section">9.4.6.2</a></span> [[SetPrototypeOf]] (V)</h1>
+
+        <p class="normalbefore">When the [[SetPrototypeOf]] internal method of a module namespace exotic object <var>O</var> is
+        called with argument <var>V</var> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: Either <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>V</i>) is Object or <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>V</i>) is Null.</li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-module-namespace-exotic-objects-isextensible">
+        <h1><span class="secnum" id="sec-9.4.6.3"><a href="/sec/sec-module-namespace-exotic-objects-isextensible.html" title="link to this section">9.4.6.3</a></span> [[IsExtensible]] ( )</h1>
+
+        <p class="normalbefore">When the [[IsExtensible]] internal method of a module namespace exotic object <var>O</var> is
+        called the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-module-namespace-exotic-objects-preventextensions">
+        <h1><span class="secnum" id="sec-9.4.6.4"><a href="/sec/sec-module-namespace-exotic-objects-preventextensions.html" title="link to this section">9.4.6.4</a></span> [[PreventExtensions]] ( )</h1>
+
+        <p class="normalbefore">When the [[PreventExtensions]] internal method of a module namespace exotic object <var>O</var> is
+        called the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Return <b>true</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-module-namespace-exotic-objects-getownproperty-p">
+        <h1><span class="secnum" id="sec-9.4.6.5"><a href="/sec/sec-module-namespace-exotic-objects-getownproperty-p.html" title="link to this section">9.4.6.5</a></span> [[GetOwnProperty]] (P)</h1>
+
+        <p class="normalbefore">When the [[GetOwnProperty]] internal method of a module namespace exotic object <var>O</var> is
+        called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>P</i>) is Symbol, return <a href="/sec/sec-ordinarygetownproperty.html">OrdinaryGetOwnProperty</a>(<i>O</i>, <i>P</i>).</li>
+          <li>Let <i>exports</i> be the value of <i>O</i>&#x2019;s [[Exports]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>P</i> is not an element of <i>exports</i>, return <b>undefined</b>.</li>
+          <li>Let <i>value</i> be <i>O</i>.[[Get]](<i>P</i>, <i>O</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>value</i>).</li>
+          <li>Return PropertyDescriptor{[[Value]]: <i>value</i>, [[Writable]]: <b>true</b>, [[Enumerable]]: <b>true</b>,
+              [[Configurable]]: <b>false</b> }.</li>
+        </ol>
+      </section>
+
+      <section id="sec-module-namespace-exotic-objects-defineownproperty-p-desc">
+        <h1><span class="secnum" id="sec-9.4.6.6"><a href="/sec/sec-module-namespace-exotic-objects-defineownproperty-p-desc.html" title="link to this section">9.4.6.6</a></span> [[DefineOwnProperty]] (P, Desc)</h1>
+
+        <p class="normalbefore">When the [[DefineOwnProperty]] internal method of a module namespace exotic object <var>O</var> is
+        called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var> and <a href="/sec/sec-property-descriptor-specification-type.html">Property Descriptor</a> <span class="nt">Desc</span>, the following
+        steps are taken:</p>
+
+        <ol class="proc">
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-module-namespace-exotic-objects-hasproperty-p">
+        <h1><span class="secnum" id="sec-9.4.6.7"><a href="/sec/sec-module-namespace-exotic-objects-hasproperty-p.html" title="link to this section">9.4.6.7</a></span> [[HasProperty]] (P)</h1>
+
+        <p class="normalbefore">When the [[HasProperty]] internal method of a module namespace exotic object <var>O</var> is
+        called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var>, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>P</i>) is Symbol, return <a href="/sec/sec-ordinaryhasproperty.html">OrdinaryHasProperty</a>(<i>O</i>, <i>P</i>).</li>
+          <li>Let <i>exports</i> be the value of <i>O</i>&#x2019;s [[Exports]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>P</i> is an element of <i>exports</i>, return <b>true</b>.</li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-module-namespace-exotic-objects-get-p-receiver">
+        <h1><span class="secnum" id="sec-9.4.6.8"><a href="/sec/sec-module-namespace-exotic-objects-get-p-receiver.html" title="link to this section">9.4.6.8</a></span> [[Get]] (P, Receiver)</h1>
+
+        <p class="normalbefore">When the [[Get]] internal method of a module namespace exotic object <var>O</var> is called with
+        <a href="/sec/sec-object-type.html">property key</a> <var>P</var> and <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language
+        value</a> <span class="nt">Receiver</span> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+              <b>true</b>.</li>
+          <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>P</i>) is Symbol, then
+            <ol class="block">
+              <li>Return the result of calling the default ordinary object [[Get]] internal method (<a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-get-p-receiver.html">9.1.8</a>) on <i>O</i> passing
+                  <i>P</i> and <i>Receiver</i> as arguments.</li>
+            </ol>
+          </li>
+          <li>Let <i>exports</i> be the value of <i>O</i>&#x2019;s [[Exports]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>P</i> is not an element of <i>exports</i>, return <b>undefined</b>.</li>
+          <li>Let <i>m</i> be the value of <i>O</i>&#x2019;s [[Module]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>binding</i> be <i>m</i>.<a href="/sec/sec-resolveexport.html">ResolveExport</a>(<i>P</i>, &#xAB;&#xBB;,
+              &#xAB;&#xBB;).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>binding</i>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>binding</i> is neither <b>null</b> nor
+              <code>&quot;ambiguous&quot;</code>.</li>
+          <li>Let <i>targetModule</i> be <i>binding</i>.[[module]],</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>targetModule</i> is not <b>undefined</b>.</li>
+          <li>Let <i>targetEnv</i> be <i>targetModule</i>.[[Environment]].</li>
+          <li>If <i>targetEnv</i> is <b>undefined</b>, throw a <b>ReferenceError</b> exception.</li>
+          <li>Let <i>targetEnvRec</i> be <i>targetEnv</i>&#x2019;s <a href="/sec/sec-lexical-environments.html">EnvironmentRecord</a>.</li>
+          <li>Return <i>targetEnvRec</i>.GetBindingValue(<i>binding.</i>[[bindingName]], <b>true</b>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> <a href="/sec/sec-resolveexport.html">ResolveExport</a> is idempotent and side-effect free. An
+          implementation might choose to pre-compute or cache the <a href="/sec/sec-resolveexport.html">ResolveExport</a> results for the
+          [[Exports]] of each module namespace exotic object.</p>
+        </div>
+      </section>
+
+      <section id="sec-module-namespace-exotic-objects-set-p-v-receiver">
+        <h1><span class="secnum" id="sec-9.4.6.9"><a href="/sec/sec-module-namespace-exotic-objects-set-p-v-receiver.html" title="link to this section">9.4.6.9</a></span> [[Set]] ( P, V, Receiver)</h1>
+
+        <p class="normalbefore">When the [[Set]] internal method of <span style="font-family: Times New Roman">a</span> module
+        namespace exotic object <var>O</var> is called with <a href="/sec/sec-object-type.html">property key</a> <var>P</var>, value
+        <var>V</var>, and <a href="/sec/sec-ecmascript-language-types.html">ECMAScript language value</a> <span class="nt">Receiver</span>,
+        the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Return <b>false</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-module-namespace-exotic-objects-delete-p">
+        <h1><span class="secnum" id="sec-9.4.6.10"><a href="/sec/sec-module-namespace-exotic-objects-delete-p.html" title="link to this section">9.4.6.10</a></span> [[Delete]] (P)</h1>
+
+        <p class="normalbefore">When the [[Delete]] internal method of a module namespace exotic object <var>O</var> is called
+        with <a href="/sec/sec-object-type.html">property key</a> <var>P</var> the following steps are taken:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <a href="/sec/sec-ispropertykey.html">IsPropertyKey</a>(<i>P</i>) is
+              <b>true</b>.</li>
+          <li>Let <i>exports</i> be the value of <i>O</i>&#x2019;s [[Exports]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>If <i>P</i> is an element of <i>exports</i>, return <b>false</b>.</li>
+          <li>Return <b>true</b>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-module-namespace-exotic-objects-enumerate">
+        <h1><span class="secnum" id="sec-9.4.6.11"><a href="/sec/sec-module-namespace-exotic-objects-enumerate.html" title="link to this section">9.4.6.11</a></span> [[Enumerate]] ()</h1>
+
+        <p class="normalbefore">When the [[Enumerate]] internal method of a module namespace exotic object <var>O</var> is called
+        the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>exports</i> be the value of <i>O</i>&#x2019;s [[Exports]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Return <a href="/sec/sec-createlistiterator.html">CreateListIterator</a>(<i>exports</i>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-module-namespace-exotic-objects-ownpropertykeys">
+        <h1><span class="secnum" id="sec-9.4.6.12"><a href="/sec/sec-module-namespace-exotic-objects-ownpropertykeys.html" title="link to this section">9.4.6.12</a></span> [[OwnPropertyKeys]] ( )</h1>
+
+        <p class="normalbefore">When the [[OwnPropertyKeys]] internal method of a module namespace exotic object <var>O</var> is
+        called the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>exports</i> be a copy of the value of <i>O</i>&#x2019;s [[Exports]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a>.</li>
+          <li>Let <i>symbolKeys</i> be the result of calling the default ordinary object [[OwnPropertyKeys]] internal method (<a href="/sec/sec-ordinary-object-internal-methods-and-internal-slots-ownpropertykeys.html">9.1.12</a>) on <i>O</i> passing no
+              arguments.</li>
+          <li>Append all the entries of <i>symbolKeys</i> to the end of <i>exports</i>.</li>
+          <li>Return <i>exports</i>.</li>
+        </ol>
+      </section>
+
+      <section id="sec-modulenamespacecreate">
+        <h1><span class="secnum" id="sec-9.4.6.13"><a href="/sec/sec-modulenamespacecreate.html" title="link to this section">9.4.6.13</a></span> ModuleNamespaceCreate (module, exports)</h1>
+
+        <p class="normalbefore">The abstract operation ModuleNamespaceCreate with arguments <var>module</var>, and
+        <var>exports</var> is used to specify the creation of new module namespace exotic objects. It performs the following
+        steps:</p>
+
+        <ol class="proc">
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>module</i> is a <a href="/sec/sec-abstract-module-records.html">Module
+              Record</a> (<a href="/sec/sec-abstract-module-records.html">see 15.2.1.15</a>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>module</i>.[[Namespace]] is <b>undefined</b>.</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>exports</i> is a <a href="/sec/sec-list-and-record-specification-type.html">List</a> of String values.</li>
+          <li>Let <i>M</i> be a newly created object.</li>
+          <li>Set <i>M</i>&#x2019;s essential internal methods to the definitions specified in <a href="/sec/sec-module-namespace-exotic-objects.html">9.4.6</a>.</li>
+          <li>Set <i>M</i>&#x2019;s [[Module]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <i>module</i>.</li>
+          <li>Set <i>M</i>&#x2019;s [[Exports]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> to
+              <i>exports</i>.</li>
+          <li>Create own properties of <i>M</i> corresponding to the definitions in <a href="/sec/sec-module-namespace-objects.html">26.3</a>.</li>
+          <li>Set <i>module</i>.[[Namespace]] to <i>M</i>.</li>
+          <li>Return <i>M</i>.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

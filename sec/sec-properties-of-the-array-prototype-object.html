@@ -1,0 +1,2127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-22.1.3"><a href="/sec/sec-properties-of-the-array-prototype-object.html" title="link to this section">22.1.3</a></span> Properties of the Array Prototype Object</h1>
+
+        <p>The Array prototype object is the intrinsic object %ArrayPrototype%. The Array prototype object is an Array exotic
+        objects and has the internal methods specified for such objects. It has a <code>length</code> property whose initial value
+        is 0 and whose attributes are <span style="font-family: Times New Roman">{ [[Writable]]: <b>true</b>, [[Enumerable]]:
+        <b>false</b>, [[Configurable]]: <b>false</b> }</span>.</p>
+
+        <p>The value of the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of the Array
+        prototype object is the intrinsic object %ObjectPrototype%.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The Array prototype object is specified to be an <a href="/sec/sec-array-exotic-objects.html">Array exotic object</a> to ensure compatibility with ECMAScript code that was created
+          prior to the ECMAScript 2015 specification.</p>
+        </div>
+      </div>
+
+      <section id="sec-array.prototype.concat">
+        <div class="front">
+          <h1><span class="secnum" id="sec-22.1.3.1"><a href="/sec/sec-array.prototype.concat.html" title="link to this section">22.1.3.1</a></span> Array.prototype.concat ( ...arguments )</h1>
+
+          <p>When the <code>concat</code> method is called with zero or more arguments, it returns an array containing the array
+          elements of the object followed by the array elements of each argument in order.</p>
+
+          <p class="normalbefore">The following steps are taken:</p>
+
+          <ol class="proc">
+            <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+            <li>Let <i>A</i> be <a href="/sec/sec-arrayspeciescreate.html">ArraySpeciesCreate</a>(<i>O</i>, 0).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>A</i>).</li>
+            <li>Let <i>n</i> be 0.</li>
+            <li>Let <i>items</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> whose first element is <i>O</i>
+                and whose subsequent elements are, in left to right order, the arguments that were passed to this function
+                invocation.</li>
+            <li>Repeat, while <i>items</i> is not empty
+              <ol class="block">
+                <li>Remove the first element from <i>items</i> and let <i>E</i> be the value of the element.</li>
+                <li>Let <i>spreadable</i> be <a href="/sec/sec-isconcatspreadable.html">IsConcatSpreadable</a>(<i>E</i>).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>spreadable</i>).</li>
+                <li>If <i>spreadable</i> is <b>true</b>, then
+                  <ol class="block">
+                    <li>Let <i>k</i> be 0.</li>
+                    <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>E</i>,
+                        <code>&quot;length&quot;</code>)).</li>
+                    <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+                    <li>If <i>n</i> + <i>len</i> &gt; 2<sup>53</sup>-1, throw a <b>TypeError</b> exception.</li>
+                    <li>Repeat, while <i>k</i> &lt; <i>len</i>
+                      <ol class="block">
+                        <li>Let <i>P</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+                        <li>Let <i>exists</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>E</i>, <i>P</i>).</li>
+                        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>exists</i>).</li>
+                        <li>If <i>exists</i> is <b>true</b>, then
+                          <ol class="block">
+                            <li>Let <i>subElement</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>E</i>, <i>P</i>).</li>
+                            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>subElement</i>).</li>
+                            <li>Let <i>status</i> be <a href="/sec/sec-createdatapropertyorthrow.html">CreateDataPropertyOrThrow</a>
+                                (<i>A</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>n</i>), <i>subElement</i>).</li>
+                            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+                          </ol>
+                        </li>
+                        <li>Increase <i>n</i> by 1.</li>
+                        <li>Increase <i>k</i> by 1.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+                <li>Else <i>E</i> is added as a single item rather than spread,
+                  <ol class="block">
+                    <li>If <i>n</i>&#x2265;2<sup>53</sup>-1, throw a <b>TypeError</b> exception.</li>
+                    <li>Let <i>status</i> be <a href="/sec/sec-createdatapropertyorthrow.html">CreateDataPropertyOrThrow</a> (<i>A</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>n</i>), <i>E</i>).</li>
+                    <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+                    <li>Increase <i>n</i> by 1.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+            <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>A</i>, <code>&quot;length&quot;</code>, <i>n</i>,
+                <b>true</b>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+            <li>Return <i>A</i>.</li>
+          </ol>
+
+          <p>The <code>length</code> property of the <code>concat</code> method is <b>1</b>.</p>
+
+          <div class="note">
+            <p><span class="nh">NOTE 1</span> The explicit setting of the <code>length</code> property in step 8 is necessary to
+            ensure that its value is correct in situations where the trailing elements of the result Array are not present.</p>
+          </div>
+
+          <div class="note">
+            <p><span class="nh">NOTE 2</span> The <code>concat</code> function is intentionally generic; it does not require that
+            its <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a
+            method.</p>
+          </div>
+        </div>
+
+        <section id="sec-isconcatspreadable">
+          <h1><span class="secnum" id="sec-22.1.3.1.1"><a href="/sec/sec-isconcatspreadable.html" title="link to this section">22.1.3.1.1</a></span> Runtime Semantics: IsConcatSpreadable ( O )</h1>
+
+          <p class="normalbefore">The abstract operation IsConcatSpreadable with argument <i>O</i> performs the following
+          steps:</p>
+
+          <ol class="proc">
+            <li>If <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>O</i>) is not Object, return <b>false</b>.</li>
+            <li>Let <i>spreadable</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, @@isConcatSpreadable).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>spreadable</i>).</li>
+            <li>If <i>spreadable</i> is not <b>undefined</b>, return <a href="/sec/sec-toboolean.html">ToBoolean</a>(<i>spreadable</i>).</li>
+            <li>Return <a href="/sec/sec-isarray.html">IsArray</a>(<i>O</i>).</li>
+          </ol>
+        </section>
+      </section>
+
+      <section id="sec-array.prototype.constructor">
+        <h1><span class="secnum" id="sec-22.1.3.2"><a href="/sec/sec-array.prototype.constructor.html" title="link to this section">22.1.3.2</a></span> Array.prototype.constructor</h1>
+
+        <p>The initial value of <code>Array.prototype.constructor</code> is the intrinsic object %Array%.</p>
+      </section>
+
+      <section id="sec-array.prototype.copywithin">
+        <h1><span class="secnum" id="sec-22.1.3.3"><a href="/sec/sec-array.prototype.copywithin.html" title="link to this section">22.1.3.3</a></span> Array.prototype.copyWithin (target, start [ , end ] )</h1>
+
+        <p class="normalbefore">The <code>copyWithin</code> method takes up to three arguments <var>target</var>, <var>start</var>
+        and <var>end</var>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The <var>end</var> argument is optional with the length of the <b>this</b> object as
+          its default value. If <var>target</var> is negative, it is treated as <span style="font-family: Times New
+          Roman"><i>length</i>+<i>target</i></span> where <var>length</var> is the length of the array. If <var>start</var> is
+          negative, it is treated as <span style="font-family: Times New Roman"><i>length</i>+<i>start</i></span>. If
+          <var>end</var> is negative, it is treated as <span style="font-family: Times New
+          Roman"><i>length</i>+<i>end</i></span>.</p>
+        </div>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>Let <i>relativeTarget</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>target</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeTarget</i>).</li>
+          <li>If <i>relativeTarget</i> &lt; 0, let <i>to</i> be max((<i>len</i> + <i>relativeTarget</i>),0); else let <i>to</i> be
+              min(<i>relativeTarget</i>, <i>len</i>).</li>
+          <li>Let <i>relativeStart</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>start</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeStart</i>).</li>
+          <li>If <i>relativeStart</i> &lt; 0, let <i>from</i> be max((<i>len</i> + <i>relativeStart</i>),0); else let <i>from</i>
+              be min(<i>relativeStart</i>, <i>len</i>).</li>
+          <li>If <i>end</i> is <b>undefined</b>, let <i>relativeEnd</i> be <i>len</i>; else let <i>relativeEnd</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>end</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeEnd</i>).</li>
+          <li>If <i>relativeEnd</i> &lt; 0, let <i>final</i> be max((<i>len</i> + <i>relativeEnd</i>),0); else let <i>final</i> be
+              min(<i>relativeEnd</i>, <i>len</i>).</li>
+          <li>Let <i>count</i> be min(<i>final</i>-<i>from</i>, <i>len</i>-<i>to</i>).</li>
+          <li>If <i>from</i>&lt;<i>to</i> and <i>to</i>&lt;<i>from</i>+<i>count</i>
+            <ol class="block">
+              <li>Let <i>direction</i> be -1.</li>
+              <li>Let <i>from</i> be <i>from</i> + <i>count</i> -1.</li>
+              <li>Let <i>to</i> be <i>to</i> + <i>count</i> -1.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>direction</i> = 1.</li>
+            </ol>
+          </li>
+          <li>Repeat, while <i>count</i> &gt; 0
+            <ol class="block">
+              <li>Let <i>fromKey</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>from</i>).</li>
+              <li>Let <i>toKey</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>to</i>).</li>
+              <li>Let <i>fromPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>fromKey</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromPresent</i>).</li>
+              <li>If <i>fromPresent</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>fromVal</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>fromKey</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromVal</i>).</li>
+                  <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <i>toKey</i>, <i>fromVal</i>,
+                      <b>true</b>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                </ol>
+              </li>
+              <li>Else <i>fromPresent</i> is <b>false</b>,
+                <ol class="block">
+                  <li>Let <i>deleteStatus</i> be <a href="/sec/sec-deletepropertyorthrow.html">DeletePropertyOrThrow</a>(<i>O</i>,
+                      <i>toKey</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>deleteStatus</i>).</li>
+                </ol>
+              </li>
+              <li>Let <i>from</i> be <i>from</i> + <i>direction</i>.</li>
+              <li>Let <i>to</i> be <i>to</i> + <i>direction</i>.</li>
+              <li>Let <i>count</i> be <i>count</i> &#x2212; 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>O</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>copyWithin</code> method is <b>2</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>copyWithin</code> function is intentionally generic; it does not require
+          that its <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.entries">
+        <h1><span class="secnum" id="sec-22.1.3.4"><a href="/sec/sec-array.prototype.entries.html" title="link to this section">22.1.3.4</a></span> Array.prototype.entries ( )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Return <a href="/sec/sec-createarrayiterator.html">CreateArrayIterator</a>(<i>O</i>, <code>&quot;key+value&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-array.prototype.every">
+        <h1><span class="secnum" id="sec-22.1.3.5"><a href="/sec/sec-array.prototype.every.html" title="link to this section">22.1.3.5</a></span> Array.prototype.every ( callbackfn [ , thisArg] )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> <var>callbackfn</var> should be a function that accepts three arguments and returns a
+          value that is coercible to the Boolean value <b>true</b> or <b>false</b>. <code>every</code> calls <var>callbackfn</var>
+          once for each element present in the array, in ascending order, until it finds one where <var>callbackfn</var> returns
+          <b>false</b>. If such an element is found, <code>every</code> immediately returns <b>false</b>. Otherwise, if
+          <var>callbackfn</var> returned <b>true</b> for all elements, <code>every</code> will return <b>true</b>.
+          <var>callbackfn</var> is called only for elements of the array which actually exist; it is not called for missing
+          elements of the array.</p>
+        </div>
+
+        <p class="NoteMore">If a <var>thisArg</var> parameter is provided, it will be used as the <b>this</b> value for each
+        invocation of <var>callbackfn</var>. If it is not provided, <b>undefined</b> is used instead.</p>
+
+        <p class="NoteMore"><var>callbackfn</var> is called with three arguments: the value of the element, the index of the
+        element, and the object being traversed.</p>
+
+        <p class="NoteMore"><code>every</code> does not directly mutate the object on which it is called but the object may be
+        mutated by the calls to <var>callbackfn</var>.</p>
+
+        <p class="NoteMore">The range of elements processed by <code>every</code> is set before the first call to
+        <var>callbackfn</var>. Elements which are appended to the array after the call to <code>every</code> begins will not be
+        visited by <var>callbackfn</var>. If existing elements of the array are changed, their value as passed to
+        <var>callbackfn</var> will be the value at the time <code>every</code> visits them; elements that are deleted after the
+        call to <code>every</code> begins and before being visited are not visited. <code>every</code> acts like the &quot;for all&quot;
+        quantifier in mathematics. In particular, for an empty array, it returns <b>true</b>.</p>
+
+        <p class="normalbefore">When the <code>every</code> method is called with one or two arguments, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>callbackfn</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>thisArg</i> was supplied, let <i>T</i> be <i>thisArg</i>; else let <i>T</i> be <b>undefined</b>.</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>Repeat, while <i>k</i> &lt; <i>len</i>
+            <ol class="block">
+              <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+              <li>Let <i>kPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>Pk</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kPresent</i>).</li>
+              <li>If <i>kPresent</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>kValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>Pk</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kValue</i>).</li>
+                  <li>Let <i>testResult</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-call.html">Call</a>(<i>callbackfn</i>, <i>T</i>, &#xAB;<i>kValue</i>, <i>k</i>,
+                      <i>O</i>&#xBB;)).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>testResult</i>).</li>
+                  <li>If <i>testResult</i> is <b>false</b>, return <b>false</b>.</li>
+                </ol>
+              </li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <b>true</b>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>every</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>every</code> function is intentionally generic; it does not require that its
+          <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.fill">
+        <h1><span class="secnum" id="sec-22.1.3.6"><a href="/sec/sec-array.prototype.fill.html" title="link to this section">22.1.3.6</a></span> Array.prototype.fill (value [ , start [ , end ] ] )</h1>
+
+        <p class="normalbefore">The <code>fill</code> method takes up to three arguments <var>value</var>, <var>start</var> and
+        <var>end</var>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The <var>start</var> and <var>end</var> arguments are optional with default values of
+          0 and the length of the <b>this</b> object. If <var>start</var> is negative, it is treated as <span style="font-family:
+          Times New Roman"><i>length</i>+<i>start</i></span> where <var>length</var> is the length of the array. If <var>end</var>
+          is negative, it is treated as <span style="font-family: Times New Roman"><i>length</i>+<i>end</i></span>.</p>
+        </div>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>Let <i>relativeStart</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>start</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeStart</i>).</li>
+          <li>If <i>relativeStart</i> &lt; 0, let <i>k</i> be max((<i>len</i> + <i>relativeStart</i>),0); else let <i>k</i> be
+              min(<i>relativeStart</i>, <i>len</i>).</li>
+          <li>If <i>end</i> is <b>undefined</b>, let <i>relativeEnd</i> be <i>len</i>; else let <i>relativeEnd</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>end</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeEnd</i>).</li>
+          <li>If <i>relativeEnd</i> &lt; 0, let <i>final</i> be max((<i>len</i> + <i>relativeEnd</i>),0); else let <i>final</i> be
+              min(<i>relativeEnd</i>, <i>len</i>).</li>
+          <li>Repeat, while <i>k</i> &lt; <i>final</i>
+            <ol class="block">
+              <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+              <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <i>Pk</i>, <i>value</i>,
+                  <b>true</b>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>O</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>fill</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>fill</code> function is intentionally generic; it does not require that its
+          <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.filter">
+        <h1><span class="secnum" id="sec-22.1.3.7"><a href="/sec/sec-array.prototype.filter.html" title="link to this section">22.1.3.7</a></span> Array.prototype.filter ( callbackfn [ , thisArg ] )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> <var>callbackfn</var> should be a function that accepts three arguments and returns a
+          value that is coercible to the Boolean value <b>true</b> or <b>false</b>. <code>filter</code> calls
+          <var>callbackfn</var> once for each element in the array, in ascending order, and constructs a new array of all the
+          values for which <var>callbackfn</var> returns <b>true</b>. <var>callbackfn</var> is called only for elements of the
+          array which actually exist; it is not called for missing elements of the array.</p>
+        </div>
+
+        <p class="NoteMore">If a <var>thisArg</var> parameter is provided, it will be used as the <b>this</b> value for each
+        invocation of <var>callbackfn</var>. If it is not provided, <b>undefined</b> is used instead.</p>
+
+        <p class="NoteMore"><var>callbackfn</var> is called with three arguments: the value of the element, the index of the
+        element, and the object being traversed.</p>
+
+        <p class="NoteMore"><code>filter</code> does not directly mutate the object on which it is called but the object may be
+        mutated by the calls to <var>callbackfn</var>.</p>
+
+        <p class="NoteMore">The range of elements processed by <code>filter</code> is set before the first call to
+        <var>callbackfn</var>. Elements which are appended to the array after the call to <code>filter</code> begins will not be
+        visited by <var>callbackfn</var>. If existing elements of the array are changed their value as passed to
+        <var>callbackfn</var> will be the value at the time <code>filter</code> visits them; elements that are deleted after the
+        call to <code>filter</code> begins and before being visited are not visited.</p>
+
+        <p class="normalbefore">When the <code>filter</code> method is called with one or two arguments, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>callbackfn</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>thisArg</i> was supplied, let <i>T</i> be <i>thisArg</i>; else let <i>T</i> be <b>undefined</b>.</li>
+          <li>Let <i>A</i> be <a href="/sec/sec-arrayspeciescreate.html">ArraySpeciesCreate</a>(<i>O</i>, 0).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>A</i>).</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>Let <i>to</i> be 0.</li>
+          <li>Repeat, while <i>k</i> &lt; <i>len</i>
+            <ol class="block">
+              <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+              <li>Let <i>kPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>Pk</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kPresent</i>).</li>
+              <li>If <i>kPresent</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>kValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>Pk</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kValue</i>).</li>
+                  <li>Let <i>selected</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-call.html">Call</a>(<i>callbackfn</i>, <i>T</i>, &#xAB;<i>kValue</i>, <i>k</i>,
+                      <i>O</i>&#xBB;)).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>selected</i>).</li>
+                  <li>If <i>selected</i> is <b>true</b>, then
+                    <ol class="block">
+                      <li>Let <i>status</i> be <a href="/sec/sec-createdatapropertyorthrow.html">CreateDataPropertyOrThrow</a> (<i>A</i>,
+                          <a href="/sec/sec-tostring.html">ToString</a>(<i>to</i>), <i>kValue</i>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+                      <li>Increase <i>to</i> by 1.</li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>A</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>filter</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>filter</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.find">
+        <h1><span class="secnum" id="sec-22.1.3.8"><a href="/sec/sec-array.prototype.find.html" title="link to this section">22.1.3.8</a></span> Array.prototype.find ( predicate [ , thisArg ] )</h1>
+
+        <p class="normalBullet">The <code>find</code> method is called with one or two arguments, <var>predicate</var> and
+        <var>thisArg</var>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> <var>predicate</var> should be a function that accepts three arguments and returns a
+          value that is coercible to a Boolean value. <code>find</code> calls <var>predicate</var> once for each element of the
+          array, in ascending order, until it finds one where <var>predicate</var> returns <span class="value">true</span>. If
+          such an element is found, <code>find</code> immediately returns that element value. Otherwise, <code>find</code> returns
+          <span class="value">undefined</span>.</p>
+        </div>
+
+        <p class="NoteMore">If a <var>thisArg</var> parameter is provided, it will be used as the <b>this</b> value for each
+        invocation of <var>predicate</var>. If it is not provided, <span class="value">undefined</span> is used instead.</p>
+
+        <p class="NoteMore"><var>predicate</var> is called with three arguments: the value of the element, the index of the
+        element, and the object being traversed.</p>
+
+        <p class="NoteMore"><code>find</code> does not directly mutate the object on which it is called but the object may be
+        mutated by the calls to <var>predicate</var>.</p>
+
+        <p class="NoteMore">The range of elements processed by <code>find</code> is set before the first call to
+        <var>callbackfn</var>. Elements that are appended to the array after the call to <code>find</code> begins will not be
+        visited by <var>callbackfn</var>. If existing elements of the array are changed, their value as passed to
+        <var>predicate</var> will be the value at the time that <code>find</code> visits them.</p>
+
+        <p class="normalbefore">When the <code>find</code> method is called, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>predicate</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>thisArg</i> was supplied, let <i>T</i> be <i>thisArg</i>; else let <i>T</i> be <b>undefined</b>.</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>Repeat, while <i>k</i> &lt; <i>len</i>
+            <ol class="block">
+              <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+              <li>Let <i>kValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>Pk</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kValue</i>).</li>
+              <li>Let <i>testResult</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-call.html">Call</a>(<i>predicate</i>,
+                  <i>T</i>, &#xAB;<i>kValue</i>, <i>k</i>, <i>O</i>&#xBB;)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>testResult</i>).</li>
+              <li>If <i>testResult</i> is <b>true</b>, return <i>kValue</i>.</li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <b>undefined</b>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>find</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>find</code> function is intentionally generic; it does not require that its
+          <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.findindex">
+        <h1><span class="secnum" id="sec-22.1.3.9"><a href="/sec/sec-array.prototype.findindex.html" title="link to this section">22.1.3.9</a></span> Array.prototype.findIndex ( predicate [ , thisArg ] )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> <var>predicate</var> should be a function that accepts three arguments and returns a
+          value that is coercible to the Boolean value <b>true</b> or <b>false</b>. <code>findIndex</code> calls
+          <var>predicate</var> once for each element of the array, in ascending order, until it finds one where
+          <var>predicate</var> returns <b>true</b>. If such an element is found, <code>findIndex</code> immediately returns the
+          index of that element value. Otherwise, <code>findIndex</code> returns -1.</p>
+        </div>
+
+        <p class="NoteMore">If a <var>thisArg</var> parameter is provided, it will be used as the <b>this</b> value for each
+        invocation of <var>predicate</var>. If it is not provided, <b>undefined</b> is used instead.</p>
+
+        <p class="NoteMore"><var>predicate</var> is called with three arguments: the value of the element, the index of the
+        element, and the object being traversed.</p>
+
+        <p class="NoteMore"><code>findIndex</code> does not directly mutate the object on which it is called but the object may be
+        mutated by the calls to <var>predicate</var>.</p>
+
+        <p class="NoteMore">The range of elements processed by <code>findIndex</code> is set before the first call to
+        <var>callbackfn</var>. Elements that are appended to the array after the call to <code>findIndex</code> begins will not be
+        visited by <var>callbackfn</var>. If existing elements of the array are changed, their value as passed to
+        <var>predicate</var> will be the value at the time that <code>findIndex</code> visits them.</p>
+
+        <p class="normalbefore">When the <code>findIndex</code> method is called with one or two arguments, the following steps
+        are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>predicate</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>thisArg</i> was supplied, let <i>T</i> be <i>thisArg</i>; else let <i>T</i> be <b>undefined</b>.</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>Repeat, while <i>k</i> &lt; <i>len</i>
+            <ol class="block">
+              <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+              <li>Let <i>kValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>Pk</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kValue</i>).</li>
+              <li>Let <i>testResult</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-call.html">Call</a>(<i>predicate</i>,
+                  <i>T</i>, &#xAB;<i>kValue</i>, <i>k</i>, <i>O</i>&#xBB;)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>testResult</i>).</li>
+              <li>If <i>testResult</i> is <b>true</b>, return <i>k</i>.</li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return -1.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>findIndex</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>findIndex</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.foreach">
+        <h1><span class="secnum" id="sec-22.1.3.10"><a href="/sec/sec-array.prototype.foreach.html" title="link to this section">22.1.3.10</a></span> Array.prototype.forEach ( callbackfn [ , thisArg ] )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> <var>callbackfn</var> should be a function that accepts three arguments.
+          <code>forEach</code> calls <var>callbackfn</var> once for each element present in the array, in ascending order.
+          <var>callbackfn</var> is called only for elements of the array which actually exist; it is not called for missing
+          elements of the array.</p>
+
+          <p>If a <var>thisArg</var> parameter is provided, it will be used as the <b>this</b> value for each invocation of
+          <var>callbackfn</var>. If it is not provided, <b>undefined</b> is used instead.</p>
+
+          <p><var>callbackfn</var> is called with three arguments: the value of the element, the index of the element, and the
+          object being traversed.</p>
+
+          <p><code>forEach</code> does not directly mutate the object on which it is called but the object may be mutated by the
+          calls to <var>callbackfn</var>.</p>
+        </div>
+
+        <p class="normalbefore">When the <code>forEach</code> method is called with one or two arguments, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>callbackfn</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>thisArg</i> was supplied, let <i>T</i> be <i>thisArg</i>; else let <i>T</i> be <b>undefined</b>.</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>Repeat, while <i>k</i> &lt; <i>len</i>
+            <ol class="block">
+              <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+              <li>Let <i>kPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>Pk</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kPresent</i>).</li>
+              <li>If <i>kPresent</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>kValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>Pk</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kValue</i>).</li>
+                  <li>Let <i>funcResult</i> be <a href="/sec/sec-call.html">Call</a>(<i>callbackfn</i>, <i>T</i>, &#xAB;<i>kValue</i>,
+                      <i>k</i>, <i>O</i>&#xBB;).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>funcResult</i>).</li>
+                </ol>
+              </li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <b>undefined</b>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>forEach</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>forEach</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.indexof">
+        <h1><span class="secnum" id="sec-22.1.3.11"><a href="/sec/sec-array.prototype.indexof.html" title="link to this section">22.1.3.11</a></span> Array.prototype.indexOf ( searchElement [ , fromIndex ] )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> <code>indexOf</code> compares <var>searchElement</var> to the elements of the array,
+          in ascending order, using the Strict Equality Comparison algorithm (<a href="/sec/sec-strict-equality-comparison.html">7.2.13</a>), and if found at one or more indices, returns the smallest such
+          index; otherwise, &#x2212;1 is returned.</p>
+
+          <p>The optional second argument <var>fromIndex</var> defaults to 0 (i.e. the whole array is searched). If it is greater
+          than or equal to the length of the array, &#x2212;1 is returned, i.e. the array will not be searched. If it is negative,
+          it is used as the offset from the end of the array to compute <var>fromIndex</var>. If the computed index is less than
+          0, the whole array will be searched.</p>
+        </div>
+
+        <p class="normalbefore">When the <code>indexOf</code> method is called with one or two arguments, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>If <i>len</i> is 0, return &#x2212;1.</li>
+          <li>If argument <i>fromIndex</i> was passed let <i>n</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>fromIndex</i>);
+              else let <i>n</i> be 0.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>n</i>).</li>
+          <li>If <i>n</i> &#x2265; <i>len</i>, return &#x2212;1.</li>
+          <li>If <i>n</i> &#x2265; 0, then
+            <ol class="block">
+              <li>Let <i>k</i> be <i>n</i>.</li>
+            </ol>
+          </li>
+          <li>Else <i>n</i>&lt;0,
+            <ol class="block">
+              <li>Let <i>k</i> be <i>len</i> - <a href="/sec/sec-algorithm-conventions.html">abs</a>(<i>n</i>).</li>
+              <li>If <i>k</i> &lt; 0, let <i>k</i> be 0.</li>
+            </ol>
+          </li>
+          <li>Repeat, while <i>k</i>&lt;<i>len</i>
+            <ol class="block">
+              <li>Let <i>kPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kPresent</i>).</li>
+              <li>If <i>kPresent</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>elementK</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>)).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>elementK</i>).</li>
+                  <li>Let <i>same</i> be the result of performing Strict Equality Comparison <i>searchElement</i> ===
+                      <i>elementK</i>.</li>
+                  <li>If <i>same</i> is <b>true,</b>  return <i>k</i>.</li>
+                </ol>
+              </li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return -1.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>indexOf</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>indexOf</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.join">
+        <h1><span class="secnum" id="sec-22.1.3.12"><a href="/sec/sec-array.prototype.join.html" title="link to this section">22.1.3.12</a></span> Array.prototype.join (separator)</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The elements of the array are converted to Strings, and these Strings are then
+          concatenated, separated by occurrences of the <var>separator</var>. If no separator is provided, a single comma is used
+          as the separator.</p>
+        </div>
+
+        <p class="normalbefore">The <code>join</code> method takes one argument, <var>separator</var>, and performs the following
+        steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>If <i>separator</i> is <b>undefined</b>, let <i>separator</i> be the single-element String <code>&quot;,&quot;</code>.</li>
+          <li>Let <i>sep</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>separator</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>sep</i>).</li>
+          <li>If <i>len</i> is zero, return the empty String.</li>
+          <li>Let <i>element0</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <code>&quot;0&quot;</code>).</li>
+          <li>If <i>element0</i> is <b>undefined</b> or <b>null</b>, let <i>R</i> be the empty String; otherwise, let <i>R</i> be
+              <a href="/sec/sec-tostring.html">ToString</a>(<i>element0</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>R</i>).</li>
+          <li>Let <i>k</i> be <code>1</code>.</li>
+          <li>Repeat, while <i>k</i> &lt; <i>len</i>
+            <ol class="block">
+              <li>Let <i>S</i> be the String value produced by concatenating <i>R</i> and <i>sep</i>.</li>
+              <li>Let <i>element</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>)).</li>
+              <li>If <i>element</i> is <b>undefined</b> or <b>null</b>, let <i>next</i> be the empty String; otherwise, let
+                  <i>next</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>element</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>next</i>).</li>
+              <li>Let <i>R</i> be a String value produced by concatenating <i>S</i> and <i>next</i>.</li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>R</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>join</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>join</code> function is intentionally generic; it does not require that its
+          <b>this</b> value be an Array object. Therefore, it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.keys">
+        <h1><span class="secnum" id="sec-22.1.3.13"><a href="/sec/sec-array.prototype.keys.html" title="link to this section">22.1.3.13</a></span> Array.prototype.keys ( )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Return <a href="/sec/sec-createarrayiterator.html">CreateArrayIterator</a>(<i>O</i>, <code>&quot;key&quot;</code>).</li>
+        </ol>
+      </section>
+
+      <section id="sec-array.prototype.lastindexof">
+        <h1><span class="secnum" id="sec-22.1.3.14"><a href="/sec/sec-array.prototype.lastindexof.html" title="link to this section">22.1.3.14</a></span> Array.prototype.lastIndexOf ( searchElement [ , fromIndex ] )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> <code>lastIndexOf</code> compares <var>searchElement</var> to the elements of the
+          array in descending order using the Strict Equality Comparison algorithm (<a href="/sec/sec-strict-equality-comparison.html">7.2.13</a>), and if found at one or more indices, returns the largest such index;
+          otherwise, &#x2212;1 is returned.</p>
+
+          <p>The optional second argument <var>fromIndex</var> defaults to the array&apos;s length minus one (i.e. the whole array is
+          searched). If it is greater than or equal to the length of the array, the whole array will be searched. If it is
+          negative, it is used as the offset from the end of the array to compute <var>fromIndex</var>. If the computed index is
+          less than 0, &#x2212;1 is returned.</p>
+        </div>
+
+        <p class="normalbefore">When the <code>lastIndexOf</code> method is called with one or two arguments, the following steps
+        are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>If <i>len</i> is 0, return -1.</li>
+          <li>If argument <i>fromIndex</i> was passed let <i>n</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>fromIndex</i>);
+              else let <i>n</i> be <i>len</i>-1.</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>n</i>).</li>
+          <li>If <i>n</i> &#x2265; 0, let <i>k</i> be min(<i>n</i>, <i>len</i> &#x2013; 1).</li>
+          <li>Else  <i>n</i> &lt; 0,
+            <ol class="block">
+              <li>Let <i>k</i> be <i>len</i> - <a href="/sec/sec-algorithm-conventions.html">abs</a>(<i>n</i>).</li>
+            </ol>
+          </li>
+          <li>Repeat, while <i>k</i>&#x2265; 0
+            <ol class="block">
+              <li>Let <i>kPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kPresent</i>).</li>
+              <li>If <i>kPresent</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>elementK</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>)).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>elementK</i>).</li>
+                  <li>Let <i>same</i> be the result of performing Strict Equality Comparison <br><i>searchElement</i> ===
+                      <i>elementK</i>.</li>
+                  <li>If <i>same</i> is <b>true,</b>  return <i>k</i>.</li>
+                </ol>
+              </li>
+              <li>Decrease <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return -1.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>lastIndexOf</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>lastIndexOf</code> function is intentionally generic; it does not require
+          that its <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.map">
+        <h1><span class="secnum" id="sec-22.1.3.15"><a href="/sec/sec-array.prototype.map.html" title="link to this section">22.1.3.15</a></span> Array.prototype.map ( callbackfn [ , thisArg ] )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> <var>callbackfn</var> should be a function that accepts three arguments.
+          <code>map</code> calls <var>callbackfn</var> once for each element in the array, in ascending order, and constructs a
+          new Array from the results. <var>callbackfn</var> is called only for elements of the array which actually exist; it is
+          not called for missing elements of the array.</p>
+
+          <p>If a <var>thisArg</var> parameter is provided, it will be used as the <b>this</b> value for each invocation of
+          <var>callbackfn</var>. If it is not provided, <b>undefined</b> is used instead.</p>
+
+          <p><var>callbackfn</var> is called with three arguments: the value of the element, the index of the element, and the
+          object being traversed.</p>
+
+          <p><code>map</code> does not directly mutate the object on which it is called but the object may be mutated by the calls
+          to <var>callbackfn</var>.</p>
+
+          <p>The range of elements processed by <code>map</code> is set before the first call to <var>callbackfn</var>. Elements
+          which are appended to the array after the call to <code>map</code> begins will not be visited by <var>callbackfn</var>.
+          If existing elements of the array are changed, their value as passed to <var>callbackfn</var> will be the value at the
+          time <code>map</code> visits them; elements that are deleted after the call to <code>map</code> begins and before being
+          visited are not visited.</p>
+        </div>
+
+        <p class="normalbefore">When the <code>map</code> method is called with one or two arguments, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>callbackfn</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>thisArg</i> was supplied, let <i>T</i> be <i>thisArg</i>; else let <i>T</i> be <b>undefined</b>.</li>
+          <li>Let <i>A</i> be <a href="/sec/sec-arrayspeciescreate.html">ArraySpeciesCreate</a>(<i>O</i>, <i>len</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>A</i>).</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>Repeat, while <i>k</i> &lt; <i>len</i>
+            <ol class="block">
+              <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+              <li>Let <i>kPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>Pk</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kPresent</i>).</li>
+              <li>If <i>kPresent</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>kValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>Pk</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kValue</i>).</li>
+                  <li>Let <i>mappedValue</i> be <a href="/sec/sec-call.html">Call</a>(<i>callbackfn</i>, <i>T</i>, &#xAB;<i>kValue</i>,
+                      <i>k</i>, <i>O</i>&#xBB;).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>mappedValue</i>).</li>
+                  <li>Let <i>status</i> be <a href="/sec/sec-createdatapropertyorthrow.html">CreateDataPropertyOrThrow</a> (<i>A</i>,
+                      <i>Pk</i>, <i>mappedValue</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+                </ol>
+              </li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>A</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>map</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>map</code> function is intentionally generic; it does not require that its
+          <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.pop">
+        <h1><span class="secnum" id="sec-22.1.3.16"><a href="/sec/sec-array.prototype.pop.html" title="link to this section">22.1.3.16</a></span> Array.prototype.pop ( )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The last element of the array is removed from the array and returned.</p>
+        </div>
+
+        <p class="normalbefore">When the <code>pop</code> method is called the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>If <i>len</i> is zero,
+            <ol class="block">
+              <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <code>&quot;length&quot;</code>, 0,
+                  <b>true</b>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+              <li>Return <b>undefined</b>.</li>
+            </ol>
+          </li>
+          <li>Else <i>len</i> &gt; 0,
+            <ol class="block">
+              <li>Let <i>newLen</i> be <i>len</i>&#x2013;1.</li>
+              <li>Let <i>indx</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>newLen</i>).</li>
+              <li>Let <i>element</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>indx</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>element</i>).</li>
+              <li>Let <i>deleteStatus</i> be <a href="/sec/sec-deletepropertyorthrow.html">DeletePropertyOrThrow</a>(<i>O</i>,
+                  <i>indx</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>deleteStatus</i>).</li>
+              <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <code>&quot;length&quot;</code>, <i>newLen</i>,
+                  <b>true</b>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+              <li>Return <i>element</i>.</li>
+            </ol>
+          </li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>pop</code> function is intentionally generic; it does not require that its
+          <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.push">
+        <h1><span class="secnum" id="sec-22.1.3.17"><a href="/sec/sec-array.prototype.push.html" title="link to this section">22.1.3.17</a></span> Array.prototype.push ( ...items )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The arguments are appended to the end of the array, in the order in which they appear.
+          The new length of the array is returned as the result of the call.</p>
+        </div>
+
+        <p class="normalbefore">When the <code>push</code> method is called with zero or more arguments the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>Let <i>items</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> whose elements are, in left to
+              right order, the arguments that were passed to this function invocation.</li>
+          <li>Let <i>argCount</i> be the number of elements in <i>items</i>.</li>
+          <li>If <i>len</i> + <i>argCount</i> &gt; 2<sup>53</sup>-1, throw a <b>TypeError</b> exception.</li>
+          <li>Repeat, while <i>items</i> is not empty
+            <ol class="block">
+              <li>Remove the first element from <i>items</i> and let <i>E</i> be the value of the element.</li>
+              <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>len</i>), <i>E</i>, <b>true</b>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+              <li>Let  <i>len</i> be <i>len</i>+1.</li>
+            </ol>
+          </li>
+          <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <code>&quot;length&quot;</code>, <i>len</i>,
+              <b>true</b>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+          <li>Return <i>len</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>push</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>push</code> function is intentionally generic; it does not require that its
+          <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.reduce">
+        <h1><span class="secnum" id="sec-22.1.3.18"><a href="/sec/sec-array.prototype.reduce.html" title="link to this section">22.1.3.18</a></span> Array.prototype.reduce ( callbackfn [ , initialValue ] )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> <var>callbackfn</var> should be a function that takes four arguments.
+          <code>reduce</code> calls the callback, as a function, once for each element present in the array, in ascending
+          order.</p>
+
+          <p><var>callbackfn</var> is called with four arguments: the <i>previousValue</i> (value from the previous call to
+          <var>callbackfn</var>), the <i>currentValue</i> (value of the current element), the <i>currentIndex</i>, and the object
+          being traversed. The first time that callback is called, the <i>previousValue</i> and <i>currentValue</i> can be one of
+          two values. If an <var>initialValue</var> was provided in the call to <code>reduce</code>, then <i>previousValue</i>
+          will be equal to <var>initialValue</var> and <i>currentValue</i> will be equal to the first value in the array. If no
+          <var>initialValue</var> was provided, then <i>previousValue</i> will be equal to the first value in the array and
+          <i>currentValue</i> will be equal to the second. It is a <b>TypeError</b> if the array contains no elements and
+          <var>initialValue</var> is not provided.</p>
+
+          <p><code>reduce</code> does not directly mutate the object on which it is called but the object may be mutated by the
+          calls to <var>callbackfn</var>.</p>
+
+          <p>The range of elements processed by <code>reduce</code> is set before the first call to <var>callbackfn</var>.
+          Elements that are appended to the array after the call to <code>reduce</code> begins will not be visited by
+          <var>callbackfn</var>. If existing elements of the array are changed, their value as passed to <var>callbackfn</var>
+          will be the value at the time <code>reduce</code> visits them; elements that are deleted after the call to
+          <code>reduce</code> begins and before being visited are not visited.</p>
+        </div>
+
+        <p class="normalbefore">When the <code>reduce</code> method is called with one or two arguments, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>callbackfn</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>len</i> is 0 and <i>initialValue</i> is not present, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>If <i>initialValue</i> is present, then
+            <ol class="block">
+              <li>Set <i>accumulator</i> to <i>initialValue</i>.</li>
+            </ol>
+          </li>
+          <li>Else <i>initialValue</i> is not present,
+            <ol class="block">
+              <li>Let <i>kPresent</i> be <b>false</b>.</li>
+              <li>Repeat, while  <i>kPresent</i> is <b>false</b> and  <i>k</i> &lt; <i>len</i>
+                <ol class="block">
+                  <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+                  <li>Let <i>kPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>Pk</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kPresent</i>).</li>
+                  <li>If <i>kPresent</i> is <b>true</b>, then
+                    <ol class="block">
+                      <li>Let <i>accumulator</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>Pk</i>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>accumulator</i>).</li>
+                    </ol>
+                  </li>
+                  <li>Increase <i>k</i> by 1.</li>
+                </ol>
+              </li>
+              <li>If <i>kPresent</i> is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+            </ol>
+          </li>
+          <li>Repeat, while <i>k</i> &lt; <i>len</i>
+            <ol class="block">
+              <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+              <li>Let <i>kPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>Pk</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kPresent</i>).</li>
+              <li>If <i>kPresent</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>kValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>Pk</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kValue</i>).</li>
+                  <li>Let <i>accumulator</i> be <a href="/sec/sec-call.html">Call</a>(<i>callbackfn</i>, <b>undefined</b>,
+                      &#xAB;<i>accumulator</i>, <i>kValue</i>, <i>k</i>, <i>O</i>&#xBB;).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>accumulator</i>).</li>
+                </ol>
+              </li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>accumulator</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>reduce</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>reduce</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.reduceright">
+        <h1><span class="secnum" id="sec-22.1.3.19"><a href="/sec/sec-array.prototype.reduceright.html" title="link to this section">22.1.3.19</a></span> Array.prototype.reduceRight ( callbackfn [ , initialValue ] )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> <var>callbackfn</var> should be a function that takes four arguments.
+          <code>reduceRight</code> calls the callback, as a function, once for each element present in the array, in descending
+          order.</p>
+
+          <p><var>callbackfn</var> is called with four arguments: the <var>previousValue</var> (value from the previous call to
+          <var>callbackfn</var>), the <var>currentValue</var> (value of the current element), the <var>currentIndex</var>, and the
+          object being traversed. The first time the function is called, the <var>previousValue</var> and <var>currentValue</var>
+          can be one of two values. If an <var>initialValue</var> was provided in the call to <code>reduceRight</code>, then
+          <var>previousValue</var> will be equal to <var>initialValue</var> and <var>currentValue</var> will be equal to the last
+          value in the array. If no <var>initialValue</var> was provided, then <var>previousValue</var> will be equal to the last
+          value in the array and <var>currentValue</var> will be equal to the second-to-last value. It is a <b>TypeError</b> if
+          the array contains no elements and <var>initialValue</var> is not provided.</p>
+
+          <p><code>reduceRight</code> does not directly mutate the object on which it is called but the object may be mutated by
+          the calls to <var>callbackfn</var>.</p>
+
+          <p>The range of elements processed by <code>reduceRight</code> is set before the first call to <var>callbackfn</var>.
+          Elements that are appended to the array after the call to <code>reduceRight</code> begins will not be visited by
+          <var>callbackfn</var>. If existing elements of the array are changed by <var>callbackfn</var>, their value as passed to
+          <var>callbackfn</var> will be the value at the time <code>reduceRight</code> visits them; elements that are deleted
+          after the call to <code>reduceRight</code> begins and before being visited are not visited.</p>
+        </div>
+
+        <p class="normalbefore">When the <code>reduceRight</code> method is called with one or two arguments, the following steps
+        are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>callbackfn</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>len</i> is 0 and <i>initialValue</i> is not present, throw a <b>TypeError</b> exception.</li>
+          <li>Let <i>k</i> be <i>len</i>-1.</li>
+          <li>If <i>initialValue</i> is present, then
+            <ol class="block">
+              <li>Set <i>accumulator</i> to <i>initialValue</i>.</li>
+            </ol>
+          </li>
+          <li>Else <i>initialValue</i> is not present,
+            <ol class="block">
+              <li>Let <i>kPresent</i> be <b>false</b>.</li>
+              <li>Repeat, while  <i>kPresent</i> is <b>false</b> and  <i>k</i> &#x2265; 0
+                <ol class="block">
+                  <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+                  <li>Let <i>kPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>Pk</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kPresent</i>).</li>
+                  <li>If <i>kPresent</i> is <b>true</b>, then
+                    <ol class="block">
+                      <li>Let <i>accumulator</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>Pk</i>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>accumulator</i>).</li>
+                    </ol>
+                  </li>
+                  <li>Decrease <i>k</i> by 1.</li>
+                </ol>
+              </li>
+              <li>If <i>kPresent</i> is <b>false</b>, throw a <b>TypeError</b> exception.</li>
+            </ol>
+          </li>
+          <li>Repeat, while <i>k</i> &#x2265; 0
+            <ol class="block">
+              <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+              <li>Let <i>kPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>Pk</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kPresent</i>).</li>
+              <li>If <i>kPresent</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>kValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>Pk</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kValue</i>).</li>
+                  <li>Let <i>accumulator</i> be <a href="/sec/sec-call.html">Call</a>(<i>callbackfn</i>, <b>undefined</b>,
+                      &#xAB;<i>accumulator</i>, <i>kValue</i>, <i>k</i>, &#xBB;).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>accumulator</i>).</li>
+                </ol>
+              </li>
+              <li>Decrease <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>accumulator</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>reduceRight</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>reduceRight</code> function is intentionally generic; it does not require
+          that its this value be an Array object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.reverse">
+        <h1><span class="secnum" id="sec-22.1.3.20"><a href="/sec/sec-array.prototype.reverse.html" title="link to this section">22.1.3.20</a></span> Array.prototype.reverse ( )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The elements of the array are rearranged so as to reverse their order. The object is
+          returned as the result of the call.</p>
+        </div>
+
+        <p class="normalbefore">When the <code>reverse</code> method is called the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>Let <i>middle</i> be  <a href="/sec/sec-algorithm-conventions.html">floor</a>(<i>len</i>/2).</li>
+          <li>Let <i>lower</i> be <b>0</b>.</li>
+          <li>Repeat, while <i>lower</i> &#x2260; <i>middle</i>
+            <ol class="block">
+              <li>Let <i>upper</i> be <i>len</i>&#x2212; <i>lower</i> &#x2212;1.</li>
+              <li>Let <i>upperP</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>upper</i>).</li>
+              <li>Let <i>lowerP</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>lower</i>).</li>
+              <li>Let <i>lowerExists</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>lowerP</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lowerExists</i>).</li>
+              <li>If <i>lowerExists</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>lowerValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,  <i>lowerP</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lowerValue</i>).</li>
+                </ol>
+              </li>
+              <li>Let <i>upperExists</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>upperP</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>upperExists</i>).</li>
+              <li>If <i>upperExists</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>upperValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>upperP</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>upperValue</i>).</li>
+                </ol>
+              </li>
+              <li>If <i>lowerExists</i> is <b>true</b> and <i>upperExists</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <i>lowerP</i>, <i>upperValue</i>,
+                      <b>true</b>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                  <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <i>upperP</i>, <i>lowerValue</i>,
+                      <b>true</b>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                </ol>
+              </li>
+              <li>Else if <i>lowerExists</i> is <b>false</b> and <i>upperExists</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <i>lowerP</i>, <i>upperValue</i>,
+                      <b>true</b>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                  <li>Let <i>deleteStatus</i> be <a href="/sec/sec-deletepropertyorthrow.html">DeletePropertyOrThrow</a> (<i>O</i>,
+                      <i>upperP</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>deleteStatus</i>).</li>
+                </ol>
+              </li>
+              <li>Else if <i>lowerExists</i> is <b>true</b> and <i>upperExists</i> is <b>false</b>, then
+                <ol class="block">
+                  <li>Let <i>deleteStatus</i> be <a href="/sec/sec-deletepropertyorthrow.html">DeletePropertyOrThrow</a> (<i>O</i>,
+                      <i>lowerP</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>deleteStatus</i>).</li>
+                  <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <i>upperP</i>, <i>lowerValue</i>,
+                      <b>true</b>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                </ol>
+              </li>
+              <li>Else both <i>lowerExists</i> and <i>upperExists</i> are <b>false</b>,
+                <ol class="block">
+                  <li>No action is required.</li>
+                </ol>
+              </li>
+              <li>Increase <i>lower</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>O</i> .</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>reverse</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be an Array object. Therefore, it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.shift">
+        <h1><span class="secnum" id="sec-22.1.3.21"><a href="/sec/sec-array.prototype.shift.html" title="link to this section">22.1.3.21</a></span> Array.prototype.shift ( )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The first element of the array is removed from the array and returned.</p>
+        </div>
+
+        <p class="normalbefore">When the <code>shift</code> method is called the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>If <i>len</i> is zero, then
+            <ol class="block">
+              <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <code>&quot;length&quot;</code>, 0,
+                  <b>true</b>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+              <li>Return <b>undefined</b>.</li>
+            </ol>
+          </li>
+          <li>Let <i>first</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <code>&quot;<b>0</b>&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>first</i>).</li>
+          <li>Let <i>k</i> be 1.</li>
+          <li>Repeat, while <i>k</i> &lt; <i>len</i>
+            <ol class="block">
+              <li>Let <i>from</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+              <li>Let <i>to</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>&#x2013;1).</li>
+              <li>Let <i>fromPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>from</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromPresent</i>).</li>
+              <li>If <i>fromPresent</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>fromVal</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>from</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromVal</i>).</li>
+                  <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <i>to</i>, <i>fromVal</i>,
+                      <b>true</b>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                </ol>
+              </li>
+              <li>Else <i>fromPresent</i> is <b>false</b>,
+                <ol class="block">
+                  <li>Let <i>deleteStatus</i> be <a href="/sec/sec-deletepropertyorthrow.html">DeletePropertyOrThrow</a>(<i>O</i>,
+                      <i>to</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>deleteStatus</i>).</li>
+                </ol>
+              </li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Let <i>deleteStatus</i> be <a href="/sec/sec-deletepropertyorthrow.html">DeletePropertyOrThrow</a>(<i>O</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>len</i>&#x2013;1)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>deleteStatus</i>).</li>
+          <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <code>&quot;length&quot;</code>, <i>len</i>&#x2013;1,
+              <b>true</b>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+          <li>Return <i>first</i>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>shift</code> function is intentionally generic; it does not require that its
+          <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.slice">
+        <h1><span class="secnum" id="sec-22.1.3.22"><a href="/sec/sec-array.prototype.slice.html" title="link to this section">22.1.3.22</a></span> Array.prototype.slice (start, end)</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The <code>slice</code> method takes two arguments, <var>start</var> and
+          <var>end</var>, and returns an array containing the elements of the array from element <var>start</var> up to, but not
+          including, element <var>end</var> (or through the end of the array if <var>end</var> is <b>undefined</b>). If
+          <var>start</var> is negative, it is treated as <span style="font-family: Times New
+          Roman"><i>length</i>+<i>start</i></span> where <var>length</var> is the length of the array. If <var>end</var> is
+          negative, it is treated as <span style="font-family: Times New Roman"><i>length</i>+<i>end</i></span> where
+          <var>length</var> is the length of the array.</p>
+        </div>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>Let <i>relativeStart</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>start</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeStart</i>).</li>
+          <li>If <i>relativeStart</i> &lt; 0, let <i>k</i> be max((<i>len</i> + <i>relativeStart</i>),0); else let <i>k</i> be
+              min(<i>relativeStart</i>, <i>len</i>).</li>
+          <li>If <i>end</i> is <b>undefined</b>, let <i>relativeEnd</i> be <i>len</i>; else let <i>relativeEnd</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>end</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeEnd</i>).</li>
+          <li>If <i>relativeEnd</i> &lt; 0, let <i>final</i> be max((<i>len</i> + <i>relativeEnd</i>),0); else let <i>final</i> be
+              min(<i>relativeEnd</i>, <i>len</i>).</li>
+          <li>Let <i>count</i> be max(<i>final</i> &#x2013; <i>k</i>, 0).</li>
+          <li>Let <i>A</i> be <a href="/sec/sec-arrayspeciescreate.html">ArraySpeciesCreate</a>(<i>O</i>, <i>count</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>A</i>).</li>
+          <li>Let <i>n</i> be 0.</li>
+          <li>Repeat, while <i>k</i> &lt; <i>final</i>
+            <ol class="block">
+              <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+              <li>Let <i>kPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>Pk</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kPresent</i>).</li>
+              <li>If <i>kPresent</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>kValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>Pk</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kValue</i>).</li>
+                  <li>Let <i>status</i> be <a href="/sec/sec-createdatapropertyorthrow.html">CreateDataPropertyOrThrow</a>(<i>A</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>n</i>), <i>kValue</i> ).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+                </ol>
+              </li>
+              <li>Increase <i>k</i> by 1.</li>
+              <li>Increase <i>n</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>A</i>, <code>&quot;length&quot;</code>, <i>n</i>,
+              <b>true</b>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+          <li>Return <i>A</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>slice</code> method is <b>2</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The explicit setting of the <code>length</code> property of the result Array in step
+          16 is necessary to ensure that its value is correct in situations where the trailing elements of the result Array are
+          not present.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 3</span> The <code>slice</code> function is intentionally generic; it does not require that its
+          <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.some">
+        <h1><span class="secnum" id="sec-22.1.3.23"><a href="/sec/sec-array.prototype.some.html" title="link to this section">22.1.3.23</a></span> Array.prototype.some ( callbackfn [ , thisArg ] )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> <var>callbackfn</var> should be a function that accepts three arguments and returns a
+          value that is coercible to the Boolean value <b>true</b> or <b>false</b>. <code>some</code> calls <var>callbackfn</var>
+          once for each element present in the array, in ascending order, until it finds one where <var>callbackfn</var> returns
+          <b>true</b>. If such an element is found, <code>some</code> immediately returns <b>true</b>. Otherwise,
+          <code>some</code> returns <b>false</b>. <var>callbackfn</var> is called only for elements of the array which actually
+          exist; it is not called for missing elements of the array.</p>
+
+          <p>If a <var>thisArg</var> parameter is provided, it will be used as the <b>this</b> value for each invocation of
+          <var>callbackfn</var>. If it is not provided, <b>undefined</b> is used instead.</p>
+
+          <p><var>callbackfn</var> is called with three arguments: the value of the element, the index of the element, and the
+          object being traversed.</p>
+
+          <p><code>some</code> does not directly mutate the object on which it is called but the object may be mutated by the
+          calls to <var>callbackfn</var>.</p>
+
+          <p>The range of elements processed by <code>some</code> is set before the first call to <var>callbackfn</var>. Elements
+          that are appended to the array after the call to <code>some</code> begins will not be visited by <var>callbackfn</var>.
+          If existing elements of the array are changed, their value as passed to <var>callbackfn</var> will be the value at the
+          time that <code>some</code> visits them; elements that are deleted after the call to <code>some</code> begins and before
+          being visited are not visited. <code>some</code> acts like the &quot;exists&quot; quantifier in mathematics. In particular, for an
+          empty array, it returns <b>false</b>.</p>
+        </div>
+
+        <p class="normalbefore">When the <code>some</code> method is called with one or two arguments, the following steps are
+        taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>callbackfn</i>) is <b>false</b>, throw a <b>TypeError</b>
+              exception.</li>
+          <li>If <i>thisArg</i> was supplied, let <i>T</i> be <i>thisArg</i>; else let <i>T</i> be <b>undefined</b>.</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>Repeat, while <i>k</i> &lt; <i>len</i>
+            <ol class="block">
+              <li>Let <i>Pk</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>).</li>
+              <li>Let <i>kPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>Pk</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kPresent</i>).</li>
+              <li>If <i>kPresent</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>kValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>Pk</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>kValue</i>).</li>
+                  <li>Let <i>testResult</i> be <a href="/sec/sec-toboolean.html">ToBoolean</a>(<a href="/sec/sec-call.html">Call</a>(<i>callbackfn</i>, <i>T</i>, &#xAB;<i>kValue</i>, <i>k</i>, and
+                      <i>O</i>&#xBB;)).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>testResult</i>).</li>
+                  <li>If <i>testResult</i> is <b>true</b>, return <b>true</b>.</li>
+                </ol>
+              </li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <b>false</b>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>some</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>some</code> function is intentionally generic; it does not require that its
+          <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.sort">
+        <div class="front">
+          <h1><span class="secnum" id="sec-22.1.3.24"><a href="/sec/sec-array.prototype.sort.html" title="link to this section">22.1.3.24</a></span> Array.prototype.sort (comparefn)</h1>
+
+          <p>The elements of this array are sorted. The sort is not necessarily stable (that is, elements that compare equal do
+          not necessarily remain in their original order). If <var>comparefn</var> is not <b>undefined</b>, it should be a
+          function that accepts two arguments <var>x</var> and <var>y</var> and returns a negative value if <var>x</var> <span style="font-family: Times New Roman">&lt;</span> <var>y</var>, zero if <var>x</var> <span style="font-family: Times New
+          Roman">=</span> <var>y</var>, or a positive value if <var>x</var> <span style="font-family: Times New Roman">&gt;</span>
+          <var>y</var>.</p>
+
+          <p class="normalbefore">Upon entry, the following steps are performed to initialize evaluation of the <code>sort</code>
+          function:</p>
+
+          <ol class="proc">
+            <li>Let <i>obj</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+            <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>obj</i>,
+                <code>&quot;length&quot;</code>)).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          </ol>
+
+          <p class="normalbefore">Within this specification of the <code>sort</code> method, an object, <var>obj</var>,  is said
+          to be <i>sparse</i> if the following algorithm returns <b>true</b>:</p>
+
+          <ol class="proc">
+            <li>For each integer <i>i</i> in the range 0&#x2264;<i>i</i>&lt; <i>len</i>
+              <ol class="block">
+                <li>Let <i>elem</i> be <i>obj</i>.[[GetOwnProperty]](<a href="/sec/sec-tostring.html">ToString</a>(<i>i</i>)).</li>
+                <li>If <i>elem</i> is <b>undefined</b>, return <b>true</b>.</li>
+              </ol>
+            </li>
+            <li>Return <b>false</b>.</li>
+          </ol>
+
+          <p>The <i>sort order</i> is the ordering, after completion of this function, of the integer indexed property values of
+          <var>obj</var> whose integer indexes are less than <var>len</var>. The result of the <code>sort</code> function is then
+          determined as follows:</p>
+
+          <p>If <var>comparefn</var> is not <b>undefined</b> and is not a consistent comparison function for the elements of this
+          array (see below), the sort order is implementation-defined. The sort order is also implementation-defined if
+          <var>comparefn</var> is <b>undefined</b> and <a href="/sec/sec-sortcompare.html">SortCompare</a> (<a href="/sec/sec-sortcompare.html">22.1.3.24.1</a>) does not act as a consistent comparison function.</p>
+
+          <p class="normalbefore">Let <var>proto</var> be <var>obj</var>.[[GetPrototypeOf]](). If <var>proto</var> is not
+          <b>null</b> and there exists an integer <var>j</var> such that all of the conditions below are satisfied then the sort
+          order is implementation-defined:</p>
+
+          <ul>
+            <li><var>obj</var> is sparse</li>
+            <li>0 &#x2264; <var>j</var> &lt; <var>len</var></li>
+            <li><a href="/sec/sec-hasproperty.html">HasProperty</a>(<var>proto</var>, <span style="font-family: Times New Roman"><a href="/sec/sec-tostring.html">ToString</a>(<i>j</i>))</span> is <b>true</b>.</li>
+          </ul>
+
+          <p class="normalbefore">The sort order is also implementation defined if <var>obj</var> is sparse and any of the
+          following conditions are true:</p>
+
+          <ul>
+            <li>
+              <p><a href="/sec/sec-isextensible-o.html">IsExtensible</a>(<span style="font-family: Times New Roman"><i>obj</i>)</span> is
+              <b>false</b>.</p>
+            </li>
+
+            <li>
+              <p>Any integer index property of <var>obj</var> whose name is a nonnegative integer less than <var>len</var> is a
+              data property whose [[Configurable]] attribute is <b>false</b>.</p>
+            </li>
+          </ul>
+
+          <p>The sort order is also implementation defined if any of the following conditions are true:</p>
+
+          <ul>
+            <li>
+              <p>If <var>obj</var> is an exotic object (including Proxy exotic objects) whose behaviour for [[Get]], [[Set]],
+              [[Delete]], and [[GetOwnProperty]] is not the ordinary object implementation of these internal methods.</p>
+            </li>
+
+            <li>
+              <p>If any index index property of <var>obj</var> whose name is a nonnegative integer less than <var>len</var> is an
+              accessor property or is a data property whose [[Writable]] attribute is <span class="value">false</span>.</p>
+            </li>
+
+            <li>
+              <p>If <var>comparefn</var> is <span class="value">undefined</span> and the application of <a href="/sec/sec-tostring.html">ToString</a> to any value passed as an argument to <a href="/sec/sec-sortcompare.html">SortCompare</a>
+              modifies <var>obj</var> or any object on <var>obj</var>&#x2019;s prototype chain.</p>
+            </li>
+
+            <li>
+              <p>If <var>comparefn</var> is <span class="value">undefined</span> and all applications of <a href="/sec/sec-tostring.html">ToString</a>, to any specific value passed as an argument to <a href="/sec/sec-sortcompare.html">SortCompare</a>, do not produce the same result.</p>
+            </li>
+          </ul>
+
+          <p class="normalbefore">The following steps are taken:</p>
+
+          <ol class="proc">
+            <li>Perform an implementation-dependent sequence of calls to the [[Get]] and [[Set]] internal methods of <i>obj</i>,
+                to the <a href="/sec/sec-deletepropertyorthrow.html">DeletePropertyOrThrow</a> and <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a> abstract operation with <i>obj</i> as the first argument, and to <a href="/sec/sec-sortcompare.html">SortCompare</a> (described below), such that:
+              <ul>
+                <li>
+                  <p>The <a href="/sec/sec-object-type.html">property key</a> argument for each call to [[Get]], [[Set]], <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>, or <a href="/sec/sec-deletepropertyorthrow.html">DeletePropertyOrThrow</a>
+                  is the string representation of a nonnegative integer less than <i>len</i>.</p>
+                </li>
+
+                <li>
+                  <p>The arguments for calls to <a href="/sec/sec-sortcompare.html">SortCompare</a> are values returned by a previous call
+                  to the [[Get]] internal method, unless the properties accessed by those previous calls did not exist according
+                  to <a href="/sec/sec-hasownproperty.html">HasOwnProperty</a>. If both perspective arguments to <a href="/sec/sec-sortcompare.html">SortCompare</a> correspond to non-existent properties, use +0 instead of calling <a href="/sec/sec-sortcompare.html">SortCompare</a>. If only the first perspective argument is non-existent use +1. If only
+                  the second perspective argument is non-existent use &#x2212;1.</p>
+                </li>
+
+                <li>
+                  <p>If <i>obj</i> is not sparse then <a href="/sec/sec-deletepropertyorthrow.html">DeletePropertyOrThrow</a> must not be
+                  called.</p>
+                </li>
+
+                <li>
+                  <p>If any [[Set]] call returns <b>false</b> a <b>TypeError</b> exception is thrown.</p>
+                </li>
+
+                <li>
+                  <p>If an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a> is returned from any of these
+                  operations, it is immediately returned as the value of this function.</p>
+                </li>
+              </ul>
+            </li>
+            <li>Return <i>obj</i>.</li>
+          </ol>
+
+          <p class="normalbefore">Unless the sort order is specified above to be implementation-defined, the returned object must
+          have the following two characteristics:</p>
+
+          <ul>
+            <li>
+              <p>There must be some mathematical permutation <span style="font-family: Times New Roman">&#x3C0;</span> of the
+              nonnegative integers less than <var>len</var>, such that for every nonnegative integer <var>j</var> less than
+              <var>len</var>, if property <span style="font-family: Times New Roman">old[<i>j</i>]</span> existed, then <span style="font-family: Times New Roman">new[&#x3C0;(<i>j</i>)]</span> is exactly the same value as <span style="font-family: Times New Roman">old[<i>j</i>]</span>. But if property <span style="font-family: Times New
+              Roman">old[<i>j</i>]</span> did not exist, then <span style="font-family: Times New
+              Roman">new[&#x3C0;(<i>j</i>)]</span> does not exist.</p>
+            </li>
+
+            <li>
+              <p>Then for all nonnegative integers <var>j</var> and <var>k</var>, each less than <var>len</var>, if <span style="font-family: Times New Roman"><a href="/sec/sec-sortcompare.html">SortCompare</a>(old[<i>j</i>], old[<i>k</i>]) &lt;
+              0</span> (see <a href="/sec/sec-sortcompare.html">SortCompare</a> below), then <span style="font-family: Times New
+              Roman">new[<b>&#x3C0;</b>(<i>j</i>)] &lt;</span> <span style="font-family: Times New
+              Roman">new[<b>&#x3C0;</b>(<i>k</i>)]</span>.</p>
+            </li>
+          </ul>
+
+          <p>Here the notation <span style="font-family: Times New Roman">old[<i>j</i>]</span> is used to refer to the
+          hypothetical result of calling the [[Get]] internal method of <var>obj</var> with argument <var>j</var> before this
+          function is executed, and the notation <span style="font-family: Times New Roman">new[<i>j</i>]</span> to refer to the
+          hypothetical result of calling the [[Get]] internal method of <var>obj</var> with argument <var>j</var> after this
+          function has been executed.</p>
+
+          <p class="normalbefore">A function <var>comparefn</var> is a consistent comparison function for a set of values
+          <var>S</var> if all of the requirements below are met for all values <var>a</var>, <var>b</var>, and <var>c</var>
+          (possibly the same value) in the set <var>S</var>: The notation <span style="font-family: Times New
+          Roman"><i>a</i>&#xA0;&lt;<sub>CF</sub></span>&#xA0;<var>b</var> means <span style="font-family: Times New
+          Roman"><i>comparefn</i>(<i>a</i>,<i>b</i>)&#xA0;&lt;&#xA0;0</span>; <span style="font-family: Times New
+          Roman"><i>a</i>&#xA0;=<sub>CF</sub></span>&#xA0;<var>b</var> means <span style="font-family: Times New
+          Roman"><i>comparefn</i>(<i>a</i>,<i>b</i>)&#xA0;=&#xA0;0</span> (of either sign); and <span style="font-family: Times
+          New Roman"><i>a</i>&#xA0;&gt;<sub>CF</sub></span>&#xA0;<var>b</var> means <span style="font-family: Times New
+          Roman"><i>comparefn</i>(<i>a</i>,<i>b</i>)&#xA0;&gt;&#xA0;0</span>.</p>
+
+          <ul>
+            <li>
+              <p>Calling <i>comparefn</i>(<i>a</i>,<i>b</i>) always returns the same value <i>v</i> when given a specific pair of
+              values <i>a</i> and <i>b</i> as its two arguments. Furthermore, <a href="/sec/sec-ecmascript-data-types-and-values.html">Type</a>(<i>v</i>) is Number, and <i>v</i> is not NaN. Note that this
+              implies that exactly one of <i>a</i>&#xA0;&lt;<sub>CF</sub><span style="font-family:
+              sans-serif"></span>&#xA0;<i>b</i>, <i>a</i>&#xA0;=<sub>CF</sub><span style="font-family:
+              sans-serif"></span>&#xA0;<i>b</i>, and <i>a</i>&#xA0;&gt;<sub>CF</sub><span style="font-family:
+              sans-serif"></span>&#xA0;<i>b</i> will be true for a given pair of <i>a</i> and <i>b</i>.</p>
+            </li>
+
+            <li>
+              <p>Calling <i>comparefn</i>(<i>a</i>,<i>b</i>) does not modify <i>obj</i> or any object on <i>obj</i>&#x2019;s
+              prototype chain.</p>
+            </li>
+
+            <li>
+              <p><i>a</i>&#xA0;=<sub>CF</sub><span style="font-family: sans-serif"></span>&#xA0;<i>a</i>   (reflexivity)</p>
+            </li>
+
+            <li>
+              <p>If <i>a</i>&#xA0;=<sub>CF</sub><span style="font-family: sans-serif"></span>&#xA0;<i>b</i>, then
+              <i>b</i>&#xA0;=<sub>CF</sub><span style="font-family: sans-serif"></span>&#xA0;<i>a</i>   (symmetry)</p>
+            </li>
+
+            <li>
+              <p>If <i>a</i>&#xA0;=<sub>CF</sub><span style="font-family: sans-serif"></span>&#xA0;<i>b</i> and
+              <i>b</i>&#xA0;=<sub>CF</sub><span style="font-family: sans-serif"></span>&#xA0;<i>c</i>, then
+              <i>a</i>&#xA0;=<sub>CF</sub><span style="font-family: sans-serif"></span>&#xA0;<i>c</i>   (transitivity of
+              =<sub>CF</sub>)</p>
+            </li>
+
+            <li>
+              <p>If <i>a</i>&#xA0;&lt;<sub>CF</sub><span style="font-family: sans-serif"></span>&#xA0;<i>b</i> and
+              <i>b</i>&#xA0;&lt;<sub>CF</sub><span style="font-family: sans-serif"></span>&#xA0;<i>c</i>, then
+              <i>a</i>&#xA0;&lt;<sub>CF</sub><span style="font-family: sans-serif"></span>&#xA0;<i>c</i>   (transitivity of
+              &lt;<sub>CF</sub>)</p>
+            </li>
+
+            <li>
+              <p>If <i>a</i>&#xA0;&gt;<sub>CF</sub><span style="font-family: sans-serif"></span>&#xA0;<i>b</i> and
+              <i>b</i>&#xA0;&gt;<sub>CF</sub><span style="font-family: sans-serif"></span>&#xA0;<i>c</i>, then
+              <i>a</i>&#xA0;&gt;<sub>CF</sub><span style="font-family: sans-serif"></span>&#xA0;<i>c</i>   (transitivity of
+              &gt;<sub>CF</sub>)</p>
+            </li>
+          </ul>
+
+          <div class="note">
+            <p><span class="nh">NOTE 1</span> The above conditions are necessary and sufficient to ensure that
+            <var>comparefn</var> divides the set <var>S</var> into equivalence classes and that these equivalence classes are
+            totally ordered.</p>
+          </div>
+
+          <div class="note">
+            <p><span class="nh">NOTE 2</span> The <code>sort</code> function is intentionally generic; it does not require that
+            its <b>this</b> value be an Array object. Therefore, it can be transferred to other kinds of objects for use as a
+            method.</p>
+          </div>
+        </div>
+
+        <section id="sec-sortcompare">
+          <h1><span class="secnum" id="sec-22.1.3.24.1"><a href="/sec/sec-sortcompare.html" title="link to this section">22.1.3.24.1</a></span> Runtime Semantics: SortCompare( x, y )</h1>
+
+          <p class="normalbefore">The SortCompare abstract operation is called with two arguments <var>x</var> and <var>y</var>.
+          It also has access to the <var>comparefn</var> argument passed to the current invocation of the <code>sort</code>
+          method. The following steps are taken:</p>
+
+          <ol class="proc">
+            <li>If <i>x</i> and <i>y</i> are both <b>undefined</b>, return +0.</li>
+            <li>If <i>x</i> is <b>undefined</b>, return 1.</li>
+            <li>If <i>y</i> is <b>undefined</b>, return &#x2212;1.</li>
+            <li>If the argument <i>comparefn</i> is not <b>undefined</b>, then
+              <ol class="block">
+                <li>Let <i>v</i> be <a href="/sec/sec-tonumber.html">ToNumber</a>(<a href="/sec/sec-call.html">Call</a>(<i>comparefn</i>,
+                    <b>undefined</b>, &#xAB;<i>x</i>, <i>y</i>&#xBB;)).</li>
+                <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>v</i>).</li>
+                <li>If <i>v</i> is <b>NaN</b>, return +0.</li>
+                <li>Return <i>v</i>.</li>
+              </ol>
+            </li>
+            <li>Let <i>xString</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>x</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>xString</i>).</li>
+            <li>Let <i>yString</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>y</i>).</li>
+            <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>yString</i>).</li>
+            <li>If <i>xString</i> &lt; <i>yString</i>, return &#x2212;1.</li>
+            <li>If <i>xString</i> &gt; <i>yString</i>, return 1.</li>
+            <li>Return +0.</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE 1</span> Because non-existent property values always compare greater than <b>undefined</b>
+            property values, and <b>undefined</b> always compares greater than any other value, <b>undefined</b> property values
+            always sort to the end of the result, followed by non-existent property values.</p>
+          </div>
+
+          <div class="note">
+            <p><span class="nh">NOTE 2</span> Method calls performed by the <a href="/sec/sec-tostring.html">ToString</a> abstract
+            operations in steps 5 and 7 have the potential to cause SortCompare to not behave as a consistent comparison
+            function.</p>
+          </div>
+        </section>
+      </section>
+
+      <section id="sec-array.prototype.splice">
+        <h1><span class="secnum" id="sec-22.1.3.25"><a href="/sec/sec-array.prototype.splice.html" title="link to this section">22.1.3.25</a></span> Array.prototype.splice (start, deleteCount , ...items  )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> When the <code>splice</code> method is called with two or more arguments
+          <var>start</var>, <var>deleteCount</var> and zero or more <var>items</var>, the <var>deleteCount</var> elements of the
+          array starting at integer index <var>start</var> are replaced by the arguments <var>items</var>. An Array object
+          containing the deleted elements (if any) is returned.</p>
+        </div>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>Let <i>relativeStart</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>start</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>relativeStart</i>).</li>
+          <li>If <i>relativeStart</i> &lt; 0, let <i>actualStart</i> be max((<i>len</i> + <i>relativeStart</i>),0); else let
+              <i>actualStart</i> be min(<i>relativeStart</i>, <i>len</i>).</li>
+          <li>If  the number of actual arguments is 0, then
+            <ol class="block">
+              <li>Let <i>insertCount</i> be 0.</li>
+              <li>Let <i>actualDeleteCount</i> be 0.</li>
+            </ol>
+          </li>
+          <li>Else if the number of actual arguments is 1, then
+            <ol class="block">
+              <li>Let <i>insertCount</i> be 0.</li>
+              <li>Let <i>actualDeleteCount</i> be <i>len</i> &#x2013; <i>actualStart</i>.</li>
+            </ol>
+          </li>
+          <li>Else,
+            <ol class="block">
+              <li>Let <i>insertCount</i> be the number of actual arguments minus 2.</li>
+              <li>Let <i>dc</i> be <a href="/sec/sec-tointeger.html">ToInteger</a>(<i>deleteCount</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>dc</i>).</li>
+              <li>Let <i>actualDeleteCount</i> be min(max(<i>dc</i>,0), <i>len</i> &#x2013; <i>actualStart</i>).</li>
+            </ol>
+          </li>
+          <li>If <i>len+insertCount</i>&#x2212;<i>actualDeleteCount</i> &gt; 2<sup>53</sup>-1, throw a <b>TypeError</b>
+              exception.</li>
+          <li>Let <i>A</i> be <a href="/sec/sec-arrayspeciescreate.html">ArraySpeciesCreate</a>(<i>O</i>, <i>actualDeleteCount</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>A</i>).</li>
+          <li>Let <i>k</i> be 0.</li>
+          <li>Repeat, while <i>k</i> &lt; <i>actualDeleteCount</i>
+            <ol class="block">
+              <li>Let <i>from</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>actualStart</i>+<i>k</i>).</li>
+              <li>Let <i>fromPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>from</i>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromPresent</i>).</li>
+              <li>If <i>fromPresent</i> is <b>true</b>, then
+                <ol class="block">
+                  <li>Let <i>fromValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O,</i> <i>from</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromValue</i>).</li>
+                  <li>Let <i>status</i> be <a href="/sec/sec-createdatapropertyorthrow.html">CreateDataPropertyOrThrow</a>(<i>A</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>), <i>fromValue</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>status</i>).</li>
+                </ol>
+              </li>
+              <li>Increment <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>A</i>, <code>&quot;length&quot;</code>,
+              <i>actualDeleteCount</i>, <b>true</b>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+          <li>Let <i>items</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> whose elements are, in left to
+              right order, the portion of the actual argument list starting with the third argument. The list is empty if fewer
+              than three arguments were passed.</li>
+          <li>Let <i>itemCount</i> be the number of elements in <i>items</i>.</li>
+          <li>If <i>itemCount</i> &lt; <i>actualDeleteCount</i>, then
+            <ol class="block">
+              <li>Let <i>k</i> be <i>actualStart</i>.</li>
+              <li>Repeat, while <i>k</i> &lt; (<i>len</i> &#x2013; <i>actualDeleteCount</i>)
+                <ol class="block">
+                  <li>Let <i>from</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>+<i>actualDeleteCount</i>).</li>
+                  <li>Let <i>to</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>+<i>itemCount</i>).</li>
+                  <li>Let <i>fromPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>from</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromPresent</i>).</li>
+                  <li>If <i>fromPresent</i> is <b>true</b>, then
+                    <ol class="block">
+                      <li>Let <i>fromValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>from</i>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromValue</i>).</li>
+                      <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <i>to</i>, <i>fromValue</i>,
+                          <b>true</b>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                    </ol>
+                  </li>
+                  <li>Else <i>fromPresent</i> is <b>false</b>,
+                    <ol class="block">
+                      <li>Let <i>deleteStatus</i> be <a href="/sec/sec-deletepropertyorthrow.html">DeletePropertyOrThrow</a>(<i>O</i>,
+                          <i>to</i>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>deleteStatus</i>).</li>
+                    </ol>
+                  </li>
+                  <li>Increase <i>k</i> by 1.</li>
+                </ol>
+              </li>
+              <li>Let <i>k</i> be <i>len</i>.</li>
+              <li>Repeat, while <i>k</i> &gt; (<i>len</i> &#x2013; <i>actualDeleteCount</i> + <i>itemCount</i>)
+                <ol class="block">
+                  <li>Let <i>deleteStatus</i> be <a href="/sec/sec-deletepropertyorthrow.html">DeletePropertyOrThrow</a>(<i>O</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>&#x2013;1)).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>deleteStatus</i>).</li>
+                  <li>Decrease <i>k</i> by 1.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Else if <i>itemCount</i> &gt; <i>actualDeleteCount</i>, then
+            <ol class="block">
+              <li>Let <i>k</i> be (<i>len</i> &#x2013; <i>actualDeleteCount</i>).</li>
+              <li>Repeat, while <i>k</i> &gt; <i>actualStart</i>
+                <ol class="block">
+                  <li>Let <i>from</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i> + <i>actualDeleteCount</i> &#x2013; 1).</li>
+                  <li>Let <i>to</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i> + <i>itemCount</i> &#x2013; 1)</li>
+                  <li>Let <i>fromPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>from</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromPresent</i>).</li>
+                  <li>If <i>fromPresent</i> is <b>true</b>, then
+                    <ol class="block">
+                      <li>Let <i>fromValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>from</i>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromValue</i>).</li>
+                      <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <i>to</i>, <i>fromValue</i>,
+                          <b>true</b>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                    </ol>
+                  </li>
+                  <li>Else <i>fromPresent</i> is <b>false</b>,
+                    <ol class="block">
+                      <li>Let <i>deleteStatus</i> be <a href="/sec/sec-deletepropertyorthrow.html">DeletePropertyOrThrow</a>(<i>O</i>,
+                          <i>to</i>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>deleteStatus</i>).</li>
+                    </ol>
+                  </li>
+                  <li>Decrease <i>k</i> by 1.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Let <i>k</i> be <i>actualStart</i>.</li>
+          <li>Repeat, while <i>items</i> is not empty
+            <ol class="block">
+              <li>Remove the first element from <i>items</i> and let <i>E</i> be the value of that element.</li>
+              <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>), <i>E</i>, <b>true</b>).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <code>&quot;length&quot;</code>, <i>len</i> &#x2013;
+              <i>actualDeleteCount</i> + <i>itemCount</i>, <b>true</b>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+          <li>Return <i>A</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>splice</code> method is <b>2</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The explicit setting of the <code>length</code> property of the result Array in step
+          24 is necessary to ensure that its value is correct in situations where its trailing elements are not present.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 3</span> The <code>splice</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.tolocalestring">
+        <h1><span class="secnum" id="sec-22.1.3.26"><a href="/sec/sec-array.prototype.tolocalestring.html" title="link to this section">22.1.3.26</a></span> Array.prototype.toLocaleString ( [ reserved1 [ , reserved2 ] ]
+            )</h1>
+
+        <p>An ECMAScript implementation that includes the ECMA-402 Internationalization API must implement the
+        <code>Array.prototype.toLocaleString</code> method as specified in the ECMA-402 specification. If an ECMAScript
+        implementation does not include the ECMA-402 API the following specification of the <code>toLocaleString</code> method is
+        used.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The first edition of ECMA-402 did not include a replacement specification for the
+          <code>Array.prototype.toLocaleString</code> method.</p>
+        </div>
+
+        <p>The meanings of the optional parameters to this method are defined in the ECMA-402 specification; implementations that
+        do not include ECMA-402 support must not use those parameter positions for anything else.</p>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>array</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>array</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>array</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>Let <i>separator</i> be the String value for the list-separator String appropriate for the host environment&#x2019;s
+              current locale (this is derived in an implementation-defined way).</li>
+          <li>If <i>len</i> is zero, return the empty String.</li>
+          <li>Let <i>firstElement</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>array</i>, <code>&quot;0&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>firstElement</i>).</li>
+          <li>If <i>firstElement</i> is <b>undefined</b> or <b>null</b>, then
+            <ol class="block">
+              <li>Let <i>R</i> be the empty String.</li>
+            </ol>
+          </li>
+          <li>Else
+            <ol class="block">
+              <li>Let <i>R</i> be <a href="/sec/sec-tostring.html">ToString</a>(<a href="/sec/sec-invoke.html">Invoke</a>(<i>firstElement</i>,
+                  <code>&quot;toLocaleString&quot;</code>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>R</i>).</li>
+            </ol>
+          </li>
+          <li>Let <i>k</i> be <code>1</code>.</li>
+          <li>Repeat, while <i>k</i> &lt; <i>len</i>
+            <ol class="block">
+              <li>Let <i>S</i> be a String value produced by concatenating <i>R</i> and <i>separator</i>.</li>
+              <li>Let <i>nextElement</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>array</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>)).</li>
+              <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>nextElement</i>).</li>
+              <li>If <i>nextElement</i> is <b>undefined</b> or <b>null</b>, then
+                <ol class="block">
+                  <li>Let <i>R</i> be the empty String.</li>
+                </ol>
+              </li>
+              <li>Else
+                <ol class="block">
+                  <li>Let <i>R</i> be <a href="/sec/sec-tostring.html">ToString</a>(<a href="/sec/sec-invoke.html">Invoke</a>(<i>nextElement</i>,
+                      <code>&quot;toLocaleString&quot;</code>)).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>R</i>).</li>
+                </ol>
+              </li>
+              <li>Let <i>R</i> be a String value produced by concatenating <i>S</i> and <i>R</i>.</li>
+              <li>Increase <i>k</i> by 1.</li>
+            </ol>
+          </li>
+          <li>Return <i>R</i>.</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The elements of the array are converted to Strings using their
+          <code>toLocaleString</code> methods, and these Strings are then concatenated, separated by occurrences of a separator
+          String that has been derived in an implementation-defined locale-specific way. The result of calling this function is
+          intended to be analogous to the result of <code>toString</code>, except that the result of this function is intended to
+          be locale-specific.</p>
+        </div>
+
+        <div class="note">
+          <p><span class="nh">NOTE 3</span> The <code>toLocaleString</code> function is intentionally generic; it does not require
+          that its <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.tostring">
+        <h1><span class="secnum" id="sec-22.1.3.27"><a href="/sec/sec-array.prototype.tostring.html" title="link to this section">22.1.3.27</a></span> Array.prototype.toString ( )</h1>
+
+        <p class="normalbefore">When the <code>toString</code> method is called, the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>array</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>array</i>).</li>
+          <li>Let <i>func</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>array</i>, <code>&quot;join&quot;</code>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>func</i>).</li>
+          <li>If <a href="/sec/sec-iscallable.html">IsCallable</a>(<i>func</i>) is <b>false</b>, let <i>func</i> be the intrinsic function
+              %ObjProto_toString% (<a href="/sec/sec-object.prototype.tostring.html">19.1.3.6</a>).</li>
+          <li>Return  <a href="/sec/sec-call.html">Call</a>(<i>func</i>, <i>array</i>).</li>
+        </ol>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The <code>toString</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.unshift">
+        <h1><span class="secnum" id="sec-22.1.3.28"><a href="/sec/sec-array.prototype.unshift.html" title="link to this section">22.1.3.28</a></span> Array.prototype.unshift ( ...items )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE 1</span> The arguments are prepended to the start of the array, such that their order within
+          the array is the same as the order in which they appear in the argument list.</p>
+        </div>
+
+        <p class="normalbefore">When the <code>unshift</code> method is called with zero or more arguments <var>item1</var>,
+        <var>item2</var>, etc., the following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Let <i>len</i> be <a href="/sec/sec-tolength.html">ToLength</a>(<a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>,
+              <code>&quot;length&quot;</code>)).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>len</i>).</li>
+          <li>Let <i>argCount</i> be the number of actual arguments.</li>
+          <li>If <i>argCount</i> &gt; 0, then
+            <ol class="block">
+              <li>If <i>len</i>+ <i>argCount</i> &gt; 2<sup>53</sup>-1, throw a <b>TypeError</b> exception.</li>
+              <li>Let <i>k</i> be <i>len</i>.</li>
+              <li>Repeat, while <i>k</i> &gt; 0,
+                <ol class="block">
+                  <li>Let <i>from</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>&#x2013;1).</li>
+                  <li>Let <i>to</i> be <a href="/sec/sec-tostring.html">ToString</a>(<i>k</i>+<i>argCount</i> &#x2013;1).</li>
+                  <li>Let <i>fromPresent</i> be <a href="/sec/sec-hasproperty.html">HasProperty</a>(<i>O</i>, <i>from</i>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromPresent</i>).</li>
+                  <li>If <i>fromPresent</i> is <b>true</b>, then
+                    <ol class="block">
+                      <li>Let <i>fromValue</i> be <a href="/sec/sec-get-o-p.html">Get</a>(<i>O</i>, <i>from</i>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>fromValue</i>).</li>
+                      <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <i>to</i>, <i>fromValue</i>,
+                          <b>true</b>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                    </ol>
+                  </li>
+                  <li>Else <i>fromPresent</i> is <b>false</b>,
+                    <ol class="block">
+                      <li>Let <i>deleteStatus</i> be <a href="/sec/sec-deletepropertyorthrow.html">DeletePropertyOrThrow</a>(<i>O</i>,
+                          <i>to</i>).</li>
+                      <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>deleteStatus</i>).</li>
+                    </ol>
+                  </li>
+                  <li>Decrease <i>k</i> by 1.</li>
+                </ol>
+              </li>
+              <li>Let <i>j</i> be 0.</li>
+              <li>Let <i>items</i> be a <a href="/sec/sec-list-and-record-specification-type.html">List</a> whose elements are, in left to
+                  right order, the arguments that were passed to this function invocation.</li>
+              <li>Repeat, while <i>items</i> is not empty
+                <ol class="block">
+                  <li>Remove the first element from <i>items</i> and let <i>E</i> be the value of that element.</li>
+                  <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <a href="/sec/sec-tostring.html">ToString</a>(<i>j</i>), <i>E</i>, <b>true</b>).</li>
+                  <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+                  <li>Increase <i>j</i> by 1.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Let <i>setStatus</i> be <a href="/sec/sec-set-o-p-v-throw.html">Set</a>(<i>O</i>, <code>&quot;length&quot;</code>,
+              <i>len</i>+<i>argCount</i>, <b>true</b>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>setStatus</i>).</li>
+          <li>Return <i>len</i>+<i>argCount</i>.</li>
+        </ol>
+
+        <p>The <code>length</code> property of the <code>unshift</code> method is <b>1</b>.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE 2</span> The <code>unshift</code> function is intentionally generic; it does not require that
+          its <b>this</b> value be an Array object. Therefore it can be transferred to other kinds of objects for use as a
+          method.</p>
+        </div>
+      </section>
+
+      <section id="sec-array.prototype.values">
+        <h1><span class="secnum" id="sec-22.1.3.29"><a href="/sec/sec-array.prototype.values.html" title="link to this section">22.1.3.29</a></span> Array.prototype.values ( )</h1>
+
+        <p class="normalbefore">The following steps are taken:</p>
+
+        <ol class="proc">
+          <li>Let <i>O</i> be <a href="/sec/sec-toobject.html">ToObject</a>(<b>this</b> value).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>O</i>).</li>
+          <li>Return <a href="/sec/sec-createarrayiterator.html">CreateArrayIterator</a>(<i>O</i>, <code>&quot;value&quot;</code>).</li>
+        </ol>
+
+        <p>This function is the %ArrayProto_values% intrinsic object.</p>
+      </section>
+
+      <section id="sec-array.prototype-@@iterator">
+        <h1><span class="secnum" id="sec-22.1.3.30"><a href="/sec/sec-array.prototype-@@iterator.html" title="link to this section">22.1.3.30</a></span> Array.prototype [ @@iterator ]  ( )</h1>
+
+        <p>The initial value of the @@iterator property is the same function object as the initial value of the <b><a href="/sec/sec-array.prototype.values.html">Array.prototype.values</a></b> property.</p>
+      </section>
+
+      <section id="sec-array.prototype-@@unscopables">
+        <h1><span class="secnum" id="sec-22.1.3.31"><a href="/sec/sec-array.prototype-@@unscopables.html" title="link to this section">22.1.3.31</a></span> Array.prototype [ @@unscopables ]</h1>
+
+        <p class="normalbefore">The initial value of the @@unscopables data property is an object created by the following
+        steps:</p>
+
+        <ol class="proc">
+          <li>Let <i>blackList</i> be <a href="/sec/sec-objectcreate.html">ObjectCreate</a>(<b>null</b>).</li>
+          <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>blackList</i>, <code>&quot;copyWithin&quot;</code>,
+              <b>true</b>).</li>
+          <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>blackList</i>, <code>&quot;entries&quot;</code>,
+              <b>true</b>).</li>
+          <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>blackList</i>, <code>&quot;fill&quot;</code>,
+              <b>true</b>).</li>
+          <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>blackList</i>, <code>&quot;find&quot;</code>,
+              <b>true</b>).</li>
+          <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>blackList</i>, <code>&quot;findIndex&quot;</code>,
+              <b>true</b>).</li>
+          <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>blackList</i>, <code>&quot;keys&quot;</code>,
+              <b>true</b>).</li>
+          <li>Perform <a href="/sec/sec-createdataproperty.html">CreateDataProperty</a>(<i>blackList</i>, <code>&quot;values&quot;</code>,
+              <b>true</b>).</li>
+          <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: Each of the above calls will return <b>true</b>.</li>
+          <li>Return <i>blackList</i>.</li>
+        </ol>
+
+        <p>This property has the attributes { [[Writable]]: <b>false</b>, [[Enumerable]]: <span class="value">false</span>,
+        [[Configurable]]: <span class="value">true</span> }.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> The own property names of this object are property names that were not included as
+          standard properties of <code>Array.prototype</code> prior to the ECMAScript 2015 specification. These names are ignored
+          for <code>with</code> statement binding purposes in order to preserve the behaviour of existing code that might use one
+          of these names as a binding in an outer scope that is shadowed by a <code>with</code> statement whose binding object is
+          an Array object.</p>
+        </div>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

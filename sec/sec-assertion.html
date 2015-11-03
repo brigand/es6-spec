@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <div class="front">
+          <h1><span class="secnum" id="sec-21.2.2.6"><a href="/sec/sec-assertion.html" title="link to this section">21.2.2.6</a></span>
+              Assertion</h1>
+
+          <p class="normalbefore">The production <span class="prod"><span class="nt">Assertion</span> <span class="geq">::</span>
+          <code class="t">^</code></span> evaluates by returning an internal AssertionTester closure that takes a State argument
+          <var>x</var> and performs the following steps when evaluated:</p>
+
+          <ol class="proc">
+            <li>Let <i>e</i> be <i>x</i>&apos;s <i>endIndex</i>.</li>
+            <li>If <i>e</i> is zero, return <b>true</b>.</li>
+            <li>If <i>Multiline</i> is <b>false</b>, return <b>false</b>.</li>
+            <li>If the character <i>Input</i>[<i>e</i>&#x2013;1] is one of <i>LineTerminator</i>, return <b>true</b>.</li>
+            <li>Return <b>false</b>.</li>
+          </ol>
+
+          <div class="note">
+            <p><span class="nh">NOTE</span> Even when the <code>y</code> flag is used with a pattern, <code>^</code> always
+            matches only at the beginning of <span class="nt">Input</span>, or (if <span class="nt">Multiline</span> is <span class="value">true</span>) at the beginning of a line.</p>
+          </div>
+
+          <p class="normalbefore">The production <span class="prod"><span class="nt">Assertion</span> <span class="geq">::</span>
+          <code class="t">$</code></span> evaluates by returning an internal AssertionTester closure that takes a State argument
+          <var>x</var> and performs the following steps when evaluated:</p>
+
+          <ol class="proc">
+            <li>Let <i>e</i> be <i>x</i>&apos;s <i>endIndex</i>.</li>
+            <li>If <i>e</i> is equal to <i>InputLength</i>, return <b>true</b>.</li>
+            <li>If <i>Multiline</i> is <b>false</b>, return <b>false</b>.</li>
+            <li>If the character <i>Input</i>[<i>e</i>] is one of <i>LineTerminator</i>, return <b>true</b>.</li>
+            <li>Return <b>false</b>.</li>
+          </ol>
+
+          <p class="normalbefore">The production <span class="prod"><span class="nt">Assertion</span> <span class="geq">::</span>
+          <code class="t">\</code> <code class="t">b</code></span> evaluates by returning an internal AssertionTester closure that
+          takes a State argument <var>x</var> and performs the following steps when evaluated:</p>
+
+          <ol class="proc">
+            <li>Let <i>e</i> be <i>x</i>&apos;s <i>endIndex</i>.</li>
+            <li><a href="/sec/sec-call.html">Call</a> IsWordChar(<i>e</i>&#x2013;1) and let <i>a</i> be the Boolean result.</li>
+            <li><a href="/sec/sec-call.html">Call</a> IsWordChar(<i>e</i>) and let <i>b</i> be the Boolean result.</li>
+            <li>If <i>a</i> is <b>true</b> and <i>b</i> is <b>false</b>, return <b>true</b>.</li>
+            <li>If <i>a</i> is <b>false</b> and <i>b</i> is <b>true</b>, return <b>true</b>.</li>
+            <li>Return <b>false</b>.</li>
+          </ol>
+
+          <p class="normalbefore">The production <span class="prod"><span class="nt">Assertion</span> <span class="geq">::</span>
+          <code class="t">\</code> <code class="t">B</code></span> evaluates by returning an internal AssertionTester closure that
+          takes a State argument <var>x</var> and performs the following steps when evaluated:</p>
+
+          <ol class="proc">
+            <li>Let <i>e</i> be <i>x</i>&apos;s <i>endIndex</i>.</li>
+            <li><a href="/sec/sec-call.html">Call</a> IsWordChar(<i>e</i>&#x2013;1) and let <i>a</i> be the Boolean result.</li>
+            <li><a href="/sec/sec-call.html">Call</a> IsWordChar(<i>e</i>) and let <i>b</i> be the Boolean result.</li>
+            <li>If <i>a</i> is <b>true</b> and <i>b</i> is <b>false</b>, return <b>false</b>.</li>
+            <li>If <i>a</i> is <b>false</b> and <i>b</i> is <b>true</b>, return <b>false</b>.</li>
+            <li>Return <b>true</b>.</li>
+          </ol>
+
+          <p class="normalbefore">The production <span class="prod"><span class="nt">Assertion</span> <span class="geq">::</span>
+          <code class="t">(</code> <code class="t">?</code> <code class="t">=</code> <span class="nt">Disjunction</span> <code class="t">)</code></span> evaluates as follows:</p>
+
+          <ol class="proc">
+            <li>Evaluate <i>Disjunction</i> to obtain a Matcher <i>m</i>.</li>
+            <li>Return an internal Matcher closure that takes two arguments, a State <i>x</i> and a Continuation <i>c</i>, and
+                performs the following steps:
+              <ol class="nested proc">
+                <li>Let <i>d</i> be a Continuation that always returns its State argument as a successful MatchResult.</li>
+                <li><a href="/sec/sec-call.html">Call</a> <i>m</i>(<i>x</i>, <i>d</i>) and let <i>r</i> be its result.</li>
+                <li>If <i>r</i> is <b>failure</b>, return <b>failure</b>.</li>
+                <li>Let <i>y</i> be <i>r</i>&apos;s State.</li>
+                <li>Let <i>cap</i> be <i>y</i>&apos;s <i>captures</i> <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+                <li>Let <i>xe</i> be <i>x</i>&apos;s <i>endIndex</i>.</li>
+                <li>Let <i>z</i> be the State (<i>xe</i>, <i>cap</i>).</li>
+                <li><a href="/sec/sec-call.html">Call</a> <i>c</i>(<i>z</i>) and return its result.</li>
+              </ol>
+            </li>
+          </ol>
+
+          <p class="normalbefore">The production <span class="prod"><span class="nt">Assertion</span> <span class="geq">::</span>
+          <code class="t">(</code> <code class="t">?</code> <code class="t">!</code> <span class="nt">Disjunction</span> <code class="t">)</code></span> evaluates as follows:</p>
+
+          <ol class="proc">
+            <li>Evaluate <i>Disjunction</i> to obtain a Matcher <i>m</i>.</li>
+            <li>Return an internal Matcher closure that takes two arguments, a State <i>x</i> and a Continuation <i>c</i>, and
+                performs the following steps:
+              <ol class="nested proc">
+                <li>Let <i>d</i> be a Continuation that always returns its State argument as a successful MatchResult.</li>
+                <li><a href="/sec/sec-call.html">Call</a> <i>m</i>(<i>x</i>, <i>d</i>) and let <i>r</i> be its result.</li>
+                <li>If <i>r</i> is not <b>failure</b>, return <b>failure</b>.</li>
+                <li><a href="/sec/sec-call.html">Call</a> <i>c</i>(<i>x</i>) and return its result.</li>
+              </ol>
+            </li>
+          </ol>
+        </div>
+
+        <section id="sec-runtime-semantics-iswordchar-abstract-operation">
+          <h1><span class="secnum" id="sec-21.2.2.6.1"><a href="/sec/sec-runtime-semantics-iswordchar-abstract-operation.html" title="link to this section">21.2.2.6.1</a></span> Runtime Semantics: IsWordChar Abstract Operation</h1>
+
+          <p class="normalbefore">The abstract operation IsWordChar takes an integer parameter <var>e</var> and performs the
+          following steps:</p>
+
+          <ol class="proc">
+            <li>If <i>e</i> is &#x2013;1 or <i>e</i>  is <i>InputLength</i>, return <b>false</b>.</li>
+            <li>Let <i>c</i> be the character <i>Input</i>[<i>e</i>].</li>
+            <li>If <i>c</i> is one of the sixty-three characters below, return <b>true</b>.
+              <figure>
+                <table class="lightweight-table">
+                  <tr>
+                    <td><code>a</code></td>
+                    <td><code>b</code></td>
+                    <td><code>c</code></td>
+                    <td><code>d</code></td>
+                    <td><code>e</code></td>
+                    <td><code>f</code></td>
+                    <td><code>g</code></td>
+                    <td><code>h</code></td>
+                    <td><code>i</code></td>
+                    <td><code>j</code></td>
+                    <td><code>k</code></td>
+                    <td><code>l</code></td>
+                    <td><code>m</code></td>
+                    <td><code>n</code></td>
+                    <td><code>o</code></td>
+                    <td><code>p</code></td>
+                    <td><code>q</code></td>
+                    <td><code>r</code></td>
+                    <td><code>s</code></td>
+                    <td><code>t</code></td>
+                    <td><code>u</code></td>
+                    <td><code>v</code></td>
+                    <td><code>w</code></td>
+                    <td><code>x</code></td>
+                    <td><code>y</code></td>
+                    <td><code>z</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>A</code></td>
+                    <td><code>B</code></td>
+                    <td><code>C</code></td>
+                    <td><code>D</code></td>
+                    <td><code>E</code></td>
+                    <td><code>F</code></td>
+                    <td><code>G</code></td>
+                    <td><code>H</code></td>
+                    <td><code>I</code></td>
+                    <td><code>J</code></td>
+                    <td><code>K</code></td>
+                    <td><code>L</code></td>
+                    <td><code>M</code></td>
+                    <td><code>N</code></td>
+                    <td><code>O</code></td>
+                    <td><code>P</code></td>
+                    <td><code>Q</code></td>
+                    <td><code>R</code></td>
+                    <td><code>S</code></td>
+                    <td><code>T</code></td>
+                    <td><code>U</code></td>
+                    <td><code>V</code></td>
+                    <td><code>W</code></td>
+                    <td><code>X</code></td>
+                    <td><code>Y</code></td>
+                    <td><code>Z</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>0</code></td>
+                    <td><code>1</code></td>
+                    <td><code>2</code></td>
+                    <td><code>3</code></td>
+                    <td><code>4</code></td>
+                    <td><code>5</code></td>
+                    <td><code>6</code></td>
+                    <td><code>7</code></td>
+                    <td><code>8</code></td>
+                    <td><code>9</code></td>
+                    <td><code>_</code></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </table>
+              </figure>
+            </li>
+            <li>Return <b>false</b>.</li>
+          </ol>
+        </section>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

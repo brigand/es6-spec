@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+        <h1><span class="secnum" id="sec-25.2.4.3"><a href="/sec/sec-generatorfunction-instances-prototype.html" title="link to this section">25.2.4.3</a></span> prototype</h1>
+
+        <p>Whenever a GeneratorFunction instance is created another ordinary object is also created and is the initial value of
+        the generator function&#x2019;s <code>prototype</code> property. The value of the prototype property is used to initialize
+        the [[Prototype]] <a href="/sec/sec-object-internal-methods-and-internal-slots.html">internal slot</a> of a newly created Generator
+        object when the generator function object is invoked using either [[Call]] or [[Construct]].</p>
+
+        <p>This property has the attributes {&#xA0;[[Writable]]: <span class="value">true</span>, [[Enumerable]]: <span class="value">false</span>, [[Configurable]]: <span class="value">false</span>&#xA0;}.</p>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> Unlike function instances, the object that is the value of the a
+          GeneratorFunction&#x2019;s <code>prototype</code> property does not have a <code>constructor</code> property whose value
+          is the GeneratorFunction instance.</p>
+        </div>
+      
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+    <div class="front">
+      <h1><span class="secnum" id="sec-13.2"><a href="/sec/sec-block.html" title="link to this section">13.2</a></span> Block</h1>
+      <h2>Syntax</h2>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">BlockStatement</span><sub class="g-params">[Yield, Return]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">Block</span><sub class="g-params">[?Yield, ?Return]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">Block</span><sub class="g-params">[Yield, Return]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><code class="t">{</code> <span class="nt">StatementList</span><sub class="g-params">[?Yield, ?Return]</sub><sub class="g-opt">opt</sub> <code class="t">}</code></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">StatementList</span><sub class="g-params">[Yield, Return]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">StatementListItem</span><sub class="g-params">[?Yield, ?Return]</sub></div>
+        <div class="rhs"><span class="nt">StatementList</span><sub class="g-params">[?Yield, ?Return]</sub> <span class="nt">StatementListItem</span><sub class="g-params">[?Yield, ?Return]</sub></div>
+      </div>
+
+      <div class="gp">
+        <div class="lhs"><span class="nt">StatementListItem</span><sub class="g-params">[Yield, Return]</sub> <span class="geq">:</span></div>
+        <div class="rhs"><span class="nt">Statement</span><sub class="g-params">[?Yield, ?Return]</sub></div>
+        <div class="rhs"><span class="nt">Declaration</span><sub class="g-params">[?Yield]</sub></div>
+      </div>
+    </div>
+
+    <section id="sec-block-static-semantics-early-errors">
+      <h1><span class="secnum" id="sec-13.2.1"><a href="/sec/sec-block-static-semantics-early-errors.html" title="link to this section">13.2.1</a></span> Static Semantics:  Early Errors</h1>
+      <div class="gp prod"><span class="nt">Block</span> <span class="geq">:</span> <code class="t">{</code> <span class="nt">StatementList</span> <code class="t">}</code></div>
+      <ul>
+        <li>
+          <p>It is a Syntax Error if the LexicallyDeclaredNames of <span class="nt">StatementList</span> contains any duplicate
+          entries.</p>
+        </li>
+
+        <li>
+          <p>It is a Syntax Error if any element of the LexicallyDeclaredNames of <span class="nt">StatementList</span> also
+          occurs in the VarDeclaredNames of <span class="nt">StatementList</span>.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="sec-block-static-semantics-containsduplicatelabels">
+      <h1><span class="secnum" id="sec-13.2.2"><a href="/sec/sec-block-static-semantics-containsduplicatelabels.html" title="link to this section">13.2.2</a></span> Static Semantics: ContainsDuplicateLabels</h1>
+
+      <p>With argument <var>labelSet</var>.</p>
+
+      <p>See also: <a href="/sec/sec-statement-semantics-static-semantics-containsduplicatelabels.html">13.1.1</a>, <a href="/sec/sec-if-statement-static-semantics-containsduplicatelabels.html">13.6.2</a>, <a href="/sec/sec-do-while-statement-static-semantics-containsduplicatelabels.html">13.7.2.1</a>, <a href="/sec/sec-while-statement-static-semantics-containsduplicatelabels.html">13.7.3.1</a>, <a href="/sec/sec-for-statement-static-semantics-containsduplicatelabels.html">13.7.4.2</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-containsduplicatelabels.html">13.7.5.3</a>, <a href="/sec/sec-with-statement-static-semantics-containsduplicatelabels.html">13.11.2</a>, <a href="/sec/sec-switch-statement-static-semantics-containsduplicatelabels.html">13.12.2</a>, <a href="/sec/sec-labelled-statements-static-semantics-containsduplicatelabels.html">13.13.2</a>, <a href="/sec/sec-try-statement-static-semantics-containsduplicatelabels.html">13.15.2</a>, <a href="/sec/sec-module-semantics-static-semantics-containsduplicatelabels.html">15.2.1.2</a>.</p>
+
+      <div class="gp prod"><span class="nt">Block</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementList</span> <span class="geq">:</span> <span class="nt">StatementList</span> <span class="nt">StatementListItem</span></div>
+      <ol class="proc">
+        <li>Let <i>hasDuplicates</i> be ContainsDuplicateLabels of <i>StatementList</i> with argument <i>labelSet</i>.</li>
+        <li>If <i>hasDuplicates</i> is <b>true</b>, return <b>true</b>.</li>
+        <li>Return ContainsDuplicateLabels of <i>StatementListItem</i> with argument <i>labelSet.</i></li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Declaration</span></div>
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-block-static-semantics-containsundefinedbreaktarget">
+      <h1><span class="secnum" id="sec-13.2.3"><a href="/sec/sec-block-static-semantics-containsundefinedbreaktarget.html" title="link to this section">13.2.3</a></span> Static Semantics: ContainsUndefinedBreakTarget</h1>
+
+      <p>With argument <var>labelSet</var>.</p>
+
+      <p>See also: <a href="/sec/sec-statement-semantics-static-semantics-containsundefinedbreaktarget.html">13.1.2</a>, <a href="/sec/sec-if-statement-static-semantics-containsundefinedbreaktarget.html">13.6.3</a>, <a href="/sec/sec-do-while-statement-static-semantics-containsundefinedbreaktarget.html">13.7.2.2</a>, <a href="/sec/sec-while-statement-static-semantics-containsundefinedbreaktarget.html">13.7.3.2</a>, <a href="/sec/sec-for-statement-static-semantics-containsundefinedbreaktarget.html">13.7.4.3</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-containsundefinedbreaktarget.html">13.7.5.4</a>, <a href="/sec/sec-break-statement-static-semantics-containsundefinedbreaktarget.html">13.9.2</a>, <a href="/sec/sec-with-statement-static-semantics-containsundefinedbreaktarget.html">13.11.3</a>, <a href="/sec/sec-switch-statement-static-semantics-containsundefinedbreaktarget.html">13.12.3</a>, <a href="/sec/sec-labelled-statements-static-semantics-containsundefinedbreaktarget.html">13.13.3</a>, <a href="/sec/sec-try-statement-static-semantics-containsundefinedbreaktarget.html">13.15.3</a>, <a href="/sec/sec-module-semantics-static-semantics-containsundefinedbreaktarget.html">15.2.1.3</a>.</p>
+
+      <div class="gp prod"><span class="nt">Block</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementList</span> <span class="geq">:</span> <span class="nt">StatementList</span> <span class="nt">StatementListItem</span></div>
+      <ol class="proc">
+        <li>Let <i>hasUndefinedLabels</i> be ContainsUndefinedBreakTarget of <i>StatementList</i> with argument
+            <i>labelSet</i>.</li>
+        <li>If <i>hasUndefinedLabels</i> is <b>true</b>, return <b>true</b>.</li>
+        <li>Return ContainsUndefinedBreakTarget of <i>StatementListItem</i> with argument <i>labelSet.</i></li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Declaration</span></div>
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-block-static-semantics-containsundefinedcontinuetarget">
+      <h1><span class="secnum" id="sec-13.2.4"><a href="/sec/sec-block-static-semantics-containsundefinedcontinuetarget.html" title="link to this section">13.2.4</a></span> Static Semantics: ContainsUndefinedContinueTarget</h1>
+
+      <p>With arguments <var>iterationSet</var> and <var>labelSet</var>.</p>
+
+      <p>See also: <a href="/sec/sec-statement-semantics-static-semantics-containsundefinedcontinuetarget.html">13.1.3</a>, <a href="/sec/sec-if-statement-static-semantics-containsundefinedcontinuetarget.html">13.6.4</a>, <a href="/sec/sec-do-while-statement-static-semantics-containsundefinedcontinuetarget.html">13.7.2.3</a>, <a href="/sec/sec-while-statement-static-semantics-containsundefinedcontinuetarget.html">13.7.3.3</a>, <a href="/sec/sec-for-statement-static-semantics-containsundefinedcontinuetarget.html">13.7.4.4</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-containsundefinedcontinuetarget.html">13.7.5.5</a>, <a href="/sec/sec-continue-statement-static-semantics-containsundefinedcontinuetarget.html">13.8.2</a>, <a href="/sec/sec-with-statement-static-semantics-containsundefinedcontinuetarget.html">13.11.4</a>, <a href="/sec/sec-switch-statement-static-semantics-containsundefinedcontinuetarget.html">13.12.4</a>, <a href="/sec/sec-labelled-statements-static-semantics-containsundefinedcontinuetarget.html">13.13.4</a>,<a href="/sec/sec-try-statement-static-semantics-containsundefinedcontinuetarget.html">13.15.4</a>, <a href="/sec/sec-module-semantics-static-semantics-containsundefinedcontinuetarget.html">15.2.1.4</a>.</p>
+
+      <div class="gp prod"><span class="nt">Block</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementList</span> <span class="geq">:</span> <span class="nt">StatementList</span> <span class="nt">StatementListItem</span></div>
+      <ol class="proc">
+        <li>Let <i>hasUndefinedLabels</i> be ContainsUndefinedContinueTarget of <i>StatementList</i> with arguments
+            <i>iterationSet</i> and &#xAB; &#xBB;.</li>
+        <li>If <i>hasUndefinedLabels</i> is <b>true</b>, return <b>true</b>.</li>
+        <li>Return ContainsUndefinedContinueTarget of <i>StatementListItem</i> with arguments <i>iterationSet</i> and
+            &#xAB;&#xA0;&#xBB;.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Declaration</span></div>
+      <ol class="proc">
+        <li>Return <b>false</b>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-block-static-semantics-lexicallydeclarednames">
+      <h1><span class="secnum" id="sec-13.2.5"><a href="/sec/sec-block-static-semantics-lexicallydeclarednames.html" title="link to this section">13.2.5</a></span> Static Semantics:  LexicallyDeclaredNames</h1>
+
+      <p>See also: <a href="/sec/sec-switch-statement-static-semantics-lexicallydeclarednames.html">13.12.5</a>, <a href="/sec/sec-labelled-statements-static-semantics-lexicallydeclarednames.html">13.13.6</a>, <a href="/sec/sec-function-definitions-static-semantics-lexicallydeclarednames.html">14.1.13</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-lexicallydeclarednames.html">14.2.10</a>, <a href="/sec/sec-scripts-static-semantics-lexicallydeclarednames.html">15.1.3</a>, <a href="/sec/sec-module-semantics-static-semantics-lexicallydeclarednames.html">15.2.1.11</a>.</p>
+
+      <div class="gp prod"><span class="nt">Block</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementList</span> <span class="geq">:</span> <span class="nt">StatementList</span> <span class="nt">StatementListItem</span></div>
+      <ol class="proc">
+        <li>Let <i>names</i> be LexicallyDeclaredNames of <i>StatementList</i>.</li>
+        <li>Append to <i>names</i> the elements of the LexicallyDeclaredNames of <i>StatementListItem.</i></li>
+        <li>Return <i>names</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Statement</span></div>
+      <ol class="proc">
+        <li>If <i>Statement</i> is <span class="prod"><span class="nt">Statement</span> <span class="geq">:</span> <span class="nt">LabelledStatement</span></span> , return LexicallyDeclaredNames of <i>LabelledStatement</i>.</li>
+        <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Declaration</span></div>
+      <ol class="proc">
+        <li>Return the BoundNames of <i>Declaration</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-block-static-semantics-lexicallyscopeddeclarations">
+      <h1><span class="secnum" id="sec-13.2.6"><a href="/sec/sec-block-static-semantics-lexicallyscopeddeclarations.html" title="link to this section">13.2.6</a></span> Static Semantics:  LexicallyScopedDeclarations</h1>
+
+      <p>See also: <a href="/sec/sec-switch-statement-static-semantics-lexicallyscopeddeclarations.html">13.12.6</a>, <a href="/sec/sec-labelled-statements-static-semantics-lexicallyscopeddeclarations.html">13.13.7</a>, <a href="/sec/sec-function-definitions-static-semantics-lexicallyscopeddeclarations.html">14.1.14</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-lexicallyscopeddeclarations.html">14.2.11</a>, <a href="/sec/sec-scripts-static-semantics-lexicallyscopeddeclarations.html">15.1.4</a>, <a href="/sec/sec-module-semantics-static-semantics-lexicallyscopeddeclarations.html">15.2.1.12</a>, <a href="/sec/sec-exports-static-semantics-lexicallyscopeddeclarations.html">15.2.3.8</a>.</p>
+
+      <div class="gp prod"><span class="nt">StatementList</span> <span class="geq">:</span> <span class="nt">StatementList</span> <span class="nt">StatementListItem</span></div>
+      <ol class="proc">
+        <li>Let <i>declarations</i> be LexicallyScopedDeclarations of <i>StatementList</i>.</li>
+        <li>Append to <i>declarations</i> the elements of the LexicallyScopedDeclarations of <i>StatementListItem.</i></li>
+        <li>Return <i>declarations</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Statement</span></div>
+      <ol class="proc">
+        <li>If <i>Statement</i> is <span class="prod"><span class="nt">Statement</span> <span class="geq">:</span> <span class="nt">LabelledStatement</span></span> , return LexicallyScopedDeclarations of <i>LabelledStatement</i>.</li>
+        <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Declaration</span></div>
+      <ol class="proc">
+        <li>Return a new <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing DeclarationPart of
+            <i>Declaration</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-block-static-semantics-toplevellexicallydeclarednames">
+      <h1><span class="secnum" id="sec-13.2.7"><a href="/sec/sec-block-static-semantics-toplevellexicallydeclarednames.html" title="link to this section">13.2.7</a></span> Static Semantics:  TopLevelLexicallyDeclaredNames</h1>
+
+      <p>See also: <a href="/sec/sec-labelled-statements-static-semantics-toplevellexicallydeclarednames.html">13.13.8</a>.</p>
+
+      <div class="gp prod"><span class="nt">StatementList</span> <span class="geq">:</span> <span class="nt">StatementList</span> <span class="nt">StatementListItem</span></div>
+      <ol class="proc">
+        <li>Let <i>names</i> be TopLevelLexicallyDeclaredNames of <i>StatementList</i>.</li>
+        <li>Append to <i>names</i> the elements of the TopLevelLexicallyDeclaredNames of <i>StatementListItem.</i></li>
+        <li>Return <i>names</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Statement</span></div>
+      <ol class="proc">
+        <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Declaration</span></div>
+      <ol class="proc">
+        <li>If <i>Declaration</i> is <span class="prod"><span class="nt">Declaration</span> <span class="geq">:</span> <span class="nt">HoistableDeclaration</span></span> , then
+          <ol class="block">
+            <li>If <i>HoistableDeclaration</i> is <span class="prod"><span class="nt">HoistableDeclaration</span> <span class="geq">:</span> <span class="nt">FunctionDeclaration</span></span> , return &#xAB; &#xBB;.</li>
+            <li>If <i>HoistableDeclaration</i> is <span class="prod"><span class="nt">HoistableDeclaration</span> <span class="geq">:</span> <span class="nt">GeneratorDeclaration</span></span> , return &#xAB; &#xBB;.</li>
+          </ol>
+        </li>
+        <li>Return the BoundNames of <i>Declaration</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> At the top level of a function, or script,  function declarations are treated like var
+        declarations rather than like lexical declarations.</p>
+      </div>
+    </section>
+
+    <section id="sec-block-static-semantics-toplevellexicallyscopeddeclarations">
+      <h1><span class="secnum" id="sec-13.2.8"><a href="/sec/sec-block-static-semantics-toplevellexicallyscopeddeclarations.html" title="link to this section">13.2.8</a></span> Static Semantics:  TopLevelLexicallyScopedDeclarations</h1>
+
+      <p>See also: <a href="/sec/sec-labelled-statements-static-semantics-toplevellexicallyscopeddeclarations.html">13.13.9</a>.</p>
+
+      <div class="gp prod"><span class="nt">Block</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementList</span> <span class="geq">:</span> <span class="nt">StatementList</span> <span class="nt">StatementListItem</span></div>
+      <ol class="proc">
+        <li>Let <i>declarations</i> be TopLevelLexicallyScopedDeclarations of <i>StatementList</i>.</li>
+        <li>Append to <i>declarations</i> the elements of the TopLevelLexicallyScopedDeclarations of
+            <i>StatementListItem.</i></li>
+        <li>Return <i>declarations</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Statement</span></div>
+      <ol class="proc">
+        <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Declaration</span></div>
+      <ol class="proc">
+        <li>If <i>Declaration</i> is <span class="prod"><span class="nt">Declaration</span> <span class="geq">:</span> <span class="nt">HoistableDeclaration</span></span> , then
+          <ol class="block">
+            <li>If <i>HoistableDeclaration</i> is <span class="prod"><span class="nt">HoistableDeclaration</span> <span class="geq">:</span> <span class="nt">FunctionDeclaration</span></span> , return &#xAB; &#xBB;.</li>
+            <li>If <i>HoistableDeclaration</i> is <span class="prod"><span class="nt">HoistableDeclaration</span> <span class="geq">:</span> <span class="nt">GeneratorDeclaration</span></span> , return &#xAB; &#xBB;.</li>
+          </ol>
+        </li>
+        <li>Return a new <a href="/sec/sec-list-and-record-specification-type.html">List</a> containing <i>Declaration</i>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-block-static-semantics-toplevelvardeclarednames">
+      <h1><span class="secnum" id="sec-13.2.9"><a href="/sec/sec-block-static-semantics-toplevelvardeclarednames.html" title="link to this section">13.2.9</a></span> Static Semantics:  TopLevelVarDeclaredNames</h1>
+
+      <p>See also: <a href="/sec/sec-labelled-statements-static-semantics-toplevelvardeclarednames.html">13.13.10</a>.</p>
+
+      <div class="gp prod"><span class="nt">Block</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementList</span> <span class="geq">:</span> <span class="nt">StatementList</span> <span class="nt">StatementListItem</span></div>
+      <ol class="proc">
+        <li>Let <i>names</i> be TopLevelVarDeclaredNames of <i>StatementList</i>.</li>
+        <li>Append to <i>names</i> the elements of the TopLevelVarDeclaredNames of <i>StatementListItem.</i></li>
+        <li>Return <i>names</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Declaration</span></div>
+      <ol class="proc">
+        <li>If <i>Declaration</i> is <span class="prod"><span class="nt">Declaration</span> <span class="geq">:</span> <span class="nt">HoistableDeclaration</span></span> , then
+          <ol class="block">
+            <li>If <i>HoistableDeclaration</i> is <span class="prod"><span class="nt">HoistableDeclaration</span> <span class="geq">:</span> <span class="nt">FunctionDeclaration</span></span> , return the BoundNames of
+                <i>FunctionDeclaration</i>.</li>
+            <li>If <i>HoistableDeclaration</i> is <span class="prod"><span class="nt">HoistableDeclaration</span> <span class="geq">:</span> <span class="nt">GeneratorDeclaration</span></span> , return the BoundNames of
+                <i>GeneratorDeclaration</i>.</li>
+          </ol>
+        </li>
+        <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Statement</span></div>
+      <ol class="proc">
+        <li>If <i>Statement</i> is <span class="prod"><span class="nt">Statement</span> <span class="geq">:</span> <span class="nt">LabelledStatement</span></span> , return TopLevelVarDeclaredNames of <i>Statement</i>.</li>
+        <li>Return VarDeclaredNames of <i>Statement</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span> At the top level of a function or script, inner function declarations are treated like var
+        declarations.</p>
+      </div>
+    </section>
+
+    <section id="sec-block-static-semantics-toplevelvarscopeddeclarations">
+      <h1><span class="secnum" id="sec-13.2.10"><a href="/sec/sec-block-static-semantics-toplevelvarscopeddeclarations.html" title="link to this section">13.2.10</a></span> Static Semantics:  TopLevelVarScopedDeclarations</h1>
+
+      <p>See also: <a href="/sec/sec-labelled-statements-static-semantics-toplevelvarscopeddeclarations.html">13.13.11</a>.</p>
+
+      <div class="gp prod"><span class="nt">Block</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementList</span> <span class="geq">:</span> <span class="nt">StatementList</span> <span class="nt">StatementListItem</span></div>
+      <ol class="proc">
+        <li>Let <i>declarations</i> be TopLevelVarScopedDeclarations of <i>StatementList</i>.</li>
+        <li>Append to <i>declarations</i> the elements of the TopLevelVarScopedDeclarations of <i>StatementListItem.</i></li>
+        <li>Return <i>declarations</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Statement</span></div>
+      <ol class="proc">
+        <li>If <i>Statement</i> is <span class="prod"><span class="nt">Statement</span> <span class="geq">:</span> <span class="nt">LabelledStatement</span></span> , return TopLevelVarScopedDeclarations of <i>Statement</i>.</li>
+        <li>Return VarScopedDeclarations of <i>Statement</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Declaration</span></div>
+      <ol class="proc">
+        <li>If <i>Declaration</i> is <span class="prod"><span class="nt">Declaration</span> <span class="geq">:</span> <span class="nt">HoistableDeclaration</span></span> , then
+          <ol class="block">
+            <li>If <i>HoistableDeclaration</i> is <span class="prod"><span class="nt">HoistableDeclaration</span> <span class="geq">:</span> <span class="nt">FunctionDeclaration</span></span> , return
+                &#xAB;&#xA0;<i>FunctionDeclaration</i> &#xBB;.</li>
+            <li>If <i>HoistableDeclaration</i> is <span class="prod"><span class="nt">HoistableDeclaration</span> <span class="geq">:</span> <span class="nt">GeneratorDeclaration</span></span> , return
+                &#xAB;&#xA0;<i>GeneratorDeclaration</i> &#xBB;.</li>
+          </ol>
+        </li>
+        <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-block-static-semantics-vardeclarednames">
+      <h1><span class="secnum" id="sec-13.2.11"><a href="/sec/sec-block-static-semantics-vardeclarednames.html" title="link to this section">13.2.11</a></span> Static Semantics:  VarDeclaredNames</h1>
+
+      <p>See also: <a href="/sec/sec-statement-semantics-static-semantics-vardeclarednames.html">13.1.5</a>, <a href="/sec/sec-variable-statement-static-semantics-vardeclarednames.html">13.3.2.2</a>, <a href="/sec/sec-if-statement-static-semantics-vardeclarednames.html">13.6.5</a>, <a href="/sec/sec-do-while-statement-static-semantics-vardeclarednames.html">13.7.2.4</a>, <a href="/sec/sec-while-statement-static-semantics-vardeclarednames.html">13.7.3.4</a>, <a href="/sec/sec-for-statement-static-semantics-vardeclarednames.html">13.7.4.5</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-vardeclarednames.html">13.7.5.7</a>, <a href="/sec/sec-with-statement-static-semantics-vardeclarednames.html">13.11.5</a>, <a href="/sec/sec-switch-statement-static-semantics-vardeclarednames.html">13.12.7</a>, <a href="/sec/sec-labelled-statements-static-semantics-vardeclarednames.html">13.13.12</a>, <a href="/sec/sec-try-statement-static-semantics-vardeclarednames.html">13.15.5</a>, <a href="/sec/sec-function-definitions-static-semantics-vardeclarednames.html">14.1.15</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-vardeclarednames.html">14.2.12</a>, <a href="/sec/sec-scripts-static-semantics-vardeclarednames.html">15.1.5</a>, <a href="/sec/sec-module-semantics-static-semantics-vardeclarednames.html">15.2.1.13</a>.</p>
+
+      <div class="gp prod"><span class="nt">Block</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementList</span> <span class="geq">:</span> <span class="nt">StatementList</span> <span class="nt">StatementListItem</span></div>
+      <ol class="proc">
+        <li>Let <i>names</i> be VarDeclaredNames of <i>StatementList</i>.</li>
+        <li>Append to <i>names</i> the elements of the VarDeclaredNames of <i>StatementListItem.</i></li>
+        <li>Return <i>names</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Declaration</span></div>
+      <ol class="proc">
+        <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-block-static-semantics-varscopeddeclarations">
+      <h1><span class="secnum" id="sec-13.2.12"><a href="/sec/sec-block-static-semantics-varscopeddeclarations.html" title="link to this section">13.2.12</a></span> Static Semantics:  VarScopedDeclarations</h1>
+
+      <p>See also: <a href="/sec/sec-statement-semantics-static-semantics-varscopeddeclarations.html">13.1.6</a>, <a href="/sec/sec-variable-statement-static-semantics-varscopeddeclarations.html">13.3.2.3</a>, <a href="/sec/sec-if-statement-static-semantics-varscopeddeclarations.html">13.6.6</a>, <a href="/sec/sec-do-while-statement-static-semantics-varscopeddeclarations.html">13.7.2.5</a>, <a href="/sec/sec-while-statement-static-semantics-varscopeddeclarations.html">13.7.3.5</a>, <a href="/sec/sec-for-statement-static-semantics-varscopeddeclarations.html">13.7.4.6</a>, <a href="/sec/sec-for-in-and-for-of-statements-static-semantics-varscopeddeclarations.html">13.7.5.8</a>, <a href="/sec/sec-with-statement-static-semantics-varscopeddeclarations.html">13.11.6</a>, <a href="/sec/sec-switch-statement-static-semantics-varscopeddeclarations.html">13.12.8</a>, <a href="/sec/sec-labelled-statements-static-semantics-varscopeddeclarations.html">13.13.13</a>, <a href="/sec/sec-try-statement-static-semantics-varscopeddeclarations.html">13.15.6</a>, <a href="/sec/sec-function-definitions-static-semantics-varscopeddeclarations.html">14.1.16</a>, <a href="/sec/sec-arrow-function-definitions-static-semantics-varscopeddeclarations.html">14.2.13</a>, <a href="/sec/sec-scripts-static-semantics-varscopeddeclarations.html">15.1.6</a>, <a href="/sec/sec-module-semantics-static-semantics-varscopeddeclarations.html">15.2.1.14</a>.</p>
+
+      <div class="gp prod"><span class="nt">Block</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementList</span> <span class="geq">:</span> <span class="nt">StatementList</span> <span class="nt">StatementListItem</span></div>
+      <ol class="proc">
+        <li>Let <i>declarations</i> be VarScopedDeclarations of <i>StatementList</i>.</li>
+        <li>Append to <i>declarations</i> the elements of the VarScopedDeclarations of <i>StatementListItem.</i></li>
+        <li>Return <i>declarations</i>.</li>
+      </ol>
+      <div class="gp prod"><span class="nt">StatementListItem</span> <span class="geq">:</span> <span class="nt">Declaration</span></div>
+      <ol class="proc">
+        <li>Return a new empty <a href="/sec/sec-list-and-record-specification-type.html">List</a>.</li>
+      </ol>
+    </section>
+
+    <section id="sec-block-runtime-semantics-evaluation">
+      <h1><span class="secnum" id="sec-13.2.13"><a href="/sec/sec-block-runtime-semantics-evaluation.html" title="link to this section">13.2.13</a></span> Runtime Semantics: Evaluation</h1>
+      <div class="gp prod"><span class="nt">Block</span> <span class="geq">:</span> <code class="t">{</code> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Return <a href="/sec/sec-normalcompletion.html">NormalCompletion</a>(<span style="font-family: sans-serif">empty</span>).</li>
+      </ol>
+      <div class="gp prod"><span class="nt">Block</span> <span class="geq">:</span> <code class="t">{</code> <span class="nt">StatementList</span> <code class="t">}</code></div>
+      <ol class="proc">
+        <li>Let <i>oldEnv</i> be <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a>.</li>
+        <li>Let <i>blockEnv</i> be <a href="/sec/sec-newdeclarativeenvironment.html">NewDeclarativeEnvironment</a>(<i>oldEnv</i>).</li>
+        <li>Perform <a href="/sec/sec-blockdeclarationinstantiation.html">BlockDeclarationInstantiation</a>(<i>StatementList,</i>
+            <i>blockEnv</i>).</li>
+        <li>Set <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> to <i>blockEnv</i>.</li>
+        <li>Let <i>blockValue</i> be the result of evaluating <i>StatementList</i>.</li>
+        <li>Set <a href="/sec/sec-execution-contexts.html">the running execution context</a>&#x2019;s <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> to <i>oldEnv</i>.</li>
+        <li>Return <i>blockValue</i>.</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE 1</span> No matter how control leaves the <span class="nt">Block</span> the <a href="/sec/sec-execution-contexts.html">LexicalEnvironment</a> is always restored to its former state.</p>
+      </div>
+
+      <div class="gp prod"><span class="nt">StatementList</span> <span class="geq">:</span> <span class="nt">StatementList</span> <span class="nt">StatementListItem</span></div>
+      <ol class="proc">
+        <li>Let <i>sl</i> be the result of evaluating <i>StatementList</i>.</li>
+        <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>sl</i>).</li>
+        <li>Let <i>s</i> be the result of evaluating <i>StatementListItem</i>.</li>
+        <li>Return <a href="/sec/sec-completion-record-specification-type.html">Completion</a>(<a href="/sec/sec-updateempty.html">UpdateEmpty</a>(<i>s</i>, <i>sl</i>.[[value]])).</li>
+      </ol>
+
+      <div class="note">
+        <p><span class="nh">NOTE 2</span> The value of a <span class="nt">StatementList</span> is the value of the last value
+        producing item in the <span class="nt">StatementList</span>. For example, the following calls to the <code>eval</code>
+        function all return the value 1:</p>
+
+        <p><code>eval(&quot;1;;;;;&quot;)</code></p>
+
+        <p><code>eval(&quot;1;{}&quot;)</code></p>
+
+        <p><code>eval(&quot;1;var a;&quot;)</code></p>
+      </div>
+    </section>
+
+    <section id="sec-blockdeclarationinstantiation">
+      <h1><span class="secnum" id="sec-13.2.14"><a href="/sec/sec-blockdeclarationinstantiation.html" title="link to this section">13.2.14</a></span> Runtime Semantics: BlockDeclarationInstantiation( code, env )</h1>
+
+      <div class="note">
+        <p><span class="nh">NOTE</span>  When a <span class="nt">Block</span> or <span class="nt">CaseBlock</span> production is
+        evaluated a new declarative <a href="/sec/sec-environment-records.html">Environment Record</a> is created and bindings for each
+        block scoped variable, constant, function, generator function, or class declared in the block are instantiated in the <a href="/sec/sec-environment-records.html">Environment Record</a>.</p>
+      </div>
+
+      <p>BlockDeclarationInstantiation is performed as follows using arguments <var>code</var> and <var>env</var>. <var>code</var>
+      is the grammar production corresponding to the body of the block. <var>env</var> is the declarative <a href="/sec/sec-environment-records.html">Environment Record</a> in which bindings are to be created.</p>
+
+      <ol class="proc">
+        <li>Let <i>declarations</i> be the LexicallyScopedDeclarations of <i>code</i>.</li>
+        <li>For each element <i>d</i> in <i>declarations</i> do
+          <ol class="block">
+            <li>For each element <i>dn</i> of the BoundNames of <i>d</i> do
+              <ol class="block">
+                <li>If IsConstantDeclaration of <i>d</i> is <b>true</b>, then
+                  <ol class="block">
+                    <li>Let <i>status</i> be <i>env</i>.CreateImmutableBinding(<i>dn</i>, <b>true</b>).</li>
+                  </ol>
+                </li>
+                <li>Else,
+                  <ol class="block">
+                    <li>Let <i>status</i> be <i>env</i>.CreateMutableBinding(<i>dn</i>, <b>false</b>).</li>
+                  </ol>
+                </li>
+                <li><a href="/sec/sec-algorithm-conventions.html">Assert</a>: <i>status</i> is never an <a href="/sec/sec-completion-record-specification-type.html">abrupt completion</a>.</li>
+              </ol>
+            </li>
+            <li>If <i>d</i> is a <i>GeneratorDeclaration</i> production or a <i>FunctionDeclaration</i> production, then
+              <ol class="block">
+                <li>Let <i>fn</i> be the sole element of the BoundNames of <i>d</i></li>
+                <li>Let <i>fo</i> be the result of performing  InstantiateFunctionObject  for <i>d</i> with argument
+                    <i>env</i>.</li>
+                <li>Perform <i>env</i>.InitializeBinding(<i>fn</i>, <i>fo</i>).</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </section>
+  
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+

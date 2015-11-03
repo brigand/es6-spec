@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ECMA262 2015</title>
+  <meta name="description" content="Easy to search ecmascript spec">
+  <meta name="author" content="TC-39">
+
+  <link rel="stylesheet" href="/src/es6.css">
+  <link rel="stylesheet" href="/src/client.css">
+</head>
+
+<body>
+  <div id="Root">
+    <div class="SearchWrapper">
+      <input class="SearchInput" placeholder="Search">
+      <div class="SearchItems">
+      </div>
+  </div>
+  <div id="content">
+    
+      <div class="front">
+        <h1><span class="secnum" id="sec-12.8.5"><a href="/sec/sec-unsigned-right-shift-operator.html" title="link to this section">12.8.5</a></span> The Unsigned Right Shift Operator ( <code>&gt;&gt;&gt;</code> )</h1>
+
+        <div class="note">
+          <p><span class="nh">NOTE</span> Performs a zero-filling bitwise right shift operation on the left operand by the amount
+          specified by the right operand.</p>
+        </div>
+      </div>
+
+      <section id="sec-unsigned-right-shift-operator-runtime-semantics-evaluation">
+        <h1><span class="secnum" id="sec-12.8.5.1"><a href="/sec/sec-unsigned-right-shift-operator-runtime-semantics-evaluation.html" title="link to this section">12.8.5.1</a></span> Runtime Semantics: Evaluation</h1>
+        <div class="gp prod"><span class="nt">ShiftExpression</span> <span class="geq">:</span> <span class="nt">ShiftExpression</span> <code class="t">&gt;&gt;&gt;</code> <span class="nt">AdditiveExpression</span></div>
+        <ol class="proc">
+          <li>Let <i>lref</i> be the result of evaluating <i>ShiftExpression</i>.</li>
+          <li>Let <i>lval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>lref</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lval</i>).</li>
+          <li>Let <i>rref</i> be the result of evaluating <i>AdditiveExpression</i>.</li>
+          <li>Let <i>rval</i> be <a href="/sec/sec-getvalue.html">GetValue</a>(<i>rref</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rval</i>).</li>
+          <li>Let <i>lnum</i> be <a href="/sec/sec-touint32.html">ToUint32</a>(<i>lval</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>lnum</i>).</li>
+          <li>Let <i>rnum</i> be <a href="/sec/sec-touint32.html">ToUint32</a>(<i>rval</i>).</li>
+          <li><a href="/sec/sec-returnifabrupt.html">ReturnIfAbrupt</a>(<i>rnum</i>).</li>
+          <li>Let <i>shiftCount</i> be the result of masking out all but the least significant 5 bits of <i>rnum</i>, that is,
+              compute <i>rnum</i> &amp; 0x1F.</li>
+          <li>Return the result of performing a zero-filling right shift of <i>lnum</i> by <i>shiftCount</i> bits. Vacated bits
+              are filled with zero. The result is an unsigned 32-bit integer.</li>
+        </ol>
+      </section>
+    
+  </div>
+  <script src="/lib/bundle.js"></script>
+</body>
+</html>
+
